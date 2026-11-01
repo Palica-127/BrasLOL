@@ -2495,9 +2495,9 @@ function ensureD2a(){
 /* ---------- reservas dos times ---------- */
 function bnPlayer(t,role,yr){
   const avg=t.pl.reduce((a,x)=>a+x.r,0)/t.pl.length;
-  const r=clamp(Math.round(avg-9+g()*2),58,82),age=18+Math.floor(Math.random()*5);
+  const star=Math.random()<.18,r=clamp(Math.round(Math.max(avg-7,68)+g()*2.2+(star?3:0)),60,84),age=18+Math.floor(Math.random()*5);
   const n=uniqueName();S.pdb[n]={role,debut:yr||S.year,ret:null,seasons:[],tl:[]};
-  return{n,role,r,pot:clamp(r+2+Math.floor(Math.random()*8),r,90),age,f:0,d:0};
+  return{n,role,r,pot:clamp(r+4+Math.floor(Math.random()*9)+(star?6:0),r,95),age,f:0,d:0};
 }
 function ensureBn(t){
   t.bn=(t.bn||[]).filter(p=>p.age<=31);
@@ -2506,7 +2506,7 @@ function ensureBn(t){
 function fillSlot(t,role){
   const c=(t.bn||[]).filter(p=>p.role===role).sort((a,b)=>b.r-a.r)[0];
   if(c){t.bn.splice(t.bn.indexOf(c),1);const d=pd(c.n);d.role=role;return{p:c,bench:true}}
-  const w=bnPlayer(t,role,S.year+1);w.r=Math.max(58,w.r-1);return{p:w,bench:false};
+  const w=bnPlayer(t,role,S.year+1);return{p:w,bench:false};
 }
 function ensureD2(){ensureD2a();if(S)ALLT().forEach(t=>{if(!t.bn)ensureBn(t)})}
 function closeD2(lg,tag,st,m1,m2,fm){
@@ -2583,7 +2583,7 @@ function rookie(role,ref,d2){
   if(d2){const r=clamp(Math.round(Math.max(ref.r-6,ref.avg-4,64)+g()*2),62,82),pot=clamp(Math.round(r+2+Math.abs(g())*5),r,92);return{n:uniqueName(),role,r,pot,age:18+Math.floor(Math.random()*5),f:0,d:0}}
   /* a vaga é preenchida por um talento já pronto para o nível do time: perto do aposentado e do resto do elenco */
   const prodigy=Math.random()<.1;
-  const base=Math.max(ref.r-7,ref.avg-4,74);
+  const base=Math.max(ref.r-6,ref.avg-3,77);
   const r=clamp(Math.round(base+g()*2.2+(prodigy?3:0)),72,92);
   const pot=clamp(Math.round(r+2+Math.abs(g())*4+(prodigy?5:0)),r,98);
   return{n:uniqueName(),role,r,pot,age:18+Math.floor(Math.random()*5),f:0,d:0};
@@ -2636,6 +2636,13 @@ function nextSeason(){
       news('Os rivais se reforçam para alcançar o seu time.');}
   }}
   aiTransfers();
+  /* times fracos contratam o melhor da D2 da função; o jogador rebaixado vai para a D2 */
+  S.teams.filter(t=>t.id!==mid).map(t=>({t,i:t.pl.reduce((m,p,j)=>p.r<t.pl[m].r?j:m,0)})).filter(x=>!x.t.pl[x.i].pc&&x.t.pl[x.i].r<78).sort((a,b)=>a.t.pl[a.i].r-b.t.pl[b.i].r).slice(0,8).forEach(x=>{
+    const cur=x.t.pl[x.i],c=D2L().flatMap(d=>d.pl.map((p,j)=>({d,p,j}))).filter(z=>z.p.role===x.i&&!z.p.pc&&z.p.r>cur.r+2).sort((a,b)=>b.p.r-a.p.r)[0];
+    if(!c||(S.mgr&&S.mgr.tid===c.d.id))return;
+    x.t.pl[x.i]=c.p;c.d.pl[c.j]=cur;pd(c.p.n).role=x.i;pd(cur.n).role=x.i;
+    off.push(`${x.t.name} contrata ${c.p.n}, da D2 (${c.d.name}).`);
+  });
   ALLT().forEach(ensureBn);
   pcCheck();pcOffers();
   const rs=delta.filter(x=>x.p.r>=76).sort((a,b)=>b.p.d-a.p.d);
