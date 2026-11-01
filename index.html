@@ -449,6 +449,12 @@ h1{letter-spacing:.02em}
 .conf i{position:absolute;top:-12px;width:7px;height:12px;border-radius:2px;opacity:.9;animation:cf 3s linear infinite}
 @keyframes cf{to{transform:translateY(320px) rotate(540deg);opacity:0}}
 @media (prefers-reduced-motion:reduce){.conf{display:none}}
+.dr{padding:8px 0;border-top:1px solid rgba(130,150,255,.2)}
+.drh{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}.drh small{color:var(--muted);margin-left:auto}
+.chs{display:flex;gap:6px;overflow-x:auto;padding:6px 0 2px;-webkit-overflow-scrolling:touch}
+.ch{flex:none;min-width:84px;text-align:left;border:1px solid rgba(130,150,255,.35);background:rgba(255,255,255,.05);color:var(--ink);border-radius:10px;padding:7px 9px;cursor:pointer;min-height:44px}
+.ch b{display:block;font:700 14px var(--d);letter-spacing:.04em}.ch small{font-size:11px;color:var(--muted)}
+.ch.on{background:linear-gradient(100deg,var(--acc),var(--acc2));color:var(--on-acc);border-color:transparent}.ch.on small{color:var(--on-acc)}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -853,7 +859,7 @@ function mk(a,b,n){
 function play(m){
   const need=Math.ceil(m.n/2);let wa=0,wb=0;
   let qa=m.qa;
-  if(mineM(m)){const pdl=planDelta(m);qa=clamp(qa+pdl.d,.03,.97);m.pn={me:pdl.me,op:pdl.op,raw:pdl.raw}}
+  if(mineM(m)){const pdl=draftOn()?draftDelta(m):planDelta(m);qa=clamp(qa+pdl.d,.03,.97);m.pn={me:pdl.me,op:pdl.op,raw:pdl.raw,dr:draftOn()}}
   while(wa<need&&wb<need){Math.random()<qa?wa++:wb++}
   const w=wa>wb?m.a:m.b,l=wa>wb?m.b:m.a;
   m.res={wa,wb,w};
@@ -1571,6 +1577,51 @@ function planHTML(m){
   return `<section class="pn"><h2>Plano de jogo</h2><div class="pills" style="margin-bottom:6px">${PLANS.map(([k,l])=>`<button class="pill" aria-pressed="${(m.plan||'eq')===k}" data-act="plan" data-v="${k}">${l}</button>`).join('')}</div><p class="note" style="margin:0">Relatório de scouting: o adversário deve jogar <b>${planName(my.hint)}</b> (acerta cerca de 2 em 3). Agressivo vence Controle, Controle vence Equilibrado, Equilibrado vence Agressivo: o plano certo vale +4% por mapa.</p></section>`;
 }
 
+/* ---------- draft de campeões (opcional) ---------- */
+const CH=[
+ [['Aatrox','ag'],['Ornn','co'],['Jax','eq'],['Gnar','eq'],['Renekton','ag'],["K'Sante",'co']],
+ [['Lee Sin','ag'],['Sejuani','co'],['Vi','eq'],['Viego','ag'],['Maokai','co'],['Nidalee','ag']],
+ [['Ahri','eq'],['Azir','co'],['Syndra','ag'],['Orianna','co'],['Viktor','co'],['Taliyah','eq']],
+ [['Jinx','ag'],["Kai'Sa",'eq'],['Ezreal','eq'],['Varus','co'],['Ashe','co'],['Zeri','ag']],
+ [['Nautilus','ag'],['Rakan','ag'],['Lulu','co'],['Alistar','eq'],['Karma','co'],['Renata','co']]];
+const draftOn=()=>!!(S.opt&&S.opt.draft);
+const archOf=c=>{for(const r of CH)for(const [n,a] of r)if(n===c)return a;return'eq'};
+const metaOf=c=>((hs(c+'|'+S.year)%7)-3)/3*.5;
+const mastOf=(n,c)=>(hs(n+'|'+c)%100)/100;
+function pickScore(p,c){return mastOf(p.n,c)+metaOf(c)*.6}
+function bestPicks(t,noise){return t.pl.map((p,i)=>CH[i].map(([c])=>({c,v:pickScore(p,c)+(noise?(Math.random()-.5)*noise:0)})).sort((a,b)=>b.v-a.v)[0].c)}
+function compMaj(pk){const n={eq:0,ag:0,co:0};pk.forEach(c=>n[archOf(c)]++);return Object.keys(n).sort((a,b)=>n[b]-n[a])[0]}
+function compScore(t,pk,opMaj){
+  let s=pk.reduce((a,c,i)=>a+pickScore(t.pl[i],c),0);
+  const n={eq:0,ag:0,co:0};pk.forEach(c=>n[archOf(c)]++);
+  if(Math.max(n.eq,n.ag,n.co)>=3)s+=.5;
+  if(opMaj&&BEATS[compMaj(pk)]===opMaj)s+=.5;
+  return s;
+}
+function draftPrep(m){
+  planPrep(m);
+  if(m.od)return;
+  const op=T(m.a===S.mgr.tid?m.b:m.a);
+  m.od=bestPicks(op,1.2);m.odm=compMaj(m.od);
+  m.hint=Math.random()<.65?m.odm:pick(['eq','ag','co']);
+}
+function myPicks(t){const m=S.mgr;m.dr=m.dr||bestPicks(t,0);return t.pl.map((p,i)=>m.dr[i]&&CH[i].some(x=>x[0]===m.dr[i])?m.dr[i]:bestPicks(t,0)[i])}
+function draftDelta(m){
+  const t=mgrT(),pk=myPicks(t);
+  draftPrep(m);
+  const op=T(m.a===S.mgr.tid?m.b:m.a);
+  const mine=compScore(t,pk,m.odm),opp=compScore(op,m.od,compMaj(pk));
+  const d=clamp((mine-opp)*.012,-.07,.07);
+  return{d:m.a===S.mgr.tid?d:-d,raw:d,me:compMaj(pk),op:m.odm};
+}
+function draftHTML(t,m){
+  const my=(S.season.sp&&S.season.sp.cur||[]).find(mineM);if(!my||my.res)return'';
+  draftPrep(my);
+  const pk=myPicks(t),maj=compMaj(pk);
+  const row=(p,i)=>`<div class="dr"><div class="drh"><span class="role">${RN[i]}</span><b>${lk(p.n)}</b><small>${esc(pk[i])} · domínio ${Math.round(mastOf(p.n,pk[i])*100)}</small></div><div class="chs">${CH[i].map(([c,a])=>{const mt=metaOf(c);return `<button class="ch${c===pk[i]?' on':''}" data-act="dp" data-v="${i}|${esc(c)}"><b>${esc(c)}</b><small>${Math.round(mastOf(p.n,c)*100)} · ${a==='ag'?'Agr':a==='co'?'Ctrl':'Eq'}${mt>=.2?' · meta+':mt<=-.2?' · meta−':''}</small></button>`}).join('')}</div></div>`;
+  return `<section class="pn"><h2>Draft de campeões</h2><p class="note" style="margin:0 0 6px">Sua composição: <b>${planName(maj)}</b>. Scouting: o rival tende a ir de <b>${planName(my.hint)}</b> (acerta cerca de 2 em 3). Número em cada campeão = domínio do jogador (0 a 100). "meta+" e "meta−" mostram se o campeão está forte ou fraco neste ano. Composição com 3 ou mais do mesmo estilo e que contra o rival ganha bônus.</p>${t.pl.map(row).join('')}<div class="row" style="margin:8px 0 0"><button class="ghost" data-act="dpAuto">Autodraft</button></div></section>`;
+}
+
 /* ---------- modo treinador estilo FIFA: central do clube ---------- */
 const FOCUS=[['eq','Equilibrado','Sem bônus.'],['jv','Jovens','Base e reservas evoluem mais na virada.'],['ti','Titulares','Os cinco titulares ganham um pequeno bônus de OVR na virada.']];
 function chem(t){
@@ -1594,7 +1645,7 @@ function inicioHTML(t,m){
   h+=left<=0?`<div class="playw"><button class="play" data-act="step">${sp?spBtn(sp):cur?(cur.k==='s1'||cur.k==='s2')?'Iniciar '+cur.l+' jogo a jogo':cur.b:'Abrir temporada '+(S.year+1)}</button></div>`
     :`<div class="dbtn"><button class="ghost" data-act="day" data-v="1">+1 dia</button><button class="ghost" data-act="day" data-v="7">+1 semana</button><button class="play sm" data-act="dayTo">Simular até o jogo</button></div>`;
   h+=`</section>`;
-  h=evHTML(m)+h+planHTML(m);
+  h=evHTML(m)+h+(draftOn()?draftHTML(t,m):planHTML(m));
   h+=`<section class="pn"><div class="rowc"><h2 style="margin:0">Escalação</h2><span class="chem"><small>Entrosamento</small><b class="num">${chem(t)}</b></span></div>${pitchHTML(t)}<p class="note" style="margin:6px 0 0">Entrosamento: jogadores do mesmo país e do mesmo continente se entendem melhor. Reservas e vendas ficam na aba Elenco.</p></section>`;
   h+=`<section class="pn"><h2>Clima do clube</h2><div class="kv"><div><small>Moral do elenco</small><b class="num">${Math.round(m.mor)}</b></div><div><small>Reputação</small><b class="num">${Math.round(m.rep)}</b></div><div><small>Confiança</small><b class="num">${m.sat}%</b></div></div><p class="note" style="margin:6px 0 0">Moral sobe com vitórias e treino mental e cai com derrotas; ela mexe um pouco nas chances. A reputação define que clubes aceitam você se for demitido.</p></section>`;
   h+=trHTML(t,m)+staffHTML(m);
@@ -2119,7 +2170,7 @@ function matchHTML(m,i,fx){
   const pa=Math.round(m.pa*100),pb=100-pa;
   const aw=r&&r.w===m.a,bw=r&&r.w===m.b;
   const up=r&&((aw&&m.pa<.3)||(bw&&m.pa>.7));
-  const pnT=m.pn&&r?(m.pn.raw>0?`seu plano ${planName(m.pn.me)} venceu ${planName(m.pn.op)} · `:m.pn.raw<0?`${planName(m.pn.op)} do rival superou seu ${planName(m.pn.me)} · `:`planos iguais (${planName(m.pn.me)}) · `):'';
+  const pnT=m.pn&&r&&m.pn.dr?`draft ${m.pn.raw>0?'favoreceu você':m.pn.raw<0?'favoreceu o rival':'equilibrado'} (${(Math.abs(m.pn.raw)*100).toFixed(1).replace('.',',')}%) · `:m.pn&&r?(m.pn.raw>0?`seu plano ${planName(m.pn.me)} venceu ${planName(m.pn.op)} · `:m.pn.raw<0?`${planName(m.pn.op)} do rival superou seu ${planName(m.pn.me)} · `:`planos iguais (${planName(m.pn.me)}) · `):'';
   const lab=pnT+(m.real?'Resultado real · ':'')+(m.sw?m.sw+' · ':'')+(m.n===1?'Jogo único':'MD'+m.n+' · '+Math.round(m.qa*100)+'% por jogo');
   return `<div class="m${fx?' fx':''}${mgrT()&&(m.a===S.mgr.tid||m.b===S.mgr.tid)?' mine':''}" style="--i:${i}">${up?'<span class="zb">Zebra</span>':''}
   <div class="mt"><span class="tn ${r?(aw?'win':'lose'):''}">${crest(A,'sm')}${tlk(A)}</span><span class="sc num">${r?`${r.wa}<i>–</i>${r.wb}`:'<em>VS</em>'}</span><span class="tn b ${r?(bw?'win':'lose'):''}">${crest(B,'sm')}${tlk(B)}</span></div>
@@ -2624,6 +2675,7 @@ function vSet(){
   return `${msg?`<div class="msg">${esc(msg)}</div>`:''}
   ${slotsHTML()}
   ${mgrPanel}
+  <section class="pn"><h2>Draft de campeões</h2><p class="note" style="margin:0 0 10px">Opcional, só no modo treinador. Antes de cada jogo você escolhe os campeões dos cinco titulares; o domínio de cada jogador e a força do campeão no ano mudam as chances (até 7% por mapa). Desligado, vale o plano de jogo simples.</p><div class="pills" style="margin:0">${[[1,'Ligado'],[0,'Desligado']].map(([k,l])=>`<button class="pill" aria-pressed="${(draftOn()?1:0)===k}" data-act="draftOpt" data-v="${k}">${l}</button>`).join('')}</div></section>
   <section class="pn"><h2>Sons</h2><p class="note" style="margin:0 0 10px">Efeitos curtos ao jogar, vencer, perder e conquistar títulos.</p><div class="pills" style="margin:0">${[[1,'Ligados'],[0,'Desligados']].map(([k,l])=>`<button class="pill" aria-pressed="${(sndOn()?1:0)===k}" data-act="snd" data-v="${k}">${l}</button>`).join('')}</div></section>
   <section class="pn"><h2>Aleatoriedade</h2><p class="note" style="margin:0 0 10px">Quanto o favorito se impõe. Em Menor, a vantagem de OVR pesa mais e as zebras ficam raras. Em Maior, qualquer time pode surpreender. Vale para os próximos jogos.</p><div class="pills" style="margin:0">${[['baixa','Menor'],['normal','Normal'],['alta','Maior']].map(([k,l])=>`<button class="pill" aria-pressed="${((S.opt&&S.opt.rnd)||'normal')===k}" data-act="rnd" data-v="${k}">${l}</button>`).join('')}</div></section>
   <section class="pn"><h2>Dificuldade do treinador</h2><p class="note" style="margin:0 0 10px">Muda a receita do clube, o preço do mercado e o quanto a diretoria perde a paciência. Fácil: receita +20%, mercado 15% mais barato. Difícil: receita −15%, mercado 20% mais caro.</p><div class="pills" style="margin:0">${[['facil','Fácil'],['normal','Normal'],['dificil','Difícil']].map(([k,l])=>`<button class="pill" aria-pressed="${((S.opt&&S.opt.dif)||'normal')===k}" data-act="dif" data-v="${k}">${l}</button>`).join('')}</div></section>
@@ -2704,6 +2756,9 @@ function act(a,v){
   else if(a==='mgrEv'){mgrEv(v);save()}
   else if(a==='mgrTr'){mgrTr(v);save()}
   else if(a==='mgrCoach'){mgrCoach(v);save()}
+  else if(a==='dp'){const [i,c]=String(v).split('|');if(S.mgr){S.mgr.dr=myPicks(mgrT());S.mgr.dr[+i]=c;save()}}
+  else if(a==='dpAuto'){if(S.mgr){S.mgr.dr=bestPicks(mgrT(),0);save()}}
+  else if(a==='draftOpt'){S.opt=S.opt||{};S.opt.draft=+v;save()}
   else if(a==='plan'){if(S.mgr){S.mgr.plan=v;save()}}
   else if(a==='mgrRole'){mgrRole=+v}
   else if(a==='mgrBuy'){mgrBuy(v);mAch();save()}
