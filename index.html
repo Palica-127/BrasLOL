@@ -803,7 +803,7 @@ function effR(p,t){
   if(S.mgr&&S.mgr.tid===t.id&&S.mgr.bench){const rp=S.mgr.bench.concat(S.mgr.acad||[]).filter(x=>x.role===p.role&&!S.inj[x.n]).sort((a,b)=>b.r-a.r)[0];if(rp)r=Math.max(r,rp.r)}
   return r;
 }
-const eff=t=>t.pl.reduce((s,p,i)=>s+effR(p,t)*RW[i],0)+t.mom+t.hot;
+const eff=t=>t.pl.reduce((s,p,i)=>s+effR(p,t)*RW[i],0)+t.mom+t.hot+chemB(t)+morB(t);
 function news(txt,y){S.hl=S.hl||[];S.hl.unshift({y:y||S.year,t:txt});S.hl=S.hl.slice(0,40)}
 /* lesão rara: 1% por jogador a cada split; dura até o próximo split (cobre também MSI/Mundial) */
 function rollInj(){
@@ -845,11 +845,14 @@ function mk(a,b,n){
 }
 function play(m){
   const need=Math.ceil(m.n/2);let wa=0,wb=0;
-  while(wa<need&&wb<need){Math.random()<m.qa?wa++:wb++}
+  let qa=m.qa;
+  if(mineM(m)){const pdl=planDelta(m);qa=clamp(qa+pdl.d,.03,.97);m.pn={me:pdl.me,op:pdl.op,raw:pdl.raw}}
+  while(wa<need&&wb<need){Math.random()<qa?wa++:wb++}
   const w=wa>wb?m.a:m.b,l=wa>wb?m.b:m.a;
   m.res={wa,wb,w};
   const W=T(w),L=T(l);
   W.hot=Math.min(1.2,W.hot+.3);L.hot=Math.max(-1.2,L.hot-.3);
+  if(mineM(m)){const M=S.mgr;M.mor=clamp((M.mor==null?60:M.mor)+(w===M.tid?3:-3),10,100)}
   T(m.a).pl.forEach(p=>{const o=psOf(p.n);o.gw+=wa;o.gl+=wb});
   T(m.b).pl.forEach(p=>{const o=psOf(p.n);o.gw+=wb;o.gl+=wa});
   return w;
@@ -1184,12 +1187,13 @@ function mgrSeasonEnd(){
   m.log.unshift(`${S.year}: ${y.wc==='C'?'campeão do Mundial':y.wc==='-'?'fora do Mundial':'Mundial: '+CODE[y.wc]}; saldo ${net>=0?'+':''}${fmtM(net)}; confiança ${m.sat}%.${note}`);
   m.fa.forEach(p=>{if(S.pdb[p.n])S.pdb[p.n].ret=S.year});
   mAch();
-  if(m.sat<25){m.fired=true;m.tid=null;m.log.unshift(`${S.year}: demitido pela diretoria.`)}
+  m.rep=clamp((m.rep==null?50:m.rep)+(ach>=m.goal?4+2*(ach-m.goal):-4+ (ach-m.goal)),0,100);
+  if(m.sat<25){m.rep=clamp(m.rep-15,0,100);m.fired=true;m.tid=null;m.log.unshift(`${S.year}: demitido pela diretoria.`)}
 }
 function mgrNewYear(){
   const m=S.mgr,t=mgrT();if(!m)return;
   m.fa=genFA();
-  if(t){m.goal=goalFor(t);m.log.unshift(`${S.year}: janela aberta. Meta da diretoria: ${GOALS[m.goal]}.`);mBaseYear()}
+  if(t){m.goal=Math.min(5,goalFor(t)+((m.rep||50)>=80?1:0));m.log.unshift(`${S.year}: janela aberta. Meta da diretoria: ${GOALS[m.goal]}.`);mBaseYear()}
   m.log=m.log.slice(0,30);
 }
 function canBuy(p,t){
@@ -1278,8 +1282,8 @@ function mExtra(n){
 function mBaseYear(){
   const m=S.mgr,t=mgrT();mEnsure();
   t.pl.concat(m.bench).forEach(p=>{p.ctr=(p.ctr==null?2:p.ctr)-1;if(p.ctr<=0){p.exp=true;mlog(`${S.year}: o contrato de ${p.n} vence. Renove antes do Split 1 ou ele sai.`)}});
-  m.acad.forEach(p=>growProspect(p,m.focus==='jv'?1:0));
-  m.bench.forEach(p=>growBench(p,m.focus==='jv'?1:0));
+  m.acad.forEach(p=>growProspect(p,(m.focus==='jv'?1:0)+coachB(m)));
+  m.bench.forEach(p=>growBench(p,(m.focus==='jv'?1:0)+coachB(m)));
   m.loan.forEach(l=>{
     if(l.from==='acad'){growProspect(l.p,1.2);m.acad.push(l.p)}else{growBench(l.p,1);m.bench.push(l.p)}
     mlog(`${S.year}: ${l.p.n} voltou do empréstimo (${l.to}) com OVR ${l.p.r}.`);
@@ -1373,8 +1377,8 @@ function elencoHTML(t,m,pay,lastH){
   let h='';
   const offs=m.offers.map((o,i)=>({o,i,f:mFind(o.n)})).filter(x=>x.f);
   if(offs.length)h+=`<section class="pn"><h2>Ofertas recebidas</h2>${offs.map(({o,i,f})=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(f.p.r,'sm')}<span class="who">${lk(f.p.n)}<small>${crest(S.teams[o.to],'sm')} ${esc(S.teams[o.to].name)} oferece ${fmtM(o.price)}${f.k==='pl'?` · ${bestRep(f.p.role)?'reserva assume a vaga':'sem reserva'}`:f.k==='acad'?' · da base':' · das reservas'}</small><div class="acts">${mb('mgrOffer',i+'|y',open?'Aceitar':'Janela fechada',open&&(f.k!=='pl'||!!bestRep(f.p.role)),'')}${mb('mgrOffer',i+'|n','Recusar',true,'sell')}</div></span></div>`).join('')}<p class="note">Você não é obrigado a vender.</p></section>`;
-  h+=`<section class="pn"><h2>Titulares</h2>${t.pl.map(p=>{const rp=bestRep(p.role),f={k:'pl',p};return `<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos · vale ${fmtM(mvOf(p))} · ${ctrTxt(p)}</small><div class="acts">${p.exp||p.ctr<=1?mb('mgrRenew',p.n,open?'Renovar '+fmtM(m.cheat?0:r1(mvOf(p)*.3*PM())).replace('US$ ',''):'Janela fechada',open,''):''}${mb('mgrSell',p.n,!open?'Janela fechada':!rp?'Sem reserva':'Vender '+fmtM(sellPrice(f)).replace('US$ ',''),open&&!!rp,'sell')}</div></span></div>`}).join('')}<p class="note">Para vender um titular você precisa de uma reserva ou promessa da base na mesma posição. Quem tem contrato vencendo sai se você não renovar antes do Split 1.</p></section>`;
-  if(m.bench.length)h+=`<section class="pn"><h2>Reservas</h2>${m.bench.map(p=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos · vale ${fmtM(mvOf(p))} · ${ctrTxt(p)}</small><div class="acts">${mb('mgrPromote',p.n,'Titular',open,'')}${p.exp||p.ctr<=1?mb('mgrRenew',p.n,'Renovar',open,''):''}${more('Mais',mb('mgrSell',p.n,'Vender '+fmtM(sellPrice({k:'bench',p})).replace('US$ ',''),open,'sell')+mb('mgrLoan',p.n,'Emprestar',open,'sell')+mb('mgrRelease',p.n,'Dispensar',open,'sell'))}</div></span></div>`).join('')}<p class="note">Venda, empreste ou promova suas reservas.</p></section>`;
+  h+=`<section class="pn"><h2>Titulares</h2>${t.pl.map(p=>{const rp=bestRep(p.role),f={k:'pl',p};return `<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos · vale ${fmtM(mvOf(p))} · ${ctrTxt(p)}</small><div class="acts">${p.exp||p.ctr<=1?renUI(p,open):''}${mb('mgrSell',p.n,!open?'Janela fechada':!rp?'Sem reserva':'Vender '+fmtM(sellPrice(f)).replace('US$ ',''),open&&!!rp,'sell')}</div></span></div>`}).join('')}<p class="note">Para vender um titular você precisa de uma reserva ou promessa da base na mesma posição. Quem tem contrato vencendo sai se você não renovar antes do Split 1.</p></section>`;
+  if(m.bench.length)h+=`<section class="pn"><h2>Reservas</h2>${m.bench.map(p=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos · vale ${fmtM(mvOf(p))} · ${ctrTxt(p)}</small><div class="acts">${mb('mgrPromote',p.n,'Titular',open,'')}${p.exp||p.ctr<=1?renUI(p,open):''}${more('Mais',mb('mgrSell',p.n,'Vender '+fmtM(sellPrice({k:'bench',p})).replace('US$ ',''),open,'sell')+mb('mgrLoan',p.n,'Emprestar',open,'sell')+mb('mgrRelease',p.n,'Dispensar',open,'sell'))}</div></span></div>`).join('')}<p class="note">Venda, empreste ou promova suas reservas.</p></section>`;
   if(m.loan.length)h+=`<section class="pn"><h2>Emprestados</h2>${m.loan.map(l=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(l.p.r,'sm')}<span class="who">${lk(l.p.n)}<small>${RN[l.p.role]} · no ${esc(l.to)} · volta em ${S.year+1}</small></span></div>`).join('')}</section>`;
   if(lastH)h+=`<section class="pn"><h2>Última temporada</h2><div class="kv"><div><small>Receita</small><b class="num">${fmtM(lastH.income)}</b></div><div><small>Base e CT</small><b class="num">${fmtM(lastH.up||0)}</b></div><div><small>Saldo</small><b class="num">${lastH.net>=0?'+':''}${fmtM(lastH.net)}</b></div><div><small>Resultado</small><b>${lastH.ach>lastH.goal?'Meta superada':lastH.ach===lastH.goal?'Meta cumprida':'Abaixo da meta'}</b></div></div></section>`;
   return h;
@@ -1412,16 +1416,22 @@ function mMidYear(){
   mlog(`${S.year}: janela de meio de ano aberta, com novos agentes livres e propostas.`);
 }
 function mCtr(p,y){p.ctr=y;p.exp=false}
-function mgrRenew(name){
+const NEG=[['Oferta baixa',.7,.5],['Oferta justa',1,.85],['Oferta alta',1.35,1]];
+const renFee=(p,l)=>S.mgr.cheat?0:r1(mvOf(p)*.3*PM()*NEG[l][1]);
+function mgrRenew(v){
   const m=S.mgr;mEnsure();
+  const [name,ls]=String(v).split('|'),l=+ls||1;
   if(!mOpen()){msg='Janela fechada';return}
   const f=mFind(name);if(!f||f.k==='acad')return;
-  const fee=m.cheat?0:r1(mvOf(f.p)*.3*PM());
+  const fee=renFee(f.p,l);
   if(m.cash<fee){msg='Sem caixa';return}
+  const ok=m.cheat||Math.random()<NEG[l][2]+((m.mor==null?60:m.mor)-60)/400;
+  if(!ok){m.cash=r1(m.cash-fee*.2);mlog(`${S.year}: ${f.p.n} recusou a ${NEG[l][0].toLowerCase()}.`);msg=`${f.p.n} recusou a proposta. Tente uma oferta melhor.`;return}
   m.cash=r1(m.cash-fee);mCtr(f.p,f.p.age>=30?2:3);
   mlog(`${S.year}: renovou ${f.p.n} por ${f.p.ctr} anos (${fmtM(fee)}).`);
-  msg=`${f.p.n} renovou o contrato.`;
+  msg=`${f.p.n} aceitou e renovou o contrato.`;
 }
+const renUI=(p,open)=>open?more('Negociar',NEG.map(([n],l)=>mb('mgrRenew',p.n+'|'+l,n+' '+fmtM(renFee(p,l)).replace('US$ ',''),true,'')).join('')):mb('mgrRenew',p.n,'Janela fechada',false,'');
 /* quem não renovar até o início do Split 1 vai embora */
 function mExpire(){
   const m=S.mgr,t=mgrT();if(!m||!t)return;
@@ -1467,9 +1477,93 @@ function achHTML(m){
   return `<section class="pn"><h2>Conquistas · ${n}/${ACH.length}</h2>${ACH.map(([id,nm,d])=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)"><span class="hx sm ${m.ach[id]?'t4':'t1'}">${m.ach[id]?'✓':'·'}</span><span class="who"><b>${nm}</b><small>${d}${m.ach[id]?` · ${m.ach[id]}`:''}</small></span></div>`).join('')}<p class="note">Conquistas não contam com os cheats ligados.</p></section>`;
 }
 function pickerHTML(){
-  const opts=LGS.map(lg=>`<optgroup label="${lg}">${S.teams.filter(t=>t.lg===lg).sort((a,b)=>baseOvr(b)-baseOvr(a)).map(t=>`<option value="${t.id}"${+mgrPick===t.id?' selected':''}>${esc(t.name)} · OVR ${Math.round(baseOvr(t))}</option>`).join('')}</optgroup>`).join('');
-  return `<select id="mgr-pick" class="search" aria-label="Escolher time">${opts}</select><div class="row" style="margin:0"><button class="ghost" data-act="mgrStart">Assumir este time</button></div>`;
+  const lim=S.mgr&&S.mgr.fired&&S.mgr.rep!=null?1+(100-S.mgr.rep)*.5:0,okT=t=>!lim||rankOfTeam(t)>=lim;
+  if(lim&&!okT(S.teams[+mgrPick]||S.teams[0]))mgrPick=(S.teams.find(okT)||S.teams[0]).id;
+  const opts=LGS.map(lg=>`<optgroup label="${lg}">${S.teams.filter(t=>t.lg===lg&&okT(t)).sort((a,b)=>baseOvr(b)-baseOvr(a)).map(t=>`<option value="${t.id}"${+mgrPick===t.id?' selected':''}>${esc(t.name)} · OVR ${Math.round(baseOvr(t))}</option>`).join('')}</optgroup>`).join('');
+  return `<select id="mgr-pick" class="search" aria-label="Escolher time">${opts}</select><div class="row" style="margin:0"><button class="ghost" data-act="mgrStart">Assumir este time</button></div>${lim?`<p class="note">Sua reputação (${Math.round(S.mgr.rep)}) só abre clubes do ${Math.ceil(lim)}º lugar de força para baixo.</p>`:''}`;
 }
+/* ---------- lote A: entrosamento, moral, eventos, plano de jogo, técnicos, reputação ---------- */
+const chemB=t=>{const c=chem(t);return clamp((c-45)*.02,-.9,.9)};
+const morB=t=>S.mgr&&S.mgr.tid===t.id&&S.mgr.mor!=null?(S.mgr.mor-60)*.02:0;
+const PLANS=[['eq','Equilibrado'],['ag','Agressivo'],['co','Controle']];
+const BEATS={ag:'co',co:'eq',eq:'ag'};
+const planName=k=>(PLANS.find(x=>x[0]===k)||[0,'?'])[1];
+const mineM=m=>S.mgr&&S.mgr.tid!=null&&(m.a===S.mgr.tid||m.b===S.mgr.tid);
+function planPrep(m){
+  if(m.op)return;
+  m.op=pick(['eq','ag','co']);
+  m.hint=Math.random()<.65?m.op:pick(['eq','ag','co']);
+}
+function planDelta(m){
+  const me=S.mgr.plan||'eq',op=m.op||pick(['eq','ag','co']);
+  const d=BEATS[me]===op?.04:BEATS[op]===me?-.04:0;
+  return{me,op,d:m.a===S.mgr.tid?d:-d,raw:d};
+}
+const EVS={
+ spons:{t:'Uma marca propõe um patrocínio com pagamento imediato de US$ 3 mi, mas exige mais exposição do elenco.',o:[['Aceitar','a'],['Recusar','b']]},
+ press:{t:'Coletiva de imprensa: perguntam sobre a fase do time.',o:[['Elogiar o elenco','a'],['Cobrar mais','b'],['Ficar neutro','c']]},
+ board:{t:'A diretoria quer saber se a meta da temporada é realista.',o:[['Prometer mais','a'],['Pedir paciência','b']]},
+ rival:{t:'Um rival sonda o seu melhor jogador.',o:[['Recusar a conversa','a'],['Ouvir uma proposta','b']]},
+ fans:{t:'A torcida organiza um evento com o elenco.',o:[['Participar (US$ 0,5 mi)','a'],['Ignorar','b']]}
+};
+function evFx(id,k){
+  const m=S.mgr,t=mgrT();if(!m||!t)return'';
+  const mor=d=>{m.mor=clamp((m.mor==null?60:m.mor)+d,10,100)},sat=d=>{m.sat=clamp(m.sat+d,0,100)};
+  if(id==='spons'){if(k==='a'){if(!m.cheat)m.cash=r1(m.cash+3);mor(-4);return'Patrocínio fechado: +US$ 3 mi, moral do elenco cai um pouco.'}mor(2);return'Você recusou; o elenco gostou.'}
+  if(id==='press'){if(k==='a'){mor(5);return'Elenco motivado com os elogios.'}if(k==='b'){mor(-4);sat(4);return'A diretoria gostou da cobrança, o elenco nem tanto.'}return'Resposta neutra, sem efeito.'}
+  if(id==='board'){if(k==='a'){sat(6);m.rep=clamp((m.rep||50)+2,0,100);return'Diretoria animada com as promessas.'}sat(-3);mor(3);return'Você ganhou tempo, mas a confiança caiu.'}
+  if(id==='rival'){if(k==='a'){mor(2);return'Você fechou a porta ao rival.'}const best=t.pl.slice().sort((a,b)=>b.r-a.r)[0];const w=S.teams.filter(x=>x!==t);const buyer=pick(w);m.offers.push({n:best.n,to:buyer.id,price:r1(mvOf(best)*(1.2+Math.random()*.4))});return`${buyer.name} fez uma oferta por ${best.n}. Veja em Elenco.`}
+  if(id==='fans'){if(k==='a'){if(!m.cheat)m.cash=r1(Math.max(0,m.cash-.5));mor(4);return'Evento ótimo: moral lá em cima.'}return'Evento ignorado.'}
+  return'';
+}
+function mgrEv(k){
+  const m=S.mgr;if(!m||!m.ev)return;
+  const r=evFx(m.ev.id,k);mlog(`${dTxt(S.day)}: ${r}`);msg=r;m.ev=null;
+}
+function evHTML(m){
+  if(!m.ev)return'';const e=EVS[m.ev.id];if(!e)return'';
+  return `<section class="pn evc"><small class="k">Mensagem</small><h2>${esc(e.t)}</h2><div class="pills" style="margin:0">${e.o.map(([l,k])=>`<button class="pill" data-act="mgrEv" data-v="${k}">${l}</button>`).join('')}</div></section>`;
+}
+const TRN=[['','Sem foco'],['mec','Mecânica'],['mac','Macro'],['men','Mental'],['des','Descanso']];
+function trHTML(t,m){
+  m.tr=m.tr||{};
+  return `<section class="pn"><h2>Treino individual</h2>${t.pl.map(p=>`<div class="pr" style="grid-template-columns:38px minmax(0,1fr) auto"><span class="role">${RN[p.role]}</span><span class="who">${lk(p.n)}<small>forma ${p.f>0?'+':''}${p.f.toFixed(1)}</small></span><button class="mini" data-act="mgrTr" data-v="${esc(p.n)}">${(TRN.find(x=>x[0]===(m.tr[p.n]||''))||TRN[0])[1]}</button></div>`).join('')}<p class="note">Toque para trocar. Mecânica, Macro e Mental elevam a forma aos poucos a cada dia; Descanso cura lesões mais rápido e levanta a moral.</p></section>`;
+}
+function mgrTr(n){const m=S.mgr;m.tr=m.tr||{};const ks=TRN.map(x=>x[0]);m.tr[n]=ks[(ks.indexOf(m.tr[n]||'')+1)%ks.length]}
+function mgrDay(){
+  const m=S.mgr,t=mgrT();if(!m||!t)return;
+  m.tr=m.tr||{};
+  t.pl.forEach(p=>{
+    const k=m.tr[p.n];
+    if(k==='mec'||k==='mac'||k==='men')p.f=Math.min(3,p.f+.03);
+    if(k==='des'){if(S.inj&&S.inj[p.n]&&Math.random()<.04)delete S.inj[p.n];m.mor=Math.min(100,(m.mor==null?60:m.mor)+.05)}
+    if(k==='men')m.mor=Math.min(100,(m.mor==null?60:m.mor)+.04);
+  });
+  if(!m.ev&&Math.random()<.03)m.ev={id:pick(Object.keys(EVS))};
+}
+function coachPool(){
+  const act=pmap(),m=S.mgr;
+  return Object.keys(S.hof).filter(n=>!act[n]&&sc(S.hof[n])>=25&&!(m&&m.coach&&m.coach.n===n)).sort((a,b)=>sc(S.hof[b])-sc(S.hof[a])).slice(0,5);
+}
+const coachB=m=>m&&m.coach?clamp(sc(S.hof[m.coach.n]||{})/120,.1,.6):0;
+function mgrCoach(n){
+  const m=S.mgr;if(!m)return;
+  if(n==='-'){m.coach=null;msg='Técnico assistente dispensado.';return}
+  const cost=m.cheat?0:3;if(m.cash<cost){msg='Sem caixa (US$ 3 mi)';return}
+  m.cash=r1(m.cash-cost);m.coach={n,since:S.year};mlog(`${S.year}: ${n} agora é técnico assistente.`);msg=`${n} assumiu como técnico assistente.`;
+}
+function staffHTML(m){
+  let h=`<section class="pn"><h2>Comissão técnica</h2>`;
+  if(m.coach)h+=`<div class="pr" style="grid-template-columns:minmax(0,1fr) auto"><span class="who">${lk(m.coach.n)}<small>lenda · bônus de evolução +${coachB(m).toFixed(2).replace('.',',')} na virada</small></span><button class="mini sell" data-act="mgrCoach" data-v="-">Dispensar</button></div>`;
+  else{const pl=coachPool();h+=pl.length?pl.map(n=>`<div class="pr" style="grid-template-columns:minmax(0,1fr) auto"><span class="who">${lk(n)}<small>lenda aposentada · ${Math.round(sc(S.hof[n]))} pts</small></span><button class="mini" data-act="mgrCoach" data-v="${esc(n)}">Contratar US$ 3 mi</button></div>`).join(''):'<p class="note" style="margin:0">Nenhuma lenda aposentada disponível ainda.</p>'}
+  return h+`</section>`;
+}
+function planHTML(m){
+  const my=(S.season.sp&&S.season.sp.cur||[]).find(mineM);if(!my||my.res)return'';
+  planPrep(my);
+  return `<section class="pn"><h2>Plano de jogo</h2><div class="pills" style="margin-bottom:6px">${PLANS.map(([k,l])=>`<button class="pill" aria-pressed="${(m.plan||'eq')===k}" data-act="plan" data-v="${k}">${l}</button>`).join('')}</div><p class="note" style="margin:0">Relatório de scouting: o adversário deve jogar <b>${planName(my.hint)}</b> (acerta cerca de 2 em 3). Agressivo vence Controle, Controle vence Equilibrado, Equilibrado vence Agressivo: o plano certo vale +4% por mapa.</p></section>`;
+}
+
 /* ---------- modo treinador estilo FIFA: central do clube ---------- */
 const FOCUS=[['eq','Equilibrado','Sem bônus.'],['jv','Jovens','Base e reservas evoluem mais na virada.'],['ti','Titulares','Os cinco titulares ganham um pequeno bônus de OVR na virada.']];
 function chem(t){
@@ -1483,6 +1577,7 @@ function pitchHTML(t){
 }
 function inicioHTML(t,m){
   const sp=S.season.sp,mid=t.id,cur=PHASES[S.phase];
+  if(m.mor==null)m.mor=60;if(m.rep==null)m.rep=50;
   const ev=evDay(),td=dayNow(),left=ev-td;
   let h='';
   const my=sp&&sp.cur?sp.cur.find(x=>x.a===mid||x.b===mid):null;
@@ -1492,7 +1587,10 @@ function inicioHTML(t,m){
   h+=left<=0?`<div class="playw"><button class="play" data-act="step">${sp?spBtn(sp):cur?(cur.k==='s1'||cur.k==='s2')?'Iniciar '+cur.l+' jogo a jogo':cur.b:'Abrir temporada '+(S.year+1)}</button></div>`
     :`<div class="dbtn"><button class="ghost" data-act="day" data-v="1">+1 dia</button><button class="ghost" data-act="day" data-v="7">+1 semana</button><button class="play sm" data-act="dayTo">Simular até o jogo</button></div>`;
   h+=`</section>`;
+  h=evHTML(m)+h+planHTML(m);
   h+=`<section class="pn"><div class="rowc"><h2 style="margin:0">Escalação</h2><span class="chem"><small>Entrosamento</small><b class="num">${chem(t)}</b></span></div>${pitchHTML(t)}<p class="note" style="margin:6px 0 0">Entrosamento: jogadores do mesmo país e do mesmo continente se entendem melhor. Reservas e vendas ficam na aba Elenco.</p></section>`;
+  h+=`<section class="pn"><h2>Clima do clube</h2><div class="kv"><div><small>Moral do elenco</small><b class="num">${Math.round(m.mor)}</b></div><div><small>Reputação</small><b class="num">${Math.round(m.rep)}</b></div><div><small>Confiança</small><b class="num">${m.sat}%</b></div></div><p class="note" style="margin:6px 0 0">Moral sobe com vitórias e treino mental e cai com derrotas; ela mexe um pouco nas chances. A reputação define que clubes aceitam você se for demitido.</p></section>`;
+  h+=trHTML(t,m)+staffHTML(m);
   const fo=m.focus||'eq';
   h+=`<section class="pn"><h2>Foco de treino</h2><div class="pills" style="margin-bottom:6px">${FOCUS.map(([k,l])=>`<button class="pill" aria-pressed="${fo===k}" data-act="focus" data-v="${k}">${l}</button>`).join('')}</div><p class="note" style="margin:0">${FOCUS.find(x=>x[0]===fo)[2]} Vale na virada de ano.</p></section>`;
   const lg=S.teams.filter(x=>x.lg===t.lg).sort((a,b)=>eff(b)-eff(a));
@@ -1582,7 +1680,7 @@ function nextSeason(){
       const o=S.season.perf[p.n];
       const ex=o?clamp(o.s/o.w-p.r,-6,8):0;
       const old=p.r;
-      p.r=clamp(Math.round(p.r+ageDelta(p)+.25*ex+.3*tm+(S.mgr&&S.mgr.tid===t.id?(S.mgr.ct||0)*.5+(S.mgr.focus==='ti'?.5:0):0)-Math.max(0,p.r-88)*.2),55,99);
+      p.r=clamp(Math.round(p.r+ageDelta(p)+.25*ex+.3*tm+(S.mgr&&S.mgr.tid===t.id?(S.mgr.ct||0)*.5+(S.mgr.focus==='ti'?.5:0)+coachB(S.mgr):0)-Math.max(0,p.r-88)*.2),55,99);
       p.d=p.r-old;p.f*=.4;
       if(p.age<=24)p.pot=Math.max(p.r,Math.round(p.pot+g()*.8));else p.pot=p.r;
       delta.push({p,t});
@@ -1683,6 +1781,7 @@ function dayOffer(){
   mlog(`${dTxt(S.day)}: ${buyer.name} oferece ${fmtM(price)} por ${p.n}.`);
 }
 function dayTick(){
+  if(S.mgr&&mgrT())mgrDay();
   if(Math.random()<.05)dayNews();
   if(S.mgr&&mgrT()&&winOpen()&&Math.random()<.14&&(S.mgr.offers||[]).length<3)dayOffer();
 }
@@ -2013,7 +2112,8 @@ function matchHTML(m,i,fx){
   const pa=Math.round(m.pa*100),pb=100-pa;
   const aw=r&&r.w===m.a,bw=r&&r.w===m.b;
   const up=r&&((aw&&m.pa<.3)||(bw&&m.pa>.7));
-  const lab=(m.real?'Resultado real · ':'')+(m.sw?m.sw+' · ':'')+(m.n===1?'Jogo único':'MD'+m.n+' · '+Math.round(m.qa*100)+'% por jogo');
+  const pnT=m.pn&&r?(m.pn.raw>0?`seu plano ${planName(m.pn.me)} venceu ${planName(m.pn.op)} · `:m.pn.raw<0?`${planName(m.pn.op)} do rival superou seu ${planName(m.pn.me)} · `:`planos iguais (${planName(m.pn.me)}) · `):'';
+  const lab=pnT+(m.real?'Resultado real · ':'')+(m.sw?m.sw+' · ':'')+(m.n===1?'Jogo único':'MD'+m.n+' · '+Math.round(m.qa*100)+'% por jogo');
   return `<div class="m${fx?' fx':''}${mgrT()&&(m.a===S.mgr.tid||m.b===S.mgr.tid)?' mine':''}" style="--i:${i}">${up?'<span class="zb">Zebra</span>':''}
   <div class="mt"><span class="tn ${r?(aw?'win':'lose'):''}">${crest(A,'sm')}${tlk(A)}</span><span class="sc num">${r?`${r.wa}<i>–</i>${r.wb}`:'<em>VS</em>'}</span><span class="tn b ${r?(bw?'win':'lose'):''}">${crest(B,'sm')}${tlk(B)}</span></div>
   <div class="od"><i style="width:${pa}%"></i><i class="o2" style="width:${pb}%"></i></div>
@@ -2532,6 +2632,10 @@ function act(a,v){
   else if(a==='spAll'){const ph=S.phase;let g2=0;while(S.phase===ph&&g2++<400)step();save();top=true}
   else if(a==='mgrView'){mgrView=v}
   else if(a==='focus'){if(S.mgr){S.mgr.focus=v;save()}}
+  else if(a==='mgrEv'){mgrEv(v);save()}
+  else if(a==='mgrTr'){mgrTr(v);save()}
+  else if(a==='mgrCoach'){mgrCoach(v);save()}
+  else if(a==='plan'){if(S.mgr){S.mgr.plan=v;save()}}
   else if(a==='mgrRole'){mgrRole=+v}
   else if(a==='mgrBuy'){mgrBuy(v);mAch();save()}
   else if(a==='mgrSign'){mgrSign(v);save()}
