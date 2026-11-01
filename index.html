@@ -392,6 +392,21 @@ h1{letter-spacing:.02em}
 .cd.ev{box-shadow:inset 0 0 0 1.5px var(--gold);color:var(--gold-hi)}
 .cd.td{background:linear-gradient(100deg,var(--acc),var(--acc2));color:var(--on-acc);font-weight:800}
 .agenda{list-style:none;margin:0;padding:0}.agenda li{display:flex;gap:12px;padding:7px 0;border-top:1px solid rgba(130,150,255,.18);font-size:14px}.agenda li span:first-child{flex:none;width:58px;color:var(--acc);font-weight:700}
+.nxt .k{display:block;font:600 11px var(--d);letter-spacing:.14em;text-transform:uppercase;color:var(--acc);margin-bottom:2px}
+.nxt h2{margin-top:0}
+.rowc{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+.chem{text-align:right}.chem small{display:block;font:600 10px var(--d);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}.chem b{font:800 26px/1 var(--d);color:var(--acc)}
+.pitch{position:relative;border-radius:14px;padding:14px 8px 8px;overflow:hidden;background:linear-gradient(160deg,#0B5E4A,#0A3F6B 55%,#1B2C74);border:1px solid rgba(130,255,220,.25)}
+.pitch .pl1,.pitch .pl2{position:absolute;pointer-events:none;border:2px solid rgba(255,255,255,.12)}
+.pitch .pl1{left:50%;top:50%;width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%}
+.pitch .pl2{left:0;right:0;top:50%;border-width:0;border-top-width:2px}
+.pslots{--k:.78;position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:8px 0;justify-items:center}
+.slot{width:calc(132px*var(--k));height:calc(190px*var(--k))}
+.slot .fut{transform:scale(var(--k));transform-origin:0 0}
+.slot.s0{grid-column:1/3}.slot.s1{grid-column:3/5}.slot.s2{grid-column:5/7}.slot.s3{grid-column:2/4}.slot.s4{grid-column:4/6}
+.pl.mine2{background:linear-gradient(90deg,rgba(0,245,160,.14),transparent)}
+.pos2{width:22px;color:var(--acc);font-weight:700}
+@media (min-width:1000px){.pslots{--k:1}}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -596,7 +611,7 @@ function newState(){
 function load(){try{const j=localStorage.getItem(KEY);return j?JSON.parse(j):null}catch(e){return null}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 let S=load();
-let cele=null,mgrQ='',mgrView='elenco',mgrRole=0,mgrPick=0,askEnd=false,animNext=true,tab='season',selYear=null,selLg='LCK',msg='',askReset=false,dHof=null,dBackup='',lastPlayed=null;
+let cele=null,mgrQ='',mgrView='inicio',mgrRole=0,mgrPick=0,askEnd=false,animNext=true,tab='season',selYear=null,selLg='LCK',msg='',askReset=false,dHof=null,dBackup='',lastPlayed=null;
 let prof=null,pstack=[],prevTab='season',hofView='rank',pf='all',qStr='';
 
 /* ---------- ponto de partida real (30/10/2026) ---------- */
@@ -1226,8 +1241,8 @@ function mExtra(n){
 function mBaseYear(){
   const m=S.mgr,t=mgrT();mEnsure();
   t.pl.concat(m.bench).forEach(p=>{p.ctr=(p.ctr==null?2:p.ctr)-1;if(p.ctr<=0){p.exp=true;mlog(`${S.year}: o contrato de ${p.n} vence. Renove antes do Split 1 ou ele sai.`)}});
-  m.acad.forEach(p=>growProspect(p));
-  m.bench.forEach(p=>growBench(p));
+  m.acad.forEach(p=>growProspect(p,m.focus==='jv'?1:0));
+  m.bench.forEach(p=>growBench(p,m.focus==='jv'?1:0));
   m.loan.forEach(l=>{
     if(l.from==='acad'){growProspect(l.p,1.2);m.acad.push(l.p)}else{growBench(l.p,1);m.bench.push(l.p)}
     mlog(`${S.year}: ${l.p.n} voltou do empréstimo (${l.to}) com OVR ${l.p.r}.`);
@@ -1320,7 +1335,7 @@ function elencoHTML(t,m,pay,lastH){
   const open=mOpen();
   let h='';
   const offs=m.offers.map((o,i)=>({o,i,f:mFind(o.n)})).filter(x=>x.f);
-  if(offs.length)h+=`<section class="pn"><h2>Ofertas recebidas</h2>${offs.map(({o,i,f})=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(f.p.r,'sm')}<span class="who">${lk(f.p.n)}<small>${esc(S.teams[o.to].name)} oferece ${fmtM(o.price)}${f.k==='pl'?` · ${bestRep(f.p.role)?'reserva assume a vaga':'sem reserva'}`:f.k==='acad'?' · da base':' · das reservas'}</small><div class="acts">${mb('mgrOffer',i+'|y',open?'Aceitar':'Janela fechada',open&&(f.k!=='pl'||!!bestRep(f.p.role)),'')}${mb('mgrOffer',i+'|n','Recusar',true,'sell')}</div></span></div>`).join('')}<p class="note">Você não é obrigado a vender.</p></section>`;
+  if(offs.length)h+=`<section class="pn"><h2>Ofertas recebidas</h2>${offs.map(({o,i,f})=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(f.p.r,'sm')}<span class="who">${lk(f.p.n)}<small>${crest(S.teams[o.to],'sm')} ${esc(S.teams[o.to].name)} oferece ${fmtM(o.price)}${f.k==='pl'?` · ${bestRep(f.p.role)?'reserva assume a vaga':'sem reserva'}`:f.k==='acad'?' · da base':' · das reservas'}</small><div class="acts">${mb('mgrOffer',i+'|y',open?'Aceitar':'Janela fechada',open&&(f.k!=='pl'||!!bestRep(f.p.role)),'')}${mb('mgrOffer',i+'|n','Recusar',true,'sell')}</div></span></div>`).join('')}<p class="note">Você não é obrigado a vender.</p></section>`;
   h+=`<section class="pn"><h2>Titulares</h2>${t.pl.map(p=>{const rp=bestRep(p.role),f={k:'pl',p};return `<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos · vale ${fmtM(mvOf(p))} · ${ctrTxt(p)}</small><div class="acts">${p.exp||p.ctr<=1?mb('mgrRenew',p.n,open?'Renovar '+fmtM(m.cheat?0:r1(mvOf(p)*.3*PM())).replace('US$ ',''):'Janela fechada',open,''):''}${mb('mgrSell',p.n,!open?'Janela fechada':!rp?'Sem reserva':'Vender '+fmtM(sellPrice(f)).replace('US$ ',''),open&&!!rp,'sell')}</div></span></div>`}).join('')}<p class="note">Para vender um titular você precisa de uma reserva ou promessa da base na mesma posição. Quem tem contrato vencendo sai se você não renovar antes do Split 1.</p></section>`;
   if(m.bench.length)h+=`<section class="pn"><h2>Reservas</h2>${m.bench.map(p=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos · vale ${fmtM(mvOf(p))} · ${ctrTxt(p)}</small><div class="acts">${mb('mgrPromote',p.n,'Titular',open,'')}${p.exp||p.ctr<=1?mb('mgrRenew',p.n,'Renovar',open,''):''}${more('Mais',mb('mgrSell',p.n,'Vender '+fmtM(sellPrice({k:'bench',p})).replace('US$ ',''),open,'sell')+mb('mgrLoan',p.n,'Emprestar',open,'sell')+mb('mgrRelease',p.n,'Dispensar',open,'sell'))}</div></span></div>`).join('')}<p class="note">Venda, empreste ou promova suas reservas.</p></section>`;
   if(m.loan.length)h+=`<section class="pn"><h2>Emprestados</h2>${m.loan.map(l=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(l.p.r,'sm')}<span class="who">${lk(l.p.n)}<small>${RN[l.p.role]} · no ${esc(l.to)} · volta em ${S.year+1}</small></span></div>`).join('')}</section>`;
@@ -1418,6 +1433,37 @@ function pickerHTML(){
   const opts=LGS.map(lg=>`<optgroup label="${lg}">${S.teams.filter(t=>t.lg===lg).sort((a,b)=>baseOvr(b)-baseOvr(a)).map(t=>`<option value="${t.id}"${+mgrPick===t.id?' selected':''}>${esc(t.name)} · OVR ${Math.round(baseOvr(t))}</option>`).join('')}</optgroup>`).join('');
   return `<select id="mgr-pick" class="search" aria-label="Escolher time">${opts}</select><div class="row" style="margin:0"><button class="ghost" data-act="mgrStart">Assumir este time</button></div>`;
 }
+/* ---------- modo treinador estilo FIFA: central do clube ---------- */
+const FOCUS=[['eq','Equilibrado','Sem bônus.'],['jv','Jovens','Base e reservas evoluem mais na virada.'],['ti','Titulares','Os cinco titulares ganham um pequeno bônus de OVR na virada.']];
+function chem(t){
+  const ns=t.pl.map(p=>natC(p.n)).filter(Boolean);let s=0;
+  for(let i=0;i<ns.length;i++)for(let j=i+1;j<ns.length;j++){if(ns[i]===ns[j])s+=2;else if(CONT&&CONT[ns[i]]&&CONT[ns[i]]===CONT[ns[j]])s+=1}
+  return Math.min(100,Math.round(s*100/20));
+}
+function pitchHTML(t){
+  const o=[0,1,2,3,4];
+  return `<div class="pitch"><i class="pl1"></i><i class="pl2"></i><div class="pslots">${o.map(i=>{const p=t.pl[i];return `<div class="slot s${i}">${fut({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f,team:t})}</div>`}).join('')}</div></div>`;
+}
+function inicioHTML(t,m){
+  const sp=S.season.sp,mid=t.id,cur=PHASES[S.phase];
+  const ev=evDay(),td=dayNow(),left=ev-td;
+  let h='';
+  const my=sp&&sp.cur?sp.cur.find(x=>x.a===mid||x.b===mid):null;
+  const nxt=!cur?'Virada de ano':sp?spLabel(sp):cur.l;
+  h+=`<section class="pn nxt"><small class="k">Próximo compromisso · ${left<=0?'HOJE':dTxt(ev)+' · em '+left+' dia'+(left>1?'s':'')}</small><h2>${esc(nxt)}</h2>`;
+  if(my)h+=matchHTML(my,0,false);
+  h+=left<=0?`<div class="playw"><button class="play" data-act="step">${sp?spBtn(sp):cur?(cur.k==='s1'||cur.k==='s2')?'Iniciar '+cur.l+' jogo a jogo':cur.b:'Abrir temporada '+(S.year+1)}</button></div>`
+    :`<div class="dbtn"><button class="ghost" data-act="day" data-v="1">+1 dia</button><button class="ghost" data-act="day" data-v="7">+1 semana</button><button class="play sm" data-act="dayTo">Simular até o jogo</button></div>`;
+  h+=`</section>`;
+  h+=`<section class="pn"><div class="rowc"><h2 style="margin:0">Escalação</h2><span class="chem"><small>Entrosamento</small><b class="num">${chem(t)}</b></span></div>${pitchHTML(t)}<p class="note" style="margin:6px 0 0">Entrosamento: jogadores do mesmo país e do mesmo continente se entendem melhor. Reservas e vendas ficam na aba Elenco.</p></section>`;
+  const fo=m.focus||'eq';
+  h+=`<section class="pn"><h2>Foco de treino</h2><div class="pills" style="margin-bottom:6px">${FOCUS.map(([k,l])=>`<button class="pill" aria-pressed="${fo===k}" data-act="focus" data-v="${k}">${l}</button>`).join('')}</div><p class="note" style="margin:0">${FOCUS.find(x=>x[0]===fo)[2]} Vale na virada de ano.</p></section>`;
+  const lg=S.teams.filter(x=>x.lg===t.lg).sort((a,b)=>eff(b)-eff(a));
+  h+=`<section class="pn"><h2>Tabela de força · ${t.lg}</h2>${lg.map((x,i)=>`<div class="pl${x.id===mid?' mine2':''}"><span class="num pos2">${i+1}</span><span class="nm2" style="display:flex;align-items:center;gap:8px">${crest(x,'sm')}${tlk(x)}</span>${hx(Math.round(baseOvr(x)),'sm')}</div>`).join('')}</section>`;
+  if(m.log.length)h+=`<section class="pn"><h2>Caixa de entrada</h2><ul class="lines">${m.log.slice(0,6).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section>`;
+  return h;
+}
+
 function vMgr(){
   const m=S.mgr,t=mgrT();
   if(!m)return `<p class="empty">Ative o modo carreira em Ajustes.</p>`;
@@ -1432,9 +1478,11 @@ function vMgr(){
   <div class="ovb" style="height:7px;margin-top:8px"><i style="width:${m.sat}%"></i></div>
   <p class="note"><b>Meta da diretoria:</b> ${GOALS[m.goal]}.</p>
   <p class="note" style="margin-top:4px">${m.cheat?'<b style="color:var(--gold)">Cheats ligados</b>: verba infinita e janela sempre aberta.':open?'Janela de transferências <b style="color:var(--ok)">aberta</b>. Fecha quando você iniciar o próximo split.':'Janela fechada. Ela abre na virada de ano e de novo entre o MSI e o Split 2.'}</p><div class="row" style="margin:10px 0 0"><button class="ghost" data-act="cheat">${m.cheat?'Desligar cheats':'Ligar cheats'}</button></div></section>`;
-  h+=`<div class="pills stk">${[['elenco','Elenco'],['base','Base'],['mercado','Mercado'],['livres','Livres'],['ach','Troféus']].map(([k,l])=>`<button class="pill" aria-pressed="${mgrView===k}" data-act="mgrView" data-v="${k}">${l}</button>`).join('')}</div>`;
+  h+=`<div class="pills stk">${[['inicio','Início'],['elenco','Elenco'],['base','Base'],['mercado','Mercado'],['livres','Livres'],['ach','Troféus']].map(([k,l])=>`<button class="pill" aria-pressed="${mgrView===k}" data-act="mgrView" data-v="${k}">${l}</button>`).join('')}</div>`;
   mEnsure();
-  if(mgrView==='elenco'){
+  if(mgrView==='inicio'){
+    h+=inicioHTML(t,m);
+  }else if(mgrView==='elenco'){
     h+=elencoHTML(t,m,pay,lastH);
   }else if(mgrView==='base'){
     h+=baseHTML(t,m);
@@ -1497,7 +1545,7 @@ function nextSeason(){
       const o=S.season.perf[p.n];
       const ex=o?clamp(o.s/o.w-p.r,-6,8):0;
       const old=p.r;
-      p.r=clamp(Math.round(p.r+ageDelta(p)+.25*ex+.3*tm+(S.mgr&&S.mgr.tid===t.id?(S.mgr.ct||0)*.5:0)-Math.max(0,p.r-88)*.2),55,99);
+      p.r=clamp(Math.round(p.r+ageDelta(p)+.25*ex+.3*tm+(S.mgr&&S.mgr.tid===t.id?(S.mgr.ct||0)*.5+(S.mgr.focus==='ti'?.5:0):0)-Math.max(0,p.r-88)*.2),55,99);
       p.d=p.r-old;p.f*=.4;
       if(p.age<=24)p.pot=Math.max(p.r,Math.round(p.pot+g()*.8));else p.pot=p.r;
       delta.push({p,t});
@@ -2390,6 +2438,7 @@ function act(a,v){
   else if(a==='spRR'){while(S.season.sp&&S.season.sp.stage==='rr')spStep();save();top=true}
   else if(a==='spAll'){const ph=S.phase;let g2=0;while(S.phase===ph&&g2++<400)step();save();top=true}
   else if(a==='mgrView'){mgrView=v}
+  else if(a==='focus'){if(S.mgr){S.mgr.focus=v;save()}}
   else if(a==='mgrRole'){mgrRole=+v}
   else if(a==='mgrBuy'){mgrBuy(v);mAch();save()}
   else if(a==='mgrSign'){mgrSign(v);save()}
