@@ -744,6 +744,11 @@ function applyLeagueHist2(){
   LT2.forEach(([tn,k,ys])=>{const t=S.teams.find(x=>x.name===tn);if(t)ys.forEach(y=>{if(!t.tt.some(x=>x.y===y&&x.k===k))t.tt.push({y,k,r:[],n:tn})})});
   S.lh2=1;
 }
+function applyLeagueHist3(){
+  const t=S.teams.find(x=>x.name==='LOS');
+  if(t&&!t.tt.some(x=>x.y===2017&&x.k==='CBLOL Split 2'))t.tt.push({y:2017,k:'CBLOL Split 2',r:[],n:'Team oNe'});
+  S.lh3=1;
+}
 function seed2026(){
   const tm=n=>S.teams.find(t=>t.name===n);
   const L=(team,label)=>award(tm(team),'lg',label);
@@ -813,7 +818,7 @@ function startWorldsReal(){
   S.season.wc=tour;
   S.phase=PHASES.findIndex(p=>p.k==='sw')+3;
 }
-function freshGame(){S=newState();applyHon();applyTeamHist();applyLeagueHist();applyLeagueHist2();seed2026();startWorldsReal()}
+function freshGame(){S=newState();applyHon();applyTeamHist();applyLeagueHist();applyLeagueHist2();applyLeagueHist3();seed2026();startWorldsReal()}
 
 
 
@@ -2804,6 +2809,6 @@ document.addEventListener('input',e=>{
   else if(e.target.id==='mgr-q'){mgrQ=e.target.value;const l=document.querySelector('#mlist');if(l)l.innerHTML=mlistHTML()}
   else if(e.target.id==='q'){qStr=e.target.value;const l=document.querySelector('#plist');if(l)l.innerHTML=plistHTML()}
 });
-if(!S)freshGame();else{if(!S.lh)applyLeagueHist();if(!S.lh2)applyLeagueHist2();save()}
+if(!S)freshGame();else{if(!S.lh)applyLeagueHist();if(!S.lh2)applyLeagueHist2();if(!S.lh3)applyLeagueHist3();save()}
 render();
 </script>
