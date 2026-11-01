@@ -377,6 +377,21 @@ h1{letter-spacing:.02em}
 }
 @media (min-width:1500px){.wrap{max-width:1400px}#app.wrap{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:420px){.fut{width:124px;height:178px}.fut .fo{font-size:31px;left:17px;top:22px}.fut .fr{left:17px;top:53px}.fut .fn{left:16px;top:70px}.fut .fs{left:15px;top:86px;width:22px;height:26px}.fut .fa{width:66px;height:78px;right:14px;top:18px}.fut .fnm{top:104px;font-size:16px}.fut .fst{top:128px;font-size:13px}.fut.big{width:150px;height:216px}.fut.big .fo{font-size:38px;left:20px;top:26px}.fut.big .fr{left:20px;top:64px;font-size:14px}.fut.big .fn{left:19px;top:85px;font-size:12px}.fut.big .fs{left:18px;top:104px;width:26px;height:32px}.fut.big .fa{right:17px;top:22px;width:80px;height:94px}.fut.big .fnm{top:128px;font-size:20px}.fut.big .fst{top:158px;font-size:16px}}
+.cal{padding-top:12px}
+.cdate{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:12px}
+.cdate small{display:block;font:600 11px var(--d);letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+.cdate>div:first-child b{font:800 34px/1 var(--d);font-style:italic;text-transform:uppercase}
+.cnext{text-align:right;min-width:0}.cnext b{display:block;font:700 18px/1.1 var(--d);text-transform:uppercase}
+.cnext span{font:600 13px var(--b);color:var(--muted)}.cnext span.now{color:var(--acc);font-weight:800}
+.dbtn{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.dbtn .play{grid-column:1/-1;font-size:18px;padding:12px;min-height:48px}
+.cgrid{margin:4px 0 10px}.chd,.cbd{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center}
+.chd b{font:600 10px var(--d);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-bottom:3px}
+.cd{font:600 13px var(--b);padding:6px 0;border-radius:8px;background:rgba(255,255,255,.04);color:var(--ink)}
+.cd.past{color:var(--muted);background:transparent}
+.cd.ev{box-shadow:inset 0 0 0 1.5px var(--gold);color:var(--gold-hi)}
+.cd.td{background:linear-gradient(100deg,var(--acc),var(--acc2));color:var(--on-acc);font-weight:800}
+.agenda{list-style:none;margin:0;padding:0}.agenda li{display:flex;gap:12px;padding:7px 0;border-top:1px solid rgba(130,150,255,.18);font-size:14px}.agenda li span:first-child{flex:none;width:58px;color:var(--acc);font-weight:700}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -859,7 +874,7 @@ function runSplit(tag){
 }
 
 /* ---------- split jogo a jogo (modo carreira) ---------- */
-const winOpen=()=>(S.phase===0||S.phase===4)&&!S.season.sp;
+const winOpen=()=>((S.phase===0&&dayNow()<CAL.s1)||(S.phase===4&&dayNow()<CAL.s2))&&!S.season.sp;
 function roundRobin(ids){
   const n=ids.length,arr=ids.slice(),rs=[];
   for(let r=0;r<n-1;r++){
@@ -874,7 +889,7 @@ function spOrder(sp){
 }
 function spPrep(){const sp=S.season.sp;sp.cur=sp.rounds[sp.ri].map(([a,b])=>mk(T(a),T(b),1))}
 function spStart(tag){
-  const lg=mgrT().lg;
+  const lg=mgrT()?mgrT().lg:((S.opt&&S.opt.fl)||'LCK');
   S.teams.forEach(t=>{t.mom*=.9;t.hot=0});rollInj();
   S.season.res[tag]=LGS.filter(l=>l!==lg).map(l=>runLeagueFull(l,tag));
   const ids=S.teams.filter(t=>t.lg===lg).map(t=>t.id);
@@ -1514,7 +1529,7 @@ function nextSeason(){
     A.t.pl[A.i]=B.p;B.t.pl[B.i]=A.p;moved.add(A.p.n);moved.add(B.p.n);
     off.push(`${A.p.n} vai de ${A.t.name} para ${B.t.name}, em troca de ${B.p.n}.`);
   }
-  S.inj={};S.year++;S.phase=0;S.season=freshSeason();S.off=off.slice(0,18);
+  S.inj={};S.year++;S.day=1;S.phase=0;S.season=freshSeason();S.off=off.slice(0,18);
   if(S.mgr)mgrNewYear();
 }
 
@@ -1526,7 +1541,7 @@ function step(){
   switch(p.k){
     case 's1':case 's2':{
       if(p.k==='s1'&&mgrT())mExpire();
-      if(S.season.sp||mgrT()){if(!S.season.sp)spStart(p.k);else spStep();if(S.season.sp)return}
+      if(true){if(!S.season.sp)spStart(p.k);else spStep();if(S.season.sp)return}
       else runSplit(p.k);
       if(p.k==='s1')startMSI();else startWorlds();
       break}
@@ -1544,6 +1559,75 @@ function step(){
   if(S.phase===4&&mgrT())mMidYear();
 }
 
+
+/* ---------- calendário dia a dia ---------- */
+const MES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'],MESF=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],MDN=[31,28,31,30,31,30,31,31,30,31,30,31],DSEM=['dom','seg','ter','qua','qui','sex','sáb'];
+const CAL={s1:20,m0:172,m1:178,m2:184,s2:200,wq:311,ws:317,wf:324,aw:332,cg1:337,cg2:341,cg3:345,ck1:349,ck2:352,ck3:356,ck4:360},SPG={s1:6,s2:4};
+function dmy(d){let m=0;d=Math.max(1,Math.min(365,d));while(d>MDN[m]){d-=MDN[m];m++}return{d,m}}
+const dTxt=d=>{const x=dmy(d);return `${x.d} ${MES[x.m]}`};
+const dWk=d=>{const x=dmy(d);return DSEM[new Date(Date.UTC(S.year,x.m,x.d)).getUTCDay()]};
+function phDay(i,live){
+  const p=PHASES[i];if(!p)return 365;
+  if(p.k==='s1'||p.k==='s2'){
+    const b=CAL[p.k],sp=live&&S.season.sp;
+    if(!sp)return b;
+    const n=sp.rounds.length,g=SPG[p.k];
+    return b+g*(sp.stage==='rr'?sp.ri+1:n+(sp.stage==='sf'?1:2));
+  }
+  if(p.k==='sw')return 297+2*(i-PHASES.findIndex(x=>x.k==='sw'));
+  return CAL[p.k]||365;
+}
+function evDay(){fixPhase();return phDay(S.phase,true)}
+const dayNow=()=>{if(S.day==null)S.day=S.phase===0?1:S.phase===4?185:evDay();return S.day};
+const daysLeft=()=>evDay()-dayNow();
+function dayNews(){
+  const all=S.teams.flatMap(t=>t.pl.map(p=>({p,t}))).filter(x=>x.p.r>=86);
+  if(!all.length)return;
+  const a=pick(all),b=pick(S.teams.filter(t=>t.id!==a.t.id));
+  const T=[`Rumor: ${b.name} monitora ${a.p.n}, de ${a.t.name}.`,`${a.p.n} faz treino aberto e empolga a torcida do ${a.t.name}.`,`${a.t.name} fecha acordo de patrocínio e reforça a estrutura.`,`${a.p.n} bate recorde de partidas na ranqueada e vira assunto.`];
+  news(pick(T));
+}
+function dayOffer(){
+  const m=S.mgr,t=mgrT();if(!m||!t)return;mEnsure();
+  const cand=t.pl.concat(m.bench,m.acad).filter(p=>!m.offers.some(o=>o.n===p.n));
+  if(!cand.length)return;
+  const p=pick(cand),f=mFind(p.n);if(!f)return;
+  const w=S.teams.filter(x=>x!==t&&x.pl[p.role].r<p.r),buyer=pick(w.length?w:S.teams.filter(x=>x!==t));
+  const price=r1(mvOf(p)*(1.1+Math.random()*.4)*(f.k==='acad'?.85:1));
+  m.offers.push({n:p.n,to:buyer.id,price});
+  mlog(`${dTxt(S.day)}: ${buyer.name} oferece ${fmtM(price)} por ${p.n}.`);
+}
+function dayTick(){
+  if(Math.random()<.05)dayNews();
+  if(S.mgr&&mgrT()&&winOpen()&&Math.random()<.14&&(S.mgr.offers||[]).length<3)dayOffer();
+}
+function advDay(n){
+  let k=0;
+  while(k<n&&dayNow()<evDay()){S.day++;dayTick();k++}
+  if(!k&&dayNow()>=evDay())msg='Hoje é dia de jogo.';
+  return k;
+}
+function calHTML(cur){
+  const ev=evDay(),td=dayNow(),left=ev-td,x=dmy(td);
+  const lbl=!cur?'Virada de ano':S.season.sp?spLabel(S.season.sp):cur.l;
+  let h=`<section class="pn cal"><div class="cdate"><div><small>${dWk(td)} · temporada ${S.year}</small><b class="num">${x.d} ${MESF[x.m]}</b></div><div class="cnext"><small>Próximo compromisso</small><b>${esc(lbl)}</b><span class="${left<=0?'now':''}">${left<=0?'HOJE':`${dTxt(ev)} · em ${left} dia${left>1?'s':''}`}</span></div></div>`;
+  if(left<=0){
+    h+=`<div class="playw"><button class="play" data-act="step">${cur?(S.season.sp?spBtn(S.season.sp):(cur.k==='s1'||cur.k==='s2')?'Iniciar '+cur.l+' jogo a jogo':cur.b):`Abrir temporada ${S.year+1}`}</button></div>`;
+  }else{
+    h+=`<div class="dbtn"><button class="ghost" data-act="day" data-v="1">+1 dia</button><button class="ghost" data-act="day" data-v="7">+1 semana</button><button class="play sm" data-act="dayTo">Simular até o jogo</button></div>`;
+  }
+  /* mini calendário do mês */
+  const f=new Date(Date.UTC(S.year,x.m,1)).getUTCDay(),n=MDN[x.m];
+  let base=0;for(let i=0;i<x.m;i++)base+=MDN[i];
+  const evs={};for(let i=S.phase;i<PHASES.length;i++){const d=phDay(i,i===S.phase);if(d>base&&d<=base+n&&!evs[d-base])evs[d-base]=PHASES[i].l}
+  const cells=[];for(let i=0;i<f;i++)cells.push('<i></i>');
+  for(let d=1;d<=n;d++)cells.push(`<span class="cd${d===x.d?' td':''}${evs[d]?' ev':''}${base+d<td?' past':''}" ${evs[d]?`title="${esc(evs[d])}"`:''}>${d}</span>`);
+  h+=`<div class="cgrid"><div class="chd">${DSEM.map(s=>`<b>${s}</b>`).join('')}</div><div class="cbd">${cells.join('')}</div></div>`;
+  /* agenda */
+  const ag=[];for(let i=S.phase;i<PHASES.length&&ag.length<5;i++){const p=PHASES[i];if(!p)break;ag.push({d:phDay(i,i===S.phase),l:(i===S.phase&&S.season.sp)?spLabel(S.season.sp):p.l})}
+  h+=`<ul class="agenda">${ag.map(a=>`<li><span class="num">${dTxt(a.d)}</span><span>${esc(a.l)}</span></li>`).join('')}</ul></section>`;
+  return h;
+}
 
 /* ---------- nacionalidades (notas minhas, aproximadas) e Copa do Mundo ---------- */
 const NATN={KOR:'Coreia do Sul',CHN:'China',USA:'EUA',CAN:'Canadá',FRA:'França',GER:'Alemanha',ESP:'Espanha',DEN:'Dinamarca',SWE:'Suécia',POL:'Polônia',GRE:'Grécia',TUR:'Turquia',CZE:'Tchéquia',UKR:'Ucrânia',BRA:'Brasil',VIE:'Vietnã',TWN:'Taiwan',JPN:'Japão',AUS:'Austrália',ARG:'Argentina',CHI:'Chile',SLO:'Eslovênia',BUL:'Bulgária',EST:'Estônia',BEL:'Bélgica',SVK:'Eslováquia',MEX:'México',NED:'Países Baixos',ITA:'Itália',POR:'Portugal',LTU:'Lituânia',ROU:'Romênia',CRO:'Croácia',FIN:'Finlândia',NOR:'Noruega',SRB:'Sérvia',HUN:'Hungria',IRL:'Irlanda',THA:'Tailândia',PHI:'Filipinas',IDN:'Indonésia',MAS:'Malásia',SIN:'Singapura',HKG:'Hong Kong',NZL:'Nova Zelândia',COL:'Colômbia',PER:'Peru',URU:'Uruguai',IND:'Índia',KAZ:'Cazaquistão'};
@@ -1876,6 +1960,7 @@ function splitHTML(tag,title){
   const r=S.season.res[tag];if(!r)return'';
   return `<section class="pn"><h2>${title} ${S.year}</h2>${r.map(x=>`<div class="rowl"><span class="lg">${llk(x.lg)}</span><span class="grow"><b>${tlk(T(x.cid))}</b> campeão<br><small>vice ${esc(x.runner)} · ${x.real?esc(x.note):`final ${x.score} (${x.fp}% de chance) · 3º/4º ${x.third.map(esc).join(', ')}`}<br>MVP ${lk(x.mvp)}</small></span></div>`).join('')}</section>`;
 }
+const flHTML=()=>mgrT()?'':`<section class="pn"><h2>Liga acompanhada rodada a rodada</h2><div class="pills" style="margin:0">${LGS.map(l=>`<button class="pill" aria-pressed="${((S.opt&&S.opt.fl)||'LCK')===l}" data-act="fl" data-v="${l}">${l}</button>`).join('')}</div><p class="note">Essa liga é jogada rodada por rodada; as outras são simuladas por inteiro no início do split.</p></section>`;
 function favHTML(){
   return `<section class="pn"><h2>Favoritos ao título</h2>${LGS.map(lg=>{
     const ts=S.teams.filter(t=>t.lg===lg).sort((a,b)=>eff(b)-eff(a)).slice(0,3);
@@ -1899,15 +1984,14 @@ function vSeason(){
   const gi=cur?cur.g:GL.length;
   let h=`<ol class="trk" style="grid-template-columns:repeat(${GL.length},minmax(0,1fr))">${GL.map((n,i)=>`<li class="${i<gi?'done':i===gi?'now':''}"><i></i>${n}</li>`).join('')}</ol>`;
   h+=celeHTML();
-  h+=`<div class="banner"><small>Etapa atual</small><b>${cur?(S.season.sp?spLabel(S.season.sp):cur.l):'Temporada encerrada'}</b></div>`;
-  h+=`<div class="playw"><button class="play" data-act="step">${cur?(S.season.sp?spBtn(S.season.sp):mgrT()&&(cur.k==='s1'||cur.k==='s2')?'Iniciar '+cur.l+' jogo a jogo':cur.b):`Abrir temporada ${S.year+1}`}</button></div>`;
+  h+=calHTML(cur);
   if(cur)h+=`<div class="row"><button class="ghost" data-act="all">${cur.g===5?'Simular o resto da Copa':'Pular para a Bola de Ouro'}</button></div>`;
   if(S.phase===0&&!S.season.sp&&S.off.length)h+=`<section class="pn"><h2>Virada de ano</h2><ul class="lines">${S.off.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section>`;
   if(!cur){const t=S.hist[S.hist.length-1];h+=`<section class="pn"><h2>Bola de Ouro ${S.year}</h2><div class="crown"><small>Vencedor</small><b>${esc(t.top[0].n)}</b><span>${esc(t.top[0].team)} · nota ${t.top[0].sc}</span></div><div class="row"><button class="ghost" data-act="tab" data-v="bola">Ver top 10 do ano</button><button class="ghost" data-act="tab" data-v="hof">Ver lendas</button></div></section>`}
   if(mgrT())h+=mgrSummary();
   if(S.hl&&S.hl.length&&!S.season.sp)h+=`<section class="pn"><h2>Manchetes</h2><ul class="lines">${S.hl.slice(0,6).map(x=>`<li><b class="num">${x.y}</b> · ${esc(x.t)}</li>`).join('')}</ul></section>`;
   if(S.season.sp)h+=spHTML();
-  if((S.phase===0||S.phase===4)&&!S.season.sp)h+=favHTML();
+  if((S.phase===0||S.phase===4)&&!S.season.sp)h+=flHTML()+favHTML();
   if(S.year===2026&&cur&&cur.g<=3&&S.phase>0)h+=`<section class="pn"><h2>Ponto de partida real</h2><p class="note" style="margin:0">Mundial 2026 no Suíço: jogos já decididos aparecem como resultado real; só o que falta é simulado. MSI e ligas de 2026 e os títulos da carreira (Faker com 6 Mundiais e 4 Bolas de Ouro) já estão no histórico. OVR e idades são notas minhas.</p></section>`;
   h+=cupHTML()+tourHTML(S.season.wc,'wc','Mundial')+splitHTML('s2','Split 2')+tourHTML(S.season.msi,'msi','MSI')+splitHTML('s1','Split 1');
   if(S.phase===0&&!S.off.length)h+=`<p class="empty">Cada temporada tem dois splits, o MSI e o Mundial com fase suíça. Você joga fase por fase e vê as chances de cada partida antes de simular. Toque em qualquer nome para abrir a ficha.</p>`;
@@ -2257,8 +2341,11 @@ function act(a,v){
   if(['tab','player','team','nation','back','step','all'].includes(a))animNext=true;
   let top=false;
   if(a==='tab'){tab=v;askReset=false;askEnd=false;lastPlayed=null;prof=null;pstack=[]}
-  else if(a==='step'){step();save();top=true}
-  else if(a==='all'){const c5=PHASES[S.phase]&&PHASES[S.phase].g===5;while(S.phase<PHASES.length&&(c5||PHASES[S.phase].g<5))step();lastPlayed=null;tab='bola';save();top=true}
+  else if(a==='step'){if(daysLeft()>0){msg='Ainda não é dia de jogo. Avance o calendário.'}else{step();save();top=true}}
+  else if(a==='day'){advDay(+v);save()}
+  else if(a==='dayTo'){advDay(999);save()}
+  else if(a==='fl'){S.opt=S.opt||{};S.opt.fl=v;save()}
+  else if(a==='all'){const c5=PHASES[S.phase]&&PHASES[S.phase].g===5;while(S.phase<PHASES.length&&(c5||PHASES[S.phase].g<5))step();lastPlayed=null;S.day=evDay();tab='bola';save();top=true}
   else if(a==='year'){selYear=+v}
   else if(a==='celeX'){cele=null}
   else if(a==='lg'){selLg=v}
