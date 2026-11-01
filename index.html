@@ -498,6 +498,7 @@ h1{letter-spacing:.02em}
 @media(min-width:900px){.dvn b{font-size:24px}.ct{width:54px;height:54px}.pr b{font-size:15px}}
 .ptr{margin:2px 0 10px;grid-column:1/-1}.ptr .ch{min-width:88px}
 .dvmeta{margin:8px 0 0;text-align:center;font-size:11px;color:#9fb4ff}.dvmeta b{color:#FFE27A}
+.pool{display:grid;grid-template-columns:30px minmax(0,1fr) 84px 28px;align-items:center;gap:10px;padding:6px 0;border-top:1px solid rgba(130,150,255,.14)}.pool .pn2 b{display:block;font-size:14px}.pool .pn2 small{color:#8194A8;font-size:11px}.pool .bar{height:8px;border-radius:4px;background:rgba(255,255,255,.1);overflow:hidden}.pool .bar i{display:block;height:100%;background:linear-gradient(90deg,#00C2FF,#00F5A0)}.pool .pv{text-align:right;font-weight:700}.sig{font-style:normal;font-size:9px;letter-spacing:.08em;text-transform:uppercase;background:#FFE27A;color:#1a1400;border-radius:6px;padding:1px 5px;margin-left:4px}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -2778,6 +2779,12 @@ function openProf(k,id){
   if(tab==='prof'&&prof)pstack.push(prof);else{pstack=[];prevTab=tab}
   prof={k,id};tab='prof';
 }
+function poolHTML(n,role,tm){
+  if(role==null||!CH[role])return'';
+  const ms=S.mgr&&tm&&S.mgr.tid===tm.id,tr=ms&&S.mgr.tr&&S.mgr.tr[n]==='pool';
+  const l=CH[role].map(([c,a])=>({c,a,v:Math.round(mastOf(n,c)*100),m:metaOf(c)})).sort((x,y)=>y.v-x.v);
+  return `<section class="pn"><h2>Pool de campeões</h2><p class="note" style="margin:0 0 8px">Domínio de ${esc(n)} nos campeões de ${RN[role]}. Vale no draft; a tag mostra se o campeão está forte ou fraco no meta atual (${esc(metaName())}).${tr?' Em treino de pool.':''}</p>${l.map((x,i)=>`<div class="pool"><span class="ct sm" style="--h:${hs(x.c)%360}"><b>${esc(chIni(x.c))}</b></span><span class="pn2"><b>${esc(x.c)}${i===0?' <em class="sig">assinatura</em>':''}</b><small>${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}</small></span><span class="bar"><i style="width:${x.v}%"></i></span><span class="num pv">${x.v}</span></div>`).join('')}</section>`;
+}
 function vPlayer(n){
   const P=pmap()[n]||mExtra(n);
   const d=S.pdb[n]||{seasons:[],tl:[],ret:null,debut:null,role:null};
@@ -2794,6 +2801,7 @@ function vPlayer(n){
   o+=`<section class="pn"><div class="ph phf">${ovr?fut({n,r:ovr,role:role==null?2:role,age:P?P.p.age:null,f:P?P.p.f:0,team:P?P.t:null},'big'):'<span class="hx lg">–</span>'}<div><h3>${esc(n)}${h.bd?`<span class="balls" title="${h.bd} Bolas de Ouro">${'<i></i>'.repeat(Math.min(h.bd,8))}</span>`:''}</h3><small>${status}${natC(n)?' · '+esc(NATN[natC(n)]||natC(n)):''}</small></div></div>
   <div class="cnt"><div><b class="num">${h.bd}</b><small>Bolas de Ouro</small></div><div><b class="num">${h.wc}</b><small>Mundiais</small></div><div><b class="num">${h.msi}</b><small>MSI</small></div><div><b class="num">${h.lg}</b><small>Ligas</small></div><div><b class="num">${(d.tl||[]).filter(x=>x.t==='Copa do Mundo de LoL').length}</b><small>Copas</small></div><div><b class="num">${h.mvp||0}</b><small>MVPs</small></div><div><b class="num">${r1(h.pts)}</b><small>Pontos</small></div></div></section>`;
   o+=pshelfHTML(n,d,h);
+  o+=poolHTML(n,P?role:null,P?P.t:null);
   if(!ss.length&&!d.tl.length){
     return o+`<p class="empty">${P?'Ainda sem temporadas fechadas. As estatísticas aparecem depois da primeira Bola de Ouro.':'Jogador do ranking inicial. Não há temporadas simuladas para mostrar.'}</p>`;
   }
