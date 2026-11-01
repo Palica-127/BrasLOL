@@ -1215,7 +1215,7 @@ function awards(){
   });
   D2L().forEach(t=>{
     const a=S.season.rank['ds1'+t.lg],b=S.season.rank['ds2'+t.lg];
-    t.yh.push({y:S.year,s1:a?a.indexOf(t.id)+1:0,s2:b?b.indexOf(t.id)+1:0,msi:'-',wc:'-',gw:0,gl:0});
+    t.yh.push({y:S.year,s1:a?a.indexOf(t.id)+1:0,s2:b?b.indexOf(t.id)+1:0,msi:'-',wc:'-',gw:0,gl:0,d:2});
   });
   S.pwCur={};pwRank().forEach((x,i)=>S.pwCur[x.t.id]=i+1);
   const r=S.season.res;
@@ -2966,13 +2966,16 @@ function vTeams(){
     const all=S.teams.flatMap(t=>t.pl.map(p=>({p,t}))).sort((a,b)=>(b.p.r+b.p.f)-(a.p.r+a.p.f)).slice(0,25);
     return h+`<section class="pn"><h2>Melhores jogadores agora</h2><ol class="rank">${all.map((x,i)=>`<li><span class="pos num">${i+1}</span>${hx(x.p.r,'sm')}<span><span class="nm2">${lk(x.p.n)}</span><br><small>${esc(x.t.name)} · ${RN[x.p.role]} · ${x.p.age} anos</small></span>${fmtF(x.p.f)}</li>`).join('')}</ol></section>`;
   }
-  const ts=S.teams.filter(t=>t.lg===selLg).sort((a,b)=>eff(b)-eff(a));
+  const ts=pmSort(S.teams.filter(t=>t.lg===selLg)).map(x=>x.t);
   h+=`<div class="row"><button class="ghost" data-act="league" data-v="${selLg}">Ficha da liga ${selLg}</button></div>`;
-  h+=ts.map(t=>{
+  const cardF=t=>{
     const f=r1(eff(t)-baseOvr(t));
-    return `<section class="pn"><div class="th"><h3>${crest(t)}<span>${tlk(t)}${t.est?' <span class="tag">estimado</span>':''}</span></h3><span>${hx(Math.round(baseOvr(t)),'sm')}</span></div><small>Forma do time ${f>0?`<span class="st up">▲${f.toFixed(1)}</span>`:f<0?`<span class="st dn">▼${(-f).toFixed(1)}</span>`:'estável'}</small>
+    return `<section class="pn"><div class="th"><h3>${crest(t)}<span>${tlk(t)}${t.est?' <span class="tag">estimado</span>':''} ${pmBadge(pmInfo(t))}</span></h3><span>${hx(Math.round(baseOvr(t)),'sm')}</span></div><small>Forma do time ${f>0?`<span class="st up">▲${f.toFixed(1)}</span>`:f<0?`<span class="st dn">▼${(-f).toFixed(1)}</span>`:'estável'}</small>
     ${t.pl.map(p=>`<div class="pr"><span class="role">${RN[p.role]}</span><span class="who">${lk(p.n)}<small>${p.age} anos${p.age<=24?` · potencial ${Math.round(p.pot)}`:''}${p.d?` · ${p.d>0?'+':''}${p.d} na virada`:''}</small><div class="ovb"><i style="width:${clamp((p.r-60)*2.5,4,100)}%"></i></div></span>${fmtF(p.f)}${hx(p.r,'sm')}</div>`).join('')}</section>`;
-  }).join('');
+  };
+  h+=ts.map(cardF).join('');
+  const t2=pmSort(D2L().filter(t=>t.lg===selLg)).map(x=>x.t);
+  if(t2.length)h+=`<section class="pn"><h2>Segunda divisão · ${selLg}</h2><p class="note" style="margin:0">Elencos da D2, na ordem do último Split 2. Quem subiu ou caiu aparece marcado.</p></section>`+t2.map(cardF).join('');
   return h+`<p class="note">Elencos de 2026: os 19 times do Mundial seguem as listas divulgadas; os marcados como estimado são chutes meus. OVR e idades são notas minhas, não oficiais. O OVR sobe e cai com idade, potencial e desempenho; a seta mostra a forma atual, que também entra nas chances de vitória.</p>`;
 }
 
@@ -3093,22 +3096,38 @@ function pshelfHTML(n,d,h){
   if(B.length)o+=`<section class="pn"><h2>Estante de Bolas de Ouro</h2><div class="sh-t"><span>Bolas conquistadas</span><b class="num">${B.length}</b></div>${shelfRow('b',B.map(x=>({y:x.y,l:`Bola de Ouro ${x.y}`,sub:x.tm})),'bola')}</section>`;
   return o;
 }
+
+function pmInfo(t){
+  const h=(S.promoH||[]).filter(x=>x.y>=S.year-1&&(x.up===t.name||x.down===t.name)).pop();
+  const y=t.yh[t.yh.length-1],ok=y&&y.y>=S.year-1;
+  let tag='',key=null;
+  if(h){
+    if(!h.held&&h.up===t.name){tag='↑ subiu';key=50}
+    else if(!h.held&&h.down===t.name){tag='↓ rebaixado';key=0}
+    else if(h.held&&h.down===t.name)tag='salvo no play-off';
+    else tag='perdeu o play-off';
+  }
+  if(key==null&&ok&&y.s2)key=y.s2;
+  return{tag,key,pos:ok&&y.s2?y.s2:0,d2:!!(ok&&y.d===2)};
+}
+const pmSort=(ts)=>ts.map(t=>({t,i:pmInfo(t)})).sort((a,b)=>(a.i.key==null?99:a.i.key)-(b.i.key==null?99:b.i.key)||eff(b.t)-eff(a.t));
+const pmBadge=i=>i.tag?`<span class="tag" style="${i.tag[0]==='↑'?'background:rgba(0,245,160,.18);color:#00F5A0':i.tag[0]==='↓'?'background:rgba(255,92,138,.18);color:#FF5C8A':''}">${i.tag}</span>`:'';
 function vLeague(lg){
   const ts=S.teams.filter(t=>t.lg===lg);
   const tt=ts.flatMap(t=>t.tt.map(x=>({...x,t})));
   const wcs=tt.filter(x=>x.k==='Mundial').sort(byY),msis=tt.filter(x=>x.k==='MSI').sort(byY);
   const lgt=tt.filter(x=>x.k!=='Mundial'&&x.k!=='MSI').sort((a,b)=>b.y-a.y);
   const bolas=ts.flatMap(teamBolas).sort(byY);
-  const rows=ts.map(t=>({t,c:ttCount(t)})).sort((a,b)=>eff(T(b.t.id))-eff(T(a.t.id)));
+  const rows=pmSort(ts).map(x=>({t:x.t,c:ttCount(x.t),i:x.i}));
   const avg=ts.reduce((s,t)=>s+baseOvr(t),0)/ts.length;
   const top=ts.flatMap(t=>t.pl.map(p=>({p,t}))).sort((a,b)=>b.p.r-a.p.r).slice(0,8);
   const crestL=`<span class="crest lg" style="--h:${LGH[lg]}" aria-hidden="true">${lg.slice(0,4)}</span>`;
   let o=`<div class="row"><button class="ghost" data-act="back">← Voltar</button></div>`;
   o+=`<section class="pn"><div class="ph">${crestL}<div style="flex:1;min-width:0"><h3>${lg}</h3><small>${LGN[lg]} · ${ts.length} times · ${SLOTS[lg]} vaga${SLOTS[lg]>1?'s':''} no Mundial · OVR médio ${Math.round(avg)}</small></div></div>
   <div class="cab"><div>${ico('trophy')}<b class="num">${wcs.length}</b><small>Mundiais</small></div><div>${ico('trophy')}<b class="num">${msis.length}</b><small>MSI</small></div><div>${ico('trophy')}<b class="num">${lgt.length}</b><small>Títulos da liga</small></div></div></section>`;
-  o+=`<section class="pn"><h2>Times</h2>${rows.map(({t,c},i)=>`<div class="pl" style="grid-template-columns:30px minmax(0,1fr) auto"><span class="pos num" style="font-size:20px">${i+1}</span><span><span class="nm2">${tlk(t)}</span>${i<SLOTS[lg]?'<span class="tag">vaga no Mundial</span>':''}<br><small>${c.wc} Mundial · ${c.msi} MSI · ${c.lg} ligas</small></span>${hx(Math.round(baseOvr(t)),'sm')}</div>`).join('')}<p class="note">A ordem é a força atual, com forma e momento. As vagas no Mundial vão para os campeões dos splits, então a ordem é só um guia.</p></section>`;
-  {const d2=D2L().filter(t=>t.lg===lg).sort((x,y)=>eff(y)-eff(x)),ph=(S.promoH||[]).filter(x=>x.lg===lg).slice(-4).reverse();
-  if(d2.length)o+=`<section class="pn"><h2>Segunda divisão · ${lg}</h2><p class="note" style="margin:0 0 8px">Segunda divisão real da região. No fim do ano, o campeão do Split 2 da D2 enfrenta o último colocado da ${lg} num play-off melhor de 5: quem vencer fica na elite. Dá para assumir um clube da D2 no modo carreira.</p>${d2.map((t,i)=>`<div class="pl" style="grid-template-columns:30px minmax(0,1fr) auto"><span class="pos num" style="font-size:20px">${i+1}</span><span class="nm2" style="display:flex;align-items:center;gap:8px">${crest(t,'sm')}${tlk(t)}${S.mgr&&S.mgr.tid===t.id?'<span class="tag">seu time</span>':''}</span>${hx(Math.round(baseOvr(t)),'sm')}</div>`).join('')}${ph.length?`<div class="sub">Acessos recentes</div>${ph.map(x=>`<div class="trp"><span class="y num">${x.y}</span><span><b>${x.held?'Play-off: '+esc(x.down)+' fica':'Sobe: '+esc(x.up)}</b><small>${x.held?'Vence '+esc(x.up):'Desce: '+esc(x.down)}${x.sc?' · '+x.sc:''}</small></span></div>`).join('')}`:''}</section>`}
+  o+=`<section class="pn"><h2>Times</h2>${rows.map(({t,c,i:pi},i)=>`<div class="pl" style="grid-template-columns:30px minmax(0,1fr) auto"><span class="pos num" style="font-size:20px">${i+1}</span><span><span class="nm2">${tlk(t)}</span>${pmBadge(pi)}<br><small>${pi.pos&&!pi.d2?'Split 2 passado: '+pi.pos+'º · ':''}${c.wc} Mundial · ${c.msi} MSI · ${c.lg} ligas</small></span>${hx(Math.round(baseOvr(t)),'sm')}</div>`).join('')}<p class="note">A ordem segue a classificação do último Split 2, com os recém-subidos no fim. Quem subiu ou caiu aparece marcado.</p></section>`;
+  {const d2=pmSort(D2L().filter(t=>t.lg===lg)).map(x=>x.t),ph=(S.promoH||[]).filter(x=>x.lg===lg).slice(-4).reverse();
+  if(d2.length)o+=`<section class="pn"><h2>Segunda divisão · ${lg}</h2><p class="note" style="margin:0 0 8px">Segunda divisão real da região. No fim do ano, o campeão do Split 2 da D2 enfrenta o último colocado da ${lg} num play-off melhor de 5: quem vencer fica na elite. Dá para assumir um clube da D2 no modo carreira.</p>${d2.map((t,i)=>`<div class="pl" style="grid-template-columns:30px minmax(0,1fr) auto"><span class="pos num" style="font-size:20px">${i+1}</span><span class="nm2" style="display:flex;align-items:center;gap:8px">${crest(t,'sm')}${tlk(t)}${pmBadge(pmInfo(t))}${S.mgr&&S.mgr.tid===t.id?'<span class="tag">seu time</span>':''}</span>${hx(Math.round(baseOvr(t)),'sm')}</div>`).join('')}${ph.length?`<div class="sub">Acessos recentes</div>${ph.map(x=>`<div class="trp"><span class="y num">${x.y}</span><span><b>${x.held?'Play-off: '+esc(x.down)+' fica':'Sobe: '+esc(x.up)}</b><small>${x.held?'Vence '+esc(x.up):'Desce: '+esc(x.down)}${x.sc?' · '+x.sc:''}</small></span></div>`).join('')}`:''}</section>`}
   o+=`<section class="pn"><h2>Estante da liga</h2>`+
     [['w','Mundiais',wcs],['m','MSI',msis]].map(([k,t,it])=>`<div class="sh-t"><span>${t}</span><b class="num">${it.length}</b></div>${shelfRow(k,it.map(x=>({y:x.y,l:`${x.k} ${x.y} · ${x.t.name}`,sub:x.t.name})),'wide')}`).join('')+
     `<div class="sh-t"><span>Bolas de Ouro</span><b class="num">${bolas.length}</b></div>${shelfRow('b',bolas.map(x=>({y:x.y,l:`Bola de Ouro ${x.y}: ${x.n}`,sub:x.n})),'bola')}</section>`;
@@ -3171,6 +3190,8 @@ function vTeam(id){
   let o=`<div class="row"><button class="ghost" data-act="back">← Voltar</button></div>`;
   o+=`<section class="pn"><div class="ph">${crest(t,'lg')}<div style="flex:1;min-width:0"><h3>${esc(t.name)}</h3><small>${llk(t.lg)}${t.est?' · elenco estimado':''} · OVR ${Math.round(baseOvr(t))} · power #${pwPos(t)} · forma ${f>0?`<span class="st up">▲${f.toFixed(1)}</span>`:f<0?`<span class="st dn">▼${(-f).toFixed(1)}</span>`:'estável'}</small></div></div>
   <div class="cab"><div>${ico('trophy')}<b class="num">${c.wc}</b><small>Mundiais</small></div><div>${ico('trophy')}<b class="num">${c.msi}</b><small>MSI</small></div><div>${ico('trophy')}<b class="num">${c.lg}</b><small>Ligas</small></div></div></section>`;
+  {const ts_=t.d===2?D2L():S.teams,rows_=pmSort(ts_.filter(x=>x.lg===t.lg)),pi_=pmInfo(t);
+  o+=`<section class="pn"><h2>${t.d===2?'Segunda divisão':'Primeira divisão'} · ${t.lg}</h2>${pi_.tag?`<p class="note" style="margin:0 0 8px">${pmBadge(pi_)} ${pi_.tag==='↑ subiu'?'Acesso conquistado no último play-off.':pi_.tag==='↓ rebaixado'?'Perdeu o play-off e caiu para a D2.':pi_.tag==='salvo no play-off'?'Venceu o play-off de acesso e ficou na elite.':'Perdeu o play-off de acesso.'}</p>`:''}${rows_.map((x,i)=>`<div class="pl${x.t.id===t.id?' mine2':''}" style="grid-template-columns:30px minmax(0,1fr) auto"><span class="pos num" style="font-size:18px">${i+1}</span><span class="nm2" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">${crest(x.t,'sm')}${tlk(x.t)}${pmBadge(x.i)}</span>${hx(Math.round(baseOvr(x.t)),'sm')}</div>`).join('')}</section>`}
   o+=`<section class="pn"><h2>Elenco atual</h2><div class="futr">${t.pl.map(p=>fut({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f,team:t})).join('')}</div></section>`;
   if(t.bn&&t.bn.length)o+=`<section class="pn"><h2>Reservas</h2><p class="note" style="margin:0 0 8px">Quando um titular se aposenta, o reserva da mesma função assume a vaga. Sem reserva, o time contrata um jogador mais fraco.</p>${t.bn.map(p=>`<div class="pl" style="grid-template-columns:34px minmax(0,1fr) auto">${hx(p.r,'sm')}<span><span class="nm2">${esc(p.n)}</span><br><small>${RN[p.role]} · ${p.age} anos · pot. ${p.pot}</small></span></div>`).join('')}</section>`;
   if(yh.length){
