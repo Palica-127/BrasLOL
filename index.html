@@ -495,6 +495,14 @@ h1{letter-spacing:.02em}
 .dvs{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:center}.dvs small{display:block;color:#8194A8;font-size:11px}.dvs b{font:800 20px var(--d,inherit)}
 .dvbar{position:fixed;left:0;right:0;bottom:0;display:flex;gap:8px;justify-content:center;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(0deg,#070614 70%,rgba(7,6,20,0))}
 .dvbar .play{max-width:420px;width:100%}
+.lvclock{display:flex;align-items:baseline;justify-content:center;gap:10px;margin:12px 0 4px}.lvclock b{font:900 42px var(--d,inherit);color:#FFE27A}.lvclock small{color:#9fb4ff;font-weight:700}
+.lvsc{font-size:30px}
+.lvbar{position:relative;height:10px;border-radius:6px;background:linear-gradient(90deg,#4d8dff,#ff5c8a);margin:6px 0 2px}.lvbar i{position:absolute;top:-4px;width:6px;height:18px;border-radius:3px;background:#fff;transform:translateX(-50%);transition:left .4s}
+.lvld{text-align:center;font-size:12px;color:#9fb4ff;margin:2px 0 10px}
+.lvst{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}.lvs{display:grid;grid-template-columns:1fr 1fr;text-align:center;background:rgba(255,255,255,.06);border-radius:10px;padding:6px 4px}.lvs small{grid-column:1/3;order:-1;font-size:10px;color:#9fb4ff}.lvs b{font:800 20px var(--d,inherit)}
+.lvtac{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px}.lvq{margin:0 0 8px}.lvbtn{display:flex;justify-content:center;margin-top:10px}.lvbtn .play{max-width:420px;width:100%}.lvsub{display:block;width:100%;text-align:left;margin-top:6px}
+.lvlog{margin-top:12px;display:grid;gap:5px}.le{display:grid;grid-template-columns:38px 1fr;gap:8px;padding:7px 10px;border-radius:10px;background:rgba(255,255,255,.05);font-size:13px;border-left:3px solid rgba(255,255,255,.2)}.le.me{border-left-color:#00F5A0}.le.op{border-left-color:#FF5C8A}.le.end{background:rgba(255,226,122,.14);border-left-color:#FFE27A;font-weight:700}.le.sys{color:#9fb4ff}.le b{color:#FFE27A}
+
 @media(min-width:900px){.dvn b{font-size:24px}.ct{width:54px;height:54px}.pr b{font-size:15px}}
 .ptr{margin:2px 0 10px;grid-column:1/-1}.ptr .ch{min-width:88px}
 .dvmeta{margin:8px 0 0;text-align:center;font-size:11px;color:#9fb4ff}.dvmeta b{color:#FFE27A}
@@ -919,7 +927,7 @@ function play(m){
   const need=Math.ceil(m.n/2);let wa=0,wb=0;
   let qa=m.qa;
   if(mineM(m)){const pdl=draftOn()?draftDelta(m):planDelta(m);qa=clamp(qa+pdl.d,.2,.8);m.pn={me:pdl.me,op:pdl.op,raw:pdl.raw,dr:draftOn()}}
-  while(wa<need&&wb<need){Math.random()<qa?wa++:wb++}
+  if(m.fx){wa=m.fx.wa;wb=m.fx.wb}else while(wa<need&&wb<need){Math.random()<qa?wa++:wb++}
   const w=wa>wb?m.a:m.b,l=wa>wb?m.b:m.a;
   m.res={wa,wb,w};
   const W=T(w),L=T(l);
@@ -1824,6 +1832,143 @@ function vDraft(){
   <div class="dvcols"><div>${bans('b')}${picks('b')}</div><div>${bans('r')}${picks('r')}</div></div>
   ${pool}${fin}
   <div class="dvbar">${DV.done?'<button class="play" data-act="dvGo">Jogar partida</button>':`<button class="ghost" data-act="dvAuto"${mine?'':' disabled'}>Escolha automática</button><button class="ghost" data-act="dvAll">Autodraft completo</button>`}</div></div></div>`;
+}
+
+
+/* ---------- jogo ao vivo (estilo Brasfoot) ---------- */
+let LV=null,LVT=null;
+const liveOn=()=>!(S&&S.opt&&S.opt.live===0);
+const lvNeeded=()=>{const m=mgrMatch();return !!(m&&liveOn()&&!m.fx)};
+const LVPH=['Início de jogo','Meio de jogo','Final de jogo'];
+const LVT3=[['ag','Agressivo'],['eq','Equilibrado'],['co','Controle']];
+const LVFX={ag:[.03,.01,-.02],co:[-.02,0,.03],eq:[0,0,0]};
+function lvOpen(){
+  const m=mgrMatch();if(!m)return false;
+  clearTimeout(LVT);
+  LV={m,us:m.a===S.mgr.tid?'a':'b',me:0,op:0,gi:0,state:'ckpt',cp:0,min:0,lead:0,log:[],adj:0,win:null,end:30,tac:null,ot:null,
+    st:{me:{k:0,t:0,d:0,b:0},op:{k:0,t:0,d:0,b:0}},sub:false,bar:false,her:false,res:[]};
+  lvGameStart();return true;
+}
+function lvGameStart(){
+  LV.state='ckpt';LV.cp=0;LV.min=0;LV.lead=0;LV.adj=0;LV.win=null;LV.end=27+Math.floor(Math.random()*9);LV.sub=false;LV.bar=false;LV.her=false;
+  LV.st={me:{k:0,t:0,d:0,b:0},op:{k:0,t:0,d:0,b:0}};LV.log=[{m:0,t:`Mapa ${LV.gi+1}: os times entram no Rift.`,k:'sys'}];
+}
+function lvP(){
+  const m=LV.m,A=T(m.a),B=T(m.b);
+  let qa=clamp(1/(1+Math.pow(10,-(eff(A)-eff(B))/kgNow())),.2,.8);
+  const pdl=draftOn()?draftDelta(m):planDelta(m);qa=clamp(qa+pdl.d,.2,.8);
+  const pm=LV.us==='a'?qa:1-qa;return clamp(pm+LV.adj,.1,.9);
+}
+function lvTeam(s){return T(s==='me'?S.mgr.tid:(LV.m.a===S.mgr.tid?LV.m.b:LV.m.a))}
+function lvWho(s,role){
+  const t=lvTeam(s),p=t.pl[role];
+  const ch=s==='me'?(S.mgr.dr&&S.mgr.dr[role]):(LV.m.od&&LV.m.od[role]);
+  return ch?`${p.n} (${ch})`:p.n;
+}
+const LANES=['topo','meio','inferior'];
+function lvEv(){
+  const ph=LV.cp,late=ph===2;let pEv;
+  if(late&&LV.win!=null)pEv=LV.win?.74:.26;else pEv=clamp(.5+(lvP()-.5)*1.3+LV.lead*.012,.15,.85);
+  const s=Math.random()<pEv?'me':'op',o=s==='me'?'op':'me',tn=lvTeam(s).name,S2=LV.st[s],mn=LV.min;
+  const add=(t,k,d)=>{LV.log.unshift({m:mn,t,k:s});LV.lead=clamp(LV.lead+(s==='me'?d:-d),-15,15)};
+  let typ=pick(['k','k','k','t']);
+  if(mn>=5&&mn%5===0&&S2.d+LV.st[o].d<4)typ='d';
+  else if(mn>=8&&mn<=15&&!LV.her&&Math.random()<.25)typ='h';
+  else if(mn>=21&&!LV.bar&&Math.random()<.3)typ='b';
+  else if(mn>=26&&S2.t>=4&&Math.random()<.35)typ='i';
+  const r1_=Math.floor(Math.random()*5),r2_=Math.floor(Math.random()*5);
+  if(typ==='k'){
+    const first=!LV.st.me.k&&!LV.st.op.k,n=Math.random()<.2&&mn>=14?2+Math.floor(Math.random()*3):1;
+    S2.k+=n;
+    add(first?`Primeiro sangue! ${lvWho(s,r1_)} abate ${lvWho(o,r2_)}.`:n>1?`Luta grande: ${tn} vence com ${n} abates.`:`${lvWho(s,r1_)} elimina ${lvWho(o,r2_)}.`,'k',.8+n*.4);
+  }else if(typ==='t'){S2.t++;add(`${tn} derruba a torre ${pick(LANES)}.`,'t',1.2)}
+  else if(typ==='d'){S2.d++;add(`${tn} garante o dragão (${S2.d}º).`,'d',1.5)}
+  else if(typ==='h'){LV.her=true;S2.b++;add(`${tn} derruba o Arauto e abre a rota.`,'h',1.3)}
+  else if(typ==='b'){LV.bar=true;S2.b++;add(`${tn} derrota o Barão!`,'b',4)}
+  else{S2.t++;add(`${tn} derruba um inibidor.`,'i',2.5)}
+}
+function lvTick(){
+  if(!LV||LV.state!=='run')return;
+  LV.min++;
+  if(Math.random()<.5)lvEv();
+  const phEnd=LV.cp===0?10:LV.cp===1?20:LV.end;
+  if(LV.min>=phEnd){
+    if(LV.cp<2){LV.cp++;LV.state='ckpt';LV.log.unshift({m:LV.min,t:`${LV.min}': pausa. Hora de passar instruções ao time.`,k:'sys'});return}
+    lvGameEnd();return;
+  }
+}
+function lvGameEnd(){
+  const mine=LV.win,wn=lvTeam(mine?'me':'op').name;
+  LV.log.unshift({m:LV.min,t:`${wn} destrói o Nexus! Fim do mapa ${LV.gi+1}.`,k:'end'});
+  if(mine)LV.me++;else LV.op++;
+  LV.res.push(mine);LV.gi++;
+  const need=Math.ceil(LV.m.n/2);
+  LV.state=(LV.me>=need||LV.op>=need)?'done':'between';
+  if(LV.state==='done'){const aW=LV.us==='a'?LV.me:LV.op,bW=LV.us==='a'?LV.op:LV.me;LV.m.fx={wa:aW,wb:bW}}
+}
+function lvLoop(){
+  clearTimeout(LVT);
+  if(!LV||LV.state!=='run')return;
+  if(typeof setTimeout==='undefined'){while(LV&&LV.state==='run')lvTick();return}
+  LVT=setTimeout(()=>{if(!LV)return;lvTick();render();lvLoop()},520);
+}
+function lvTac(k){
+  if(!LV||LV.state!=='ckpt')return;
+  const cp=LV.cp,m=LV.m;
+  const ot=Math.random()<.5&&m.op?m.op:pick(['eq','ag','co']);
+  let d=LVFX[k][cp]-LVFX[ot][cp]*.5;
+  d+=BEATS[k]===ot?.025:BEATS[ot]===k?-.025:0;
+  LV.adj=clamp(LV.adj+d,-.15,.15);LV.tac=k;LV.ot=ot;
+  LV.log.unshift({m:LV.min,t:`Instrução: ${planName(k)}. O rival joga ${planName(ot)}.`,k:'sys'});
+  if(cp===2)LV.win=Math.random()<lvP();
+  LV.state='run';lvLoop();
+}
+function lvSub(name){
+  if(!LV||LV.state!=='ckpt'&&LV.state!=='between'||LV.sub)return;
+  const m=S.mgr,t=mgrT(),i=m.bench.findIndex(p=>p.n===name);if(i<0)return;
+  const p=m.bench[i],old=t.pl[p.role];
+  t.pl[p.role]=p;m.bench[i]=old;pd(p.n).role=p.role;pd(old.n).role=p.role;
+  LV.sub=true;LV.log.unshift({m:LV.min,t:`Substituição: ${p.n} (OVR ${p.r}) entra no lugar de ${old.n}.`,k:'sys'});
+}
+function lvNext(){if(LV&&LV.state==='between')lvGameStart()}
+function lvAll(){
+  if(!LV)return;clearTimeout(LVT);let g=0;
+  while(LV&&LV.state!=='done'&&g++<400){
+    if(LV.state==='ckpt')lvTac('eq');
+    else if(LV.state==='between')lvNext();
+    else if(typeof setTimeout!=='undefined'){while(LV.state==='run')lvTick()}
+    else lvTick();
+  }
+}
+function lvSkipPhase(){if(!LV||LV.state!=='run')return;clearTimeout(LVT);const cp=LV.cp,gi=LV.gi;while(LV.state==='run'&&LV.cp===cp&&LV.gi===gi)lvTick()}
+function lvDone(){clearTimeout(LVT);LV=null}
+function vLive(){
+  const m=LV.m,A=T(m.a),B=T(m.b),mid=S.mgr.tid;
+  const stage=PHASES[S.phase]&&S.season.sp?spLabel(S.season.sp):(PHASES[S.phase]?PHASES[S.phase].l:'');
+  const sA=LV.us==='a'?LV.me:LV.op,sB=LV.us==='a'?LV.op:LV.me;
+  const side=t=>`<div class="dvt ${t.id===m.a?'b':'r'}"><div class="dvc">${crest(t,'lg')}</div><div class="dvn"><b>${esc(t.name)}</b><small>${t.id===mid?'você':'rival'}</small></div></div>`;
+  const stat=(k,l)=>`<div class="lvs"><b class="num">${LV.st[LV.us==='a'?'me':'op'][k]}</b><small>${l}</small><b class="num">${LV.st[LV.us==='a'?'op':'me'][k]}</b></div>`;
+  const pos=Math.round(50-LV.lead/15*50*(LV.us==='a'?1:-1));
+  const lead=LV.lead;
+  const ph=LV.state==='run'||LV.state==='ckpt'?LVPH[Math.min(LV.cp,2)]:'';
+  let ctl='';
+  const t=mgrT();
+  const subs=(LV.state==='ckpt'&&LV.cp===0||LV.state==='between')&&!LV.sub&&S.mgr.bench&&S.mgr.bench.length?`<div class="sub">Substituição (uma por mapa)</div>${S.mgr.bench.map(p=>`<button class="ghost lvsub" data-act="lvSub" data-v="${esc(p.n)}">${RN[p.role]}: entra ${esc(p.n)} (${p.r}) · sai ${esc(t.pl[p.role].n)} (${t.pl[p.role].r})</button>`).join('')}`:'';
+  if(LV.state==='ckpt'){
+    const cp=LV.cp,p=Math.round(lvP()*100);
+    ctl=`<section class="dvpool"><p class="lvq"><b>${LVPH[cp]}</b> · chance neste mapa: <b class="num">${p}%</b></p><p class="note" style="margin:0 0 8px">Escolha a instrução para esta fase. Agressivo rende no começo e cobra no fim; Controle faz o contrário. Equilibrado perde para Agressivo, Agressivo perde para Controle, Controle perde para Equilibrado.${m.hint&&cp===0?' Dica do analista: rival tende a '+planName(m.hint)+'.':''}</p><div class="lvtac">${LVT3.map(([k,l])=>`<button class="cc" data-act="lvTac" data-v="${k}"><b>${l}</b><small>${k==='ag'?'+início, −fim':k==='co'?'−início, +fim':'neutro'}</small></button>`).join('')}</div>${subs}</section>`;
+  }else if(LV.state==='run')ctl=`<section class="dvpool wait"><div class="dvw"><i></i><i></i><i></i></div><p>${ph} · ${LV.min}'</p><div class="lvbtn"><button class="ghost" data-act="lvSkip">Pular fase</button></div></section>`;
+  else if(LV.state==='between')ctl=`<section class="dvpool"><p class="lvq">Mapa ${LV.gi} ${LV.res[LV.res.length-1]?'<b style="color:#00F5A0">vencido</b>':'<b style="color:#FF5C8A">perdido</b>'}. Série ${sA}–${sB}.</p>${subs}<div class="lvbtn"><button class="play" data-act="lvNext">Próximo mapa</button></div></section>`;
+  else ctl=`<section class="dvpool"><p class="lvq">Série encerrada: <b class="num">${sA}–${sB}</b> · ${LV.me>LV.op?'<b style="color:#00F5A0">vitória</b>':'<b style="color:#FF5C8A">derrota</b>'}</p><div class="lvbtn"><button class="play" data-act="lvDone">Continuar</button></div></section>`;
+  const bottom=LV.state==='done'?'':`<div class="dvbar"><button class="ghost" data-act="lvAll">Simular o resto</button><button class="ghost" data-act="lvX">Voltar</button></div>`;
+  return `<div class="dvx lvx"><div class="dvw2"><div class="dvtop"><small class="k">${esc(stage)} · ${m.n===1?'jogo único':'melhor de '+m.n} · AO VIVO</small></div>
+  <div class="dvh">${side(A)}<div class="dvvs lvsc num">${sA}–${sB}</div>${side(B)}</div>
+  <div class="lvclock"><b class="num">${LV.min}'</b><small>Mapa ${Math.min(LV.gi+1,m.n)} · ${ph||'fim'}</small></div>
+  <div class="lvbar"><i style="left:${clamp(pos,3,97)}%"></i><span></span></div><p class="lvld">${Math.abs(lead)<1?'Jogo parelho':(lead>0)===(LV.us==='a')?esc(A.name)+' à frente':esc(B.name)+' à frente'}</p>
+  <div class="lvst">${stat('k','Abates')}${stat('t','Torres')}${stat('d','Dragões')}${stat('b','Arauto/Barão')}</div>
+  ${ctl}
+  <section class="lvlog">${LV.log.slice(0,12).map(e=>`<div class="le ${e.k}"><b class="num">${e.m}'</b><span>${esc(e.t)}</span></div>`).join('')}</section>
+  ${bottom}</div></div>`;
 }
 
 /* ---------- modo treinador estilo FIFA: central do clube ---------- */
@@ -3014,6 +3159,7 @@ function vSet(){
   ${slotsHTML()}
   ${mgrPanel}
   <section class="pn"><h2>Draft de campeões</h2><p class="note" style="margin:0 0 10px">Só no modo treinador. No dia do jogo, o botão Jogar abre o draft: 2 bans por time e 5 picks alternados. O domínio de cada jogador e a força do campeão no ano mudam as chances (até 7% por mapa). Desligado, o jogo começa direto e vale o plano de jogo simples.</p><div class="pills" style="margin:0">${[[1,'Ligado'],[0,'Desligado']].map(([k,l])=>`<button class="pill" aria-pressed="${(draftOn()?1:0)===k}" data-act="draftOpt" data-v="${k}">${l}</button>`).join('')}</div></section>
+  <section class="pn"><h2>Jogo ao vivo</h2><p class="note" style="margin:0 0 10px">Só no modo treinador. Depois do draft, a partida roda minuto a minuto: você passa instruções no início, no meio e no fim do mapa e pode fazer uma substituição por mapa. Desligado, o jogo é simulado direto.</p><div class="pills" style="margin:0">${[[1,'Ligado'],[0,'Desligado']].map(([k,l])=>`<button class="pill" aria-pressed="${(liveOn()?1:0)===k}" data-act="liveOpt" data-v="${k}">${l}</button>`).join('')}</div></section>
   <section class="pn"><h2>Folha salarial</h2><p class="note" style="margin:0 0 10px">Só no modo treinador. Ligada, os salários dos titulares e reservas saem do caixa a cada temporada e o clube tem custos fixos menores. Desligada, só há os custos fixos e a economia fica mais folgada.</p><div class="pills" style="margin:0">${[[1,'Ligada'],[0,'Desligada']].map(([k,l])=>`<button class="pill" aria-pressed="${(payOn()?1:0)===k}" data-act="payOpt" data-v="${k}">${l}</button>`).join('')}</div></section>
   <section class="pn"><h2>Sons</h2><p class="note" style="margin:0 0 10px">Efeitos curtos ao jogar, vencer, perder e conquistar títulos.</p><div class="pills" style="margin:0">${[[1,'Ligados'],[0,'Desligados']].map(([k,l])=>`<button class="pill" aria-pressed="${(sndOn()?1:0)===k}" data-act="snd" data-v="${k}">${l}</button>`).join('')}</div></section>
   <section class="pn"><h2>Aleatoriedade</h2><p class="note" style="margin:0 0 10px">Quanto o favorito se impõe. Em Menor, a vantagem de OVR pesa mais e as zebras ficam raras. Em Maior, qualquer time pode surpreender. Vale para os próximos jogos.</p><div class="pills" style="margin:0">${[['baixa','Menor'],['normal','Normal'],['alta','Maior']].map(([k,l])=>`<button class="pill" aria-pressed="${((S.opt&&S.opt.rnd)||'normal')===k}" data-act="rnd" data-v="${k}">${l}</button>`).join('')}</div></section>
@@ -3033,7 +3179,7 @@ function render(){
   fixNat();
   const v={season:vSeason,bola:vBola,hof:vHof,teams:vTeams,set:vSet,prof:vProf,mgr:vMgr}[tab]();
   const ap=document.querySelector('#app');ap.className='wrap'+(animNext?' enter':'');animNext=false;
-  ap.innerHTML=DEFS+header()+v+nav()+(msg&&tab!=='mgr'&&tab!=='set'?`<div class="toast" role="status">${esc(msg)}</div>`:'')+(DV?vDraft():'');
+  ap.innerHTML=DEFS+header()+v+nav()+(msg&&tab!=='mgr'&&tab!=='set'?`<div class="toast" role="status">${esc(msg)}</div>`:'')+(DV?vDraft():'')+(LV?vLive():'');
 }
 
 /* ---------- ações ---------- */
@@ -3042,7 +3188,7 @@ function act(a,v){
   if(['tab','player','team','nation','back','step','all'].includes(a))animNext=true;
   let top=false;
   if(a==='tab'){tab=v;askReset=false;askEnd=false;lastPlayed=null;prof=null;pstack=[]}
-  else if(a==='step'){if(daysLeft()>0){msg='Ainda não é dia de jogo. Avance o calendário.'}else if(dvNeeded()){dvOpen();top=true}else{step();sndAfter();save();top=true}}
+  else if(a==='step'){if(daysLeft()>0){msg='Ainda não é dia de jogo. Avance o calendário.'}else if(dvNeeded()){dvOpen();top=true}else if(lvNeeded()){lvOpen();top=true}else{step();sndAfter();save();top=true}}
   else if(a==='dvBan'||a==='dvPick'){if(DV){const [r,c]=String(v).split('|'),t=SEQ[DV.i];if(t&&t[1]===DV.us&&!dvTaken(c)){
     if(a==='dvBan'&&t[0]==='ban'){DV.bans[DV.us].push(c);DV.i++;dvAdv()}
     else if(a==='dvPick'&&t[0]==='pick'&&!DV.pk[DV.us][+r]){DV.pk[DV.us][+r]=c;DV.i++;dvAdv()}}}}
@@ -3050,7 +3196,10 @@ function act(a,v){
   else if(a==='dvAuto'){if(DV&&DV.i<SEQ.length&&SEQ[DV.i][1]===DV.us){dvAI();dvAdv()}}
   else if(a==='dvAll'){if(DV)dvAll()}
   else if(a==='dvX'){clearTimeout(DVT);DV=null}
-  else if(a==='dvGo'){if(DV&&DV.done){dvGo();step();sndAfter();save();top=true}}
+  else if(a==='dvGo'){if(DV&&DV.done){dvGo();if(lvNeeded())lvOpen();else step();sndAfter();save();top=true}}
+  else if(a==='lvTac'){lvTac(v)}else if(a==='lvSub'){lvSub(v);save()}else if(a==='lvNext'){lvNext()}else if(a==='lvSkip'){lvSkipPhase()}else if(a==='lvAll'){lvAll()}else if(a==='lvX'){lvDone()}
+  else if(a==='lvDone'){if(LV&&LV.state==='done'){lvDone();step();sndAfter();save();top=true}}
+  else if(a==='liveOpt'){S.opt=S.opt||{};S.opt.live=+v;save()}
   else if(a==='day'){advDay(+v);save()}
   else if(a==='dayTo'){advDay(999);save()}
   else if(a==='fl'){S.opt=S.opt||{};S.opt.fl=v;save()}
