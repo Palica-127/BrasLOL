@@ -497,6 +497,7 @@ h1{letter-spacing:.02em}
 .dvbar .play{max-width:420px;width:100%}
 @media(min-width:900px){.dvn b{font-size:24px}.ct{width:54px;height:54px}.pr b{font-size:15px}}
 .ptr{margin:2px 0 10px;grid-column:1/-1}.ptr .ch{min-width:88px}
+.dvmeta{margin:8px 0 0;text-align:center;font-size:11px;color:#9fb4ff}.dvmeta b{color:#FFE27A}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -1647,7 +1648,12 @@ const CH=[
  [['Nautilus','ag'],['Rakan','ag'],['Lulu','co'],['Alistar','eq'],['Karma','co'],['Renata','co'],['Thresh','eq'],['Leona','ag']]];
 const draftOn=()=>!(S&&S.opt&&(S.opt.draft===0||S.opt.draft===false));
 const archOf=c=>{for(const r of CH)for(const [n,a] of r)if(n===c)return a;return'eq'};
-const metaOf=c=>((hs(c+'|'+S.year)%7)-3)/3*.5;
+/* meta: muda a cada split; no Mundial os campeões clássicos e queridos voltam a ser os favoritos */
+const OLDS=new Set(['Jax','Renekton','Lee Sin','Vi','Nidalee','Xin Zhao','Maokai','Ahri','Orianna','Syndra','Viktor','Azir','Jinx','Ezreal','Ashe','Lucian','Varus','Alistar','Thresh','Lulu','Leona','Nautilus','Karma']);
+const metaKey=()=>{const p=PHASES[S.phase],k=p?p.k:'';return['sw','wq','ws','wf','aw'].includes(k)?'w':k==='s2'?'2':['m0','m1','m2'].includes(k)?'m':'1'};
+const metaOf=c=>{const w=metaKey()==='w';let v=((hs(c+'|'+S.year+'|'+metaKey())%7)-3)/3*(w?.3:.5);if(w)v+=OLDS.has(c)?.3:-.1;return Math.max(-.5,Math.min(.5,v))};
+const metaName=()=>({'1':'Split 1','m':'MSI','2':'Split 2','w':'Mundial'})[metaKey()]+' '+S.year;
+const metaTop=()=>CH.flat().map(([c])=>({c,v:metaOf(c)})).sort((a,b)=>b.v-a.v).slice(0,5).map(x=>x.c);
 const mastOf=(n,c)=>{const b=(hs(n+'|'+c)%100)/100,x=S&&S.mgr&&S.mgr.pool&&S.mgr.pool[n]&&S.mgr.pool[n][c]||0;return Math.min(1,b+x)};
 function pickScore(p,c){return mastOf(p.n,c)+metaOf(c)*.6}
 function bestPicks(t,noise){return t.pl.map((p,i)=>CH[i].map(([c])=>({c,v:pickScore(p,c)+(noise?(Math.random()-.5)*noise:0)})).sort((a,b)=>b.v-a.v)[0].c)}
@@ -1758,7 +1764,7 @@ function vDraft(){
   const fin=DV.done?`<section class="dvpool"><div class="dvs"><div><small>Sua composição</small><b>${esc(maj(DV.pk[us]))}</b></div><div><small>Rival</small><b>${esc(maj(DV.pk[us==='b'?'r':'b']))}</b></div></div></section>`:'';
   return `<div class="dvx"><div class="dvw2"><div class="dvtop"><small class="k">${esc(stage)} · ${m.n===1?'jogo único':'melhor de '+m.n}</small><button class="ghost" data-act="dvX">Voltar</button></div>
   <div class="dvh">${head(A,'b')}<div class="dvvs"><b>VS</b></div>${head(B,'r')}</div>
-  <div class="dvprog">${pill}</div><p class="dvlab ${mine?'me':''}">${esc(lab)}</p>
+  <div class="dvprog">${pill}</div><p class="dvmeta"><b>Meta ${esc(metaName())}</b>${metaKey()==='w'?' · clássicos em alta':''}: ${metaTop().map(esc).join(', ')}</p><p class="dvlab ${mine?'me':''}">${esc(lab)}</p>
   <div class="dvcols"><div>${bans('b')}${picks('b')}</div><div>${bans('r')}${picks('r')}</div></div>
   ${pool}${fin}
   <div class="dvbar">${DV.done?'<button class="play" data-act="dvGo">Jogar partida</button>':`<button class="ghost" data-act="dvAuto"${mine?'':' disabled'}>Escolha automática</button><button class="ghost" data-act="dvAll">Autodraft completo</button>`}</div></div></div>`;
