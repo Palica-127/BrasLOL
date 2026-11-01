@@ -977,6 +977,7 @@ function closeLeague(lg,tag,st,m1,m2,fm){
   S.season.rank[tag+lg]=order.map(t=>t.id);
   const n=order.length;
   order.forEach((t,i)=>{
+    t.cs=t.cs||{};t.cs[tag]=i+1;t.cs[tag+'d']=1;
     perf(t,[3,1.5,.5,.5,-.5,-1][i]??-1,1);
     t.mom=clamp(.55*t.mom+1.2*(1-2*i/(n-1))+(i===0?.5:0),-3,3);
     t.hot=0;
@@ -1210,12 +1211,11 @@ function awards(){
   const code=(tour,id)=>!tour.teams.includes(id)?'-':id===tour.champ?'C':({Final:'F',Semifinais:'SF',Quartas:'QF'})[tour.elim[id]]||'G';
   S.teams.forEach(t=>{
     const o=psOf(t.pl[0].n);
-    t.yh.push({y:S.year,s1:S.season.rank['s1'+t.lg].indexOf(t.id)+1,s2:S.season.rank['s2'+t.lg].indexOf(t.id)+1,
-      msi:code(msi,t.id),wc:code(wc,t.id),gw:o.gw,gl:o.gl});
+    t.yh.push({y:S.year,s1:(t.cs&&t.cs.s1)||0,s2:(t.cs&&t.cs.s2)||0,d:t.cs&&t.cs.s2d===2?2:undefined,
+      msi:code(msi,t.id),wc:code(wc,t.id),gw:o.gw,gl:o.gl});t.cs0=t.cs;t.cs={};
   });
   D2L().forEach(t=>{
-    const a=S.season.rank['ds1'+t.lg],b=S.season.rank['ds2'+t.lg];
-    t.yh.push({y:S.year,s1:a?a.indexOf(t.id)+1:0,s2:b?b.indexOf(t.id)+1:0,msi:'-',wc:'-',gw:0,gl:0,d:2});
+    t.yh.push({y:S.year,s1:(t.cs&&t.cs.s1)||0,s2:(t.cs&&t.cs.s2)||0,msi:'-',wc:'-',gw:0,gl:0,d:2});t.cs0=t.cs;t.cs={};
   });
   S.pwCur={};pwRank().forEach((x,i)=>S.pwCur[x.t.id]=i+1);
   const r=S.season.res;
@@ -1261,8 +1261,8 @@ function mgrStart(tid){
 function mgrSeasonEnd(){
   const m=S.mgr,t=mgrT();if(!m||!t)return;
   const y=t.yh.find(x=>x.y===S.year);if(!y)return;
-  const d2m=t.d===2,rk2=S.season.rank['ds2'+t.lg]||[];
-  const ach=d2m?(rk2[0]===t.id?5:(y.s2&&y.s2<=2)?3:(y.s2&&y.s2<=4)?1:0):y.wc==='C'?5:y.wc==='F'?4:y.wc==='SF'?3:y.wc==='QF'?2:y.wc==='G'?1:0;
+  const c0=t.cs0||{},d2m=c0.s2d?c0.s2d===2:t.d===2;
+  const ach=d2m?(y.s2===1?5:(y.s2&&y.s2<=2)?3:(y.s2&&y.s2<=4)?1:0):y.wc==='C'?5:y.wc==='F'?4:y.wc==='SF'?3:y.wc==='QF'?2:y.wc==='G'?1:0;
   const lp=p=>p===1?3:p===2?1.5:p&&p<=4?.5:0;
   const gate=IM()*(d2m?4:10),spons=IM()*Math.max(0,baseOvr(t)-(d2m?62:70))*(d2m?.6:1),prize=d2m?IM()*(lp(y.s1)+lp(y.s2))*.6:IM()*(lp(y.s1)+lp(y.s2)+(({C:4,F:2.5,SF:1,QF:.3,G:0})[y.msi]||0)+(({C:10,F:6,SF:4,QF:2.5,G:.5})[y.wc]||0)),income=gate+spons+prize;
   mEnsure();const pay=payOn()?r1(payroll(t)):0,fixo=d2m?(payOn()?4:7):payOn()?8:14,up=r1(AC_UP[m.acLv]+CT_UP[m.ct]),net=r1(income-pay-fixo-up);
@@ -2108,7 +2108,7 @@ function closeD2(lg,tag,st,m1,m2,fm){
   const order=[champ,runner,...third,...st.slice(4).map(r=>r.t)];
   S.season.rank['d'+tag+lg]=order.map(t=>t.id);
   const n=order.length;
-  order.forEach((t,i)=>{t.mom=clamp(.55*t.mom+1.2*(1-2*i/(n-1))+(i===0?.5:0),-3,3);t.hot=0});
+  order.forEach((t,i)=>{t.cs=t.cs||{};t.cs[tag]=i+1;t.cs[tag+'d']=2;t.mom=clamp(.55*t.mom+1.2*(1-2*i/(n-1))+(i===0?.5:0),-3,3);t.hot=0});
   champ.d2t=(champ.d2t||0)+1;
   return{lg,champ:champ.name,cid:champ.id,runner:runner.name};
 }
@@ -2125,11 +2125,11 @@ function runD2(lg,tag){
   const fm=ser(T(m1.res.w),T(m2.res.w));
   return closeD2(lg,tag,st,m1,m2,fm);
 }
-function promoRel(){
+function promoRel(tag){
   /* play-off de acesso (MD5): último da D1 x campeão da D2; quem vencer fica/sobe */
   const m=S.mgr,out=[];
   for(const lg of LGS){
-    const r1k=S.season.rank['s2'+lg],r2k=S.season.rank['ds2'+lg];
+    const r1k=S.season.rank[tag+lg],r2k=S.season.rank['d'+tag+lg];
     if(!r1k||!r2k||!r2k.length)continue;
     const down=T(r1k[r1k.length-1]),up=T(r2k[0]);
     if(!down||!up||down.d===2||up.d!==2)continue;
@@ -2138,8 +2138,8 @@ function promoRel(){
     const upWins=sm.res.w===up.id,sc=`${Math.max(sm.res.wa,sm.res.wb)}-${Math.min(sm.res.wa,sm.res.wb)}`;
     const mineIn=m&&(m.tid===di||m.tid===ui);
     if(!upWins){
-      out.push({lg,up:up.name,down:down.name,held:true,sc});
-      news(`${down.name} vence ${up.name} (${sc}) no play-off e segue na ${lg}.`,S.year+1);
+      out.push({lg,up:up.name,down:down.name,held:true,sc,tag});
+      news(`${down.name} vence ${up.name} (${sc}) no play-off e segue na ${lg}.`,S.year);
       if(m&&m.tid===di){m.sat=clamp(m.sat+4,0,100);m.log.unshift(`${S.year}: salvo! O ${down.name} vence o play-off de acesso por ${sc} e fica na ${lg}.`)}
       if(m&&m.tid===ui){m.sat=clamp(m.sat-8,0,100);m.log.unshift(`${S.year}: o ${up.name} perde o play-off de acesso para o ${down.name} (${sc}).`)}
       continue;
@@ -2149,13 +2149,17 @@ function promoRel(){
     S.d2[ui-100]=down;down.id=ui;down.d=2;
     if(m&&m.tid===di)m.tid=ui;else if(m&&m.tid===ui)m.tid=di;
     if(S.pwCur){delete S.pwCur[di];delete S.pwCur[ui]}
-    out.push({lg,up:up.name,down:down.name,held:false,sc});
-    news(`${up.name} vence o play-off (${sc}) e conquista o acesso à ${lg}; ${down.name} é rebaixado.`,S.year+1);
+    const sw=v=>v===di?ui:v===ui?di:v;
+    Object.keys(S.season.rank).forEach(k=>{S.season.rank[k]=S.season.rank[k].map(sw)});
+    [S.season.msi,S.season.wc].forEach(tr=>{if(!tr)return;if(tr.teams)tr.teams=tr.teams.map(sw);if(tr.champ!=null)tr.champ=sw(tr.champ);if(tr.elim){const e={};Object.keys(tr.elim).forEach(k=>e[sw(+k)]=tr.elim[k]);tr.elim=e}});
+    if(S.season.res)Object.keys(S.season.res).forEach(k=>(S.season.res[k]||[]).forEach(r=>{if(r.cid!=null)r.cid=sw(r.cid)}));
+    out.push({lg,up:up.name,down:down.name,held:false,sc,tag});
+    news(`${up.name} vence o play-off (${sc}) e conquista o acesso à ${lg}; ${down.name} é rebaixado.`,S.year);
     if(m&&m.tid===di){m.sat=clamp(m.sat+12,0,100);m.log.unshift(`${S.year}: acesso! O ${up.name} vence o play-off por ${sc} e sobe para a ${lg}.`)}
     if(m&&m.tid===ui){m.sat=clamp(m.sat-15,0,100);m.log.unshift(`${S.year}: rebaixamento do ${down.name} para a D2 da ${lg} (play-off ${sc}).`)}
   }
   S.promo=out.map(x=>({y:S.year,...x}));
-  S.promoH=(S.promoH||[]).concat(S.promo).slice(-60);
+  S.promoH=(S.promoH||[]).concat(S.promo).slice(-120);
 }
 
 /* ---------- virada de ano ---------- */
@@ -2201,7 +2205,6 @@ function nextSeason(){
   if(mgrT())mgrSeasonEnd();
   const mid=S.mgr&&S.mgr.tid!=null?S.mgr.tid:-1;
   const off=[],moved=new Set(),delta=[];
-  promoRel();
   ALLT().forEach(t=>{
     const tm=t.mom;
     t.pl.forEach(p=>{
@@ -2264,7 +2267,8 @@ function step(){
       if(p.k==='s1'&&mgrT())mExpire();
       if(true){if(!S.season.sp)spStart(p.k);else spStep();if(S.season.sp)return}
       else runSplit(p.k);
-      if(p.k==='s1')startMSI();else startWorlds();
+      promoRel(p.k);
+  if(p.k==='s1')startMSI();else startWorlds();
       break}
     case 'm0':case 'm1':case 'm2':if(playNext(S.season.msi,'msi'))finishTour(S.season.msi,'msi');break;
     case 'sw':playSwiss(S.season.wc);break;
@@ -3127,7 +3131,7 @@ function vLeague(lg){
   <div class="cab"><div>${ico('trophy')}<b class="num">${wcs.length}</b><small>Mundiais</small></div><div>${ico('trophy')}<b class="num">${msis.length}</b><small>MSI</small></div><div>${ico('trophy')}<b class="num">${lgt.length}</b><small>Títulos da liga</small></div></div></section>`;
   o+=`<section class="pn"><h2>Times</h2>${rows.map(({t,c,i:pi},i)=>`<div class="pl" style="grid-template-columns:30px minmax(0,1fr) auto"><span class="pos num" style="font-size:20px">${i+1}</span><span><span class="nm2">${tlk(t)}</span>${pmBadge(pi)}<br><small>${pi.pos&&!pi.d2?'Split 2 passado: '+pi.pos+'º · ':''}${c.wc} Mundial · ${c.msi} MSI · ${c.lg} ligas</small></span>${hx(Math.round(baseOvr(t)),'sm')}</div>`).join('')}<p class="note">A ordem segue a classificação do último Split 2, com os recém-subidos no fim. Quem subiu ou caiu aparece marcado.</p></section>`;
   {const d2=pmSort(D2L().filter(t=>t.lg===lg)).map(x=>x.t),ph=(S.promoH||[]).filter(x=>x.lg===lg).slice(-4).reverse();
-  if(d2.length)o+=`<section class="pn"><h2>Segunda divisão · ${lg}</h2><p class="note" style="margin:0 0 8px">Segunda divisão real da região. No fim do ano, o campeão do Split 2 da D2 enfrenta o último colocado da ${lg} num play-off melhor de 5: quem vencer fica na elite. Dá para assumir um clube da D2 no modo carreira.</p>${d2.map((t,i)=>`<div class="pl" style="grid-template-columns:30px minmax(0,1fr) auto"><span class="pos num" style="font-size:20px">${i+1}</span><span class="nm2" style="display:flex;align-items:center;gap:8px">${crest(t,'sm')}${tlk(t)}${pmBadge(pmInfo(t))}${S.mgr&&S.mgr.tid===t.id?'<span class="tag">seu time</span>':''}</span>${hx(Math.round(baseOvr(t)),'sm')}</div>`).join('')}${ph.length?`<div class="sub">Acessos recentes</div>${ph.map(x=>`<div class="trp"><span class="y num">${x.y}</span><span><b>${x.held?'Play-off: '+esc(x.down)+' fica':'Sobe: '+esc(x.up)}</b><small>${x.held?'Vence '+esc(x.up):'Desce: '+esc(x.down)}${x.sc?' · '+x.sc:''}</small></span></div>`).join('')}`:''}</section>`}
+  if(d2.length)o+=`<section class="pn"><h2>Segunda divisão · ${lg}</h2><p class="note" style="margin:0 0 8px">Segunda divisão real da região. No fim do ano, o campeão do Split 2 da D2 enfrenta o último colocado da ${lg} num play-off melhor de 5: quem vencer fica na elite. Dá para assumir um clube da D2 no modo carreira.</p>${d2.map((t,i)=>`<div class="pl" style="grid-template-columns:30px minmax(0,1fr) auto"><span class="pos num" style="font-size:20px">${i+1}</span><span class="nm2" style="display:flex;align-items:center;gap:8px">${crest(t,'sm')}${tlk(t)}${pmBadge(pmInfo(t))}${S.mgr&&S.mgr.tid===t.id?'<span class="tag">seu time</span>':''}</span>${hx(Math.round(baseOvr(t)),'sm')}</div>`).join('')}${ph.length?`<div class="sub">Acessos recentes</div>${ph.map(x=>`<div class="trp"><span class="y num">${x.y}</span><span><b>${x.held?'Play-off: '+esc(x.down)+' fica':'Sobe: '+esc(x.up)}</b><small>${x.held?'Vence '+esc(x.up):'Desce: '+esc(x.down)}${x.sc?' · '+x.sc:''}${x.tag?' · Split '+x.tag.slice(1):''}</small></span></div>`).join('')}`:''}</section>`}
   o+=`<section class="pn"><h2>Estante da liga</h2>`+
     [['w','Mundiais',wcs],['m','MSI',msis]].map(([k,t,it])=>`<div class="sh-t"><span>${t}</span><b class="num">${it.length}</b></div>${shelfRow(k,it.map(x=>({y:x.y,l:`${x.k} ${x.y} · ${x.t.name}`,sub:x.t.name})),'wide')}`).join('')+
     `<div class="sh-t"><span>Bolas de Ouro</span><b class="num">${bolas.length}</b></div>${shelfRow('b',bolas.map(x=>({y:x.y,l:`Bola de Ouro ${x.y}: ${x.n}`,sub:x.n})),'bola')}</section>`;
