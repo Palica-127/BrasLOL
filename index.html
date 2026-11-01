@@ -505,6 +505,7 @@ h1{letter-spacing:.02em}
 .lvld{text-align:center;font-size:12px;color:#9fb4ff;margin:2px 0 10px}
 .lvst{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}.lvs{display:grid;grid-template-columns:1fr 1fr;text-align:center;background:rgba(255,255,255,.06);border-radius:10px;padding:6px 4px}.lvs small{grid-column:1/3;order:-1;font-size:10px;color:#9fb4ff}.lvs b{font:800 20px var(--d,inherit)}
 .lvtac{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px}.lvq{margin:0 0 8px}.lvbtn{display:flex;justify-content:center;margin-top:10px}.lvbtn .play{max-width:420px;width:100%}.lvsub{display:block;width:100%;text-align:left;margin-top:6px}
+.lvrec{margin:0 0 10px;padding:8px 10px;border-radius:10px;background:rgba(255,226,122,.12);border-left:3px solid #FFE27A;font-size:13px}.cc.rec{outline:2px solid #FFE27A;outline-offset:1px}
 .lvlog{margin-top:12px;display:grid;gap:5px}.le{display:grid;grid-template-columns:38px 1fr;gap:8px;padding:7px 10px;border-radius:10px;background:rgba(255,255,255,.05);font-size:13px;border-left:3px solid rgba(255,255,255,.2)}.le.me{border-left-color:#00F5A0}.le.op{border-left-color:#FF5C8A}.le.end{background:rgba(255,226,122,.14);border-left-color:#FFE27A;font-weight:700}.le.sys{color:#9fb4ff}.le b{color:#FFE27A}
 
 @media(min-width:900px){.dvn b{font-size:24px}.ct{width:54px;height:54px}.pr b{font-size:15px}}
@@ -1971,7 +1972,7 @@ function vLive(){
   const subs=(LV.state==='ckpt'&&LV.cp===0||LV.state==='between')&&!LV.sub&&S.mgr&&S.mgr.bench&&S.mgr.bench.length?`<div class="sub">Substituição (uma por mapa)</div>${S.mgr.bench.map(p=>`<button class="ghost lvsub" data-act="lvSub" data-v="${esc(p.n)}">${RN[p.role]}: entra ${esc(p.n)} (${p.r}) · sai ${esc(t.pl[p.role].n)} (${t.pl[p.role].r})</button>`).join('')}`:'';
   if(LV.state==='ckpt'){
     const cp=LV.cp,p=Math.round(lvP()*100);
-    ctl=`<section class="dvpool"><p class="lvq"><b>${LVPH[cp]}</b> · chance neste mapa: <b class="num">${p}%</b></p><p class="note" style="margin:0 0 8px">Escolha a instrução para esta fase. Agressivo rende no começo e cobra no fim; Controle faz o contrário. Equilibrado perde para Agressivo, Agressivo perde para Controle, Controle perde para Equilibrado.${m.hint&&cp===0?' Dica do analista: rival tende a '+planName(m.hint)+'.':''}</p><div class="lvtac">${LVT3.map(([k,l])=>`<button class="cc" data-act="lvTac" data-v="${k}"><b>${l}</b><small>${k==='ag'?'+início, −fim':k==='co'?'−início, +fim':'neutro'}</small></button>`).join('')}</div>${subs}</section>`;
+    ctl=`<section class="dvpool"><p class="lvq"><b>${LVPH[cp]}</b> · chance neste mapa: <b class="num">${p}%</b></p><p class="note" style="margin:0 0 8px">Escolha a instrução para esta fase. Agressivo rende no começo e cobra no fim; Controle faz o contrário. Equilibrado perde para Agressivo, Agressivo perde para Controle, Controle perde para Equilibrado.${m.hint&&cp===0?' Dica do analista: rival tende a '+planName(m.hint)+'.':''}</p>${lvRecHTML(lvRec())}<div class="lvtac">${LVT3.map(([k,l])=>`<button class="cc${lvRec().k===k?' rec':''}" data-act="lvTac" data-v="${k}"><b>${l}</b><small>${k==='ag'?'+início, −fim':k==='co'?'−início, +fim':'neutro'}</small></button>`).join('')}</div>${subs}</section>`;
   }else if(LV.state==='run')ctl=`<section class="dvpool wait"><div class="dvw"><i></i><i></i><i></i></div><p>${ph} · ${LV.min}'</p><div class="lvbtn"><button class="ghost" data-act="lvSkip">Pular fase</button></div></section>`;
   else if(LV.state==='between')ctl=`<section class="dvpool"><p class="lvq">Mapa ${LV.gi} ${LV.res[LV.res.length-1]?'<b style="color:#00F5A0">vencido</b>':'<b style="color:#FF5C8A">perdido</b>'}. Série ${sA}–${sB}.</p>${subs}<div class="lvbtn"><button class="play" data-act="lvNext">Próximo mapa</button></div></section>`;
   else ctl=`<section class="dvpool"><p class="lvq">Série encerrada: <b class="num">${sA}–${sB}</b> · ${LV.me>LV.op?'<b style="color:#00F5A0">vitória</b>':'<b style="color:#FF5C8A">derrota</b>'}</p><div class="lvbtn"><button class="play" data-act="lvDone">Continuar</button></div></section>`;
@@ -2101,7 +2102,7 @@ function pcRest(){const pc=S.pc;if(pc.rest){msg='Você já descansou nesta fase.
 function pcPoolTrain(c){
   const pc=S.pc;if(pc.en<30){msg='Energia baixa.';return}
   const v=pc.pool[c]||0;if(mastOf(pc.n,c)>=1){msg='Domínio máximo.';return}
-  pc.en-=30;pc.pool[c]=Math.min(.5,v+.04);msg=`Treino de pool: ${c} +4%.`;
+  pc.en-=30;pc.pool[c]=Math.min(1,v+.04);msg=`Treino de pool: ${c} +4%.`;
 }
 function pcVagaOdds(){const f=pcFind();if(!f||!f.bn)return 0;const st=f.t.pl[f.p.role],pc=S.pc;return clamp(.45+(f.p.r-st.r)*.09+(pc.en-50)*.003+pc.fame*.0015,.05,.9)}
 function pcVaga(){
@@ -2265,8 +2266,8 @@ function vPc(){
   <div class="cab" style="margin:6px 0 8px"><div><b class="num">${pts}</b><small>Pontos de atributo</small></div></div>
   ${ATL.map((l,i)=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr) auto"><span class="hx t${tier(pc.at[i])} sm">${pc.at[i]}</span><span class="who"><b>${l}${fo===i?' <span class="tag">foco</span>':''} <small style="opacity:.7">· peso ${Math.round(PCW[p.role][i]*100)}%</small></b><small>${ATD[i]}</small>${pcBar(pc.xp[i],70)}</span><button class="ghost" data-act="pcSpend" data-v="${i}"${pts>0&&pc.at[i]<Math.min(99,pc.cap)?'':' disabled'}>+1</button></div>`).join('')}</section>`;
   /* pool */
-  const pl=CH[p.role].map(([c,a])=>({c,a,v:Math.round(mastOf(pc.n,c)*100),m:metaOf(c)})).sort((x,y)=>y.v-x.v);
-  h+=`<section class="pn"><h2>Pool de campeões</h2><p class="note" style="margin:0 0 8px">Quanto melhor sua pool no meta atual (${esc(metaName())}), mais forma você carrega.</p>${pl.slice(0,6).map(x=>`<div class="pool"><span class="ct sm" style="--h:${hs(x.c)%360}"><b>${esc(chIni(x.c))}</b></span><span class="who"><b>${esc(x.c)}</b><small>${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}</small></span><b class="num">${x.v}</b><button class="ghost" data-act="pcPool" data-v="${esc(x.c)}"${pc.en<30?' disabled':''}>+4%</button></div>`).join('')}</section>`;
+  const pl=CH[p.role].map(([c,a])=>({c,a,v:Math.round(mastOf(pc.n,c)*100),m:metaOf(c)}));
+  h+=`<section class="pn"><h2>Pool de campeões</h2><p class="note" style="margin:0 0 8px">Todos os 8 campeões da função aparecem aqui. Cada treino de pool gasta 30 de energia e dá +4% de domínio em um campeão. Quanto melhor sua pool no meta atual (${esc(metaName())}), mais forma você carrega.</p>${pl.map(x=>`<div class="pool"><span class="ct sm" style="--h:${hs(x.c)%360}"><b>${esc(chIni(x.c))}</b></span><span class="who"><b>${esc(x.c)}</b><small>${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}</small></span><b class="num">${x.v}</b><button class="ghost" data-act="pcPool" data-v="${esc(x.c)}"${pc.en<30||x.v>=100?' disabled':''}>${x.v>=100?'máx':'+4%'}</button></div>`).join('')}</section>`;
   /* vaga */
   if(f.bn){const st=t.pl[p.role];h+=`<section class="pn"><h2>Disputa de vaga</h2><p class="note" style="margin:0 0 8px">Titular: ${esc(st.n)} (OVR ${st.r}). Você: OVR ${p.r}. Chance de ganhar a vaga agora: <b class="num">${Math.round(pcVagaOdds()*100)}%</b>. Custa 15 de energia e só uma vez por fase. Se um titular se aposentar, o melhor reserva da função assume.</p><div class="row" style="margin:0"><button class="ghost" data-act="pcVaga"${pc.vaga||pc.en<15?' disabled':''}>Pedir a vaga</button></div></section>`}
   /* ofertas */
@@ -2297,6 +2298,26 @@ function pcDraftD(m){
   const t=f.t,op=T(m.a===t.id?m.b:m.a),bp=bestPicks(t,0),pk=t.pl.map((p,i)=>S.pc.dr[i]||bp[i]);
   return clamp((compScore(t,pk,m.odm)-compScore(op,m.od,compMaj(pk)))*.012,-.07,.07);
 }
+
+function lvRec(){
+  if(LV.pc){
+    const f=pcFind(),pc=S.pc,p=f.p,op=lvTeam('op').pl[p.role],gap=p.r-op.r,pr=lvP(),lead=LV.lead,cp=LV.cp;
+    if(pc.en<40)return{k:'sf',why:'Energia baixa: jogue seguro para não errar.'};
+    if(lead>=3)return{k:'sf',why:'Seu time está à frente: jogue seguro e feche o mapa.'};
+    if(lead<=-3)return gap>=0?{k:'cr',why:`Atrás no mapa, mas você leva vantagem na lane (${gap>=0?'+':''}${gap} de OVR): busque a virada.`}:{k:'tm',why:'Atrás e sem vantagem na lane: ajude o time com visão e peel.'};
+    if(gap>=3&&cp<2)return{k:'cr',why:`Você tem +${gap} de OVR sobre ${op.n}: abuse da lane.`};
+    if(pr<.42)return{k:'tm',why:'O time é azarão neste mapa: priorize o coletivo.'};
+    if(cp===2&&pr>=.55)return{k:'sf',why:'Fase final com vantagem: evite erros.'};
+    return{k:'sf',why:'Jogo parelho: jogue pelo básico e espere o erro do rival.'};
+  }
+  const m=LV.m,cp=LV.cp,lead=LV.lead,my=LV.us==='a'?lead:-lead;
+  const ctr=h=>Object.keys(BEATS).find(k=>BEATS[k]===h);
+  if(cp===0&&m.hint)return{k:ctr(m.hint)||'eq',why:`O analista aponta que o rival joga ${planName(m.hint)}: ${planName(ctr(m.hint)||'eq')} leva vantagem.`};
+  if(my>=3)return{k:'co',why:'Você está à frente: Controle fecha o mapa com segurança.'};
+  if(my<=-3)return{k:'ag',why:'Você está atrás: Agressivo tenta a virada.'};
+  return{k:'eq',why:'Jogo parelho: Equilibrado evita riscos.'};
+}
+const lvRecHTML=r=>`<p class="lvrec">💡 <b>Recomendado: ${r.k==='sf'?'Seguro':r.k==='cr'?'Buscar o jogo':r.k==='tm'?'Pelo time':planName(r.k)}.</b> ${esc(r.why)}</p>`;
 function lvPick(c){
   if(!LV||!LV.pc||LV.state!=='pick'||!c)return;
   if(LV.used.includes(c)){msg='Fearless: você já usou esse campeão nesta série.';return}
@@ -2348,7 +2369,7 @@ function pcLiveCtl(sA,sB){
   }
   if(LV.state==='ckpt'){
     const cp=LV.cp,pr=Math.round(lvP()*100);
-    return `<section class="dvpool"><p class="lvq"><b>${LVPH[cp]}</b> · chance de vitória: <b class="num">${pr}%</b> · ${esc(LV.ch)}</p><p class="note" style="margin:0 0 8px">Como você joga esta fase? Buscar o jogo é uma aposta: se der certo, vira a luta e sua nota sobe; se falhar, o time sofre.</p><div class="lvtac"><button class="cc" data-act="lvTac" data-v="sf"><b>Seguro</b><small>poucos riscos</small></button><button class="cc" data-act="lvTac" data-v="cr"><b>Buscar o jogo</b><small>aposta alta</small></button><button class="cc" data-act="lvTac" data-v="tm"><b>Pelo time</b><small>visão e peel</small></button></div></section>`;
+    return `<section class="dvpool"><p class="lvq"><b>${LVPH[cp]}</b> · chance de vitória: <b class="num">${pr}%</b> · ${esc(LV.ch)}</p><p class="note" style="margin:0 0 8px">Como você joga esta fase? Buscar o jogo é uma aposta: se der certo, vira a luta e sua nota sobe; se falhar, o time sofre.</p>${lvRecHTML(lvRec())}<div class="lvtac">${[['sf','Seguro','poucos riscos'],['cr','Buscar o jogo','aposta alta'],['tm','Pelo time','visão e peel']].map(([k,l,d])=>`<button class="cc${lvRec().k===k?' rec':''}" data-act="lvTac" data-v="${k}"><b>${l}</b><small>${d}</small></button>`).join('')}</div></section>`;
   }
   if(LV.state==='run')return `<section class="dvpool wait"><div class="dvw"><i></i><i></i><i></i></div><p>${LVPH[Math.min(LV.cp,2)]} · ${LV.min}'</p><div class="lvbtn"><button class="ghost" data-act="lvSkip">Pular fase</button></div></section>`;
   const gl=LV.gr.map((x,i)=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr) auto"><span class="hx t${tier(Math.round(x.rt*10))} sm">${String(x.rt).replace('.',',')}</span><span class="who"><b>Mapa ${i+1} · ${esc(x.c)}</b><small>${x.k}/${x.d}/${x.a} · ${x.win?'vitória':'derrota'}</small></span></div>`).join('');
