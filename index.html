@@ -485,7 +485,7 @@ const PHASES=[
  ...[1,2,3,4].map(r=>({k:'ck'+r,g:5,l:'Copa do Mundo · Mata-mata',b:'Jogar o mata-mata da Copa'}))];
 
 /* Elencos 2026 das 6 ligas. Times marcados em EST têm elenco confirmado só em parte ou estimado; OVR e idades são notas minhas. */
-const EST=new Set(["KT Rolster", "BNK FearX", "Nongshim RedForce", "DRX", "BRION", "DN SOOPers", "EDward Gaming", "JD Gaming", "LGD Gaming", "LNG Esports", "Ninjas in Pyjamas", "Team WE", "TT Gaming", "GIANTX", "Vitality", "SK Gaming", "NAVI", "Fnatic", "Team Heretics", "Shifters", "Dignitas", "Disguised", "FlyQuest", "Sentinels", "Shopify Rebellion", "SoftBank HAWKS", "GAM Esports", "Deep Cross Gaming", "DetonatioN FocusMe", "Ground Zero Gaming", "LOUD", "paiN Gaming", "Fluxo W7M", "Leviatán", "RED Canids", "Vivo Keyd Stars"]);
+const EST=new Set(["KT Rolster", "BNK FearX", "Nongshim RedForce", "DRX", "Top Esports", "BRION", "DN SOOPers", "EDward Gaming", "JD Gaming", "LGD Gaming", "LNG Esports", "Ninjas in Pyjamas", "Team WE", "TT Gaming", "GIANTX", "Vitality", "SK Gaming", "NAVI", "Fnatic", "Team Heretics", "Shifters", "Dignitas", "Disguised", "FlyQuest", "Sentinels", "Shopify Rebellion", "SoftBank HAWKS", "GAM Esports", "Deep Cross Gaming", "DetonatioN FocusMe", "Ground Zero Gaming", "LOUD", "paiN Gaming", "Fluxo W7M", "Leviatán", "RED Canids", "Vivo Keyd Stars"]);
 const DATA={
 LCK:[
 ["Gen.G","Kiin 88 27","Canyon 90 25","Chovy 96 25","Ruler 89 28","Duro 83 23"],
@@ -501,7 +501,7 @@ LCK:[
 LPL:[
 ["BLG","Bin 90 24","Xun 85 22","Knight 91 26","Viper 88 27","ON 86 24"],
 ["Anyone's Legend","Breathe 82 27","Tarzan 90 27","Shanks 86 25","Hope 85 23","Kael 83 21"],
-["Top Esports","369 83 25","Tian 86 28","Creme 85 21","JackeyLove 87 26","Zhuo 80 22"],
+["Top Esports","ZUIAN 83 22","Tian 86 28","Creme 85 21","JackeyLove 87 26","Zhuo 80 22"],
 ["Invictus Gaming","TheShy 85 26","Wei 86 26","Rookie 86 29","JiaQi 83 22","meiko 84 29"],
 ["Weibo Gaming","Zika 83 25","JieJie 85 26","Xiaohu 86 28","Elk 88 25","Erha 82 24"],
 ["EDward Gaming","Zdz 81 25","Xiaohao 83 26","Angel 83 20","Leave 83 24","Parukia 82 23"],
@@ -1903,6 +1903,9 @@ function natOf(n,t){
   if(REAL.has(n))return TNAT[t.name]||MAINN[t.lg]||hpick(n,POOLN[t.lg]);
   return hpick(n,GENN[t.lg]||WORLDN);
 }
+const NATFIX={kyeahoo:'KOR',Rhilech:'TUR',BullDoG:'KOR'};
+Object.assign(NATM,NATFIX);
+function fixNatFix(){if(!S||!S.pdb)return;Object.keys(NATFIX).forEach(n=>{if(S.pdb[n])S.pdb[n].nat=NATFIX[n]})}
 function fixNat(){
   S.teams.forEach(t=>t.pl.forEach(p=>{const d=pd(p.n);if(!d.nat)d.nat=p.nat||natOf(p.n,t)}));
   Object.keys(NATM).forEach(n=>{if(S.pdb[n]&&!S.pdb[n].nat)S.pdb[n].nat=NATM[n]});
@@ -2251,7 +2254,7 @@ function fixLPL(){
 }
 function slotGo(i){
   save();SLOT=i;KEY=SLOTK[i];try{localStorage.setItem('lol-slot',String(i))}catch(e){}
-  S=load();if(!S)freshGame();else fixLPL();
+  S=load();if(!S)freshGame();else{fixLPL();fixNatFix()}
   tab='season';prof=null;pstack=[];askReset=false;askEnd=false;cele=null;lastPlayed=null;mgrView='inicio';dHof=null;selYear=null;
   msg='Slot '+(i+1)+' carregado.';
 }
@@ -2811,6 +2814,6 @@ document.addEventListener('input',e=>{
   else if(e.target.id==='mgr-q'){mgrQ=e.target.value;const l=document.querySelector('#mlist');if(l)l.innerHTML=mlistHTML()}
   else if(e.target.id==='q'){qStr=e.target.value;const l=document.querySelector('#plist');if(l)l.innerHTML=plistHTML()}
 });
-if(!S)freshGame();else{fixLPL();if(!S.lh)applyLeagueHist();if(!S.lh2)applyLeagueHist2();if(!S.lh3)applyLeagueHist3();save()}
+if(!S)freshGame();else{fixLPL();fixNatFix();if(!S.lh)applyLeagueHist();if(!S.lh2)applyLeagueHist2();if(!S.lh3)applyLeagueHist3();save()}
 render();
 </script>
