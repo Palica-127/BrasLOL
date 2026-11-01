@@ -1230,7 +1230,7 @@ function awards(){
 
 /* ---------- modo carreira (manager) ---------- */
 const MCAP=30;
-const goalTxt=(m,t)=>t&&t.d===2?'Subir para a primeira divisão (campeão da D2)':GOALS[m.goal];
+const goalTxt=(m,t)=>t&&t.d===2?'Subir para a primeira divisão (campeão da D2 e vencer o play-off)':GOALS[m.goal];
 const GOALS=['Fazer boa campanha na liga','Classificar para o Mundial','Chegar às quartas do Mundial','Chegar às semifinais do Mundial','Chegar à final do Mundial'];
 const fmtM=n=>`US$ ${(Math.round(n*10)/10).toFixed(1).replace('.',',')} mi`;
 function mvOf(p){
@@ -2063,14 +2063,16 @@ function logHTML(m){
 
 
 /* ---------- divisões de acesso (D2) ---------- */
-const D2N={LCK:['Hanbit Gaming','Seoul Raiders','Busan Waves','Daegu Titans','Incheon Storm','Jeju Phoenix'],
-LPL:['Dragon Gate','Shanghai Lotus','Chengdu Pandas','Wuhan Thunder','Xian Wolves','Hangzhou Mist'],
-LEC:['Nordic Wolves','Iberian Flames','Rhine Hawks','Baltic Kings','Alpine Gaming','Thames United'],
-LCS:['Cascade Esports','Empire Rising','Golden State','Lone Star','Maple Storm','Atlantic Crew'],
-LCP:['Saigon Blaze','Manila Eagles','Bangkok Dragons','Taipei Neon','Jakarta Surge','Sydney Reef'],
-CBLOL:['Recife Tubarões','Curitiba Pinhais','Salvador Axé','Gaúchos Gaming','Minas Esports','Amazônia Gaming']};
+const D2N={LCK:['T1 Esports Academy','Gen.G Global Academy','KT Rolster Challengers','KIWOOM DRX Challengers','Dplus KIA Challengers','Hanwha Life Challengers'],
+LPL:['Weibo Gaming Youth','EDG Youth','WE Academy','LNG Academy','Royal Club','LGD Youth'],
+LEC:['Karmine Corp Blue','Los Ratones','Solary','Galions','Vitality.Bee','Gentle Mates'],
+LCS:['Dragonsteel','Cincinnati Fear','Supernova','Blue Otter','CCG Esports','Luminosity Gaming'],
+LCP:['FRANK Esports','Saigon Warriors','FENNEL','Team Gromp','Nothin\'Here','Saigon Dino'],
+CBLOL:['7REX Team','Ei Nerd Esports','Estral Esports','INTZ','KaBuM!','TEAM SOLID']};
 function ensureD2(){
+  if(S&&S.d2&&!S.d2r){let k=0;for(const lg of LGS)for(const name of D2N[lg]){if(S.d2[k])S.d2[k].name=name;k++}S.d2r=1}
   if(!S||S.d2)return;
+  S.d2r=1;
   S.d2=[];let k=0;
   for(const lg of LGS)for(const name of D2N[lg]){
     const pl=[0,1,2,3,4].map(role=>{
@@ -2106,7 +2108,7 @@ function runD2(lg,tag){
   return closeD2(lg,tag,st,m1,m2,fm);
 }
 function promoRel(){
-  /* campeão da D2 sobe, último colocado da D1 desce (por liga, no fim do ano) */
+  /* play-off de acesso (MD5): último da D1 x campeão da D2; quem vencer fica/sobe */
   const m=S.mgr,out=[];
   for(const lg of LGS){
     const r1k=S.season.rank['s2'+lg],r2k=S.season.rank['ds2'+lg];
@@ -2114,15 +2116,25 @@ function promoRel(){
     const down=T(r1k[r1k.length-1]),up=T(r2k[0]);
     if(!down||!up||down.d===2||up.d!==2)continue;
     const di=down.id,ui=up.id;
+    const sm=mk(down,up,5);sm.qa=clamp(sm.qa+.16,.2,.8);play(sm);
+    const upWins=sm.res.w===up.id,sc=`${Math.max(sm.res.wa,sm.res.wb)}-${Math.min(sm.res.wa,sm.res.wb)}`;
+    const mineIn=m&&(m.tid===di||m.tid===ui);
+    if(!upWins){
+      out.push({lg,up:up.name,down:down.name,held:true,sc});
+      news(`${down.name} vence ${up.name} (${sc}) no play-off e segue na ${lg}.`,S.year+1);
+      if(m&&m.tid===di){m.sat=clamp(m.sat+4,0,100);m.log.unshift(`${S.year}: salvo! O ${down.name} vence o play-off de acesso por ${sc} e fica na ${lg}.`)}
+      if(m&&m.tid===ui){m.sat=clamp(m.sat-8,0,100);m.log.unshift(`${S.year}: o ${up.name} perde o play-off de acesso para o ${down.name} (${sc}).`)}
+      continue;
+    }
     S.teams[di]=up;up.id=di;up.d=1;
     up.pl.forEach(p=>{p.r=Math.min(90,p.r+2);p.pot=Math.max(p.pot,p.r)});
     S.d2[ui-100]=down;down.id=ui;down.d=2;
     if(m&&m.tid===di)m.tid=ui;else if(m&&m.tid===ui)m.tid=di;
     if(S.pwCur){delete S.pwCur[di];delete S.pwCur[ui]}
-    out.push({lg,up:up.name,down:down.name});
-    news(`${up.name} conquista o acesso à ${lg}; ${down.name} é rebaixado.`,S.year+1);
-    if(m&&m.tid===di){m.sat=clamp(m.sat+12,0,100);m.log.unshift(`${S.year}: acesso! O ${up.name} sobe para a ${lg}.`)}
-    if(m&&m.tid===ui){m.sat=clamp(m.sat-15,0,100);m.log.unshift(`${S.year}: rebaixamento do ${down.name} para a D2 da ${lg}.`)}
+    out.push({lg,up:up.name,down:down.name,held:false,sc});
+    news(`${up.name} vence o play-off (${sc}) e conquista o acesso à ${lg}; ${down.name} é rebaixado.`,S.year+1);
+    if(m&&m.tid===di){m.sat=clamp(m.sat+12,0,100);m.log.unshift(`${S.year}: acesso! O ${up.name} vence o play-off por ${sc} e sobe para a ${lg}.`)}
+    if(m&&m.tid===ui){m.sat=clamp(m.sat-15,0,100);m.log.unshift(`${S.year}: rebaixamento do ${down.name} para a D2 da ${lg} (play-off ${sc}).`)}
   }
   S.promo=out.map(x=>({y:S.year,...x}));
   S.promoH=(S.promoH||[]).concat(S.promo).slice(-60);
@@ -3076,7 +3088,7 @@ function vLeague(lg){
   <div class="cab"><div>${ico('trophy')}<b class="num">${wcs.length}</b><small>Mundiais</small></div><div>${ico('trophy')}<b class="num">${msis.length}</b><small>MSI</small></div><div>${ico('trophy')}<b class="num">${lgt.length}</b><small>Títulos da liga</small></div></div></section>`;
   o+=`<section class="pn"><h2>Times</h2>${rows.map(({t,c},i)=>`<div class="pl" style="grid-template-columns:30px minmax(0,1fr) auto"><span class="pos num" style="font-size:20px">${i+1}</span><span><span class="nm2">${tlk(t)}</span>${i<SLOTS[lg]?'<span class="tag">vaga no Mundial</span>':''}<br><small>${c.wc} Mundial · ${c.msi} MSI · ${c.lg} ligas</small></span>${hx(Math.round(baseOvr(t)),'sm')}</div>`).join('')}<p class="note">A ordem é a força atual, com forma e momento. As vagas no Mundial vão para os campeões dos splits, então a ordem é só um guia.</p></section>`;
   {const d2=D2L().filter(t=>t.lg===lg).sort((x,y)=>eff(y)-eff(x)),ph=(S.promoH||[]).filter(x=>x.lg===lg).slice(-4).reverse();
-  if(d2.length)o+=`<section class="pn"><h2>Segunda divisão · ${lg}</h2><p class="note" style="margin:0 0 8px">O campeão do Split 2 da D2 sobe; o último colocado da ${lg} cai. Dá para assumir um clube da D2 no modo carreira.</p>${d2.map((t,i)=>`<div class="pl" style="grid-template-columns:30px minmax(0,1fr) auto"><span class="pos num" style="font-size:20px">${i+1}</span><span class="nm2" style="display:flex;align-items:center;gap:8px">${crest(t,'sm')}${tlk(t)}${S.mgr&&S.mgr.tid===t.id?'<span class="tag">seu time</span>':''}</span>${hx(Math.round(baseOvr(t)),'sm')}</div>`).join('')}${ph.length?`<div class="sub">Acessos recentes</div>${ph.map(x=>`<div class="trp"><span class="y num">${x.y}</span><span><b>Sobe: ${esc(x.up)}</b><small>Desce: ${esc(x.down)}</small></span></div>`).join('')}`:''}</section>`}
+  if(d2.length)o+=`<section class="pn"><h2>Segunda divisão · ${lg}</h2><p class="note" style="margin:0 0 8px">Segunda divisão real da região. No fim do ano, o campeão do Split 2 da D2 enfrenta o último colocado da ${lg} num play-off melhor de 5: quem vencer fica na elite. Dá para assumir um clube da D2 no modo carreira.</p>${d2.map((t,i)=>`<div class="pl" style="grid-template-columns:30px minmax(0,1fr) auto"><span class="pos num" style="font-size:20px">${i+1}</span><span class="nm2" style="display:flex;align-items:center;gap:8px">${crest(t,'sm')}${tlk(t)}${S.mgr&&S.mgr.tid===t.id?'<span class="tag">seu time</span>':''}</span>${hx(Math.round(baseOvr(t)),'sm')}</div>`).join('')}${ph.length?`<div class="sub">Acessos recentes</div>${ph.map(x=>`<div class="trp"><span class="y num">${x.y}</span><span><b>${x.held?'Play-off: '+esc(x.down)+' fica':'Sobe: '+esc(x.up)}</b><small>${x.held?'Vence '+esc(x.up):'Desce: '+esc(x.down)}${x.sc?' · '+x.sc:''}</small></span></div>`).join('')}`:''}</section>`}
   o+=`<section class="pn"><h2>Estante da liga</h2>`+
     [['w','Mundiais',wcs],['m','MSI',msis]].map(([k,t,it])=>`<div class="sh-t"><span>${t}</span><b class="num">${it.length}</b></div>${shelfRow(k,it.map(x=>({y:x.y,l:`${x.k} ${x.y} · ${x.t.name}`,sub:x.t.name})),'wide')}`).join('')+
     `<div class="sh-t"><span>Bolas de Ouro</span><b class="num">${bolas.length}</b></div>${shelfRow('b',bolas.map(x=>({y:x.y,l:`Bola de Ouro ${x.y}: ${x.n}`,sub:x.n})),'bola')}</section>`;
