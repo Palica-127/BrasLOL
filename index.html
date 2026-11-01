@@ -1842,31 +1842,32 @@ function vDraft(){
 /* ---------- jogo ao vivo (estilo Brasfoot) ---------- */
 let LV=null,LVT=null;
 const liveOn=()=>!(S&&S.opt&&S.opt.live===0);
-const lvNeeded=()=>{const m=mgrMatch();return !!(m&&liveOn()&&!m.fx)};
+function pcMatch(){if(!pcAct()||S.mgr)return null;const f=pcFind();if(!f||f.bn)return null;return nextMatches().find(m=>!m.res&&(m.a===f.t.id||m.b===f.t.id))||null}
+const lvNeeded=()=>{const m=mgrMatch()||pcMatch();return !!(m&&liveOn()&&!m.fx)};
 const LVPH=['Início de jogo','Meio de jogo','Final de jogo'];
 const LVT3=[['ag','Agressivo'],['eq','Equilibrado'],['co','Controle']];
 const LVFX={ag:[.03,.01,-.02],co:[-.02,0,.03],eq:[0,0,0]};
 function lvOpen(){
-  const m=mgrMatch();if(!m)return false;
+  const m=mgrMatch()||pcMatch();if(!m)return false;
   clearTimeout(LVT);
-  LV={m,us:m.a===S.mgr.tid?'a':'b',me:0,op:0,gi:0,state:'ckpt',cp:0,min:0,lead:0,log:[],adj:0,win:null,end:30,tac:null,ot:null,
+  LV={m,pc:!S.mgr,used:[],gr:[],ps:0,ch:null,us:m.a===myTid()?'a':'b',me:0,op:0,gi:0,state:'ckpt',cp:0,min:0,lead:0,log:[],adj:0,win:null,end:30,tac:null,ot:null,
     st:{me:{k:0,t:0,d:0,b:0},op:{k:0,t:0,d:0,b:0}},sub:false,bar:false,her:false,res:[]};
   lvGameStart();return true;
 }
 function lvGameStart(){
-  LV.state='ckpt';LV.cp=0;LV.min=0;LV.lead=0;LV.adj=0;LV.win=null;LV.end=27+Math.floor(Math.random()*9);LV.sub=false;LV.bar=false;LV.her=false;
+  LV.state=LV.pc?'pick':'ckpt';LV.ps=0;LV.ch=null;LV.cp=0;LV.min=0;LV.lead=0;LV.adj=0;LV.win=null;LV.end=27+Math.floor(Math.random()*9);LV.sub=false;LV.bar=false;LV.her=false;
   LV.st={me:{k:0,t:0,d:0,b:0},op:{k:0,t:0,d:0,b:0}};LV.log=[{m:0,t:`Mapa ${LV.gi+1}: os times entram no Rift.`,k:'sys'}];
 }
 function lvP(){
   const m=LV.m,A=T(m.a),B=T(m.b);
   let qa=clamp(1/(1+Math.pow(10,-(eff(A)-eff(B))/kgNow())),.2,.8);
-  const pdl=draftOn()?draftDelta(m):planDelta(m);qa=clamp(qa+pdl.d,.2,.8);
+  if(!LV.pc){const pdl=draftOn()?draftDelta(m):planDelta(m);qa=clamp(qa+pdl.d,.2,.8)}
   const pm=LV.us==='a'?qa:1-qa;return clamp(pm+LV.adj,.1,.9);
 }
-function lvTeam(s){return T(s==='me'?S.mgr.tid:(LV.m.a===S.mgr.tid?LV.m.b:LV.m.a))}
+function lvTeam(s){const id=myTid();return T(s==='me'?id:(LV.m.a===id?LV.m.b:LV.m.a))}
 function lvWho(s,role){
   const t=lvTeam(s),p=t.pl[role];
-  const ch=s==='me'?(S.mgr.dr&&S.mgr.dr[role]):(LV.m.od&&LV.m.od[role]);
+  const ch=LV.pc?(s==='me'&&p.pc?LV.ch:null):s==='me'?(S.mgr.dr&&S.mgr.dr[role]):(LV.m.od&&LV.m.od[role]);
   return ch?`${p.n} (${ch})`:p.n;
 }
 const LANES=['topo','meio','inferior'];
@@ -1908,6 +1909,7 @@ function lvGameEnd(){
   LV.res.push(mine);LV.gi++;
   const need=Math.ceil(LV.m.n/2);
   LV.state=(LV.me>=need||LV.op>=need)?'done':'between';
+  if(LV.pc)pcGameEnd(mine);
   if(LV.state==='done'){const aW=LV.us==='a'?LV.me:LV.op,bW=LV.us==='a'?LV.op:LV.me;LV.m.fx={wa:aW,wb:bW}}
 }
 function lvLoop(){
@@ -1938,7 +1940,8 @@ function lvNext(){if(LV&&LV.state==='between')lvGameStart()}
 function lvAll(){
   if(!LV)return;clearTimeout(LVT);let g=0;
   while(LV&&LV.state!=='done'&&g++<400){
-    if(LV.state==='ckpt')lvTac('eq');
+    if(LV.state==='pick')lvPick(pcAuto());
+    else if(LV.state==='ckpt')LV.pc?lvPosture('sf'):lvTac('eq');
     else if(LV.state==='between')lvNext();
     else if(typeof setTimeout!=='undefined'){while(LV.state==='run')lvTick()}
     else lvTick();
@@ -1947,7 +1950,7 @@ function lvAll(){
 function lvSkipPhase(){if(!LV||LV.state!=='run')return;clearTimeout(LVT);const cp=LV.cp,gi=LV.gi;while(LV.state==='run'&&LV.cp===cp&&LV.gi===gi)lvTick()}
 function lvDone(){clearTimeout(LVT);LV=null}
 function vLive(){
-  const m=LV.m,A=T(m.a),B=T(m.b),mid=S.mgr.tid;
+  const m=LV.m,A=T(m.a),B=T(m.b),mid=myTid();
   const stage=PHASES[S.phase]&&S.season.sp?spLabel(S.season.sp):(PHASES[S.phase]?PHASES[S.phase].l:'');
   const sA=LV.us==='a'?LV.me:LV.op,sB=LV.us==='a'?LV.op:LV.me;
   const side=t=>`<div class="dvt ${t.id===m.a?'b':'r'}"><div class="dvc">${crest(t,'lg')}</div><div class="dvn"><b>${esc(t.name)}</b><small>${t.id===mid?'você':'rival'}</small></div></div>`;
@@ -1957,17 +1960,18 @@ function vLive(){
   const ph=LV.state==='run'||LV.state==='ckpt'?LVPH[Math.min(LV.cp,2)]:'';
   let ctl='';
   const t=mgrT();
-  const subs=(LV.state==='ckpt'&&LV.cp===0||LV.state==='between')&&!LV.sub&&S.mgr.bench&&S.mgr.bench.length?`<div class="sub">Substituição (uma por mapa)</div>${S.mgr.bench.map(p=>`<button class="ghost lvsub" data-act="lvSub" data-v="${esc(p.n)}">${RN[p.role]}: entra ${esc(p.n)} (${p.r}) · sai ${esc(t.pl[p.role].n)} (${t.pl[p.role].r})</button>`).join('')}`:'';
+  const subs=(LV.state==='ckpt'&&LV.cp===0||LV.state==='between')&&!LV.sub&&S.mgr&&S.mgr.bench&&S.mgr.bench.length?`<div class="sub">Substituição (uma por mapa)</div>${S.mgr.bench.map(p=>`<button class="ghost lvsub" data-act="lvSub" data-v="${esc(p.n)}">${RN[p.role]}: entra ${esc(p.n)} (${p.r}) · sai ${esc(t.pl[p.role].n)} (${t.pl[p.role].r})</button>`).join('')}`:'';
   if(LV.state==='ckpt'){
     const cp=LV.cp,p=Math.round(lvP()*100);
     ctl=`<section class="dvpool"><p class="lvq"><b>${LVPH[cp]}</b> · chance neste mapa: <b class="num">${p}%</b></p><p class="note" style="margin:0 0 8px">Escolha a instrução para esta fase. Agressivo rende no começo e cobra no fim; Controle faz o contrário. Equilibrado perde para Agressivo, Agressivo perde para Controle, Controle perde para Equilibrado.${m.hint&&cp===0?' Dica do analista: rival tende a '+planName(m.hint)+'.':''}</p><div class="lvtac">${LVT3.map(([k,l])=>`<button class="cc" data-act="lvTac" data-v="${k}"><b>${l}</b><small>${k==='ag'?'+início, −fim':k==='co'?'−início, +fim':'neutro'}</small></button>`).join('')}</div>${subs}</section>`;
   }else if(LV.state==='run')ctl=`<section class="dvpool wait"><div class="dvw"><i></i><i></i><i></i></div><p>${ph} · ${LV.min}'</p><div class="lvbtn"><button class="ghost" data-act="lvSkip">Pular fase</button></div></section>`;
   else if(LV.state==='between')ctl=`<section class="dvpool"><p class="lvq">Mapa ${LV.gi} ${LV.res[LV.res.length-1]?'<b style="color:#00F5A0">vencido</b>':'<b style="color:#FF5C8A">perdido</b>'}. Série ${sA}–${sB}.</p>${subs}<div class="lvbtn"><button class="play" data-act="lvNext">Próximo mapa</button></div></section>`;
   else ctl=`<section class="dvpool"><p class="lvq">Série encerrada: <b class="num">${sA}–${sB}</b> · ${LV.me>LV.op?'<b style="color:#00F5A0">vitória</b>':'<b style="color:#FF5C8A">derrota</b>'}</p><div class="lvbtn"><button class="play" data-act="lvDone">Continuar</button></div></section>`;
+  if(LV.pc)ctl=pcLiveCtl(sA,sB);
   const bottom=LV.state==='done'?'':`<div class="dvbar"><button class="ghost" data-act="lvAll">Simular o resto</button><button class="ghost" data-act="lvX">Voltar</button></div>`;
   return `<div class="dvx lvx"><div class="dvw2"><div class="dvtop"><small class="k">${esc(stage)} · ${m.n===1?'jogo único':'melhor de '+m.n} · AO VIVO</small></div>
   <div class="dvh">${side(A)}<div class="dvvs lvsc num">${sA}–${sB}</div>${side(B)}</div>
-  <div class="lvclock"><b class="num">${LV.min}'</b><small>Mapa ${Math.min(LV.gi+1,m.n)} · ${ph||'fim'}</small></div>
+  <div class="lvclock"><b class="num">${LV.min}'</b><small>Mapa ${Math.min(LV.gi+1,m.n)} · ${ph||(LV.state==='pick'?'escolha':'fim')}</small></div>
   <div class="lvbar"><i style="left:${clamp(pos,3,97)}%"></i><span></span></div><p class="lvld">${Math.abs(lead)<1?'Jogo parelho':(lead>0)===(LV.us==='a')?esc(A.name)+' à frente':esc(B.name)+' à frente'}</p>
   <div class="lvst">${stat('k','Abates')}${stat('t','Torres')}${stat('d','Dragões')}${stat('b','Arauto/Barão')}</div>
   ${ctl}
@@ -2116,7 +2120,9 @@ function pcYear(){
     const ev=o.s/o.w;
     const bon=(y?(({C:1.2,F:.8,SF:.4,QF:.4})[y.wc]||0)+(y.s1&&y.s1<=2?.3:0)+(y.s2&&y.s2<=2?.3:0):0)+(ix>=0?.8:0);
     rating=clamp(r1(6.3+(ev-pc.r0)*.3+bon),3,10);
+    if(pc.mr&&pc.mr.length){const ma=pc.mr.reduce((a,b)=>a+b,0)/pc.mr.length;rating=clamp(r1(.5*rating+.5*ma),3,10)}
   }
+  pc.mr=[];
   const trophies=(a.lg||[]).length+(a.msi==='C'?1:0)+(a.wc==='C'?2:0);
   pc.fame=clamp(Math.round(pc.fame+(rating!=null?(rating-6)*3:-1)+trophies*4+(ix>=0?5:0)),0,100);
   pc.cash=r1(pc.cash+pc.sal);pc.ctr--;
@@ -2251,6 +2257,70 @@ function pcSummary(){
   const pc=S.pc,f=pcFind();if(!f)return'';
   const p=f.p,t=f.t;
   return `<section class="pn"><div class="ph" style="margin:0">${hx(p.r,'lg')}<div style="flex:1;min-width:0"><h3 style="font-size:24px">${esc(p.n)}</h3><small>${RN[p.role]} · ${esc(t.name)}${t.d===2?' (D2)':''} · ${f.bn?'reserva':'titular'} · fama ${pc.fame} · energia ${pc.en}</small></div></div>${pc.ev?'<p class="note" style="margin:8px 0 0"><span class="inj">evento pendente</span></p>':''}<div class="row" style="margin:10px 0 0"><button class="ghost" data-act="tab" data-v="pc">Abrir carreira</button></div></section>`;
+}
+
+
+/* ---------- partida na visão do jogador ---------- */
+function pcAuto(){
+  const f=pcFind();if(!f)return null;
+  return CH[f.p.role].map(([c])=>({c,v:mastOf(S.pc.n,c)+metaOf(c)*.4})).filter(x=>!LV.used.includes(x.c)).sort((a,b)=>b.v-a.v)[0].c;
+}
+function lvPick(c){
+  if(!LV||!LV.pc||LV.state!=='pick'||!c)return;
+  if(LV.used.includes(c)){msg='Fearless: você já usou esse campeão nesta série.';return}
+  const f=pcFind(),pc=S.pc;
+  LV.ch=c;
+  const d=(mastOf(pc.n,c)-.5)*.06+metaOf(c)*.03;
+  LV.adj=clamp(LV.adj+d,-.15,.15);
+  LV.log.unshift({m:0,t:`Você escolhe ${c} (domínio ${Math.round(mastOf(pc.n,c)*100)}%${metaOf(c)>=.2?', forte no meta':metaOf(c)<=-.2?', fraco no meta':''}).`,k:'sys'});
+  LV.state='ckpt';
+}
+function lvPosture(k){
+  if(!LV||!LV.pc||LV.state!=='ckpt')return;
+  const f=pcFind(),pc=S.pc,p=f.p,op=lvTeam('op').pl[p.role];
+  let t='';
+  if(k==='sf'){LV.adj+=.005;LV.ps+=.2;t='Postura segura: você joga pelo básico.'}
+  else if(k==='tm'){LV.adj+=.015;LV.ps+=.1;t='Você prioriza o time: visão, rotação e peel.'}
+  else{
+    const q=clamp(.5+(p.r-op.r)*.03+(mastOf(pc.n,LV.ch)-.5)*.2+(pc.en-50)*.002+(LV.lead>0?.05:0),.15,.85);
+    if(Math.random()<q){LV.adj+=.03;LV.ps+=1;t=`Você busca o jogo e acerta: ${p.n} domina ${op.n}.`}
+    else{LV.adj-=.02;LV.ps-=.8;t=`Você força demais e paga caro contra ${op.n}.`}
+  }
+  LV.adj=clamp(LV.adj,-.18,.18);
+  LV.log.unshift({m:LV.min,t,k:'sys'});
+  if(LV.cp===2)LV.win=Math.random()<lvP();
+  LV.state='run';lvLoop();
+}
+function pcGameEnd(win){
+  const f=pcFind(),pc=S.pc,p=f.p,role=p.role;
+  const rt=clamp(r1(6+LV.ps+(win?.7:-.5)+(mastOf(pc.n,LV.ch)-.5)*1.2+g()*.5),3,10);
+  const x=rt-6,ka=role===4?.5:1;
+  const k=Math.max(0,Math.round((1.5+x*1.3+Math.random()*2)*ka)),d=Math.max(0,Math.round(4.5-x*.9+Math.random()*2)),a=Math.max(0,Math.round((role===4?9:role===1?6:4)+x*1.4+Math.random()*3));
+  LV.gr.push({c:LV.ch,rt,k,d,a,win});LV.used.push(LV.ch);
+  LV.log.unshift({m:LV.min,t:`Sua nota no mapa: ${String(rt).replace('.',',')} (${k}/${d}/${a}) com ${LV.ch}.`,k:'end'});
+}
+function pcMatchEnd(){
+  const pc=S.pc;if(!pc||!LV||!LV.gr.length)return;
+  const avg=r1(LV.gr.reduce((s,x)=>s+x.rt,0)/LV.gr.length);
+  pc.mr=(pc.mr||[]).concat(avg).slice(-60);
+  if(avg>=8.5){pc.fame=clamp(pc.fame+1,0,100)}
+  const best=LV.gr.slice().sort((a,b)=>b.rt-a.rt)[0];
+  pcLog(`série ${LV.me>LV.op?'vencida':'perdida'} ${LV.me}–${LV.op}, nota ${String(avg).replace('.',',')}; destaque: ${best.c} (${best.k}/${best.d}/${best.a}).`);
+}
+function pcLiveCtl(sA,sB){
+  const f=pcFind(),pc=S.pc,p=f.p;
+  if(LV.state==='pick'){
+    return `<section class="dvpool"><p class="lvq"><b>Mapa ${LV.gi+1}</b> · escolha seu campeão (${RN[p.role]})</p><p class="note" style="margin:0 0 8px">Fearless: campeões já usados nesta série ficam bloqueados.${LV.pc&&LV.gi===0?' Seu domínio e o meta mudam as chances do time.':''}</p><div class="cgr">${CH[p.role].map(([c,a])=>{const tk=LV.used.includes(c),mt=metaOf(c);return `<button class="cc${tk?' tk':''}" ${tk?'disabled':''} data-act="lvPick" data-v="${esc(c)}">${chTile(c)}<b>${esc(c)}</b><small>domínio ${Math.round(mastOf(pc.n,c)*100)}${mt>=.2?' · meta+':mt<=-.2?' · meta−':''}</small><em>${archL(a)}</em></button>`}).join('')}</div></section>`;
+  }
+  if(LV.state==='ckpt'){
+    const cp=LV.cp,pr=Math.round(lvP()*100);
+    return `<section class="dvpool"><p class="lvq"><b>${LVPH[cp]}</b> · chance de vitória: <b class="num">${pr}%</b> · ${esc(LV.ch)}</p><p class="note" style="margin:0 0 8px">Como você joga esta fase? Buscar o jogo é uma aposta: se der certo, vira a luta e sua nota sobe; se falhar, o time sofre.</p><div class="lvtac"><button class="cc" data-act="lvTac" data-v="sf"><b>Seguro</b><small>poucos riscos</small></button><button class="cc" data-act="lvTac" data-v="cr"><b>Buscar o jogo</b><small>aposta alta</small></button><button class="cc" data-act="lvTac" data-v="tm"><b>Pelo time</b><small>visão e peel</small></button></div></section>`;
+  }
+  if(LV.state==='run')return `<section class="dvpool wait"><div class="dvw"><i></i><i></i><i></i></div><p>${LVPH[Math.min(LV.cp,2)]} · ${LV.min}'</p><div class="lvbtn"><button class="ghost" data-act="lvSkip">Pular fase</button></div></section>`;
+  const gl=LV.gr.map((x,i)=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr) auto"><span class="hx t${tier(Math.round(x.rt*10))} sm">${String(x.rt).replace('.',',')}</span><span class="who"><b>Mapa ${i+1} · ${esc(x.c)}</b><small>${x.k}/${x.d}/${x.a} · ${x.win?'vitória':'derrota'}</small></span></div>`).join('');
+  if(LV.state==='between')return `<section class="dvpool"><p class="lvq">Série ${sA}–${sB}.</p>${gl}<div class="lvbtn"><button class="play" data-act="lvNext">Próximo mapa</button></div></section>`;
+  const avg=r1(LV.gr.reduce((s,x)=>s+x.rt,0)/LV.gr.length);
+  return `<section class="dvpool"><p class="lvq">Série encerrada: <b class="num">${sA}–${sB}</b> · ${LV.me>LV.op?'<b style="color:#00F5A0">vitória</b>':'<b style="color:#FF5C8A">derrota</b>'} · sua nota média <b class="num">${String(avg).replace('.',',')}</b></p>${gl}<div class="lvbtn"><button class="play" data-act="lvDone">Continuar</button></div></section>`;
 }
 
 /* ---------- modo treinador estilo FIFA: central do clube ---------- */
@@ -3548,8 +3618,8 @@ function act(a,v){
   else if(a==='dvAll'){if(DV)dvAll()}
   else if(a==='dvX'){clearTimeout(DVT);DV=null}
   else if(a==='dvGo'){if(DV&&DV.done){dvGo();if(lvNeeded())lvOpen();else step();sndAfter();save();top=true}}
-  else if(a==='lvTac'){lvTac(v)}else if(a==='lvSub'){lvSub(v);save()}else if(a==='lvNext'){lvNext()}else if(a==='lvSkip'){lvSkipPhase()}else if(a==='lvAll'){lvAll()}else if(a==='lvX'){lvDone()}
-  else if(a==='lvDone'){if(LV&&LV.state==='done'){lvDone();step();sndAfter();save();top=true}}
+  else if(a==='lvTac'){if(LV&&LV.pc)lvPosture(v);else lvTac(v)}else if(a==='lvPick'){lvPick(v)}else if(a==='lvSub'){lvSub(v);save()}else if(a==='lvNext'){lvNext()}else if(a==='lvSkip'){lvSkipPhase()}else if(a==='lvAll'){lvAll()}else if(a==='lvX'){lvDone()}
+  else if(a==='lvDone'){if(LV&&LV.state==='done'){if(LV.pc)pcMatchEnd();lvDone();step();sndAfter();save();top=true}}
   else if(a==='liveOpt'){S.opt=S.opt||{};S.opt.live=+v;save()}
   else if(a==='day'){advDay(+v);save()}
   else if(a==='dayTo'){advDay(999);save()}
