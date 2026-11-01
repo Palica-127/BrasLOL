@@ -485,7 +485,7 @@ const PHASES=[
  ...[1,2,3,4].map(r=>({k:'ck'+r,g:5,l:'Copa do Mundo · Mata-mata',b:'Jogar o mata-mata da Copa'}))];
 
 /* Elencos 2026 das 6 ligas. Times marcados em EST têm elenco confirmado só em parte ou estimado; OVR e idades são notas minhas. */
-const EST=new Set(["KT Rolster", "BNK FearX", "Nongshim RedForce", "DRX", "HANJIN BRION", "DN SOOPers", "EDward Gaming", "JD Gaming", "LGD Gaming", "LNG Esports", "Ninjas in Pyjamas", "Oh My God", "Team WE", "TT Gaming", "Ultra Prime", "GIANTX", "Vitality", "SK Gaming", "NAVI", "Fnatic", "Team Heretics", "Shifters", "Dignitas", "Disguised", "FlyQuest", "Sentinels", "Shopify Rebellion", "SoftBank HAWKS", "GAM Esports", "Deep Cross Gaming", "DetonatioN FocusMe", "Ground Zero Gaming", "LOUD", "paiN Gaming", "Fluxo W7M", "Leviatán", "RED Canids", "Vivo Keyd Stars"]);
+const EST=new Set(["KT Rolster", "BNK FearX", "Nongshim RedForce", "DRX", "BRION", "DN SOOPers", "EDward Gaming", "JD Gaming", "LGD Gaming", "LNG Esports", "Ninjas in Pyjamas", "Team WE", "TT Gaming", "GIANTX", "Vitality", "SK Gaming", "NAVI", "Fnatic", "Team Heretics", "Shifters", "Dignitas", "Disguised", "FlyQuest", "Sentinels", "Shopify Rebellion", "SoftBank HAWKS", "GAM Esports", "Deep Cross Gaming", "DetonatioN FocusMe", "Ground Zero Gaming", "LOUD", "paiN Gaming", "Fluxo W7M", "Leviatán", "RED Canids", "Vivo Keyd Stars"]);
 const DATA={
 LCK:[
 ["Gen.G","Kiin 88 27","Canyon 90 25","Chovy 96 25","Ruler 89 28","Duro 83 23"],
@@ -496,7 +496,7 @@ LCK:[
 ["BNK FearX","Clear 82 24","Raptor 81 22","VicLa 83 25","Diable 84 23","Kellin 82 27"],
 ["Nongshim RedForce","Kingen 83 27","Sponge 83 26","Scout 86 28","Taeyoon 80 26","Lehends 82 31"],
 ["DRX","Rich 82 26","Vincenzo 83 21","ucal 81 27","Jiwoo 82 24","Andil 79 22"],
-["HANJIN BRION","Casting 80 22","GIDEON 80 22","Fisher 83 21","Teddy 83 29","Namgung 82 20"],
+["BRION","Casting 80 22","GIDEON 80 22","Fisher 83 21","Teddy 83 29","Namgung 82 20"],
 ["DN SOOPers","DuDu 81 24","Pyosik 80 25","Clozer 84 24","deokdam 80 20","Peter 83 23"]],
 LPL:[
 ["BLG","Bin 90 24","Xun 85 22","Knight 91 26","Viper 88 27","ON 86 24"],
@@ -509,10 +509,9 @@ LPL:[
 ["LGD Gaming","sasi 83 25","Heng 83 23","Tangyuan 82 24","Shaoye 84 25","ycx 83 23"],
 ["LNG Esports","sheer 81 24","Croco 79 24","BullDoG 82 26","1xn 82 27","LE Sup 83 24"],
 ["Ninjas in Pyjamas","HOYA 80 26","Guwon 78 20","Care 79 24","Assum 78 20","NIP Sup 82 22"],
-["Oh My God","Hery 78 25","Juhan 80 23","Haichao 79 25","Starry 79 24","Moham 78 22"],
 ["Team WE","Cube 79 27","Monki 80 20","Karis 82 20","About 82 21","Yaoyao 82 25"],
-["TT Gaming","Keshi 78 23","Junhao 77 24","Heru 80 23","Ryan3 81 20","Feather 80 26"],
-["Ultra Prime","Liangchen 80 23","Grizzly 80 21","Saber 79 26","Hena 84 25","Xiaoxia 79 20"]],
+["TT Gaming","Keshi 78 23","Junhao 77 24","Heru 80 23","Ryan3 81 20","Feather 80 26"]],
+
 LEC:[
 ["G2","BrokenBlade 86 26","SkewMond 85 24","Caps 91 27","hans sama 87 26","Labrov 83 24"],
 ["Movistar KOI","Myrwn 81 24","Elyoya 86 27","jojopyun 85 22","Supa 82 24","Alvaro 83 25"],
@@ -2247,9 +2246,12 @@ function slotsHTML(){
     const inf=i===SLOT?{y:S.year,h:S.hist.length,t:mgrT()?mgrT().name:null}:slotInfo(i);
     return `<div class="pr" style="grid-template-columns:minmax(0,1fr) auto auto"><span class="who"><b>Slot ${i+1}${i===SLOT?' · em uso':''}</b><small>${inf?`${inf.y} · ${inf.h} Bola${inf.h===1?'':'s'} fechada${inf.h===1?'':'s'}${inf.t?' · treinador do '+esc(inf.t):''}`:'vazio'}</small></span>${i===SLOT?'<span></span>':`<button class="mini" data-act="slot" data-v="${i}">${inf?'Carregar':'Novo jogo'}</button>`}${inf&&askSlot===i?`<button class="mini sell" data-act="slotDel" data-v="${i}">Confirmar</button>`:inf?`<button class="mini sell" data-act="slotAsk" data-v="${i}">Apagar</button>`:'<span></span>'}</div>`}).join('')}</section>`;
 }
+function fixLPL(){
+  if(S.teams.some(t=>t.name==='Oh My God'||t.name==='Ultra Prime')&&!S.mgr&&S.year===2026&&S.phase===0){const o=S.opt;freshGame();if(o)S.opt=o;save()}
+}
 function slotGo(i){
   save();SLOT=i;KEY=SLOTK[i];try{localStorage.setItem('lol-slot',String(i))}catch(e){}
-  S=load();if(!S)freshGame();
+  S=load();if(!S)freshGame();else fixLPL();
   tab='season';prof=null;pstack=[];askReset=false;askEnd=false;cele=null;lastPlayed=null;mgrView='inicio';dHof=null;selYear=null;
   msg='Slot '+(i+1)+' carregado.';
 }
@@ -2809,6 +2811,6 @@ document.addEventListener('input',e=>{
   else if(e.target.id==='mgr-q'){mgrQ=e.target.value;const l=document.querySelector('#mlist');if(l)l.innerHTML=mlistHTML()}
   else if(e.target.id==='q'){qStr=e.target.value;const l=document.querySelector('#plist');if(l)l.innerHTML=plistHTML()}
 });
-if(!S)freshGame();else{if(!S.lh)applyLeagueHist();if(!S.lh2)applyLeagueHist2();if(!S.lh3)applyLeagueHist3();save()}
+if(!S)freshGame();else{fixLPL();if(!S.lh)applyLeagueHist();if(!S.lh2)applyLeagueHist2();if(!S.lh3)applyLeagueHist3();save()}
 render();
 </script>
