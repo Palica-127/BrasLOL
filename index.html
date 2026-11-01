@@ -868,12 +868,12 @@ function freshGame(){S=newState();applyHon();applyTeamHist();applyLeagueHist();a
 const T=id=>S.teams[id];
 const baseOvr=t=>t.pl.reduce((s,p,i)=>s+p.r*RW[i],0);
 function effR(p,t){
-  if(!(S.inj&&S.inj[p.n]))return p.r+p.f;
+  if(!(S.inj&&S.inj[p.n]))return p.r+Math.min(p.f,2);
   let r=p.r-12;
   if(S.mgr&&S.mgr.tid===t.id&&S.mgr.bench){const rp=S.mgr.bench.concat(S.mgr.acad||[]).filter(x=>x.role===p.role&&!S.inj[x.n]).sort((a,b)=>b.r-a.r)[0];if(rp)r=Math.max(r,rp.r)}
   return r;
 }
-const eff=t=>t.pl.reduce((s,p,i)=>s+effR(p,t)*RW[i],0)+t.mom+t.hot+chemB(t)+morB(t);
+const eff=t=>t.pl.reduce((s,p,i)=>s+effR(p,t)*RW[i],0)+clamp(t.mom+t.hot+chemB(t)+morB(t),-2,2);
 function news(txt,y){S.hl=S.hl||[];S.hl.unshift({y:y||S.year,t:txt});S.hl=S.hl.slice(0,40)}
 /* lesão rara: 1% por jogador a cada split; dura até o próximo split (cobre também MSI/Mundial) */
 function rollInj(){
@@ -894,7 +894,7 @@ const hofRank=()=>Object.entries(S.hof).sort((a,b)=>sc(b[1])-sc(a[1])||a[0].loca
 function pmap(){const m={};S.teams.forEach(t=>t.pl.forEach(p=>m[p.n]={p,t}));return m}
 
 /* ---------- odds e partidas ---------- */
-const KGS={baixa:9,normal:13,alta:18};
+const KGS={baixa:13,normal:18,alta:24};
 const kgNow=()=>KGS[(S&&S.opt&&S.opt.rnd)||'normal'];
 const KG=13; /* a chance é por jogo (mapa); a da série sai da soma dos jogos. 6 pontos de OVR de diferença: ~74% por jogo, ~89% em melhor de 5 */
 function seriesP(q,n){
@@ -910,13 +910,13 @@ function perGame(P,n){
 }
 function mk(a,b,n){
   const d=eff(a)-eff(b);
-  const qa=1/(1+Math.pow(10,-d/kgNow()));
+  const qa=clamp(1/(1+Math.pow(10,-d/kgNow())),.2,.8);
   return{a:a.id,b:b.id,n,d,pa:seriesP(qa,n),qa,res:null};
 }
 function play(m){
   const need=Math.ceil(m.n/2);let wa=0,wb=0;
   let qa=m.qa;
-  if(mineM(m)){const pdl=draftOn()?draftDelta(m):planDelta(m);qa=clamp(qa+pdl.d,.03,.97);m.pn={me:pdl.me,op:pdl.op,raw:pdl.raw,dr:draftOn()}}
+  if(mineM(m)){const pdl=draftOn()?draftDelta(m):planDelta(m);qa=clamp(qa+pdl.d,.2,.8);m.pn={me:pdl.me,op:pdl.op,raw:pdl.raw,dr:draftOn()}}
   while(wa<need&&wb<need){Math.random()<qa?wa++:wb++}
   const w=wa>wb?m.a:m.b,l=wa>wb?m.b:m.a;
   m.res={wa,wb,w};
@@ -1245,7 +1245,7 @@ function mgrSeasonEnd(){
   const ach=y.wc==='C'?5:y.wc==='F'?4:y.wc==='SF'?3:y.wc==='QF'?2:y.wc==='G'?1:0;
   const lp=p=>p===1?3:p===2?1.5:p&&p<=4?.5:0;
   const income=IM()*(10+Math.max(0,baseOvr(t)-70)+lp(y.s1)+lp(y.s2)+(({C:4,F:2.5,SF:1,QF:.3,G:0})[y.msi]||0)+(({C:10,F:6,SF:4,QF:2.5,G:.5})[y.wc]||0));
-  mEnsure();const pay=0,up=r1(AC_UP[m.acLv]+CT_UP[m.ct]),net=r1(income-pay-14-up);
+  mEnsure();const pay=r1(payroll(t)),up=r1(AC_UP[m.acLv]+CT_UP[m.ct]),net=r1(income-pay-8-up);
   m.cash=r1(m.cash+net);
   const best=Math.min(y.s1||99,y.s2||99);
   let d=(ach-m.goal)*9+(ach===5?8:0)+(best===1?8:best<=4?4:0);
@@ -1894,6 +1894,12 @@ function nextSeason(){
     });
     t.mom*=.5;t.hot=0;
   });
+  {const mt=mgrT();if(mt){
+    const ot=S.teams.filter(x=>x!==mt).sort((a,b)=>baseOvr(b)-baseOvr(a)),top=ot.slice(0,5).reduce((a,x)=>a+baseOvr(x),0)/5,gap=baseOvr(mt)-top;
+    if(gap>1){const b=Math.min(2.5,(gap-1)*.4);
+      ot.slice(0,14).forEach(x=>x.pl.forEach(p=>{if(p.age<=30){p.r=Math.min(96,p.r+Math.floor(b)+(Math.random()<b%1?1:0));p.pot=Math.max(p.pot,p.r)}}));
+      news('Os rivais se reforçam para alcançar o seu time.');}
+  }}
   const rs=delta.filter(x=>x.p.r>=76).sort((a,b)=>b.p.d-a.p.d);
   rs.slice(0,3).filter(x=>x.p.d>0).forEach(x=>off.push(`Em alta: ${x.p.n} (${x.t.name}) sobe ${x.p.d} e vai a ${x.p.r}.`));
   rs.slice(-3).reverse().filter(x=>x.p.d<0).forEach(x=>off.push(`Em queda: ${x.p.n} (${x.t.name}) cai ${-x.p.d} e vai a ${x.p.r}.`));
