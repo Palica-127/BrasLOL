@@ -455,6 +455,7 @@ h1{letter-spacing:.02em}
 .ch{flex:none;min-width:84px;text-align:left;border:1px solid rgba(130,150,255,.35);background:rgba(255,255,255,.05);color:var(--ink);border-radius:10px;padding:7px 9px;cursor:pointer;min-height:44px}
 .ch b{display:block;font:700 14px var(--d);letter-spacing:.04em}.ch small{font-size:11px;color:var(--muted)}
 .ch.on{background:linear-gradient(100deg,var(--acc),var(--acc2));color:var(--on-acc);border-color:transparent}.ch.on small{color:var(--on-acc)}
+.shield{position:relative}.shield .lgimg{position:absolute;inset:8%;width:84%;height:84%;object-fit:contain;border-radius:8px;background:#222}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -2142,7 +2143,8 @@ const crest=(t,c='')=>{
     `<polygon points="0,0 100,0 100,26 50,62 0,26" fill="hsl(${b} 78% 50%)"/>`,
     `</g><path d="${P}" fill="none" stroke="#fff" stroke-width="5" stroke-opacity=".92"/><path d="${P}" fill="none" stroke="rgba(0,0,0,.35)" stroke-width="1.5" transform="translate(50 58) scale(.88) translate(-50 -58)"/>`,
     `<text x="50" y="${p===2?76:66}" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-weight="800" font-size="${fs}" fill="#fff" stroke="rgba(0,0,0,.65)" stroke-width="4" paint-order="stroke" letter-spacing="1">${esc(tx)}</text>`].join('');
-  return `<span class="shield ${c}" aria-hidden="true"><svg viewBox="0 0 100 118"><defs><clipPath id="${id}"><path d="${P}"/></clipPath></defs>${o}</svg></span>`};
+  const sl=t.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+  return `<span class="shield ${c}" aria-hidden="true"><svg viewBox="0 0 100 118"><defs><clipPath id="${id}"><path d="${P}"/></clipPath></defs>${o}</svg><img class="lgimg" src="logos/${sl}.png" alt="" loading="lazy" onerror="this.remove()"></span>`};
 const AVA='<svg viewBox="0 0 80 96"><circle cx="40" cy="28" r="20"/><path d="M4 96C4 66 20 54 40 54S76 66 76 96Z"/></svg>';
 const FSTAT=['LAN','MEC','MAC','TEA','MEN'];
 function futStats(n,r,role){
