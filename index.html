@@ -2257,7 +2257,7 @@ function vPc(){
   if(pc.ev){const e=PEV[pc.ev];h+=`<section class="pn"><h2>Evento</h2><p class="note" style="margin:0 0 10px">${esc(e.t)}</p><div class="row" style="margin:0">${e.o.map(([l,k])=>`<button class="ghost" data-act="pcEv" data-v="${k}">${l}</button>`).join('')}</div></section>`}
   /* treino */
   const fo=pc.focus==null?2:pc.focus,pts=pc.pts||0;
-  h+=`<section class="pn"><h2>Treino</h2><p class="note" style="margin:0 0 8px">Cada treino sobe <b>todos</b> os atributos um pouco e o <b>foco</b> bem mais. Pontos de atributo vêm de treinos, boas partidas, eventos e metas, e você gasta onde quiser.</p>
+  h+=`<section class="pn"><h2>Treino</h2><p class="note" style="margin:0 0 8px">Cada treino sobe <b>todos</b> os atributos um pouco e o <b>foco</b> bem mais. Pontos de atributo vêm de treinos, partidas excepcionais, eventos e metas, e você gasta onde quiser.</p>
   <div class="sub">Foco do treino</div><div class="pills">${ATL.map((l,i)=>`<button class="pill" aria-pressed="${fo===i}" data-act="pcFocus" data-v="${i}">${l}</button>`).join('')}</div>
   <div class="sub">Energia ${pc.en}/100</div>${pcBar(pc.en,100)}
   <div class="row" style="margin:10px 0"><button class="play" data-act="pcTrain" data-v="n"${pc.en<30?' disabled':''}>Treinar (30)</button><button class="ghost" data-act="pcTrain" data-v="i"${pc.en<60?' disabled':''}>Intensivo (60)</button><button class="ghost" data-act="pcRest"${pc.rest?' disabled':''}>Descansar (+25)</button></div>
@@ -2336,7 +2336,7 @@ function pcMatchEnd(){
   const avg=r1(LV.gr.reduce((s,x)=>s+x.rt,0)/LV.gr.length);
   pc.mr=(pc.mr||[]).concat(avg).slice(-60);
   if(avg>=8.5)pc.fame=clamp(pc.fame+1,0,100);
-  const pp=(avg>=8.5?2:avg>=7.5?1:0)+(LV.me>LV.op?1:0);
+  const pp=avg>=9.2?2:avg>=8.4?1:0;
   if(pp)pcPts(pp,`série ${LV.me>LV.op?'vencida':'perdida'}, nota ${String(avg).replace('.',',')}`);
   const best=LV.gr.slice().sort((a,b)=>b.rt-a.rt)[0];
   pcLog(`série ${LV.me>LV.op?'vencida':'perdida'} ${LV.me}–${LV.op}, nota ${String(avg).replace('.',',')}; destaque: ${best.c} (${best.k}/${best.d}/${best.a}).`);
