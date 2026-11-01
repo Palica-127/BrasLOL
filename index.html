@@ -735,6 +735,15 @@ function applyLeagueHist(){
   LT.forEach(([tn,k,ys])=>{const t=S.teams.find(x=>x.name===tn);if(t)ys.forEach(y=>t.tt.push({y,k,r:[],n:tn}))});
   S.lh=1;
 }
+const LT2=[
+['paiN Gaming','CBLOL',[2013]],['paiN Gaming','CBLOL Split 2',[2015]],['paiN Gaming','CBLOL Split 1',[2021]],['paiN Gaming','CBLOL Split 2',[2024]],
+['RED Canids','CBLOL Split 1',[2017,2022]],['RED Canids','CBLOL Split 2',[2021]],
+['LOUD','CBLOL Split 2',[2022,2023]],['LOUD','CBLOL Split 1',[2023,2024]],['LOUD','CBLOL Cup',[2026]],
+['Vivo Keyd Stars','CBLOL Split 1',[2014]],['FURIA','CBLOL Split 1',[2026]]];
+function applyLeagueHist2(){
+  LT2.forEach(([tn,k,ys])=>{const t=S.teams.find(x=>x.name===tn);if(t)ys.forEach(y=>{if(!t.tt.some(x=>x.y===y&&x.k===k))t.tt.push({y,k,r:[],n:tn})})});
+  S.lh2=1;
+}
 function seed2026(){
   const tm=n=>S.teams.find(t=>t.name===n);
   const L=(team,label)=>award(tm(team),'lg',label);
@@ -804,7 +813,7 @@ function startWorldsReal(){
   S.season.wc=tour;
   S.phase=PHASES.findIndex(p=>p.k==='sw')+3;
 }
-function freshGame(){S=newState();applyHon();applyTeamHist();applyLeagueHist();seed2026();startWorldsReal()}
+function freshGame(){S=newState();applyHon();applyTeamHist();applyLeagueHist();applyLeagueHist2();seed2026();startWorldsReal()}
 
 
 
@@ -2795,6 +2804,6 @@ document.addEventListener('input',e=>{
   else if(e.target.id==='mgr-q'){mgrQ=e.target.value;const l=document.querySelector('#mlist');if(l)l.innerHTML=mlistHTML()}
   else if(e.target.id==='q'){qStr=e.target.value;const l=document.querySelector('#plist');if(l)l.innerHTML=plistHTML()}
 });
-if(!S)freshGame();else if(!S.lh){applyLeagueHist();save()}
+if(!S)freshGame();else{if(!S.lh)applyLeagueHist();if(!S.lh2)applyLeagueHist2();save()}
 render();
 </script>
