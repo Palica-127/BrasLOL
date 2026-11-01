@@ -1244,8 +1244,8 @@ function mgrSeasonEnd(){
   const y=t.yh.find(x=>x.y===S.year);if(!y)return;
   const ach=y.wc==='C'?5:y.wc==='F'?4:y.wc==='SF'?3:y.wc==='QF'?2:y.wc==='G'?1:0;
   const lp=p=>p===1?3:p===2?1.5:p&&p<=4?.5:0;
-  const income=IM()*(10+Math.max(0,baseOvr(t)-70)+lp(y.s1)+lp(y.s2)+(({C:4,F:2.5,SF:1,QF:.3,G:0})[y.msi]||0)+(({C:10,F:6,SF:4,QF:2.5,G:.5})[y.wc]||0));
-  mEnsure();const pay=r1(payroll(t)),up=r1(AC_UP[m.acLv]+CT_UP[m.ct]),net=r1(income-pay-8-up);
+  const gate=IM()*10,spons=IM()*Math.max(0,baseOvr(t)-70),prize=IM()*(lp(y.s1)+lp(y.s2)+(({C:4,F:2.5,SF:1,QF:.3,G:0})[y.msi]||0)+(({C:10,F:6,SF:4,QF:2.5,G:.5})[y.wc]||0)),income=gate+spons+prize;
+  mEnsure();const pay=payOn()?r1(payroll(t)):0,fixo=payOn()?8:14,up=r1(AC_UP[m.acLv]+CT_UP[m.ct]),net=r1(income-pay-fixo-up);
   m.cash=r1(m.cash+net);
   const best=Math.min(y.s1||99,y.s2||99);
   let d=(ach-m.goal)*9+(ach===5?8:0)+(best===1?8:best<=4?4:0);
@@ -1253,7 +1253,7 @@ function mgrSeasonEnd(){
   if(m.cash<0){m.cash=0;d-=10;note=' Caixa negativo: diretoria irritada.'}
   if(d<0)d*=SM();
   m.sat=clamp(Math.round(m.sat+d),0,100);
-  m.hist.push({y:S.year,income:r1(income),pay,up,net,goal:m.goal,ach,sat:m.sat,wc:y.wc});
+  m.hist.push({y:S.year,income:r1(income),gate:r1(gate),spons:r1(spons),prize:r1(prize),fixo,pay,up,net,cashEnd:m.cash,goal:m.goal,ach,sat:m.sat,wc:y.wc});
   m.log.unshift(`${S.year}: ${y.wc==='C'?'campeão do Mundial':y.wc==='-'?'fora do Mundial':'Mundial: '+CODE[y.wc]}; saldo ${net>=0?'+':''}${fmtM(net)}; confiança ${m.sat}%.${note}`);
   m.fa.forEach(p=>{if(S.pdb[p.n])S.pdb[p.n].ret=S.year});
   mAch();
@@ -1453,6 +1453,17 @@ function elencoHTML(t,m,pay,lastH){
   if(lastH)h+=`<section class="pn"><h2>Última temporada</h2><div class="kv"><div><small>Receita</small><b class="num">${fmtM(lastH.income)}</b></div><div><small>Base e CT</small><b class="num">${fmtM(lastH.up||0)}</b></div><div><small>Saldo</small><b class="num">${lastH.net>=0?'+':''}${fmtM(lastH.net)}</b></div><div><small>Resultado</small><b>${lastH.ach>lastH.goal?'Meta superada':lastH.ach===lastH.goal?'Meta cumprida':'Abaixo da meta'}</b></div></div></section>`;
   return h;
 }
+function finHTML(t,m){
+  const on=payOn(),ovr=baseOvr(t),pr=payroll(t),up=r1(AC_UP[m.acLv||1]+CT_UP[m.ct||0]),fx=on?8:14;
+  const gate=IM()*10,sp=IM()*Math.max(0,ovr-70),sure=gate+sp,est=sure-(on?pr:0)-fx-up;
+  const row=(l,v,c)=>`<div class="rowl"><span class="grow">${l}</span><b class="num ${c||''}">${v}</b></div>`;
+  let h=`<section class="pn"><h2>Finanças</h2><div class="kv"><div><small>Caixa</small><b class="num">${m.cheat?'∞':fmtM(m.cash)}</b></div><div><small>Folha por ano</small><b class="num">${on?fmtM(pr):'desligada'}</b></div><div><small>Resultado garantido</small><b class="num ${est>=0?'up':'dn'}">${est>=0?'+':''}${fmtM(est)}</b></div></div><p class="note" style="margin:8px 0 0">O resultado garantido não conta prêmios de campanha (Split, MSI e Mundial), que entram no fim da temporada. A folha salarial pode ser ligada ou desligada em Ajustes.</p></section>`;
+  h+=`<section class="pn"><h2>Projeção da próxima temporada</h2>${row('Bilheteria e jogos',fmtM(gate))}${row('Patrocínio (cresce com o OVR do time)',fmtM(sp))}${on?row('Folha salarial','−'+fmtM(pr),'dn'):''}${row('Custos fixos do clube','−'+fmtM(fx),'dn')}${row('Academia e Centro de treino','−'+fmtM(up),'dn')}${row('Resultado sem prêmios',(est>=0?'+':'')+fmtM(est),est>=0?'up':'dn')}</section>`;
+  const pl=t.pl.concat(m.bench||[]);
+  h+=`<section class="pn"><h2>Folha salarial</h2>${pl.slice().sort((a,b)=>salOf(b)-salOf(a)).map(p=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr) auto">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${ctrTxt(p)}</small></span><b class="num">${on?fmtM(salOf(p)):'—'}</b></div>`).join('')}</section>`;
+  if(m.hist.length)h+=`<section class="pn"><h2>Balanço por temporada</h2><div class="tw"><table class="tb"><thead><tr><th>Ano</th><th>Receita</th><th>Folha</th><th>Saldo</th></tr></thead><tbody>${m.hist.slice().reverse().map(x=>`<tr><td>${x.y}</td><td>${x.income.toFixed(1)}</td><td>${x.pay?x.pay.toFixed(1):'—'}</td><td class="${x.net>=0?'up':'dn'}">${x.net>=0?'+':''}${x.net.toFixed(1)}</td></tr>`).join('')}</tbody></table></div><p class="note" style="margin:6px 0 0">Valores em milhões de US$. Receita = bilheteria + patrocínio + prêmios.</p></section>`;
+  return h;
+}
 function baseHTML(t,m){
   const open=mOpen(),ac=m.acLv,ct=m.ct;
   const up=(k,lv,cost,upk,title,desc)=>`<div class="mrow" style="grid-template-columns:minmax(0,1fr) auto"><span class="who"><b>${title} · nível ${lv}/3</b><small>${desc}<br>Custo por temporada: ${fmtM(upk[lv])}</small></span>${lv>=3?'<span class="note" style="margin:0">Máximo</span>':mb('mgrUp',k,m.cheat?'Evoluir':'Evoluir '+fmtM(cost[lv+1]).replace('US$ ',''),m.cheat||m.cash>=cost[lv+1],'')}</div>`;
@@ -1465,6 +1476,7 @@ function baseHTML(t,m){
 const DIFS={facil:['Fácil',1.2,.85,.8],normal:['Normal',1,1,1],dificil:['Difícil',.85,1.2,1.3]};
 const dfo=()=>DIFS[(S.opt&&S.opt.dif)||'normal']||DIFS.normal;
 const IM=()=>dfo()[1],PM=()=>dfo()[2],SM=()=>dfo()[3];
+const payOn=()=>!(S&&S.opt&&S.opt.pay===0);
 const hn=n=>{let h=0;for(const c of n)h=(h*31+c.charCodeAt(0))>>>0;return h};
 function potTxt(p){
   const lv=(S.mgr&&S.mgr.acLv)||1,mg=Math.max(0,Math.round(5-lv*1.5));
@@ -1820,10 +1832,12 @@ function vMgr(){
   <div class="ovb" style="height:7px;margin-top:8px"><i style="width:${m.sat}%"></i></div>
   <p class="note"><b>Meta da diretoria:</b> ${GOALS[m.goal]}.</p>
   <p class="note" style="margin-top:4px">${m.cheat?'<b style="color:var(--gold)">Cheats ligados</b>: verba infinita e janela sempre aberta.':open?'Janela de transferências <b style="color:var(--ok)">aberta</b>. Fecha quando você iniciar o próximo split.':'Janela fechada. Ela abre na virada de ano e de novo entre o MSI e o Split 2.'}</p><div class="row" style="margin:10px 0 0"><button class="ghost" data-act="cheat">${m.cheat?'Desligar cheats':'Ligar cheats'}</button></div></section>`;
-  h+=`<div class="pills stk">${[['inicio','Início'],['elenco','Elenco'],['base','Base'],['mercado','Mercado'],['livres','Livres'],['ach','Troféus']].map(([k,l])=>`<button class="pill" aria-pressed="${mgrView===k}" data-act="mgrView" data-v="${k}">${l}</button>`).join('')}</div>`;
+  h+=`<div class="pills stk">${[['inicio','Início'],['elenco','Elenco'],['base','Base'],['mercado','Mercado'],['fin','Finanças'],['livres','Livres'],['ach','Troféus']].map(([k,l])=>`<button class="pill" aria-pressed="${mgrView===k}" data-act="mgrView" data-v="${k}">${l}</button>`).join('')}</div>`;
   mEnsure();
   if(mgrView==='inicio'){
     h+=inicioHTML(t,m);
+  }else if(mgrView==='fin'){
+    h+=finHTML(t,m);
   }else if(mgrView==='elenco'){
     h+=elencoHTML(t,m,pay,lastH);
   }else if(mgrView==='base'){
@@ -2856,6 +2870,7 @@ function vSet(){
   ${slotsHTML()}
   ${mgrPanel}
   <section class="pn"><h2>Draft de campeões</h2><p class="note" style="margin:0 0 10px">Só no modo treinador. No dia do jogo, o botão Jogar abre o draft: 2 bans por time e 5 picks alternados. O domínio de cada jogador e a força do campeão no ano mudam as chances (até 7% por mapa). Desligado, o jogo começa direto e vale o plano de jogo simples.</p><div class="pills" style="margin:0">${[[1,'Ligado'],[0,'Desligado']].map(([k,l])=>`<button class="pill" aria-pressed="${(draftOn()?1:0)===k}" data-act="draftOpt" data-v="${k}">${l}</button>`).join('')}</div></section>
+  <section class="pn"><h2>Folha salarial</h2><p class="note" style="margin:0 0 10px">Só no modo treinador. Ligada, os salários dos titulares e reservas saem do caixa a cada temporada e o clube tem custos fixos menores. Desligada, só há os custos fixos e a economia fica mais folgada.</p><div class="pills" style="margin:0">${[[1,'Ligada'],[0,'Desligada']].map(([k,l])=>`<button class="pill" aria-pressed="${(payOn()?1:0)===k}" data-act="payOpt" data-v="${k}">${l}</button>`).join('')}</div></section>
   <section class="pn"><h2>Sons</h2><p class="note" style="margin:0 0 10px">Efeitos curtos ao jogar, vencer, perder e conquistar títulos.</p><div class="pills" style="margin:0">${[[1,'Ligados'],[0,'Desligados']].map(([k,l])=>`<button class="pill" aria-pressed="${(sndOn()?1:0)===k}" data-act="snd" data-v="${k}">${l}</button>`).join('')}</div></section>
   <section class="pn"><h2>Aleatoriedade</h2><p class="note" style="margin:0 0 10px">Quanto o favorito se impõe. Em Menor, a vantagem de OVR pesa mais e as zebras ficam raras. Em Maior, qualquer time pode surpreender. Vale para os próximos jogos.</p><div class="pills" style="margin:0">${[['baixa','Menor'],['normal','Normal'],['alta','Maior']].map(([k,l])=>`<button class="pill" aria-pressed="${((S.opt&&S.opt.rnd)||'normal')===k}" data-act="rnd" data-v="${k}">${l}</button>`).join('')}</div></section>
   <section class="pn"><h2>Dificuldade do treinador</h2><p class="note" style="margin:0 0 10px">Muda a receita do clube, o preço do mercado e o quanto a diretoria perde a paciência. Fácil: receita +20%, mercado 15% mais barato. Difícil: receita −15%, mercado 20% mais caro.</p><div class="pills" style="margin:0">${[['facil','Fácil'],['normal','Normal'],['dificil','Difícil']].map(([k,l])=>`<button class="pill" aria-pressed="${((S.opt&&S.opt.dif)||'normal')===k}" data-act="dif" data-v="${k}">${l}</button>`).join('')}</div></section>
@@ -2947,6 +2962,7 @@ function act(a,v){
   else if(a==='mgrCoach'){mgrCoach(v);save()}
   else if(a==='dp'){const [i,c]=String(v).split('|');if(S.mgr){S.mgr.dr=myPicks(mgrT());S.mgr.dr[+i]=c;save()}}
   else if(a==='dpAuto'){if(S.mgr){S.mgr.dr=bestPicks(mgrT(),0);save()}}
+  else if(a==='payOpt'){S.opt=S.opt||{};S.opt.pay=+v;save()}
   else if(a==='draftOpt'){S.opt=S.opt||{};S.opt.draft=+v;save()}
   else if(a==='plan'){if(S.mgr){S.mgr.plan=v;save()}}
   else if(a==='mgrRole'){mgrRole=+v}
