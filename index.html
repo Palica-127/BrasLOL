@@ -1301,7 +1301,7 @@ function mgrBuy(name,price){
   const c=canBuy(src.p,src.t);if(!c.ok){msg=c.why;return}
   const p=src.p,i=p.role,oth=src.t.pl.filter((_,j)=>j!==i);
   /* o time vendedor é obrigado a contratar alguém no lugar */
-  const nr=rookie(i,{r:p.r,avg:oth.reduce((a,x)=>a+x.r,0)/oth.length});
+  const nr=fillSlot(src.t,i).p;
   src.t.pl[i]=nr;const d=pd(nr.n);d.role=i;d.debut=S.year+1;
   m.bench.push(p);pd(p.n).role=i;mCtr(p,3);
   const pay=price!=null?price:c.net;m.cash=r1(m.cash-pay);
@@ -2069,7 +2069,7 @@ LEC:['Karmine Corp Blue','Los Ratones','Solary','Galions','Vitality.Bee','Gentle
 LCS:['Dragonsteel','Cincinnati Fear','Supernova','Blue Otter','CCG Esports','Luminosity Gaming'],
 LCP:['FRANK Esports','Saigon Warriors','FENNEL','Team Gromp','Nothin\'Here','Saigon Dino'],
 CBLOL:['7REX Team','Ei Nerd Esports','Estral Esports','INTZ','KaBuM!','TEAM SOLID']};
-function ensureD2(){
+function ensureD2a(){
   if(S&&S.d2&&!S.d2r){let k=0;for(const lg of LGS)for(const name of D2N[lg]){if(S.d2[k])S.d2[k].name=name;k++}S.d2r=1}
   if(!S||S.d2)return;
   S.d2r=1;
@@ -2083,6 +2083,24 @@ function ensureD2(){
     S.d2.push({id:100+k++,name,lg,d:2,pl,mom:0,hot:0,tt:[],yh:[],est:false});
   }
 }
+
+/* ---------- reservas dos times ---------- */
+function bnPlayer(t,role,yr){
+  const avg=t.pl.reduce((a,x)=>a+x.r,0)/t.pl.length;
+  const r=clamp(Math.round(avg-9+g()*2),58,82),age=18+Math.floor(Math.random()*5);
+  const n=uniqueName();S.pdb[n]={role,debut:yr||S.year,ret:null,seasons:[],tl:[]};
+  return{n,role,r,pot:clamp(r+2+Math.floor(Math.random()*8),r,90),age,f:0,d:0};
+}
+function ensureBn(t){
+  t.bn=(t.bn||[]).filter(p=>p.age<=31);
+  while(t.bn.length<2){const have=t.bn.map(p=>p.role),rs=[0,1,2,3,4].filter(r=>!have.includes(r));t.bn.push(bnPlayer(t,pick(rs)))}
+}
+function fillSlot(t,role){
+  const c=(t.bn||[]).filter(p=>p.role===role).sort((a,b)=>b.r-a.r)[0];
+  if(c){t.bn.splice(t.bn.indexOf(c),1);const d=pd(c.n);d.role=role;return{p:c,bench:true}}
+  const w=bnPlayer(t,role,S.year+1);w.r=Math.max(58,w.r-1);return{p:w,bench:false};
+}
+function ensureD2(){ensureD2a();if(S)ALLT().forEach(t=>{if(!t.bn)ensureBn(t)})}
 function closeD2(lg,tag,st,m1,m2,fm){
   const top=st.slice(0,4).map(r=>r.t);
   const third=[T(loserOf(m1)),T(loserOf(m2))].sort((a,b)=>top.indexOf(a)-top.indexOf(b));
@@ -2196,6 +2214,7 @@ function nextSeason(){
       if(p.age<=24)p.pot=Math.max(p.r,Math.round(p.pot+g()*.8));else p.pot=p.r;
       delta.push({p,t});
     });
+    (t.bn||[]).forEach(p=>{p.age++;const o=p.r;p.r=clamp(Math.round(p.r+ageDelta(p)*.8),55,92);p.d=p.r-o;p.pot=p.age<=24?Math.max(p.r,Math.round(p.pot+g()*.8)):p.r});
     t.mom*=.5;t.hot=0;
   });
   {const mt=mgrT();if(mt&&mt.d!==2){
@@ -2205,6 +2224,7 @@ function nextSeason(){
       news('Os rivais se reforçam para alcançar o seu time.');}
   }}
   aiTransfers();
+  ALLT().forEach(ensureBn);
   const rs=delta.filter(x=>x.p.r>=76).sort((a,b)=>b.p.d-a.p.d);
   rs.slice(0,3).filter(x=>x.p.d>0).forEach(x=>off.push(`Em alta: ${x.p.n} (${x.t.name}) sobe ${x.p.d} e vai a ${x.p.r}.`));
   rs.slice(-3).reverse().filter(x=>x.p.d<0).forEach(x=>off.push(`Em queda: ${x.p.n} (${x.t.name}) cai ${-x.p.d} e vai a ${x.p.r}.`));
@@ -2216,7 +2236,7 @@ function nextSeason(){
       off.push(`${p.n} (${t.name}) se aposentou aos ${a} anos.`);
       if((S.hof[p.n]&&sc(S.hof[p.n])>=40))news(`Lenda: ${p.n} se aposenta aos ${a} anos, com ${r1(sc(S.hof[p.n]))} pontos na carreira.`,S.year+1);
       pd(p.n).ret=S.year;
-      const oth=t.pl.filter((_,j)=>j!==i);const nr=rookie(i,{r:p.r,avg:oth.reduce((s,x)=>s+x.r,0)/oth.length},t.d===2);t.pl[i]=nr;
+      const fs_=fillSlot(t,i),nr=fs_.p;t.pl[i]=nr;if(fs_.bench)off.push(`${nr.n} (reserva) assume a vaga de ${p.n} no ${t.name}.`);
       const d=pd(nr.n);d.role=i;d.debut=S.year+1;
       if(nr.pot>=88)off.push(`Promessa: ${nr.n}, ${nr.age} anos, chega ao ${t.name} com potencial ${nr.pot}.`);
     }
@@ -3152,6 +3172,7 @@ function vTeam(id){
   o+=`<section class="pn"><div class="ph">${crest(t,'lg')}<div style="flex:1;min-width:0"><h3>${esc(t.name)}</h3><small>${llk(t.lg)}${t.est?' · elenco estimado':''} · OVR ${Math.round(baseOvr(t))} · power #${pwPos(t)} · forma ${f>0?`<span class="st up">▲${f.toFixed(1)}</span>`:f<0?`<span class="st dn">▼${(-f).toFixed(1)}</span>`:'estável'}</small></div></div>
   <div class="cab"><div>${ico('trophy')}<b class="num">${c.wc}</b><small>Mundiais</small></div><div>${ico('trophy')}<b class="num">${c.msi}</b><small>MSI</small></div><div>${ico('trophy')}<b class="num">${c.lg}</b><small>Ligas</small></div></div></section>`;
   o+=`<section class="pn"><h2>Elenco atual</h2><div class="futr">${t.pl.map(p=>fut({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f,team:t})).join('')}</div></section>`;
+  if(t.bn&&t.bn.length)o+=`<section class="pn"><h2>Reservas</h2><p class="note" style="margin:0 0 8px">Quando um titular se aposenta, o reserva da mesma função assume a vaga. Sem reserva, o time contrata um jogador mais fraco.</p>${t.bn.map(p=>`<div class="pl" style="grid-template-columns:34px minmax(0,1fr) auto">${hx(p.r,'sm')}<span><span class="nm2">${esc(p.n)}</span><br><small>${RN[p.role]} · ${p.age} anos · pot. ${p.pot}</small></span></div>`).join('')}</section>`;
   if(yh.length){
     o+=`<section class="pn"><h2>Campanha</h2><div class="kv"><div><small>Temporadas</small><b class="num">${yh.length}</b></div><div><small>Jogos (V-D)</small><b class="num">${gw}-${gl}</b></div><div><small>Aproveitamento</small><b class="num">${gw+gl?Math.round(100*gw/(gw+gl)):0}%</b></div><div><small>Vices em Mundial</small><b class="num">${wcF}</b></div><div><small>Participações MSI</small><b class="num">${yh.filter(x=>x.msi!=='-').length}</b></div><div><small>Participações Mundial</small><b class="num">${yh.filter(x=>x.wc!=='-').length}</b></div></div></section>`;
     o+=`<section class="pn"><details class="det"><summary>Histórico por temporada</summary><div class="tw"><table class="tb"><thead><tr><th>Ano</th><th>Split 1</th><th>MSI</th><th>Split 2</th><th>Mundial</th></tr></thead><tbody>${[...yh].reverse().map(s=>`<tr><td class="num">${s.y}</td><td class="num${s.s1===1?' c':''}">${pos(s.s1)}</td><td class="${s.msi==='C'?'c':''}">${CODE[s.msi]}</td><td class="num${s.s2===1?' c':''}">${pos(s.s2)}</td><td class="${s.wc==='C'?'c':''}">${CODE[s.wc]}</td></tr>`).join('')}</tbody></table></div></details></section>`;
