@@ -3145,14 +3145,16 @@ function poolHTML(n,role,tm){
   const l=CH[role].map(([c,a])=>({c,a,v:Math.round(mastOf(n,c)*100),m:metaOf(c)})).sort((x,y)=>y.v-x.v);
   return `<section class="pn"><h2>Pool de campeões</h2><p class="note" style="margin:0 0 8px">Domínio de ${esc(n)} nos campeões de ${RN[role]}. Vale no draft; a tag mostra se o campeão está forte ou fraco no meta atual (${esc(metaName())}).${tr?' Em treino de pool.':''}</p>${l.map((x,i)=>`<div class="pool"><span class="ct sm" style="--h:${hs(x.c)%360}"><b>${esc(chIni(x.c))}</b></span><span class="pn2"><b>${esc(x.c)}${i===0?' <em class="sig">assinatura</em>':''}</b><small>${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}</small></span><span class="bar"><i style="width:${x.v}%"></i></span><span class="num pv">${x.v}</span></div>`).join('')}</section>`;
 }
+function bnFind(n){for(const t of ALLT()){const p=(t.bn||[]).find(x=>x.n===n);if(p)return{p,t:{name:t.name+' (reserva)',lg:t.lg,d:t.d,yh:[],id:t.id,real:t}}}return null}
+function divTxt(t){if(!t||!t.lg)return'';const r=t.real||t,i=r.yh&&r.yh.length?pmInfo(r):{tag:''};return ` · ${r.d===2?'D2':'D1'} ${r.lg}${i.tag?' ('+i.tag+')':''}`}
 function vPlayer(n){
-  const P=pmap()[n]||mExtra(n);
+  const P=pmap()[n]||mExtra(n)||bnFind(n);
   const d=S.pdb[n]||{seasons:[],tl:[],ret:null,debut:null,role:null};
   const h=S.hof[n]||{pts:0,bd:0,wc:0,msi:0,lg:0,mvp:0};
   const ss=d.seasons,last=ss[ss.length-1];
   const ovr=P?P.p.r:(last?last.r:null);
   const role=P?P.p.role:d.role;
-  const status=P?`Ativo · ${esc(P.t.name)}${role!=null?' · '+RN[role]:''} · ${P.p.age} anos`:d.ret?`Aposentado em ${d.ret}${last?' · último time '+esc(last.tm):''}`:(d.note?esc(d.note):'Lenda do ranking inicial');
+  const status=P?`Ativo · ${esc(P.t.name)}${divTxt(P.t)}${role!=null?' · '+RN[role]:''} · ${P.p.age} anos`:d.ret?`Aposentado em ${d.ret}${last?' · último time '+esc(last.tm):''}`:(d.note?esc(d.note):'Lenda do ranking inicial');
   const gw=ss.reduce((a,s)=>a+s.gw,0),gl=ss.reduce((a,s)=>a+s.gl,0);
   const avg=f=>ss.length?r1(ss.reduce((a,s)=>a+s[f],0)/ss.length):'–';
   const bestPos=ss.length?Math.min(...ss.map(s=>s.pos)):null;
