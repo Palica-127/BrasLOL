@@ -1775,13 +1775,14 @@ function mgrMatch(){
   if(!S.mgr||S.mgr.tid==null)return null;
   return nextMatches().find(m=>!m.res&&(m.a===S.mgr.tid||m.b===S.mgr.tid))||null;
 }
-const dvNeeded=()=>{const m=mgrMatch();return !!(m&&draftOn()&&!m.dd)};
+const dvNeeded=()=>{const m=mgrMatch()||pcMatch();return !!(m&&draftOn()&&!m.dd)};
 const dvTeam=s=>T(s==='b'?DV.m.a:DV.m.b);
 const dvTaken=c=>DV.bans.b.includes(c)||DV.bans.r.includes(c)||DV.pk.b.includes(c)||DV.pk.r.includes(c);
 function dvOpen(){
-  const m=mgrMatch();if(!m)return false;
+  const m=mgrMatch()||pcMatch();if(!m)return false;
   clearTimeout(DVT);
-  DV={m,us:m.a===S.mgr.tid?'b':'r',i:0,bans:{b:[],r:[]},pk:{b:[null,null,null,null,null],r:[null,null,null,null,null]},role:0,done:false};
+  const pcm=!S.mgr,pf=pcm?pcFind():null;
+  DV={m,pc:pcm,prole:pf?pf.p.role:0,us:m.a===myTid()?'b':'r',i:0,bans:{b:[],r:[]},pk:{b:[null,null,null,null,null],r:[null,null,null,null,null]},role:0,done:false};
   dvAdv();return true;
 }
 function dvAI(){
@@ -1790,7 +1791,8 @@ function dvAI(){
     CH.forEach((r,ri)=>r.forEach(([c])=>{if(dvTaken(c))return;const v=pickScore(opp.pl[ri],c)+Math.random()*.35;if(!best||v>best.v)best={c,v}}));
     DV.bans[s].push(best.c);
   }else{
-    t.pl.forEach((p,ri)=>{if(DV.pk[s][ri])return;CH[ri].forEach(([c])=>{if(dvTaken(c))return;const v=pickScore(p,c)+Math.random()*.4;if(!best||v>best.v)best={ri,c,v}})});
+    const oth=DV.pc&&s===DV.us&&t.pl.some((p,ri)=>!DV.pk[s][ri]&&ri!==DV.prole);
+    t.pl.forEach((p,ri)=>{if(DV.pk[s][ri]||(oth&&ri===DV.prole))return;CH[ri].forEach(([c])=>{if(dvTaken(c))return;const v=pickScore(p,c)+Math.random()*.4;if(!best||v>best.v)best={ri,c,v}})});
     DV.pk[s][best.ri]=best.c;
   }
   DV.i++;
@@ -1800,14 +1802,16 @@ function dvAdv(){
   clearTimeout(DVT);
   if(!DV)return;
   if(DV.i>=SEQ.length){DV.done=true;return}
-  if(SEQ[DV.i][1]===DV.us){if(SEQ[DV.i][0]==='pick'&&DV.pk[DV.us][DV.role])DV.role=dvFirstRole();return}
+  const ut=SEQ[DV.i][1]===DV.us&&(!DV.pc||(SEQ[DV.i][0]==='pick'&&DV.pk[DV.us].every((c,ri)=>ri===DV.prole||c)));
+  if(ut){if(DV.pc)DV.role=DV.prole;else if(SEQ[DV.i][0]==='pick'&&DV.pk[DV.us][DV.role])DV.role=dvFirstRole();return}
   if(typeof setTimeout==='undefined'){dvAI();dvAdv();return}
   DVT=setTimeout(()=>{if(!DV)return;dvAI();dvAdv();render()},750);
 }
 function dvAll(){clearTimeout(DVT);while(DV.i<SEQ.length)dvAI();DV.done=true}
 function dvGo(){
   const m=DV.m,us=DV.us,op=us==='b'?'r':'b';
-  S.mgr.dr=DV.pk[us].slice();m.od=DV.pk[op].slice();m.odm=compMaj(m.od);m.hint=m.odm;m.dd=1;m.bans={b:DV.bans.b.slice(),r:DV.bans.r.slice()};
+  if(DV.pc)S.pc.dr=DV.pk[us].slice();else S.mgr.dr=DV.pk[us].slice();
+  m.od=DV.pk[op].slice();m.odm=compMaj(m.od);m.hint=m.odm;m.dd=1;m.bans={b:DV.bans.b.slice(),r:DV.bans.r.slice()};
   clearTimeout(DVT);DV=null;
 }
 const chIni=c=>{const w=c.replace(/[^A-Za-z' ]/g,'').split(/[ ']+/).filter(Boolean);return(w.length>1?w[0][0]+w[1][0]:c.slice(0,2)).toUpperCase()};
@@ -1816,15 +1820,15 @@ const chTile=(c,cls='')=>c?`<span class="ct ${cls}" style="--h:${hs(c)%360}"><b>
 function vDraft(){
   const m=DV.m,us=DV.us,A=T(m.a),B=T(m.b),turn=DV.i<SEQ.length?SEQ[DV.i]:null,mine=!!turn&&turn[1]===us,myT=dvTeam(us),opT=dvTeam(us==='b'?'r':'b');
   const stage=PHASES[S.phase]&&S.season.sp?spLabel(S.season.sp):(PHASES[S.phase]?PHASES[S.phase].l:'');
-  const head=(t,s)=>`<div class="dvt ${s}"><div class="dvc">${crest(t,'lg')}${stdPos(t)}</div><div class="dvn"><b>${esc(t.name)}</b><small>${stdRec(t)||('OVR '+Math.round(baseOvr(t)))}</small><em>${s==='b'?'Lado azul':'Lado vermelho'}${t.id===S.mgr.tid?' · você':''}</em></div></div>`;
+  const head=(t,s)=>`<div class="dvt ${s}"><div class="dvc">${crest(t,'lg')}${stdPos(t)}</div><div class="dvn"><b>${esc(t.name)}</b><small>${stdRec(t)||('OVR '+Math.round(baseOvr(t)))}</small><em>${s==='b'?'Lado azul':'Lado vermelho'}${t.id===myTid()?' · você':''}</em></div></div>`;
   const bans=s=>`<div class="dvb ${s}">${[0,1].map(i=>{const c=DV.bans[s][i];return `<span class="bs${c?' on':''}">${c?chTile(c,'sm')+'<small>'+esc(c)+'</small>':'<i>BAN</i>'}</span>`}).join('')}</div>`;
   const picks=s=>{const t=dvTeam(s);return `<div class="dvp ${s}">${t.pl.map((p,i)=>{const c=DV.pk[s][i];const act=turn&&turn[0]==='pick'&&turn[1]===s&&!c;return `<div class="pr${c?' on':''}${act?' now':''}">${chTile(c)}<div><small>${RN[i]}</small><b>${esc(p.n)}</b><em>${c?esc(c)+' · '+Math.round(mastOf(p.n,c)*100):'—'}</em></div></div>`}).join('')}</div>`};
   const lab=!turn?'Draft concluído':mine?(turn[0]==='ban'?'Sua vez: banir um campeão':'Sua vez: escolher um campeão'):`${dvTeam(turn[1]).name} está ${turn[0]==='ban'?'banindo':'escolhendo'}…`;
   const pill=SEQ.map((x,i)=>`<i class="${i<DV.i?'d':i===DV.i?'c':''} ${x[0]}"></i>`).join('');
   let pool='';
   if(turn&&mine){
-    const isBan=turn[0]==='ban',role=isBan?DV.role:(DV.pk[us][DV.role]?dvFirstRole():DV.role);
-    pool=`<section class="dvpool"><div class="pills dvrole">${RN.map((r,i)=>`<button class="pill" aria-pressed="${role===i}" ${!isBan&&DV.pk[us][i]?'disabled':''} data-act="dvRole" data-v="${i}">${r}${!isBan&&DV.pk[us][i]?' ✓':''}</button>`).join('')}</div><div class="cgr">${CH[role].map(([c,a])=>{
+    const isBan=turn[0]==='ban',role=DV.pc?DV.prole:isBan?DV.role:(DV.pk[us][DV.role]?dvFirstRole():DV.role);
+    pool=`<section class="dvpool"><div class="pills dvrole">${RN.map((r,i)=>`<button class="pill" aria-pressed="${role===i}" ${!isBan&&DV.pk[us][i]?'disabled':''} data-act="dvRole" data-v="${i}">${r}${!isBan&&DV.pk[us][i]?' ✓':''}</button>`).filter((_,i)=>!DV.pc||i===DV.prole).join('')}</div><div class="cgr">${CH[role].map(([c,a])=>{
       const tk=dvTaken(c),mt=metaOf(c),ms=isBan?Math.round(mastOf(opT.pl[role].n,c)*100):Math.round(mastOf(myT.pl[role].n,c)*100);
       return `<button class="cc${tk?' tk':''}" ${tk?'disabled':''} data-act="${isBan?'dvBan':'dvPick'}" data-v="${role}|${esc(c)}">${chTile(c)}<b>${esc(c)}</b><small>${isBan?'rival ':'seu '}${ms}${mt>=.2?' · meta+':mt<=-.2?' · meta−':''}</small><em>${archL(a)}</em></button>`}).join('')}</div><p class="note" style="margin:8px 0 0">${isBan?`Banir: o número é o domínio de <b>${esc(opT.pl[role].n)}</b> (rival) no campeão.`:`Pick: o número é o domínio de <b>${esc(myT.pl[role].n)}</b> no campeão. Composição com 3 ou mais do mesmo estilo ganha bônus.`}</p></section>`;
   }else if(!DV.done)pool=`<section class="dvpool wait"><div class="dvw"><i></i><i></i><i></i></div><p>${esc(lab)}</p></section>`;
@@ -1852,7 +1856,9 @@ function lvOpen(){
   clearTimeout(LVT);
   LV={m,pc:!S.mgr,used:[],gr:[],ps:0,ch:null,us:m.a===myTid()?'a':'b',me:0,op:0,gi:0,state:'ckpt',cp:0,min:0,lead:0,log:[],adj:0,win:null,end:30,tac:null,ot:null,
     st:{me:{k:0,t:0,d:0,b:0},op:{k:0,t:0,d:0,b:0}},sub:false,bar:false,her:false,res:[]};
-  lvGameStart();return true;
+  lvGameStart();
+  if(LV.pc&&m.dd&&S.pc.dr){const f=pcFind();LV.ch=S.pc.dr[f.p.role];LV.state='ckpt';LV.log.unshift({m:0,t:`Draft fechado: você joga de ${LV.ch}.`,k:'sys'})}
+  return true;
 }
 function lvGameStart(){
   LV.state=LV.pc?'pick':'ckpt';LV.ps=0;LV.ch=null;LV.cp=0;LV.min=0;LV.lead=0;LV.adj=0;LV.win=null;LV.end=27+Math.floor(Math.random()*9);LV.sub=false;LV.bar=false;LV.her=false;
@@ -1862,12 +1868,14 @@ function lvP(){
   const m=LV.m,A=T(m.a),B=T(m.b);
   let qa=clamp(1/(1+Math.pow(10,-(eff(A)-eff(B))/kgNow())),.2,.8);
   if(!LV.pc){const pdl=draftOn()?draftDelta(m):planDelta(m);qa=clamp(qa+pdl.d,.2,.8)}
-  const pm=LV.us==='a'?qa:1-qa;return clamp(pm+LV.adj,.1,.9);
+  let pm=LV.us==='a'?qa:1-qa;
+  if(LV.pc&&LV.gi===0&&m.dd)pm+=pcDraftD(m);
+  return clamp(pm+LV.adj,.1,.9);
 }
 function lvTeam(s){const id=myTid();return T(s==='me'?id:(LV.m.a===id?LV.m.b:LV.m.a))}
 function lvWho(s,role){
   const t=lvTeam(s),p=t.pl[role];
-  const ch=LV.pc?(s==='me'&&p.pc?LV.ch:null):s==='me'?(S.mgr.dr&&S.mgr.dr[role]):(LV.m.od&&LV.m.od[role]);
+  const ch=LV.pc?(LV.gi===0&&LV.m.dd&&S.pc.dr?(s==='me'?S.pc.dr[role]:LV.m.od&&LV.m.od[role]):(s==='me'&&p.pc?LV.ch:null)):s==='me'?(S.mgr.dr&&S.mgr.dr[role]):(LV.m.od&&LV.m.od[role]);
   return ch?`${p.n} (${ch})`:p.n;
 }
 const LANES=['topo','meio','inferior'];
@@ -2283,6 +2291,11 @@ function pcSummary(){
 function pcAuto(){
   const f=pcFind();if(!f)return null;
   return CH[f.p.role].map(([c])=>({c,v:mastOf(S.pc.n,c)+metaOf(c)*.4})).filter(x=>!LV.used.includes(x.c)).sort((a,b)=>b.v-a.v)[0].c;
+}
+function pcDraftD(m){
+  const f=pcFind();if(!f||!m.od||!S.pc.dr)return 0;
+  const t=f.t,op=T(m.a===t.id?m.b:m.a),bp=bestPicks(t,0),pk=t.pl.map((p,i)=>S.pc.dr[i]||bp[i]);
+  return clamp((compScore(t,pk,m.odm)-compScore(op,m.od,compMaj(pk)))*.012,-.07,.07);
 }
 function lvPick(c){
   if(!LV||!LV.pc||LV.state!=='pick'||!c)return;
@@ -3598,7 +3611,7 @@ function vSet(){
   return `${msg?`<div class="msg">${esc(msg)}</div>`:''}
   ${slotsHTML()}
   <section class="pn"><h2>Modo atual</h2><p class="note" style="margin:0 0 10px">${modeNow()==='mgr'?'Treinador'+(mgrT()?' · '+esc(mgrT().name):''):modeNow()==='pc'?'Jogador · '+esc(S.pc.n):'Simulador'}. Troque de modo no Menu.</p><div class="row" style="margin:0"><button class="ghost" data-act="tab" data-v="menu">Abrir Menu</button></div></section>
-  <section class="pn"><button class="sgb" data-act="setg" data-v="jog" aria-expanded="${!!setOpen.jog}">Jogabilidade<span>▾</span></button>${setOpen.jog?`<div class="sset"><h3>Draft de campeões</h3><p class="note" style="margin:0 0 10px">Só no modo treinador. No dia do jogo, o botão Jogar abre o draft: 2 bans por time e 5 picks alternados. O domínio de cada jogador e a força do campeão no ano mudam as chances (até 7% por mapa). Desligado, o jogo começa direto e vale o plano de jogo simples.</p><div class="pills" style="margin:0">${[[1,'Ligado'],[0,'Desligado']].map(([k,l])=>`<button class="pill" aria-pressed="${(draftOn()?1:0)===k}" data-act="draftOpt" data-v="${k}">${l}</button>`).join('')}</div></div>
+  <section class="pn"><button class="sgb" data-act="setg" data-v="jog" aria-expanded="${!!setOpen.jog}">Jogabilidade<span>▾</span></button>${setOpen.jog?`<div class="sset"><h3>Draft de campeões</h3><p class="note" style="margin:0 0 10px">No dia do jogo, o botão Jogar abre o draft: 2 bans por time e 5 picks alternados. No modo jogador, bans e os outros picks são automáticos e você escolhe só o seu campeão. O domínio de cada jogador e a força do campeão no ano mudam as chances (até 7% por mapa). Desligado, o jogo começa direto e vale o plano de jogo simples.</p><div class="pills" style="margin:0">${[[1,'Ligado'],[0,'Desligado']].map(([k,l])=>`<button class="pill" aria-pressed="${(draftOn()?1:0)===k}" data-act="draftOpt" data-v="${k}">${l}</button>`).join('')}</div></div>
   <div class="sset"><h3>Jogo ao vivo</h3><p class="note" style="margin:0 0 10px">Só no modo treinador. Depois do draft, a partida roda minuto a minuto: você passa instruções no início, no meio e no fim do mapa e pode fazer uma substituição por mapa. Desligado, o jogo é simulado direto.</p><div class="pills" style="margin:0">${[[1,'Ligado'],[0,'Desligado']].map(([k,l])=>`<button class="pill" aria-pressed="${(liveOn()?1:0)===k}" data-act="liveOpt" data-v="${k}">${l}</button>`).join('')}</div></div>
   <div class="sset"><h3>Folha salarial</h3><p class="note" style="margin:0 0 10px">Só no modo treinador. Ligada, os salários dos titulares e reservas saem do caixa a cada temporada e o clube tem custos fixos menores. Desligada, só há os custos fixos e a economia fica mais folgada.</p><div class="pills" style="margin:0">${[[1,'Ligada'],[0,'Desligada']].map(([k,l])=>`<button class="pill" aria-pressed="${(payOn()?1:0)===k}" data-act="payOpt" data-v="${k}">${l}</button>`).join('')}</div></div>
   <div class="sset"><h3>Aleatoriedade</h3><p class="note" style="margin:0 0 10px">Quanto o favorito se impõe. Em Menor, a vantagem de OVR pesa mais e as zebras ficam raras. Em Maior, qualquer time pode surpreender. Vale para os próximos jogos.</p><div class="pills" style="margin:0">${[['baixa','Menor'],['normal','Normal'],['alta','Maior']].map(([k,l])=>`<button class="pill" aria-pressed="${((S.opt&&S.opt.rnd)||'normal')===k}" data-act="rnd" data-v="${k}">${l}</button>`).join('')}</div></div>
@@ -3633,7 +3646,7 @@ function act(a,v){
   else if(a==='step'){if(daysLeft()>0){msg='Ainda não é dia de jogo. Avance o calendário.'}else if(dvNeeded()){dvOpen();top=true}else if(lvNeeded()){lvOpen();top=true}else{step();sndAfter();save();top=true}}
   else if(a==='dvBan'||a==='dvPick'){if(DV){const [r,c]=String(v).split('|'),t=SEQ[DV.i];if(t&&t[1]===DV.us&&!dvTaken(c)){
     if(a==='dvBan'&&t[0]==='ban'){DV.bans[DV.us].push(c);DV.i++;dvAdv()}
-    else if(a==='dvPick'&&t[0]==='pick'&&!DV.pk[DV.us][+r]){DV.pk[DV.us][+r]=c;DV.i++;dvAdv()}}}}
+    else if(a==='dvPick'&&t[0]==='pick'&&!DV.pk[DV.us][+r]&&(!DV.pc||+r===DV.prole)){DV.pk[DV.us][+r]=c;DV.i++;dvAdv()}}}}
   else if(a==='dvRole'){if(DV)DV.role=+v}
   else if(a==='dvAuto'){if(DV&&DV.i<SEQ.length&&SEQ[DV.i][1]===DV.us){dvAI();dvAdv()}}
   else if(a==='dvAll'){if(DV)dvAll()}
