@@ -2138,6 +2138,7 @@ function pcYear(){
   pc.at=pc.at.map(v=>clamp(Math.round(v+d+g()*.7),38,Math.min(99,pc.cap)));
   const bh=S.hist[S.hist.length-1],ix=bh?bh.top.findIndex(x=>x.n===p.n):-1;
   let rating=null;
+  if(!f.bn&&!o){const c=t.cs0||t.cs||{},ps=[c.s1,c.s2].filter(Boolean);if(ps.length){const bn=ps.reduce((a,b)=>a+b,0)/ps.length;rating=clamp(r1(6.8-(bn-4)*.25),3,10)}}
   if(!f.bn&&o){
     const ev=o.s/o.w;
     const bon=(y?(({C:1.2,F:.8,SF:.4,QF:.4})[y.wc]||0)+(y.s1&&y.s1<=2?.3:0)+(y.s2&&y.s2<=2?.3:0):0)+(ix>=0?.8:0);
@@ -2515,7 +2516,7 @@ function closeD2(lg,tag,st,m1,m2,fm){
   const order=[champ,runner,...third,...st.slice(4).map(r=>r.t)];
   S.season.rank['d'+tag+lg]=order.map(t=>t.id);
   const n=order.length;
-  order.forEach((t,i)=>{t.cs=t.cs||{};t.cs[tag]=i+1;t.cs[tag+'d']=2;t.mom=clamp(.55*t.mom+1.2*(1-2*i/(n-1))+(i===0?.5:0),-3,3);t.hot=0});
+  order.forEach((t,i)=>{t.cs=t.cs||{};t.cs[tag]=i+1;t.cs[tag+'d']=2;perf(t,[3,1.5,.5,.5,-.5,-1][i]??-1,1);t.mom=clamp(.55*t.mom+1.2*(1-2*i/(n-1))+(i===0?.5:0),-3,3);t.hot=0});
   champ.d2t=(champ.d2t||0)+1;
   return{lg,champ:champ.name,cid:champ.id,runner:runner.name};
 }
