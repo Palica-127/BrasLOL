@@ -496,6 +496,7 @@ h1{letter-spacing:.02em}
 .dvbar{position:fixed;left:0;right:0;bottom:0;display:flex;gap:8px;justify-content:center;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(0deg,#070614 70%,rgba(7,6,20,0))}
 .dvbar .play{max-width:420px;width:100%}
 @media(min-width:900px){.dvn b{font-size:24px}.ct{width:54px;height:54px}.pr b{font-size:15px}}
+.ptr{margin:2px 0 10px;grid-column:1/-1}.ptr .ch{min-width:88px}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -1591,10 +1592,15 @@ function evHTML(m){
   if(!m.ev)return'';const e=EVS[m.ev.id];if(!e)return'';
   return `<section class="pn evc"><small class="k">Mensagem</small><h2>${esc(e.t)}</h2><div class="pills" style="margin:0">${e.o.map(([l,k])=>`<button class="pill" data-act="mgrEv" data-v="${k}">${l}</button>`).join('')}</div></section>`;
 }
-const TRN=[['','Sem foco'],['mec','Mecânica'],['mac','Macro'],['men','Mental'],['des','Descanso']];
+const TRN=[['','Sem foco'],['mec','Mecânica'],['mac','Macro'],['men','Mental'],['pool','Pool de campeões'],['des','Descanso']];
+function ptOf(p){
+  const m=S.mgr;m.pt=m.pt||{};
+  if(m.pt[p.n]&&CH[p.role].some(x=>x[0]===m.pt[p.n]))return m.pt[p.n];
+  return CH[p.role].map(([c])=>({c,v:mastOf(p.n,c)})).filter(x=>x.v<.9).sort((a,b)=>b.v-a.v)[0]?.c||CH[p.role][0][0];
+}
 function trHTML(t,m){
   m.tr=m.tr||{};
-  return `<section class="pn"><h2>Treino individual</h2>${t.pl.map(p=>`<div class="pr" style="grid-template-columns:38px minmax(0,1fr) auto"><span class="role">${RN[p.role]}</span><span class="who">${lk(p.n)}<small>forma ${p.f>0?'+':''}${p.f.toFixed(1)}</small></span><button class="mini" data-act="mgrTr" data-v="${esc(p.n)}">${(TRN.find(x=>x[0]===(m.tr[p.n]||''))||TRN[0])[1]}</button></div>`).join('')}<p class="note">Toque para trocar. Mecânica, Macro e Mental elevam a forma aos poucos a cada dia; Descanso cura lesões mais rápido e levanta a moral.</p></section>`;
+  return `<section class="pn"><h2>Treino individual</h2>${t.pl.map(p=>`<div class="pr" style="grid-template-columns:38px minmax(0,1fr) auto"><span class="role">${RN[p.role]}</span><span class="who">${lk(p.n)}<small>forma ${p.f>0?'+':''}${p.f.toFixed(1)}</small></span><button class="mini" data-act="mgrTr" data-v="${esc(p.n)}">${(TRN.find(x=>x[0]===(m.tr[p.n]||''))||TRN[0])[1]}</button></div>${m.tr[p.n]==='pool'?`<div class="chs ptr">${CH[p.role].map(([c])=>`<button class="ch${c===ptOf(p)?' on':''}" data-act="mgrPt" data-v="${esc(p.n)}|${esc(c)}"><b>${esc(c)}</b><small>domínio ${Math.round(mastOf(p.n,c)*100)}</small></button>`).join('')}</div>`:''}`).join('')}<p class="note">Toque para trocar. Mecânica, Macro e Mental elevam a forma aos poucos a cada dia; Descanso cura lesões mais rápido e levanta a moral. Pool de campeões: o jogador treina o campeão marcado e o domínio dele sobe aos poucos (até +30), o que ajuda no draft.</p></section>`;
 }
 function mgrTr(n){const m=S.mgr;m.tr=m.tr||{};const ks=TRN.map(x=>x[0]);m.tr[n]=ks[(ks.indexOf(m.tr[n]||'')+1)%ks.length]}
 function mgrDay(){
@@ -1603,6 +1609,7 @@ function mgrDay(){
   t.pl.forEach(p=>{
     const k=m.tr[p.n];
     if(k==='mec'||k==='mac'||k==='men')p.f=Math.min(3,p.f+.03);
+    if(k==='pool'){m.pool=m.pool||{};const c=ptOf(p),o=m.pool[p.n]=m.pool[p.n]||{};o[c]=Math.min(.3,(o[c]||0)+.004)}
     if(k==='des'){if(S.inj&&S.inj[p.n]&&Math.random()<.04)delete S.inj[p.n];m.mor=Math.min(100,(m.mor==null?60:m.mor)+.05)}
     if(k==='men')m.mor=Math.min(100,(m.mor==null?60:m.mor)+.04);
   });
@@ -1641,7 +1648,7 @@ const CH=[
 const draftOn=()=>!(S&&S.opt&&(S.opt.draft===0||S.opt.draft===false));
 const archOf=c=>{for(const r of CH)for(const [n,a] of r)if(n===c)return a;return'eq'};
 const metaOf=c=>((hs(c+'|'+S.year)%7)-3)/3*.5;
-const mastOf=(n,c)=>(hs(n+'|'+c)%100)/100;
+const mastOf=(n,c)=>{const b=(hs(n+'|'+c)%100)/100,x=S&&S.mgr&&S.mgr.pool&&S.mgr.pool[n]&&S.mgr.pool[n][c]||0;return Math.min(1,b+x)};
 function pickScore(p,c){return mastOf(p.n,c)+metaOf(c)*.6}
 function bestPicks(t,noise){return t.pl.map((p,i)=>CH[i].map(([c])=>({c,v:pickScore(p,c)+(noise?(Math.random()-.5)*noise:0)})).sort((a,b)=>b.v-a.v)[0].c)}
 function compMaj(pk){const n={eq:0,ag:0,co:0};pk.forEach(c=>n[archOf(c)]++);return Object.keys(n).sort((a,b)=>n[b]-n[a])[0]}
@@ -2916,6 +2923,7 @@ function act(a,v){
   else if(a==='focus'){if(S.mgr){S.mgr.focus=v;save()}}
   else if(a==='mgrEv'){mgrEv(v);save()}
   else if(a==='mgrTr'){mgrTr(v);save()}
+  else if(a==='mgrPt'){const [n,c]=String(v).split('|');if(S.mgr){S.mgr.pt=S.mgr.pt||{};S.mgr.pt[n]=c;save()}}
   else if(a==='mgrCoach'){mgrCoach(v);save()}
   else if(a==='dp'){const [i,c]=String(v).split('|');if(S.mgr){S.mgr.dr=myPicks(mgrT());S.mgr.dr[+i]=c;save()}}
   else if(a==='dpAuto'){if(S.mgr){S.mgr.dr=bestPicks(mgrT(),0);save()}}
