@@ -444,12 +444,19 @@ h1{letter-spacing:.02em}
   .tiles{grid-template-columns:1fr;grid-row:span 2}
   .bar2{display:none}
 }
+.cele{position:relative;overflow:hidden}
+.conf{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.conf i{position:absolute;top:-12px;width:7px;height:12px;border-radius:2px;opacity:.9;animation:cf 3s linear infinite}
+@keyframes cf{to{transform:translateY(320px) rotate(540deg);opacity:0}}
+@media (prefers-reduced-motion:reduce){.conf{display:none}}
 </style>
 
 <div class="wrap" id="app"></div>
 
 <script>
-const KEY='lol-bola-de-ouro-v6';
+const SLOTK=['lol-bola-de-ouro-v6','lol-bola-de-ouro-v6-s2','lol-bola-de-ouro-v6-s3'];
+let SLOT=0;try{SLOT=Math.min(2,Math.max(0,+localStorage.getItem('lol-slot')||0))}catch(e){}
+let KEY=SLOTK[SLOT];
 const LGS=['LCK','LPL','LEC','LCS','LCP','CBLOL'];
 const SLOTS={LCK:4,LPL:4,LEC:3,LCS:2,LCP:2,CBLOL:1};
 const RW=[.19,.24,.24,.19,.14];
@@ -2152,7 +2159,7 @@ function favHTML(){
     return `<div class="fav"><b>${lg}</b><span>${ts.map(t=>`${tlk(t)} <small class="num">${Math.round(eff(t))}</small>`).join(' · ')}</span></div>`;
   }).join('')}</section>`;
 }
-const celeHTML=()=>cele?`<section class="cele"><svg viewBox="0 0 48 64" aria-hidden="true"><use href="#tr-w"/></svg><small>${esc(cele.k)}</small><b>${esc(cele.n)}</b><span>${esc(cele.s||'')}</span><button class="ghost" data-act="celeX">Fechar</button></section>`:'';
+const celeHTML=()=>cele?`<section class="cele">${confHTML()}<svg viewBox="0 0 48 64" aria-hidden="true"><use href="#tr-w"/></svg><small>${esc(cele.k)}</small><b>${esc(cele.n)}</b><span>${esc(cele.s||'')}</span><button class="ghost" data-act="celeX">Fechar</button></section>`:'';
 function mgrSummary(){
   const m=S.mgr,mt=mgrT();mEnsure();
   const inj=mt.pl.filter(p=>S.inj&&S.inj[p.n]),exp=mt.pl.concat(m.bench).filter(p=>p.exp);
@@ -2163,6 +2170,65 @@ function mgrSummary(){
   if(offs&&winOpen())al.push(`<span class="nat" style="margin:0">${offs} oferta${offs>1?'s':''}</span>`);
   return `<section class="pn"><div class="ph" style="margin:0">${crest(mt,'lg')}<div style="flex:1;min-width:0"><h3 style="font-size:26px">${esc(mt.name)}</h3><small>Meta: ${GOALS[m.goal]} · caixa ${m.cheat?'∞':fmtM(m.cash)}${winOpen()?' · janela aberta':''}</small>${al.length?`<div style="margin-top:6px">${al.join(' ')}</div>`:''}</div></div><div class="row" style="margin:10px 0 0"><button class="ghost" data-act="tab" data-v="mgr">Abrir Gestão</button></div></section>`;
 }
+
+/* ---------- salvamentos, sons e gráficos ---------- */
+function slotInfo(i){
+  try{const j=localStorage.getItem(SLOTK[i]);if(!j)return null;const o=JSON.parse(j);
+    const mt=o.mgr&&o.mgr.tid!=null&&o.teams?o.teams[o.mgr.tid]:null;
+    return{y:o.year,h:(o.hist||[]).length,t:mt?mt.name:null,d:o.day}}catch(e){return null}
+}
+function slotsHTML(){
+  return `<section class="pn"><h2>Salvamentos</h2><p class="note" style="margin:0 0 8px">Três carreiras independentes neste navegador. Troque a qualquer momento: a atual é salva antes.</p>${[0,1,2].map(i=>{
+    const inf=i===SLOT?{y:S.year,h:S.hist.length,t:mgrT()?mgrT().name:null}:slotInfo(i);
+    return `<div class="pr" style="grid-template-columns:minmax(0,1fr) auto auto"><span class="who"><b>Slot ${i+1}${i===SLOT?' · em uso':''}</b><small>${inf?`${inf.y} · ${inf.h} Bola${inf.h===1?'':'s'} fechada${inf.h===1?'':'s'}${inf.t?' · treinador do '+esc(inf.t):''}`:'vazio'}</small></span>${i===SLOT?'<span></span>':`<button class="mini" data-act="slot" data-v="${i}">${inf?'Carregar':'Novo jogo'}</button>`}${inf&&askSlot===i?`<button class="mini sell" data-act="slotDel" data-v="${i}">Confirmar</button>`:inf?`<button class="mini sell" data-act="slotAsk" data-v="${i}">Apagar</button>`:'<span></span>'}</div>`}).join('')}</section>`;
+}
+function slotGo(i){
+  save();SLOT=i;KEY=SLOTK[i];try{localStorage.setItem('lol-slot',String(i))}catch(e){}
+  S=load();if(!S)freshGame();
+  tab='season';prof=null;pstack=[];askReset=false;askEnd=false;cele=null;lastPlayed=null;mgrView='inicio';dHof=null;selYear=null;
+  msg='Slot '+(i+1)+' carregado.';
+}
+let askSlot=-1;
+const sndOn=()=>!(S&&S.opt&&S.opt.snd===0);
+let AC=null;
+function tone(f,d,t0,type,v){
+  const c=AC,o=c.createOscillator(),g=c.createGain();
+  o.type=type||'sine';o.frequency.value=f;o.connect(g);g.connect(c.destination);
+  const t=c.currentTime+(t0||0);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v||.06,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+d);
+  o.start(t);o.stop(t+d+.02);
+}
+function snd(k){
+  if(!sndOn())return;
+  try{
+    AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();
+    if(k==='win'){tone(523,.12,0,'triangle');tone(659,.12,.1,'triangle');tone(784,.22,.2,'triangle')}
+    else if(k==='lose'){tone(330,.16,0,'sawtooth',.04);tone(247,.28,.14,'sawtooth',.04)}
+    else if(k==='cheer'){[523,659,784,1047].forEach((f,i)=>tone(f,.18,i*.09,'triangle',.07));tone(1047,.5,.4,'sine',.06)}
+    else tone(660,.05,0,'sine',.03);
+  }catch(e){}
+}
+function sndAfter(){
+  if(cele){snd('cheer');return}
+  const mid=S.mgr&&S.mgr.tid;
+  if(mid!=null){
+    const ms=[...(S.season.sp&&S.season.sp.last||[]),...['wc','msi'].flatMap(k=>{const t=S.season[k];return t&&t.stages&&t.stages.length?t.stages[t.stages.length-1].ms:[]})];
+    const my=ms.find(m=>m.res&&(m.a===mid||m.b===mid)&&lastPlayed);
+    if(my){snd(my.res.w===mid?'win':'lose');return}
+  }
+  snd('click');
+}
+const CFC=['#00F5A0','#00C2FF','#FFE27A','#7A5CFF','#FF5C8A'];
+const confHTML=()=>`<div class="conf" aria-hidden="true">${Array.from({length:26},(_,i)=>`<i style="left:${(i*37)%100}%;background:${CFC[i%5]};animation-delay:${((i*13)%9)/10}s;animation-duration:${2.2+(i%5)*.4}s"></i>`).join('')}</div>`;
+function ovrChart(ss){
+  const pts=ss.filter(x=>x.r).map(x=>({y:x.y,r:x.r,a:x.age}));
+  if(pts.length<2)return'';
+  const W=320,H=130,P=26,lo=Math.min(...pts.map(p=>p.r))-2,hi=Math.max(...pts.map(p=>p.r))+2;
+  const X=i=>P+i*(W-P*1.6)/(pts.length-1),Y=r=>H-22-(r-lo)*(H-40)/Math.max(1,hi-lo);
+  const pk=pts.reduce((a,p)=>p.r>a.r?p:a,pts[0]);
+  const step=Math.ceil(pts.length/6);
+  return `<section class="pn"><h2>Evolução do OVR</h2><svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Evolução do OVR por temporada" style="display:block"><polyline points="${pts.map((p,i)=>X(i)+','+Y(p.r)).join(' ')}" fill="none" stroke="#00F5A0" stroke-width="2.5" stroke-linejoin="round"/>${pts.map((p,i)=>`<circle cx="${X(i)}" cy="${Y(p.r)}" r="${p===pk?5:3}" fill="${p===pk?'#FFE27A':'#00C2FF'}"/>${i%step===0||p===pk?`<text x="${X(i)}" y="${H-6}" text-anchor="middle" font-size="10" fill="#A9B4E6">${p.y}</text>`:''}`).join('')}<text x="${X(pts.indexOf(pk))}" y="${Y(pk.r)-9}" text-anchor="middle" font-size="12" font-weight="700" fill="#FFE27A">${pk.r}</text></svg><p class="note" style="margin:6px 0 0">Pico: ${pk.r} em ${pk.y}, aos ${pk.a} anos.</p></section>`;
+}
+
 /* ---------- tela Jogar: hub em blocos (celular) e painel (PC) ---------- */
 function nextMatches(){
   const p=PHASES[S.phase];if(!p)return[];
@@ -2525,6 +2591,7 @@ function vPlayer(n){
   <div><small>Top 10 na Bola</small><b class="num">${ss.filter(s=>s.pos<=10).length}</b></div>
   ${P&&P.p.age<=24?`<div><small>Potencial</small><b class="num">${Math.round(P.p.pot)}</b></div>`:''}</div></section>`;
   if(d.tl.length)o+=`<section class="pn"><details class="det"><summary>Todos os títulos e prêmios</summary>${[...d.tl].reverse().map(x=>`<div class="tr"><b>${esc(x.t)}</b><small>${x.y}${x.tm?' · '+esc(x.tm):''}</small></div>`).join('')}</details></section>`;
+  o+=ovrChart(ss);
   if(ss.length)o+=`<section class="pn"><h2>Temporadas</h2><div class="tw"><table class="tb"><thead><tr><th>Ano</th><th>Time</th><th>OVR</th><th>Idade</th><th>Nota</th><th>Pos.</th><th>Jogos</th><th>KDA</th></tr></thead><tbody>${[...ss].reverse().map(s=>`<tr><td class="num">${s.y}</td><td>${esc(s.tm)}</td><td class="num">${s.r}</td><td class="num">${s.age}</td><td class="num">${s.sc}</td><td class="num${s.pos===1?' c':''}">${pos(s.pos)}</td><td class="num">${s.gw}-${s.gl}</td><td class="num">${s.kda}</td></tr>`).join('')}</tbody></table></div><p class="note">Posição é o lugar do jogador na votação geral da temporada. KDA é simulado a partir do desempenho.</p></section>`;
   return o;
 }
@@ -2555,7 +2622,9 @@ function vSet(){
   const mt=mgrT();
   const mgrPanel=mt?`<section class="pn"><h2>Modo carreira</h2><p class="note" style="margin:0 0 10px">Você é o manager do ${esc(mt.name)} desde ${S.mgr.since}. Meta atual: ${GOALS[S.mgr.goal]}.</p><div class="row" style="margin:0"><button class="ghost" data-act="tab" data-v="mgr">Abrir Gestão</button>${askEnd?'<button class="ghost danger" data-act="mgrEndOk">Confirmar</button><button class="ghost" data-act="mgrEndNo">Cancelar</button>':'<button class="ghost" data-act="mgrEnd">Encerrar carreira</button>'}</div></section>`:`<section class="pn"><h2>Modo carreira</h2><p class="note" style="margin:0 0 10px">${S.mgr&&S.mgr.fired?'Você foi demitido. Escolha um novo clube.':'Assuma um time como manager: administre o caixa, desenvolva promessas na base, venda e empreste jogadores, negocie na virada de ano e cumpra as metas da diretoria. O jogo continua simulando todas as ligas.'}</p>${pickerHTML()}</section>`;
   return `${msg?`<div class="msg">${esc(msg)}</div>`:''}
+  ${slotsHTML()}
   ${mgrPanel}
+  <section class="pn"><h2>Sons</h2><p class="note" style="margin:0 0 10px">Efeitos curtos ao jogar, vencer, perder e conquistar títulos.</p><div class="pills" style="margin:0">${[[1,'Ligados'],[0,'Desligados']].map(([k,l])=>`<button class="pill" aria-pressed="${(sndOn()?1:0)===k}" data-act="snd" data-v="${k}">${l}</button>`).join('')}</div></section>
   <section class="pn"><h2>Aleatoriedade</h2><p class="note" style="margin:0 0 10px">Quanto o favorito se impõe. Em Menor, a vantagem de OVR pesa mais e as zebras ficam raras. Em Maior, qualquer time pode surpreender. Vale para os próximos jogos.</p><div class="pills" style="margin:0">${[['baixa','Menor'],['normal','Normal'],['alta','Maior']].map(([k,l])=>`<button class="pill" aria-pressed="${((S.opt&&S.opt.rnd)||'normal')===k}" data-act="rnd" data-v="${k}">${l}</button>`).join('')}</div></section>
   <section class="pn"><h2>Dificuldade do treinador</h2><p class="note" style="margin:0 0 10px">Muda a receita do clube, o preço do mercado e o quanto a diretoria perde a paciência. Fácil: receita +20%, mercado 15% mais barato. Difícil: receita −15%, mercado 20% mais caro.</p><div class="pills" style="margin:0">${[['facil','Fácil'],['normal','Normal'],['dificil','Difícil']].map(([k,l])=>`<button class="pill" aria-pressed="${((S.opt&&S.opt.dif)||'normal')===k}" data-act="dif" data-v="${k}">${l}</button>`).join('')}</div></section>
   <section class="pn"><h2>Bandeiras</h2><p class="note" style="margin:0 0 10px">Mostra a bandeira ao lado do código do país. Em alguns aparelhos (como Windows) a bandeira aparece só como letras; nesse caso, desligue.</p><div class="pills" style="margin:0">${[['1','Ligadas'],['0','Desligadas']].map(([k,l])=>`<button class="pill" aria-pressed="${flagOn()===(k==='1')}" data-act="flags" data-v="${k}">${l}</button>`).join('')}</div></section>
@@ -2582,7 +2651,7 @@ function act(a,v){
   if(['tab','player','team','nation','back','step','all'].includes(a))animNext=true;
   let top=false;
   if(a==='tab'){tab=v;askReset=false;askEnd=false;lastPlayed=null;prof=null;pstack=[]}
-  else if(a==='step'){if(daysLeft()>0){msg='Ainda não é dia de jogo. Avance o calendário.'}else{step();save();top=true}}
+  else if(a==='step'){if(daysLeft()>0){msg='Ainda não é dia de jogo. Avance o calendário.'}else{step();sndAfter();save();top=true}}
   else if(a==='day'){advDay(+v);save()}
   else if(a==='dayTo'){advDay(999);save()}
   else if(a==='fl'){S.opt=S.opt||{};S.opt.fl=v;save()}
@@ -2647,6 +2716,10 @@ function act(a,v){
   else if(a==='mgrUp'){mgrUp(v);save()}
   else if(a==='mgrOffer'){const [i,w]=v.split('|');mgrOffer(+i,w==='y');save()}
   else if(a==='reset'){askReset=true}
+  else if(a==='slot'){slotGo(+v);save()}
+  else if(a==='slotAsk'){askSlot=+v}
+  else if(a==='slotDel'){try{localStorage.removeItem(SLOTK[+v])}catch(e){}askSlot=-1;msg='Slot '+(+v+1)+' apagado.'}
+  else if(a==='snd'){S.opt=S.opt||{};S.opt.snd=+v;save();if(+v)snd('win')}
   else if(a==='resetNo'){askReset=false}
   else if(a==='resetOk'){freshGame();save();askReset=false;dHof=null;selYear=null;msg='Simulador reiniciado.'}
   render();
