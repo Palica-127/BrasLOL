@@ -499,6 +499,7 @@ h1{letter-spacing:.02em}
 .ptr{margin:2px 0 10px;grid-column:1/-1}.ptr .ch{min-width:88px}
 .dvmeta{margin:8px 0 0;text-align:center;font-size:11px;color:#9fb4ff}.dvmeta b{color:#FFE27A}
 .pool{display:grid;grid-template-columns:30px minmax(0,1fr) 84px 28px;align-items:center;gap:10px;padding:6px 0;border-top:1px solid rgba(130,150,255,.14)}.pool .pn2 b{display:block;font-size:14px}.pool .pn2 small{color:#8194A8;font-size:11px}.pool .bar{height:8px;border-radius:4px;background:rgba(255,255,255,.1);overflow:hidden}.pool .bar i{display:block;height:100%;background:linear-gradient(90deg,#00C2FF,#00F5A0)}.pool .pv{text-align:right;font-weight:700}.sig{font-style:normal;font-size:9px;letter-spacing:.08em;text-transform:uppercase;background:#FFE27A;color:#1a1400;border-radius:6px;padding:1px 5px;margin-left:4px}
+.bids{margin:-4px 0 8px;padding:8px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(130,150,255,.2)}.bids small{display:block;color:#9fb4ff;margin-bottom:6px}.bids div{display:flex;gap:6px;flex-wrap:wrap}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -1274,7 +1275,7 @@ function canBuy(p,t){
   if(m.cash-net<0)return{ok:false,why:'Sem caixa',net};
   return{ok:true,net};
 }
-function mgrBuy(name){
+function mgrBuy(name,price){
   const mine=mgrT(),m=S.mgr;mEnsure();
   let src=null;S.teams.forEach(t=>t.pl.forEach(p=>{if(p.n===name)src={t,p}}));
   if(!src||src.t===mine)return;
@@ -1284,9 +1285,39 @@ function mgrBuy(name){
   const nr=rookie(i,{r:p.r,avg:oth.reduce((a,x)=>a+x.r,0)/oth.length});
   src.t.pl[i]=nr;const d=pd(nr.n);d.role=i;d.debut=S.year+1;
   m.bench.push(p);pd(p.n).role=i;mCtr(p,3);
-  m.cash=r1(m.cash-c.net);
-  mlog(m.cheat?`${S.year}: cheat: ${p.n} (${src.t.name}) para as reservas.`:`${S.year}: comprou ${p.n} (${src.t.name}) por ${fmtM(c.net)}; ele foi para as reservas e o ${src.t.name} contratou ${nr.n}.`);
+  const pay=price!=null?price:c.net;m.cash=r1(m.cash-pay);
+  mlog(m.cheat?`${S.year}: cheat: ${p.n} (${src.t.name}) para as reservas.`:`${S.year}: comprou ${p.n} (${src.t.name}) por ${fmtM(pay)}; ele foi para as reservas e o ${src.t.name} contratou ${nr.n}.`);
   msg=`${p.n} está nas suas reservas. Promova-o a titular quando quiser.`;
+}
+let NG=null;
+function mgrBid(v){
+  const [name,pc]=String(v).split('|'),pct=+pc,m=S.mgr;mEnsure();
+  let src=null;S.teams.forEach(t=>t.pl.forEach(p=>{if(p.n===name)src={t,p}}));
+  if(!src||src.t===mgrT())return;
+  const c=canBuy(src.p,src.t);if(!c.ok){msg=c.why;return}
+  if(m.cheat){mgrBuy(name);NG=null;return}
+  const key=S.year+':'+(S.phase<4?'a':'b');
+  m.neg=m.neg||{};let ng=m.neg[name];if(!ng||ng.k!==key)ng=m.neg[name]={k:key,tries:0,counter:null};
+  if(ng.tries>=2){msg=`${src.t.name} encerrou a negociação por ${name} nesta janela.`;return}
+  const price=pct===-1?ng.counter:r1(c.net*pct/100);
+  if(price==null)return;
+  if(m.cash<price){msg='Sem caixa';return}
+  let ok=pct===-1||pct>=100;
+  if(!ok){
+    let pr=pct>=90?.6:.28;
+    if(src.p.age>=29)pr+=.15;if(rankOfTeam(src.t)<=6)pr-=.2;if(src.p.r>=90)pr-=.1;
+    ok=Math.random()<pr;
+  }
+  if(ok){delete m.neg[name];NG=null;mgrBuy(name,price);return}
+  ng.tries++;
+  if(ng.tries>=2){ng.counter=null;msg=`${src.t.name} recusou e encerrou a negociação por ${name}.`}
+  else{ng.counter=r1(Math.max(price,c.net*(pct>=90?.97:.95)));msg=`${src.t.name} recusou ${fmtM(price)} e pede ${fmtM(ng.counter)} por ${name}.`}
+}
+function mgrList(name){
+  const m=S.mgr,f=mFind(name);if(!m||!f)return;
+  m.listed=m.listed||{};
+  if(m.listed[name]){delete m.listed[name];msg=`${name} saiu da lista de transferências.`}
+  else{m.listed[name]=r1(mvOf(f.p)*1.25);msg=`${name} está à venda por ${fmtM(m.listed[name])}. Os clubes farão ofertas durante a janela.`}
 }
 function mgrSign(name){
   const mine=mgrT(),m=S.mgr;mEnsure();
@@ -1393,7 +1424,7 @@ function mgrSell(name,price,buyerId){
   buyer.pl[p.role]=p;pd(p.n).role=p.role;
   m.fa.push({...out,f:0,d:0});m.fa=m.fa.slice(-16);
   m.cash=r1(m.cash+price);if(p.home&&price>=10)m.homeSale=true;
-  m.offers=m.offers.filter(o=>o.n!==name);
+  m.offers=m.offers.filter(o=>o.n!==name);if(m.listed)delete m.listed[name];
   mlog(`${S.year}: vendeu ${p.n} (OVR ${p.r}) ao ${buyer.name} por ${fmtM(price)}${f.k==='pl'?`; ${rp.n} assume a vaga`:''}.`);
   msg=`${p.n} foi vendido ao ${buyer.name} por ${fmtM(price)}.`;
   return true;
@@ -1404,7 +1435,7 @@ function mgrLoan(name){
   const f=mFind(name);if(!f||f.k==='pl')return;
   const to=pick(S.teams.filter(x=>x!==t)),fee=r1(Math.max(.1,mvOf(f.p)*.08));
   dropFrom(f.p);m.loan.push({p:f.p,to:to.name,from:f.k});
-  m.cash=r1(m.cash+fee);m.offers=m.offers.filter(o=>o.n!==name);
+  m.cash=r1(m.cash+fee);m.offers=m.offers.filter(o=>o.n!==name);if(m.listed)delete m.listed[name];
   mlog(`${S.year}: emprestou ${f.p.n} ao ${to.name} por 1 temporada e recebeu ${fmtM(fee)}.`);
   msg=`${f.p.n} foi emprestado ao ${to.name}. Volta na virada de ano, mais experiente.`;
 }
@@ -1447,8 +1478,8 @@ function elencoHTML(t,m,pay,lastH){
   let h='';
   const offs=m.offers.map((o,i)=>({o,i,f:mFind(o.n)})).filter(x=>x.f);
   if(offs.length)h+=`<section class="pn"><h2>Ofertas recebidas</h2>${offs.map(({o,i,f})=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(f.p.r,'sm')}<span class="who">${lk(f.p.n)}<small>${crest(S.teams[o.to],'sm')} ${esc(S.teams[o.to].name)} oferece ${fmtM(o.price)}${f.k==='pl'?` · ${bestRep(f.p.role)?'reserva assume a vaga':'sem reserva'}`:f.k==='acad'?' · da base':' · das reservas'}</small><div class="acts">${mb('mgrOffer',i+'|y',open?'Aceitar':'Janela fechada',open&&(f.k!=='pl'||!!bestRep(f.p.role)),'')}${mb('mgrOffer',i+'|n','Recusar',true,'sell')}</div></span></div>`).join('')}<p class="note">Você não é obrigado a vender.</p></section>`;
-  h+=`<section class="pn"><h2>Titulares</h2>${t.pl.map(p=>{const rp=bestRep(p.role),f={k:'pl',p};return `<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos · vale ${fmtM(mvOf(p))} · ${ctrTxt(p)}</small><div class="acts">${p.exp||p.ctr<=1?renUI(p,open):''}${mb('mgrSell',p.n,!open?'Janela fechada':!rp?'Sem reserva':'Vender '+fmtM(sellPrice(f)).replace('US$ ',''),open&&!!rp,'sell')}</div></span></div>`}).join('')}<p class="note">Para vender um titular você precisa de uma reserva ou promessa da base na mesma posição. Quem tem contrato vencendo sai se você não renovar antes do Split 1.</p></section>`;
-  if(m.bench.length)h+=`<section class="pn"><h2>Reservas</h2>${m.bench.map(p=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos · vale ${fmtM(mvOf(p))} · ${ctrTxt(p)}</small><div class="acts">${mb('mgrPromote',p.n,'Titular',open,'')}${p.exp||p.ctr<=1?renUI(p,open):''}${more('Mais',mb('mgrSell',p.n,'Vender '+fmtM(sellPrice({k:'bench',p})).replace('US$ ',''),open,'sell')+mb('mgrLoan',p.n,'Emprestar',open,'sell')+mb('mgrRelease',p.n,'Dispensar',open,'sell'))}</div></span></div>`).join('')}<p class="note">Venda, empreste ou promova suas reservas.</p></section>`;
+  h+=`<section class="pn"><h2>Titulares</h2>${t.pl.map(p=>{const rp=bestRep(p.role),f={k:'pl',p};return `<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos · vale ${fmtM(mvOf(p))} · ${ctrTxt(p)}</small><div class="acts">${p.exp||p.ctr<=1?renUI(p,open):''}${mb('mgrSell',p.n,!open?'Janela fechada':!rp?'Sem reserva':'Vender '+fmtM(sellPrice(f)).replace('US$ ',''),open&&!!rp,'sell')}${mb('mgrList',p.n,m.listed&&m.listed[p.n]?'Na lista':'Listar',open,'sell')}</div></span></div>`}).join('')}<p class="note">Para vender um titular você precisa de uma reserva ou promessa da base na mesma posição. Quem tem contrato vencendo sai se você não renovar antes do Split 1.</p></section>`;
+  if(m.bench.length)h+=`<section class="pn"><h2>Reservas</h2>${m.bench.map(p=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos · vale ${fmtM(mvOf(p))} · ${ctrTxt(p)}</small><div class="acts">${mb('mgrPromote',p.n,'Titular',open,'')}${p.exp||p.ctr<=1?renUI(p,open):''}${more('Mais',mb('mgrSell',p.n,'Vender '+fmtM(sellPrice({k:'bench',p})).replace('US$ ',''),open,'sell')+mb('mgrList',p.n,m.listed&&m.listed[p.n]?'Na lista':'Listar',open,'sell')+mb('mgrLoan',p.n,'Emprestar',open,'sell')+mb('mgrRelease',p.n,'Dispensar',open,'sell'))}</div></span></div>`).join('')}<p class="note">Venda, empreste ou promova suas reservas.</p></section>`;
   if(m.loan.length)h+=`<section class="pn"><h2>Emprestados</h2>${m.loan.map(l=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(l.p.r,'sm')}<span class="who">${lk(l.p.n)}<small>${RN[l.p.role]} · no ${esc(l.to)} · volta em ${S.year+1}</small></span></div>`).join('')}</section>`;
   if(lastH)h+=`<section class="pn"><h2>Última temporada</h2><div class="kv"><div><small>Receita</small><b class="num">${fmtM(lastH.income)}</b></div><div><small>Base e CT</small><b class="num">${fmtM(lastH.up||0)}</b></div><div><small>Saldo</small><b class="num">${lastH.net>=0?'+':''}${fmtM(lastH.net)}</b></div><div><small>Resultado</small><b>${lastH.ach>lastH.goal?'Meta superada':lastH.ach===lastH.goal?'Meta cumprida':'Abaixo da meta'}</b></div></div></section>`;
   return h;
@@ -1468,7 +1499,7 @@ function baseHTML(t,m){
   const open=mOpen(),ac=m.acLv,ct=m.ct;
   const up=(k,lv,cost,upk,title,desc)=>`<div class="mrow" style="grid-template-columns:minmax(0,1fr) auto"><span class="who"><b>${title} · nível ${lv}/3</b><small>${desc}<br>Custo por temporada: ${fmtM(upk[lv])}</small></span>${lv>=3?'<span class="note" style="margin:0">Máximo</span>':mb('mgrUp',k,m.cheat?'Evoluir':'Evoluir '+fmtM(cost[lv+1]).replace('US$ ',''),m.cheat||m.cash>=cost[lv+1],'')}</div>`;
   let h=`<section class="pn"><h2>Estrutura</h2>${up('ac',ac,AC_COST,AC_UP,'Academia',`Recruta ${1+ac} promessas por ano e comporta ${acCap(m)}. Nível maior traz talentos melhores, acelera o crescimento e afina o olheiro: o potencial das promessas aparece como faixa e vai ficando mais preciso.`)}${up('ct',ct,CT_COST,CT_UP,'Centro de treinamento',`Os titulares evoluem um pouco mais a cada virada de ano (+${(ct*.5).toFixed(1).replace('.',',')} de OVR em média).`)}</section>`;
-  h+=`<section class="pn"><h2>Time de base · ${m.acad.length}/${acCap(m)}</h2>${m.acad.length?m.acad.slice().sort((a,b)=>b.pot-a.pot).map(p=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos · potencial ${potTxt(p)} · vale ${fmtM(mvOf(p))}</small><div class="acts">${mb('mgrPromote',p.n,'Promover',open,'')}${more('Mais',mb('mgrSell',p.n,'Vender '+fmtM(sellPrice({k:'acad',p})).replace('US$ ',''),open,'sell')+mb('mgrLoan',p.n,'Emprestar',open,'sell')+mb('mgrRelease',p.n,'Dispensar',open,'sell'))}</div></span></div>`).join(''):'<p class="empty">Nenhuma promessa na base. Novos talentos chegam na virada de ano.</p>'}<p class="note">As promessas crescem sozinhas a cada virada de ano e saem da base aos 21 anos, indo para as reservas. Emprestar rende uma taxa e devolve o jogador mais maduro.</p></section>`;
+  h+=`<section class="pn"><h2>Time de base · ${m.acad.length}/${acCap(m)}</h2>${m.acad.length?m.acad.slice().sort((a,b)=>b.pot-a.pot).map(p=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos · potencial ${potTxt(p)} · vale ${fmtM(mvOf(p))}</small><div class="acts">${mb('mgrPromote',p.n,'Promover',open,'')}${more('Mais',mb('mgrSell',p.n,'Vender '+fmtM(sellPrice({k:'acad',p})).replace('US$ ',''),open,'sell')+mb('mgrList',p.n,m.listed&&m.listed[p.n]?'Na lista':'Listar',open,'sell')+mb('mgrLoan',p.n,'Emprestar',open,'sell')+mb('mgrRelease',p.n,'Dispensar',open,'sell'))}</div></span></div>`).join(''):'<p class="empty">Nenhuma promessa na base. Novos talentos chegam na virada de ano.</p>'}<p class="note">As promessas crescem sozinhas a cada virada de ano e saem da base aos 21 anos, indo para as reservas. Emprestar rende uma taxa e devolve o jogador mais maduro.</p></section>`;
   return h;
 }
 
@@ -1847,11 +1878,18 @@ function vMgr(){
   }else if(mgrView==='mercado'){
     const old=t.pl[mgrRole];
     h+=`<input id="mgr-q" class="search" type="search" placeholder="Buscar qualquer jogador" value="${esc(mgrQ)}" aria-label="Buscar jogador"><div class="pills">${RN.map((r,i)=>`<button class="pill" aria-pressed="${mgrRole===i}" data-act="mgrRole" data-v="${i}">${r}</button>`).join('')}</div>`;
+    if(S.tf&&S.tf.length)h+=`<section class="pn"><h2>Movimentação do mercado</h2><ul class="lines">${S.tf.slice(0,6).map(x=>`<li>${esc(x.t)}</li>`).join('')}</ul></section>`;
     h+=`<section class="pn"><h2>Mercado</h2><p class="note" style="margin:0 0 6px">${m.cheat?'Cheats ligados: contratar não custa nada. O jogador vai para as suas reservas e o time vendedor contrata outro no lugar.':`O jogador comprado vai para as suas reservas, sem trocar com ninguém. O time vendedor é obrigado a contratar outro no lugar. Depois é só promovê-lo a titular.`}</p><div id="mlist">${mlistHTML()}</div></section>`;
   }else{
     h+=`<section class="pn"><h2>Agentes livres</h2><p class="note" style="margin:0 0 6px">Quem não for contratado se aposenta na virada de ano. Eles chegam como reservas.</p>${m.fa.map(p=>{const fee=r1(mvOf(p)*.6*PM());const ok=m.cheat||(open&&m.cash-fee>=0);const why=!open?'Fechada':'Sem caixa';return `<div class="mrow">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos${p.age<=23?` · potencial ${potTxt(p)}`:''}</small></span><button class="buy" data-act="mgrSign" data-v="${esc(p.n)}"${ok?'':' disabled'}>${ok?(m.cheat?'Contratar':'Contratar '+fmtM(fee).replace('US$ ','')):why}</button></div>`}).join('')}</section>`;
   }
   return h+logHTML(m);
+}
+function bidsHTML(p,c){
+  const ng=S.mgr.neg&&S.mgr.neg[p.n],tk=ng&&ng.k===S.year+':'+(S.phase<4?'a':'b')?ng:null;
+  if(tk&&tk.tries>=2)return `<div class="bids"><small>Negociação encerrada nesta janela.</small></div>`;
+  const b=(pc,l)=>`<button class="mini" data-act="mgrBid" data-v="${esc(p.n)}|${pc}">${l} · ${fmtM(c.net*pc/100).replace('US$ ','')}</button>`;
+  return `<div class="bids"><small>Pedida: ${fmtM(c.net)}. Propostas menores podem ser recusadas.</small><div>${b(80,'80%')}${b(90,'90%')}${b(100,'Pedida')}${tk&&tk.counter?`<button class="mini sell" data-act="mgrBid" data-v="${esc(p.n)}|-1">Aceitar ${fmtM(tk.counter).replace('US$ ','')}</button>`:''}</div></div>`;
 }
 function mlistHTML(){
   const t=mgrT(),q=mgrQ.trim().toLowerCase();
@@ -1859,7 +1897,7 @@ function mlistHTML(){
   rows=q?rows.filter(r=>r.p.n.toLowerCase().includes(q)):rows.filter(r=>r.p.role===mgrRole);
   rows=rows.sort((a,b)=>b.p.r-a.p.r).slice(0,q?40:25);
   if(!rows.length)return '<p class="empty">Nenhum jogador encontrado.</p>';
-  return rows.map(({p,x})=>{const c=canBuy(p,x);return `<div class="mrow">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${esc(x.name)} · ${p.age} anos</small></span><button class="buy" data-act="mgrBuy" data-v="${esc(p.n)}"${c.ok?'':' disabled'}>${c.ok?(S.mgr.cheat?'Contratar':'Pagar '+fmtM(c.net).replace('US$ ','')):c.why}</button></div>`}).join('');
+  return rows.map(({p,x})=>{const c=canBuy(p,x);return `<div class="mrow">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${esc(x.name)} · ${p.age} anos</small></span>${S.mgr.cheat?`<button class="buy" data-act="mgrBuy" data-v="${esc(p.n)}"${c.ok?'':' disabled'}>Contratar</button>`:`<button class="buy" data-act="mgrNeg" data-v="${esc(p.n)}"${c.ok?'':' disabled'}>${c.ok?(NG===p.n?'Fechar':'Propor'):c.why}</button>`}</div>${NG===p.n&&c.ok?bidsHTML(p,c):''}`}).join('');
 }
 function logHTML(m){
   if(!m.log.length)return '';
@@ -1890,6 +1928,20 @@ function ageDelta(p){
   if(a<=30)return -.8+g()*1.4;
   return -2.2+g()*1.5;
 }
+function aiTransfers(){
+  const mt=S.mgr&&S.mgr.tid!=null?S.mgr.tid:-1,n=4+Math.floor(Math.random()*4);
+  S.tf=S.tf||[];
+  for(let k=0;k<n;k++){
+    const buyer=pick(S.teams.filter(t=>t.id!==mt)),c=[];
+    S.teams.forEach(x=>{if(x===buyer||x.id===mt)return;x.pl.forEach(p=>{const cur=buyer.pl[p.role];if(p.r>cur.r&&p.r-cur.r<=6)c.push({x,p})})});
+    if(!c.length)continue;
+    const z=pick(c),p=z.p,i=p.role,old=buyer.pl[i];
+    z.x.pl[i]=old;buyer.pl[i]=p;pd(p.n).role=i;pd(old.n).role=i;
+    S.tf.unshift({y:S.year,t:`${S.year}: ${buyer.name} contrata ${p.n} (${z.x.name}); ${old.n} faz o caminho inverso.`});
+    if(p.r>=86)news(`${buyer.name} contrata ${p.n}, do ${z.x.name}.`);
+  }
+  S.tf=S.tf.slice(0,24);
+}
 function nextSeason(){
   if(mgrT())mgrSeasonEnd();
   const mid=S.mgr&&S.mgr.tid!=null?S.mgr.tid:-1;
@@ -1914,6 +1966,7 @@ function nextSeason(){
       ot.slice(0,14).forEach(x=>x.pl.forEach(p=>{if(p.age<=30){p.r=Math.min(96,p.r+Math.floor(b)+(Math.random()<b%1?1:0));p.pot=Math.max(p.pot,p.r)}}));
       news('Os rivais se reforçam para alcançar o seu time.');}
   }}
+  aiTransfers();
   const rs=delta.filter(x=>x.p.r>=76).sort((a,b)=>b.p.d-a.p.d);
   rs.slice(0,3).filter(x=>x.p.d>0).forEach(x=>off.push(`Em alta: ${x.p.n} (${x.t.name}) sobe ${x.p.d} e vai a ${x.p.r}.`));
   rs.slice(-3).reverse().filter(x=>x.p.d<0).forEach(x=>off.push(`Em queda: ${x.p.n} (${x.t.name}) cai ${-x.p.d} e vai a ${x.p.r}.`));
@@ -1999,6 +2052,14 @@ function dayNews(){
 }
 function dayOffer(){
   const m=S.mgr,t=mgrT();if(!m||!t)return;mEnsure();
+  const L=Object.keys(m.listed||{}).filter(n=>mFind(n)&&!m.offers.some(o=>o.n===n));
+  if(L.length&&Math.random()<.75){
+    const n=pick(L),f=mFind(n),ask=m.listed[n],v=mvOf(f.p),over=ask/v-1.05;
+    if(over>0&&Math.random()<Math.min(.85,over*1.6))return;
+    const w=S.teams.filter(x=>x!==t&&x.pl[f.p.role].r<f.p.r),buyer=pick(w.length?w:S.teams.filter(x=>x!==t));
+    const price=r1(Math.min(ask,v*1.6)*(.8+Math.random()*.3));
+    m.offers.push({n,to:buyer.id,price});mlog(`${dTxt(S.day)}: ${buyer.name} oferece ${fmtM(price)} por ${n}, que está na lista.`);return;
+  }
   const cand=t.pl.concat(m.bench,m.acad).filter(p=>!m.offers.some(o=>o.n===p.n));
   if(!cand.length)return;
   const p=pick(cand),f=mFind(p.n);if(!f)return;
@@ -2010,7 +2071,7 @@ function dayOffer(){
 function dayTick(){
   if(S.mgr&&mgrT())mgrDay();
   if(Math.random()<.05)dayNews();
-  if(S.mgr&&mgrT()&&winOpen()&&Math.random()<.14&&(S.mgr.offers||[]).length<3)dayOffer();
+  if(S.mgr&&mgrT()&&winOpen()&&Math.random()<(Object.keys(S.mgr.listed||{}).length?.25:.14)&&(S.mgr.offers||[]).length<3)dayOffer();
 }
 function advDay(n){
   let k=0;
@@ -2966,6 +3027,9 @@ function act(a,v){
   else if(a==='draftOpt'){S.opt=S.opt||{};S.opt.draft=+v;save()}
   else if(a==='plan'){if(S.mgr){S.mgr.plan=v;save()}}
   else if(a==='mgrRole'){mgrRole=+v}
+  else if(a==='mgrNeg'){NG=NG===v?null:v}
+  else if(a==='mgrBid'){mgrBid(v);save()}
+  else if(a==='mgrList'){mgrList(v);save()}
   else if(a==='mgrBuy'){mgrBuy(v);mAch();save()}
   else if(a==='mgrSign'){mgrSign(v);save()}
   else if(a==='mgrSell'){mgrSell(v);mAch();save()}
