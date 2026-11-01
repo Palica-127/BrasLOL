@@ -2132,18 +2132,29 @@ const tier=r=>r>=90?4:r>=85?3:r>=80?2:1;
 const LGH={LCK:190,LPL:6,LEC:268,LCS:216,LCP:150,CBLOL:96};
 const ini=n=>{const w=n.replace(/[^A-Za-z0-9\u00C0-\u017F' .]/g,'').split(/[ .]+/).filter(Boolean);return(w.length>1?w.slice(0,3).map(x=>x[0]).join(''):n.slice(0,3)).toUpperCase()};
 const hs=s=>{let h=7;for(const ch of String(s))h=(h*31+ch.charCodeAt(0))>>>0;return h};
+const TCOL={'T1':['#d4122a','#14141c'],'Gen.G':['#c9a227','#15130c'],'Hanwha Life':['#f36f21','#17120e'],'Dplus KIA':['#1f1f2a','#2fd0c0'],'KT Rolster':['#e0242b','#f4f4f4'],'BNK FearX':['#f2c200','#111'],'Nongshim RedForce':['#c8102e','#111'],'DRX':['#1d3cc4','#e9eefc'],'BRION':['#14803c','#0d1a12'],'DN SOOPers':['#2a5bff','#f2f5ff'],
+'BLG':['#37c4ee','#f06292'],"Anyone's Legend":['#c8192b','#1a1a1a'],'Top Esports':['#e5452e','#16161c'],'Invictus Gaming':['#f4f4f4','#1b1b22'],'Weibo Gaming':['#e8332a','#f2a900'],'EDward Gaming':['#ece6e0','#16161c'],'JD Gaming':['#c4161c','#1b1b1b'],'LGD Gaming':['#2750b8','#e3262e'],'LNG Esports':['#2a3d9a','#f0507a'],'Ninjas in Pyjamas':['#b6e82a','#17210a'],'Team WE':['#d8242e','#f2f2f2'],'TT Gaming':['#2fb4e8','#143a66'],
+'Fnatic':['#f57a1b','#121212'],'G2':['#16161a','#f4f4f4'],'Karmine Corp':['#39a7ee','#0f1c3a'],'Movistar KOI':['#1486d8','#e8f4ff'],'Vitality':['#fbe22b','#141414'],'GIANTX':['#f2f2f4','#262a3a'],'SK Gaming':['#efeff4','#1a1a22'],'NAVI':['#ffe21a','#101010'],'Team Heretics':['#d6b25a','#16120c'],'Shifters':['#7a4fd0','#17102a'],
+'Team Liquid':['#14284f','#eef2fa'],'LYON':['#c8a45e','#22180c'],'Cloud9':['#2aa6ea','#f0f7fd'],'Dignitas':['#f6c91c','#141414'],'Disguised':['#e8ecf6','#262a38'],'FlyQuest':['#2f9a52','#0f1e15'],'Sentinels':['#d92b3a','#111'],'Shopify Rebellion':['#f4f4f4','#1a1a1a'],
+'Team Secret Whales':['#1c2a44','#e8eef8'],'CTBC Flying Oyster':['#e0b020','#17306a'],'MVK Esports':['#f16a1b','#12110f'],'SoftBank HAWKS':['#101418','#f2f2f2'],'GAM Esports':['#e8b42c','#1a1408'],'Deep Cross Gaming':['#2e86e8','#f2f6ff'],'DetonatioN FocusMe':['#2b3a6e','#8cb4f4'],'Ground Zero Gaming':['#58c42a','#14210c'],
+'Fluxo W7M':['#7a2fd0','#e6409a'],'FURIA':['#101010','#f2f2f2'],'Leviatán':['#6aa6dc','#10243a'],'LOUD':['#52f04a','#0c120c'],'paiN Gaming':['#121212','#e23a45'],'RED Canids':['#c8202a','#f4f4f4'],'Vivo Keyd Stars':['#6a2a9c','#f0e8fa'],'LOS':['#f06a30','#181210']};
 const crest=(t,c='')=>{
-  const h=hs(t.name),a=h%360,b=(a+140+(h>>9)%80)%360,p=(h>>4)%4,id='sh'+h,tx=ini(t.name),fs=tx.length>=3?27:34;
-  const P='M50 3L94 15V58C94 86 70 106 50 114C30 106 6 86 6 58V15Z';
-  const o=[`<path d="${P}" fill="hsl(${a} 72% 36%)"/>`,
-    `<g clip-path="url(#${id})">`,
-    p===0?`<rect x="50" y="0" width="60" height="120" fill="hsl(${b} 78% 50%)"/>`:
-    p===1?`<polygon points="0,70 100,28 100,56 0,98" fill="hsl(${b} 78% 52%)"/>`:
-    p===2?`<rect x="0" y="0" width="100" height="42" fill="hsl(${b} 78% 50%)"/>`:
-    `<polygon points="0,0 100,0 100,26 50,62 0,26" fill="hsl(${b} 78% 50%)"/>`,
-    `</g><path d="${P}" fill="none" stroke="#fff" stroke-width="5" stroke-opacity=".92"/><path d="${P}" fill="none" stroke="rgba(0,0,0,.35)" stroke-width="1.5" transform="translate(50 58) scale(.88) translate(-50 -58)"/>`,
-    `<text x="50" y="${p===2?76:66}" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-weight="800" font-size="${fs}" fill="#fff" stroke="rgba(0,0,0,.65)" stroke-width="4" paint-order="stroke" letter-spacing="1">${esc(tx)}</text>`].join('');
-  const sl=t.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+  const h=hs(t.name),tx=ini(t.name),id='sh'+h,fs=tx.length>=3?25:32;
+  const cl=TCOL[t.name]||['hsl('+(h%360)+' 70% 42%)','hsl('+((h>>5)%360)+' 78% 62%)'],A=cl[0],B=cl[1];
+  const lum=x=>{const m=/^#(..)(..)(..)$/.exec(x);return m?(parseInt(m[1],16)*.3+parseInt(m[2],16)*.59+parseInt(m[3],16)*.11):90};
+  const tc=lum(A)>150?'#14141c':'#fff',sk=lum(A)>150?'rgba(255,255,255,.7)':'rgba(0,0,0,.6)';
+  const SH=['M50 3L94 15V58C94 86 70 106 50 114C30 106 6 86 6 58V15Z','M50 4A47 47 0 1 1 49.9 4Z','M50 3L91 26V80L50 115L9 80V26Z','M50 3L96 59L50 115L4 59Z','M14 8H86Q94 8 94 16V76Q94 92 50 114Q6 92 6 76V16Q6 8 14 8Z','M50 3L95 36L78 108H22L5 36Z'];
+  const P=SH[h%SH.length],k=(h>>3)%8;
+  const mo=[`<rect x="0" y="0" width="100" height="40" fill="${B}" opacity=".9"/>`,
+   `<polygon points="0,62 100,22 100,50 0,90" fill="${B}" opacity=".9"/>`,
+   `<polygon points="0,0 100,0 100,26 50,64 0,26" fill="${B}" opacity=".9"/>`,
+   `<rect x="50" y="0" width="60" height="120" fill="${B}" opacity=".9"/>`,
+   `<circle cx="50" cy="58" r="34" fill="none" stroke="${B}" stroke-width="8" opacity=".9"/>`,
+   `<polygon points="0,118 50,36 100,118" fill="${B}" opacity=".85"/>`,
+   `<g fill="${B}" opacity=".9"><rect x="14" y="0" width="12" height="120" transform="skewX(-14)"/><rect x="42" y="0" width="12" height="120" transform="skewX(-14)"/><rect x="70" y="0" width="12" height="120" transform="skewX(-14)"/></g>`,
+   `<g fill="${B}" opacity=".9"><circle cx="18" cy="14" r="16"/><circle cx="86" cy="104" r="22"/></g>`][k];
+  const o=`<path d="${P}" fill="${A}"/><g clip-path="url(#${id})">${mo}</g><path d="${P}" fill="none" stroke="${B}" stroke-width="6"/><path d="${P}" fill="none" stroke="rgba(0,0,0,.4)" stroke-width="1.5" transform="translate(50 58) scale(.88) translate(-50 -58)"/><text x="50" y="${k===2?72:68}" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-weight="800" font-size="${fs}" fill="${tc}" stroke="${sk}" stroke-width="3.5" paint-order="stroke" letter-spacing="1">${esc(tx)}</text>`;
+  const sl=t.name.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
   return `<span class="shield ${c}" aria-hidden="true"><svg viewBox="0 0 100 118"><defs><clipPath id="${id}"><path d="${P}"/></clipPath></defs>${o}</svg><img class="lgimg" src="logos/${sl}.png" alt="" loading="lazy" onerror="this.remove()"></span>`};
 const AVA='<svg viewBox="0 0 80 96"><circle cx="40" cy="28" r="20"/><path d="M4 96C4 66 20 54 40 54S76 66 76 96Z"/></svg>';
 const FSTAT=['LAN','MEC','MAC','TEA','MEN'];
