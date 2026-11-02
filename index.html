@@ -1242,9 +1242,11 @@ function awards(){
     const o=psOf(t.pl[0].n);
     t.yh.push({y:S.year,s1:(t.cs&&t.cs.s1)||0,s2:(t.cs&&t.cs.s2)||0,d:t.cs&&t.cs.s2d===2?2:undefined,
       msi:code(msi,t.id),wc:code(wc,t.id),gw:o.gw,gl:o.gl});t.cs0=t.cs;t.cs={};
+    {const r=podItems(t.yh[t.yh.length-1]);if(r.it.length)t.pl.forEach(p=>{const d=pd(p.n);(d.pod=d.pod||[]).push({y:S.year,tm:t.name,it:r.it,v:r.v,q:r.q})})}
   });
   D2L().forEach(t=>{
     t.yh.push({y:S.year,s1:(t.cs&&t.cs.s1)||0,s2:(t.cs&&t.cs.s2)||0,msi:'-',wc:'-',gw:0,gl:0,d:2});t.cs0=t.cs;t.cs={};
+    {const r=podItems(t.yh[t.yh.length-1]);if(r.it.length)t.pl.forEach(p=>{const d=pd(p.n);(d.pod=d.pod||[]).push({y:S.year,tm:t.name,it:r.it,v:r.v,q:r.q})})}
   });
   S.pwCur={};pwRank().forEach((x,i)=>S.pwCur[x.t.id]=i+1);
   const r=S.season.res;
@@ -3543,17 +3545,27 @@ function shelfHTML(t){
   });
   return h+`</section>`;
 }
+function podItems(h){
+  const it=[];let v=0,q=0;
+  const st=(n,l)=>{if(n===2){it.push(`${l}: vice`);v++}else if(n===3||n===4){it.push(`${l}: ${n}º`);q++}};
+  if(h.wc==='F'){it.push('Mundial: vice');v++}else if(h.wc==='SF'){it.push('Mundial: semifinal (3º–4º)');q++}
+  if(h.msi==='F'){it.push('MSI: vice');v++}else if(h.msi==='SF'){it.push('MSI: semifinal (3º–4º)');q++}
+  const dv=h.d===2?' (D2)':'';
+  st(h.s1,'Split 1'+dv);st(h.s2,'Split 2'+dv);
+  return{it,v,q};
+}
+function podPl(n){
+  const L=(S.pdb[n]&&S.pdb[n].pod)||[];
+  if(!L.length)return `<section class="pn pod"><h2>Pódios e vices</h2><p class="note" style="margin:0">Vices, 3º e 4º lugares ficam registrados aqui a partir de 2026, fora da estante.</p></section>`;
+  const v=L.reduce((a,x)=>a+x.v,0),q=L.reduce((a,x)=>a+x.q,0);
+  return `<section class="pn pod"><h2>Pódios e vices</h2><div class="chips"><span><b class="num">${v}</b>Vices</span><span><b class="num">${q}</b>3º / 4º</span></div>${L.slice().reverse().map(r=>`<div class="pr2"><b class="num">${r.y}</b><span>${r.it.map(esc).join(' · ')}<br><small style="color:var(--muted)">${esc(r.tm)}</small></span></div>`).join('')}<p class="note" style="margin:6px 0 0">Registro desde 2026, pelo time em que o jogador terminou o ano.</p></section>`;
+}
 function podiumsHTML(t){
   const rows=[];let v=0,q=0;
   const ys=(t.yh||[]).slice();const cs=t.cs||{};if(cs.s1||cs.s2)ys.push({y:S.year,s1:cs.s1||0,s2:cs.s2||0,msi:'-',wc:'-',d:t.d,cur:1});
   ys.forEach(h=>{
-    const it=[];
-    const st=(n,l)=>{if(n===2){it.push(`${l}: vice`);v++}else if(n===3||n===4){it.push(`${l}: ${n}º`);q++}};
-    if(h.wc==='F'){it.push('Mundial: vice');v++}else if(h.wc==='SF'){it.push('Mundial: semifinal (3º–4º)');q++}
-    if(h.msi==='F'){it.push('MSI: vice');v++}else if(h.msi==='SF'){it.push('MSI: semifinal (3º–4º)');q++}
-    const dv=h.d===2?' (D2)':'';
-    st(h.s1,'Split 1'+dv);st(h.s2,'Split 2'+dv);
-    if(it.length)rows.push({y:h.y,it});
+    const r=podItems(h);v+=r.v;q+=r.q;
+    if(r.it.length)rows.push({y:h.y,it:r.it});
   });
   if(!rows.length)return `<section class="pn pod"><h2>Pódios e vices</h2><p class="note" style="margin:0">Vices, 3º e 4º lugares ficam registrados aqui a partir de 2026, fora da estante.</p></section>`;
   return `<section class="pn pod"><h2>Pódios e vices</h2><div class="chips"><span><b class="num">${v}</b>Vices</span><span><b class="num">${q}</b>3º / 4º</span></div>${rows.reverse().map(r=>`<div class="pr2"><b class="num">${r.y}</b><span>${r.it.map(esc).join(' · ')}</span></div>`).join('')}<p class="note" style="margin:6px 0 0">Registro desde 2026. Nos torneios de mata-mata, as duas semifinais perdidas valem 3º–4º.</p></section>`;
@@ -3651,7 +3663,7 @@ function vPlayer(n){
   let o=`<div class="row"><button class="ghost" data-act="back">← Voltar</button></div>`;
   o+=`<section class="pn"><div class="ph phf">${ovr?fut({n,r:ovr,role:role==null?2:role,age:P?P.p.age:null,f:P?P.p.f:0,team:P?P.t:null},'big'):'<span class="hx lg">–</span>'}<div><h3>${esc(n)}${h.bd?`<span class="balls" title="${h.bd} Bolas de Ouro">${'<i></i>'.repeat(Math.min(h.bd,8))}</span>`:''}</h3><small>${status}${natC(n)?' · '+esc(NATN[natC(n)]||natC(n)):''}</small></div></div>
   <div class="cnt"><div><b class="num">${h.bd}</b><small>Bolas de Ouro</small></div><div><b class="num">${h.wc}</b><small>Mundiais</small></div><div><b class="num">${h.msi}</b><small>MSI</small></div><div><b class="num">${h.lg}</b><small>Ligas</small></div><div><b class="num">${(d.tl||[]).filter(x=>x.t==='Copa do Mundo de LoL').length}</b><small>Copas</small></div><div><b class="num">${h.mvp||0}</b><small>MVPs</small></div><div><b class="num">${r1(h.pts)}</b><small>Pontos</small></div></div></section>`;
-  o+=pshelfHTML(n,d,h);
+  o+=pshelfHTML(n,d,h)+podPl(n);
   o+=poolHTML(n,P?role:null,P?P.t:null);
   if(!ss.length&&!d.tl.length){
     return o+`<p class="empty">${P?'Ainda sem temporadas fechadas. As estatísticas aparecem depois da primeira Bola de Ouro.':'Jogador do ranking inicial. Não há temporadas simuladas para mostrar.'}</p>`;
