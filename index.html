@@ -133,6 +133,7 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
 .pl{display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
 .pl:first-child{border-top:0}
 
+.fm{display:flex;gap:3px;justify-content:center;margin:4px 0 2px}.fm i{width:9px;height:9px;border-radius:50%;background:#3ddc97;box-shadow:0 0 6px rgba(61,220,151,.5)}.fm i.l{background:#ff6b6b;box-shadow:0 0 6px rgba(255,107,107,.4)}
 .hero{position:relative;overflow:hidden;text-align:center;padding:20px 14px 18px;margin-bottom:14px;color:var(--on-gold);
   background:radial-gradient(130% 120% at 50% 0%,var(--gold-hi),var(--gold-lo) 78%);
   clip-path:polygon(18px 0,calc(100% - 18px) 0,100% 18px,100% calc(100% - 18px),calc(100% - 18px) 100%,18px 100%,0 calc(100% - 18px),0 18px)}
@@ -937,6 +938,7 @@ function play(m){
   m.res={wa,wb,w};
   const W=T(w),L=T(l);
   W.hot=Math.min(1.2,W.hot+.3);L.hot=Math.max(-1.2,L.hot-.3);
+  W.fm=((W.fm||'')+'V').slice(-5);L.fm=((L.fm||'')+'D').slice(-5);
   if(mineM(m)){const M=S.mgr;M.mor=clamp((M.mor==null?60:M.mor)+(w===M.tid?3:-3),10,100)}
   T(m.a).pl.forEach(p=>{const o=psOf(p.n);o.gw+=wa;o.gl+=wb});
   T(m.b).pl.forEach(p=>{const o=psOf(p.n);o.gw+=wb;o.gl+=wa});
@@ -3239,7 +3241,7 @@ function hubHTML(cur){
   const playLbl=cur?(dvNeeded()?'Jogar · Draft':sp?spBtn(sp):(cur.k==='s1'||cur.k==='s2')?'Iniciar '+cur.l+' jogo a jogo':cur.b):`Abrir temporada ${S.year+1}`;
   const m=heroMatch();
   const rec=PHASES[S.phase]&&PHASES[S.phase].k==='sw'&&S.season.wc&&S.season.wc.rec;
-  const side=t=>`<div class="tm"><span class="crw">${crest(t,'lg')}${stdPos(t)}</span><b>${esc(t.name)}</b><small>${stdRec(t)?stdRec(t)+' · ':''}OVR ${Math.round(baseOvr(t))}</small></div>`;
+  const side=t=>`<div class="tm"><span class="crw">${crest(t,'lg')}${stdPos(t)}</span><b>${esc(t.name)}</b>${t.fm?`<span class="fm">${[...t.fm].map(c=>`<i class="${c==='V'?'w':'l'}"></i>`).join('')}</span>`:''}<small>${stdRec(t)?stdRec(t)+' · ':''}OVR ${Math.round(baseOvr(t))}</small></div>`;
   let h=`<div class="hub"><div class="hh"><div><small class="k">${dWk(td)} · temporada ${S.year}</small><b class="num">${x.d} ${MESF[x.m]}</b></div><div class="hbtn"><button class="ghost" data-act="day" data-v="1"${left<=0?' disabled':''}>+1 dia</button><button class="ghost" data-act="day" data-v="7"${left<=0?' disabled':''}>+1 semana</button>${left>0?'<button class="ghost" data-act="dayTo">Simular até o jogo</button>':''}</div></div>`;
   h+=`<section class="hero2"><small class="k">${left<=0?'Hoje':'Próximo'} · ${esc(nm)}</small>`;
   if(m){
