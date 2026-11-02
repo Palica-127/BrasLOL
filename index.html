@@ -277,12 +277,18 @@ h1{white-space:nowrap}
 .gr.mine span:first-child::after{content:" ★";color:var(--teal)}
 
 /* estantes */
-.shelf{position:relative;display:flex;flex-wrap:wrap;align-items:flex-end;gap:2px 8px;padding:10px 6px 2px;min-height:96px;margin-bottom:18px;background:linear-gradient(180deg,transparent 40%,rgba(255,255,255,.035))}
-.shelf::after{content:"";position:absolute;left:-6px;right:-6px;bottom:-8px;height:9px;background:linear-gradient(180deg,#7a5522,#3a2610);box-shadow:0 7px 12px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.18)}
+.shelf{position:relative;display:flex;flex-wrap:wrap;align-items:flex-end;gap:2px 8px;padding:14px 8px 4px;min-height:104px;margin-bottom:20px;border-radius:6px 6px 0 0;border:1px solid rgba(217,179,95,.14);border-bottom:0;background:radial-gradient(ellipse 75% 90% at 50% 0,rgba(255,226,150,.17),transparent 72%),repeating-linear-gradient(90deg,rgba(255,255,255,.018) 0 2px,transparent 2px 7px),linear-gradient(180deg,#13162c,#0a0c1b);box-shadow:inset 0 14px 26px rgba(0,0,0,.55),inset 0 -10px 18px rgba(217,179,95,.05)}
+.shelf::after{content:"";position:absolute;left:-8px;right:-8px;bottom:-11px;height:12px;border-radius:2px;background:linear-gradient(180deg,#a8763a 0,#7a5522 35%,#3a2610 100%);box-shadow:0 9px 14px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.28)}
 .shelf .none{color:var(--muted);font-size:13px;align-self:center;padding:0 4px 8px}
 .tro{display:flex;flex-direction:column;align-items:center;width:50px;margin-bottom:7px}
-.tro svg{width:44px;height:58px;filter:drop-shadow(0 4px 5px rgba(0,0,0,.55))}
-.tro b{font:700 13px var(--d);letter-spacing:.04em;color:var(--ink);margin-top:3px}
+.tro svg{width:44px;height:58px;filter:drop-shadow(0 4px 5px rgba(0,0,0,.55)) drop-shadow(0 0 9px rgba(255,214,102,.22));transition:transform .25s}
+.tro{animation:troin .55s ease-out both}.tro:hover svg{transform:translateY(-4px) scale(1.06)}
+.tro:nth-child(2){animation-delay:60ms}.tro:nth-child(3){animation-delay:120ms}.tro:nth-child(4){animation-delay:180ms}.tro:nth-child(5){animation-delay:240ms}.tro:nth-child(n+6){animation-delay:300ms}
+@keyframes troin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.tro{animation:none}}
+.tro b{font:700 11px var(--d);letter-spacing:.06em;color:#2b1f06;margin-top:4px;padding:1px 7px;border-radius:3px;background:linear-gradient(180deg,#f0d78c,#b48d38);box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 2px 4px rgba(0,0,0,.4)}
+.pod .pr2{display:grid;grid-template-columns:44px minmax(0,1fr);gap:8px;padding:7px 0;border-top:1px solid rgba(255,255,255,.07);font-size:14px}.pod .pr2:first-of-type{border-top:0}.pod .pr2 .num{color:var(--gold)}
+.pod .chips{display:flex;gap:8px;margin:2px 0 8px}.pod .chips span{flex:1;text-align:center;padding:8px 4px;border-radius:10px;background:rgba(255,255,255,.05);font:600 11px var(--d);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}.pod .chips b{display:block;font:700 22px var(--d);color:var(--ink);letter-spacing:0}
 .tro.bola{width:76px}.tro.bola svg{width:50px;height:66px}
 .tro.bola span{font:600 11px/1.1 var(--b);color:var(--muted);text-align:center;overflow-wrap:anywhere}
 .sh-t{display:flex;justify-content:space-between;align-items:baseline;font:700 13px var(--d);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:2px 2px 0}
@@ -3537,6 +3543,21 @@ function shelfHTML(t){
   });
   return h+`</section>`;
 }
+function podiumsHTML(t){
+  const rows=[];let v=0,q=0;
+  const ys=(t.yh||[]).slice();const cs=t.cs||{};if(cs.s1||cs.s2)ys.push({y:S.year,s1:cs.s1||0,s2:cs.s2||0,msi:'-',wc:'-',d:t.d,cur:1});
+  ys.forEach(h=>{
+    const it=[];
+    const st=(n,l)=>{if(n===2){it.push(`${l}: vice`);v++}else if(n===3||n===4){it.push(`${l}: ${n}º`);q++}};
+    if(h.wc==='F'){it.push('Mundial: vice');v++}else if(h.wc==='SF'){it.push('Mundial: semifinal (3º–4º)');q++}
+    if(h.msi==='F'){it.push('MSI: vice');v++}else if(h.msi==='SF'){it.push('MSI: semifinal (3º–4º)');q++}
+    const dv=h.d===2?' (D2)':'';
+    st(h.s1,'Split 1'+dv);st(h.s2,'Split 2'+dv);
+    if(it.length)rows.push({y:h.y,it});
+  });
+  if(!rows.length)return `<section class="pn pod"><h2>Pódios e vices</h2><p class="note" style="margin:0">Vices, 3º e 4º lugares ficam registrados aqui a partir de 2026, fora da estante.</p></section>`;
+  return `<section class="pn pod"><h2>Pódios e vices</h2><div class="chips"><span><b class="num">${v}</b>Vices</span><span><b class="num">${q}</b>3º / 4º</span></div>${rows.reverse().map(r=>`<div class="pr2"><b class="num">${r.y}</b><span>${r.it.map(esc).join(' · ')}</span></div>`).join('')}<p class="note" style="margin:6px 0 0">Registro desde 2026. Nos torneios de mata-mata, as duas semifinais perdidas valem 3º–4º.</p></section>`;
+}
 function bolaShelfHTML(t){
   const b=teamBolas(t);
   return `<section class="pn"><h2>Estante de Bolas de Ouro</h2><div class="sh-t"><span>Jogadores do time premiados</span><b class="num">${b.length}</b></div><div class="shelf">${b.length?b.map(x=>`<div class="tro bola" title="Bola de Ouro ${x.y}: ${esc(x.n)}" role="img" aria-label="Bola de Ouro ${x.y}, ${esc(x.n)}">${troSvg('b')}<b class="num">${x.y}</b><span>${esc(x.n)}</span></div>`).join(''):'<span class="none">Ainda vazia</span>'}</div></section>`;
@@ -3668,7 +3689,7 @@ function vTeam(id){
     o+=`<section class="pn"><h2>Campanha</h2><div class="kv"><div><small>Temporadas</small><b class="num">${yh.length}</b></div><div><small>Jogos (V-D)</small><b class="num">${gw}-${gl}</b></div><div><small>Aproveitamento</small><b class="num">${gw+gl?Math.round(100*gw/(gw+gl)):0}%</b></div><div><small>Vices em Mundial</small><b class="num">${wcF}</b></div><div><small>Participações MSI</small><b class="num">${yh.filter(x=>x.msi!=='-').length}</b></div><div><small>Participações Mundial</small><b class="num">${yh.filter(x=>x.wc!=='-').length}</b></div></div></section>`;
     o+=`<section class="pn"><details class="det"><summary>Histórico por temporada</summary><div class="tw"><table class="tb"><thead><tr><th>Ano</th><th>Split 1</th><th>MSI</th><th>Split 2</th><th>Mundial</th></tr></thead><tbody>${[...yh].reverse().map(s=>`<tr><td class="num">${s.y}</td><td class="num${s.s1===1?' c':''}">${pos(s.s1)}</td><td class="${s.msi==='C'?'c':''}">${CODE[s.msi]}</td><td class="num${s.s2===1?' c':''}">${pos(s.s2)}</td><td class="${s.wc==='C'?'c':''}">${CODE[s.wc]}</td></tr>`).join('')}</tbody></table></div></details></section>`;
   }
-  o+=shelfHTML(t)+bolaShelfHTML(t);
+  o+=shelfHTML(t)+bolaShelfHTML(t)+podiumsHTML(t);
   if(t.tt.length)o+=`<section class="pn"><details class="det"><summary>Detalhes dos títulos</summary>${[...t.tt].sort((a,b)=>b.y-a.y).map(x=>`<div class="trp"><span class="y num">${x.y}</span><span><b>${esc(x.k)}</b>${x.n&&x.n!==t.name?` <small style="display:inline">como ${esc(x.n)}</small>`:''}${x.r&&x.r.length?`<small>${x.r.map(lk).join(', ')}</small>`:''}</span></div>`).join('')}</details></section>`;
   return o;
 }
