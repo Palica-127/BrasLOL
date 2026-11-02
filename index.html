@@ -628,6 +628,8 @@ CBLOL:[
 
 /* Títulos reais até 2025 (Mundial, MSI e MVPs conferidos em fontes). lg = títulos de liga da carreira quando conferidos. bd = Bolas de Ouro informadas pelo usuário. */
 const WCT={2011:'Fnatic',2012:'Taipei Assassins',2014:'Samsung White',2013:'SK Telecom T1',2015:'SK Telecom T1',2016:'SK Telecom T1',2017:'Samsung Galaxy',2018:'Invictus Gaming',2019:'FunPlus Phoenix',2020:'Damwon Gaming',2021:'Edward Gaming',2022:'DRX',2023:'T1',2024:'T1',2025:'T1'};
+const WCV={2011:'Against All authority',2012:'Azubu Frost',2013:'Royal Club',2014:'Star Horn Royal Club',2015:'KOO Tigers',2016:'Samsung Galaxy',2017:'SK Telecom T1',2018:'Fnatic',2019:'G2 Esports',2020:'Suning',2021:'DWG KIA',2022:'T1',2023:'Weibo Gaming',2024:'BLG',2025:'KT Rolster'};
+const MSV={2015:'SK Telecom T1',2016:'Counter Logic Gaming',2017:'G2 Esports',2018:'Kingzone DragonX',2019:'Team Liquid',2021:'DAMWON Gaming',2022:'T1',2023:'BLG',2024:'BLG',2025:'T1'};
 const MST={2015:'Edward Gaming',2016:'SK Telecom T1',2017:'SK Telecom T1',2018:'Royal Never Give Up',2019:'G2 Esports',2021:'Royal Never Give Up',2022:'Royal Never Give Up',2023:'JD Gaming',2024:'Gen.G',2025:'Gen.G'};
 const HON={
  'Faker':{wc:[2013,2015,2016,2023,2024,2025],msi:[2016,2017],lg:10,mv:[[2013,'MVP LCK Summer 2013'],[2014,'MVP LCK Winter 2014'],[2015,'MVP Final LCK Summer 2015'],[2016,'MVP MSI'],[2016,'MVP Mundial'],[2024,'MVP Mundial']]},
@@ -998,6 +1000,7 @@ function giveMVP(label,champ,runner){
 }
 
 /* ---------- splits ---------- */
+const vOf=tr=>{if(!tr||!tr.elim)return'';const id=Object.keys(tr.elim).find(k=>tr.elim[k]==='Final');return id!=null?T(+id).name:''};
 function closeLeague(lg,tag,st,m1,m2,fm){
   const top=st.slice(0,4).map(r=>r.t);
   const third=[T(loserOf(m1)),T(loserOf(m2))].sort((a,b)=>top.indexOf(a)-top.indexOf(b));
@@ -1254,7 +1257,7 @@ function awards(){
     top:top.map((x,i)=>({n:x.n,team:x.team,lg:x.lg,role:x.role,r:x.r,sc:r1(x.sc),pts:PTS[i],ch:chips(x.a)})),
     champs:{s1:r.s1.map(x=>`${x.lg}: ${x.champ}`),s2:r.s2.map(x=>`${x.lg}: ${x.champ}`),
       mv1:r.s1.map(x=>`${x.lg}: ${x.mvp}`),mv2:r.s2.map(x=>`${x.lg}: ${x.mvp}`),
-      msi:T(msi.champ).name,msiMvp:msi.mvp,wc:T(wc.champ).name,mvp:wc.mvp}});
+      msi:T(msi.champ).name,msiMvp:msi.mvp,wc:T(wc.champ).name,mvp:wc.mvp,wcv:vOf(wc),msiv:vOf(msi)}});
   selYear=S.year;
 }
 
@@ -3405,7 +3408,7 @@ function pwHTML(){
 }
 function vHof(){
   const PM=pmap();
-  let h=`<div class="pills stk">${[['rank','Ranking'],['teams','Times'],['nat','Seleções'],['players','Jogadores']].map(([k,l])=>`<button class="pill" aria-pressed="${hofView===k}" data-act="hv" data-v="${k}">${l}</button>`).join('')}</div>`;
+  let h=`<div class="pills stk">${[['rank','Ranking'],['wc','Mundial'],['msi','MSI'],['teams','Times'],['nat','Seleções'],['players','Jogadores']].map(([k,l])=>`<button class="pill" aria-pressed="${hofView===k}" data-act="hv" data-v="${k}">${l}</button>`).join('')}</div>`;
   if(hofView==='rank'){
     const r=hofRank().slice(0,10);
     const rows=r.map((n,i)=>{
@@ -3417,6 +3420,8 @@ function vHof(){
     h+=`<section class="pn"><h2>Top 10 de todos os tempos</h2><ol class="rank">${rows}</ol><p class="note">Pontos = Bola de Ouro/temporada (${PTS.join(' · ')}) + Mundial 6 + MSI 3 + MVP 1,5 + liga 0,5. O hexágono mostra o OVR atual de quem ainda joga. Toque em um nome para abrir a ficha.</p></section>`;
     const bl=[...(S.pre||[]).map(x=>({y:x.y,n:x.top[0].n,team:x.top[0].team})),...S.hist.map(x=>({y:x.y,n:x.top[0].n,team:x.top[0].team}))].reverse();
     h+=`<section class="pn"><h2>Bolas de Ouro</h2>${bl.map(x=>`<div class="rowl"><span class="lg num">${x.y}</span><span class="grow"><b>${lk(x.n)}</b> <small>${esc(x.team)}</small></span></div>`).join('')}</section>`;
+  }else if(hofView==='wc'||hofView==='msi'){
+    h+=cupHistHTML(hofView);
   }else if(hofView==='nat'){
     h+=natRankHTML();
   }else if(hofView==='teams'){
@@ -3469,6 +3474,21 @@ function natListHTML(){
   S.teams.forEach(t=>t.pl.forEach(p=>{const c=natC(p.n);if(c)(cs[c]=cs[c]||[]).push(p)}));
   const rows=Object.keys(cs).map(c=>{const xi=natXI(c).filter(Boolean);return{c,n:cs[c].length,best:Math.max(...cs[c].map(p=>p.r)),cov:xi.length,avg:xi.length?xi.reduce((a,x)=>a+x.p.r,0)/xi.length:0}}).sort((a,b)=>b.avg*(b.cov>=4?1:.9)-a.avg*(a.cov>=4?1:.9)||b.n-a.n);
   return `<section class="pn"><h2>Seleções</h2>${rows.map((r,i)=>`<div class="pl" style="grid-template-columns:30px minmax(0,1fr) auto"><span class="pos num" style="font-size:20px">${i+1}</span><span><span class="nm2"><button class="lk" data-act="nation" data-v="${r.c}">${esc(NATN[r.c]||r.c)}</button></span><br><small>${r.n} jogador${r.n>1?'es':''} ativo${r.n>1?'s':''} · melhor ${r.best}${r.cov<5?` · ${r.cov}/5 posições`:''}</small></span>${hx(Math.round(r.avg),'sm')}</div>`).join('')}<p class="note">Ordenadas pelo OVR médio do melhor jogador de cada posição. Toque num país para abrir a ficha.</p></section>`;
+}
+function cupHistHTML(k){
+  const wc=k==='wc',CH_=wc?WCT:MST,VV=wc?WCV:MSV,lbl=wc?'Mundial':'MSI';
+  const mv={};Object.keys(S.pdb).forEach(n=>(S.pdb[n].tl||[]).forEach(e=>{if(e.t===(wc?'MVP Mundial':'MVP MSI'))mv[e.y]=n}));
+  const rows={};
+  Object.keys(CH_).forEach(y=>{rows[y]={y:+y,c:CH_[y],v:VV[y]||''}});
+  S.hist.forEach(h=>{rows[h.y]={y:h.y,c:wc?h.champs.wc:h.champs.msi,v:(wc?h.champs.wcv:h.champs.msiv)||'',mv:wc?h.champs.mvp:h.champs.msiMvp}});
+  const L=Object.values(rows).sort((a,b)=>b.y-a.y);
+  const tn=n=>{const t=S.teams.find(x=>x.name===(BALIAS[n]||n));return t?tlk(t):esc(n)};
+  const cnt={};L.forEach(r=>{const nn=BALIAS[r.c]||r.c;cnt[nn]=(cnt[nn]||0)+1});
+  const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).slice(0,3);
+  let h=`<section class="pn pod"><h2>${lbl} · campeões e vices</h2><div class="chips">${top.map(([n,c])=>`<span><b class="num">${c}</b>${esc(n)}</span>`).join('')}</div>`;
+  h+=L.map(r=>{const m=r.mv||mv[r.y];return `<div class="pr2" style="grid-template-columns:44px minmax(0,1fr)"><b class="num">${r.y}</b><span><b>🏆 ${tn(r.c)}</b><br><small style="color:var(--muted)">Vice: ${r.v?tn(r.v):'—'}${m?` · MVP: ${lk(m)}`:' · MVP: —'}</small></span></div>`}).join('');
+  if(k==='msi')h+=`<p class="note" style="margin:6px 0 0">O MSI de 2020 não aconteceu.</p>`;
+  return h+`<p class="note" style="margin:6px 0 0">Até 2025: edições reais. Depois: as do seu jogo. MVP só aparece quando o jogo tem o registro.</p></section>`;
 }
 function natTit(c,t){const ys=new Set();Object.keys(S.pdb).forEach(n=>{if(natC(n)===c)(S.pdb[n].tl||[]).forEach(e=>{if(e.t===t)ys.add(e.y)})});return ys.size}
 function natRank(){
