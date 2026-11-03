@@ -621,6 +621,7 @@ h1{letter-spacing:.02em}
   .bar2{display:none}
 }
 /* compacto */
+.brkb{width:100%;margin-top:10px;min-height:42px}
 .hcol{display:flex;flex-direction:column;gap:10px;min-width:0}
 .hub{gap:10px}.hh b{font-size:30px;margin-top:2px}
 .hero2{padding:13px}.vs{margin-top:8px}.vs .tm b{font-size:17px}.vsm b{font-size:28px}.odds{margin-top:8px}.hw{margin-top:8px}
@@ -1022,7 +1023,7 @@ function newState(){
 function load(){try{const j=localStorage.getItem(KEY);return j?JSON.parse(j):null}catch(e){return null}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 let S=load();
-let cele=null,mgrQ='',mgrView='inicio',mgrRole=0,mgrPick=0,askEnd=false,animNext=true,tab='season',selYear=null,selLg='LCK',msg='',askReset=false,dHof=null,dBackup='',lastPlayed=null,detOpen=false,detT='';
+let cele=null,mgrQ='',mgrView='inicio',mgrRole=0,mgrPick=0,askEnd=false,animNext=true,tab='season',selYear=null,selLg='LCK',msg='',askReset=false,dHof=null,dBackup='',lastPlayed=null,detOpen=false,detT='',brkO={};
 let tvw='el';
 let prof=null,pstack=[],prevTab='season',hofView='rank',pf='all',qStr='';
 
@@ -3823,12 +3824,18 @@ function tourHTML(tour,kind,title){
     const fin=tour.stages[tour.stages.length-1].ms[0];
     h+=`<div class="crown"><small>Campeão</small><b>${esc(T(tour.champ).name)}</b><span>Final: ${esc(T(fin.res.w).name)} ${Math.max(fin.res.wa,fin.res.wb)}-${Math.min(fin.res.wa,fin.res.wb)} ${esc(T(loserOf(fin)).name)} · MVP ${lk(tour.mvp)}</span></div>`;
   }
-  if(tour.rec)h+=swissHTML(tour);
+  const full=!!brkO[kind];
+  if(tour.rec&&full)h+=swissHTML(tour);
+  let shown=0;
   [...tour.stages].map((st,si)=>({st,si})).reverse().forEach(({st,si})=>{
     const pend=st.ms.some(m=>!m.res);
     const fx=lastPlayed&&lastPlayed.k===kind&&lastPlayed.si===si;
+    if(!full&&!pend&&!fx)return;shown++;
     h+=`<div class="sub">${pend?'Próximos jogos · ':''}${st.name}</div>`+st.ms.map((m,i)=>matchHTML(m,i,fx)).join('');
   });
+  if(!full&&!shown&&tour.champ==null)h+=`<p class="note" style="margin:6px 0">Sem jogos pendentes agora.</p>`;
+  h+=`<button class="ghost brkb" data-act="brk" data-v="${kind}">${full?'Esconder bracket e resultados':'Ver bracket e resultados'}</button>`;
+  if(!full)return h+'</section>';
   return h+`<p class="note">A chance de cada jogo vem da diferença de OVR entre os times, somando forma dos jogadores e momento do time. A chance da série é a soma de todos os jogos possíveis, então o favorito se firma mais em melhor de 5. Zebra é vitória de quem tinha menos de 30%.</p></section>`;
 }
 function splitHTML(tag,title){
@@ -4530,6 +4537,7 @@ function act(a,v){
   else if(a==='fl'){S.opt=S.opt||{};S.opt.fl=v;save()}
   else if(a==='all'){const c5=PHASES[S.phase]&&PHASES[S.phase].g===5;while(S.phase<PHASES.length&&(c5||PHASES[S.phase].g<5))step();lastPlayed=null;S.day=evDay();tab='bola';save();top=true}
   else if(a==='year'){selYear=+v}
+  else if(a==='brk'){brkO[v]=!brkO[v];detOpen=true}
   else if(a==='dtab'){detT=v;detOpen=true;lastPlayed=null}
   else if(a==='celeX'){cele=null}
   else if(a==='lg'){selLg=v}
