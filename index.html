@@ -3123,6 +3123,40 @@ function fillSlot(t,role){
   if(c){t.bn.splice(t.bn.indexOf(c),1);const d=pd(c.n);d.role=role;return{p:c,bench:true}}
   const w=bnPlayer(t,role,S.year+1);return{p:w,bench:false};
 }
+/* Migração única: aplica os elencos novos (D1 e D2) em saves antigos, só onde o jogador antigo ainda está no lugar */
+const RVOLD={"KT Rolster":[[["PerfecT",82,23],["Cuzz",83,27],["Bdd",84,28],["Aiming",83,27],["Ghost",81,26]],[["PerfecT",82,23],["Cuzz",83,27],["Bdd",84,28],["Jiwoo",81,24],["Effort",79,26]]],"BNK FearX":[[["Clear",82,24],["Raptor",81,22],["VicLa",83,25],["Diable",84,23],["Kellin",82,27]],[["Clear",82,24],["Raptor",81,22],["VicLa",83,25],["Taeyoon",80,26],["Kellin",82,27]]],"Nongshim RedForce":[[["Kingen",83,27],["Sponge",83,26],["Scout",86,28],["Taeyoon",80,26],["Lehends",82,31]],[["Kingen",83,27],["Sponge",83,26],["Scout",86,28],["Diable",84,23],["Lehends",82,31]]],"DRX":[[["Rich",81,26],["Vincenzo",82,21],["ucal",80,27],["Jiwoo",81,24],["Andil",78,22]],[["Frog",80,24],["Willer",80,25],["ucal",80,27],["Aiming",83,27],["Andil",78,22]]],"BRION":[[["Casting",80,22],["GIDEON",80,22],["Fisher",83,21],["Teddy",83,29],["Namgung",82,20]],[["Casting",80,22],["GIDEON",80,22],["Roamer",82,26],["Teddy",83,29],["Namgung",82,20]]],"Weibo Gaming":[[["Zika",83,25],["JieJie",85,26],["Xiaohu",86,28],["Elk",88,25],["Erha",82,24]],[["Zika",83,25],["Xiaohao",81,26],["Xiaohu",86,28],["Elk",88,25],["Jwei",80,24]]],"EDward Gaming":[[["Zdz",79,25],["Xiaohao",81,26],["Angel",81,20],["Leave",81,24],["Jwei",80,24]],[["Zdz",79,25],["JieJie",85,26],["BullDoG",80,26],["Leave",81,24],["Parukia",78,22]]],"LGD Gaming":[[["sasi",83,25],["Heng",85,23],["Tangyuan",84,24],["Shaoye",84,25],["ycx",83,23]],[["Burdol",82,24],["Heng",85,23],["Tangyuan",84,24],["Shaoye",84,25],["Crisp",80,23]]],"LNG Esports":[[["sheer",79,24],["Croco",77,24],["BullDoG",80,26],["1xn",80,27],["LE Sup",81,24]],[["sheer",79,24],["Weiwei",78,23],["Nia",80,24],["1xn",80,27],["ycx",83,23]]],"Ninjas in Pyjamas":[[["HOYA",80,26],["Guwon",78,20],["Care",79,24],["Assum",78,20],["NIP Sup",82,22]],[["HOYA",80,26],["Guwon",78,20],["Care",79,24],["Photic",78,24],["Fengyue",80,23]]],"Team WE":[[["Cube",79,27],["Monki",80,20],["Karis",82,20],["About",82,21],["Yaoyao",82,25]],[["Cube",79,27],["Monki",80,20],["Karis",82,20],["About",82,21],["Erha",82,24]]],"TT Gaming":[[["Keshi",77,23],["Junhao",76,24],["Heru",79,23],["Ryan3",80,20],["Feather",79,26]],[["Keshi",77,23],["Junhao",76,24],["Heru",79,23],["Ahn",78,22],["Feather",79,26]]],"NAVI":[[["Maynter",80,24],["Rhilech",80,24],["Poby",80,23],["Hans SamD",81,25],["Parus",79,24]],[["Maynter",80,24],["Rhilech",80,24],["Poby",80,23],["SamD",81,25],["Parus",79,24]]],"Shifters":[[["Rooster",80,27],["Sheo",80,24],["nuc",81,24],["Paduck",81,26],["Stend",80,22]],[["Rooster",80,27],["Boukada",80,24],["nuc",81,24],["Paduck",81,26],["Trymbi",79,25]]],"SoftBank HAWKS":[[["Evi",77,20],["Van",79,20],["Aria",77,25],["Marble",78,23],["Vsta",76,20]],[["Evi",77,20],["Van1",79,20],["Aria",77,25],["Marble",78,23],["Vsta",76,20]]],"GAM Esports":[[["Kiaya",79,26],["Draktharr",79,26],["Aress",77,26],["Artemis",80,22],["Taki",80,23]],[["Kiaya",79,26],["Draktharr",79,26],["Gloryy",77,24],["Artemis",80,22],["Taki",80,23]]],"DetonatioN FocusMe":[[["DF Top",75,25],["DF Jng",75,23],["DF Mid",73,26],["DF Adc",76,27],["DF Sup",74,20]],[["Momo",75,25],["Citrus",76,23],["Fisher",80,21],["Kakkun",76,26],["Woody",74,22]]],"Ground Zero Gaming":[[["1Jiang",77,20],["Husha",75,20],["GZG Mid",74,26],["Betty",78,26],["Kaiwing",77,26]],[["1Jiang",77,20],["Husha",75,20],["Uniboy",76,24],["Betty",78,26],["Kaiwing",77,26]]],"Vivo Keyd Stars":[[["ZekaS",79,23],["Disamis",80,27],["Mireu",79,22],["Jeskla",78,22],["Scamber",80,27]],[["ZekaS",79,23],["Disamis",80,27],["Mireu",79,22],["Ceo",78,22],["Scamber",80,27]]]};
+function fixRoster(){
+  if(!S||S.rv>=1)return;
+  S.rv=1;
+  const mg=S.mgr&&S.mgr.tid,pool={};
+  const mk=(n,role,r,age,t)=>{
+    if(pool[n]){const p=pool[n];p.role=role;if(S.pdb[n])S.pdb[n].role=role;return p}
+    const pot=age<=24?Math.round(r+(25-age)*1.5+Math.random()*2.5):r;
+    if(!S.pdb[n])S.pdb[n]={role,debut:S.year,ret:null,seasons:[],tl:[],nat:NATM[n]};
+    return{n,role,r,age,pot:Math.max(r,pot),f:0,d:0};
+  };
+  const tms=S.teams.filter(t=>t.d!==2&&RVOLD[t.name]&&t.id!==mg);
+  const plan=[];
+  tms.forEach(t=>{const [o,w]=RVOLD[t.name];w.forEach((x,i)=>{const p=t.pl[i];if(p&&p.n===o[i][0]&&o[i][0]!==x[0]){pool[p.n]=p;plan.push([t,i,x])}})});
+  plan.forEach(([t,i,x])=>{
+    const taken=S.teams.concat(S.d2||[]).some(u=>u!==t&&u.pl.some(p=>p.n===x[0]&&!pool[x[0]]));
+    if(taken)return;
+    const np=mk(x[0],i,x[1],x[2],t);
+    delete pool[x[0]];t.pl[i]=np;
+  });
+  /* quem sobrou sem time (não reaproveitado) vira agente livre */
+  Object.keys(pool).forEach(n=>{const p=pool[n];if(!S.teams.concat(S.d2||[]).some(u=>u.pl.includes(p))){if(S.mgr&&S.mgr.fa)S.mgr.fa.push({...p,nat:(S.pdb[n]&&S.pdb[n].nat)||NATM[n]})}});
+  (S.d2||[]).forEach(t=>{
+    const real=D2P[t.name];if(!real||t.id===mg)return;
+    real.forEach((rp,i)=>{
+      if(!rp||!t.pl[i]||t.pl[i].n===rp[0])return;
+      if(ALLT().some(u=>u.pl.some(p=>p.n===rp[0])))return;
+      const [n,r,age]=rp,nat=NATM[n]||MAINN[t.lg]||pick(GENN[t.lg]||WORLDN);
+      if(!S.pdb[n])S.pdb[n]={role:i,debut:S.year,ret:null,seasons:[],tl:[],nat};else{S.pdb[n].ret=null;if(!S.pdb[n].nat)S.pdb[n].nat=nat}
+      t.pl[i]={n,role:i,r,age,pot:age<=23?clamp(r+Math.floor(Math.random()*8),r,92):r,f:0,d:0,nat};
+    });
+  });
+}
 function ensureD2(){ensureD2a();if(S)ALLT().forEach(t=>{if(!t.bn)ensureBn(t)})}
 function closeD2(lg,tag,st,m1,m2,fm){
   const top=st.slice(0,4).map(r=>r.t);
@@ -3449,7 +3483,7 @@ function natOf(n,t){
   if(REAL.has(n))return TNAT[t.name]||MAINN[t.lg]||hpick(n,POOLN[t.lg]);
   return hpick(n,GENN[t.lg]||WORLDN);
 }
-const NATFIX={kyeahoo:'KOR',Rhilech:'TUR',BullDoG:'KOR',Way:'KOR'};
+const NATFIX={Bwipo:'BEL',Oddie:'PER',Envy:'BRA',Brance:'BRA',Telas:'BRA',Kisee:'AUS',Zothve:'CHI',Peach:'KOR',cody:'CHI',BAO:'KOR',Momochi:'BRA',Hauz:'BRA',ProDelta:'BRA',Devost:'COL',Booki:'PER',Enga:'ARG',Strensh:'CHI',Shiku:'PER',xyno:'BRA',Sinatra:'BRA',Kaze:'ARG',Rabelo:'BRA',uZent:'BRA',curty:'BRA',Zest:'KOR',Curse:'BRA',Feisty:'KOR',Duduhh:'BRA',Ackerman:'ARG',Boal:'BRA',CarioK:'BRA',Namiru:'BRA',Hena:'KOR',Ceos:'BRA',Keine:'KOR',Zoen:'ARG',Samkz:'BRA',Marvin:'BRA',Gatovisck:'BRA',Disamis:'BRA',Scamber:'BRA',scamber:'BRA',Ceo:'ARG',kyeahoo:'KOR',Rhilech:'TUR',BullDoG:'KOR',Way:'KOR'};
 Object.assign(NATM,NATFIX);
 function fixNatFix(){if(!S||!S.pdb)return;Object.keys(NATFIX).forEach(n=>{if(S.pdb[n])S.pdb[n].nat=NATFIX[n]})}
 function fixNat(){
@@ -3823,7 +3857,7 @@ function fixLPL(){
 }
 function slotGo(i){
   save();SLOT=i;KEY=SLOTK[i];try{localStorage.setItem('lol-slot',String(i))}catch(e){}
-  S=load();if(!S)freshGame();else{fixLPL();fixNatFix()}ensureD2();fixNat();
+  S=load();if(!S)freshGame();else{fixLPL();fixRoster();fixNatFix()}ensureD2();fixNat();
   tab='season';menuV='home';menuAsk=null;prof=null;pstack=[];askReset=false;askEnd=false;cele=null;lastPlayed=null;mgrView='inicio';dHof=null;selYear=null;
   msg='Slot '+(i+1)+' carregado.';
 }
@@ -4589,6 +4623,6 @@ document.addEventListener('input',e=>{
   else if(e.target.id==='mgr-q'){mgrQ=e.target.value;const l=document.querySelector('#mlist');if(l)l.innerHTML=mlistHTML()}
   else if(e.target.id==='q'){qStr=e.target.value;const l=document.querySelector('#plist');if(l)l.innerHTML=plistHTML()}
 });
-if(!S)freshGame();else{fixLPL();fixNatFix();ensureD2();fixNat();if(!S.lh)applyLeagueHist();if(!S.lh2)applyLeagueHist2();if(!S.lh3)applyLeagueHist3();save()}
+if(!S)freshGame();else{fixLPL();fixRoster();fixNatFix();ensureD2();fixNat();fixNatFix();if(!S.lh)applyLeagueHist();if(!S.lh2)applyLeagueHist2();if(!S.lh3)applyLeagueHist3();save()}
 render();
 </script>
