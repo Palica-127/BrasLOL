@@ -3078,13 +3078,14 @@ const D2P={
   'Karmine Corp Blue':[['Tao',72,20],['Yukino',72,21],['Kamiloo',72,20],['Looki',72,19],['Prime',72,21]],
   'Solary':[['Kryze',72,20],['Zicssi',72,21],['Jool',72,20],['Aetinoth',72,19],['Piero',72,21]],
   'Galions':[['Carlsen',72,20],['Thayger',72,21],['OMON',72,20],['HARPOON',72,19],['Zoelys',72,21]],
-  'Vitality.Bee':[['Owpi',72,20],['Delicate',72,21],['Rym',72,20],['Cosmic',72,19],['Honda',72,21]]};
+  'Vitality.Bee':[['Owpi',72,20],['Delicate',72,21],['Rym',72,20],['Cosmic',72,19],['Honda',72,21]],
+  'Los Ratones':[['Baus',72,22],['Velja',72,24],['Nemesis',72,27],['Crownie',72,26],['Rekkles',72,30]]};
 function d2Make(name,lg,id){
   const real=D2P[name];
   const pl=[0,1,2,3,4].map(role=>{
     const rp=real&&real[role];
     if(rp&&!S.pdb[rp[0]]&&!ALLT().some(t=>t.pl.some(p=>p.n===rp[0]))){
-      const [n,r,age]=rp,nat=MAINN[lg]||pick(GENN[lg]||WORLDN);
+      const [n,r,age]=rp,nat=NATM[n]||MAINN[lg]||pick(GENN[lg]||WORLDN);
       S.pdb[n]={role,debut:S.year,ret:null,seasons:[],tl:[],nat};
       return{n,role,r,age,pot:age<=23?clamp(r+Math.floor(Math.random()*8),r,92):r,f:0,d:0,nat};
     }
@@ -3431,7 +3432,7 @@ function calHTML(cur){
 
 /* ---------- nacionalidades (notas minhas, aproximadas) e Copa do Mundo ---------- */
 const NATN={KOR:'Coreia do Sul',CHN:'China',USA:'EUA',CAN:'Canadá',FRA:'França',GER:'Alemanha',ESP:'Espanha',DEN:'Dinamarca',SWE:'Suécia',POL:'Polônia',GRE:'Grécia',TUR:'Turquia',CZE:'Tchéquia',UKR:'Ucrânia',BRA:'Brasil',VIE:'Vietnã',TWN:'Taiwan',JPN:'Japão',AUS:'Austrália',ARG:'Argentina',CHI:'Chile',SLO:'Eslovênia',BUL:'Bulgária',EST:'Estônia',BEL:'Bélgica',SVK:'Eslováquia',MEX:'México',NED:'Países Baixos',ITA:'Itália',POR:'Portugal',LTU:'Lituânia',ROU:'Romênia',CRO:'Croácia',FIN:'Finlândia',NOR:'Noruega',SRB:'Sérvia',HUN:'Hungria',IRL:'Irlanda',THA:'Tailândia',PHI:'Filipinas',IDN:'Indonésia',MAS:'Malásia',SIN:'Singapura',HKG:'Hong Kong',NZL:'Nova Zelândia',COL:'Colômbia',PER:'Peru',URU:'Uruguai',IND:'Índia',KAZ:'Cazaquistão'};
-const NATM={Faker:'KOR',Bengi:'KOR',Deft:'KOR',Uzi:'CHN','Clearlove':'CHN',Mata:'KOR',Ambition:'KOR',Bang:'KOR',Wolf:'KOR',PraY:'KOR',Khan:'KOR',Doinb:'KOR',Peanut:'KOR',Mlxg:'CHN',Ming:'CHN',Perkz:'CRO',Rekkles:'SWE',Bjergsen:'DEN',Doublelift:'USA',Sneaky:'USA',Xpeke:'ESP',Uzi_:'CHN',
+const NATM={Baus:'SWE',Velja:'SRB',Nemesis:'SLO',Crownie:'SLO',Faker:'KOR',Bengi:'KOR',Deft:'KOR',Uzi:'CHN','Clearlove':'CHN',Mata:'KOR',Ambition:'KOR',Bang:'KOR',Wolf:'KOR',PraY:'KOR',Khan:'KOR',Doinb:'KOR',Peanut:'KOR',Mlxg:'CHN',Ming:'CHN',Perkz:'CRO',Rekkles:'SWE',Bjergsen:'DEN',Doublelift:'USA',Sneaky:'USA',Xpeke:'ESP',Uzi_:'CHN',
 TheShy:'KOR',Rookie:'KOR',Viper:'KOR',Tarzan:'KOR',Kael:'KOR',Hena:'KOR',Juhan:'KOR',Guwon:'KOR',Care:'KOR',
 BrokenBlade:'TUR',SkewMond:'DEN',Caps:'DEN','hans sama':'FRA',Labrov:'GRE',Myrwn:'GRE',Elyoya:'ESP',jojopyun:'CAN',Supa:'ESP',Alvaro:'ESP',Canna:'KOR',Yike:'SWE',kyeahoo:'SVK',Caliste:'FRA',Busio:'USA',Oscarinin:'DEN',ISMA:'GER',Flakked:'ESP',Jun:'KOR','Naak Nako':'FRA',Carzzy:'CZE',Wunder:'DEN',Skeanz:'FRA',Jopa:'GRE',Mikyx:'SLO',Poby:'TUR',SamD:'FRA',Soboro:'KOR',Razork:'ESP',Upset:'GER',Trymbi:'POL',Rooster:'BEL',Sheo:'FRA',Paduck:'KOR',
 Morgan:'KOR',Josedeodo:'USA',Quid:'KOR',CoreJJ:'KOR',Inspired:'POL',Berserker:'KOR',Blaber:'USA',Loki:'EST',Vulcan:'CAN',Thanatos:'KOR',Impact:'KOR',HamBak:'KOR',DARKWINGS:'KOR',Huhi:'KOR',Fudge:'AUS',Gakgos:'USA',Quad:'CAN',Massu:'USA',IgNar:'KOR',YoungJae:'KOR'};
