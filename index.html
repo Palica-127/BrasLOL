@@ -609,15 +609,24 @@ h1{letter-spacing:.02em}
 .more2[open]>summary{margin-bottom:10px}
 .more2 .pn{margin-left:0;margin-right:0}
 @media (min-width:1000px){
-  .hub{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px;align-items:start;padding-bottom:0}
-  .hh{grid-column:1/-1}.hh b{font-size:46px}
-  .hbtn{display:flex;gap:10px}.hbtn.play{display:block;margin-top:18px}
-  .hbtn .ghost{width:auto;padding:0 18px}
-  .hero2{padding:26px;grid-row:span 2}
-  .vs .tm .shield{width:112px;height:131px}.vs .tm b{font-size:26px}
-  .tiles{grid-template-columns:1fr;grid-row:span 2}
+  .hub{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:14px;align-items:start;padding-bottom:0}
+  .hh{grid-column:1/-1}.hh b{font-size:38px}
+  .hbtn.play{display:block;margin-top:12px}
+  .hcol{grid-column:1;display:flex;flex-direction:column;gap:10px;min-width:0}
+  .hero2{padding:18px}
+  .vs{margin-top:8px}
+  .vs .tm .shield{width:84px;height:98px}.vs .tm b{font-size:22px}
+  .tiles{grid-template-columns:1fr 1fr}
+  .more2{grid-column:2;margin:0;max-height:calc(100vh - 150px);overflow-y:auto;position:sticky;top:10px}
   .bar2{display:none}
 }
+/* compacto */
+.hcol{display:flex;flex-direction:column;gap:10px;min-width:0}
+.hub{gap:10px}.hh b{font-size:30px;margin-top:2px}
+.hero2{padding:13px}.vs{margin-top:8px}.vs .tm b{font-size:17px}.vsm b{font-size:28px}.odds{margin-top:8px}.hw{margin-top:8px}
+.tiles{gap:8px}.tile{padding:10px 11px;border-radius:13px}.tile ul{margin-top:5px;font-size:13px;line-height:1.5}.tile p{margin-top:5px;font-size:13px;line-height:1.3}.tile .big{font-size:26px;margin-top:5px}
+.more2{padding:10px 12px}.more2>summary{font-size:14px}.more2[open]>summary{margin-bottom:6px}.dtabs{padding:6px 0;margin-bottom:8px;gap:5px}.dtabs .pill{min-height:32px;padding:4px 11px;font-size:13px}
+.more2 .pn{padding:10px 12px;margin-bottom:8px}
 .cele{position:relative;overflow:hidden}
 .conf{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .conf i{position:absolute;top:-12px;width:7px;height:12px;border-radius:2px;opacity:.9;animation:cf 3s linear infinite}
@@ -3926,7 +3935,7 @@ function calGrid(){
   for(let d=1;d<=n;d++)cells.push(`<span class="cd${d===x.d?' td':''}${evs[d]?' ev':''}${base+d<td?' past':''}" ${evs[d]?`title="${esc(evs[d])}"`:''}>${d}</span>`);
   return `<div class="cgrid"><div class="chd">${DSEM.map(s=>`<b>${s}</b>`).join('')}</div><div class="cbd">${cells.join('')}</div></div>`;
 }
-function hubHTML(cur){
+function hubHTML(cur,sideH){
   const ev=evDay(),td=dayNow(),left=ev-td,x=dmy(td),sp=S.season.sp,mid=myTid();
   const nm=!cur?'Virada de ano':sp?spLabel(sp):cur.l;
   const when=left<=0?'Hoje':`${dTxt(ev)} · em ${left} dia${left>1?'s':''}`;
@@ -3934,13 +3943,13 @@ function hubHTML(cur){
   const m=heroMatch();
   const rec=PHASES[S.phase]&&PHASES[S.phase].k==='sw'&&S.season.wc&&S.season.wc.rec;
   const side=t=>`<div class="tm"><span class="crw">${crest(t,'lg')}${stdPos(t)}</span><b>${esc(t.name)}</b>${t.fm?`<span class="fm">${[...t.fm].map(c=>`<i class="${c==='V'?'w':'l'}"></i>`).join('')}</span>`:''}<small>${stdRec(t)?stdRec(t)+' · ':''}OVR ${Math.round(baseOvr(t))}</small></div>`;
-  let h=`<div class="hub"><div class="hh"><div><small class="k">${dWk(td)} · temporada ${S.year}</small><b class="num">${x.d} ${MESF[x.m]}</b></div><div class="hbtn"><button class="ghost" data-act="day" data-v="1"${left<=0?' disabled':''}>+1 dia</button><button class="ghost" data-act="day" data-v="7"${left<=0?' disabled':''}>+1 semana</button>${left>0?'<button class="ghost" data-act="dayTo">Simular até o jogo</button>':''}</div></div>`;
-  h+=`<section class="hero2"><small class="k">${left<=0?'Hoje':'Próximo'} · ${esc(nm)}</small>`;
+  let h=`<div class="hub"><div class="hh"><div><small class="k">${dWk(td)} · temporada ${S.year}</small><b class="num">${x.d} ${MESF[x.m]}</b></div></div>`;
+  h+=`<div class="hcol"><section class="hero2"><small class="k">${left<=0?'Hoje':'Próximo'} · ${esc(nm)}</small>`;
   if(m){
     const A=T(m.a),B=T(m.b),pa=Math.round(m.pa*100);
     h+=`<div class="vs">${side(A)}<div class="vsm"><b>VS</b><small>${m.n===1?'Jogo único':'MD'+m.n}</small>${isRival(A,B)?'<em class="cls">Clássico</em>':''}${rvTxt(A,B)?`<small>${rvTxt(A,B)}</small>`:''}</div>${side(B)}</div><div class="odds"><div><span>${pa}%</span><span>chance de vitória</span><span>${100-pa}%</span></div><div class="ob"><i style="width:${pa}%"></i></div></div>`;
   }else h+=`<h3 class="hn">${esc(nm)}</h3>`;
-  h+=`<p class="hw">${when}</p>${left<=0?`<button class="play hbtn" data-act="step">${playLbl}</button>`:''}</section>`;
+  h+=`<p class="hw">${when}</p><button class="play hbtn" data-act="${left<=0?'step':'dayTo'}">${left<=0?playLbl:'Avançar para o próximo jogo'}</button></section>`;
   /* blocos */
   const ag=[];for(let i=S.phase;i<PHASES.length&&ag.length<3;i++){const p=PHASES[i];if(p)ag.push({d:phDay(i,i===S.phase),l:(i===S.phase&&sp)?spLabel(sp):p.l})}
   const tc=`<section class="tile"><small class="k">Calendário</small><ul>${ag.map(a=>`<li><b class="num">${dTxt(a.d)}</b> ${esc(a.l.replace('Mundial · ','').replace('Copa do Mundo · ',''))}</li>`).join('')}</ul></section>`;
@@ -3956,8 +3965,8 @@ function hubHTML(cur){
     t3=`<section class="tile"><small class="k">Em alta</small><ul>${top.map((x,i)=>`<li><b class="num">${i+1}</b> ${lk(x.p.n)} <span class="num">${x.p.r}</span></li>`).join('')}</ul></section>`}
   const hl=(S.hl||[]).slice(0,2);
   const t4=`<section class="tile"><small class="k">Manchetes</small>${hl.length?hl.map(x=>`<p>${esc(x.t)}</p>`).join(''):'<p>Sem novidades.</p>'}</section>`;
-  h+=`<div class="tiles">${tc}${ts}${t3}${t4}</div>`;
-  h+=`<div class="bar2"><button class="ghost" data-act="day" data-v="1"${left<=0?' disabled':''}>+1 dia</button><button class="play" data-act="${left<=0?'step':'dayTo'}">${left<=0?playLbl:'Simular até o jogo'}</button></div></div>`;
+  h+=`<div class="tiles">${tc}${ts}${t3}${t4}</div></div>`;
+  h+=`<div class="bar2"><button class="play" data-act="${left<=0?'step':'dayTo'}">${left<=0?playLbl:'Avançar para o próximo jogo'}</button></div>${sideH||''}</div>`;
   return h;
 }
 
@@ -3965,15 +3974,6 @@ function vSeason(){
   fixNat();fixPhase();
   const cur=cupLB(PHASES[S.phase]);
   let h=celeHTML();
-  h+=hubHTML(cur);
-  if(cur)h+=`<div class="row"><button class="ghost" data-act="all">${cur.g===5?'Simular o resto da Copa':'Pular para o Melhor Jogador do Ano'}</button></div>`;
-  if(S.phase===0&&!S.season.sp&&S.recap&&S.recap.y===S.year-1)h+=`<section class="pn recap"><h2>Resumo de ${S.recap.y}</h2>${S.recap.L.map(([i,k,t],n)=>`<div class="rc" style="--i:${n}"><span>${i}</span><div><small>${esc(k)}</small><b>${esc(t)}</b></div></div>`).join('')}</section>`;
-  if(S.phase===0&&!S.season.sp&&S.off.length)h+=`<section class="pn"><h2>Virada de ano</h2><ul class="lines">${S.off.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section>`;
-  if(!cur){const t=S.hist[S.hist.length-1];h+=`<section class="pn"><h2>Melhor Jogador do Ano ${S.year}</h2><div class="crown"><small>Vencedor</small><b>${esc(t.top[0].n)}</b><span>${esc(t.top[0].team)} · nota ${t.top[0].sc}</span></div><div class="row"><button class="ghost" data-act="tab" data-v="bola">Ver top 10 do ano</button><button class="ghost" data-act="tab" data-v="hof">Ver lendas</button></div></section>`}
-  if(mgrT())h+=mgrSummary();
-  if(pcAct()&&pcFind())h+=pcSummary();
-  if(S.season.sp)h+=spHTML();
-  if((S.phase===0||S.phase===4)&&!S.season.sp)h+=flHTML();
   const SEC=[];
   let d=calGrid();
   if((S.phase===0||S.phase===4)&&!S.season.sp)d+=favHTML();
@@ -3985,7 +3985,16 @@ function vSeason(){
   const defK=gk===5?'cup':gk===3?'wc':gk===2?'s2':gk===1?'msi':gk===0?'s1':'cal';
   let sk=detT;if(!SEC.some(x=>x[0]===sk))sk=SEC.some(x=>x[0]===defK)?defK:'cal';
   if(lastPlayed&&!detT&&['wc','msi','cup'].includes(lastPlayed.k)&&SEC.some(x=>x[0]===lastPlayed.k))sk=lastPlayed.k;
-  h+=`<details class="pn det more2"${lastPlayed||detOpen?' open':''} ontoggle="detOpen=this.open"><summary>Detalhes: calendário, tabelas e resultados</summary><div class="pills dtabs">${SEC.map(x=>`<button class="pill" aria-pressed="${x[0]===sk}" data-act="dtab" data-v="${x[0]}">${x[1]}</button>`).join('')}</div>${SEC.find(x=>x[0]===sk)[2]}</details>`;
+  const det=`<details class="pn det more2"${lastPlayed||detOpen||(typeof innerWidth!=='undefined'&&innerWidth>=1000)?' open':''} ontoggle="detOpen=this.open"><summary>Detalhes: calendário, tabelas e resultados</summary><div class="pills dtabs">${SEC.map(x=>`<button class="pill" aria-pressed="${x[0]===sk}" data-act="dtab" data-v="${x[0]}">${x[1]}</button>`).join('')}</div>${SEC.find(x=>x[0]===sk)[2]}</details>`;
+  h+=hubHTML(cur,det);
+  if(cur)h+=`<div class="row"><button class="ghost" data-act="all">${cur.g===5?'Simular o resto da Copa':'Pular para o Melhor Jogador do Ano'}</button></div>`;
+  if(S.phase===0&&!S.season.sp&&S.recap&&S.recap.y===S.year-1)h+=`<section class="pn recap"><h2>Resumo de ${S.recap.y}</h2>${S.recap.L.map(([i,k,t],n)=>`<div class="rc" style="--i:${n}"><span>${i}</span><div><small>${esc(k)}</small><b>${esc(t)}</b></div></div>`).join('')}</section>`;
+  if(S.phase===0&&!S.season.sp&&S.off.length)h+=`<section class="pn"><h2>Virada de ano</h2><ul class="lines">${S.off.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section>`;
+  if(!cur){const t=S.hist[S.hist.length-1];h+=`<section class="pn"><h2>Melhor Jogador do Ano ${S.year}</h2><div class="crown"><small>Vencedor</small><b>${esc(t.top[0].n)}</b><span>${esc(t.top[0].team)} · nota ${t.top[0].sc}</span></div><div class="row"><button class="ghost" data-act="tab" data-v="bola">Ver top 10 do ano</button><button class="ghost" data-act="tab" data-v="hof">Ver lendas</button></div></section>`}
+  if(mgrT())h+=mgrSummary();
+  if(pcAct()&&pcFind())h+=pcSummary();
+  if(S.season.sp)h+=spHTML();
+  if((S.phase===0||S.phase===4)&&!S.season.sp)h+=flHTML();
   if(S.phase===0&&!S.off.length)h+=`<p class="empty">Cada temporada tem dois splits, o MSI e o Mundial com fase suíça. Você joga fase por fase e vê as chances de cada partida antes de simular. Toque em qualquer nome para abrir a ficha.</p>`;
   return h;
 }
