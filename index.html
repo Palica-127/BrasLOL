@@ -864,7 +864,7 @@ CBLOL:[
 ["Vivo Keyd Stars","ZekaS 79 23","Disamis 80 27","Mireu 79 22","Jeskla 78 22","Scamber 80 27"]]
 };
 
-/* Títulos reais até 2025 (Mundial, MSI e MVPs conferidos em fontes). lg = títulos de liga da carreira quando conferidos. bd = Bolas de Ouro informadas pelo usuário. */
+/* Títulos reais até 2025 (Mundial, MSI e MVPs conferidos em fontes). lg = títulos de liga da carreira quando conferidos. bd = Melhor Jogador do Ano informados pelo usuário. */
 const WCT={2011:'Fnatic',2012:'Taipei Assassins',2014:'Samsung White',2013:'SK Telecom T1',2015:'SK Telecom T1',2016:'SK Telecom T1',2017:'Samsung Galaxy',2018:'Invictus Gaming',2019:'FunPlus Phoenix',2020:'Damwon Gaming',2021:'Edward Gaming',2022:'DRX',2023:'T1',2024:'T1',2025:'T1'};
 const WCV={2011:'Against All authority',2012:'Azubu Frost',2013:'Royal Club',2014:'Star Horn Royal Club',2015:'KOO Tigers',2016:'Samsung Galaxy',2017:'SK Telecom T1',2018:'Fnatic',2019:'G2 Esports',2020:'Suning',2021:'DWG KIA',2022:'T1',2023:'Weibo Gaming',2024:'BLG',2025:'KT Rolster'};
 const MSV={2015:'SK Telecom T1',2016:'Counter Logic Gaming',2017:'G2 Esports',2018:'Kingzone DragonX',2019:'Team Liquid',2021:'DAMWON Gaming',2022:'T1',2023:'BLG',2024:'BLG',2025:'T1'};
@@ -3888,7 +3888,7 @@ function plistHTML(){
   rows.sort((a,b)=>sc(b.h)-sc(a.h)||b.r-a.r||a.n.localeCompare(b.n));
   const tot=rows.length;
   let h=rows.slice(0,60).map(x=>{
-    const tt=[x.h.bd?`${x.h.bd} Bola${x.h.bd>1?'s':''}`:'',x.h.wc?`${x.h.wc} Mundial${x.h.wc>1?'is':''}`:'',x.h.msi?`${x.h.msi} MSI`:''].filter(Boolean).join(' · ');
+    const tt=[x.h.bd?`${x.h.bd} Melhor${x.h.bd>1?'es':''} do Ano`:'',x.h.wc?`${x.h.wc} Mundial${x.h.wc>1?'is':''}`:'',x.h.msi?`${x.h.msi} MSI`:''].filter(Boolean).join(' · ');
     return `<div class="pl">${x.r?hx(x.r,'sm'):'<span class="hx sm">–</span>'}<span><span class="nm2">${lk(x.n)}</span><span class="tag">${x.act?'ativo':'aposentado'}</span><br><small>${x.act?esc(x.P.t.name)+' · '+RN[x.P.p.role]:'fora do jogo'}${tt?' · '+tt:''}</small></span><span class="pt num">${r1(x.h.pts)}<small>pts</small></span></div>`;
   }).join('');
   if(!tot)h=`<p class="empty">Nenhum jogador encontrado.</p>`;
@@ -3923,12 +3923,12 @@ function vHof(){
     const rows=r.map((n,i)=>{
       const hh=S.hof[n],mv=S.mv[n],p=PM[n];
       const m=mv==='N'?'<span class="mv new">novo</span>':mv>0?`<span class="mv up">▲${mv}</span>`:mv<0?`<span class="mv dn">▼${-mv}</span>`:'';
-      const tt=[hh.bd?`${hh.bd} Bola${hh.bd>1?'s':''} de Ouro`:'',hh.wc?`${hh.wc} Mundial${hh.wc>1?'is':''}`:'',hh.msi?`${hh.msi} MSI`:'',hh.lg?`${hh.lg} liga${hh.lg>1?'s':''}`:'',hh.mvp?`${hh.mvp} MVP${hh.mvp>1?'s':''}`:''].filter(Boolean).join(' · ');
+      const tt=[hh.bd?`${hh.bd} Melhor${hh.bd>1?'es':''} do Ano`:'',hh.wc?`${hh.wc} Mundial${hh.wc>1?'is':''}`:'',hh.msi?`${hh.msi} MSI`:'',hh.lg?`${hh.lg} liga${hh.lg>1?'s':''}`:'',hh.mvp?`${hh.mvp} MVP${hh.mvp>1?'s':''}`:''].filter(Boolean).join(' · ');
       return `<li><span class="pos num">${i+1}</span>${p?hx(p.p.r,'sm'):'<span class="hx sm">–</span>'}<span><span class="nm2">${lk(n)}</span>${m}<span class="tag">${p?'ativo':'aposentado'}</span>${tt?`<br><small>${tt}</small>`:''}</span><span class="pt num">${Math.round(sc(hh))}<small>pts</small></span></li>`;
     }).join('');
     h+=`<section class="pn"><h2>Top 10 de todos os tempos</h2><ol class="rank">${rows}</ol><p class="note">Pontos = Melhor Jogador do Ano/temporada (${PTS.join(' · ')}) + Mundial 6 + MSI 3 + MVP 1,5 + liga 0,5. O hexágono mostra o OVR atual de quem ainda joga. Toque em um nome para abrir a ficha.</p></section>`;
     const bl=[...(S.pre||[]).map(x=>({y:x.y,n:x.top[0].n,team:x.top[0].team})),...S.hist.map(x=>({y:x.y,n:x.top[0].n,team:x.top[0].team}))].reverse();
-    h+=`<section class="pn"><h2>Bolas de Ouro</h2>${bl.map(x=>`<div class="rowl"><span class="lg num">${x.y}</span><span class="grow"><b>${lk(x.n)}</b> <small>${esc(x.team)}</small></span></div>`).join('')}</section>`;
+    h+=`<section class="pn"><h2>Melhor Jogador do Ano</h2>${bl.map(x=>`<div class="rowl"><span class="lg num">${x.y}</span><span class="grow"><b>${lk(x.n)}</b> <small>${esc(x.team)}</small></span></div>`).join('')}</section>`;
   }else if(hofView==='wc'||hofView==='msi'){
     h+=cupHistHTML(hofView);
   }else if(hofView==='nat'){
@@ -4018,7 +4018,7 @@ function natRank(){
 function natRankHTML(){
   const rows=natRank();
   return `<section class="pn"><h2>Seleções de todos os tempos</h2><ol class="rank">${rows.map((x,i)=>{
-    const tt=[x.bd?`${x.bd} Bola${x.bd>1?'s':''}`:'',x.wc?`${x.wc} Mundia${x.wc>1?'is':'l'}`:'',x.msi?`${x.msi} MSI`:'',x.cups?`${x.cups} Copa${x.cups>1?'s':''}`:'',x.vice?`${x.vice} vice${x.vice>1?'s':''} na Copa`:''].filter(Boolean).join(' · ');
+    const tt=[x.bd?`${x.bd} Melhor${x.bd>1?'es':''} do Ano`:'',x.wc?`${x.wc} Mundia${x.wc>1?'is':'l'}`:'',x.msi?`${x.msi} MSI`:'',x.cups?`${x.cups} Copa${x.cups>1?'s':''}`:'',x.vice?`${x.vice} vice${x.vice>1?'s':''} na Copa`:''].filter(Boolean).join(' · ');
     return `<li><span class="pos num">${i+1}</span>${natCrest(x.c,'sm')}<span><span class="nm2"><button class="lk" data-act="nation" data-v="${x.c}">${esc(NATN[x.c]||x.c)}</button></span><br><small>${tt||'sem títulos'} · ${x.n} lenda${x.n>1?'s':''}${x.top?` · melhor: ${esc(x.top.n)}`:''}</small></span><span class="pt num">${Math.round(x.pts)}<small>pts</small></span></li>`}).join('')}</ol><p class="note">Pontos do país = soma dos pontos de todas as lendas nascidas lá, mais 40 por Copa do Mundo de LoL vencida e 15 por vice. Toque num país para abrir a ficha.</p></section>`;
 }
 function vNation(c){
