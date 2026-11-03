@@ -644,7 +644,7 @@ h1{letter-spacing:.02em}
 .br .bc{width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(130,150,255,.35);flex:none}
 .br .crest,.br .shield{flex:none}
 /* compacto */
-.brkb{width:100%;margin-top:10px;min-height:42px}
+.brkb{width:100%;margin:10px 0 0;min-height:40px}.brkb.top{margin:0 0 10px}
 .hcol{display:flex;flex-direction:column;gap:10px;min-width:0}
 .hub{gap:10px}.hh b{font-size:30px;margin-top:2px}
 .hero2{padding:13px}.vs{margin-top:8px}.vs .tm b{font-size:17px}.vsm b{font-size:28px}.odds{margin-top:8px}.hw{margin-top:8px}
@@ -3879,21 +3879,21 @@ function tourHTML(tour,kind,title){
     const fin=tour.stages[tour.stages.length-1].ms[0];
     h+=`<div class="crown"><small>Campeão</small><b>${esc(T(tour.champ).name)}</b><span>Final: ${esc(T(fin.res.w).name)} ${Math.max(fin.res.wa,fin.res.wb)}-${Math.min(fin.res.wa,fin.res.wb)} ${esc(T(loserOf(fin)).name)} · MVP ${lk(tour.mvp)}</span></div>`;
   }
-  const full=!!brkO[kind];
+  const full=!!brkO[kind],sw=!!brkO[kind+'s'];
+  const tb=`<button class="ghost brkb top" data-act="brk" data-v="${kind}">${full?'Esconder bracket':'Ver bracket e resultados'}</button>`;
+  h+=tb;
   if(full)h+=bracketHTML(tour);
-  let shown=0,swd=false;
-  const swr=()=>{if(tour.rec&&!swd){swd=true;h+=swissHTML(tour)}};
-  [...tour.stages].map((st,si)=>({st,si})).reverse().forEach(({st,si})=>{
-    const pend=st.ms.some(m=>!m.res);
-    const fx=lastPlayed&&lastPlayed.k===kind&&lastPlayed.si===si;
-    if(!pend&&!fx&&!full)return;
-    if(!pend&&!fx)swr();
-    shown++;
-    h+=`<div class="sub">${pend?'Próximos jogos · ':''}${st.name}</div>`+st.ms.map((m,i)=>matchHTML(m,i,fx)).join('');
-  });
-  swr();
-  if(!full&&!shown&&tour.champ==null)h+=`<p class="note" style="margin:6px 0">Sem jogos pendentes agora.</p>`;
-  h+=`<button class="ghost brkb" data-act="brk" data-v="${kind}">${full?'Esconder bracket e resultados':'Ver bracket e resultados'}</button>`;
+  const sub=(st,si,fx)=>{const pend=st.ms.some(m=>!m.res);return `<div class="sub">${pend?'Próximos jogos · ':''}${st.name}</div>`+st.ms.map((m,i)=>matchHTML(m,i,fx)).join('')};
+  const L=[...tour.stages].map((st,si)=>({st,si,fx:lastPlayed&&lastPlayed.k===kind&&lastPlayed.si===si,pend:st.ms.some(m=>!m.res)})).reverse();
+  let shown=0;
+  L.filter(x=>x.pend||x.fx).forEach(x=>{shown++;h+=sub(x.st,x.si,x.fx)});
+  if(tour.rec){
+    h+=swissHTML(tour);
+    h+=`<button class="ghost brkb" data-act="brk" data-v="${kind}s">${sw?'Esconder resultados do Suíço':'Ver resultados do Suíço'}</button>`;
+    if(sw)L.filter(x=>x.st.swiss&&!x.pend&&!x.fx).forEach(x=>{h+=sub(x.st,x.si,false)});
+  }
+  if(full)L.filter(x=>!x.st.swiss&&!x.pend&&!x.fx).forEach(x=>{h+=sub(x.st,x.si,false)});
+  if(!shown&&!tour.rec&&tour.champ==null&&!full)h+=`<p class="note" style="margin:6px 0">Sem jogos pendentes agora.</p>`;
   if(!full)return h+'</section>';
   return h+`<p class="note">A chance de cada jogo vem da diferença de OVR entre os times, somando forma dos jogadores e momento do time. A chance da série é a soma de todos os jogos possíveis, então o favorito se firma mais em melhor de 5. Zebra é vitória de quem tinha menos de 30%.</p></section>`;
 }
