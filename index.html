@@ -498,6 +498,34 @@ h1{letter-spacing:.02em}
 .fut.big .fa{right:22px;top:26px;width:96px;height:112px}.fut.big .fnm{top:150px;font-size:23px;left:12px;right:12px}.fut.big .fst{top:184px;font-size:19px;left:16px;right:16px}.fut.big .fst small{font-size:8px}.fut.big .ft{font-size:11px;bottom:6px}
 .fut .fs .shield{width:24px;height:28px}.fut.big .fs .shield{width:32px;height:38px}
 .phf{display:flex;gap:14px;align-items:center}
+/* Gestão (treinador) */
+.mgc>.pn:last-child{margin-bottom:14px}
+.mtool{margin-bottom:2px}
+@media (min-width:1000px){
+  .mgr{grid-column:1/-1}
+  .mgh{display:grid;grid-template-columns:minmax(230px,1fr) minmax(220px,.8fr) minmax(0,1.5fr);column-gap:28px;align-items:center;padding:16px 22px;background:linear-gradient(100deg,rgba(40,60,170,.7),rgba(11,18,64,.85) 60%)}
+  .mgh .mh2{padding:0 28px;border-left:1px solid rgba(130,150,255,.2);border-right:1px solid rgba(130,150,255,.2)}
+  .mgh .mh3 .note{margin:0 0 4px}
+  .mgh .mh3 .row{margin:8px 0 0!important}
+  .mgh .mh3 .ghost{min-height:30px;padding:3px 12px;font-size:12px;opacity:.75}
+  .mgh .ph{margin:0}
+  .mgh .cab{grid-template-columns:repeat(2,minmax(0,1fr))}.mgh .cab b{font-size:22px!important;white-space:nowrap}.mgh .cab div{padding:8px 4px}
+  .mgr .pills.stk{top:0;margin:0 0 16px;padding:10px 0;background:rgba(8,12,44,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid rgba(130,150,255,.18);padding-left:4px;border-radius:0 0 14px 14px;gap:8px}
+  .mgr .pills.stk .pill{padding:6px 22px}
+  .mgv.v-inicio{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);column-gap:20px;align-items:start}
+  .mgv.v-fin{column-count:2;column-gap:20px}.mgv.v-fin>.pn{break-inside:avoid}
+  .mgv.v-elenco,.mgv.v-base{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:20px;align-items:start}
+  .mgv.v-elenco>.pn:only-child,.mgv.v-base>.pn:only-child{grid-column:1/-1}
+  .mgv.v-ach>.pn,.mgv.v-livres>.pn{column-count:2;column-gap:32px}
+  .mgv.v-ach>.pn>h2,.mgv.v-livres>.pn>h2,.mgv.v-ach>.pn>.note,.mgv.v-livres>.pn>.note{column-span:all}
+  .mgv.v-ach .mrow,.mgv.v-livres .mrow{break-inside:avoid}
+  .mgv.v-mercado>.mtool .search{max-width:520px}
+  .mgv.v-mercado #mlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:32px}
+  .mgv.v-mercado #mlist>.bids,.mgv.v-mercado #mlist>.empty{grid-column:1/-1}
+  .mgr>.pn:last-child{column-count:2;column-gap:32px}
+  .mgr>.pn:last-child>h2{column-span:all}
+  .mgr>.pn:last-child li{break-inside:avoid}
+}
 /* PC */
 @media (min-width:1000px){
   body{padding-left:128px;padding-right:32px}
@@ -2600,14 +2628,15 @@ function inicioHTML(t,m){
   h+=`</section>`;
   h=evHTML(m)+h+(draftOn()?'':planHTML(m));
   h+=`<section class="pn"><div class="rowc"><h2 style="margin:0">Escalação</h2><span class="chem"><small>Entrosamento</small><b class="num">${chem(t)}</b></span></div>${pitchHTML(t)}<p class="note" style="margin:6px 0 0">Entrosamento: jogadores do mesmo país e do mesmo continente se entendem melhor. Reservas e vendas ficam na aba Elenco.</p></section>`;
-  h+=`<section class="pn"><h2>Clima do clube</h2><div class="kv"><div><small>Moral do elenco</small><b class="num">${Math.round(m.mor)}</b></div><div><small>Reputação</small><b class="num">${Math.round(m.rep)}</b></div><div><small>Confiança</small><b class="num">${m.sat}%</b></div></div><p class="note" style="margin:6px 0 0">Moral sobe com vitórias e treino mental e cai com derrotas; ela mexe um pouco nas chances. A reputação define que clubes aceitam você se for demitido.</p></section>`;
-  h+=trHTML(t,m)+staffHTML(m);
+  h+=staffHTML(m);
+  let h2='';
+  h2+=`<section class="pn"><h2>Clima do clube</h2><div class="kv"><div><small>Moral do elenco</small><b class="num">${Math.round(m.mor)}</b></div><div><small>Reputação</small><b class="num">${Math.round(m.rep)}</b></div><div><small>Confiança</small><b class="num">${m.sat}%</b></div></div><p class="note" style="margin:6px 0 0">Moral sobe com vitórias e treino mental e cai com derrotas; ela mexe um pouco nas chances. A reputação define que clubes aceitam você se for demitido.</p></section>`;
+  h2+=trHTML(t,m);
   const fo=m.focus||'eq';
   h+=`<section class="pn"><h2>Foco de treino</h2><div class="pills" style="margin-bottom:6px">${FOCUS.map(([k,l])=>`<button class="pill" aria-pressed="${fo===k}" data-act="focus" data-v="${k}">${l}</button>`).join('')}</div><p class="note" style="margin:0">${FOCUS.find(x=>x[0]===fo)[2]} Vale na virada de ano.</p></section>`;
   const lg=(t.d===2?D2L():S.teams).filter(x=>x.lg===t.lg).sort((a,b)=>eff(b)-eff(a));
-  h+=`<section class="pn"><h2>Tabela de força · ${t.lg}${t.d===2?' (D2)':''}</h2>${lg.map((x,i)=>`<div class="pl${x.id===mid?' mine2':''}"><span class="num pos2">${i+1}</span><span class="nm2" style="display:flex;align-items:center;gap:8px">${crest(x,'sm')}${tlk(x)}</span>${hx(Math.round(baseOvr(x)),'sm')}</div>`).join('')}</section>`;
-  if(m.log.length)h+=`<section class="pn"><h2>Caixa de entrada</h2><ul class="lines">${m.log.slice(0,6).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section>`;
-  return h;
+  h2+=`<section class="pn"><h2>Tabela de força · ${t.lg}${t.d===2?' (D2)':''}</h2>${lg.map((x,i)=>`<div class="pl${x.id===mid?' mine2':''}"><span class="num pos2">${i+1}</span><span class="nm2" style="display:flex;align-items:center;gap:8px">${crest(x,'sm')}${tlk(x)}</span>${hx(Math.round(baseOvr(x)),'sm')}</div>`).join('')}</section>`;
+  return `<div class="mgc">${h}</div><div class="mgc">${h2}</div>`;
 }
 
 function vMgr(){
@@ -2619,13 +2648,14 @@ function vMgr(){
   }
   mEnsure();const pay=payroll(t),open=winOpen()||!!m.cheat;
   const lastH=m.hist[m.hist.length-1];
-  h+=`<section class="pn"><div class="ph">${crest(t,'lg')}<div style="flex:1;min-width:0"><h3>${esc(t.name)}</h3><small>${t.lg} · OVR ${Math.round(baseOvr(t))} · ${rankOfTeam(t)}º do jogo</small></div></div>
-  <div class="cab"><div><b class="num" style="font-size:22px">${m.cheat?'∞':fmtM(m.cash).replace('US$ ','')}</b><small>Caixa (US$)</small></div><div><b class="num" style="font-size:22px">${m.sat}%</b><small>Confiança</small></div></div>
-  <div class="ovb" style="height:7px;margin-top:8px"><i style="width:${m.sat}%"></i></div>
-  <p class="note"><b>Meta da diretoria:</b> ${goalTxt(m,t)}.</p>
-  <p class="note" style="margin-top:4px">${m.cheat?'<b style="color:var(--gold)">Cheats ligados</b>: verba infinita e janela sempre aberta.':open?'Janela de transferências <b style="color:var(--ok)">aberta</b>. Fecha quando você iniciar o próximo split.':'Janela fechada. Ela abre na virada de ano e de novo entre o MSI e o Split 2.'}</p><div class="row" style="margin:10px 0 0"><button class="ghost" data-act="cheat">${m.cheat?'Desligar cheats':'Ligar cheats'}</button></div></section>`;
+  h+=`<div class="mgr"><section class="pn mgh"><div class="mh1"><div class="ph">${crest(t,'lg')}<div style="flex:1;min-width:0"><h3>${esc(t.name)}</h3><small>${t.lg} · OVR ${Math.round(baseOvr(t))} · ${rankOfTeam(t)}º do jogo</small></div></div></div>
+  <div class="mh2"><div class="cab"><div><b class="num" style="font-size:22px">${m.cheat?'∞':fmtM(m.cash).replace('US$ ','')}</b><small>Caixa (US$)</small></div><div><b class="num" style="font-size:22px">${m.sat}%</b><small>Confiança</small></div></div>
+  <div class="ovb" style="height:7px;margin-top:8px"><i style="width:${m.sat}%"></i></div></div>
+  <div class="mh3"><p class="note"><b>Meta da diretoria:</b> ${goalTxt(m,t)}.</p>
+  <p class="note" style="margin-top:4px">${m.cheat?'<b style="color:var(--gold)">Cheats ligados</b>: verba infinita e janela sempre aberta.':open?'Janela de transferências <b style="color:var(--ok)">aberta</b>. Fecha quando você iniciar o próximo split.':'Janela fechada. Ela abre na virada de ano e de novo entre o MSI e o Split 2.'}</p><div class="row" style="margin:10px 0 0"><button class="ghost" data-act="cheat">${m.cheat?'Desligar cheats':'Ligar cheats'}</button></div></div></section>`;
   h+=`<div class="pills stk">${[['inicio','Início'],['elenco','Elenco'],['base','Base'],['mercado','Mercado'],['fin','Finanças'],['livres','Livres'],['ach','Troféus']].map(([k,l])=>`<button class="pill" aria-pressed="${mgrView===k}" data-act="mgrView" data-v="${k}">${l}</button>`).join('')}</div>`;
   mEnsure();
+  h+=`<div class="mgv v-${mgrView}">`;
   if(mgrView==='inicio'){
     h+=inicioHTML(t,m);
   }else if(mgrView==='fin'){
@@ -2638,13 +2668,13 @@ function vMgr(){
     h+=achHTML(m);
   }else if(mgrView==='mercado'){
     const old=t.pl[mgrRole];
-    h+=`<input id="mgr-q" class="search" type="search" placeholder="Buscar qualquer jogador" value="${esc(mgrQ)}" aria-label="Buscar jogador"><div class="pills">${RN.map((r,i)=>`<button class="pill" aria-pressed="${mgrRole===i}" data-act="mgrRole" data-v="${i}">${r}</button>`).join('')}</div>`;
-    if(S.tf&&S.tf.length)h+=`<section class="pn"><h2>Movimentação do mercado</h2><ul class="lines">${S.tf.slice(0,6).map(x=>`<li>${esc(x.t)}</li>`).join('')}</ul></section>`;
+    h+=`<div class="mtool"><input id="mgr-q" class="search" type="search" placeholder="Buscar qualquer jogador" value="${esc(mgrQ)}" aria-label="Buscar jogador"><div class="pills">${RN.map((r,i)=>`<button class="pill" aria-pressed="${mgrRole===i}" data-act="mgrRole" data-v="${i}">${r}</button>`).join('')}</div></div>`;
+    if(S.tf&&S.tf.length)h+=`<section class="pn msid"><h2>Movimentação do mercado</h2><ul class="lines">${S.tf.slice(0,6).map(x=>`<li>${esc(x.t)}</li>`).join('')}</ul></section>`;
     h+=`<section class="pn"><h2>Mercado</h2><p class="note" style="margin:0 0 6px">${m.cheat?'Cheats ligados: contratar não custa nada. O jogador vai para as suas reservas e o time vendedor contrata outro no lugar.':`O jogador comprado vai para as suas reservas, sem trocar com ninguém. O time vendedor é obrigado a contratar outro no lugar. Depois é só promovê-lo a titular.`}</p><div id="mlist">${mlistHTML()}</div></section>`;
   }else{
     h+=`<section class="pn"><h2>Agentes livres</h2><p class="note" style="margin:0 0 6px">Quem não for contratado se aposenta na virada de ano. Eles chegam como reservas.</p>${m.fa.map(p=>{const fee=r1(mvOf(p)*.6*PM());const ok=m.cheat||(open&&m.cash-fee>=0);const why=!open?'Fechada':'Sem caixa';return `<div class="mrow">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos${p.age<=23?` · potencial ${potTxt(p)}`:''}</small></span><button class="buy" data-act="mgrSign" data-v="${esc(p.n)}"${ok?'':' disabled'}>${ok?(m.cheat?'Contratar':'Contratar '+fmtM(fee).replace('US$ ','')):why}</button></div>`}).join('')}</section>`;
   }
-  return h+logHTML(m);
+  return h+`</div>`+logHTML(m)+`</div>`;
 }
 function bidsHTML(p,c){
   const ng=S.mgr.neg&&S.mgr.neg[p.n],tk=ng&&ng.k===S.year+':'+(S.phase<4?'a':'b')?ng:null;
