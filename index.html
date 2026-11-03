@@ -599,8 +599,12 @@ h1{letter-spacing:.02em}
 .tile li{display:flex;gap:6px;align-items:baseline;min-width:0}.tile li b{color:var(--acc);flex:none}.tile li>span:last-child{margin-left:auto;color:var(--muted)}
 .tile p{margin:8px 0 0;font-size:14px;line-height:1.35}
 .tile .big{display:block;font:800 32px/1 var(--d);margin-top:8px}.tile .big.up{color:var(--acc)}.tile .big.dn{color:var(--bad)}
-.bar2{position:fixed;left:0;right:0;bottom:calc(56px + env(safe-area-inset-bottom,0px));z-index:15;display:flex;gap:10px;padding:12px 16px;background:linear-gradient(180deg,transparent,rgba(5,8,30,.96) 32%)}
-.bar2 .ghost{width:84px;flex:none}.bar2 .play{flex:1}
+.bar2{position:fixed;left:0;right:0;bottom:calc(56px + env(safe-area-inset-bottom,0px));z-index:15;display:flex;gap:10px;padding:10px 14px;background:rgba(6,9,34,.97);border-top:1px solid rgba(130,150,255,.35);box-shadow:0 -10px 24px rgba(0,0,0,.45)}
+.bar2 .ghost{width:92px;flex:none;min-height:52px;background:rgba(130,150,255,.2);border:1.5px solid rgba(160,180,255,.75);color:#fff;font-weight:800;opacity:1}
+.bar2 .ghost:disabled{opacity:.5}
+.bar2 .play{flex:1;min-height:52px;font-size:15px;letter-spacing:.04em;line-height:1.15;padding:6px 10px}
+.dtabs{position:sticky;top:0;z-index:5;background:rgba(8,12,44,.92);padding:8px 0;margin:0 0 10px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.dtabs::-webkit-scrollbar{display:none}.dtabs .pill{flex:none;white-space:nowrap}
 .more2>summary{cursor:pointer;font:700 16px var(--d);letter-spacing:.06em;text-transform:uppercase}
 .more2[open]>summary{margin-bottom:10px}
 .more2 .pn{margin-left:0;margin-right:0}
@@ -1009,7 +1013,7 @@ function newState(){
 function load(){try{const j=localStorage.getItem(KEY);return j?JSON.parse(j):null}catch(e){return null}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 let S=load();
-let cele=null,mgrQ='',mgrView='inicio',mgrRole=0,mgrPick=0,askEnd=false,animNext=true,tab='season',selYear=null,selLg='LCK',msg='',askReset=false,dHof=null,dBackup='',lastPlayed=null;
+let cele=null,mgrQ='',mgrView='inicio',mgrRole=0,mgrPick=0,askEnd=false,animNext=true,tab='season',selYear=null,selLg='LCK',msg='',askReset=false,dHof=null,dBackup='',lastPlayed=null,detOpen=false,detT='';
 let tvw='el';
 let prof=null,pstack=[],prevTab='season',hofView='rank',pf='all',qStr='';
 
@@ -3970,12 +3974,18 @@ function vSeason(){
   if(pcAct()&&pcFind())h+=pcSummary();
   if(S.season.sp)h+=spHTML();
   if((S.phase===0||S.phase===4)&&!S.season.sp)h+=flHTML();
+  const SEC=[];
   let d=calGrid();
   if((S.phase===0||S.phase===4)&&!S.season.sp)d+=favHTML();
   if(S.hl&&S.hl.length&&!S.season.sp)d+=`<section class="pn"><h2>Manchetes</h2><ul class="lines">${S.hl.slice(0,6).map(x=>`<li><b class="num">${x.y}</b> · ${esc(x.t)}</li>`).join('')}</ul></section>`;
   if(S.year===2026&&cur&&cur.g<=3&&S.phase>0)d+=`<section class="pn"><h2>Ponto de partida real</h2><p class="note" style="margin:0">Mundial 2026 nas quartas de final: o Suíço inteiro aparece como resultado real (placares de LOS×TLAW e HLE×G2 na rodada 4 são estimados) e as quartas começam sem jogos disputados; o resto é simulado. MSI e ligas de 2026 e os títulos da carreira (Faker com 6 Mundiais e 4 prêmios de Melhor Jogador do Ano) já estão no histórico. OVR e idades são notas minhas.</p></section>`;
-  d+=cupHTML()+tourHTML(S.season.wc,'wc','Mundial')+splitHTML('s2','Split 2')+tourHTML(S.season.msi,'msi','MSI')+splitHTML('s1','Split 1');
-  h+=`<details class="pn det more2"${lastPlayed?' open':''}><summary>Detalhes: calendário do mês, tabelas e resultados</summary>${d}</details>`;
+  SEC.push(['cal','Calendário',d]);
+  const gk=cur?cur.g:0;
+  [['cup','Copa',cupHTML()],['wc','Mundial',tourHTML(S.season.wc,'wc','Mundial')],['s2','Split 2',splitHTML('s2','Split 2')],['msi','MSI',tourHTML(S.season.msi,'msi','MSI')],['s1','Split 1',splitHTML('s1','Split 1')]].forEach(x=>{if(x[2]&&x[2].trim())SEC.push(x)});
+  const defK=gk===5?'cup':gk===3?'wc':gk===2?'s2':gk===1?'msi':gk===0?'s1':'cal';
+  let sk=detT;if(!SEC.some(x=>x[0]===sk))sk=SEC.some(x=>x[0]===defK)?defK:'cal';
+  if(lastPlayed&&!detT&&['wc','msi','cup'].includes(lastPlayed.k)&&SEC.some(x=>x[0]===lastPlayed.k))sk=lastPlayed.k;
+  h+=`<details class="pn det more2"${lastPlayed||detOpen?' open':''} ontoggle="detOpen=this.open"><summary>Detalhes: calendário, tabelas e resultados</summary><div class="pills dtabs">${SEC.map(x=>`<button class="pill" aria-pressed="${x[0]===sk}" data-act="dtab" data-v="${x[0]}">${x[1]}</button>`).join('')}</div>${SEC.find(x=>x[0]===sk)[2]}</details>`;
   if(S.phase===0&&!S.off.length)h+=`<p class="empty">Cada temporada tem dois splits, o MSI e o Mundial com fase suíça. Você joga fase por fase e vê as chances de cada partida antes de simular. Toque em qualquer nome para abrir a ficha.</p>`;
   return h;
 }
@@ -4493,8 +4503,8 @@ function act(a,v){
   msg='';
   if(['tab','player','team','lteam','nation','back','step','all'].includes(a))animNext=true;
   let top=false;
-  if(a==='tab'){tab=v;askReset=false;askEnd=false;lastPlayed=null;prof=null;pstack=[]}
-  else if(a==='step'){if(daysLeft()>0){msg='Ainda não é dia de jogo. Avance o calendário.'}else if(dvNeeded()&&(dvOpen(),dvAll(),dvGo(),!lvNeeded())){step();sndAfter();save();top=true}else if(lvNeeded()){lvOpen();top=true}else{step();sndAfter();save();top=true}}
+  if(a==='tab'){detT='';tab=v;askReset=false;askEnd=false;lastPlayed=null;prof=null;pstack=[]}
+  else if(a==='step'){detT='';if(daysLeft()>0){msg='Ainda não é dia de jogo. Avance o calendário.'}else if(dvNeeded()&&(dvOpen(),dvAll(),dvGo(),!lvNeeded())){step();sndAfter();save();top=true}else if(lvNeeded()){lvOpen();top=true}else{step();sndAfter();save();top=true}}
   else if(a==='dvBan'||a==='dvPick'){if(DV){const [r,c]=String(v).split('|'),t=SEQ[DV.i];if(t&&t[1]===DV.us&&!dvTaken(c)){
     if(a==='dvBan'&&t[0]==='ban'){DV.bans[DV.us].push(c);DV.i++;dvAdv()}
     else if(a==='dvPick'&&t[0]==='pick'&&!DV.pk[DV.us][+r]&&(!DV.pc||+r===DV.prole)){DV.pk[DV.us][+r]=c;DV.i++;dvAdv()}}}}
@@ -4511,6 +4521,7 @@ function act(a,v){
   else if(a==='fl'){S.opt=S.opt||{};S.opt.fl=v;save()}
   else if(a==='all'){const c5=PHASES[S.phase]&&PHASES[S.phase].g===5;while(S.phase<PHASES.length&&(c5||PHASES[S.phase].g<5))step();lastPlayed=null;S.day=evDay();tab='bola';save();top=true}
   else if(a==='year'){selYear=+v}
+  else if(a==='dtab'){detT=v;detOpen=true;lastPlayed=null}
   else if(a==='celeX'){cele=null}
   else if(a==='lg'){selLg=v}
   else if(a==='hv'){hofView=v}
