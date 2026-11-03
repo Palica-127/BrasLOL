@@ -620,6 +620,29 @@ h1{letter-spacing:.02em}
   .more2{grid-column:2;margin:0;max-height:calc(100vh - 150px);overflow-y:auto;position:sticky;top:10px}
   .bar2{display:none}
 }
+
+.brk{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:4px 0 10px;padding-bottom:6px}
+.brkin{display:flex;gap:16px;min-width:max-content}
+.bcol{width:140px;display:flex;flex-direction:column}
+.bh{background:rgba(220,225,255,.9);color:#0b1030;font:800 12px/1 var(--d);letter-spacing:.1em;text-transform:uppercase;padding:9px 10px;border-radius:5px;margin-bottom:8px}
+.bbody{flex:1;display:flex;flex-direction:column}
+.bp{flex:1;display:flex;flex-direction:column;position:relative}
+.bp::after{content:'';position:absolute;right:-10px;top:25%;bottom:25%;width:10px;border:1.5px solid rgba(150,165,255,.4);border-left:0}
+.bsl{flex:1;display:flex;align-items:center;min-height:112px;position:relative;padding:5px 0}
+.bbody>.bsl{flex:1}
+.bcol.nx .bsl::before{content:'';position:absolute;left:-10px;width:10px;top:50%;border-top:1.5px solid rgba(150,165,255,.4)}
+.bm2{width:100%;background:rgba(14,20,64,.9);border:1px solid rgba(130,150,255,.3);border-radius:8px;overflow:hidden;border-left:3px solid rgba(130,150,255,.35)}
+.bm2.pend{border-left-color:var(--acc)}
+.br{display:flex;align-items:center;gap:6px;padding:5px 7px;min-height:34px}
+.br+.br{border-top:1px solid rgba(130,150,255,.18)}
+.br .bn{flex:1;min-width:0;font:700 12px var(--b);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.br .bn a,.br .bn .tl{color:inherit}
+.br .bs{font:800 14px var(--d);min-width:14px;text-align:right}
+.br.w{background:rgba(0,240,160,.08)}.br.w .bs{color:var(--acc)}
+.br.l{opacity:.5}.br.me .bn{color:var(--acc)}
+.br.tbd .bn{color:var(--muted);font-weight:600}.br.tbd .bs{color:var(--muted)}
+.br .bc{width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(130,150,255,.35);flex:none}
+.br .crest,.br .shield{flex:none}
 /* compacto */
 .brkb{width:100%;margin-top:10px;min-height:42px}
 .hcol{display:flex;flex-direction:column;gap:10px;min-width:0}
@@ -3817,6 +3840,38 @@ function swissHTML(tour){
     return `<div class="gr${r.w===3?' q':''}${r.l===3?' x':''}${mgrT()&&id===S.mgr.tid?' mine':''}"><span>${tlk(T(id))}</span><span class="pips">${'<i></i>'.repeat(r.w)}${'<i class="l"></i>'.repeat(r.l)}<span class="num" style="margin-left:6px">${r.w}-${r.l}</span></span></div>`;
   }).join('')}</div><p class="note" style="margin:0 0 4px">Três vitórias classificam e três derrotas eliminam. Jogos que decidem classificação ou eliminação são melhor de 3.</p>`;
 }
+function bracketHTML(tour){
+  const ko=tour.stages.filter(st=>!st.swiss);
+  if(!ko.length)return'';
+  let n=ko[0].ms.length;const cols=[];
+  for(let c=0;n>=1;c++,n=Math.floor(n/2)){
+    const st=ko[c];
+    cols.push({name:n===1?'Final':n===2?'Semifinais':n===4?'Quartas':'Rodada '+(c+1),n,st});
+    if(n===1)break;
+  }
+  const win=m=>m&&m.res?m.res.w:null;
+  const row=(id,sc,m,side)=>{
+    if(id==null)return `<div class="br tbd"><span class="bc"></span><span class="bn">A definir</span><b class="bs">–</b></div>`;
+    const t=T(id),r=m&&m.res,w=r&&r.w===id,mine=mgrT()&&S.mgr.tid===id;
+    return `<div class="br${r?(w?' w':' l'):''}${mine?' me':''}">${crest(t,'sm')}<span class="bn">${tlk(t)}</span><b class="bs num">${r?sc:'0'}</b></div>`;
+  };
+  const card=(m,c,j)=>{
+    let a=null,b=null;
+    if(m){a=m.a;b=m.b}
+    else if(c>0){const p=cols[c-1];const pm=p.st&&p.st.ms;a=pm?win(pm[2*j]):null;b=pm?win(pm[2*j+1]):null}
+    const r=m&&m.res;
+    return `<div class="bm2${m&&!r?' pend':''}">${row(a,r?r.wa:0,m)}${row(b,r?r.wb:0,m)}</div>`;
+  };
+  const colHTML=cols.map((cl,c)=>{
+    const slots=[];
+    for(let j=0;j<cl.n;j++)slots.push(`<div class="bsl">${card(cl.st&&cl.st.ms[j],c,j)}</div>`);
+    let body='';
+    if(c<cols.length-1)for(let j=0;j<slots.length;j+=2)body+=`<div class="bp">${slots[j]}${slots[j+1]||''}</div>`;
+    else body=slots.join('');
+    return `<div class="bcol${c>0?' nx':''}"><div class="bh">${cl.name}</div><div class="bbody">${body}</div></div>`;
+  }).join('');
+  return `<div class="brk"><div class="brkin">${colHTML}</div></div>`;
+}
 function tourHTML(tour,kind,title){
   if(!tour)return'';
   let h=`<section class="pn"><h2>${title} ${S.year}</h2>`;
@@ -3825,14 +3880,18 @@ function tourHTML(tour,kind,title){
     h+=`<div class="crown"><small>Campeão</small><b>${esc(T(tour.champ).name)}</b><span>Final: ${esc(T(fin.res.w).name)} ${Math.max(fin.res.wa,fin.res.wb)}-${Math.min(fin.res.wa,fin.res.wb)} ${esc(T(loserOf(fin)).name)} · MVP ${lk(tour.mvp)}</span></div>`;
   }
   const full=!!brkO[kind];
-  if(tour.rec&&full)h+=swissHTML(tour);
-  let shown=0;
+  if(full)h+=bracketHTML(tour);
+  let shown=0,swd=false;
+  const swr=()=>{if(tour.rec&&!swd){swd=true;h+=swissHTML(tour)}};
   [...tour.stages].map((st,si)=>({st,si})).reverse().forEach(({st,si})=>{
     const pend=st.ms.some(m=>!m.res);
     const fx=lastPlayed&&lastPlayed.k===kind&&lastPlayed.si===si;
-    if(!full&&!pend&&!fx)return;shown++;
+    if(!pend&&!fx&&!full)return;
+    if(!pend&&!fx)swr();
+    shown++;
     h+=`<div class="sub">${pend?'Próximos jogos · ':''}${st.name}</div>`+st.ms.map((m,i)=>matchHTML(m,i,fx)).join('');
   });
+  swr();
   if(!full&&!shown&&tour.champ==null)h+=`<p class="note" style="margin:6px 0">Sem jogos pendentes agora.</p>`;
   h+=`<button class="ghost brkb" data-act="brk" data-v="${kind}">${full?'Esconder bracket e resultados':'Ver bracket e resultados'}</button>`;
   if(!full)return h+'</section>';
