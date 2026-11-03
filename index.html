@@ -375,6 +375,11 @@ h1{white-space:nowrap}
 .det[open] summary{margin-bottom:10px}
 .tro span{font:600 10px/1.1 var(--b);color:var(--muted);text-align:center;max-width:62px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .tro.wide{width:64px}
+.sh0{padding:9px 2px;margin:0 2px;border-bottom:1px solid var(--line)}
+.sh0 span{opacity:.75}.sh0 b{color:var(--muted)}
+.kv.kv4{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:12px}
+.kv.kv4 b{font-size:22px}
+.ph small{line-height:1.45}
 .tro.vice svg{filter:grayscale(1) brightness(1.15) drop-shadow(0 4px 5px rgba(0,0,0,.55)) drop-shadow(0 0 9px rgba(200,210,225,.2))}
 .tro.vice b{color:#1d2430;background:linear-gradient(180deg,#e6eaf0,#9aa4b2)}
 .lgcrest{--h:200}
@@ -841,6 +846,7 @@ function load(){try{const j=localStorage.getItem(KEY);return j?JSON.parse(j):nul
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 let S=load();
 let cele=null,mgrQ='',mgrView='inicio',mgrRole=0,mgrPick=0,askEnd=false,animNext=true,tab='season',selYear=null,selLg='LCK',msg='',askReset=false,dHof=null,dBackup='',lastPlayed=null;
+let tvw='el';
 let prof=null,pstack=[],prevTab='season',hofView='rank',pf='all',qStr='';
 
 /* ---------- ponto de partida real (30/10/2026) ---------- */
@@ -3722,9 +3728,8 @@ function vLegacy(key){
   let o=`<div class="row"><button class="ghost" data-act="back">← Voltar</button></div>`;
   o+=`<section class="pn"><div class="ph">${crest({name},'lg')}<div style="flex:1;min-width:0"><h3>${esc(name)}</h3><small>Time lendário · fora da simulação${others.length?' · também: '+others.map(esc).join(', '):''}</small></div></div>
   <div class="cab"><div>${ico('trophy')}<b class="num">${cw.length}</b><small>Mundiais</small></div><div>${ico('trophy')}<b class="num">${cm.length}</b><small>MSI</small></div><div>${ico('trophy')}<b class="num">${vi.length}</b><small>Vices</small></div></div></section>`;
-  o+=`<section class="pn"><h2>Estante de troféus</h2>`+
-    [['w','Mundiais',cw,''],['m','MSI',cm,''],['w','Vices em Mundiais',vi.filter(x=>x.k==='Mundial'),'vice'],['m','Vices em MSI',vi.filter(x=>x.k==='MSI'),'vice']].map(([k,t,it,cl])=>
-      `<div class="sh-t"><span>${t}</span><b class="num">${it.length}</b></div>${shelfRow(k,it.map(x=>({y:x.y,l:`${cl?'Vice ':''}${x.k} ${x.y}${x.as!==name?' · '+x.as:''}`})),cl)}`).join('')+`</section>`;
+  const lgr=(k,t,it,cl)=>it.length?`<div class="sh-t"><span>${t}</span><b class="num">${it.length}</b></div>${shelfRow(k,it.map(x=>({y:x.y,l:`${cl?'Vice ':''}${x.k} ${x.y}${x.as!==name?' · '+x.as:''}`})),cl)}`:`<div class="sh-t sh0"><span>${t}</span><b class="num">0</b></div>`;
+  o+=`<section class="pn"><h2>Estante de troféus</h2><div class="sub">Campeão</div>${lgr('w','Mundiais',cw,'')}${lgr('m','MSI',cm,'')}<div class="sub">Vice</div>${lgr('w','Mundiais',vi.filter(x=>x.k==='Mundial'),'vice')}${lgr('m','MSI',vi.filter(x=>x.k==='MSI'),'vice')}</section>`;
   const bl=legBolas(key);
   if(bl.length)o+=`<section class="pn"><h2>Estante de Bolas de Ouro</h2><div class="sh-t"><span>Jogadores do time premiados</span><b class="num">${bl.length}</b></div>${shelfRow('b',bl.map(x=>({y:x.y,l:`Bola de Ouro ${x.y}: ${x.n}`,sub:x.n})),'bola')}</section>`;
   const pl=legPlayers(key);
@@ -3732,18 +3737,21 @@ function vLegacy(key){
   if(rec.length)o+=`<section class="pn"><details class="det"><summary>Detalhes dos títulos</summary>${rec.slice().sort((a,b)=>b.y-a.y).map(x=>`<div class="trp"><span class="y num">${x.y}</span><span><b>${x.r==='V'?'Vice · ':''}${esc(x.k)}</b>${x.as!==name?` <small style="display:inline">como ${esc(x.as)}</small>`:''}</span></div>`).join('')}</details></section>`;
   return o;
 }
+const shBlk=(lab,n,html)=>n?`<div class="sh-t"><span>${lab}</span><b class="num">${n}</b></div><div class="shelf">${html}</div>`:`<div class="sh-t sh0"><span>${lab}</span><b class="num">0</b></div>`;
 function shelfHTML(t){
-  const ex=legExtra(t),vc=viceList(t);
-  const kinds=[['w','Mundial','Mundiais',x=>x.k==='Mundial'],['m','MSI','MSI',x=>x.k==='MSI'],['l','Liga','Ligas',x=>x.k!=='Mundial'&&x.k!=='MSI']];
-  let h=`<section class="pn"><h2>Estante de troféus</h2>`;
-  kinds.forEach(([k,one,pl,f])=>{
+  const ex=legExtra(t),vc=viceList(t),bo=teamBolas(t);
+  const kinds=[['w','Mundiais',x=>x.k==='Mundial'],['m','MSI',x=>x.k==='MSI'],['l','Ligas',x=>x.k!=='Mundial'&&x.k!=='MSI']];
+  let h=`<section class="pn"><h2>Estante de troféus</h2><div class="sub">Campeão</div>`;
+  kinds.forEach(([k,pl,f])=>{
     const items=t.tt.concat(ex.c).filter(f).sort((a,b)=>a.y-b.y);
-    h+=`<div class="sh-t"><span>${pl}</span><b class="num">${items.length}</b></div><div class="shelf">${items.length?items.map(x=>`<div class="tro" title="${esc(x.k)} ${x.y}" role="img" aria-label="${esc(x.k)} ${x.y}">${troSvg(k)}<b class="num">${x.y}</b></div>`).join(''):'<span class="none">Ainda vazia</span>'}</div>`;
+    h+=shBlk(pl,items.length,items.map(x=>`<div class="tro" title="${esc(x.k)} ${x.y}" role="img" aria-label="${esc(x.k)} ${x.y}">${troSvg(k)}<b class="num">${x.y}</b></div>`).join(''));
   });
-  [['w','Vices em Mundiais','Mundial'],['m','Vices em MSI','MSI']].forEach(([k,pl,kk])=>{
+  h+=`<div class="sub">Vice</div>`;
+  [['w','Mundiais','Mundial'],['m','MSI','MSI']].forEach(([k,pl,kk])=>{
     const items=vc.filter(x=>x.k===kk);
-    h+=`<div class="sh-t"><span>${pl}</span><b class="num">${items.length}</b></div><div class="shelf">${items.length?items.map(x=>`<div class="tro vice" title="Vice ${esc(kk)} ${x.y}" role="img" aria-label="Vice ${esc(kk)} ${x.y}">${troSvg(k)}<b class="num">${x.y}</b></div>`).join(''):'<span class="none">Ainda vazia</span>'}</div>`;
+    h+=shBlk(pl,items.length,items.map(x=>`<div class="tro vice" title="Vice ${esc(kk)} ${x.y}" role="img" aria-label="Vice ${esc(kk)} ${x.y}">${troSvg(k)}<b class="num">${x.y}</b></div>`).join(''));
   });
+  h+=`<div class="sub">Individual</div>`+shBlk('Bolas de Ouro',bo.length,bo.map(x=>`<div class="tro bola" title="Bola de Ouro ${x.y}: ${esc(x.n)}" role="img" aria-label="Bola de Ouro ${x.y}, ${esc(x.n)}">${troSvg('b')}<b class="num">${x.y}</b><span>${esc(x.n)}</span></div>`).join(''));
   return h+`</section>`;
 }
 function podItems(h){
@@ -3840,6 +3848,7 @@ function vLeague(lg){
 }
 function openProf(k,id){
   if(tab==='prof'&&prof)pstack.push(prof);else{pstack=[];prevTab=tab}
+  if(k==='t')tvw='el';
   prof={k,id};tab='prof';
 }
 function poolHTML(n,role,tm){
@@ -3885,28 +3894,37 @@ function vPlayer(n){
   if(ss.length)o+=`<section class="pn"><h2>Temporadas</h2><div class="tw"><table class="tb"><thead><tr><th>Ano</th><th>Time</th><th>OVR</th><th>Idade</th><th>Nota</th><th>Pos.</th><th>Jogos</th><th>KDA</th></tr></thead><tbody>${[...ss].reverse().map(s=>`<tr><td class="num">${s.y}</td><td>${esc(s.tm)}</td><td class="num">${s.r}</td><td class="num">${s.age}</td><td class="num">${s.sc}</td><td class="num${s.pos===1?' c':''}">${pos(s.pos)}</td><td class="num">${s.gw}-${s.gl}</td><td class="num">${s.kda}</td></tr>`).join('')}</tbody></table></div><p class="note">Posição é o lugar do jogador na votação geral da temporada. KDA é simulado a partir do desempenho.</p></section>`;
   return o;
 }
+const TV=[['el','Elenco'],['ti','Títulos'],['hi','Histórico'],['di','Divisão']];
 function vTeam(id){
   const t=T(id),c=ttCount(t);
   {const e=legExtra(t);c.wc+=e.c.filter(x=>x.k==='Mundial').length;c.msi+=e.c.filter(x=>x.k==='MSI').length}
-  const yh=t.yh;
-  const wcF=yh.filter(x=>x.wc==='F').length,msiF=yh.filter(x=>x.msi==='F').length;
-  const lgF=yh.filter(x=>x.s1===2).length+yh.filter(x=>x.s2===2).length;
+  const yh=t.yh,vc=viceList(t),bo=teamBolas(t);
   const gw=yh.reduce((a,s)=>a+s.gw,0),gl=yh.reduce((a,s)=>a+s.gl,0);
   const f=r1(eff(t)-baseOvr(t));
+  const view=TV.some(x=>x[0]===tvw)?tvw:'el';
   let o=`<div class="row"><button class="ghost" data-act="back">← Voltar</button></div>`;
-  o+=`<section class="pn"><div class="ph">${crest(t,'lg')}<div style="flex:1;min-width:0"><h3>${esc(t.name)}</h3><small>${llk(t.lg)}${t.est?' · elenco estimado':''} · OVR ${Math.round(baseOvr(t))} · power #${pwPos(t)} · forma ${f>0?`<span class="st up">▲${f.toFixed(1)}</span>`:f<0?`<span class="st dn">▼${(-f).toFixed(1)}</span>`:'estável'}</small></div></div>
-  <div class="cab"><div>${ico('trophy')}<b class="num">${c.wc}</b><small>Mundiais</small></div><div>${ico('trophy')}<b class="num">${c.msi}</b><small>MSI</small></div><div>${ico('trophy')}<b class="num">${c.lg}</b><small>Ligas</small></div></div></section>`;
-  {const ts_=t.d===2?D2L():S.teams,rows_=pmSort(ts_.filter(x=>x.lg===t.lg)),pi_=pmInfo(t);
-  o+=`<section class="pn"><h2>${t.d===2?'Segunda divisão':'Primeira divisão'} · ${t.lg}</h2>${pi_.tag?`<p class="note" style="margin:0 0 8px">${pmBadge(pi_)} ${pi_.tag==='↑ subiu'?'Acesso conquistado no último play-off.':pi_.tag==='↓ rebaixado'?'Perdeu o play-off e caiu para a D2.':pi_.tag==='salvo no play-off'?'Venceu o play-off de acesso e ficou na elite.':'Perdeu o play-off de acesso.'}</p>`:''}${rows_.map((x,i)=>`<div class="pl${x.t.id===t.id?' mine2':''}" style="grid-template-columns:30px minmax(0,1fr) auto"><span class="pos num" style="font-size:18px">${i+1}</span><span class="nm2" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">${crest(x.t,'sm')}${tlk(x.t)}${pmBadge(x.i)}</span>${hx(Math.round(baseOvr(x.t)),'sm')}</div>`).join('')}</section>`}
-  o+=`<section class="pn"><h2>Elenco atual</h2><div class="futr">${t.pl.map(p=>fut({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f,team:t})).join('')}</div></section>`;
-  if(t.bn&&t.bn.length)o+=`<section class="pn"><h2>Reservas</h2><p class="note" style="margin:0 0 8px">Quando um titular se aposenta, o reserva da mesma função assume a vaga. Sem reserva, o time contrata um jogador mais fraco.</p>${t.bn.map(p=>`<div class="pl" style="grid-template-columns:34px minmax(0,1fr) auto">${hx(p.r,'sm')}<span><span class="nm2">${esc(p.n)}</span><br><small>${RN[p.role]} · ${p.age} anos · pot. ${p.pot}</small></span></div>`).join('')}</section>`;
-  if(yh.length){
-    o+=`<section class="pn"><h2>Campanha</h2><div class="kv"><div><small>Temporadas</small><b class="num">${yh.length}</b></div><div><small>Jogos (V-D)</small><b class="num">${gw}-${gl}</b></div><div><small>Aproveitamento</small><b class="num">${gw+gl?Math.round(100*gw/(gw+gl)):0}%</b></div><div><small>Vices em Mundial</small><b class="num">${wcF}</b></div><div><small>Participações MSI</small><b class="num">${yh.filter(x=>x.msi!=='-').length}</b></div><div><small>Participações Mundial</small><b class="num">${yh.filter(x=>x.wc!=='-').length}</b></div></div></section>`;
-    o+=`<section class="pn"><details class="det"><summary>Histórico por temporada</summary><div class="tw"><table class="tb"><thead><tr><th>Ano</th><th>Split 1</th><th>MSI</th><th>Split 2</th><th>Mundial</th></tr></thead><tbody>${[...yh].reverse().map(s=>`<tr><td class="num">${s.y}</td><td class="num${s.s1===1?' c':''}">${pos(s.s1)}</td><td class="${s.msi==='C'?'c':''}">${CODE[s.msi]}</td><td class="num${s.s2===1?' c':''}">${pos(s.s2)}</td><td class="${s.wc==='C'?'c':''}">${CODE[s.wc]}</td></tr>`).join('')}</tbody></table></div></details></section>`;
+  o+=`<section class="pn"><div class="ph">${crest(t,'lg')}<div style="flex:1;min-width:0"><h3>${esc(t.name)}</h3><small>${llk(t.lg)}${t.d===2?' · 2ª divisão':''}${t.est?' · elenco estimado':''}<br>OVR ${Math.round(baseOvr(t))}${pwPos(t)>0?` · power #${pwPos(t)}`:''} · forma ${f>0?`<span class="st up">▲${f.toFixed(1)}</span>`:f<0?`<span class="st dn">▼${(-f).toFixed(1)}</span>`:'estável'}</small></div></div>
+  <div class="cab"><div>${ico('trophy')}<b class="num">${c.wc}</b><small>Mundiais</small></div><div>${ico('trophy')}<b class="num">${c.msi}</b><small>MSI</small></div><div>${ico('trophy')}<b class="num">${c.lg}</b><small>Ligas</small></div></div>
+  <div class="kv kv4"><div><small>Vices</small><b class="num">${vc.length}</b></div><div><small>Bolas</small><b class="num">${bo.length}</b></div><div><small>Anos</small><b class="num">${yh.length}</b></div><div><small>Aprov.</small><b class="num">${gw+gl?Math.round(100*gw/(gw+gl))+'%':'—'}</b></div></div></section>`;
+  o+=`<div class="pills stk">${TV.map(([k,l])=>`<button class="pill" aria-pressed="${view===k}" data-act="tvw" data-v="${k}">${l}</button>`).join('')}</div>`;
+  if(view==='el'){
+    o+=`<section class="pn"><h2>Elenco atual</h2><div class="futr">${t.pl.map(p=>fut({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f,team:t})).join('')}</div></section>`;
+    if(t.bn&&t.bn.length)o+=`<section class="pn"><h2>Reservas</h2><p class="note" style="margin:0 0 8px">Quando um titular se aposenta, o reserva da mesma função assume a vaga. Sem reserva, o time contrata um jogador mais fraco.</p>${t.bn.map(p=>`<div class="pl" style="grid-template-columns:34px minmax(0,1fr) auto">${hx(p.r,'sm')}<span><span class="nm2">${esc(p.n)}</span><br><small>${RN[p.role]} · ${p.age} anos · pot. ${p.pot}</small></span></div>`).join('')}</section>`;
+  }else if(view==='ti'){
+    o+=shelfHTML(t);
+    const allT=[...t.tt,...legExtra(t).c,...vc.map(x=>({...x,k:'Vice · '+x.k}))];
+    if(allT.length)o+=`<section class="pn"><details class="det"><summary>Detalhes dos títulos</summary>${allT.sort((a,b)=>b.y-a.y).map(x=>`<div class="trp"><span class="y num">${x.y}</span><span><b>${esc(x.k)}</b>${x.n&&x.n!==t.name?` <small style="display:inline">como ${esc(x.n)}</small>`:''}${x.r&&x.r.length?`<small>${x.r.map(lk).join(', ')}</small>`:''}</span></div>`).join('')}</details></section>`;
+  }else if(view==='hi'){
+    if(yh.length){
+      const vW=vc.filter(x=>x.k==='Mundial').length;
+      o+=`<section class="pn"><h2>Campanha</h2><div class="kv"><div><small>Temporadas</small><b class="num">${yh.length}</b></div><div><small>Jogos (V-D)</small><b class="num">${gw}-${gl}</b></div><div><small>Aproveitamento</small><b class="num">${gw+gl?Math.round(100*gw/(gw+gl)):0}%</b></div><div><small>Vices em Mundial</small><b class="num">${vW}</b></div><div><small>Participações MSI</small><b class="num">${yh.filter(x=>x.msi!=='-').length}</b></div><div><small>Participações Mundial</small><b class="num">${yh.filter(x=>x.wc!=='-').length}</b></div></div></section>`;
+      o+=`<section class="pn"><h2>Histórico por temporada</h2><div class="tw"><table class="tb"><thead><tr><th>Ano</th><th>Split 1</th><th>MSI</th><th>Split 2</th><th>Mundial</th></tr></thead><tbody>${[...yh].reverse().map(s=>`<tr><td class="num">${s.y}</td><td class="num${s.s1===1?' c':''}">${pos(s.s1)}</td><td class="${s.msi==='C'?'c':''}">${CODE[s.msi]}</td><td class="num${s.s2===1?' c':''}">${pos(s.s2)}</td><td class="${s.wc==='C'?'c':''}">${CODE[s.wc]}</td></tr>`).join('')}</tbody></table></div></section>`;
+    }else o+=`<section class="pn"><h2>Campanha</h2><p class="note" style="margin:0">Ainda sem temporadas jogadas no seu jogo. A campanha e o histórico por temporada começam a ser registrados a partir de 2026.</p></section>`;
+    o+=podiumsHTML(t);
+  }else{
+    const ts_=t.d===2?D2L():S.teams,rows_=pmSort(ts_.filter(x=>x.lg===t.lg)),pi_=pmInfo(t);
+    o+=`<section class="pn"><h2>${t.d===2?'Segunda divisão':'Primeira divisão'} · ${t.lg}</h2>${pi_.tag?`<p class="note" style="margin:0 0 8px">${pmBadge(pi_)} ${pi_.tag==='↑ subiu'?'Acesso conquistado no último play-off.':pi_.tag==='↓ rebaixado'?'Perdeu o play-off e caiu para a D2.':pi_.tag==='salvo no play-off'?'Venceu o play-off de acesso e ficou na elite.':'Perdeu o play-off de acesso.'}</p>`:''}${rows_.map((x,i)=>`<div class="pl${x.t.id===t.id?' mine2':''}" style="grid-template-columns:30px minmax(0,1fr) auto"><span class="pos num" style="font-size:18px">${i+1}</span><span class="nm2" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">${crest(x.t,'sm')}${tlk(x.t)}${pmBadge(x.i)}</span>${hx(Math.round(baseOvr(x.t)),'sm')}</div>`).join('')}</section>`;
   }
-  o+=shelfHTML(t)+bolaShelfHTML(t)+podiumsHTML(t);
-  const allT=[...t.tt,...legExtra(t).c,...viceList(t).map(x=>({...x,k:'Vice · '+x.k}))];
-  if(allT.length)o+=`<section class="pn"><details class="det"><summary>Detalhes dos títulos</summary>${allT.sort((a,b)=>b.y-a.y).map(x=>`<div class="trp"><span class="y num">${x.y}</span><span><b>${esc(x.k)}</b>${x.n&&x.n!==t.name?` <small style="display:inline">como ${esc(x.n)}</small>`:''}${x.r&&x.r.length?`<small>${x.r.map(lk).join(', ')}</small>`:''}</span></div>`).join('')}</details></section>`;
   return o;
 }
 const vProf=()=>prof?(prof.k==='p'?vPlayer(prof.id):prof.k==='l'?vLeague(prof.id):prof.k==='n'?vNation(prof.id):prof.k==='h'?vLegacy(prof.id):vTeam(prof.id)):'';
@@ -3974,6 +3992,7 @@ function act(a,v){
   else if(a==='player'){openProf('p',v);top=true}
   else if(a==='team'){openProf('t',+v);top=true}
   else if(a==='lteam'){openProf('h',v);top=true}
+  else if(a==='tvw'){tvw=v}
   else if(a==='league'){openProf('l',v);top=true}
   else if(a==='nation'){if(v)openProf('n',v);top=true}
   else if(a==='nmSet'){S.nm={code:v,titles:0,cups:[]};msg=`Você agora é o técnico de ${NATN[v]||v}.`;save()}
