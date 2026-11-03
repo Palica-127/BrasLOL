@@ -3903,10 +3903,10 @@ function vTeam(id){
   const f=r1(eff(t)-baseOvr(t));
   const view=TV.some(x=>x[0]===tvw)?tvw:'el';
   let o=`<div class="row"><button class="ghost" data-act="back">← Voltar</button></div>`;
+  o+=`<div class="pills stk">${TV.map(([k,l])=>`<button class="pill" aria-pressed="${view===k}" data-act="tvw" data-v="${k}">${l}</button>`).join('')}</div>`;
   o+=`<section class="pn"><div class="ph">${crest(t,'lg')}<div style="flex:1;min-width:0"><h3>${esc(t.name)}</h3><small>${llk(t.lg)}${t.d===2?' · 2ª divisão':''}${t.est?' · elenco estimado':''}<br>OVR ${Math.round(baseOvr(t))}${pwPos(t)>0?` · power #${pwPos(t)}`:''} · forma ${f>0?`<span class="st up">▲${f.toFixed(1)}</span>`:f<0?`<span class="st dn">▼${(-f).toFixed(1)}</span>`:'estável'}</small></div></div>
   <div class="cab"><div>${ico('trophy')}<b class="num">${c.wc}</b><small>Mundiais</small></div><div>${ico('trophy')}<b class="num">${c.msi}</b><small>MSI</small></div><div>${ico('trophy')}<b class="num">${c.lg}</b><small>Ligas</small></div></div>
   <div class="kv kv4"><div><small>Vices</small><b class="num">${vc.length}</b></div><div><small>Bolas</small><b class="num">${bo.length}</b></div><div><small>Anos</small><b class="num">${yh.length}</b></div><div><small>Aprov.</small><b class="num">${gw+gl?Math.round(100*gw/(gw+gl))+'%':'—'}</b></div></div></section>`;
-  o+=`<div class="pills stk">${TV.map(([k,l])=>`<button class="pill" aria-pressed="${view===k}" data-act="tvw" data-v="${k}">${l}</button>`).join('')}</div>`;
   if(view==='el'){
     o+=`<section class="pn"><h2>Elenco atual</h2><div class="futr">${t.pl.map(p=>fut({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f,team:t})).join('')}</div></section>`;
     if(t.bn&&t.bn.length)o+=`<section class="pn"><h2>Reservas</h2><p class="note" style="margin:0 0 8px">Quando um titular se aposenta, o reserva da mesma função assume a vaga. Sem reserva, o time contrata um jogador mais fraco.</p>${t.bn.map(p=>`<div class="pl" style="grid-template-columns:34px minmax(0,1fr) auto">${hx(p.r,'sm')}<span><span class="nm2">${esc(p.n)}</span><br><small>${RN[p.role]} · ${p.age} anos · pot. ${p.pot}</small></span></div>`).join('')}</section>`;
