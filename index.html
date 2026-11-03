@@ -374,6 +374,8 @@ h1{white-space:nowrap}
 .det[open] summary{margin-bottom:10px}
 .tro span{font:600 10px/1.1 var(--b);color:var(--muted);text-align:center;max-width:62px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .tro.wide{width:64px}
+.tro.vice svg{filter:grayscale(1) brightness(1.15) drop-shadow(0 4px 5px rgba(0,0,0,.55)) drop-shadow(0 0 9px rgba(200,210,225,.2))}
+.tro.vice b{color:#1d2430;background:linear-gradient(180deg,#e6eaf0,#9aa4b2)}
 .lgcrest{--h:200}
 .cmw{border:1px solid var(--line);background:var(--bg2);padding:2px 10px;margin-bottom:9px}
 .cm{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;padding:6px 0;border-top:1px solid var(--line);font-size:13px;align-items:center}
@@ -3189,8 +3191,10 @@ const TCOL={'T1':['#d4122a','#14141c'],'Gen.G':['#c9a227','#15130c'],'Hanwha Lif
 /* logos reais: embutidas no <style id="logos"> (slug = nome do time em minúsculas com hífens) */
 const LOGOS=new Set(['against-all-authority','anyone-s-legend','azubu-frost','blg','bnk-fearx','brion','cloud9','counter-logic-gaming','ctbc-flying-oyster','deep-cross-gaming','detonation-focusme','dignitas','disguised','dn-soopers','dplus-kia','drx','edward-gaming','fluxo-w7m','flyquest','fnatic','funplus-phoenix','furia','g2','gam-esports','gen-g','giantx','ground-zero-gaming','hanwha-life','invictus-gaming','jd-gaming','karmine-corp','koo-tigers','kt-rolster','leviatan','lgd-gaming','lng-esports','los','loud','lyon','movistar-koi','mvk-esports','navi','ninjas-in-pyjamas','nongshim-redforce','pain-gaming','red-canids','royal-club','samsung-galaxy','sentinels','shifters','shopify-rebellion','sk-gaming','softbank-hawks','suning','t1','taipei-assassins','team-heretics','team-liquid','team-secret-whales','team-we','top-esports','tt-gaming','vitality','vivo-keyd-stars','weibo-gaming']);
 const slug=n=>n.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+/* nomes diferentes que compartilham o mesmo logo (o nome exibido continua o original) */
+const LOGOALIAS={'royal-never-give-up':'royal-club','star-horn-royal-club':'royal-club','samsung-white':'samsung-galaxy'};
 const crest=(t,c='')=>{
-  const sl=slug(t.name);
+  const sl0=slug(t.name),sl=LOGOALIAS[sl0]||sl0;
   if(LOGOS.has(sl))return `<span class="shield real lg-${sl} ${c}" aria-hidden="true"></span>`;
   const h=hs(t.name),tx=ini(t.name),id='sh'+h,fs=tx.length>=3?25:32;
   const cl=TCOL[t.name]||['hsl('+(h%360)+' 70% 42%)','hsl('+((h>>5)%360)+' 78% 62%)'],A=cl[0],B=cl[1];
@@ -3588,7 +3592,9 @@ function cupHistHTML(k){
   Object.keys(CH_).forEach(y=>{rows[y]={y:+y,c:CH_[y],v:VV[y]||''}});
   S.hist.forEach(h=>{rows[h.y]={y:h.y,c:wc?h.champs.wc:h.champs.msi,v:(wc?h.champs.wcv:h.champs.msiv)||'',mv:wc?h.champs.mvp:h.champs.msiMvp}});
   const L=Object.values(rows).sort((a,b)=>b.y-a.y);
-  const tf=n=>S.teams.find(x=>x.name===(BALIAS[n]||n)),tn=n=>{const t=tf(n);return t?tlk(t):esc(n)},tc=(n,c='sm')=>crest(tf(n)||tf(LALIAS[n])||{name:n},c);
+  const tf=n=>S.teams.find(x=>x.name===(BALIAS[n]||n)),tn=n=>{const t=tf(n);if(t)return tlk(t);
+    const t2=legTeam(n);if(t2)return `<button class="lk" data-act="team" data-v="${t2.id}">${esc(n)}</button>`;
+    const k=legKey(n);return legRecs().some(x=>x.key===k)?`<button class="lk" data-act="lteam" data-v="${k}">${esc(n)}</button>`:esc(n)},tc=(n,c='sm')=>crest(tf(n)||tf(LALIAS[n])||{name:n},c);
   const cnt={};L.forEach(r=>{const nn=BALIAS[r.c]||r.c;cnt[nn]=(cnt[nn]||0)+1});
   const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).slice(0,3);
   let h=`<section class="pn pod"><h2>${lbl} · campeões e vices</h2><div class="chips">${top.map(([n,c])=>`<span>${tc(n,'lg')}<b class="num">${c}</b>${esc(n)}</span>`).join('')}</div>`;
@@ -3667,12 +3673,75 @@ function teamBolas(t){
   S.hist.forEach(x=>{const w=x.top[0];if(w.team===t.name)out.push({y:x.y,n:w.n})});
   return out.sort((a,b)=>a.y-b.y);
 }
+/* ---------- times lendários (fichas) e vices das lendas ----------
+   WCT/WCV/MST/MSV guardam campeões e vices reais (2011-2025). Aqui cada nome vira uma "chave" de time:
+   - Royal Club, Star Horn Royal Club e Royal Never Give Up são o mesmo time (mesma chave);
+   - nomes com alias (SKT, DWG KIA, Kingzone DragonX...) caem no time atual do jogo;
+   - o que não existe no jogo (Samsung White, Taipei Assassins...) ganha ficha própria de time lendário.
+   Samsung White e Samsung Galaxy ficam como times separados, só compartilham o logo. */
+const LEGALIAS_T={'royal-never-give-up':'royal-club','star-horn-royal-club':'royal-club'};
+const LEGNAME={'royal-club':'Royal Never Give Up'};
+const legKey=n=>{const s=slug(BALIAS[n]||LALIAS[n]||n);return LEGALIAS_T[s]||s};
+const legTeam=n=>{const k=legKey(n);return ALLT().find(t=>slug(t.name)===k)||null};
+function legRecs(){
+  const out=[];
+  [['Mundial',WCT,WCV],['MSI',MST,MSV]].forEach(([k,C,V])=>{
+    Object.keys(C).forEach(y=>out.push({key:legKey(C[y]),y:+y,k,r:'C',as:C[y]}));
+    Object.keys(V).forEach(y=>out.push({key:legKey(V[y]),y:+y,k,r:'V',as:V[y]}));
+  });
+  return out;
+}
+/* títulos e vices reais (até 2025) que ainda não estão em t.tt */
+function legExtra(t){
+  const k=legKey(t.name),rec=legRecs().filter(x=>x.key===k);
+  return{
+    c:rec.filter(x=>x.r==='C'&&!t.tt.some(z=>z.y===x.y&&z.k===x.k)).map(x=>({y:x.y,k:x.k,n:x.as,r:[]})),
+    v:rec.filter(x=>x.r==='V').map(x=>({y:x.y,k:x.k,n:x.as,r:[]}))
+  };
+}
+/* todos os vices de Mundial/MSI do time: lendas (2011-2025) + os do seu jogo (desde 2026) */
+function viceList(t){
+  const L=legExtra(t).v.slice();
+  (t.yh||[]).forEach(h=>{if(h.wc==='F')L.push({y:h.y,k:'Mundial',n:t.name,r:[]});if(h.msi==='F')L.push({y:h.y,k:'MSI',n:t.name,r:[]})});
+  return L.sort((a,b)=>a.y-b.y);
+}
+function legBolas(key){return(S.pre||[]).filter(x=>x.top.length&&legKey(x.top[0].team)===key).map(x=>({y:x.y,n:x.top[0].n}))}
+function legPlayers(key){
+  const m={};
+  (S.pre||[]).forEach(x=>x.top.forEach(p=>{if(legKey(p.team)===key)(m[p.n]||(m[p.n]=[])).push(x.y)}));
+  return Object.entries(m).map(([n,ys])=>({n,ys:ys.sort((a,b)=>a-b)})).sort((a,b)=>b.ys.length-a.ys.length||a.ys[0]-b.ys[0]);
+}
+function vLegacy(key){
+  const rec=legRecs().filter(x=>x.key===key).sort((a,b)=>a.y-b.y);
+  const names=[...new Set(rec.map(x=>x.as))];
+  const name=LEGNAME[key]||(rec.length?rec[rec.length-1].as:key);
+  const ch=rec.filter(x=>x.r==='C'),vi=rec.filter(x=>x.r==='V');
+  const cw=ch.filter(x=>x.k==='Mundial'),cm=ch.filter(x=>x.k==='MSI');
+  const others=names.filter(x=>x!==name);
+  let o=`<div class="row"><button class="ghost" data-act="back">← Voltar</button></div>`;
+  o+=`<section class="pn"><div class="ph">${crest({name},'lg')}<div style="flex:1;min-width:0"><h3>${esc(name)}</h3><small>Time lendário · fora da simulação${others.length?' · também: '+others.map(esc).join(', '):''}</small></div></div>
+  <div class="cab"><div>${ico('trophy')}<b class="num">${cw.length}</b><small>Mundiais</small></div><div>${ico('trophy')}<b class="num">${cm.length}</b><small>MSI</small></div><div>${ico('trophy')}<b class="num">${vi.length}</b><small>Vices</small></div></div></section>`;
+  o+=`<section class="pn"><h2>Estante de troféus</h2>`+
+    [['w','Mundiais',cw,''],['m','MSI',cm,''],['w','Vices em Mundiais',vi.filter(x=>x.k==='Mundial'),'vice'],['m','Vices em MSI',vi.filter(x=>x.k==='MSI'),'vice']].map(([k,t,it,cl])=>
+      `<div class="sh-t"><span>${t}</span><b class="num">${it.length}</b></div>${shelfRow(k,it.map(x=>({y:x.y,l:`${cl?'Vice ':''}${x.k} ${x.y}${x.as!==name?' · '+x.as:''}`})),cl)}`).join('')+`</section>`;
+  const bl=legBolas(key);
+  if(bl.length)o+=`<section class="pn"><h2>Estante de Bolas de Ouro</h2><div class="sh-t"><span>Jogadores do time premiados</span><b class="num">${bl.length}</b></div>${shelfRow('b',bl.map(x=>({y:x.y,l:`Bola de Ouro ${x.y}: ${x.n}`,sub:x.n})),'bola')}</section>`;
+  const pl=legPlayers(key);
+  if(pl.length)o+=`<section class="pn"><h2>Lendas do time</h2>${pl.map(p=>`<div class="trp"><span class="y num">${p.ys[0]}</span><span><b>${S.pdb[p.n]||S.hof[p.n]?lk(p.n):esc(p.n)}</b><small>Top 5 da Bola de Ouro em ${p.ys.join(', ')}</small></span></div>`).join('')}</section>`;
+  if(rec.length)o+=`<section class="pn"><details class="det"><summary>Detalhes dos títulos</summary>${rec.slice().sort((a,b)=>b.y-a.y).map(x=>`<div class="trp"><span class="y num">${x.y}</span><span><b>${x.r==='V'?'Vice · ':''}${esc(x.k)}</b>${x.as!==name?` <small style="display:inline">como ${esc(x.as)}</small>`:''}</span></div>`).join('')}</details></section>`;
+  return o;
+}
 function shelfHTML(t){
+  const ex=legExtra(t),vc=viceList(t);
   const kinds=[['w','Mundial','Mundiais',x=>x.k==='Mundial'],['m','MSI','MSI',x=>x.k==='MSI'],['l','Liga','Ligas',x=>x.k!=='Mundial'&&x.k!=='MSI']];
   let h=`<section class="pn"><h2>Estante de troféus</h2>`;
   kinds.forEach(([k,one,pl,f])=>{
-    const items=t.tt.filter(f).sort((a,b)=>a.y-b.y);
+    const items=t.tt.concat(ex.c).filter(f).sort((a,b)=>a.y-b.y);
     h+=`<div class="sh-t"><span>${pl}</span><b class="num">${items.length}</b></div><div class="shelf">${items.length?items.map(x=>`<div class="tro" title="${esc(x.k)} ${x.y}" role="img" aria-label="${esc(x.k)} ${x.y}">${troSvg(k)}<b class="num">${x.y}</b></div>`).join(''):'<span class="none">Ainda vazia</span>'}</div>`;
+  });
+  [['w','Vices em Mundiais','Mundial'],['m','Vices em MSI','MSI']].forEach(([k,pl,kk])=>{
+    const items=vc.filter(x=>x.k===kk);
+    h+=`<div class="sh-t"><span>${pl}</span><b class="num">${items.length}</b></div><div class="shelf">${items.length?items.map(x=>`<div class="tro vice" title="Vice ${esc(kk)} ${x.y}" role="img" aria-label="Vice ${esc(kk)} ${x.y}">${troSvg(k)}<b class="num">${x.y}</b></div>`).join(''):'<span class="none">Ainda vazia</span>'}</div>`;
   });
   return h+`</section>`;
 }
@@ -3693,13 +3762,14 @@ function podPl(n){
 }
 function podiumsHTML(t){
   const rows=[];let v=0,q=0;
+  legExtra(t).v.forEach(x=>{v++;rows.push({y:x.y,it:[`${x.k}: vice${x.n&&x.n!==t.name?' (como '+x.n+')':''}`]})});
   const ys=(t.yh||[]).slice();const cs=t.cs||{};if(cs.s1||cs.s2)ys.push({y:S.year,s1:cs.s1||0,s2:cs.s2||0,msi:'-',wc:'-',d:t.d,cur:1});
   ys.forEach(h=>{
     const r=podItems(h);v+=r.v;q+=r.q;
     if(r.it.length)rows.push({y:h.y,it:r.it});
   });
   if(!rows.length)return `<section class="pn pod"><h2>Pódios e vices</h2><p class="note" style="margin:0">Vices, 3º e 4º lugares ficam registrados aqui a partir de 2026, fora da estante.</p></section>`;
-  return `<section class="pn pod"><h2>Pódios e vices</h2><div class="chips"><span><b class="num">${v}</b>Vices</span><span><b class="num">${q}</b>3º / 4º</span></div>${rows.reverse().map(r=>`<div class="pr2"><b class="num">${r.y}</b><span>${r.it.map(esc).join(' · ')}</span></div>`).join('')}<p class="note" style="margin:6px 0 0">Registro desde 2026. Nos torneios de mata-mata, as duas semifinais perdidas valem 3º–4º.</p></section>`;
+  return `<section class="pn pod"><h2>Pódios e vices</h2><div class="chips"><span><b class="num">${v}</b>Vices</span><span><b class="num">${q}</b>3º / 4º</span></div>${rows.reverse().map(r=>`<div class="pr2"><b class="num">${r.y}</b><span>${r.it.map(esc).join(' · ')}</span></div>`).join('')}<p class="note" style="margin:6px 0 0">Vices de Mundial e MSI de 2011 a 2025 vêm das lendas; o resto é registro desde 2026. Nos torneios de mata-mata, as duas semifinais perdidas valem 3º–4º.</p></section>`;
 }
 function bolaShelfHTML(t){
   const b=teamBolas(t);
@@ -3816,6 +3886,7 @@ function vPlayer(n){
 }
 function vTeam(id){
   const t=T(id),c=ttCount(t);
+  {const e=legExtra(t);c.wc+=e.c.filter(x=>x.k==='Mundial').length;c.msi+=e.c.filter(x=>x.k==='MSI').length}
   const yh=t.yh;
   const wcF=yh.filter(x=>x.wc==='F').length,msiF=yh.filter(x=>x.msi==='F').length;
   const lgF=yh.filter(x=>x.s1===2).length+yh.filter(x=>x.s2===2).length;
@@ -3833,10 +3904,11 @@ function vTeam(id){
     o+=`<section class="pn"><details class="det"><summary>Histórico por temporada</summary><div class="tw"><table class="tb"><thead><tr><th>Ano</th><th>Split 1</th><th>MSI</th><th>Split 2</th><th>Mundial</th></tr></thead><tbody>${[...yh].reverse().map(s=>`<tr><td class="num">${s.y}</td><td class="num${s.s1===1?' c':''}">${pos(s.s1)}</td><td class="${s.msi==='C'?'c':''}">${CODE[s.msi]}</td><td class="num${s.s2===1?' c':''}">${pos(s.s2)}</td><td class="${s.wc==='C'?'c':''}">${CODE[s.wc]}</td></tr>`).join('')}</tbody></table></div></details></section>`;
   }
   o+=shelfHTML(t)+bolaShelfHTML(t)+podiumsHTML(t);
-  if(t.tt.length)o+=`<section class="pn"><details class="det"><summary>Detalhes dos títulos</summary>${[...t.tt].sort((a,b)=>b.y-a.y).map(x=>`<div class="trp"><span class="y num">${x.y}</span><span><b>${esc(x.k)}</b>${x.n&&x.n!==t.name?` <small style="display:inline">como ${esc(x.n)}</small>`:''}${x.r&&x.r.length?`<small>${x.r.map(lk).join(', ')}</small>`:''}</span></div>`).join('')}</details></section>`;
+  const allT=[...t.tt,...legExtra(t).c,...viceList(t).map(x=>({...x,k:'Vice · '+x.k}))];
+  if(allT.length)o+=`<section class="pn"><details class="det"><summary>Detalhes dos títulos</summary>${allT.sort((a,b)=>b.y-a.y).map(x=>`<div class="trp"><span class="y num">${x.y}</span><span><b>${esc(x.k)}</b>${x.n&&x.n!==t.name?` <small style="display:inline">como ${esc(x.n)}</small>`:''}${x.r&&x.r.length?`<small>${x.r.map(lk).join(', ')}</small>`:''}</span></div>`).join('')}</details></section>`;
   return o;
 }
-const vProf=()=>prof?(prof.k==='p'?vPlayer(prof.id):prof.k==='l'?vLeague(prof.id):prof.k==='n'?vNation(prof.id):vTeam(prof.id)):'';
+const vProf=()=>prof?(prof.k==='p'?vPlayer(prof.id):prof.k==='l'?vLeague(prof.id):prof.k==='n'?vNation(prof.id):prof.k==='h'?vLegacy(prof.id):vTeam(prof.id)):'';
 
 /* ---------- ajustes ---------- */
 function vSet(){
@@ -3874,7 +3946,7 @@ function render(){
 /* ---------- ações ---------- */
 function act(a,v){
   msg='';
-  if(['tab','player','team','nation','back','step','all'].includes(a))animNext=true;
+  if(['tab','player','team','lteam','nation','back','step','all'].includes(a))animNext=true;
   let top=false;
   if(a==='tab'){tab=v;askReset=false;askEnd=false;lastPlayed=null;prof=null;pstack=[]}
   else if(a==='step'){if(daysLeft()>0){msg='Ainda não é dia de jogo. Avance o calendário.'}else if(dvNeeded()&&(dvOpen(),dvAll(),dvGo(),!lvNeeded())){step();sndAfter();save();top=true}else if(lvNeeded()){lvOpen();top=true}else{step();sndAfter();save();top=true}}
@@ -3900,6 +3972,7 @@ function act(a,v){
   else if(a==='pf'){pf=v}
   else if(a==='player'){openProf('p',v);top=true}
   else if(a==='team'){openProf('t',+v);top=true}
+  else if(a==='lteam'){openProf('h',v);top=true}
   else if(a==='league'){openProf('l',v);top=true}
   else if(a==='nation'){if(v)openProf('n',v);top=true}
   else if(a==='nmSet'){S.nm={code:v,titles:0,cups:[]};msg=`Você agora é o técnico de ${NATN[v]||v}.`;save()}
