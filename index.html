@@ -1436,8 +1436,8 @@ function genFA(){
     const role=i%5,age=19+Math.floor(Math.random()*12);
     const r=clamp(72+Math.floor(Math.abs(g())*6)+(Math.random()<.2?5:0),72,90);
     const pot=age<=23?clamp(r+Math.floor(Math.random()*8),r,97):r;
-    let n=uniqueName();while(out.some(x=>x.n===n))n=uniqueName();
-    out.push({n,role,r,age,pot,f:0,d:0,nat:pick(poolM())});
+    const nat=pick(poolM());let n=uniqueName(nat);while(out.some(x=>x.n===n))n=uniqueName(nat);
+    out.push({n,role,r,age,pot,f:0,d:0,nat});
   }
   return out;
 }
@@ -1548,9 +1548,10 @@ function prospect(){
   const role=Math.floor(Math.random()*5),age=16+Math.floor(Math.random()*3);
   const r=clamp(Math.round(56+Math.random()*8+lv*2+g()),54,70);
   const pot=clamp(Math.round(74+Math.abs(g())*7+Math.random()*6+lv*2),r+8,96);
-  let n=uniqueName();
-  while(m.fa&&m.fa.some(x=>x.n===n)||(m.acad||[]).some(x=>x.n===n))n=uniqueName();
-  S.pdb[n]={role,debut:S.year+1,ret:null,seasons:[],tl:[],nat:pick(poolM())};
+  const nat=pick(poolM());
+  let n=uniqueName(nat);
+  while(m.fa&&m.fa.some(x=>x.n===n)||(m.acad||[]).some(x=>x.n===n))n=uniqueName(nat);
+  S.pdb[n]={role,debut:S.year+1,ret:null,seasons:[],tl:[],nat};
   return{n,role,r,pot,age,f:0,d:0,home:true};
 }
 function mEnsure(){
@@ -1759,7 +1760,7 @@ function mExpire(){
     if(!p.exp)return;
     let rp=bestRep(p.role);
     if(rp)dropFrom(rp);
-    else{const oth=t.pl.filter((_,j)=>j!==i);rp=rookie(p.role,{r:p.r,avg:oth.reduce((a,x)=>a+x.r,0)/oth.length});const d=pd(rp.n);d.role=p.role;d.debut=S.year+1;mCtr(rp,3)}
+    else{const oth=t.pl.filter((_,j)=>j!==i);rp=rookie(p.role,{r:p.r,avg:oth.reduce((a,x)=>a+x.r,0)/oth.length,lg:t.lg});const d=pd(rp.n);d.role=p.role;d.debut=S.year+1;d.nat=rp.nat;mCtr(rp,3)}
     t.pl[i]=rp;mCtr(rp,rp.ctr||3);
     const b=toAI(p);mlog(`${S.year}: o contrato de ${p.n} acabou e ele foi para o ${b.name}; ${rp.n} assume a vaga.`);
   });
@@ -2673,11 +2674,20 @@ LCS:['NRG','Cupide Esports','Supernova','Blue Otter','CCG Esports','Dorado Gamin
 LCP:['FRANK Esports','Saigon Warriors','FENNEL','Team Gromp','SN Cybercore','Saigon Dino'],
 CBLOL:['7REX Team','Ei Nerd Esports','Estral Esports','INTZ','KaBuM!','TEAM SOLID','RMD Gaming','paiN Academy','Vivo Keyd Stars Academy']};
 const D2V=5;
+/* elencos reais confirmados da 2ª divisão (TOP JNG MID ADC SUP: nome, over, idade). Over nivelado ao time; idades estimadas. Os demais times usam jogadores gerados. */
+const D2P={'EDG Youth':[['hui',72,20],['13day',72,20],['sinian',72,21],['linn',72,20],['Jerry',72,21]]};
 function d2Make(name,lg,id){
+  const real=D2P[name];
   const pl=[0,1,2,3,4].map(role=>{
+    const rp=real&&real[role];
+    if(rp&&!S.pdb[rp[0]]&&!ALLT().some(t=>t.pl.some(p=>p.n===rp[0]))){
+      const [n,r,age]=rp,nat=MAINN[lg]||pick(GENN[lg]||WORLDN);
+      S.pdb[n]={role,debut:S.year,ret:null,seasons:[],tl:[],nat};
+      return{n,role,r,age,pot:age<=23?clamp(r+Math.floor(Math.random()*8),r,92):r,f:0,d:0,nat};
+    }
     const r=clamp(Math.round(71+g()*3),62,80),age=18+Math.floor(Math.random()*9);
-    const n=uniqueName();S.pdb[n]={role,debut:S.year,ret:null,seasons:[],tl:[]};
-    return{n,role,r,age,pot:age<=23?clamp(r+Math.floor(Math.random()*8),r,92):r,f:0,d:0};
+    const nat=pick(GENN[lg]||WORLDN),n=uniqueName(nat);S.pdb[n]={role,debut:S.year,ret:null,seasons:[],tl:[],nat};
+    return{n,role,r,age,pot:age<=23?clamp(r+Math.floor(Math.random()*8),r,92):r,f:0,d:0,nat};
   });
   return{id,name,lg,d:2,pl,mom:0,hot:0,tt:[],yh:[],est:false};
 }
@@ -2697,8 +2707,8 @@ function ensureD2a(){
 function bnPlayer(t,role,yr){
   const avg=t.pl.reduce((a,x)=>a+x.r,0)/t.pl.length;
   const star=Math.random()<.18,r=clamp(Math.round(Math.max(avg-7,68)+g()*2.2+(star?3:0)),60,84),age=18+Math.floor(Math.random()*5);
-  const n=uniqueName();S.pdb[n]={role,debut:yr||S.year,ret:null,seasons:[],tl:[]};
-  return{n,role,r,pot:clamp(r+4+Math.floor(Math.random()*9)+(star?6:0),r,95),age,f:0,d:0};
+  const nat=pick(GENN[t.lg]||WORLDN),n=uniqueName(nat);S.pdb[n]={role,debut:yr||S.year,ret:null,seasons:[],tl:[],nat};
+  return{n,role,r,pot:clamp(r+4+Math.floor(Math.random()*9)+(star?6:0),r,95),age,f:0,d:0,nat};
 }
 function ensureBn(t){
   t.bn=(t.bn||[]).filter(p=>p.age<=31);
@@ -2772,22 +2782,47 @@ function promoRel(tag){
 }
 
 /* ---------- virada de ano ---------- */
-function uniqueName(){
-  const used=new Set([...Object.keys(S.hof),...Object.keys(S.pdb),...ALLT().flatMap(t=>t.pl.map(p=>p.n))]);
-  const A=['Ka','Ri','Zu','Mo','Vex','Tae','Jin','Lum','Nox','Ash','Dro','Kei','Syn','Ori','Pax','Rem','Tiv','Yun','Bao','Cal','Fen','Hux','Izo','Kor'];
-  const B=['n','x','o','ra','is','el','on','ix','y','ko','ta','ru'];
-  const M=['','ra','mi','lo','ve','ni','sa','do'];
-  for(let i=0;i<600;i++){const n=pick(A)+pick(M)+pick(B);if(!used.has(n))return n}
-  for(let i=2;;i++){const n=pick(A)+pick(B)+' '+'I'.repeat(i);if(!used.has(n))return n}
+/* nomes gerados: apelidos comuns de LoL, de acordo com a região do jogador (a nacionalidade é escolhida antes do nome) */
+function namePools(){
+  if(namePools.c)return namePools.c;
+  const w=s=>s.split(' ');
+  return namePools.c={
+    KOR:w('Haru Kuro Sora Hoon Dohyun Minseo Taeho Jaeho Seyoung Harang Bomin Sunwoo Jiho Doha Eunho Raon Hyeon Gyu Dawn Oath Prime Lucky Eclipse Tempo Rival Ember Sage Drift Echo Zeal Relic Vivid Orbit Haze Frost Rune Halo Aero Bolt Crest Dusk Flint Glide Ivory Jolt Mirae Seonu Yein Chan Woojin Hyunwoo Siwon Jaemin Taemin Beom Kyle Ryu Yoon'),
+    CHN:w('Xiaoyu Haoran Zhihao Mingyu Junjie Tianyu Ruoxi Yuhan Chenxi Zihan Boyu Kaixin Wuji Langx Heyi Xiaolong Hanyu Jiahao Yichen Zhiyuan Shiyu Wenhao Yuxuan Bowen Tianci Zeyu Jinyu Xiaobai Dahai Qingfeng Lixin Muyang Ruiqi Haotian Xiaoyi Mingze Yunfei Kaiyuan Jiaqi Feiyu Hongyu Zhuoyu Tiancheng Anran Chuyu Xiaoke Leiyu Sihan'),
+    TWN:w('Aoki Rainy Bobo Kenji Pinyu Chiyu Yuting Weiwei Zihao Kaito Tzuyu Yenru Hsuan Jiaxin Ming Jason Ethan Allen Bruce Lucas Peter Wesley Hank Ray Neil Ian Aaron Benny Gary Vincent Howard Kevin Leo Eddy Johnny Alan Nick Fish Duck Panda Tofu Milo Momo Mochi Boba Taro'),
+    VIE:w('Hieu Minh Quan Khang Phuc Tuan Long Nam Vu Duy Thanh Huy Bach Khoa Trung Hoang Kiet Nhan Phat Tri Loc Dung Thinh Tam Son Hai Bao Dat Lam Quang Vinh Nghia Hung Thai Kha Danh Toan Tin Vy An Phong Tien Cuong Dang Khanh Binh'),
+    SEA:w('Arun Dewa Rizky Luis Kuya Somchai Nattapong Hafiz Aiman Rafi Fadli Danial Bayu Putra Jiro Miguel Paolo Carlo Marco Enzo Pong Beam Boss Ton Tui Nine Fon Mark Kris Joel Ivan Adi Dimas Raka Nanda Eko Zul Ariq Haziq Irfan Wei Jun Hao Raj Dev Aman'),
+    JPN:w('Haruto Ryuji Kaito Ren Yuma Daiki Shun Itsuki Hinata Raiden Kazuki Takumi Souta Yuto Riku Haku Mizu Tsubasa Kosuke Naoki Ryota Sho Taiga Akira Daichi Hayato Yamato Kenta Shota Ryo Toma Kota Hibiki Rei Jin Satoru Taku Masa Yuki Kei Nao Leo Aki Tetsu Ibuki Minato'),
+    EN:w('Cade Rowan Mason Tyler Ethan Kai Dylan Nitro Rogue Bandit Maverick Slate Cobalt Tank Rex Voltage Gravy Biscuit Spud Waffle Pickles Moose Bear Ace Chase Dash Blake Colt Dex Finn Grant Hunter Jace Knox Logan Miles Nash Owen Parker Quinn Reid Seth Trent Vance Wade Zane Brody Cody Drew Gavin Jake Troy'),
+    PT:w('Kenzo Lorenzo Gabs Biel Davi Tiago Dudu Pedrao Caua Rafa Lipe Gui Fael Joca Neto Vini Duda Bruxo Capitao Maestro Tigre Sombra Bala Ninja Raio Fenix Lobo Pantera Zeca Tonho Binho Juca Nando Mano Betao Chico Marcelo Thiaguinho Jhow Kaue Luan Murilo Nathan Otavio Renan Samuel Yago Brenin Cadu Dinho Guga Leozin'),
+    ES:w('Pablo Nico Mateo Joaquin Facu Lucho Tomi Santi Maxi Rodri Jota Chino Flaco Gordo Loco Toro Cuervo Fantasma Rayo Pibe Zorro Gato Chivo Kike Pepe Nacho Jorgito Dani Mario Lalo Beto Memo Rafa Tito Pancho Gonza Fran Ale Cris Diego Hugo Iker Leo Manu Sergi Unai Xavi Adri Bruno Cesar'),
+    FR:w('Hugo Louis Jules Nathan Enzo Lucas Theo Maxime Axel Remy Adrien Quentin Romain Gaspard Bastien Corentin Valentin Mathis Tibo Clement Arthur Yanis Antoine Baptiste Cedric Damien Etienne Florian Gabin Hadrien Jeremy Kevin Loic Matthieu Noe Olivier Pierre Raphael Sacha Tom Ugo Victor Xavier Yohan Zack'),
+    DE:w('Lukas Felix Jonas Moritz Finn Niklas Tobi Leon Paul Ben Jannik Hendrik Matze Flo Chris Sven Jens Bjorn Daan Thijs Stijn Max Noah Elias Jan Tim Nils Marvin Dennis Kai Lars Timo Fabi Phil Marc Robin Sebi Simon Tom Yannik Luca Mika Ole Pascal Rene'),
+    NORD:w('Emil Anton Oskar Viktor Mikkel Jesper Soren Frederik Magnus Lars Sigurd Henrik Elias Isak Joel Alfred Mathias Kasper Noel Mikael Antti Joonas Tuomas Kristjan Rokas Matas Eskil Rune Torsten Gustav Ludvig Vilhelm Albin Erik Jonte Niklas Pelle Sven Tobias Ville Aleksi Eero Jens Halvor Ola Knut'),
+    CEE:w('Kuba Kamil Marek Jakub Tomek Pawel Michal Wojtek Dominik Lukasz Patryk Bartek Filip Ondra Honza Petr Zoltan Bence Marko Luka Ivan Dmitro Taras Andrei Radu Vlad Ognyan Matej Stefan Nikola Dusan Milan Jan Adam Peter Robert Tibor Gabor Csaba Lucian Mihai Bogdan Zdenek Tomas Vojta Oleg Maksym'),
+    GRE:w('Nikos Giorgos Dimitris Kostas Manos Thanos Stelios Aris Panos Yannis Vasilis Lefteris Takis Sakis Fotis Michalis Stavros Babis Alexis Christos Pavlos Tasos Spyros Sotiris Argyris Haris'),
+    ITA:w('Luca Marco Matteo Gigi Fede Gabbo Ale Davide Simo Andrea Pippo Checco Nico Fabio Lollo Mirko Stefano Dado Riki Gian Tommy Edo Franz Teo Manu Pier'),
+    TUR:w('Emre Burak Can Efe Kaan Arda Deniz Mert Onur Yigit Ege Berk Baris Cem Tolga Utku Hakan Kerem Oguz Selim Taylan Umut Volkan Yusuf Alp Bora Cihan Doruk Eren Furkan')
+  };
+}
+const NAMEG={KOR:'KOR',CHN:'CHN',HKG:'CHN',TWN:'TWN',VIE:'VIE',THA:'SEA',PHI:'SEA',IDN:'SEA',MAS:'SEA',SIN:'SEA',IND:'SEA',JPN:'JPN',USA:'EN',CAN:'EN',AUS:'EN',NZL:'EN',IRL:'EN',BRA:'PT',POR:'PT',ESP:'ES',ARG:'ES',CHI:'ES',MEX:'ES',COL:'ES',PER:'ES',URU:'ES',FRA:'FR',BEL:'FR',GER:'DE',NED:'DE',DEN:'NORD',SWE:'NORD',NOR:'NORD',FIN:'NORD',EST:'NORD',LTU:'NORD',POL:'CEE',CZE:'CEE',SVK:'CEE',SLO:'CEE',UKR:'CEE',SRB:'CEE',CRO:'CEE',HUN:'CEE',ROU:'CEE',BUL:'CEE',KAZ:'CEE',GRE:'GRE',ITA:'ITA',TUR:'TUR'};
+function uniqueName(nat){
+  const used=new Set([...Object.keys(S.hof),...Object.keys(S.pdb),...ALLT().flatMap(t=>t.pl.concat(t.bn||[]).map(p=>p.n)),...REAL,...Object.keys(NATM)].map(n=>String(n).toLowerCase()));
+  const P=namePools(),pool=P[NAMEG[nat]]||P.EN;
+  for(let i=0;i<300;i++){const n=pick(pool);if(!used.has(n.toLowerCase()))return n}
+  /* nomes simples esgotados: mesmo apelido com número, como é comum no LoL (Haru7, Kuro42) */
+  for(let k=0;k<2000;k++){const n=pick(pool)+(2+Math.floor(Math.random()*(k<500?98:900)));if(!used.has(n.toLowerCase()))return n}
+  for(let i=1000;;i++){const n=pick(pool)+i;if(!used.has(n.toLowerCase()))return n}
 }
 function rookie(role,ref,d2){
-  if(d2){const r=clamp(Math.round(Math.max(ref.r-6,ref.avg-4,64)+g()*2),62,82),pot=clamp(Math.round(r+2+Math.abs(g())*5),r,92);return{n:uniqueName(),role,r,pot,age:18+Math.floor(Math.random()*5),f:0,d:0}}
+  const nat=pick((ref.lg&&GENN[ref.lg])||WORLDN);
+  if(d2){const r=clamp(Math.round(Math.max(ref.r-6,ref.avg-4,64)+g()*2),62,82),pot=clamp(Math.round(r+2+Math.abs(g())*5),r,92);return{n:uniqueName(nat),role,r,pot,age:18+Math.floor(Math.random()*5),f:0,d:0,nat}}
   /* a vaga é preenchida por um talento já pronto para o nível do time: perto do aposentado e do resto do elenco */
   const prodigy=Math.random()<.1;
   const base=Math.max(ref.r-6,ref.avg-3,77);
   const r=clamp(Math.round(base+g()*2.2+(prodigy?3:0)),72,92);
   const pot=clamp(Math.round(r+2+Math.abs(g())*4+(prodigy?5:0)),r,98);
-  return{n:uniqueName(),role,r,pot,age:18+Math.floor(Math.random()*5),f:0,d:0};
+  return{n:uniqueName(nat),role,r,pot,age:18+Math.floor(Math.random()*5),f:0,d:0,nat};
 }
 function ageDelta(p){
   const a=p.age;
