@@ -488,6 +488,8 @@ h1{letter-spacing:.02em}
 .fut .fs{position:absolute;left:17px;top:92px;width:24px;height:28px}
 .fut .fa{position:absolute;right:16px;top:20px;width:72px;height:84px;opacity:.9}
 .fut .fa svg{width:100%;height:100%;fill:currentColor;opacity:.28}
+.fut .fa.ph{opacity:1;filter:drop-shadow(0 2px 3px rgba(0,0,0,.35))}.fut .fa.ph img{transform:scale(1.22);transform-origin:50% 100%}
+.fut .fa img{display:block;width:100%;height:100%;object-fit:contain;object-position:50% 100%;pointer-events:none}
 .fut .fnm{position:absolute;left:8px;right:8px;top:112px;font:800 17px/1 var(--d);text-transform:uppercase;letter-spacing:.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-bottom:1px solid var(--fm);padding-bottom:3px}
 .fut .fst{position:absolute;left:12px;right:12px;top:138px;display:grid;grid-template-columns:repeat(5,1fr);gap:0;font:700 14px/1 var(--d)}
 .fut .fst small{display:block;color:var(--fm);font:600 7px var(--d);letter-spacing:0;margin-top:1px}
@@ -4573,6 +4575,10 @@ const crest=(t,c='')=>{
   const o=`<path d="${P}" fill="${A}"/><g clip-path="url(#${id})">${mo}</g><path d="${P}" fill="none" stroke="${B}" stroke-width="6"/><path d="${P}" fill="none" stroke="rgba(0,0,0,.4)" stroke-width="1.5" transform="translate(50 58) scale(.88) translate(-50 -58)"/><text x="50" y="${k===2?72:68}" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-weight="800" font-size="${fs}" fill="${tc}" stroke="${sk}" stroke-width="3.5" paint-order="stroke" letter-spacing="1">${esc(tx)}</text>`;
   return `<span class="shield ${c}" aria-hidden="true"><svg viewBox="0 0 100 118"><defs><clipPath id="${id}"><path d="${P}"/></clipPath></defs>${o}</svg></span>`};
 const AVA='<svg viewBox="0 0 80 96"><circle cx="40" cy="28" r="20"/><path d="M4 96C4 66 20 54 40 54S76 66 76 96Z"/></svg>';
+/*PHOTOS*/const PHOTOS=new Set(["about","ackerman","aiming","andil","aria","artemis","bdd","betty","bie","bin","blaber","boal","boukada","breathe","brokenblade","burdol","busio","bvoy","caliste","callme","canna","canyon","caps","career","cariok","carzzy","casting","chika","chovy","clear","clozer","contractz","corejj","creme","crisp","cryogen","cuzz","daglas","darkwings","delight","deokdam","dhokla","diable","dire","doggo","doran","draktharr","dudu","duro","eddie","effort","elk","elyoya","evi","exyu","faker","fbi","fiesta","fisher","flakked","flauren","fleshy","fudge","gakgos","gala","gideon","gloryy","gryffinn","gumayusi","gury","guwon","hambak","hanssama","harky","hizto","hongq","hongsuo","huhi","ignar","impact","inspired","isles","isma","jackeylove","jackies","jiaqi","jiwoo","jojo","jojopyun","jopa","josedeodo","jun","junjia","kael","kaiwing","kanavi","karis","kaze","kellin","keria","kiaya","kiin","kingen","knight","kratos","kryra","kyeahoo","labrov","lehends","loki","lospa","lucid","lyncas","lyonz","marble","massu","maynter","meiko","mikyx","morgan","myrwn","naaknako","namgung","nuc","on","oner","oscarinin","paduck","palafox","parus","perfect","peyz","poby","pout","pun","pyosik","quad","quid","rahel","raptor","razork","rest","rhilech","roamer","rookie","rooster","ruler","saint","sajed","samd","scout","serin","shanks","shiauc","showmaker","siuloong","siwoo","skeanz","skewmond","slowq","smash","soboro","sponge","srtty","supa","tactical","taeyoon","taki","tarzan","teddy","thanatos","theshy","tian","tracyn","trymbi","tutsz","ucal","uniboy","upset","vampire","vicla","vladi","vsta","vulcan","wei","weiwei","willer","woody","wunder","xiaohu","xiaoxu","xun","yeon","yike","zeka","zeus","zeyzal","zhuo","zika","zinie","zuian"]);
+const phSlug=n=>String(n).toLowerCase().replace(/[^a-z0-9]/g,'');
+const phHas=n=>PHOTOS.has(phSlug(n));
+const phImg=n=>`<img src="jogadores/${phSlug(n)}.webp" alt="" loading="lazy" decoding="async" draggable="false">`;
 const FSTAT=['LAN','MEC','MAC','TEA','MEN'];
 function futStats(n,r,role){
   if(typeof S!=='undefined'&&S&&S.pc&&S.pc.n===n&&S.pc.at)return S.pc.at.slice();
@@ -4583,7 +4589,7 @@ function fut(o,cls=''){
   const t=tier(o.r),st=futStats(o.n,o.r,o.role),c=natC(o.n),tm=o.team;
   return `<button class="fut t${t} ${cls}${S.inj&&S.inj[o.n]?' inj':''}" data-act="player" data-v="${esc(o.n)}" aria-label="${esc(o.n)}, ${o.r}">
   <span class="fo num">${o.r}</span><span class="fr">${RN[o.role]||''}</span>${c?`<span class="fn">${natTxt(c)}</span>`:''}${tm?`<span class="fs">${crest(tm,'')}</span>`:''}
-  <span class="fa">${AVA}</span><span class="fnm">${esc(o.n)}</span>
+  <span class="fa${phHas(o.n)?' ph':''}">${phHas(o.n)?phImg(o.n):AVA}</span><span class="fnm">${esc(o.n)}</span>
   <span class="fst">${st.map((v,i)=>`<span class="num">${v}<small>${FSTAT[i]}</small></span>`).join('')}</span>
   ${o.f&&Math.abs(o.f)>=.5?`<span class="ff">${o.f>0?'▲':'▼'}${Math.abs(o.f).toFixed(1)}</span>`:''}</button>`;
 }
