@@ -1,0 +1,334 @@
+# Auditoria de elencos (Liquipedia)
+
+Fonte: páginas de jogador da Liquipedia (infobox: data de nascimento, país, time, função). Leaguepedia limitou as consultas (rate limit) e ficou de fora.
+
+- Jogadores titulares conferidos: 495 (99 times). Sem divergência: 83
+
+- **Corrigidos no jogo** (idade/nacionalidade, só quando a página confirma o time): 69 jogadores
+
+- Divergências **não aplicadas** (sem confirmação do time): 186
+
+- Sem página na Liquipedia (base/academia fictícia ou nick diferente): 81
+
+- Nick ambíguo (página de desambiguação): 17
+
+
+## Observação importante sobre idades
+O próprio código diz que as idades dos elencos são estimativas ("OVR e idades são notas minhas"). Por isso há muitas diferenças, nos dois sentidos (de -12 a +9 anos). As corrigidas abaixo vieram da data de nascimento real.
+
+
+## Correções aplicadas
+
+- Gen.G / Ruler: idade: jogo 28 vs real 27 (nasc. 1998-12-29)
+- Hanwha Life / Zeka: idade: jogo 25 vs real 23 (nasc. 2002-11-28)
+- T1 / Peyz: idade: jogo 22 vs real 20 (nasc. 2005-12-05)
+- KT Rolster / PerfecT: idade: jogo 23 vs real 21–22 (nasc. 2004-05-17)
+- KT Rolster / Bdd: idade: jogo 28 vs real 26–27 (nasc. 1999-03-01)
+- Nongshim RedForce / Diable: idade: jogo 23 vs real 18–19 (nasc. 2007-10-17)
+- DRX / ucal: idade: jogo 27 vs real 24–25 (nasc. 2001-01-30)
+- DRX / Andil: idade: jogo 22 vs real 23–24 (nasc. 2002-10-05)
+- BRION / Teddy: idade: jogo 29 vs real 27–28 (nasc. 1998-03-15)
+- BLG / Bin: idade: jogo 24 vs real 22–23 (nasc. 2003-09-28)
+- BLG / Xun: grafia do nick: jogo "Xun" vs Liquipedia "XUN"; idade: jogo 22 vs real 23–24 (nasc. 2002-02-05)
+- Top Esports / ZUIAN: idade: jogo 22 vs real 20–21 (nasc. 2005-05-23)
+- Top Esports / Tian: idade: jogo 28 vs real 25–26 (nasc. 2000-07-24)
+- Top Esports / Creme: idade: jogo 21 vs real 22 (nasc. 2003-12-14)
+- Top Esports / Zhuo: idade: jogo 22 vs real 24–25 (nasc. 2001-02-13)
+- JD Gaming / JunJia: nacionalidade: jogo CHN vs Liquipedia TWN (Taiwan)
+- JD Gaming / HongQ: grafia do nick: jogo "HongQ" vs Liquipedia "hongQ"; nacionalidade: jogo CHN vs Liquipedia TWN (Taiwan); idade: jogo 24 vs real 18–19 (nasc. 2007-07-02)
+- JD Gaming / GALA: idade: jogo 27 vs real 24–25 (nasc. 2001-02-14)
+- JD Gaming / Vampire: idade: jogo 24 vs real 20–21 (nasc. 2005-08-24)
+- LNG Esports / Weiwei: idade: jogo 23 vs real 25–26 (nasc. 2000-08-14)
+- Team WE / Cube: idade: jogo 27 vs real 23–24 (nasc. 2002-07-14)
+- Team WE / Erha: idade: jogo 24 vs real 22–23 (nasc. 2003-09-28)
+- TT Gaming / Heru: nacionalidade: jogo CHN vs Liquipedia KOR (South Korea); idade: jogo 23 vs real 19–20 (nasc. 2006-08-21)
+- TT Gaming / Ahn: idade: jogo 22 vs real 24–25 (nasc. 2001-03-15)
+- G2 / SkewMond: nacionalidade: jogo DEN vs Liquipedia FRA (France); idade: jogo 24 vs real 21–22 (nasc. 2004-08-09)
+- Vitality / Carzzy: idade: jogo 27 vs real 23–24 (nasc. 2002-01-31)
+- SK Gaming / Wunder: idade: jogo 28 vs real 27 (nasc. 1998-11-09)
+- SK Gaming / Skeanz: idade: jogo 23 vs real 25–26 (nasc. 2000-09-25)
+- SK Gaming / SlowQ: nacionalidade: jogo ESP vs Liquipedia SWE (Sweden); idade: jogo 27 vs real 21–22 (nasc. 2004-03-20)
+- SK Gaming / Jopa: nacionalidade: jogo GRE vs Liquipedia CRO (Croatia); idade: jogo 25 vs real 22–23 (nasc. 2003-11-03)
+- NAVI / Maynter: nacionalidade: jogo FRA vs Liquipedia UKR (Ukraine); idade: jogo 24 vs real 25 (nasc. 2000-12-15)
+- NAVI / Rhilech: idade: jogo 24 vs real 20–21 (nasc. 2005-10-15)
+- NAVI / Poby: nacionalidade: jogo TUR vs Liquipedia KOR (South Korea); idade: jogo 23 vs real 19–20 (nasc. 2006-02-07)
+- NAVI / SamD: nacionalidade: jogo FRA vs Liquipedia KOR (South Korea)
+- NAVI / Parus: nacionalidade: jogo DEN vs Liquipedia TUR (Turkey); idade: jogo 24 vs real 22–23 (nasc. 2003-02-22)
+- Fnatic / Upset: idade: jogo 27 vs real 26 (nasc. 1999-12-16)
+- Team Heretics / Tracyn: idade: jogo 25 vs real 20–21 (nasc. 2005-09-16)
+- LYON / Dhokla: idade: jogo 25 vs real 28–29 (nasc. 1997-07-17)
+- LYON / Saint: nacionalidade: jogo USA vs Liquipedia KOR (South Korea); idade: jogo 22 vs real 21 (nasc. 2005-01-01)
+- Cloud9 / Blaber: idade: jogo 28 vs real 25–26 (nasc. 2000-01-04)
+- FlyQuest / Gryffinn: idade: jogo 26 vs real 19–20 (nasc. 2006-09-07)
+- FlyQuest / Massu: nacionalidade: jogo USA vs Liquipedia CAN (Canada); idade: jogo 23 vs real 21 (nasc. 2004-11-28)
+- Sentinels / Huhi: grafia do nick: jogo "Huhi" vs Liquipedia "huhi"; nacionalidade: jogo KOR vs Liquipedia USA (United States); idade: jogo 23 vs real 30–31 (nasc. 1995-04-03)
+- Shopify Rebellion / Zeyzal: nacionalidade: jogo KOR vs Liquipedia USA (United States); idade: jogo 22 vs real 26–27 (nasc. 1999-07-07)
+- Team Secret Whales / Hizto: idade: jogo 24 vs real 18–19 (nasc. 2007-09-15)
+- Team Secret Whales / Dire: idade: jogo 25 vs real 19 (nasc. 2006-11-22)
+- MVK Esports / Chika: idade: jogo 24 vs real 19–20 (nasc. 2006-01-26)
+- MVK Esports / Harky: idade: jogo 25 vs real 20–21 (nasc. 2005-08-21)
+- MVK Esports / SiuLoong: idade: jogo 24 vs real 20–21 (nasc. 2005-09-15)
+- GAM Esports / Draktharr: idade: jogo 26 vs real 22–23 (nasc. 2003-03-10)
+- GAM Esports / Artemis: idade: jogo 22 vs real 24–25 (nasc. 2001-02-24)
+- Deep Cross Gaming / ShiauC: nacionalidade: jogo JPN vs Liquipedia TWN (Taiwan)
+- LOS / Feisty: idade: jogo 24 vs real 22 (nasc. 2003-12-19)
+- LOS / Duduhh: idade: jogo 24 vs real 17–18 (nasc. 2008-04-18)
+- FURIA / Guigo: idade: jogo 28 vs real 23–24 (nasc. 2002-01-28)
+- FURIA / Tatu: idade: jogo 28 vs real 19–20 (nasc. 2006-06-13)
+- FURIA / Tutsz: idade: jogo 28 vs real 23 (nasc. 2002-12-16)
+- LOUD / xyno: grafia do nick: jogo "xyno" vs Liquipedia "Xyno"; idade: jogo 25 vs real 18–19 (nasc. 2007-03-04)
+- paiN Gaming / Cariok: grafia do nick: jogo "Cariok" vs Liquipedia "CarioK"; idade: jogo 21 vs real 25–26 (nasc. 2000-01-31)
+- T1 Esports Academy / Painter: idade: jogo 21 vs real 18–19 (nasc. 2007-09-16)
+- T1 Esports Academy / Guti: idade: jogo 20 vs real 21–22 (nasc. 2004-04-09)
+- KIWOOM DRX Challengers / LazyFeel: nacionalidade: jogo KOR vs Liquipedia VIE (Vietnam)
+- WE Academy / Langx: grafia do nick: jogo "Langx" vs Liquipedia "LANGX"; idade: jogo 21 vs real 28–29 (nasc. 1997-09-19)
+- Oh My God / Starry: idade: jogo 19 vs real 21–22 (nasc. 2004-10-14)
+- Los Ratones / Crownie: idade: jogo 26 vs real 27–28 (nasc. 1998-04-17)
+- Cupide Esports / Music: país "Israel" sem código no jogo (jogo: USA); idade: jogo 21 vs real 25–26 (nasc. 2000-02-03)
+- CCG Esports / Fiji: idade: jogo 20 vs real 24–25 (nasc. 2001-07-30)
+- FRANK Esports / Pretender: idade: jogo 20 vs real 24–25 (nasc. 2001-03-11)
+- FRANK Esports / MnM: idade: jogo 19 vs real 25–26 (nasc. 2000-09-19); função: jogo ADC vs Liquipedia support
+
+## Divergências NÃO aplicadas (conferir antes)
+Motivo: a Liquipedia não mostra o time do jogador, ou mostra outro time, então pode ser homônimo ou transferência.
+
+- Hanwha Life / Kanavi: idade: jogo 27 vs real 25–26 (nasc. 2000-11-02)
+- Dplus KIA / Siwoo: idade: jogo 24 vs real 18 (nasc. 2007-11-24)
+- Dplus KIA / Lucid: idade: jogo 23 vs real 20–21 (nasc. 2005-01-28)
+- Dplus KIA / Smash: idade: jogo 22 vs real 19–20 (nasc. 2006-07-20)
+- Dplus KIA / Career: idade: jogo 24 vs real 21–22 (nasc. 2004-08-29)
+- KT Rolster / Jiwoo: idade: jogo 24 vs real 21–22 (nasc. 2004-03-20)
+- KT Rolster / Effort: idade: jogo 26 vs real 25 (nasc. 2000-11-23)
+- BNK FearX / Clear: idade: jogo 24 vs real 23 (nasc. 2002-12-19)
+- BNK FearX / Raptor: idade: jogo 22 vs real 21 (nasc. 2004-11-15)
+- BNK FearX / VicLa: idade: jogo 25 vs real 22 (nasc. 2003-11-27); time: jogo BNK FearX vs Liquipedia flyquest [active]
+- BNK FearX / Taeyoon: idade: jogo 26 vs real 23–24 (nasc. 2002-06-02)
+- BNK FearX / Kellin: idade: jogo 27 vs real 24–25 (nasc. 2001-02-01)
+- Nongshim RedForce / Kingen: idade: jogo 27 vs real 25–26 (nasc. 2000-03-11)
+- Nongshim RedForce / Sponge: idade: jogo 26 vs real 21–22 (nasc. 2004-07-25)
+- Nongshim RedForce / Lehends: idade: jogo 31 vs real 27 (nasc. 1998-12-24)
+- DRX / Willer: idade: jogo 25 vs real 22–23 (nasc. 2003-04-24)
+- DRX / Aiming: idade: jogo 27 vs real 25–26 (nasc. 2000-07-20)
+- BRION / Roamer: idade: jogo 26 vs real 22–23 (nasc. 2003-08-03)
+- BRION / Namgung: idade: jogo 20 vs real 22–23 (nasc. 2003-10-04)
+- DN SOOPers / Clozer: idade: jogo 24 vs real 22–23 (nasc. 2003-07-27)
+- DN SOOPers / deokdam: idade: jogo 20 vs real 25–26 (nasc. 2000-02-25)
+- BLG / ON: idade: jogo 24 vs real 22–23 (nasc. 2003-05-12); time: jogo BLG vs Liquipedia Bilibili Gaming [active]
+- Anyone's Legend / Breathe: idade: jogo 27 vs real 24–25 (nasc. 2001-02-19)
+- Invictus Gaming / Wei: idade: jogo 26 vs real 23 (nasc. 2002-11-09)
+- Invictus Gaming / meiko: grafia do nick: jogo "meiko" vs Liquipedia "Meiko"; idade: jogo 29 vs real 27–28 (nasc. 1998-06-06)
+- Weibo Gaming / Zika: idade: jogo 25 vs real 22–23 (nasc. 2003-07-07)
+- Weibo Gaming / Xiaohao: idade: jogo 26 vs real 23–24 (nasc. 2002-07-19)
+- Weibo Gaming / Jwei: idade: jogo 24 vs real 22–23 (nasc. 2003-01-05)
+- EDward Gaming / Zdz: idade: jogo 25 vs real 24 (nasc. 2001-12-03)
+- EDward Gaming / Parukia: grafia do nick: jogo "Parukia" vs Liquipedia "Palkia"; idade: jogo 22 vs real 19 (nasc. 2006-12-30)
+- LGD Gaming / Burdol: nacionalidade: jogo CHN vs Liquipedia KOR (South Korea); idade: jogo 24 vs real 22 (nasc. 2003-12-25); time: jogo LGD Gaming vs Liquipedia isurus estral
+- LGD Gaming / Heng: idade: jogo 23 vs real 24–25 (nasc. 2001-07-16)
+- LGD Gaming / Tangyuan: idade: jogo 24 vs real 21–22 (nasc. 2004-01-30)
+- LGD Gaming / Crisp: idade: jogo 23 vs real 27–28 (nasc. 1998-08-19)
+- LNG Esports / Nia: nacionalidade: jogo CHN vs Liquipedia KOR (South Korea); idade: jogo 24 vs real 25–26 (nasc. 2000-01-02); função: jogo MID vs Liquipedia support
+- LNG Esports / 1xn: nacionalidade: jogo CHN vs Liquipedia HKG (Hong Kong); idade: jogo 27 vs real 21–22 (nasc. 2004-05-01)
+- LNG Esports / ycx: grafia do nick: jogo "ycx" vs Liquipedia "Ycx"; idade: jogo 23 vs real 24–25 (nasc. 2001-08-11)
+- Ninjas in Pyjamas / Guwon: idade: jogo 20 vs real 22 (nasc. 2003-12-19)
+- Ninjas in Pyjamas / Care: nacionalidade: jogo KOR vs Liquipedia CHN (China); idade: jogo 24 vs real 21–22 (nasc. 2004-04-28)
+- Ninjas in Pyjamas / Fengyue: idade: jogo 23 vs real 20 (nasc. 2005-11-06)
+- Team WE / Monki: idade: jogo 20 vs real 21–22 (nasc. 2004-02-16)
+- Team WE / Karis: nacionalidade: jogo CHN vs Liquipedia KOR (South Korea); idade: jogo 20 vs real 22–23 (nasc. 2003-05-21)
+- TT Gaming / Junhao: idade: jogo 24 vs real 21–22 (nasc. 2004-05-14)
+- TT Gaming / Feather: idade: jogo 26 vs real 22–23 (nasc. 2003-08-01)
+- Movistar KOI / Myrwn: nacionalidade: jogo GRE vs Liquipedia ESP (Spain); idade: jogo 24 vs real 22–23 (nasc. 2003-06-13)
+- Movistar KOI / Elyoya: idade: jogo 27 vs real 25–26 (nasc. 2000-03-13)
+- Movistar KOI / Supa: idade: jogo 24 vs real 25–26 (nasc. 2000-10-23)
+- Karmine Corp / Yike: idade: jogo 24 vs real 25 (nasc. 2000-11-11); time: jogo Karmine Corp vs Liquipedia G2
+- GIANTX / Oscarinin: nacionalidade: jogo DEN vs Liquipedia ESP (Spain); sem data de nascimento na Liquipedia
+- GIANTX / Flakked: idade: jogo 20 vs real 24–25 (nasc. 2001-04-25)
+- Vitality / Naak Nako: nacionalidade: jogo FRA vs Liquipedia TUR (Turkey); idade: jogo 23 vs real 20–21 (nasc. 2005-03-24)
+- Vitality / Lyncas: nacionalidade: jogo CZE vs Liquipedia LTU (Lithuania); idade: jogo 27 vs real 22 (nasc. 2003-12-10)
+- Vitality / FIESTA: nacionalidade: jogo SWE vs Liquipedia KOR (South Korea)
+- Vitality / Fleshy: nacionalidade: jogo UKR vs Liquipedia TUR (Turkey); idade: jogo 21 vs real 25 (nasc. 2000-11-24)
+- Fnatic / Lospa: nacionalidade: jogo GER vs Liquipedia KOR (South Korea); idade: jogo 21 vs real 23–24 (nasc. 2002-09-30)
+- Team Heretics / Daglas: nacionalidade: jogo CZE vs Liquipedia POL (Poland); idade: jogo 24 vs real 20–21 (nasc. 2005-10-23)
+- Team Heretics / Serin: nacionalidade: jogo DEN vs Liquipedia TUR (Turkey); idade: jogo 25 vs real 23–24 (nasc. 2002-04-10)
+- Team Liquid / Josedeodo: nacionalidade: jogo USA vs Liquipedia ARG (Argentina); idade: jogo 24 vs real 25–26 (nasc. 2000-05-22)
+- Team Liquid / Quid: idade: jogo 25 vs real 21–22 (nasc. 2004-04-27); time: jogo Team Liquid vs Liquipedia 100 thieves [active]
+- LYON / Inspired: idade: jogo 28 vs real 23–24 (nasc. 2002-01-24); time: jogo LYON vs Liquipedia flyquest [active]
+- LYON / Isles: nacionalidade: jogo CAN vs Liquipedia AUS (Australia); time: jogo LYON vs Liquipedia dignitas [active]
+- Cloud9 / Tactical: idade: jogo 24 vs real 25–26 (nasc. 2000-08-18); time: jogo Cloud9 vs Liquipedia luminosity gaming [active]
+- Dignitas / eXyu: grafia do nick: jogo "eXyu" vs Liquipedia "Exyu"; idade: jogo 25 vs real 24 (nasc. 2001-12-14); time: jogo Dignitas vs Liquipedia dsg [Retired]
+- Dignitas / Palafox: idade: jogo 23 vs real 26–27 (nasc. 1999-07-08); time: jogo Dignitas vs Liquipedia shopify rebellion [active]
+- Dignitas / FBI: nacionalidade: jogo USA vs Liquipedia AUS (Australia); idade: jogo 28 vs real 26–27 (nasc. 1999-02-11)
+- Dignitas / IgNar: idade: jogo 22 vs real 29 (nasc. 1996-11-20)
+- Disguised / Srtty: nacionalidade: jogo BRA vs Liquipedia USA (United States); idade: jogo 22 vs real 23–24 (nasc. 2002-01-12); time: jogo Disguised vs Liquipedia dignitas
+- Disguised / KryRa: nacionalidade: jogo KOR vs Liquipedia CAN (Canada); idade: jogo 27 vs real 20–21 (nasc. 2005-08-14); time: jogo Disguised vs Liquipedia darkzero esports [active]
+- Disguised / Callme: grafia do nick: jogo "Callme" vs Liquipedia "callme"; nacionalidade: jogo CAN vs Liquipedia KOR (South Korea)
+- Disguised / Sajed: país "Lebanon" sem código no jogo (jogo: USA); idade: jogo 27 vs real 21–22 (nasc. 2004-04-10); time: jogo Disguised vs Liquipedia darkzero esports
+- Disguised / Lyonz: nacionalidade: jogo USA vs Liquipedia ARG (Argentina); idade: jogo 27 vs real 24 (nasc. 2001-11-29)
+- FlyQuest / Cryogen: nacionalidade: jogo USA vs Liquipedia VIE (Vietnam); idade: jogo 26 vs real 18–19 (nasc. 2007-01-20)
+- Sentinels / Impact: idade: jogo 33 vs real 30–31 (nasc. 1995-03-07); time: jogo Sentinels vs Liquipedia team liquid
+- Sentinels / DARKWINGS: nacionalidade: jogo KOR vs Liquipedia USA (United States); idade: jogo 24 vs real 25–26 (nasc. 2000-01-11)
+- Sentinels / Rahel: nacionalidade: jogo USA vs Liquipedia KOR (South Korea)
+- Team Secret Whales / Eddie: idade: jogo 24 vs real 22–23 (nasc. 2003-06-17); status Liquipedia: suspended
+- Team Secret Whales / Bie: idade: jogo 24 vs real 26 (nasc. 1999-12-09)
+- CTBC Flying Oyster / Pout: nacionalidade: jogo TWN vs Liquipedia KOR (South Korea); idade: jogo 24 vs real 22–23 (nasc. 2003-10-03)
+- CTBC Flying Oyster / Doggo: idade: jogo 26 vs real 22–23 (nasc. 2003-01-14)
+- MVK Esports / Kratos: idade: jogo 24 vs real 20–21 (nasc. 2005-04-22); status Liquipedia: suspended
+- SoftBank HAWKS / Evi: idade: jogo 20 vs real 30 (nasc. 1995-11-15); status Liquipedia: retired
+- SoftBank HAWKS / Aria: nacionalidade: jogo JPN vs Liquipedia KOR (South Korea)
+- SoftBank HAWKS / Vsta: nacionalidade: jogo JPN vs Liquipedia KOR (South Korea); idade: jogo 20 vs real 25–26 (nasc. 2000-10-03)
+- GAM Esports / Taki: grafia do nick: jogo "Taki" vs Liquipedia "Rascal"; nacionalidade: jogo VIE vs Liquipedia KOR (South Korea); idade: jogo 23 vs real 28–29 (nasc. 1997-10-16)
+- Deep Cross Gaming / Flauren: nacionalidade: jogo JPN vs Liquipedia HKG (Hong Kong); idade: jogo 23 vs real 19–20 (nasc. 2006-10-30)
+- Deep Cross Gaming / HongSuo: nacionalidade: jogo JPN vs Liquipedia TWN (Taiwan); idade: jogo 20 vs real 22–23 (nasc. 2003-03-18)
+- DetonatioN FocusMe / Momo: idade: jogo 25 vs real 21–22 (nasc. 2004-02-26)
+- DetonatioN FocusMe / Citrus: nacionalidade: jogo JPN vs Liquipedia KOR (South Korea); idade: jogo 23 vs real 24–25 (nasc. 2001-04-14)
+- DetonatioN FocusMe / Fisher: nacionalidade: jogo JPN vs Liquipedia KOR (South Korea)
+- DetonatioN FocusMe / Kakkun: idade: jogo 26 vs real 23–24 (nasc. 2002-02-05)
+- DetonatioN FocusMe / Woody: nacionalidade: jogo JPN vs Liquipedia TWN (Taiwan); idade: jogo 22 vs real 27–28 (nasc. 1998-04-11)
+- Ground Zero Gaming / 1Jiang: nacionalidade: jogo AUS vs Liquipedia TWN (Taiwan); idade: jogo 20 vs real 22–23 (nasc. 2003-10-22)
+- Ground Zero Gaming / Husha: nacionalidade: jogo AUS vs Liquipedia TWN (Taiwan); idade: jogo 20 vs real 24–25 (nasc. 2001-01-04)
+- Ground Zero Gaming / Uniboy: nacionalidade: jogo AUS vs Liquipedia TWN (Taiwan)
+- Ground Zero Gaming / Betty: nacionalidade: jogo AUS vs Liquipedia TWN (Taiwan)
+- Ground Zero Gaming / Kaiwing: nacionalidade: jogo AUS vs Liquipedia HKG (Hong Kong); idade: jogo 26 vs real 29–30 (nasc. 1996-10-27)
+- LOS / Ackerman: grafia do nick: jogo "Ackerman" vs Liquipedia "GodLike"; nacionalidade: jogo ARG vs Liquipedia CHN (China); idade: jogo 28 vs real 32–33 (nasc. 1993-05-12); status Liquipedia: Retired; função: jogo SUP vs Liquipedia top
+- FURIA / Ayu: idade: jogo 26 vs real 20–21 (nasc. 2005-10-06)
+- FURIA / Jojo: idade: jogo 28 vs real 27 (nasc. 1998-11-11)
+- LOUD / Sinatra: idade: jogo 22 vs real 18–19 (nasc. 2007-05-06)
+- LOUD / Kaze: nacionalidade: jogo ARG vs Liquipedia FRA (France); sem data de nascimento na Liquipedia; status Liquipedia: Retired; função: jogo MID vs Liquipedia top
+- paiN Gaming / Boal: idade: jogo 22 vs real 23 (nasc. 2002-12-04)
+- paiN Gaming / Namiru: idade: jogo 22 vs real 18–19 (nasc. 2007-02-06)
+- paiN Gaming / Hena: idade: jogo 25 vs real 26–27 (nasc. 1999-10-08)
+- paiN Gaming / Ceos: idade: jogo 25 vs real 27–28 (nasc. 1998-08-08); time: jogo paiN Gaming vs Liquipedia shopify rebellion [active]
+- Fluxo W7M / cody: idade: jogo 21 vs real 24–25 (nasc. 2001-10-23); time: jogo Fluxo W7M vs Liquipedia estral esports [active]
+- Fluxo W7M / BAO: idade: jogo 26 vs real 24–25 (nasc. 2001-09-20)
+- Leviatán / Devost: idade: jogo 25 vs real 17–18 (nasc. 2008-01-24)
+- Leviatán / Booki: idade: jogo 20 vs real 18–19 (nasc. 2007-03-27)
+- Leviatán / Enga: idade: jogo 24 vs real 25–26 (nasc. 2000-01-24)
+- RED Canids / STEPZ: país "Venezuela" sem código no jogo (jogo: BRA); idade: jogo 22 vs real 19–20 (nasc. 2006-07-01)
+- RED Canids / Morttheus: idade: jogo 27 vs real 23–24 (nasc. 2002-06-18)
+- Vivo Keyd Stars / Disamis: idade: jogo 27 vs real 22–23 (nasc. 2003-08-03)
+- Vivo Keyd Stars / Mireu: nacionalidade: jogo BRA vs Liquipedia KOR (South Korea); idade: jogo 22 vs real 24–25 (nasc. 2001-09-20); time: jogo Vivo Keyd Stars vs Liquipedia isurus estral [active]
+- Vivo Keyd Stars / Scamber: grafia do nick: jogo "Scamber" vs Liquipedia "scamber"; idade: jogo 27 vs real 25–26 (nasc. 2000-06-27)
+- T1 Esports Academy / Cloud: nacionalidade: jogo KOR vs Liquipedia CHN (China); idade: jogo 21 vs real 31–32 (nasc. 1994-07-29)
+- Gen.G Global Academy / MUDAI: idade: jogo 19 vs real 20–21 (nasc. 2005-05-21)
+- Gen.G Global Academy / SIRIUSS: país "Korea" sem código no jogo (jogo: KOR); idade: jogo 21 vs real 19–20 (nasc. 2006-06-27)
+- KT Rolster Challengers / Sylvie: idade: jogo 21 vs real 23 (nasc. 2002-12-04)
+- KT Rolster Challengers / FenRir: idade: jogo 21 vs real 19–20 (nasc. 2006-06-24); função: jogo SUP vs Liquipedia bot
+- KIWOOM DRX Challengers / Winner: idade: jogo 21 vs real 22–23 (nasc. 2003-03-27)
+- KIWOOM DRX Challengers / AKaJe: idade: jogo 20 vs real 17–18 (nasc. 2008-05-30)
+- Dplus KIA Challengers / Solid: nacionalidade: jogo KOR vs Liquipedia PER (Peru); idade: jogo 21 vs real 26–27 (nasc. 1999-07-10)
+- Hanwha Life Challengers / Cracker: idade: jogo 20 vs real 17–18 (nasc. 2008-01-20)
+- Hanwha Life Challengers / Bluffing: país "Korea" sem código no jogo (jogo: KOR); idade: jogo 21 vs real 17 (nasc. 2008-12-07)
+- Weibo Gaming Youth / Wen: nacionalidade: jogo CHN vs Liquipedia TWN (Taiwan); idade: jogo 20 vs real 26 (nasc. 1999-11-19); função: jogo TOP vs Liquipedia mid
+- AL Young / Kuro: idade: jogo 22 vs real 31–32 (nasc. 1994-01-04); status Liquipedia: Retired
+- AL Young / Wuji: grafia do nick: jogo "Wuji" vs Liquipedia "wuji"; nacionalidade: jogo CHN vs Liquipedia TWN (Taiwan); idade: jogo 21 vs real 31–32 (nasc. 1994-07-02); status Liquipedia: retired; função: jogo JNG vs Liquipedia mid
+- Oh My God / Re0: idade: jogo 21 vs real 18–19 (nasc. 2007-01-31)
+- Karmine Corp Blue / Tao: nacionalidade: jogo SRB vs Liquipedia ITA (Italy)
+- Karmine Corp Blue / Yukino: nacionalidade: jogo NED vs Liquipedia USA (United States); idade: jogo 21 vs real 19–20 (nasc. 2006-02-14)
+- Karmine Corp Blue / Looki: nacionalidade: jogo IRL vs Liquipedia GER (Germany)
+- Los Ratones / Baus: grafia do nick: jogo "Baus" vs Liquipedia "Thebausffs"; idade: jogo 22 vs real 26–27 (nasc. 1999-10-03)
+- Solary / Kryze: nacionalidade: jogo BEL vs Liquipedia SWE (Sweden); idade: jogo 20 vs real 26–27 (nasc. 1999-07-01)
+- Solary / Zicssi: nacionalidade: jogo DEN vs Liquipedia FRA (France); idade: jogo 21 vs real 23–24 (nasc. 2002-05-16)
+- Solary / Jool: nacionalidade: jogo CRO vs Liquipedia KOR (South Korea); idade: jogo 20 vs real 24 (nasc. 2001-12-30)
+- Solary / Aetinoth: nacionalidade: jogo POR vs Liquipedia TUR (Turkey); idade: jogo 19 vs real 20–21 (nasc. 2005-10-10)
+- Solary / Piero: nacionalidade: jogo NOR vs Liquipedia KOR (South Korea); idade: jogo 21 vs real 23–24 (nasc. 2002-07-15)
+- Galions / Carlsen: nacionalidade: jogo SRB vs Liquipedia DEN (Denmark)
+- Galions / Thayger: nacionalidade: jogo NOR vs Liquipedia ESP (Spain); idade: jogo 21 vs real 23–24 (nasc. 2002-01-27)
+- Galions / OMON: nacionalidade: jogo UKR vs Liquipedia CZE (Czech Republic); idade: jogo 20 vs real 22–23 (nasc. 2003-07-02)
+- Galions / HARPOON: grafia do nick: jogo "HARPOON" vs Liquipedia "Harpoon"; nacionalidade: jogo FRA vs Liquipedia POL (Poland); idade: jogo 19 vs real 20–21 (nasc. 2005-04-18); time: jogo Galions vs Liquipedia zero tenacity [active]
+- Galions / Zoelys: nacionalidade: jogo NED vs Liquipedia FRA (France); idade: jogo 21 vs real 22–23 (nasc. 2003-05-16)
+- Vitality.Bee / Owpi: grafia do nick: jogo "Owpi" vs Liquipedia "owpi"; nacionalidade: jogo FIN vs Liquipedia GRE (Greece)
+- Vitality.Bee / Delicate: nacionalidade: jogo FIN vs Liquipedia GRE (Greece); sem data de nascimento na Liquipedia
+- Vitality.Bee / Honda: nacionalidade: jogo TUR vs Liquipedia GER (Germany); idade: jogo 21 vs real 24–25 (nasc. 2001-08-14)
+- Gentle Mates / Stefan: nacionalidade: jogo CRO vs Liquipedia SRB (Serbia); idade: jogo 25 vs real 27–28 (nasc. 1998-10-15); função: jogo MID vs Liquipedia jungle
+- NRG / Zamudo: nacionalidade: jogo USA vs Liquipedia CAN (Canada); idade: jogo 20 vs real 21–22 (nasc. 2004-05-17); time: jogo NRG vs Liquipedia darkzero esports
+- NRG / Kisno: idade: jogo 21 vs real 23 (nasc. 2002-12-28)
+- NRG / Spica: nacionalidade: jogo CAN vs Liquipedia CHN (China); idade: jogo 21 vs real 23–24 (nasc. 2002-02-17); função: jogo SUP vs Liquipedia jungle
+- Cupide Esports / Horder: nacionalidade: jogo USA vs Liquipedia CAN (Canada); sem data de nascimento na Liquipedia
+- Cupide Esports / Ablazeolive: nacionalidade: jogo USA vs Liquipedia CAN (Canada); idade: jogo 20 vs real 27 (nasc. 1998-11-16)
+- Cupide Esports / Breezy: idade: jogo 21 vs real 26–27 (nasc. 1999-08-20)
+- Blue Otter / Philip: nacionalidade: jogo MEX vs Liquipedia CAN (Canada); idade: jogo 20 vs real 23–24 (nasc. 2002-07-28)
+- Blue Otter / Young: idade: jogo 20 vs real 24–25 (nasc. 2001-01-16); time: jogo Blue Otter vs Liquipedia disguised
+- Blue Otter / Levitate: nacionalidade: jogo MEX vs Liquipedia USA (United States); sem data de nascimento na Liquipedia
+- Blue Otter / Minui: idade: jogo 21 vs real 22–23 (nasc. 2003-03-26); time: jogo Blue Otter vs Liquipedia UC Irvine
+- CCG Esports / Leza: nacionalidade: jogo CAN vs Liquipedia MEX (Mexico); idade: jogo 20 vs real 27–28 (nasc. 1998-09-28)
+- CCG Esports / Only35: nacionalidade: jogo USA vs Liquipedia TUR (Turkey); idade: jogo 21 vs real 25–26 (nasc. 2000-04-30)
+- Dorado Gaming / Lojaz: idade: jogo 21 vs real 25–26 (nasc. 2000-10-04)
+- FRANK Esports / YSKM: nacionalidade: jogo THA vs Liquipedia HKG (Hong Kong); idade: jogo 20 vs real 21–22 (nasc. 2004-02-11)
+- FRANK Esports / Holo: nacionalidade: jogo THA vs Liquipedia HKG (Hong Kong); idade: jogo 21 vs real 25–26 (nasc. 2000-05-04)
+- FRANK Esports / Kingpo54: grafia do nick: jogo "Kingpo54" vs Liquipedia "kingpo54"; nacionalidade: jogo JPN vs Liquipedia HKG (Hong Kong); sem data de nascimento na Liquipedia
+- Saigon Warriors / Nern: nacionalidade: jogo AUS vs Liquipedia VIE (Vietnam); sem data de nascimento na Liquipedia
+- Saigon Warriors / J1n5: grafia do nick: jogo "J1n5" vs Liquipedia "j1n5"; nacionalidade: jogo IDN vs Liquipedia VIE (Vietnam); idade: jogo 21 vs real 22–23 (nasc. 2003-05-01)
+- Saigon Warriors / AisyL: nacionalidade: jogo AUS vs Liquipedia VIE (Vietnam)
+- Saigon Warriors / Aomine: nacionalidade: jogo NZL vs Liquipedia VIE (Vietnam); sem data de nascimento na Liquipedia
+- Saigon Warriors / Elio: nacionalidade: jogo JPN vs Liquipedia VIE (Vietnam); idade: jogo 21 vs real 25 (nasc. 2000-11-07)
+- FENNEL / Kkkkkkkkk: grafia do nick: jogo "Kkkkkkkkk" vs Liquipedia "kkkkkkkkk"; nacionalidade: jogo KOR vs Liquipedia JPN (Japan); idade: jogo 20 vs real 17–18 (nasc. 2008-02-14)
+- FENNEL / Ellim: nacionalidade: jogo HKG vs Liquipedia KOR (South Korea); idade: jogo 21 vs real 25–26 (nasc. 2000-05-25)
+- FENNEL / MayR: nacionalidade: jogo HKG vs Liquipedia JPN (Japan); sem data de nascimento na Liquipedia
+- FENNEL / Bruce: nacionalidade: jogo THA vs Liquipedia TWN (Taiwan); idade: jogo 21 vs real 27–28 (nasc. 1998-06-16); função: jogo SUP vs Liquipedia bot
+- SN Cybercore / Kairi: nacionalidade: jogo MAS vs Liquipedia VIE (Vietnam); sem data de nascimento na Liquipedia; status Liquipedia: suspended
+- 7REX Team / Hirotto: idade: jogo 21 vs real 17–18 (nasc. 2008-03-12)
+- Ei Nerd Esports / Drakehero: idade: jogo 21 vs real 22–23 (nasc. 2003-07-07)
+- Ei Nerd Esports / Pilot: nacionalidade: jogo BRA vs Liquipedia KOR (South Korea); idade: jogo 20 vs real 30 (nasc. 1995-12-04); função: jogo MID vs Liquipedia bot
+- Estral Esports / Bwipo: idade: jogo 20 vs real 27 (nasc. 1998-12-24); time: jogo Estral Esports vs Liquipedia flyquest [active]
+- Estral Esports / Oddie: idade: jogo 21 vs real 28–29 (nasc. 1997-08-28)
+- Estral Esports / Kisee: idade: jogo 20 vs real 22–23 (nasc. 2003-03-07)
+- Estral Esports / Envy: idade: jogo 19 vs real 27–28 (nasc. 1998-08-12); time: jogo Estral Esports vs Liquipedia los grandes [active]; função: jogo ADC vs Liquipedia mid
+- TEAM SOLID / Aegis: idade: jogo 21 vs real 26–27 (nasc. 1999-09-09)
+- RMD Gaming / Hidan: idade: jogo 20 vs real 23–24 (nasc. 2002-03-28)
+- RMD Gaming / Mario: nacionalidade: jogo URU vs Liquipedia ITA (Italy); sem data de nascimento na Liquipedia
+- paiN Academy / Gatovisck: idade: jogo 21 vs real 19 (nasc. 2006-11-22)
+- Vivo Keyd Stars Academy / Maestro: nacionalidade: jogo BRA vs Liquipedia CHN (China); idade: jogo 22 vs real 27–28 (nasc. 1998-04-24); status Liquipedia: retired; função: jogo JNG vs Liquipedia support
+- Vivo Keyd Stars Academy / Fenix: nacionalidade: jogo BRA vs Liquipedia KOR (South Korea); idade: jogo 21 vs real 30 (nasc. 1995-12-07); status Liquipedia: retired
+
+## Possíveis transferências / time diferente
+
+- Dplus KIA / ShowMaker: time: jogo Dplus KIA vs Liquipedia DAMWON Gaming [active]
+- BNK FearX / VicLa: time: jogo BNK FearX vs Liquipedia flyquest [active]
+- BLG / ON: time: jogo BLG vs Liquipedia Bilibili Gaming [active]
+- LGD Gaming / Burdol: time: jogo LGD Gaming vs Liquipedia isurus estral
+- Movistar KOI / jojopyun: time: jogo Movistar KOI vs Liquipedia cloud9 [active]
+- Karmine Corp / Yike: time: jogo Karmine Corp vs Liquipedia G2
+- SK Gaming / Mikyx: time: jogo SK Gaming vs Liquipedia G2
+- Team Liquid / Quid: time: jogo Team Liquid vs Liquipedia 100 thieves [active]
+- LYON / Inspired: time: jogo LYON vs Liquipedia flyquest [active]
+- LYON / Isles: time: jogo LYON vs Liquipedia dignitas [active]
+- Cloud9 / Tactical: time: jogo Cloud9 vs Liquipedia luminosity gaming [active]
+- Dignitas / eXyu: time: jogo Dignitas vs Liquipedia dsg [Retired]
+- Dignitas / Palafox: time: jogo Dignitas vs Liquipedia shopify rebellion [active]
+- Disguised / Srtty: time: jogo Disguised vs Liquipedia dignitas
+- Disguised / KryRa: time: jogo Disguised vs Liquipedia darkzero esports [active]
+- Disguised / Sajed: time: jogo Disguised vs Liquipedia darkzero esports
+- Sentinels / Impact: time: jogo Sentinels vs Liquipedia team liquid
+- paiN Gaming / Ceos: time: jogo paiN Gaming vs Liquipedia shopify rebellion [active]
+- Fluxo W7M / cody: time: jogo Fluxo W7M vs Liquipedia estral esports [active]
+- Vivo Keyd Stars / Mireu: time: jogo Vivo Keyd Stars vs Liquipedia isurus estral [active]
+- Galions / HARPOON: time: jogo Galions vs Liquipedia zero tenacity [active]
+- NRG / Zamudo: time: jogo NRG vs Liquipedia darkzero esports
+- Blue Otter / Munchy: time: jogo Blue Otter vs Liquipedia University of Toronto
+- Blue Otter / Young: time: jogo Blue Otter vs Liquipedia disguised
+- Blue Otter / Minui: time: jogo Blue Otter vs Liquipedia UC Irvine
+- Estral Esports / Bwipo: time: jogo Estral Esports vs Liquipedia flyquest [active]
+- Estral Esports / Envy: time: jogo Estral Esports vs Liquipedia los grandes [active]
+- RMD Gaming / Celo: time: jogo RMD Gaming vs Liquipedia los grandes [active]
+
+## Nick ambíguo na Liquipedia
+
+- DRX / Frog
+- DN SOOPers / Peter
+- BLG / Viper
+- Anyone's Legend / Hope
+- Movistar KOI / Alvaro
+- LYON / Berserker
+- Deep Cross Gaming / Feng
+- LOS / Curse
+- KT Rolster Challengers / Ghost
+- KIWOOM DRX Challengers / Rich
+- Dplus KIA Challengers / Garden
+- TES Challengers / Atomic
+- Vitality.Bee / Cosmic
+- Supernova / Hunter
+- CCG Esports / Spawn
+- Team Gromp / Fish
+- Ei Nerd Esports / Kog
+
+## Sem página na Liquipedia
+EDward Gaming/JieJie, EDward Gaming/BullDoG, Ninjas in Pyjamas/HOYA, Team Heretics/Hype, Team Heretics/Way, CTBC Flying Oyster/Shad0w, CTBC Flying Oyster/KIno, SoftBank HAWKS/Van1, Deep Cross Gaming/Pop9, LOS/ZEST, Vivo Keyd Stars/ZekaS, Dplus KIA Challengers/Wayne, Hanwha Life Challengers/Panther, Weibo Gaming Youth/0909, EDG Youth/hui, EDG Youth/13day, EDG Youth/linn, EDG Youth/Jerry, WE Academy/Qingfeng, WE Academy/Tiancheng, WE Academy/Taro, WE Academy/Yuhan, LNG Academy/Hongyu, LNG Academy/Ruoxi, LNG Academy/Kaixin, LNG Academy/Muyang, LNG Academy/Tianyu, Royal Club/Zhiyuan, Royal Club/Yuting, Royal Club/Anran, Royal Club/Zhihao, Royal Club/Haotian, LGD Youth/Yishen, LGD Youth/Yushen, LGD Youth/Mires, LGD Youth/Today, AL Young/Dahai, AL Young/Tofu, AL Young/Yenru, TES Challengers/Sywjj, TES Challengers/Bolt, BLG Junior/Xiaogao, BLG Junior/Sanling, Oh My God/Zeyu, Oh My God/Xiaoke, Oh My God/Leiyu, Karmine Corp Blue/Prime, Gentle Mates/Pavlos, Gentle Mates/Ondra, Gentle Mates/Iker, Gentle Mates/Halvor, NRG/Blake, Supernova/Lucho, Supernova/Reid, Supernova/Seth, Supernova/Rowan, Dorado Gaming/Dec0y, Dorado Gaming/Hub, FENNEL/DICE, Team Gromp/Enzo, Team Gromp/Phong, Team Gromp/Wade, Team Gromp/Fadli, SN Cybercore/Kaiyuan, SN Cybercore/Rikk, SN Cybercore/Minh, SN Cybercore/Yashiro2, Saigon Dino/Dimas, Saigon Dino/Zhuoyu, Saigon Dino/Thanh, Saigon Dino/Ryo, Saigon Dino/Neil, 7REX Team/Renan, 7REX Team/Bulas, TEAM SOLID/Gordo, TEAM SOLID/Tito, TEAM SOLID/Kenzo, paiN Academy/Luan, Vivo Keyd Stars Academy/Flaco, Vivo Keyd Stars Academy/Jhow, Vivo Keyd Stars Academy/Davi
