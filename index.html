@@ -2446,7 +2446,7 @@ function lvGameEnd(){
   if(LV.pc)pcGameEnd(mine);
   if(LV.state==='done'){const aW=LV.us==='a'?LV.me:LV.op,bW=LV.us==='a'?LV.op:LV.me;LV.m.fx={wa:aW,wb:bW}}
 }
-const lvSpd=()=>{const v=S&&S.opt&&S.opt.lvs;return v===20?20:v===10?10:1};
+const lvSpd=()=>{const v=S&&S.opt&&S.opt.lvs;return v===30?30:20};
 function lvLoop(){
   lvStop();
   if(!LV||LV.state!=='run')return;
@@ -2511,7 +2511,7 @@ function lvMapHTML(){
   const sts=lvStList().map(x=>`<circle id="${x.id}" class="${x.cls}" cx="${lvX(x.x).toFixed(1)}" cy="${x.y.toFixed(1)}" r="${x.r}"/>`).join('');
   const dots=['me','op'].flatMap(s=>[0,1,2,3,4].map(r=>{const p=lvPos(s,r),dead=LV.kd[s][r].dead>LV.sec,me=LV.pc&&s==='me'&&LV.pcrole===r;return `<g id="dt-${s}${r}" class="dt ${lvBlue(s)?'b':'r'}${dead?' x':''}${me?' me':''}" style="transform:translate(${lvX(p[0]).toFixed(1)}px,${p[1].toFixed(1)}px)">${lvDotInner(s,r)}</g>`})).join('');
   const bUp=LV.sec>=LV.dn.b,hUp=LV.sec>=LV.dn.h&&LV.sec<840;
-  return `<svg id="lvmap" class="lvmap${lvSpd()>=10?' fast':''}${lvSpd()===20?' f20':''}" viewBox="0 0 134.88 100" role="img" aria-label="Mapa da partida"><defs><clipPath id="lvcc"><circle r="3.2"/></clipPath></defs><image href="${LV_MAP}" width="134.88" height="100" preserveAspectRatio="none"/><g id="pit-d" class="pit${LV.sec>=LV.dn.d?' up':''}"><circle cx="${lvX(LVPIT.d[0]).toFixed(1)}" cy="${LVPIT.d[1]}" r="3.6"/><text x="${lvX(LVPIT.d[0]).toFixed(1)}" y="${LVPIT.d[1]+1.1}">D</text></g><g id="pit-b" class="pit${bUp||hUp?' up':''}${bUp?' bn':hUp?' hd':''}"><circle cx="${lvX(LVPIT.b[0]).toFixed(1)}" cy="${LVPIT.b[1]}" r="3.6"/><g transform="translate(${lvX(LVPIT.b[0]).toFixed(1)} ${LVPIT.b[1]})"><g class="hi"><ellipse rx="2.5" ry="1.5"/><circle r=".85" class="ip"/></g><g class="bi"><polygon points="-2.3,1.5 -2.5,-1.4 -1.2,-.2 0,-2.1 1.2,-.2 2.5,-1.4 2.3,1.5"/></g></g></g>${sts}<g id="lvmk"></g>${dots}</svg>`;
+  return `<svg id="lvmap" class="lvmap${lvSpd()>=10?' fast':''}${lvSpd()>=20?' f20':''}" viewBox="0 0 134.88 100" role="img" aria-label="Mapa da partida"><defs><clipPath id="lvcc"><circle r="3.2"/></clipPath></defs><image href="${LV_MAP}" width="134.88" height="100" preserveAspectRatio="none"/><g id="pit-d" class="pit${LV.sec>=LV.dn.d?' up':''}"><circle cx="${lvX(LVPIT.d[0]).toFixed(1)}" cy="${LVPIT.d[1]}" r="3.6"/><text x="${lvX(LVPIT.d[0]).toFixed(1)}" y="${LVPIT.d[1]+1.1}">D</text></g><g id="pit-b" class="pit${bUp||hUp?' up':''}${bUp?' bn':hUp?' hd':''}"><circle cx="${lvX(LVPIT.b[0]).toFixed(1)}" cy="${LVPIT.b[1]}" r="3.6"/><g transform="translate(${lvX(LVPIT.b[0]).toFixed(1)} ${LVPIT.b[1]})"><g class="hi"><ellipse rx="2.5" ry="1.5"/><circle r=".85" class="ip"/></g><g class="bi"><polygon points="-2.3,1.5 -2.5,-1.4 -1.2,-.2 0,-2.1 1.2,-.2 2.5,-1.4 2.3,1.5"/></g></g></g>${sts}<g id="lvmk"></g>${dots}</svg>`;
 }
 function lvStatsHTML(){
   const bl=LV.us==='a'?'me':'op',rd=lvOpp(bl);
@@ -2584,7 +2584,7 @@ function lvPaint(now){
   if(pd&&pd.getAttribute('class')!==cd)pd.setAttribute('class',cd);
   if(pb&&pb.getAttribute('class')!==cb)pb.setAttribute('class',cb);
   const mk=$('lvmk');
-  if(mk&&LV.mq.length){const life=lvSpd()===20?750:lvSpd()===10?1300:2500;LV.mq.splice(0).forEach(q=>{mk.insertAdjacentHTML('beforeend',`<g class="kx"><text x="${lvX(q.x).toFixed(1)}" y="${q.y.toFixed(1)}">✕</text></g>`);const g=mk.lastElementChild;setTimeout(()=>{if(g&&g.parentNode)g.remove()},life)})}
+  if(mk&&LV.mq.length){const life=lvSpd()===30?550:lvSpd()===20?750:lvSpd()===10?1300:2500;LV.mq.splice(0).forEach(q=>{mk.insertAdjacentHTML('beforeend',`<g class="kx"><text x="${lvX(q.x).toFixed(1)}" y="${q.y.toFixed(1)}">✕</text></g>`);const g=mk.lastElementChild;setTimeout(()=>{if(g&&g.parentNode)g.remove()},life)})}
   else LV.mq.length=0;
   const lead=LV.lead,pos=Math.round(50-lead/15*50*(LV.us==='a'?1:-1)),bar=$('lvbi');
   if(bar)bar.style.left=clamp(pos,3,97)+'%';
@@ -2620,7 +2620,7 @@ function vLive(){
   <div class="lvl"><aside class="lvk lvka" id="lvk-a">${lvKdaHTML(bl)}</aside><section class="lvlog lvlogw" id="lvlg">${lvLogHTML()}</section></div>
   <div class="lvhd">
     <div class="lvclock"><b class="num" id="lvc">${lvFmt(LV.sec)}</b><small>Mapa ${Math.min(LV.gi+1,m.n)} · ${ph||(LV.state==='pick'?'escolha':'fim')}</small></div>
-    <div class="lvspd"><small>Velocidade</small><button class="pill" data-act="lvSpd" data-v="1" aria-pressed="${sp===1}">1× tempo real</button><button class="pill" data-act="lvSpd" data-v="10" aria-pressed="${sp===10}">10×</button><button class="pill" data-act="lvSpd" data-v="20" aria-pressed="${sp===20}">20×</button></div>
+    <div class="lvspd"><small>Velocidade</small><button class="pill" data-act="lvSpd" data-v="20" aria-pressed="${sp===20}">20×</button><button class="pill" data-act="lvSpd" data-v="30" aria-pressed="${sp===30}">30×</button></div>
     <div class="lvmapw">${lvMapHTML()}</div>
     <div class="lvbar"><i id="lvbi" style="left:${clamp(pos,3,97)}%"></i><span></span></div><p class="lvld" id="lvld">${Math.abs(lead)<1?'Jogo parelho':(lead>0)===(LV.us==='a')?esc(A.name)+' à frente':esc(B.name)+' à frente'}</p>
     <div class="lvst" id="lvst">${lvStatsHTML()}</div>
@@ -4639,7 +4639,7 @@ function act(a,v){
   else if(a==='dvAll'){if(DV)dvAll()}
   else if(a==='dvX'){clearTimeout(DVT);DV=null}
   else if(a==='dvGo'){if(DV&&DV.done){dvGo();if(lvNeeded())lvOpen();else step();sndAfter();save();top=true}}
-  else if(a==='lvTac'){if(LV&&LV.pc)lvPosture(v);else lvTac(v)}else if(a==='lvPick'){lvPick(v)}else if(a==='lvSub'){lvSub(v);save()}else if(a==='lvNext'){lvNext()}else if(a==='lvSkip'){lvSkipPhase()}else if(a==='lvAll'){lvAll()}else if(a==='lvX'){lvDone()}else if(a==='lvSpd'){S.opt=S.opt||{};S.opt.lvs=+v===20?20:+v===10?10:1;save();render()}
+  else if(a==='lvTac'){if(LV&&LV.pc)lvPosture(v);else lvTac(v)}else if(a==='lvPick'){lvPick(v)}else if(a==='lvSub'){lvSub(v);save()}else if(a==='lvNext'){lvNext()}else if(a==='lvSkip'){lvSkipPhase()}else if(a==='lvAll'){lvAll()}else if(a==='lvX'){lvDone()}else if(a==='lvSpd'){S.opt=S.opt||{};S.opt.lvs=+v===30?30:20;save();render()}
   else if(a==='lvDone'){if(LV&&LV.state==='done'){if(LV.pc)pcMatchEnd();lvDone();step();sndAfter();save();top=true}}
   else if(a==='liveOpt'){S.opt=S.opt||{};S.opt.live=+v;save()}
   else if(a==='day'){advDay(+v);save()}
