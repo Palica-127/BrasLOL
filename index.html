@@ -3715,12 +3715,19 @@ function cupHTML(){
   let h='';
   if(cup){
     h+=`<section class="pn"><h2>Copa do Mundo de LoL ${cup.y}</h2>`;
+    const full=!!brkO.cup,gs=!!brkO.cups;
+    h+=`<button class="ghost brkb top" data-act="brk" data-v="cup">${full?'Esconder bracket':'Ver bracket e resultados'}</button>`;
     if(cup.champ!=null){const fin=cup.stages[cup.stages.length-1].ms[1];h+=`<div class="crown"><small>Campeão</small><b>${esc(CT(cup.champ).name)}</b><span>Final ${Math.max(fin.res.wa,fin.res.wb)}-${Math.min(fin.res.wa,fin.res.wb)} · 3º lugar ${esc(CT(cup.third).name)} · MVP ${lk(cup.mvp)}</span></div>`}
     else h+=`<p class="note" style="margin:0 0 8px">Formato da Copa do Mundo de futebol, a cada 4 anos: ${cup.N} seleções em ${cup.groups.length} grupos de 4, todos contra todos em melhor de 2 (vitória 3 pontos, empate 1). Os 2 primeiros avançam ao mata-mata, com disputa de 3º lugar e final. Cada país manda o melhor de cada posição; quando falta alguém, entra um reforço do mesmo continente.</p>`;
     h+=convHTML(cup);
-    /* mata-mata, do mais recente para o mais antigo */
+    if(full){
+      const ko=cup.stages.map(st=>st.final?{...st,ms:[st.ms[1]]}:st);
+      h+=bracketCore(ko,CT,t=>`<button class="lk" data-act="nation" data-v="${t.id}">${esc(t.name)}</button>`,t=>'',id=>S.nm&&S.nm.code===id);
+    }
+    /* mata-mata: pendentes (e o que acabou de jogar); o resto só com a bracket aberta */
     [...cup.stages].map((st,si)=>({st,si})).reverse().forEach(({st,si})=>{
       const pend=st.ms.some(m=>!m.res),fx=lastPlayed&&lastPlayed.k==='cup'&&lastPlayed.si===si;
+      if(!pend&&!fx&&!full)return;
       h+=`<div class="sub">${pend?'Próximos jogos · ':''}${st.name}</div>`+st.ms.map((m,i)=>cupMatchHTML(m,i,fx)).join('');
     });
     /* grupos */
@@ -3731,9 +3738,11 @@ function cupHTML(){
     }).join('');
     /* jogos da fase de grupos */
     const nxt=cup.gi<3?cup.gi:-1;
+    h+=`<button class="ghost brkb" data-act="brk" data-v="cups">${gs?'Esconder resultados dos grupos':'Ver resultados dos grupos'}</button>`;
     cup.gst.forEach((st,si)=>{
       if(si>cup.gi)return;
       const pend=si===nxt;
+      if(!pend&&!gs)return;
       h+=`<details class="det"${pend?' open':''}><summary>${pend?'Próximos jogos · ':''}${st.name}</summary><div class="cmw">${st.ms.map(cupRow).join('')}</div></details>`;
     });
     h+=`<details class="det"><summary>Convocados (${cup.teams.length} seleções)</summary>${cup.teams.map(t=>`<div class="sub"><button class="lk" data-act="nation" data-v="${t.id}">${esc(t.name)}</button> · OVR ${Math.round(eff(t))}</div><p class="note" style="margin:0 0 6px">${t.pl.map(p=>`${RN[p.role]} ${lk(p.n)} <small class="num">${p.r}</small>${p.ext?' <small>(reforço)</small>':''}`).join(' · ')}</p>`).join('')}</details></section>`;
@@ -3840,20 +3849,20 @@ function swissHTML(tour){
     return `<div class="gr${r.w===3?' q':''}${r.l===3?' x':''}${mgrT()&&id===S.mgr.tid?' mine':''}"><span>${tlk(T(id))}</span><span class="pips">${'<i></i>'.repeat(r.w)}${'<i class="l"></i>'.repeat(r.l)}<span class="num" style="margin-left:6px">${r.w}-${r.l}</span></span></div>`;
   }).join('')}</div><p class="note" style="margin:0 0 4px">Três vitórias classificam e três derrotas eliminam. Jogos que decidem classificação ou eliminação são melhor de 3.</p>`;
 }
-function bracketHTML(tour){
-  const ko=tour.stages.filter(st=>!st.swiss);
+function bracketHTML(tour){return bracketCore(tour.stages.filter(st=>!st.swiss),T,tlk,t=>crest(t,'sm'),id=>mgrT()&&S.mgr.tid===id)}
+function bracketCore(ko,T,tlk,crest,isMe){
   if(!ko.length)return'';
   let n=ko[0].ms.length;const cols=[];
   for(let c=0;n>=1;c++,n=Math.floor(n/2)){
     const st=ko[c];
-    cols.push({name:n===1?'Final':n===2?'Semifinais':n===4?'Quartas':'Rodada '+(c+1),n,st});
+    cols.push({name:n===1?'Final':n===2?'Semifinais':n===4?'Quartas':n===8?'Oitavas':'Rodada '+(c+1),n,st});
     if(n===1)break;
   }
   const win=m=>m&&m.res?m.res.w:null;
   const row=(id,sc,m,side)=>{
     if(id==null)return `<div class="br tbd"><span class="bc"></span><span class="bn">A definir</span><b class="bs">–</b></div>`;
-    const t=T(id),r=m&&m.res,w=r&&r.w===id,mine=mgrT()&&S.mgr.tid===id;
-    return `<div class="br${r?(w?' w':' l'):''}${mine?' me':''}">${crest(t,'sm')}<span class="bn">${tlk(t)}</span><b class="bs num">${r?sc:'0'}</b></div>`;
+    const t=T(id),r=m&&m.res,w=r&&r.w===id,mine=isMe(id);
+    return `<div class="br${r?(w?' w':' l'):''}${mine?' me':''}">${crest(t)}<span class="bn">${tlk(t)}</span><b class="bs num">${r?sc:'0'}</b></div>`;
   };
   const card=(m,c,j)=>{
     let a=null,b=null;
