@@ -745,12 +745,13 @@ h1{letter-spacing:.02em}
 .lvlog{margin-top:12px;display:grid;gap:5px}.le{display:grid;grid-template-columns:38px 1fr;gap:8px;padding:7px 10px;border-radius:10px;background:rgba(255,255,255,.05);font-size:13px;border-left:3px solid rgba(255,255,255,.2)}.le.me{border-left-color:#00F5A0}.le.op{border-left-color:#FF5C8A}.le.end{background:rgba(255,226,122,.14);border-left-color:#FFE27A;font-weight:700}.le.sys{color:#9fb4ff}.le b{color:#FFE27A}
 
 .lvgrid{display:flex;flex-direction:column;gap:12px}
-.lvhd{order:1;min-width:0}.lvka{order:2}.lvkb{order:3}.lvlogw{order:4}
+.lvhd{order:1;min-width:0}.lvl,.lvr{display:contents}.lvctl{order:2}.lvka{order:3}.lvkb{order:4}.lvlogw{order:5}
+.lvbt{display:flex;gap:8px;justify-content:center;margin-top:10px}.lvbt .ghost{flex:1;max-width:200px}.lvctl .dvpool{margin:0}.lvctl .dvpool.wait p{margin:6px 0}
 .lvspd{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:2px 0 6px}.lvspd small{color:#9fb4ff;font-weight:700}.lvspd .pill{min-height:32px;padding:3px 14px;font-size:13px}
 .lvmapw{width:100%;max-width:680px;margin:6px auto 10px}
 .lvmap{display:block;width:100%;aspect-ratio:134.88/100;border-radius:16px;border:1px solid rgba(255,255,255,.16);box-shadow:inset 0 0 40px rgba(0,0,0,.45),0 8px 24px rgba(0,0,20,.4);background:#0b2f27}
 .lvmap .stc{stroke:#fff;stroke-width:.5;transition:opacity .4s}.lvmap .stc.b{fill:#4d8dff}.lvmap .stc.r{fill:#ff5c8a}.lvmap .stc.nx{stroke-width:.7}.lvmap .stc.inh{stroke:#FFE27A}.lvmap .stc.dn{fill:#222;stroke:#555;opacity:.4}
-.lvmap .pit circle{fill:rgba(0,0,0,.4);stroke:rgba(255,255,255,.3);stroke-width:.4}.lvmap .pit.up circle{stroke:#FFE27A;stroke-width:.7}.lvmap .pit text{font:700 3.2px sans-serif;fill:#cfd8ff;text-anchor:middle}
+.lvmap .pit circle{fill:rgba(0,0,0,.4);stroke:rgba(255,255,255,.3);stroke-width:.4}.lvmap .pit.up circle{stroke:#FFE27A;stroke-width:.7}.lvmap .pit .hi,.lvmap .pit .bi{display:none}.lvmap .pit.hd .hi,.lvmap .pit.bn .bi{display:inline}.lvmap .pit .hi ellipse{fill:rgba(160,110,255,.35);stroke:#d9c2ff;stroke-width:.5}.lvmap .pit .hi .ip{fill:#fff;stroke:none}.lvmap .pit .bi polygon{fill:#ff7ad9;stroke:#fff;stroke-width:.35;stroke-linejoin:round}.lvmap .pit.hd circle{stroke:#b58cff;stroke-width:.8}.lvmap .pit.bn circle{stroke:#ff7ad9;stroke-width:.9}.lvmap .pit text{font:700 3.2px sans-serif;fill:#cfd8ff;text-anchor:middle}
 .lvmap .dt{transition:opacity .3s}.lvmap.fast .kx text{animation-duration:1.2s}.lvmap .dt .rg{fill:#fff;stroke:none}.lvmap .dt.b .rg{fill:#4d8dff}.lvmap .dt.r .rg{fill:#ff5c8a}.lvmap .dt .bg{fill:#0c1230;stroke:rgba(255,255,255,.9);stroke-width:.3}.lvmap .dt .sg{font:800 2.5px sans-serif;fill:#fff;text-anchor:middle;letter-spacing:.05px}.lvmap .dt .rb{fill:#0c1230;stroke:#fff;stroke-width:.25}.lvmap .dt.b .rb{fill:#2f6fe0}.lvmap .dt.r .rb{fill:#d93a6a}.lvmap .dt .rl{font:800 1.7px sans-serif;fill:#fff;text-anchor:middle}.lvmap .dt .nk{font:700 2px sans-serif;fill:#fff;text-anchor:middle;paint-order:stroke;stroke:#000;stroke-width:.5;stroke-linejoin:round}.lvmap .dt{filter:drop-shadow(0 .4px .6px rgba(0,0,0,.6))}.lvmap .dt.x{opacity:.3}.lvmap .dt.me .rg{fill:#FFE27A}
 .lvmap .kx text{font:900 4.4px sans-serif;fill:#fff;text-anchor:middle;paint-order:stroke;stroke:#000;stroke-width:.5;animation:kx 2.4s forwards}
 @keyframes kx{0%{opacity:1}100%{opacity:0}}
@@ -760,8 +761,8 @@ h1{letter-spacing:.02em}
 .lvst{grid-template-columns:repeat(5,1fr)}.lvs small{font-size:9px}
 @media(min-width:1000px){
   .lvx .dvw2{max-width:1340px}
-  .lvgrid{display:grid;grid-template-columns:minmax(220px,1fr) minmax(500px,700px) minmax(220px,1fr);grid-template-areas:"a h b" ". l .";column-gap:16px;align-items:start}
-  .lvka{grid-area:a}.lvhd{grid-area:h}.lvkb{grid-area:b}.lvlogw{grid-area:l;margin-top:0}
+  .lvgrid{display:grid;grid-template-columns:minmax(220px,1fr) minmax(500px,700px) minmax(220px,1fr);column-gap:16px;align-items:start}
+  .lvl,.lvr{display:flex;flex-direction:column;gap:12px;min-width:0}.lvhd{order:0}.lvlogw{margin-top:0;max-height:420px;overflow:auto}.lvctl{order:0}
 }
 @media(min-width:900px){.dvn b{font-size:24px}.ct{width:54px;height:54px}.pr b{font-size:15px}}
 .ptr{margin:2px 0 10px;grid-column:1/-1;display:grid!important;grid-template-columns:repeat(4,1fr);gap:6px;overflow:visible!important}.ptr .ch{min-width:0;padding:6px}.ptr .ch b{font-size:12px;overflow-wrap:anywhere}.ch.on{outline:2px solid #FFE27A;outline-offset:1px}.ptl{grid-column:1/-1;margin:4px 0 0;font-size:12px;color:#9fb4ff}
@@ -2508,7 +2509,7 @@ function lvMapHTML(){
   const sts=lvStList().map(x=>`<circle id="${x.id}" class="${x.cls}" cx="${lvX(x.x).toFixed(1)}" cy="${x.y.toFixed(1)}" r="${x.r}"/>`).join('');
   const dots=['me','op'].flatMap(s=>[0,1,2,3,4].map(r=>{const p=lvPos(s,r),dead=LV.kd[s][r].dead>LV.sec,me=LV.pc&&s==='me'&&LV.pcrole===r;return `<g id="dt-${s}${r}" class="dt ${lvBlue(s)?'b':'r'}${dead?' x':''}${me?' me':''}" style="transform:translate(${lvX(p[0]).toFixed(1)}px,${p[1].toFixed(1)}px)">${lvDotInner(s,r)}</g>`})).join('');
   const bUp=LV.sec>=LV.dn.b,hUp=LV.sec>=LV.dn.h&&LV.sec<840;
-  return `<svg id="lvmap" class="lvmap${lvSpd()===10?' fast':''}" viewBox="0 0 134.88 100" role="img" aria-label="Mapa da partida"><defs><clipPath id="lvcc"><circle r="3.2"/></clipPath></defs><image href="${LV_MAP}" width="134.88" height="100" preserveAspectRatio="none"/><g id="pit-d" class="pit${LV.sec>=LV.dn.d?' up':''}"><circle cx="${lvX(LVPIT.d[0]).toFixed(1)}" cy="${LVPIT.d[1]}" r="3.6"/><text x="${lvX(LVPIT.d[0]).toFixed(1)}" y="${LVPIT.d[1]+1.1}">D</text></g><g id="pit-b" class="pit${bUp||hUp?' up':''}"><circle cx="${lvX(LVPIT.b[0]).toFixed(1)}" cy="${LVPIT.b[1]}" r="3.6"/><text id="pit-bt" x="${lvX(LVPIT.b[0]).toFixed(1)}" y="${LVPIT.b[1]+1.1}">${bUp?'B':hUp?'A':''}</text></g>${sts}<g id="lvmk"></g>${dots}</svg>`;
+  return `<svg id="lvmap" class="lvmap${lvSpd()===10?' fast':''}" viewBox="0 0 134.88 100" role="img" aria-label="Mapa da partida"><defs><clipPath id="lvcc"><circle r="3.2"/></clipPath></defs><image href="${LV_MAP}" width="134.88" height="100" preserveAspectRatio="none"/><g id="pit-d" class="pit${LV.sec>=LV.dn.d?' up':''}"><circle cx="${lvX(LVPIT.d[0]).toFixed(1)}" cy="${LVPIT.d[1]}" r="3.6"/><text x="${lvX(LVPIT.d[0]).toFixed(1)}" y="${LVPIT.d[1]+1.1}">D</text></g><g id="pit-b" class="pit${bUp||hUp?' up':''}${bUp?' bn':hUp?' hd':''}"><circle cx="${lvX(LVPIT.b[0]).toFixed(1)}" cy="${LVPIT.b[1]}" r="3.6"/><g transform="translate(${lvX(LVPIT.b[0]).toFixed(1)} ${LVPIT.b[1]})"><g class="hi"><ellipse rx="2.5" ry="1.5"/><circle r=".85" class="ip"/></g><g class="bi"><polygon points="-2.3,1.5 -2.5,-1.4 -1.2,-.2 0,-2.1 1.2,-.2 2.5,-1.4 2.3,1.5"/></g></g></g>${sts}<g id="lvmk"></g>${dots}</svg>`;
 }
 function lvStatsHTML(){
   const bl=LV.us==='a'?'me':'op',rd=lvOpp(bl);
@@ -2577,10 +2578,9 @@ function lvPaint(now){
   lvStList().forEach(x=>{const e=$(x.id);if(e&&e.getAttribute('class')!==x.cls)e.setAttribute('class',x.cls)});
   const pd=$('pit-d'),pb=$('pit-b');
   const bUp=LV.sec>=LV.dn.b,hUp=LV.sec>=LV.dn.h&&LV.sec<840;
-  const cd='pit'+(LV.sec>=LV.dn.d?' up':''),cb='pit'+(bUp||hUp?' up':'');
+  const cd='pit'+(LV.sec>=LV.dn.d?' up':''),cb='pit'+(bUp||hUp?' up':'')+(bUp?' bn':hUp?' hd':'');
   if(pd&&pd.getAttribute('class')!==cd)pd.setAttribute('class',cd);
   if(pb&&pb.getAttribute('class')!==cb)pb.setAttribute('class',cb);
-  txt('pit-bt',bUp?'B':hUp?'A':'');
   const mk=$('lvmk');
   if(mk&&LV.mq.length){const life=lvSpd()===10?1300:2500;LV.mq.splice(0).forEach(q=>{mk.insertAdjacentHTML('beforeend',`<g class="kx"><text x="${lvX(q.x).toFixed(1)}" y="${q.y.toFixed(1)}">✕</text></g>`);const g=mk.lastElementChild;setTimeout(()=>{if(g&&g.parentNode)g.remove()},life)})}
   else LV.mq.length=0;
@@ -2610,24 +2610,21 @@ function vLive(){
   else if(LV.state==='between')ctl=`<section class="dvpool"><p class="lvq">Mapa ${LV.gi} ${LV.res[LV.res.length-1]?'<b style="color:#00F5A0">vencido</b>':'<b style="color:#FF5C8A">perdido</b>'}. Série ${sA}–${sB}.</p>${subs}<div class="lvbtn"><button class="play" data-act="lvNext">Próximo mapa</button></div></section>`;
   else ctl=`<section class="dvpool"><p class="lvq">Série encerrada: <b class="num">${sA}–${sB}</b> · ${LV.me>LV.op?'<b style="color:#00F5A0">vitória</b>':'<b style="color:#FF5C8A">derrota</b>'}</p><div class="lvbtn"><button class="play" data-act="lvDone">Continuar</button></div></section>`;
   if(LV.pc)ctl=pcLiveCtl(sA,sB);
-  const bottom=LV.state==='done'?'':`<div class="dvbar"><button class="ghost" data-act="lvAll">Simular o resto</button><button class="ghost" data-act="lvX">Voltar</button></div>`;
+  const bottom=LV.state==='done'?'':`<div class="lvbt"><button class="ghost" data-act="lvAll">Simular o resto</button><button class="ghost" data-act="lvX">Voltar</button></div>`;
   const bl=LV.us==='a'?'me':'op',rd=lvOpp(bl),sp=lvSpd();
   return `<div class="dvx lvx"><div class="dvw2 lvw"><div class="dvtop"><small class="k">${esc(stage)} · ${m.n===1?'jogo único':'melhor de '+m.n} · AO VIVO</small></div>
   <div class="dvh">${side(A)}<div class="dvvs lvsc num">${sA}–${sB}</div>${side(B)}</div>
   <div class="lvgrid">
-  <aside class="lvk lvka" id="lvk-a">${lvKdaHTML(bl)}</aside>
+  <div class="lvl"><aside class="lvk lvka" id="lvk-a">${lvKdaHTML(bl)}</aside><section class="lvlog lvlogw" id="lvlg">${lvLogHTML()}</section></div>
   <div class="lvhd">
     <div class="lvclock"><b class="num" id="lvc">${lvFmt(LV.sec)}</b><small>Mapa ${Math.min(LV.gi+1,m.n)} · ${ph||(LV.state==='pick'?'escolha':'fim')}</small></div>
     <div class="lvspd"><small>Velocidade</small><button class="pill" data-act="lvSpd" data-v="1" aria-pressed="${sp===1}">1× tempo real</button><button class="pill" data-act="lvSpd" data-v="10" aria-pressed="${sp===10}">10×</button></div>
     <div class="lvmapw">${lvMapHTML()}</div>
     <div class="lvbar"><i id="lvbi" style="left:${clamp(pos,3,97)}%"></i><span></span></div><p class="lvld" id="lvld">${Math.abs(lead)<1?'Jogo parelho':(lead>0)===(LV.us==='a')?esc(A.name)+' à frente':esc(B.name)+' à frente'}</p>
     <div class="lvst" id="lvst">${lvStatsHTML()}</div>
-    ${ctl}
   </div>
-  <aside class="lvk lvkb" id="lvk-b">${lvKdaHTML(rd)}</aside>
-  <section class="lvlog lvlogw" id="lvlg">${lvLogHTML()}</section>
-  </div>
-  ${bottom}</div></div>`;
+  <div class="lvr"><aside class="lvk lvkb" id="lvk-b">${lvKdaHTML(rd)}</aside><div class="lvctl">${ctl}${bottom}</div></div>
+  </div></div></div>`;
 }
 
 
