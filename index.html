@@ -1418,7 +1418,7 @@ function spHTML(){
   let h=`<section class="pn"><h2>${sp.lg} · ${spName(sp)}</h2><p class="note" style="margin:0 0 8px">${sp.stage==='rr'?'Fase de grupos: todos contra todos, ida e volta. Os 4 primeiros vão aos playoffs.':'Playoffs: semifinais e final em melhor de 5.'}</p>`;
   h+=`<div class="grp">${ord.map((id,i)=>{const r=sp.rec[id];return `<div class="gr${i<4?' q':''}${id===mid?' mine':''}"><span>${i+1}. ${tlk(T(id))}</span><span class="num">${r.w}-${r.l}</span></div>`}).join('')}</div>`;
   h+=`<div class="sub">Próximos jogos · ${sp.stage==='rr'?`rodada ${sp.ri+1}`:sp.stage==='sf'?'semifinais':'final'}</div>${spMatches(sp.cur,false)}`;
-  if(sp.last&&sp.last.length)h+=`<div class="sub">Resultados anteriores</div>${spMatches(sp.last,fx)}`;
+  if(sp.last&&sp.last.length){const o=!!brkO.sp||fx;h+=`<button class="ghost brkb" data-act="brk" data-v="sp">${brkO.sp?'Esconder resultados':'Ver resultados anteriores'}</button>`;if(o)h+=`<div class="sub">Resultados anteriores</div>${spMatches(sp.last,fx)}`}
   h+=`<div class="row" style="margin:12px 0 0">${sp.stage==='rr'?'<button class="ghost" data-act="spRR">Simular o resto da fase de grupos</button>':''}<button class="ghost" data-act="spAll">Simular o resto do split</button></div></section>`;
   return h;
 }
@@ -4069,9 +4069,10 @@ function vSeason(){
   if(S.hl&&S.hl.length&&!S.season.sp)d+=`<section class="pn"><h2>Manchetes</h2><ul class="lines">${S.hl.slice(0,6).map(x=>`<li><b class="num">${x.y}</b> · ${esc(x.t)}</li>`).join('')}</ul></section>`;
   if(S.year===2026&&cur&&cur.g<=3&&S.phase>0)d+=`<section class="pn"><h2>Ponto de partida real</h2><p class="note" style="margin:0">Mundial 2026 nas quartas de final: o Suíço inteiro aparece como resultado real (placares de LOS×TLAW e HLE×G2 na rodada 4 são estimados) e as quartas começam sem jogos disputados; o resto é simulado. MSI e ligas de 2026 e os títulos da carreira (Faker com 6 Mundiais e 4 prêmios de Melhor Jogador do Ano) já estão no histórico. OVR e idades são notas minhas.</p></section>`;
   SEC.push(['cal','Calendário',d]);
+  if(S.season.sp)SEC.push(['sp',S.season.sp.lg,spHTML()]);
   const gk=cur?cur.g:0;
   [['cup','Copa',cupHTML()],['wc','Mundial',tourHTML(S.season.wc,'wc','Mundial')],['s2','Split 2',splitHTML('s2','Split 2')],['msi','MSI',tourHTML(S.season.msi,'msi','MSI')],['s1','Split 1',splitHTML('s1','Split 1')]].forEach(x=>{if(x[2]&&x[2].trim())SEC.push(x)});
-  const defK=gk===5?'cup':gk===3?'wc':gk===2?'s2':gk===1?'msi':gk===0?'s1':'cal';
+  const defK=S.season.sp?'sp':gk===5?'cup':gk===3?'wc':gk===2?'s2':gk===1?'msi':gk===0?'s1':'cal';
   let sk=detT;if(!SEC.some(x=>x[0]===sk))sk=SEC.some(x=>x[0]===defK)?defK:'cal';
   if(lastPlayed&&!detT&&['wc','msi','cup'].includes(lastPlayed.k)&&SEC.some(x=>x[0]===lastPlayed.k))sk=lastPlayed.k;
   const det=`<details class="pn det more2"${lastPlayed||detOpen||(typeof innerWidth!=='undefined'&&innerWidth>=1000)?' open':''} ontoggle="detOpen=this.open"><summary>Detalhes: calendário, tabelas e resultados</summary><div class="pills dtabs">${SEC.map(x=>`<button class="pill" aria-pressed="${x[0]===sk}" data-act="dtab" data-v="${x[0]}">${x[1]}</button>`).join('')}</div>${SEC.find(x=>x[0]===sk)[2]}</details>`;
@@ -4082,7 +4083,6 @@ function vSeason(){
   if(!cur){const t=S.hist[S.hist.length-1];h+=`<section class="pn"><h2>Melhor Jogador do Ano ${S.year}</h2><div class="crown"><small>Vencedor</small><b>${esc(t.top[0].n)}</b><span>${esc(t.top[0].team)} · nota ${t.top[0].sc}</span></div><div class="row"><button class="ghost" data-act="tab" data-v="bola">Ver top 10 do ano</button><button class="ghost" data-act="tab" data-v="hof">Ver lendas</button></div></section>`}
   if(mgrT())h+=mgrSummary();
   if(pcAct()&&pcFind())h+=pcSummary();
-  if(S.season.sp)h+=spHTML();
   if((S.phase===0||S.phase===4)&&!S.season.sp)h+=flHTML();
   if(S.phase===0&&!S.off.length)h+=`<p class="empty">Cada temporada tem dois splits, o MSI e o Mundial com fase suíça. Você joga fase por fase e vê as chances de cada partida antes de simular. Toque em qualquer nome para abrir a ficha.</p>`;
   return h;
