@@ -750,7 +750,7 @@ h1{letter-spacing:.02em}
 .lvmap{display:block;width:100%;aspect-ratio:134.88/100;border-radius:16px;border:1px solid rgba(255,255,255,.16);box-shadow:inset 0 0 40px rgba(0,0,0,.45),0 8px 24px rgba(0,0,20,.4);background:#0b2f27}
 .lvmap .stc{stroke:#fff;stroke-width:.5;transition:opacity .4s}.lvmap .stc.b{fill:#4d8dff}.lvmap .stc.r{fill:#ff5c8a}.lvmap .stc.nx{stroke-width:.7}.lvmap .stc.inh{stroke:#FFE27A}.lvmap .stc.dn{fill:#222;stroke:#555;opacity:.4}
 .lvmap .pit circle{fill:rgba(0,0,0,.4);stroke:rgba(255,255,255,.3);stroke-width:.4}.lvmap .pit.up circle{stroke:#FFE27A;stroke-width:.7}.lvmap .pit text{font:700 3.2px sans-serif;fill:#cfd8ff;text-anchor:middle}
-.lvmap .dt{transition:opacity .3s}.lvmap.fast .kx text{animation-duration:1.2s}.lvmap .dt circle{stroke:#fff;stroke-width:.45}.lvmap .dt.b circle{fill:#2f6fe0}.lvmap .dt.r circle{fill:#d93a6a}.lvmap .dt text{font:700 2.6px sans-serif;fill:#fff;text-anchor:middle}.lvmap .dt.x{opacity:.3}.lvmap .dt.me circle{stroke:#FFE27A;stroke-width:1}
+.lvmap .dt{transition:opacity .3s}.lvmap.fast .kx text{animation-duration:1.2s}.lvmap .dt .rg{fill:#fff;stroke:none}.lvmap .dt.b .rg{fill:#4d8dff}.lvmap .dt.r .rg{fill:#ff5c8a}.lvmap .dt .bg{fill:#0c1230;stroke:rgba(255,255,255,.9);stroke-width:.3}.lvmap .dt .sg{font:800 2.5px sans-serif;fill:#fff;text-anchor:middle;letter-spacing:.05px}.lvmap .dt .rb{fill:#0c1230;stroke:#fff;stroke-width:.25}.lvmap .dt.b .rb{fill:#2f6fe0}.lvmap .dt.r .rb{fill:#d93a6a}.lvmap .dt .rl{font:800 1.7px sans-serif;fill:#fff;text-anchor:middle}.lvmap .dt .nk{font:700 2px sans-serif;fill:#fff;text-anchor:middle;paint-order:stroke;stroke:#000;stroke-width:.5;stroke-linejoin:round}.lvmap .dt{filter:drop-shadow(0 .4px .6px rgba(0,0,0,.6))}.lvmap .dt.x{opacity:.3}.lvmap .dt.me .rg{fill:#FFE27A}
 .lvmap .kx text{font:900 4.4px sans-serif;fill:#fff;text-anchor:middle;paint-order:stroke;stroke:#000;stroke-width:.5;animation:kx 2.4s forwards}
 @keyframes kx{0%{opacity:1}100%{opacity:0}}
 .lvk{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:8px 12px}
@@ -2236,10 +2236,23 @@ function lvP(){
   return clamp(pm+LV.adj,.1,.9);
 }
 function lvTeam(s){const id=myTid();return T(s==='me'?id:(LV.m.a===id?LV.m.b:LV.m.a))}
-function lvWho(s,role){
+function lvChOf(s,role){
   const t=lvTeam(s),p=t.pl[role];
-  const ch=LV.pc?(LV.gi===0&&LV.m.dd&&S.pc.dr?(s==='me'?S.pc.dr[role]:LV.m.od&&LV.m.od[role]):(s==='me'&&p.pc?LV.ch:null)):s==='me'?(S.mgr.dr&&S.mgr.dr[role]):(LV.m.od&&LV.m.od[role]);
+  return LV.pc?(LV.gi===0&&LV.m.dd&&S.pc.dr?(s==='me'?S.pc.dr[role]:LV.m.od&&LV.m.od[role]):(s==='me'&&p.pc?LV.ch:null)):s==='me'?(S.mgr.dr&&S.mgr.dr[role]):(LV.m.od&&LV.m.od[role]);
+}
+function lvWho(s,role){
+  const t=lvTeam(s),p=t.pl[role],ch=lvChOf(s,role);
   return ch?`${p.n} (${ch})`:p.n;
+}
+/* ícones dos campeões: quando tiver as imagens, é só preencher, ex.: CHIMG['Ahri']='champs/ahri.webp' */
+const CHIMG={};
+const chSig=c=>String(c).replace(/[^A-Za-zÀ-ÿ]/g,'').slice(0,3).toUpperCase();
+function lvDotInner(s,r){
+  const ch=lvChOf(s,r),img=ch&&CHIMG[ch];
+  const nick=lvTeam(s).pl[r].n;
+  return `<circle class="rg" r="4"/><circle class="bg" r="3.2"/>`+
+    (img?`<image href="${img}" x="-3.2" y="-3.2" width="6.4" height="6.4" clip-path="url(#lvcc)" preserveAspectRatio="xMidYMid slice"/>`:`<text class="sg" y=".85">${ch?esc(chSig(ch)):LVRL[r]}</text>`)+
+    `<circle class="rb" cx="3" cy="3" r="1.5"/><text class="rl" x="3" y="3.55">${LVRL[r]}</text><text class="nk" y="7.4">${esc(nick)}</text>`;
 }
 const LVR=['TOP','JNG','MID','ADC','SUP'],LVRL=['T','J','M','A','S'],LVL=['top','mid','bot'],LVNM={top:'topo',mid:'meio',bot:'inferior'};
 const LVPTH={top:[[5,84],[5,50],[5,9],[50,5],[90,5]],mid:[[13,85],[87,13]],bot:[[13,94],[50,94],[94,94],[95,50],[95,12]]};
@@ -2492,9 +2505,9 @@ function lvStList(){
 }
 function lvMapHTML(){
   const sts=lvStList().map(x=>`<circle id="${x.id}" class="${x.cls}" cx="${lvX(x.x).toFixed(1)}" cy="${x.y.toFixed(1)}" r="${x.r}"/>`).join('');
-  const dots=['me','op'].flatMap(s=>[0,1,2,3,4].map(r=>{const p=lvPos(s,r),dead=LV.kd[s][r].dead>LV.sec,me=LV.pc&&s==='me'&&LV.pcrole===r;return `<g id="dt-${s}${r}" class="dt ${lvBlue(s)?'b':'r'}${dead?' x':''}${me?' me':''}" style="transform:translate(${lvX(p[0]).toFixed(1)}px,${p[1].toFixed(1)}px)"><circle r="2.5"/><text y=".9">${LVRL[r]}</text></g>`})).join('');
+  const dots=['me','op'].flatMap(s=>[0,1,2,3,4].map(r=>{const p=lvPos(s,r),dead=LV.kd[s][r].dead>LV.sec,me=LV.pc&&s==='me'&&LV.pcrole===r;return `<g id="dt-${s}${r}" class="dt ${lvBlue(s)?'b':'r'}${dead?' x':''}${me?' me':''}" style="transform:translate(${lvX(p[0]).toFixed(1)}px,${p[1].toFixed(1)}px)">${lvDotInner(s,r)}</g>`})).join('');
   const bUp=LV.sec>=LV.dn.b,hUp=LV.sec>=LV.dn.h&&LV.sec<840;
-  return `<svg id="lvmap" class="lvmap${lvSpd()===10?' fast':''}" viewBox="0 0 134.88 100" role="img" aria-label="Mapa da partida"><image href="${LV_MAP}" width="134.88" height="100" preserveAspectRatio="none"/><g id="pit-d" class="pit${LV.sec>=LV.dn.d?' up':''}"><circle cx="${lvX(LVPIT.d[0]).toFixed(1)}" cy="${LVPIT.d[1]}" r="3.6"/><text x="${lvX(LVPIT.d[0]).toFixed(1)}" y="${LVPIT.d[1]+1.1}">D</text></g><g id="pit-b" class="pit${bUp||hUp?' up':''}"><circle cx="${lvX(LVPIT.b[0]).toFixed(1)}" cy="${LVPIT.b[1]}" r="3.6"/><text id="pit-bt" x="${lvX(LVPIT.b[0]).toFixed(1)}" y="${LVPIT.b[1]+1.1}">${bUp?'B':hUp?'A':''}</text></g>${sts}<g id="lvmk"></g>${dots}</svg>`;
+  return `<svg id="lvmap" class="lvmap${lvSpd()===10?' fast':''}" viewBox="0 0 134.88 100" role="img" aria-label="Mapa da partida"><defs><clipPath id="lvcc"><circle r="3.2"/></clipPath></defs><image href="${LV_MAP}" width="134.88" height="100" preserveAspectRatio="none"/><g id="pit-d" class="pit${LV.sec>=LV.dn.d?' up':''}"><circle cx="${lvX(LVPIT.d[0]).toFixed(1)}" cy="${LVPIT.d[1]}" r="3.6"/><text x="${lvX(LVPIT.d[0]).toFixed(1)}" y="${LVPIT.d[1]+1.1}">D</text></g><g id="pit-b" class="pit${bUp||hUp?' up':''}"><circle cx="${lvX(LVPIT.b[0]).toFixed(1)}" cy="${LVPIT.b[1]}" r="3.6"/><text id="pit-bt" x="${lvX(LVPIT.b[0]).toFixed(1)}" y="${LVPIT.b[1]+1.1}">${bUp?'B':hUp?'A':''}</text></g>${sts}<g id="lvmk"></g>${dots}</svg>`;
 }
 function lvStatsHTML(){
   const bl=LV.us==='a'?'me':'op',rd=lvOpp(bl);
