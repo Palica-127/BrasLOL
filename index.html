@@ -337,6 +337,7 @@ h1{white-space:nowrap}
   background:radial-gradient(circle at 30% 25%,hsl(var(--h) 55% 46%),hsl(var(--h) 60% 20%) 80%);border:2px solid hsl(var(--h) 65% 64%);
   color:#fff;font:700 calc(var(--s)*.36)/1 var(--d);letter-spacing:.02em;text-transform:uppercase;box-shadow:0 0 0 2px var(--panel),0 2px 8px rgba(0,0,0,.4)}
 .crest.sm{--s:24px}.crest.md{--s:44px}.crest.lg{--s:66px}
+.lglogo{width:66px;height:auto;object-fit:contain;flex:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,.45))}
 .crest{position:relative;overflow:hidden}.crest .flg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .tn{display:flex;align-items:center;gap:7px;min-width:0}
 .tn.b{flex-direction:row-reverse;text-align:right}
@@ -5235,7 +5236,7 @@ function vLeague(lg){
   const rows=pmSort(ts).map(x=>({t:x.t,c:ttCount(x.t),i:x.i}));
   const avg=ts.reduce((s,t)=>s+baseOvr(t),0)/ts.length;
   const top=ts.flatMap(t=>t.pl.map(p=>({p,t}))).sort((a,b)=>b.p.r-a.p.r).slice(0,8);
-  const crestL=`<span class="crest lg" style="--h:${LGH[lg]}" aria-hidden="true">${lg.slice(0,4)}</span>`;
+  const crestL=`<img class="lglogo" src="ligas/${lg.toLowerCase()}.webp" alt="" aria-hidden="true" width="66" height="47" onerror="this.outerHTML='<span class=&quot;crest lg&quot; style=&quot;--h:${LGH[lg]}&quot;>${lg.slice(0,4)}</span>'">`;
   let o=`<div class="row"><button class="ghost" data-act="back">← Voltar</button></div>`;
   o+=`<section class="pn"><div class="ph">${crestL}<div style="flex:1;min-width:0"><h3>${lg}</h3><small>${LGN[lg]} · ${ts.length} times · ${SLOTS[lg]} vaga${SLOTS[lg]>1?'s':''} no Mundial · OVR médio ${Math.round(avg)}</small></div></div>
   <div class="cab"><div>${troSvg('w')}<b class="num">${wcs.length}</b><small>Mundiais</small></div><div>${troSvg('m')}<b class="num">${msis.length}</b><small>MSI</small></div><div>${troSvg('l')}<b class="num">${lgt.length}</b><small>Títulos da liga</small></div></div></section>`;
