@@ -2350,9 +2350,9 @@ function lvObj(s,k){
   if(n)lvFight(s,n,pit[0],pit[1],.75);
   lvQ(LV.sec+(n?n*3.5+3:1),()=>{
     const tn=lvTeam(s).name,S2=LV.st[s],sec=LV.sec,al=lvAlive(s);
-    if(k==='d'){S2.d++;LV.dn.d=sec+300;LV.log.unshift({m:sec|0,t:`${tn} garante o dragão (${S2.d}º).`,k:s});LV.lead=clamp(LV.lead+(s==='me'?1:-1)*1.5,-15,15)}
-    else if(k==='h'){S2.b++;LV.dn.h=Infinity;LV.log.unshift({m:sec|0,t:`${tn} derruba o Arauto e abre a rota.`,k:s});LV.lead=clamp(LV.lead+(s==='me'?1:-1)*1.3,-15,15)}
-    else{S2.b++;LV.dn.b=sec+360;LV.bb={s,until:sec+180};LV.log.unshift({m:sec|0,t:`${tn} derrota o Barão!`,k:s});LV.lead=clamp(LV.lead+(s==='me'?1:-1)*4,-15,15)}
+    if(k==='d'){S2.d++;LV.dn.d=sec+300;LV.log.unshift({m:sec|0,t:`${tn} garante o dragão (${S2.d}º).`,k:s});LV.lead=clamp(LV.lead+(s==='me'?1:-1)*(S2.d===4?4:.8),-15,15);if(S2.d===4)LV.log.unshift({m:sec|0,t:`${tn} conquista a ALMA DO DRAGÃO! Bônus grande pelo resto do mapa.`,k:s})}
+    else if(k==='h'){S2.b++;LV.dn.h=Infinity;LV.log.unshift({m:sec|0,t:`${tn} derruba o Arauto e abre a rota.`,k:s});LV.lead=clamp(LV.lead+(s==='me'?1:-1)*1.3,-15,15);if(Math.random()<.8){const o=lvOpp(s),ls=LVL.filter(l=>LV.str[o][l].some(x=>x)),ln=ls.includes(LV.gl)?LV.gl:pick(ls);if(ln)lvQ(sec+6,()=>{lvTower(s,ln)})}}
+    else{S2.b++;LV.dn.b=sec+360;LV.bb={s,until:sec+240};LV.log.unshift({m:sec|0,t:`${tn} derrota o Barão! Buff grande por 4 minutos.`,k:s});LV.lead=clamp(LV.lead+(s==='me'?1:-1)*5,-15,15)}
     if(al.length)lvHot(pit[0],pit[1],s,al,18);
   });
 }
@@ -2360,7 +2360,9 @@ function lvEv(){
   if(LV.sg){LV.nx=Infinity;return}
   const sec=LV.sec,mn=sec/60,late=LV.cp===2;let pEv;
   if(late&&LV.win!=null)pEv=LV.win?.74:.26;else pEv=clamp(.5+(lvP()-.5)*1.3+LV.lead*.012,.15,.85);
-  if(LV.bb&&LV.bb.until>sec)pEv=clamp(pEv+(LV.bb.s==='me'?.1:-.1),.1,.9);
+  if(LV.bb&&LV.bb.until>sec)pEv=clamp(pEv+(LV.bb.s==='me'?.2:-.2),.1,.92);
+  const dbf=x=>{const d=LV.st[x].d;return d>=4?.14:d*.012};
+  pEv=clamp(pEv+dbf('me')-dbf('op'),.1,.92);
   const s=Math.random()<pEv?'me':'op',o=lvOpp(s);
   const sk=Math.random()<.5+(pEv-.5)*.4?'me':'op';
   const w={k:20};
