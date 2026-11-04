@@ -645,7 +645,7 @@ h1{letter-spacing:.02em}
 .br .crest,.br .shield{flex:none}
 /* compacto */
 .brkb{width:100%;margin:10px 0 0;min-height:40px}.brkb.top{margin:0 0 10px}
-.br .crest.sm{--s:26px;border-radius:5px}.br .bn .lk{font:800 12px var(--d);letter-spacing:.08em}
+.br .crest.sm{--s:30px;border-radius:5px}.br .bn .lk{font:800 12px var(--d);letter-spacing:.08em}
 .hcol{display:flex;flex-direction:column;gap:10px;min-width:0}
 .hub{gap:10px}.hh b{font-size:30px;margin-top:2px}
 .hero2{padding:13px}.vs{margin-top:8px}.vs .tm b{font-size:17px}.vsm b{font-size:28px}.odds{margin-top:8px}.hw{margin-top:8px}
@@ -3723,7 +3723,7 @@ function cupHTML(){
     h+=convHTML(cup);
     if(full){
       const ko=cup.stages.map(st=>st.final?{...st,ms:[st.ms[1]]}:st);
-      h+=bracketCore(ko,CT,t=>`<button class="lk" data-act="nation" data-v="${t.id}" title="${esc(t.name)}">${esc(t.id)}</button>`,t=>natCrest(t.id,'sm'),id=>S.nm&&S.nm.code===id);
+      h+=bracketCore(ko,CT,t=>`<button class="lk" data-act="nation" data-v="${t.id}" title="${esc(t.name)}">&nbsp;</button>`,t=>`<span title="${esc(t.name)}">${natCrest(t.id,'sm')}</span>`,id=>S.nm&&S.nm.code===id);
     }
     /* mata-mata: pendentes (e o que acabou de jogar); o resto só com a bracket aberta */
     [...cup.stages].map((st,si)=>({st,si})).reverse().forEach(({st,si})=>{
