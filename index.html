@@ -2262,9 +2262,9 @@ const chSig=c=>String(c).replace(/[^A-Za-zÀ-ÿ]/g,'').slice(0,3).toUpperCase();
 function lvDotInner(s,r){
   const ch=lvChOf(s,r),img=ch&&CHIMG[ch];
   const nick=lvTeam(s).pl[r].n;
-  return `<circle class="rg" r="4"/><circle class="bg" r="3.2"/>`+
+  return `<g transform="scale(1.2)"><circle class="rg" r="4"/><circle class="bg" r="3.2"/>`+
     (img?`<image href="${img}" x="-3.2" y="-3.2" width="6.4" height="6.4" clip-path="url(#lvcc)" preserveAspectRatio="xMidYMid slice"/>`:`<text class="sg" y=".85">${ch?esc(chSig(ch)):LVRL[r]}</text>`)+
-    `<circle class="rb" cx="3" cy="3" r="1.5"/><text class="rl" x="3" y="3.55">${LVRL[r]}</text><text class="nk" y="7.4">${esc(nick)}</text>`;
+    `<circle class="rb" cx="3" cy="3" r="1.5"/><text class="rl" x="3" y="3.55">${LVRL[r]}</text></g><text class="nk" y="8.4">${esc(nick)}</text>`;
 }
 const LVR=['TOP','JNG','MID','ADC','SUP'],LVRL=['T','J','M','A','S'],LVL=['top','mid','bot'],LVNM={top:'topo',mid:'meio',bot:'inferior'};
 const LVPTH={top:[[5,84],[5,50],[5,9],[50,5],[90,5]],mid:[[13,85],[87,13]],bot:[[13,94],[50,94],[94,94],[95,50],[95,12]]};
