@@ -488,13 +488,15 @@ h1{letter-spacing:.02em}
 .fut .fs{position:absolute;left:17px;top:92px;width:24px;height:28px}
 .fut .fa{position:absolute;right:16px;top:20px;width:72px;height:84px;opacity:.9}
 .fut .fa svg{width:100%;height:100%;fill:currentColor;opacity:.28}
-.fut .fa.ph{opacity:1;filter:drop-shadow(0 2px 3px rgba(0,0,0,.35))}.fut .fa.ph img{transform:scale(1.22);transform-origin:50% 100%}
+.fut .fa.ph{opacity:1;filter:drop-shadow(0 2px 3px rgba(0,0,0,.35))}.fut .fa.ph{left:50%;right:auto;top:8%;width:72%;height:58%;transform:translateX(-50%);z-index:1}.fut .fo,.fut .fr,.fut .fn,.fut .fs,.fut .ff{z-index:2}.fut .fnm,.fut .fst{z-index:2}.fut .fa.ph img{object-position:50% 100%}
 .fut .fa img{display:block;width:100%;height:100%;object-fit:contain;object-position:50% 100%;pointer-events:none}
 .fut .fnm{position:absolute;left:8px;right:8px;top:112px;font:800 17px/1 var(--d);text-transform:uppercase;letter-spacing:.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-bottom:1px solid var(--fm);padding-bottom:3px}
 .fut .fst{position:absolute;left:12px;right:12px;top:138px;display:grid;grid-template-columns:repeat(5,1fr);gap:0;font:700 14px/1 var(--d)}
 .fut .fst small{display:block;color:var(--fm);font:600 7px var(--d);letter-spacing:0;margin-top:1px}
 .fut .ff{position:absolute;right:30px;top:10px;font:700 10px var(--d);color:var(--fm)}
 .fut .ft{position:absolute;left:0;right:0;bottom:2px;font:700 9px var(--d);color:var(--fm);letter-spacing:.05em}
+.jgb{display:grid;gap:6px;margin:6px 0;font-size:12px}.jgs{display:flex;flex-wrap:wrap;gap:4px 10px}.jgs small{width:100%;opacity:.7}.jgs span{display:inline-flex;gap:5px}.jgs i{font-style:normal;opacity:.65}
+.cc.fl{opacity:.5}.cc.fl small{color:#FFB84D}.flb .fll small{display:block;margin:6px 0 2px;color:var(--mut,#9aa)}.flc{display:inline-block;margin:0 4px 4px 0;padding:2px 7px;border-radius:10px;background:rgba(255,184,77,.14);color:#FFB84D;font-size:12px}.flb em{opacity:.6;font-size:12px}.flg{display:grid;grid-template-columns:54px 1fr 1fr;gap:6px;padding:5px 0;border-top:1px solid rgba(255,255,255,.08);font-size:12px}.flg small{display:block;opacity:.6}.flg span{display:block}
 .fut.inj::after{content:"LES";position:absolute;left:50%;top:8px;transform:translateX(-50%);background:#EF4A4A;color:#fff;font:700 10px var(--d);padding:1px 6px;border-radius:4px}
 .fut.big{width:176px;height:252px}
 .fut.big .fo{font-size:46px;left:25px;top:32px}.fut.big .fr{left:25px;top:78px;font-size:17px}.fut.big .fn{left:24px;top:102px;font-size:14px}.fut.big .fs{left:23px;top:122px;width:32px;height:38px}
@@ -1226,7 +1228,7 @@ function effR(p,t){
   if(S.mgr&&S.mgr.tid===t.id&&S.mgr.bench){const rp=S.mgr.bench.concat(S.mgr.acad||[]).filter(x=>x.role===p.role&&!S.inj[x.n]).sort((a,b)=>b.r-a.r)[0];if(rp)r=Math.max(r,rp.r)}
   return r;
 }
-const eff=t=>t.pl.reduce((s,p,i)=>s+effR(p,t)*RW[i],0)+clamp(t.mom+t.hot+chemB(t)+morB(t),-2,2);
+const eff=t=>t.pl.reduce((s,p,i)=>s+effR(p,t)*RW[i],0)+clamp(t.mom+t.hot+chemB(t)+morB(t)+evB(t),-2,2);
 function news(txt,y){S.hl=S.hl||[];S.hl.unshift({y:y||S.year,t:txt});S.hl=S.hl.slice(0,40)}
 /* lesão rara: 1% por jogador a cada split; dura até o próximo split (cobre também MSI/Mundial) */
 function rollInj(){
@@ -1274,8 +1276,16 @@ function play(m){
   const need=Math.ceil(m.n/2);let wa=0,wb=0;
   let qa=m.qa;
   m.cl=isRival(T(m.a),T(m.b));if(m.cl)qa=.5+(qa-.5)*.85;
-  if(mineM(m)){const pdl=draftOn()?draftDelta(m):planDelta(m);qa=clamp(qa+pdl.d,.2,.8);m.pn={me:pdl.me,op:pdl.op,raw:pdl.raw,dr:draftOn()}}
-  if(m.fx){wa=m.fx.wa;wb=m.fx.wb}else while(wa<need&&wb<need){Math.random()<qa?wa++:wb++}
+  if(mineM(m)){const pdl=draftOn()?draftDelta(m):planDelta(m);qa=clamp(qa+pdl.d+prepDelta(m),.2,.8);m.pn={me:pdl.me,op:pdl.op,raw:pdl.raw,dr:draftOn()}}
+  if(m.fx){wa=m.fx.wa;wb=m.fx.wb}else{
+    const fo=flOn(m),st={},la=new Set(),lb=new Set(),rec=mineM(m);
+    if(fo&&rec)m.fl=null;
+    while(wa<need&&wb<need){
+      let q=qa;
+      if(fo){const r=flStep(m,wa+wb,la,lb,st);q=clamp(qa+r.d,.2,.8);r.pa.forEach(c=>la.add(c));r.pb.forEach(c=>lb.add(c));if(rec)flRecord(m,r.pa,r.pb,null)}
+      Math.random()<q?wa++:wb++;
+    }
+  }
   const w=wa>wb?m.a:m.b,l=wa>wb?m.b:m.a;
   m.res={wa,wb,w};
   const W=T(w),L=T(l);
@@ -1886,7 +1896,7 @@ const payOn=()=>!(S&&S.opt&&S.opt.pay===0);
 const hn=n=>{let h=0;for(const c of n)h=(h*31+c.charCodeAt(0))>>>0;return h};
 function potTxt(p){
   const lv=(S.mgr&&S.mgr.acLv)||1,mg=Math.max(0,Math.round(5-lv*1.5));
-  if(!mg||p.age>=21)return String(p.pot);
+  if(!mg||p.age>=21||p.scout)return String(p.pot);
   const lo=hn(p.n)%(mg+1),hi=mg-lo;
   return `${p.pot-lo}–${p.pot+hi}`;
 }
@@ -1972,7 +1982,7 @@ function pickerHTML(){
   return `<select id="mgr-pick" class="search" aria-label="Escolher time">${opts}${lim?'':o2}</select><div class="row" style="margin:0"><button class="ghost" data-act="mgrStart">Assumir este time</button></div>${lim?`<p class="note">Sua reputação (${Math.round(S.mgr.rep)}) só abre clubes do ${Math.ceil(lim)}º lugar de força para baixo.</p>`:''}`;
 }
 /* ---------- lote A: entrosamento, moral, eventos, plano de jogo, técnicos, reputação ---------- */
-const chemB=t=>{const c=chem(t);return clamp((c-45)*.02,-.9,.9)};
+const chemB=t=>{const c=chem(t);return clamp((c-45)*.02+((S.mgr&&S.mgr.tid===t.id&&S.mgr.sy)||0),-.9,.9)};
 const morB=t=>S.mgr&&S.mgr.tid===t.id&&S.mgr.mor!=null?(S.mgr.mor-60)*.02:0;
 const PLANS=[['eq','Equilibrado'],['ag','Agressivo'],['co','Controle']];
 const BEATS={ag:'co',co:'eq',eq:'ag'};
@@ -2078,6 +2088,522 @@ const CH=[
  [['Ahri','eq'],['Azir','co'],['Syndra','ag'],['Orianna','co'],['Viktor','co'],['Taliyah','eq'],['Sylas','ag'],['Hwei','co']],
  [['Jinx','ag'],["Kai'Sa",'eq'],['Ezreal','eq'],['Varus','co'],['Ashe','co'],['Zeri','ag'],['Lucian','ag'],['Aphelios','eq']],
  [['Nautilus','ag'],['Rakan','ag'],['Lulu','co'],['Alistar','eq'],['Karma','co'],['Renata','co'],['Thresh','eq'],['Leona','ag']]];
+/* ---------- banco de campeões: cada um tem função, estilo, curva de força, sinergias e counters ----------
+   Tags de estilo: E engage/iniciação · K poke · P proteção/peel · S escalonamento (late) · B early/snowball · X split push · F team fight · O controle de objetivos · C pick/catch.
+   Curva: força no início, meio e fim de jogo (-2 a +2). Os 40 campeões originais mantêm o estilo (Agressivo/Controle/Equilibrado) que já tinham. */
+const CHDATA=`0|Aatrox||FB|1 1 0
+0|Ornn||ESF|-1 1 2
+0|Jax||XS|-1 1 2
+0|Gnar||EF|0 1 1
+0|Renekton||BE|2 1 -1
+0|K'Sante||EF|0 1 1
+0|Camille||XC|0 1 1
+0|Sion||EFS|-1 1 2
+0|Gwen|eq|XS|-1 1 2
+0|Fiora|ag|XB|1 1 1
+0|Jayce|ag|KB|2 1 -1
+0|Kennen|co|EF|0 1 1
+0|Malphite|co|EF|-1 1 1
+0|Shen|co|PO|0 1 1
+0|Poppy|co|PC|0 0 1
+0|Sett|eq|FB|1 1 0
+0|Rumble|co|KF|0 1 1
+0|Ambessa|ag|BX|1 1 0
+0|Yone|ag|XF|0 1 1
+0|Irelia|ag|XB|0 1 1
+0|Mordekaiser|eq|FS|0 1 1
+0|Volibear|ag|EB|1 1 0
+1|Lee Sin||CB|2 1 -1|1.05
+1|Sejuani||EF|0 1 1|.95
+1|Vi||EC|1 1 0|1
+1|Viego||BF|1 1 1|1
+1|Maokai||EP|0 1 1|.9
+1|Nidalee||KB|2 0 -1|1.1
+1|Xin Zhao||BE|2 1 -1|1.05
+1|Zac||EF|0 1 1|.95
+1|Jarvan IV|ag|EB|1 1 0|1
+1|Wukong|eq|EF|0 1 1|1
+1|Elise|ag|BC|2 0 -1|1.05
+1|Kindred|eq|SO|-1 1 2|1
+1|Graves|ag|BF|1 1 0|1.1
+1|Kha'Zix|ag|CB|1 1 0|1.05
+1|Nocturne|ag|CE|0 1 1|1
+1|Bel'Veth|eq|SX|-1 1 2|1.1
+1|Skarner|co|EC|0 1 1|.95
+1|Hecarim|ag|EB|1 1 0|1.1
+1|Ivern|co|PO|-1 1 1|.9
+1|Nunu|co|EO|0 1 1|1.05
+1|Amumu|co|EF|0 1 1|.95
+1|Rengar|ag|CB|1 1 0|1
+2|Ahri||CF|0 1 0
+2|Azir||SF|-1 1 2
+2|Syndra||KF|0 1 1
+2|Orianna||FE|0 1 1
+2|Viktor||KS|-1 1 2
+2|Taliyah||KO|0 1 1
+2|Sylas||FB|1 1 0
+2|Hwei||KS|-1 1 2
+2|Corki|eq|KS|-1 1 2
+2|Ryze|eq|SF|-1 1 2
+2|Aurora|ag|CB|1 1 0
+2|Anivia|co|KS|-1 1 2
+2|Cassiopeia|eq|SF|-1 1 2
+2|Akali|ag|CB|1 1 0
+2|LeBlanc|ag|CB|2 0 -1
+2|Vex|co|KF|0 1 1
+2|Twisted Fate|eq|CO|0 1 0
+2|Zed|ag|BC|2 0 -1
+2|Vladimir|co|SF|-1 1 2
+2|Galio|co|EP|0 1 1
+2|Xerath|co|KS|0 0 1
+2|Lissandra|co|EC|0 1 1
+3|Jinx||SF|-1 1 2
+3|Kai'Sa||FB|0 1 1
+3|Ezreal||KS|0 1 1
+3|Varus||KC|0 1 1
+3|Ashe||CK|0 1 1
+3|Zeri||SF|-1 1 2
+3|Lucian||BK|2 1 -1
+3|Aphelios||SF|-1 1 2
+3|Caitlyn|ag|KB|2 1 0
+3|Miss Fortune|eq|FB|1 1 0
+3|Draven|ag|BF|2 1 -1
+3|Tristana|ag|BX|1 1 1
+3|Xayah|eq|FP|0 1 1
+3|Sivir|eq|XF|0 1 1
+3|Jhin|eq|CK|0 1 1
+3|Smolder|eq|SX|-1 1 2
+3|Kog'Maw|co|SF|-2 1 2
+3|Vayne|eq|SX|-1 1 2
+3|Twitch|ag|SF|-1 1 2
+3|Samira|ag|EB|1 1 0
+3|Yunara|eq|SF|-1 1 2
+3|Ziggs|co|KO|0 1 1
+4|Nautilus||EC|1 1 0
+4|Rakan||EP|1 1 0
+4|Lulu||PS|0 1 1
+4|Alistar||EP|0 1 1
+4|Karma||KP|0 1 1
+4|Renata||EP|0 1 1
+4|Thresh||CP|0 1 1
+4|Leona||EB|1 1 0
+4|Braum|co|PE|0 1 1
+4|Janna|co|PS|0 1 1
+4|Nami|co|PF|0 1 1
+4|Soraka|co|PS|-1 1 1
+4|Sona|co|PF|-1 1 2
+4|Pyke|ag|CB|2 1 -1
+4|Bard|eq|CO|0 1 1
+4|Blitzcrank|ag|CB|1 1 0
+4|Rell|co|EF|0 1 1
+4|Seraphine|co|PF|-1 1 2
+4|Milio|co|PS|0 1 1
+4|Taric|co|PE|0 1 1
+4|Zyra|eq|KC|1 1 0
+4|Senna|eq|KP|0 1 1`;
+/* sinergias (valem nos dois sentidos) e counters de rota: [forte, fraco] */
+const CHSYN=[['Jinx','Lulu'],["Kai'Sa",'Nautilus'],['Aphelios','Leona'],['Ashe','Leona'],['Ashe','Nautilus'],['Xayah','Rakan'],['Draven','Nautilus'],['Lucian','Nami'],["Kog'Maw",'Lulu'],["Kog'Maw",'Janna'],['Vayne','Nami'],['Twitch','Soraka'],['Zeri','Lulu'],['Ezreal','Karma'],['Varus','Thresh'],['Caitlyn','Lulu'],['Miss Fortune','Leona'],['Jhin','Thresh'],['Samira','Nautilus'],['Samira','Rakan'],['Orianna','Jarvan IV'],['Orianna','Vi'],['Orianna','Nunu'],['Azir','Malphite'],['Syndra','Sejuani'],['Hwei','Alistar'],['Viktor','Braum'],['Ornn','Jinx'],['Sejuani','Kennen'],['Zac','Ahri'],['Maokai','Taliyah'],['Malphite','Hecarim'],['Gnar','Rell'],['Camille','Alistar'],['Sion','Janna'],['Jax','Shen'],['Fiora','Shen'],['Yone','Rakan'],['Viego','Thresh'],['Vi','Ahri'],['Amumu','Orianna'],['Nidalee','Karma'],['Elise','Pyke'],['Kindred','Soraka'],['Graves','Seraphine'],["Bel'Veth",'Milio'],['Nautilus','Ziggs'],['Zyra','Ziggs'],['Sona','Draven']];
+const CHCTR=[['Renekton','Jax'],['Renekton','Camille'],['Renekton','Gwen'],['Jayce','Renekton'],['Jayce','Aatrox'],['Gnar','Renekton'],['Gnar','Aatrox'],['Malphite','Fiora'],['Malphite','Yone'],['Fiora','Aatrox'],['Fiora','Sion'],['Sett','Jax'],['Poppy','Camille'],['Poppy','Irelia'],['Shen','Fiora'],['Mordekaiser','Jax'],['Mordekaiser','Gnar'],['Ornn','Sion'],['Kennen','Jax'],["K'Sante",'Camille'],['Volibear','Camille'],['Ambessa','Jax'],
+['Lee Sin','Viego'],['Lee Sin','Zac'],['Elise','Maokai'],['Elise','Vi'],['Vi','Nidalee'],['Kindred','Zac'],['Nocturne','Elise'],['Skarner','Lee Sin'],['Sejuani','Lee Sin'],['Amumu','Viego'],['Graves','Sejuani'],['Hecarim','Nidalee'],["Kha'Zix",'Maokai'],['Rengar','Zac'],
+['Ahri','Syndra'],['Akali','Viktor'],['Zed','Orianna'],['LeBlanc','Viktor'],['Galio','Zed'],['Galio','LeBlanc'],['Taliyah','Ahri'],['Vex','Zed'],['Vex','Akali'],['Sylas','Azir'],['Azir','Ahri'],['Xerath','Orianna'],['Lissandra','Akali'],['Cassiopeia','Zed'],['Aurora','Ahri'],['Ryze','Hwei'],['Twisted Fate','Azir'],['Anivia','Taliyah'],
+['Draven','Jinx'],['Draven','Ezreal'],['Lucian','Kai\'Sa'],['Lucian','Zeri'],['Caitlyn','Jinx'],['Caitlyn','Vayne'],['Miss Fortune','Aphelios'],['Tristana','Varus'],['Samira','Xayah'],['Jhin','Ashe'],['Smolder','Sivir'],['Ziggs','Varus'],
+['Nautilus','Lulu'],['Nautilus','Thresh'],['Leona','Janna'],['Leona','Karma'],['Blitzcrank','Renata'],['Pyke','Soraka'],['Braum','Leona'],['Zyra','Alistar'],['Rell','Nautilus'],['Bard','Pyke'],['Senna','Thresh'],['Taric','Pyke']];
+const TG={E:'Engage',K:'Poke',P:'Proteção',S:'Escalonamento',B:'Early/snowball',X:'Split push',F:'Team fight',O:'Objetivos',C:'Pick/catch'};
+const CHD={},CHSY={},CHCT={};
+(function(){
+  CHDATA.split('\n').forEach(l=>{
+    const [ro,n,ar,tg,cv,cl]=l.split('|'),r=+ro,p=cv.split(' ').map(Number);
+    if(!CH[r].some(x=>x[0]===n))CH[r].push([n,ar]);
+    CHD[n]={r,t:tg.split(''),p,cl:cl?+cl:1};
+  });
+  CHSYN.forEach(([a,b])=>{(CHSY[a]=CHSY[a]||[]).push(b);(CHSY[b]=CHSY[b]||[]).push(a)});
+  CHCTR.forEach(([a,b])=>{(CHCT[a]=CHCT[a]||[]).push(b)});
+})();
+/* ---------- composições: tipo, sinergias, buracos e matchups ---------- */
+const CTY=['en','pk','sp','pr','sk'];/* cada tipo vence os dois seguintes (e perde para os dois anteriores) */
+const CTYT={en:['E'],pk:['K','O'],sp:['X'],pr:['P','S'],sk:['B','C']};
+const CTYN={en:'Engage',pk:'Poke',sp:'Split push',pr:'Proteção e escala',sk:'Skirmish'};
+const CTYD={en:'Inicia lutas e domina quem não consegue fugir ou se defender. Perde para proteção e para skirmish.',pk:'Desgasta de longe e cerca objetivos. Ganha de split push e de proteção, perde para engage.',sp:'Pressiona várias rotas. Ganha de proteção e de skirmish, perde para engage e poke.',pr:'Protege o carry e vence no fim. Ganha de engage e de skirmish, perde para poke e split push.',sk:'Vence as lutas pequenas do começo. Ganha de engage e de poke, perde para proteção e split push.'};
+function cmpOf(pk){
+  const o={E:0,K:0,P:0,S:0,B:0,X:0,F:0,O:0,C:0,e:0,m:0,l:0,syn:0,n:0};
+  const cs=(pk||[]).filter(c=>CHD[c]);
+  cs.forEach(c=>{const d=CHD[c];o.n++;d.t.forEach(t=>o[t]++);o.e+=d.p[0];o.m+=d.p[1];o.l+=d.p[2]});
+  for(let i=0;i<cs.length;i++)for(let j=i+1;j<cs.length;j++)if((CHSY[cs[i]]||[]).includes(cs[j]))o.syn++;
+  const sc={en:o.E+o.F*.25+o.C*.3,pk:o.K*1.3+o.O*.3,sp:o.X*1.8,pr:o.P*1.2+o.S*.6,sk:o.B*.9+o.C*.35};
+  o.ty=CTY.slice().sort((a,b)=>sc[b]-sc[a]||CTY.indexOf(a)-CTY.indexOf(b))[0];
+  const tot=Object.values(sc).reduce((a,b)=>a+b,0);
+  o.pu=tot?sc[o.ty]/tot:0;
+  /* buracos: sem como iniciar, sem como lutar/proteger, sem condição de vitória */
+  o.hl=o.n<5?0:(o.E+o.C<1?1:0)+(o.F+o.P<1?1:0)+(o.K+o.O+o.X+o.B+o.S<1?1:0);
+  return o;
+}
+/* vantagem de tipo de a sobre b, de -1 a 1 (quanto mais pura a comp, mais pesa) */
+function cmpEdge(a,b){
+  const ia=CTY.indexOf(a.ty),ib=CTY.indexOf(b.ty);
+  if(ia===ib||!a.n||!b.n)return 0;
+  const d=(ib-ia+5)%5,w=clamp((Math.min(a.pu,b.pu)-.2)/.3,0,1)*.7+.3;
+  return (d===1||d===2?1:-1)*w;
+}
+/* confronto de rota entre campeões: counters explícitos + quem é mais forte no início */
+function chMu(a,b){
+  const A=CHD[a],B=CHD[b];if(!A||!B)return 0;
+  let v=(CHCT[a]||[]).includes(b)?.6:0;v-=(CHCT[b]||[]).includes(a)?.6:0;
+  v+=.14*(A.p[0]-B.p[0])+.04*(A.p[1]-B.p[1]);
+  return clamp(v,-1,1);
+}
+/* efeito da composição em probabilidade de vitória (positivo = bom para a), usado no draft sem mapa ao vivo */
+function cmpFx(pa,pb){
+  const a=cmpOf(pa),b=cmpOf(pb);if(!a.n||!b.n)return 0;
+  let d=.03*cmpEdge(a,b)+.007*(a.syn-b.syn)-.014*(a.hl-b.hl);
+  d+=.0028*((a.e+a.m*1.4+a.l)-(b.e+b.m*1.4+b.l))/2;
+  for(let i=0;i<5;i++)if(pa[i]&&pb[i])d+=.006*chMu(pa[i],pb[i]);
+  return clamp(d,-.09,.09);
+}
+/* multiplicadores de força do campeão no mapa ao vivo: curva do jogo, domínio do jogador e confronto de rota */
+const CHK=1;/* intensidade dos efeitos de campeão e composição no mapa ao vivo (calibrada nos testes) */
+function chFxP(P){
+  const d=P.cd;if(!d)return 1;
+  const mn=LV.sec/60,w1=clamp(1-mn/16,0,1),w3=clamp((mn-20)/12,0,1),w2=Math.max(0,1-w1-w3);
+  const cv=d.p[0]*w1+d.p[1]*w2+d.p[2]*w3;
+  let m=1+.022*(cv-.8);
+  m*=1+.06*((P.ms==null?.5:P.ms)-.5);
+  if(P.mu&&mn<24)m*=1+.035*P.mu*clamp(1-mn/24,0,1);
+  return Math.pow(m,CHK);
+}
+/* efeito da composição por tipo de situação: lutas grandes, lutas pequenas, cerco, objetivos, split */
+/* descrição da composição e do confronto de estilos, para o draft */
+function cmpTxt(a,b){
+  const A=cmpOf(a.filter(Boolean)),B=cmpOf(b.filter(Boolean));if(!A.n||!B.n)return '';
+  const ed=cmpEdge(A,B),t=ed>.25?'vantagem de estilo para você':ed<-.25?'desvantagem de estilo para você':'estilos equilibrados';
+  const hl=A.hl?` Falta algo na sua composição: ${A.E+A.C<1?'iniciação, ':''}${A.F+A.P<1?'luta em equipe, ':''}${A.K+A.O+A.X+A.B+A.S<1?'condição de vitória, ':''}isso pesa contra você.`:'';
+  return `Sua composição: <b>${CTYN[A.ty]}</b> (${A.syn} sinergia${A.syn===1?'':'s'}). Rival: <b>${CTYN[B.ty]}</b>. ${t}.${hl}`;
+}
+function lvCm(s,kind,n){return Math.pow(lvCm0(s,kind,n),CHK)}
+function lvCm0(s,kind,n){
+  const c=LV.cmp&&LV.cmp[s];if(!c||!c.n)return 1;
+  const sc=(LV.sec/60)<14?c.e:(LV.sec/60)<26?c.m:c.l;
+  if(kind==='fight')return n>=4?1+.012*(c.F+c.P*.6+c.E*.4)+.004*c.syn:n>=2?1+.012*(c.C+c.B*.5)+.003*c.syn:1+.008*c.B;
+  if(kind==='eng')return 1+.014*c.E;
+  if(kind==='siege')return 1+.035*c.K+.01*c.E;
+  if(kind==='obj')return 1+.045*c.O+.01*c.F;
+  if(kind==='split')return 1+.06*c.X;
+  return 1;
+}
+/* ---------- Fearless Draft (MD3 e MD5) ----------
+   Campeões usados por um time em mapas anteriores da mesma série ficam bloqueados só para ele; o rival continua podendo escolhê-los.
+   m.fl = {a:[...bloqueados do time A], b:[...bloqueados do time B], g:[{a:[5 picks],b:[5 picks],bans}]}; some junto com a série. */
+const flOn=m=>!!m&&m.n>1&&draftOn();
+const flSet=(m,side)=>new Set(m&&m.fl?m.fl[side]:[]);
+function flRecord(m,pa,pb,bans){
+  if(!flOn(m))return;
+  const a=pa.filter(Boolean),b=pb.filter(Boolean);if(!a.length&&!b.length)return;
+  const f=m.fl=m.fl||{a:[],b:[],g:[]};
+  a.forEach(c=>{if(!f.a.includes(c))f.a.push(c)});b.forEach(c=>{if(!f.b.includes(c))f.b.push(c)});
+  f.g.push({a:pa.slice(),b:pb.slice(),bans:bans||null});
+}
+/* melhores campeões disponíveis de cada posição, respeitando o bloqueio */
+function flAuto(t,lock,noise){
+  return t.pl.map((p,i)=>{const l=CH[i].filter(([c])=>!lock.has(c));return(l.length?l:CH[i]).map(([c])=>({c,v:pickScore(p,c)+(noise?(Math.random()-.5)*noise:0)})).sort((a,b)=>b.v-a.v)[0].c});
+}
+const flSum=(t,pk)=>pk.reduce((a,c,i)=>a+pickScore(t.pl[i],c),0);
+/* série simulada sem mapa ao vivo: a cada mapa o time perde as melhores opções já usadas; quem tem pool mais fundo sofre menos */
+function flStep(m,g,la,lb,st){
+  const A=T(m.a),B=T(m.b);let pa,pb;
+  if(g===0){
+    pa=mineM(m)&&m.a===S.mgr.tid?myPicks(A):flAuto(A,la,.4);
+    pb=mineM(m)&&m.b===S.mgr.tid?myPicks(B):mineM(m)&&m.od?m.od.slice():flAuto(B,lb,.4);
+    st.a0=flSum(A,pa);st.b0=flSum(B,pb);
+    return{d:0,pa,pb};
+  }
+  pa=flAuto(A,la,.4);pb=flAuto(B,lb,.4);
+  return{d:.02*((flSum(A,pa)-st.a0)-(flSum(B,pb)-st.b0)),pa,pb};
+}
+/* painel com o histórico da série: campeões usados por cada time */
+function flPanel(m,mine){
+  if(!flOn(m)||!m.fl||!m.fl.g.length)return '';
+  const A=T(m.a),B=T(m.b);
+  const row=(g,i)=>`<div class="flg"><b>Mapa ${i+1}</b><div><small>${esc(A.name)}</small><span>${g.a.map(c=>c?esc(c):'—').join(' · ')}</span></div><div><small>${esc(B.name)}</small><span>${g.b.map(c=>c?esc(c):'—').join(' · ')}</span></div></div>`;
+  return `<section class="pn flp"><h2>Fearless · campeões já usados</h2><p class="note" style="margin:0 0 6px">Cada time não pode repetir na série os campeões que já usou. Bloqueados: ${esc(A.name)} ${m.fl.a.length} · ${esc(B.name)} ${m.fl.b.length}.</p>${m.fl.g.map(row).join('')}</section>`;
+}
+/* ---------- selva: acampamentos e monstros (valores de referência da temporada atual, sem misturar versões) ----------
+   Cada lado tem 6 acampamentos. Nascem em 'sp' segundos e voltam 're' segundos depois de limpos. Os de buff (Azuporã e Rubrivira) demoram 5 min.
+   A ordem segue os pontos j0..j5 do mapa. Monstros épicos (larvas, arauto, dragões, Barão) usam LVCFG. */
+const JGC=[
+ {n:'Grompe',sp:67,re:135,gd:50,xp:25,cl:16,v:.5},
+ {n:'Azuporã',sp:55,re:300,gd:85,xp:45,cl:24,v:1,bf:'bl'},
+ {n:'Lobos',sp:55,re:135,gd:50,xp:25,cl:15,v:.55},
+ {n:'Acuâminas',sp:55,re:135,gd:50,xp:25,cl:16,v:.55},
+ {n:'Rubrivira',sp:55,re:300,gd:85,xp:45,cl:24,v:1,bf:'rd'},
+ {n:'Krugues',sp:67,re:135,gd:50,xp:25,cl:18,v:.6}];
+const JGS={sp:175,re:150,gd:55,xp:55,cl:9,n:'Aronguejo',nodes:['r2','r6']};
+const JGB={bl:{n:'Azuporã',dur:120,pw:.03},rd:{n:'Rubrivira',dur:120,pw:.04}};
+const DRT=[['inf','Infernal'],['mon','Montanha'],['oce','Oceano'],['nuv','Nuvem'],['hex','Hextec'],['qui','Químico']];
+/* bônus extra dos dragões por tipo: poder, regeneração (Oceano) e velocidade (Nuvem) */
+const lvDrN=(s,k)=>(LV.dt&&LV.dt[s]&&LV.dt[s][k])||0;
+const lvDrx=s=>{let v=0;['inf','mon','hex','qui'].forEach(k=>{v+=(k==='inf'?.012:.01)*lvDrN(s,k)+(LV.dst&&LV.dst[s]===k?.015:0)});return v};
+/* o jungle termina o acampamento: ouro, experiência, buff; se o rival roubou antes, não ganha nada */
+function lvCampDone(P){
+  const s=P.s,sec=LV.sec,i=P.cl.i;P.cl=null;
+  if(i>=6){
+    const k=i-6;if(LV.cr[k]>sec){LV.jc[s].lost++;return}
+    LV.cr[k]=sec+JGS.re;P.gt+=JGS.gd;P.xp+=JGS.xp;P.cs+=1;P.bf.sc=sec+60;LV.jc[s].cr++;
+    lvSayOnce('cr'+s+k,40,`${lvNick(P)} abate o ${JGS.n} e ganha a velocidade do rio.`,s,'obj');return;
+  }
+  const cm=LV.cm[lvBlue(s)?'b':'r'],c=JGC[i];
+  if(cm[i]>sec){LV.jc[s].lost++;return}
+  cm[i]=sec+c.re;P.cs+=1;P.gt+=c.gd;P.xp+=c.xp;LV.jc[s].cl++;
+  if(c.bf){P.bf[c.bf]=sec+JGB[c.bf].dur;LV.jc[s].bf++}
+}
+/* invasores limpam o acampamento rival: o dono perde ouro, experiência e o buff */
+function lvInvadeTick(dt){
+  ['me','op'].forEach(s=>{
+    const g=LV.ai[s].g;if(!g||g.k!=='invade'||g.ci==null)return;
+    const bl=lvBlue(s),cm=LV.cm[bl?'r':'b'],G=lvNavInit(),p=G.N[G.K['j'+((bl?6:0)+g.ci)]],c=JGC[g.ci],sec=LV.sec;
+    if(cm[g.ci]>sec){g.sp=0;return}
+    const at=lvLive(s).filter(P=>g.w.includes(P)&&lvD(P.x,P.y,p[0],p[1])<7&&P.bz<=sec);
+    if(!at.length)return;
+    g.sp=(g.sp||0)+dt*at.length;
+    if(g.sp>=c.cl*.9){
+      cm[g.ci]=sec+c.re;g.sp=0;LV.jc[s].st++;
+      const P=at.find(q=>q.r===1)||at[0];P.gt+=Math.round(c.gd*.8);P.xp+=c.xp;
+      lvSayOnce('stl'+s+g.ci,25,`${lvNick(P)} rouba ${c.n}${c.bf?' (buff)':''} da selva de ${lvTeamNm(lvOpp(s))}.`,s,'inv');
+    }
+  });
+}
+/* painel de tempos da selva: o seu lado sempre; o rival só o que a visão alcança */
+/* referência: nascimento e renascimento (regras adotadas, temporada 2026) */
+const fm=t=>Math.floor(t/60)+':'+String(t%60).padStart(2,'0');
+const jgRefHTML=()=>`<div class="jgs"><small>Regras adotadas (nascimento · renascimento)</small>${JGC.map(c=>`<span><i>${c.n}</i>${fm(c.sp)} · ${fm(c.re)}</span>`).join('')}<span><i>${JGS.n}</i>${fm(JGS.sp)} · ${fm(JGS.re)}</span><span><i>Dragão elemental</i>${fm(LVCFG.dragon)} · ${fm(LVCFG.dragonRe)}</span><span><i>Larvas do Vazio</i>${fm(LVCFG.grubs[0])} · não renascem (somem ${fm(LVCFG.grubsEnd)})</span><span><i>Arauto do Vale</i>${fm(LVCFG.herald)} · não renasce (some ${fm(LVCFG.heraldEnd)})</span><span><i>Barão Na'Shor</i>${fm(LVCFG.baron)} · ${fm(LVCFG.baronRe)}</span><span><i>Dragão Ancião</i>após a Alma · ${fm(LVCFG.elderRe)}</span></div>`;
+function lvJgHTML(){
+  const sec=LV.sec,G=lvNavInit(),bm=LV.us==='a'?'me':'op';
+  const tm=t=>t<=sec?'<b style="color:#00F5A0">pronto</b>':lvFmt(t-sec);
+  const side=(s,mine)=>{
+    const bl=lvBlue(s),cm=LV.cm[bl?'b':'r'],off=bl?0:6;
+    return `<div class="jgs"><small>${esc(lvTeamNm(s))}</small>${JGC.map((c,i)=>{const p=G.N[G.K['j'+(off+i)]],vis=mine||lvSees('me',p[0],p[1],8);return `<span><i>${c.n}</i>${vis?tm(cm[i]):'?'}</span>`}).join('')}</div>`;
+  };
+  const cr=LV.cr.map((t,k)=>{return `<span><i>${JGS.n} ${k?'inferior':'superior'}</i>${sec<JGS.sp?lvFmt(JGS.sp-sec):tm(t)}</span>`}).join('');
+  const ep=[['Larvas',LV.ob.g.n>0&&sec<LVCFG.grubsEnd?LV.ob.g.up:null],['Arauto',!LV.ob.h.done&&sec<LVCFG.heraldEnd?LV.ob.h.up:null],['Dragão',LV.dn.d<1e8?LV.dn.d:null],['Barão',LV.dn.b<1e8?LV.dn.b:null]].map(([n,t])=>`<span><i>${n}</i>${t==null?'—':tm(t)}</span>`).join('');
+  return `<div class="jgb">${side('me',true)}${side('op',false)}<div class="jgs"><small>Rio e épicos</small>${cr}${ep}</div>${jgRefHTML()}</div>`;
+}
+/* ---------- calendário de eventos: scrims, bootcamps e torneios amistosos ----------
+   Eventos entre os campeonatos preenchem o ano com decisões. Todos são opcionais. Nada aqui gera título, ponto de liga ou prêmio de campeonato.
+   S.season.cev = [{id,st,cfg,log,...}]  st: 0 aguardando · 1 em andamento · 2 concluído · 3 dispensado.
+   Efeitos no clube (S.mgr): fat fadiga · prep preparação · sy sinergia extra · rx experiência por região · kn conhecimento por rival.
+   Os clubes controlados pela IA recebem uma preparação média (t.pr) para o gestor não ter vantagem de graça. */
+const CEVT={
+ pre:{n:'Scrims de pré-temporada',k:'sc',d0:4,d1:16,m:'pre',t:'Treinos fechados contra outros clubes antes da temporada: teste composições, melhore o entrosamento e avalie reservas e novos jogadores. Não valem pontos nem títulos.'},
+ ami:{n:'Torneio amistoso de pré-temporada',k:'ex',d0:20,d1:21,m:'lg',pz:.3,t:'Quatro clubes da sua liga fazem um torneio de exibição. Dá ritmo de jogo e visibilidade, mas não vale título oficial.'},
+ boo:{n:'Bootcamp regional',k:'bc',d0:26,d1:32,t:'Uma semana de concentração numa região. Sobe o entrosamento e a experiência contra os estilos de lá, mas cansa e custa dinheiro.'},
+ mid:{n:'Torneio de meio de temporada',k:'ex',d0:142,d1:144,m:'in',pz:.5,t:'Quatro clubes de regiões diferentes se enfrentam num evento convidado. Bom para testar o time contra estilos internacionais.'},
+ scm:{n:'Scrims internacionais pré-MSI',k:'sc',d0:150,d1:170,m:'msi',t:'Treinos contra clubes de outras regiões antes do MSI. Você não pode treinar contra o adversário das quartas de final.'},
+ exh:{n:'Evento de exibição',k:'ex',d0:188,d1:189,m:'in',pz:.4,t:'Partida de exibição entre estrelas das regiões. Rende patrocínio e moral, e cansa pouco.'},
+ scw:{n:'Scrims internacionais pré-Mundial',k:'sc',d0:272,d1:296,m:'wc',t:'Treinos contra outros classificados ao Mundial. Você não pode treinar contra o adversário já definido na primeira fase.'}};
+const CEF=[['comp','Testar composições','Treina os campeões do seu draft; sobe o domínio deles.'],['pool','Ampliar o pool','Cada jogador aprende campeões novos da sua função.'],['syn','Entrosamento','Sobe a sinergia do time mais rápido.'],['est','Estratégia','Sobe a preparação para as próximas partidas.']];
+const CEI=[['Leve',.6],['Normal',1],['Intensa',1.6]];
+const CEL=[['Titulares'],['Misto'],['Reservas']];
+const CEB=[['Coreia do Sul','LCK'],['China','LPL'],['Europa','LEC'],['América do Norte','LCS'],['Pacífico','LCP'],['Brasil','CBLOL']];
+function cevL(){const se=S.season;if(!se.cev)se.cev=Object.keys(CEVT).map(id=>({id,st:0,cfg:null,log:[]}));return se.cev}
+const cevById=id=>cevL().find(e=>e.id===id);
+function cevElig(e,t){
+  if(!t)return false;const m=CEVT[e.id].m;
+  if(t.d===2)return e.id==='pre'||e.id==='ami'||e.id==='boo';
+  if(m==='msi')return !!(S.season.msi&&S.season.msi.teams.includes(t.id));
+  if(m==='wc')return !!(S.season.wc&&S.season.wc.teams.includes(t.id));
+  return true;
+}
+/* o adversário já definido do clube no torneio (quartas do MSI ou 1ª rodada do suíço) */
+function cevFirstOpp(e,t){
+  const m=CEVT[e.id].m,tour=m==='msi'?S.season.msi:m==='wc'?S.season.wc:null;
+  if(!tour||!tour.stages||!tour.stages[0])return null;
+  const g=tour.stages[0].ms.find(x=>x.a===t.id||x.b===t.id);
+  return g?(g.a===t.id?g.b:g.a):null;
+}
+function cevCands(e,t){
+  const c=CEVT[e.id],blocked=cevFirstOpp(e,t);
+  let L;
+  if(c.m==='msi')L=S.teams.filter(x=>x!==t&&S.season.msi&&S.season.msi.teams.includes(x.id));
+  else if(c.m==='wc')L=S.teams.filter(x=>x!==t&&S.season.wc&&S.season.wc.teams.includes(x.id));
+  else{const d=S.teams.filter(x=>x!==t&&x.lg===t.lg).sort((a,b)=>eff(b)-eff(a)).slice(0,4),i=S.teams.filter(x=>x.lg!==t.lg).sort((a,b)=>eff(b)-eff(a)).slice(0,6);L=d.concat(i)}
+  return L.sort((a,b)=>eff(b)-eff(a)).map(x=>({t:x,bl:x.id===blocked}));
+}
+const cevBlock=()=>{
+  if(!S.mgr||!mgrT())return false;
+  const t=mgrT(),d=S.day;
+  return cevL().some(e=>e.st===0&&d>=CEVT[e.id].d0&&d<=CEVT[e.id].d1&&cevElig(e,t));
+};
+/* efeitos no confronto direto: experiência na região do rival e conhecimento do próprio rival */
+function prepDelta(m){
+  const M=S.mgr;if(!M||!mineM(m))return 0;
+  const opp=T(m.a===M.tid?m.b:m.a),rx=Math.min(3,(M.rx&&M.rx[opp.lg])||0),kn=Math.min(3,(M.kn&&M.kn[opp.id])||0);
+  const d=.011*rx+.009*kn;return m.a===M.tid?d:-d;
+}
+/* bônus de força: preparação menos fadiga (gestor) ou preparação média (IA) */
+function evB(t){
+  const M=S.mgr;
+  if(M&&M.tid===t.id)return clamp((M.prep||0),0,.5)-Math.max(0,((M.fat||0)-55)/45)*.6;
+  return t.pr||0;
+}
+function cevScrimGame(e,t,p){
+  const M=S.mgr,q=clamp(1/(1+Math.pow(10,-(eff(t)-eff(p)+g()*.7)/kgNow())),.12,.88);
+  let w=0;for(let i=0;i<3;i++)if(Math.random()<q)w++;
+  return w>=2;
+}
+function cevDaily(e){
+  const M=S.mgr,t=mgrT(),cf=e.cfg;if(!M||!t||!cf)return;
+  const I=CEI[cf.int][1],ps=cf.ps.map(id=>T(id)).filter(Boolean);
+  M.fat=Math.min(100,(M.fat||0)+[.8,1.4,2.3][cf.int]*(cf.lu===2?.5:1));
+  /* uma série de treino por dia contra um dos parceiros */
+  if(ps.length){
+    const p=ps[(S.day+e.n++)%ps.length],w=cevScrimGame(e,t,p);
+    e.w=(e.w||0)+(w?1:0);e.l=(e.l||0)+(w?0:1);
+    M.rx=M.rx||{};M.kn=M.kn||{};
+    if(p.lg!==t.lg)M.rx[p.lg]=Math.min(3,(M.rx[p.lg]||0)+.07*I);
+    M.kn[p.id]=Math.min(3,(M.kn[p.id]||0)+.06*I);
+    M.mor=clamp((M.mor==null?60:M.mor)+(w?.12:-.08),10,100);
+  }
+  M.prep=Math.min(.5,(M.prep||0)+.0045*I*(cf.foc==='est'?2:1));
+  M.sy=Math.min(.45,(M.sy||0)+(cf.foc==='syn'?.012:.003)*I);
+  const pool=M.pool=M.pool||{},ex=cf.lu===2?[]:t.pl;
+  ex.forEach(pl=>{
+    let cs=[];
+    if(cf.foc==='comp'){const dr=M.dr||bestPicks(t,0);cs=[dr[pl.role]]}
+    else if(cf.foc==='pool'){cs=[CH[pl.role].map(([c])=>({c,v:mastOf(pl.n,c)})).filter(x=>x.v<.85).sort((a,b)=>b.v-a.v)[0]]}
+    cs.filter(Boolean).forEach(x=>{const c=x.c||x;const o=pool[pl.n]=pool[pl.n]||{};o[c]=Math.min(.3,(o[c]||0)+.004*I)});
+    if(cf.lu<2)pl.f=Math.min(3,pl.f+.008*I);
+  });
+  /* reservas: ganham ritmo de jogo e podem subir de nível */
+  if(cf.lu>=1){
+    e.rv=e.rv||{};
+    M.bench.concat(M.acad).forEach(pl=>{
+      e.rv[pl.n]=(e.rv[pl.n]||0)+1;
+      pl.xr=(pl.xr||0)+.035*I*(cf.lu===2?1.3:.7);
+      if(pl.xr>=1&&pl.r<pl.pot){pl.r++;pl.xr-=1;pl.d=(pl.d||0)+1}
+    });
+  }
+}
+function cevClose(e){
+  const M=S.mgr,t=mgrT(),cf=e.cfg;e.st=2;
+  if(!M||!t||!cf)return;
+  const tot=(e.w||0)+(e.l||0),ln=`${CEVT[e.id].n}: ${e.w||0} séries vencidas e ${e.l||0} perdidas contra ${cf.ps.map(id=>T(id).name).join(', ')||'ninguém'}. Preparação ${Math.round((M.prep||0)*100)}, fadiga ${Math.round(M.fat||0)}.`;
+  if(cf.tr){const f=(M.fa||[]).find(x=>x.n===cf.tr);if(f){f.scout=1;e.tr=`${f.n} avaliado: potencial ${f.pot}, nível atual ${f.r}.`}}
+  mlog(`${dTxt(S.day)}: ${ln}${e.tr?' '+e.tr:''}`);msg=ln;
+}
+/* clubes da IA fazem suas próprias preparações */
+function cevAI(e){
+  const m=CEVT[e.id].m;
+  const L=m==='msi'?(S.season.msi?S.season.msi.teams:[]):m==='wc'?(S.season.wc?S.season.wc.teams:[]):null;
+  S.teams.forEach(t=>{
+    if(S.mgr&&S.mgr.tid===t.id)return;
+    if(L&&!L.includes(t.id))return;
+    t.pr=Math.min(.4,(t.pr||0)+.11+.1*Math.random());
+  });
+}
+function cevTick(){
+  const d=S.day;
+  cevL().forEach(e=>{
+    const c=CEVT[e.id];
+    if(e.st===0&&d>c.d1){e.st=3;cevAI(e);return}
+    if(e.st===1){
+      if(d>=c.d0&&d<=c.d1&&c.k==='sc')cevDaily(e);
+      if(d>=c.d1){if(c.k==='sc'){cevAI(e);cevClose(e)}else e.st=2}
+    }else if(e.st===0&&d===c.d0&&!(S.mgr&&mgrT()&&cevElig(e,mgrT()))){e.st=3;cevAI(e)}
+  });
+  S.teams.forEach(t=>{if(t.pr)t.pr*=.992});
+  const M=S.mgr;
+  if(M){
+    const act=cevL().some(e=>e.st===1&&CEVT[e.id].k==='sc'&&d>=CEVT[e.id].d0&&d<=CEVT[e.id].d1);
+    if(!act)M.fat=Math.max(0,(M.fat||0)-1.4);
+    if(!act)M.prep=(M.prep||0)*.992;
+  }
+}
+function cevRunExh(e){
+  const c=CEVT[e.id],t=mgrT(),M=S.mgr;
+  const pool=c.m==='lg'?S.teams.filter(x=>x.lg===t.lg&&x!==t):S.teams.filter(x=>x.lg!==t.lg&&x.d!==2);
+  const inv=shuffle(pool.slice().sort((a,b)=>eff(b)-eff(a)).slice(0,8)).slice(0,3),four=[t].concat(inv);
+  const pw=(a,b)=>Math.random()<clamp(1/(1+Math.pow(10,-(eff(a)-eff(b)+g()*.8)/kgNow())),.1,.9)?a:b;
+  const f1=pw(four[0],four[1]),f2=pw(four[2],four[3]),ch=pw(f1,f2);
+  e.res={teams:four.map(x=>x.id),semi:[f1.id,f2.id],champ:ch.id};
+  const me=ch===t;
+  if(!M.cheat)M.cash=r1(M.cash+(me?c.pz:c.pz*.3));
+  M.mor=clamp((M.mor==null?60:M.mor)+(me?5:2),10,100);M.rep=clamp((M.rep||50)+(me?1.5:.5),0,100);
+  M.fat=Math.min(100,(M.fat||0)+(e.id==='exh'?2:4));M.prep=Math.min(.5,(M.prep||0)+.05);
+  M.rx=M.rx||{};M.kn=M.kn||{};
+  inv.forEach(x=>{if(x.lg!==t.lg)M.rx[x.lg]=Math.min(3,(M.rx[x.lg]||0)+.25);M.kn[x.id]=Math.min(3,(M.kn[x.id]||0)+.2)});
+  const ln=`${c.n}: ${me?'seu clube foi campeão':ch.name+' foi campeão'} (exibição, sem pontos nem título oficial).`;
+  mlog(`${dTxt(S.day)}: ${ln}`);msg=ln;news(`${ch.name} vence o ${c.n.toLowerCase()} ${S.year}.`);
+  e.st=2;cevAI(e);
+}
+function cevBoot(e,dest){
+  const M=S.mgr,t=mgrT(),home=dest===t.lg,cost=home?.3:.8;
+  if(!M.cheat&&M.cash<cost){msg=`Caixa insuficiente: o bootcamp custa ${fmtM(cost)}.`;return}
+  if(!M.cheat)M.cash=r1(M.cash-cost);
+  M.sy=Math.min(.45,(M.sy||0)+(home?.08:.15));M.prep=Math.min(.5,(M.prep||0)+.08);M.fat=Math.min(100,(M.fat||0)+(home?4:7));
+  M.mor=clamp((M.mor==null?60:M.mor)+5,10,100);M.rx=M.rx||{};if(!home)M.rx[dest]=Math.min(3,(M.rx[dest]||0)+1.2);
+  e.dest=dest;e.st=2;cevAI(e);
+  const ln=`Bootcamp ${home?'na própria região':'em '+dest}: entrosamento e preparação em alta${home?'':', mais experiência contra '+dest}. Custo ${fmtM(cost)}.`;
+  mlog(`${dTxt(S.day)}: ${ln}`);msg=ln;
+}
+/* decisões do jogador */
+function cevCfg(v){
+  const e=cevL().find(x=>x.st===0&&S.day>=CEVT[x.id].d0&&x.cfg);if(!e)return;
+  const [k,val]=String(v).split('|');
+  if(k==='tr')e.cfg.tr=e.cfg.tr===val?'':val;else e.cfg[k]=k==='foc'?val:+val;
+}
+function cevPs(v){
+  const e=cevL().find(x=>x.st===0&&S.day>=CEVT[x.id].d0&&x.cfg);if(!e)return;
+  const id=+v,i=e.cfg.ps.indexOf(id);
+  if(i>=0)e.cfg.ps.splice(i,1);else if(e.cfg.ps.length<3)e.cfg.ps.push(id);
+}
+function cevGo(id){
+  const e=cevById(id),t=mgrT(),c=CEVT[id];if(!e||!t||e.st!==0)return;
+  if(c.k==='ex'){cevRunExh(e);return}
+  if(c.k==='bc'){cevBoot(e,e.dest||t.lg);return}
+  if(!e.cfg.ps.length){const cs=cevCands(e,t).filter(x=>!x.bl).slice(0,3);e.cfg.ps=cs.map(x=>x.t.id)}
+  e.st=1;e.n=0;e.w=0;e.l=0;
+  mlog(`${dTxt(S.day)}: ${c.n} começam (${CEI[e.cfg.int][0].toLowerCase()}, ${CEL[e.cfg.lu][0].toLowerCase()}).`);
+}
+function cevSkip(id){const e=cevById(id);if(!e)return;e.st=3;cevAI(e)}
+function cevEnd(id){const e=cevById(id);if(!e||e.st!==1)return;cevAI(e);cevClose(e)}
+function cevDest(v){const e=cevL().find(x=>x.st===0&&CEVT[x.id].k==='bc'&&S.day>=CEVT[x.id].d0);if(e)e.dest=v}
+function cevHTML(m){
+  const t=mgrT();if(!t)return '';
+  const d=S.day;let h='';
+  /* evento em andamento */
+  cevL().filter(e=>e.st===1&&CEVT[e.id].k==='sc').forEach(e=>{
+    const c=CEVT[e.id],tot=c.d1-c.d0+1,pg=Math.min(tot,d-c.d0+1);
+    h+=`<section class="pn evc"><small class="k">Em andamento · dia ${pg} de ${tot}</small><h2>${esc(c.n)}</h2><p class="note" style="margin:0 0 6px">${e.w||0} séries vencidas e ${e.l||0} perdidas até agora. Foco: ${esc(CEF.find(x=>x[0]===e.cfg.foc)[1])}. Parceiros: ${esc(e.cfg.ps.map(id=>T(id).name).join(', '))}.</p><div class="kv"><div><small>Preparação</small><b class="num">${Math.round((m.prep||0)*100)}</b></div><div><small>Fadiga</small><b class="num">${Math.round(m.fat||0)}</b></div><div><small>Sinergia extra</small><b class="num">${Math.round((m.sy||0)*100)}</b></div></div><div class="row" style="margin:8px 0 0"><button class="ghost" data-act="cevEnd" data-v="${e.id}">Encerrar agora</button></div></section>`;
+  });
+  /* evento aguardando decisão */
+  const e=cevL().find(x=>x.st===0&&d>=CEVT[x.id].d0&&d<=CEVT[x.id].d1&&cevElig(x,t));
+  if(e){
+    const c=CEVT[e.id];
+    h+=`<section class="pn evc"><small class="k">Calendário · ${dTxt(c.d0)} a ${dTxt(c.d1)}</small><h2>${esc(c.n)}</h2><p class="note" style="margin:0 0 8px">${esc(c.t)}</p>`;
+    if(c.k==='sc'){
+      e.cfg=e.cfg||{foc:'comp',int:1,lu:1,ps:[],tr:''};
+      const cf=e.cfg,pill=(k,v,l,on)=>`<button class="pill" aria-pressed="${on}" data-act="cevCfg" data-v="${k}|${v}">${esc(l)}</button>`;
+      h+=`<small class="k">Foco</small><div class="pills" style="margin:4px 0 4px">${CEF.map(([k,l])=>pill('foc',k,l,cf.foc===k)).join('')}</div><p class="note" style="margin:0 0 8px">${esc(CEF.find(x=>x[0]===cf.foc)[2])}</p>`;
+      h+=`<small class="k">Intensidade</small><div class="pills" style="margin:4px 0 8px">${CEI.map(([l],i)=>pill('int',i,l,cf.int===i)).join('')}</div>`;
+      h+=`<small class="k">Quem joga</small><div class="pills" style="margin:4px 0 8px">${CEL.map(([l],i)=>pill('lu',i,l,cf.lu===i)).join('')}</div><p class="note" style="margin:0 0 8px">Reservas e academia ganham ritmo e podem evoluir; titulares evoluem a forma. Mais intensidade rende mais preparação, mas cansa.</p>`;
+      const fa=(m.fa||[]).slice().sort((a,b)=>b.pot-a.pot).slice(0,4);
+      if(fa.length)h+=`<small class="k">Avaliar um jogador livre (opcional)</small><div class="pills" style="margin:4px 0 8px">${fa.map(f=>pill('tr',f.n,f.n+' ('+RN[f.role]+')',cf.tr===f.n)).join('')}</div>`;
+      const cs=cevCands(e,t);
+      h+=`<small class="k">Parceiros de treino (até 3)</small>${cs.map(({t:x,bl})=>`<button class="pill${cf.ps.includes(x.id)?' on':''}" style="display:block;width:100%;text-align:left;margin:4px 0" ${bl?'disabled':''} aria-pressed="${cf.ps.includes(x.id)}" data-act="cevPs" data-v="${x.id}">${esc(x.name)} · ${x.lg} · OVR ${Math.round(baseOvr(x))}${bl?' · bloqueado: é seu adversário na primeira fase':''}</button>`).join('')}`;
+      h+=`<div class="row" style="margin:10px 0 0"><button class="play sm" data-act="cevGo" data-v="${e.id}">Iniciar scrims</button><button class="ghost" data-act="cevSkip" data-v="${e.id}">Dispensar</button></div>`;
+    }else if(c.k==='bc'){
+      e.dest=e.dest||t.lg;
+      h+=`<small class="k">Destino</small><div class="pills" style="margin:4px 0 8px">${CEB.map(([n,lg])=>`<button class="pill" aria-pressed="${e.dest===lg}" data-act="cevDest" data-v="${lg}">${esc(n)}</button>`).join('')}</div><p class="note" style="margin:0 0 8px">${e.dest===t.lg?'Na própria região: custa '+fmtM(.3)+', sobe um pouco a sinergia e cansa pouco.':'Fora: custa '+fmtM(.8)+', sobe mais a sinergia e dá experiência contra '+e.dest+', mas cansa mais.'}</p><div class="row" style="margin:6px 0 0"><button class="play sm" data-act="cevGo" data-v="${e.id}">Ir para o bootcamp</button><button class="ghost" data-act="cevSkip" data-v="${e.id}">Dispensar</button></div>`;
+    }else{
+      h+=`<p class="note" style="margin:0 0 8px">Premiação simbólica de ${fmtM(c.pz)} para o campeão. Não vale título nem pontos. Cansa e dá experiência contra os convidados.</p><div class="row" style="margin:6px 0 0"><button class="play sm" data-act="cevGo" data-v="${e.id}">Participar</button><button class="ghost" data-act="cevSkip" data-v="${e.id}">Dispensar</button></div>`;
+    }
+    h+=`</section>`;
+  }
+  /* resultado do último evento e próximo da agenda */
+  const done=cevL().filter(x=>x.st===2&&x.res&&d-CEVT[x.id].d1<=10).pop();
+  if(done){const r=done.res;h+=`<section class="pn"><small class="k">Resultado</small><h2>${esc(CEVT[done.id].n)}</h2><p class="note" style="margin:0">Participantes: ${r.teams.map(id=>esc(T(id).name)).join(', ')}. Campeão do evento: <b>${esc(T(r.champ).name)}</b>.</p></section>`}
+  const nx=cevL().filter(x=>x.st===0&&d<CEVT[x.id].d0&&cevElig(x,t)).sort((a,b)=>CEVT[a.id].d0-CEVT[b.id].d0)[0];
+  if(nx&&!e)h+=`<p class="note" style="margin:0 0 8px">Próximo evento do calendário: <b>${esc(CEVT[nx.id].n)}</b> em ${dTxt(CEVT[nx.id].d0)}.</p>`;
+  return h;
+}
 const draftOn=()=>!(S&&S.opt&&(S.opt.draft===0||S.opt.draft===false));
 const archOf=c=>{for(const r of CH)for(const [n,a] of r)if(n===c)return a;return'eq'};
 /* meta: muda a cada split; no Mundial os campeões clássicos e queridos voltam a ser os favoritos */
@@ -2086,7 +2612,8 @@ const metaKey=()=>{const p=PHASES[S.phase],k=p?p.k:'';return['sw','wq','ws','wf'
 const metaOf=c=>{const w=metaKey()==='w';let v=((hs(c+'|'+S.year+'|'+metaKey())%7)-3)/3*(w?.3:.5);if(w)v+=OLDS.has(c)?.3:-.1;return Math.max(-.5,Math.min(.5,v))};
 const metaName=()=>({'1':'Split 1','m':'MSI','2':'Split 2','w':'Mundial'})[metaKey()]+' '+S.year;
 const metaTop=()=>CH.flat().map(([c])=>({c,v:metaOf(c)})).sort((a,b)=>b.v-a.v).slice(0,5).map(x=>x.c);
-const mastOf=(n,c)=>{const b=(hs(n+'|'+c)%100)/100,x=(S&&S.mgr&&S.mgr.pool&&S.mgr.pool[n]&&S.mgr.pool[n][c]||0)+(S&&S.pc&&S.pc.n===n&&S.pc.pool&&S.pc.pool[c]||0);return Math.min(1,b+x)};
+const TGK=Object.keys(TG),ppref=n=>{const h=hs(n);return[TGK[h%9],TGK[(h>>4)%9]]};
+const mastOf=(n,c)=>{const d=CHD[c];let b=Math.pow((hs(n+'|'+c)%100)/100,2.3)+(d&&ppref(n).some(t=>d.t.includes(t))?.1:0),x=(S&&S.mgr&&S.mgr.pool&&S.mgr.pool[n]&&S.mgr.pool[n][c]||0)+(S&&S.pc&&S.pc.n===n&&S.pc.pool&&S.pc.pool[c]||0);return Math.min(1,b+x)};
 function pickScore(p,c){return mastOf(p.n,c)+metaOf(c)*.6}
 function bestPicks(t,noise){return t.pl.map((p,i)=>CH[i].map(([c])=>({c,v:pickScore(p,c)+(noise?(Math.random()-.5)*noise:0)})).sort((a,b)=>b.v-a.v)[0].c)}
 function compMaj(pk){const n={eq:0,ag:0,co:0};pk.forEach(c=>n[archOf(c)]++);return Object.keys(n).sort((a,b)=>n[b]-n[a])[0]}
@@ -2105,12 +2632,12 @@ function draftPrep(m){
   m.hint=Math.random()<.65?m.odm:pick(['eq','ag','co']);
 }
 function myPicks(t){const m=S.mgr;m.dr=m.dr||bestPicks(t,0);return t.pl.map((p,i)=>m.dr[i]&&CH[i].some(x=>x[0]===m.dr[i])?m.dr[i]:bestPicks(t,0)[i])}
-function draftDelta(m){
+function draftDelta(m,noCmp){
   const t=mgrT(),pk=myPicks(t);
   draftPrep(m);
   const op=T(m.a===S.mgr.tid?m.b:m.a);
   const mine=compScore(t,pk,m.odm),opp=compScore(op,m.od,compMaj(pk));
-  const d=clamp((mine-opp)*.012,-.07,.07);
+  const d=clamp((mine-opp)*.012+(noCmp?0:cmpFx(pk,m.od)),-.1,.1);
   return{d:m.a===S.mgr.tid?d:-d,raw:d,me:compMaj(pk),op:m.odm};
 }
 function draftHTML(t,m){
@@ -2141,22 +2668,38 @@ function mgrMatch(){
 }
 const dvNeeded=()=>{const m=mgrMatch()||pcMatch();return !!(m&&draftOn()&&!m.dd)};
 const dvTeam=s=>T(s==='b'?DV.m.a:DV.m.b);
+const dvLk=(c,s)=>!!(DV.fl&&DV.fl[s]&&DV.fl[s].has(c));
+/* afinidade do campeão com o resto da composição e com o rival de rota */
+function dvFit(s,ri,c){
+  const d=CHD[c];if(!d)return 0;
+  const mine=DV.pk[s].filter(Boolean),en=DV.pk[s==='b'?'r':'b'];let v=0;
+  mine.forEach(x=>{if((CHSY[c]||[]).includes(x))v+=.18});
+  if(en[ri])v+=.14*chMu(c,en[ri]);
+  const cur=cmpOf(mine);
+  if(!cur.E&&!cur.C&&d.t.some(t=>t==='E'||t==='C'))v+=.1;
+  if(!cur.P&&!cur.F&&d.t.some(t=>t==='P'||t==='F'))v+=.06;
+  d.t.forEach(t=>{if(cur[t]>=3)v-=.12});
+  /* cada time tem uma identidade de composição preferida */
+  const pf=CTY[hs(dvTeam(s).name+'cmp')%5];
+  if(d.t.some(t=>CTYT[pf].includes(t)))v+=.16;
+  return v;
+}
 const dvTaken=c=>DV.bans.b.includes(c)||DV.bans.r.includes(c)||DV.pk.b.includes(c)||DV.pk.r.includes(c);
-function dvOpen(){
-  const m=mgrMatch()||pcMatch();if(!m)return false;
+function dvOpen(lv){
+  const m=lv?LV.m:(mgrMatch()||pcMatch());if(!m)return false;
   clearTimeout(DVT);
   const pcm=!S.mgr,pf=pcm?pcFind():null;
-  DV={m,pc:pcm,prole:pf?pf.p.role:0,us:m.a===myTid()?'b':'r',i:0,bans:{b:[],r:[]},pk:{b:[null,null,null,null,null],r:[null,null,null,null,null]},role:0,done:false};
+  DV={m,pc:pcm,prole:pf?pf.p.role:0,us:m.a===myTid()?'b':'r',i:0,bans:{b:[],r:[]},pk:{b:[null,null,null,null,null],r:[null,null,null,null,null]},role:0,done:false,lv:!!lv,fl:{b:flSet(m,'a'),r:flSet(m,'b')}};
   dvAdv();return true;
 }
 function dvAI(){
   const [k,s]=SEQ[DV.i],t=dvTeam(s),opp=dvTeam(s==='b'?'r':'b');let best=null;
   if(k==='ban'){
-    CH.forEach((r,ri)=>r.forEach(([c])=>{if(dvTaken(c))return;const v=pickScore(opp.pl[ri],c)+Math.random()*.35;if(!best||v>best.v)best={c,v}}));
+    CH.forEach((r,ri)=>r.forEach(([c])=>{if(dvTaken(c)||dvLk(c,s==='b'?'r':'b'))return;const v=pickScore(opp.pl[ri],c)+Math.random()*.35;if(!best||v>best.v)best={c,v}}));
     DV.bans[s].push(best.c);
   }else{
     const oth=DV.pc&&s===DV.us&&t.pl.some((p,ri)=>!DV.pk[s][ri]&&ri!==DV.prole);
-    t.pl.forEach((p,ri)=>{if(DV.pk[s][ri]||(oth&&ri===DV.prole))return;CH[ri].forEach(([c])=>{if(dvTaken(c))return;const v=pickScore(p,c)+Math.random()*.4;if(!best||v>best.v)best={ri,c,v}})});
+    t.pl.forEach((p,ri)=>{if(DV.pk[s][ri]||(oth&&ri===DV.prole))return;CH[ri].forEach(([c])=>{if(dvTaken(c)||dvLk(c,s))return;const v=pickScore(p,c)+dvFit(s,ri,c)+Math.random()*.4;if(!best||v>best.v)best={ri,c,v}})});
     DV.pk[s][best.ri]=best.c;
   }
   DV.i++;
@@ -2181,6 +2724,11 @@ function dvGo(){
 const chIni=c=>{const w=c.replace(/[^A-Za-z' ]/g,'').split(/[ ']+/).filter(Boolean);return(w.length>1?w[0][0]+w[1][0]:c.slice(0,2)).toUpperCase()};
 const archL=a=>a==='ag'?'Agressivo':a==='co'?'Controle':'Equilibrado';
 const chTile=(c,cls='')=>c?`<span class="ct ${cls}" style="--h:${hs(c)%360}"><b>${esc(chIni(c))}</b></span>`:`<span class="ct emp ${cls}"></span>`;
+function flDraftBar(){
+  const m=DV.m;if(!flOn(m))return '';
+  const n=(m.fl&&m.fl.g.length||0)+1,my=dvTeam(DV.us),op=dvTeam(DV.us==='b'?'r':'b'),ch=side=>[...DV.fl[side]].map(c=>`<span class="flc">${esc(c)}</span>`).join('')||'<em>nenhum</em>';
+  return `<section class="dvpool flb"><p class="note" style="margin:0 0 6px"><b>Fearless Draft</b> · mapa ${n} (melhor de ${m.n}). Cada time não repete campeões que já usou na série.</p><div class="fll"><small>Bloqueados para ${esc(my.name)}</small><div>${ch(DV.us)}</div><small>Bloqueados para ${esc(op.name)}</small><div>${ch(DV.us==='b'?'r':'b')}</div></div>${flPanel(m)}</section>`;
+}
 function vDraft(){
   const m=DV.m,us=DV.us,A=T(m.a),B=T(m.b),turn=DV.i<SEQ.length?SEQ[DV.i]:null,mine=!!turn&&turn[1]===us,myT=dvTeam(us),opT=dvTeam(us==='b'?'r':'b');
   const stage=PHASES[S.phase]&&S.season.sp?spLabel(S.season.sp):(PHASES[S.phase]?PHASES[S.phase].l:'');
@@ -2192,17 +2740,17 @@ function vDraft(){
   let pool='';
   if(turn&&mine){
     const isBan=turn[0]==='ban',role=DV.pc?DV.prole:isBan?DV.role:(DV.pk[us][DV.role]?dvFirstRole():DV.role);
-    pool=`<section class="dvpool"><div class="pills dvrole">${RN.map((r,i)=>`<button class="pill" aria-pressed="${role===i}" ${!isBan&&DV.pk[us][i]?'disabled':''} data-act="dvRole" data-v="${i}">${r}${!isBan&&DV.pk[us][i]?' ✓':''}</button>`).filter((_,i)=>!DV.pc||i===DV.prole).join('')}</div><div class="cgr">${CH[role].map(([c,a])=>{
-      const tk=dvTaken(c),mt=metaOf(c),ms=isBan?Math.round(mastOf(opT.pl[role].n,c)*100):Math.round(mastOf(myT.pl[role].n,c)*100);
-      return `<button class="cc${tk?' tk':''}" ${tk?'disabled':''} data-act="${isBan?'dvBan':'dvPick'}" data-v="${role}|${esc(c)}">${chTile(c)}<b>${esc(c)}</b><small>${isBan?'rival ':'seu '}${ms}${mt>=.2?' · meta+':mt<=-.2?' · meta−':''}</small><em>${archL(a)}</em></button>`}).join('')}</div><p class="note" style="margin:8px 0 0">${isBan?`Banir: o número é o domínio de <b>${esc(opT.pl[role].n)}</b> (rival) no campeão.`:`Pick: o número é o domínio de <b>${esc(myT.pl[role].n)}</b> no campeão. Composição com 3 ou mais do mesmo estilo ganha bônus.`}</p></section>`;
+    pool=`<section class="dvpool"><div class="pills dvrole">${RN.map((r,i)=>`<button class="pill" aria-pressed="${role===i}" ${!isBan&&DV.pk[us][i]?'disabled':''} data-act="dvRole" data-v="${i}">${r}${!isBan&&DV.pk[us][i]?' ✓':''}</button>`).filter((_,i)=>!DV.pc||i===DV.prole).join('')}</div><div class="cgr">${CH[role].slice().sort((x,y)=>mastOf((isBan?opT:myT).pl[role].n,y[0])-mastOf((isBan?opT:myT).pl[role].n,x[0])).map(([c,a])=>{
+      const lk=!isBan&&dvLk(c,us),tk=dvTaken(c)||lk,mt=metaOf(c),ms=isBan?Math.round(mastOf(opT.pl[role].n,c)*100):Math.round(mastOf(myT.pl[role].n,c)*100);
+      return `<button class="cc${tk?' tk':''}${lk?' fl':''}" ${tk?'disabled':''} data-act="${isBan?'dvBan':'dvPick'}" data-v="${role}|${esc(c)}">${chTile(c)}<b>${esc(c)}</b><small>${lk?'Fearless · ':''}${isBan?'rival ':'seu '}${ms}${mt>=.2?' · meta+':mt<=-.2?' · meta−':''}</small><em>${archL(a)}${CHD[c]?' · '+CHD[c].t.slice(0,2).map(x=>TG[x]).join('/'):''}</em></button>`}).join('')}</div><p class="note" style="margin:8px 0 0">${isBan?`Banir: o número é o domínio de <b>${esc(opT.pl[role].n)}</b> (rival) no campeão.`:`Pick: o número é o domínio de <b>${esc(myT.pl[role].n)}</b> no campeão. Composição com 3 ou mais do mesmo estilo ganha bônus.`}</p></section>`;
   }else if(!DV.done)pool=`<section class="dvpool wait"><div class="dvw"><i></i><i></i><i></i></div><p>${esc(lab)}</p></section>`;
   const maj=cs=>planName(compMaj(cs.filter(Boolean)));
-  const fin=DV.done?`<section class="dvpool"><div class="dvs"><div><small>Sua composição</small><b>${esc(maj(DV.pk[us]))}</b></div><div><small>Rival</small><b>${esc(maj(DV.pk[us==='b'?'r':'b']))}</b></div></div></section>`:'';
+  const fin=DV.done?`<section class="dvpool"><div class="dvs"><div><small>Sua composição</small><b>${esc(maj(DV.pk[us]))}</b></div><div><small>Rival</small><b>${esc(maj(DV.pk[us==='b'?'r':'b']))}</b></div></div><p class="note" style="margin:8px 0 0">${cmpTxt(DV.pk[us],DV.pk[us==='b'?'r':'b'])}</p></section>`:'';
   return `<div class="dvx"><div class="dvw2"><div class="dvtop"><small class="k">${esc(stage)} · ${m.n===1?'jogo único':'melhor de '+m.n}</small><button class="ghost" data-act="dvX">Voltar</button></div>
   <div class="dvh">${head(A,'b')}<div class="dvvs"><b>VS</b></div>${head(B,'r')}</div>
   <div class="dvprog">${pill}</div><p class="dvmeta"><b>Meta ${esc(metaName())}</b>${metaKey()==='w'?' · clássicos em alta':''}: ${metaTop().map(esc).join(', ')}</p><p class="dvlab ${mine?'me':''}">${esc(lab)}</p>
   <div class="dvcols"><div>${bans('b')}${picks('b')}</div><div>${bans('r')}${picks('r')}</div></div>
-  ${pool}${fin}
+  ${flDraftBar()}${pool}${fin}
   <div class="dvbar">${DV.done?'<button class="play" data-act="dvGo">Jogar partida</button>':`<button class="ghost" data-act="dvAuto"${mine?'':' disabled'}>Escolha automática</button><button class="ghost" data-act="dvAll">Autodraft completo</button>`}</div></div></div>`;
 }
 
@@ -2235,15 +2783,15 @@ function lvGameStart(){
 function lvP(){
   const m=LV.m,A=T(m.a),B=T(m.b);
   let qa=clamp(1/(1+Math.pow(10,-(eff(A)-eff(B))/kgNow())),.2,.8);
-  if(!LV.pc){const pdl=draftOn()?draftDelta(m):planDelta(m);qa=clamp(qa+pdl.d,.2,.8)}
+  if(!LV.pc){const pdl=draftOn()?draftDelta(m,true):planDelta(m);qa=clamp(qa+pdl.d+prepDelta(m),.2,.8)}
   let pm=LV.us==='a'?qa:1-qa;
-  if(LV.pc&&LV.gi===0&&m.dd)pm+=pcDraftD(m);
+  if(LV.pc&&m.dd)pm+=pcDraftD(m);
   return clamp(pm+LV.adj,.1,.9);
 }
 function lvTeam(s){const id=myTid();return T(s==='me'?id:(LV.m.a===id?LV.m.b:LV.m.a))}
 function lvChOf(s,role){
   const t=lvTeam(s),p=t.pl[role];
-  return LV.pc?(LV.gi===0&&LV.m.dd&&S.pc.dr?(s==='me'?S.pc.dr[role]:LV.m.od&&LV.m.od[role]):(s==='me'&&p.pc?LV.ch:null)):s==='me'?(S.mgr.dr&&S.mgr.dr[role]):(LV.m.od&&LV.m.od[role]);
+  return LV.pc?(LV.m.dd&&S.pc.dr?(s==='me'?S.pc.dr[role]:LV.m.od&&LV.m.od[role]):(s==='me'&&p.pc?LV.ch:null)):s==='me'?(S.mgr.dr&&S.mgr.dr[role]):(LV.m.od&&LV.m.od[role]);
 }
 function lvWho(s,role){
   const t=lvTeam(s),p=t.pl[role],ch=lvChOf(s,role);
@@ -2295,7 +2843,7 @@ function lvChamp(s,r){const w=lvWho(s,r),m=w.match(/\((.*)\)$/);return m?m[1]:''
    A cada LVCFG.cyc s roda lvThink: contatos (lutas), avaliação do estado, plano de cada time (objetivo, torre, defesa, invasão, caça)
    e ordens individuais. Nenhum acontecimento é marcado por minuto: o relógio só libera objetivos e muda os pesos das decisões.
    O vencedor sai do Nexus destruído; a força de cada time vem do lvP() (ratings, draft, instrução) via LV.mm. */
-const LVCFG={cyc:4,spd:2.3,kap:.14,dragon:300,dragonRe:300,elderRe:360,grubs:[360,660],grubsEnd:840,herald:840,heraldEnd:1185,baron:1200,baronRe:360,inhRe:300,camp:135,cpA:600,cpB:1200,cap:4200};
+const LVCFG={cyc:4,spd:2.3,kap:.14,dragon:300,dragonRe:300,elderRe:360,grubs:[480],grubsEnd:885,herald:900,heraldEnd:1185,baron:1200,baronRe:360,inhRe:300,camp:135,cpA:600,cpB:1200,cap:4200};
 const LVSTY={
   ag:{n:'Agressivo',agg:.30,gank:.35,roam:.30,obj:-.05,inv:.20,split:0,def:0,fight:-.12},
   ma:{n:'Macro',agg:-.05,gank:0,roam:.05,obj:.30,inv:.05,split:.25,def:.10,fight:.05},
@@ -2304,7 +2852,7 @@ const LVSTY={
   re:{n:'Reativo',agg:-.25,gank:-.05,roam:-.05,obj:0,inv:-.15,split:0,def:.35,fight:.02}};
 const LVSTK=['ag','ma','es','ca','re'];
 const LVST={farm:'Farmando',clear:'Farmando',rot:'Rotacionando',gank:'Realizando gank',fight:'Lutando',retreat:'Recuando',recall:'Recuando',ward:'Controlando visão',stage:'Controlando visão',obj:'Fazendo objetivo',invade:'Invadindo jungle',defend:'Defendendo torre',press:'Pressionando rota',siege:'Pressionando rota',hunt:'Invadindo jungle',base:'Na base',dead:'Morto'};
-const LVRW=[.95,1,1.1,1.25,.65],LVEXP=[.85,.8,1,1.3,1.1],LVDPS=[.9,.8,1.15,1.4,.5],LVSP=[.8,.6,.85,1.2,.35],LVRCS=[.17,0,.17,.19,.035],LVXPR=[4.2,3.6,4.2,4.0,2.4];
+const LVRW=[.95,1,1.1,1.25,.65],LVEXP=[.85,.8,1,1.3,1.1],LVDPS=[.9,.8,1.15,1.4,.5],LVSP=[.8,.6,.85,1.2,.35],LVRCS=[.17,0,.17,.19,.035],LVXPR=[4.2,1.9,4.2,4.0,2.4];
 const LVOBN={g:'as Larvas do Vazio',h:'o Arauto',d:'o Dragão',b:'o Barão',e:'o Dragão Ancião'},LVOBT={g:70,h:110,d:100,b:190,e:210},LVOBV={g:.62,h:.66,d:.70,b:1,e:1.05};
 const LVTWH=[140,185,215],LVNXH=200,LVNEXH=260;
 const lvOrd=()=>Math.random()<.5?['me','op']:['op','me'];
@@ -2359,10 +2907,10 @@ function lvInit(){
   LV.ev={ganks:0,gankOk:0,gankFail:0,fights:0,tf:0,skirm:0,pick:0,rot:0,inv:0,roam:0,contest:0,trade:0,steal:0,split:0,aces:0,recalls:0,def:0,swaps:0};
   LV.ln={top:{u:.5},mid:{u:.5},bot:{u:.5}};
   LV.lw={me:{0:'top',2:'mid',3:'bot',4:'bot'},op:{0:'top',2:'mid',3:'bot',4:'bot'}};
-  LV.cm={b:[0,0,0,0,0,0],r:[0,0,0,0,0,0]};
+  LV.cm={b:JGC.map(c=>c.sp),r:JGC.map(c=>c.sp)};LV.cr=[JGS.sp,JGS.sp];LV.jc={me:{cl:0,st:0,lost:0,bf:0,cr:0},op:{cl:0,st:0,lost:0,bf:0,cr:0}};LV.dt={me:{},op:{}};LV.dst={me:null,op:null};LV.jgOpen=false;
   const tw=()=>({top:LVTWH.slice(),mid:LVTWH.slice(),bot:LVTWH.slice(),nx:[LVNXH,LVNXH],nex:LVNEXH});
   LV.tw={me:tw(),op:tw()};
-  LV.ob={g:{n:3,w:0,up:LVCFG.grubs[0]},h:{up:LVCFG.herald,done:false}};LV.elder=null;LV.soul={me:false,op:false};LV.gr={me:0,op:0};LV.hd=null;LV.bb=null;
+  LV.ob={g:{n:3,w:0,up:LVCFG.grubs[0]},h:{up:LVCFG.herald,done:false}};LV.elder=null;LV.soul={me:false,op:false};LV.gb={me:0,op:0};LV.hd=null;LV.bb=null;
   LV.dn={d:LVCFG.dragon,h:LVCFG.grubs[0],b:LVCFG.baron};LV.at=null;LV.wd=[];LV.sg={me:null,op:null};LV.mm={me:1,op:1};LV.ed=0;LV.edT=-1;LV.edD=true;LV.as=null;LV.lx=0;LV.cd=0;LV.fl={};LV.hist=[];LV.ps2=null;
   LV.sty={me:lvPickSty('me'),op:lvPickSty('op')};
   LV.ai={me:{g:null,inv:Math.random()},op:{g:null,inv:Math.random()}};
@@ -2372,10 +2920,11 @@ function lvInit(){
     LV.pp[s]=[0,1,2,3,4].map(r=>{
       const p=lvTeam(s).pl[r],ch=lvChOf(s,r);
       return{s,r,x:b[0]+(r-2)*1.3+(bl?3:-3),y:b[1]+(r-2)*.9+(bl?-2:2),path:[],go:null,st:'base',hp:1,gt:500,bg:500,xp:0,lv:1,cs:0,sk:0,
-        ar:archOf(ch||''),b0:Math.pow(effR(p,lvTeam(s))/80,2.2)*Math.exp(g()*.05),tp:r===0,tpc:0,rc:0,bz:0,bs:0,wt:60+r*7,cl:null,jx:null,rm:null,lr:0,fl:0,was:false};
+        ar:archOf(ch||''),ch:ch||'',cd:CHD[ch],bf:{bl:0,rd:0,sc:0},jk:clamp((effR(p,lvTeam(s))-62)/30,0,1),ms:ch?mastOf(p.n,ch):.5,mu:0,b0:Math.pow(effR(p,lvTeam(s))/80,2.2)*Math.exp(g()*.05),tp:r===0,tpc:0,rc:0,bz:0,bs:0,wt:60+r*7,cl:null,jx:null,rm:null,lr:0,fl:0,was:false};
     });
   });
-  LV.pp.me.forEach(P=>{P.go={k:'base'}});LV.pp.op.forEach(P=>{P.go={k:'base'}});
+  LV.pp.me.forEach(P=>{P.go={k:'base'};const q=LV.pp.op[P.r];P.mu=P.ch&&q.ch?chMu(P.ch,q.ch):0;q.mu=-P.mu});LV.pp.op.forEach(P=>{P.go={k:'base'}});
+  LV.cmp={me:cmpOf(LV.pp.me.map(P=>P.ch)),op:cmpOf(LV.pp.op.map(P=>P.ch))};
 }
 /* ---------- utilidades ---------- */
 function lvTeamNm(s){return lvTeam(s).name}
@@ -2397,10 +2946,11 @@ function lvSayOnce(key,gap,t,k,c){const sec=LV.sec;if(LV.fl[key]!==undefined&&se
 function lvPw(P){
   const s=P.s,sec=LV.sec,mn=sec/60,a=P.ar;
   const sc=a==='ag'?(mn<16?.06:mn>28?-.06:0):a==='co'?(mn<16?-.06:mn>26?.08:0):0;
-  let m=P.b0*(1+.052*(P.lv-1))*(1+Math.min(P.bg,16000)/9000)*(1+sc)*LV.mm[s];
+  let m=P.b0*(1+.052*(P.lv-1))*(1+Math.min(P.bg,16000)/9000)*(1+sc)*LV.mm[s]*chFxP(P);
   if(LV.bb&&LV.bb.s===s&&LV.bb.until>sec)m*=1.07;
   if(LV.elder&&LV.elder.s===s&&LV.elder.until>sec)m*=1.12;
-  m*=1+.022*Math.min(LV.st[s].d,4)+(LV.soul[s]?.05:0);
+  m*=1+.022*Math.min(LV.st[s].d,4)+(LV.soul[s]?.05:0)+lvDrx(s);
+  if(P.bf){if(P.bf.bl>sec)m*=1+JGB.bl.pw;if(P.bf.rd>sec)m*=1+JGB.rd.pw;if(P.bf.sc>sec)m*=1.02}
   if(P.r===LV.pcrole&&s==='me'&&LV.pc)m*=Math.pow(LV.pcw.k/LV.pcw.d,.25);
   return m;
 }
@@ -2424,7 +2974,7 @@ function lvGo(P,k,x,y){
   P.go={k,x,y};P.st=k;P.path=lvPath(P.x,P.y,x,y);
 }
 function lvMove(P,dt){
-  let v=LVCFG.spd*dt;
+  let v=LVCFG.spd*dt*(1+.02*lvDrN(P.s,'nuv'));
   while(v>0&&P.path.length){
     const w=P.path[0],dx=w[0]-P.x,dy=w[1]-P.y,d=Math.hypot(dx,dy);
     if(d<=v){P.x=w[0];P.y=w[1];v-=d;P.path.shift()}else{P.x+=dx/d*v;P.y+=dy/d*v;v=0}
@@ -2447,7 +2997,7 @@ function lvWave(dt){
       if(P.r===1||P.go.k!=='farm'&&P.go.k!=='press'||P.bz>LV.sec)return;
       const p=lvLanePos(s,P.r,LV.lw[s][P.r]||'mid');
       if(LV.lw[s][P.r]!==L||lvD(P.x,P.y,p[0],p[1])>7)return;
-      const bl=lvBlue(s),v=lvPw(P)*(P.r===4?.5:1);f+=bl?v:-v;if(bl)nb++;else nr++;
+      const bl=lvBlue(s),v=lvPw(P)*(P.r===4?.5:1)*(P.cd&&P.cd.t.includes('X')?1.2:1);f+=bl?v:-v;if(bl)nb++;else nr++;
     }));
     /* quem está sozinho na rota empurra a wave contra a torre */
     w.u+=f*.004*dt;
@@ -2470,7 +3020,7 @@ function lvEco(P,dt){
   }else if(P.r===1&&P.cl&&P.cl.t>sec){xp=LVXPR[1]}
   P.xp+=xp*dt;
   while(P.lv<18&&P.xp>=lvXpN(P.lv)){P.xp-=lvXpN(P.lv);P.lv++}
-  P.hp=Math.min(1,P.hp+(P.st==='base'?.12:.0035)*dt);
+  P.hp=Math.min(1,P.hp+(P.st==='base'?.12:.0035*(1+.12*lvDrN(P.s,'oce')))*dt);
 }
 const lvXpN=l=>180+30*l;
 function lvRespawn(P){
@@ -2502,7 +3052,7 @@ function lvKill(k,v,as,x,y,tag){
 /* ---------- luta: rodadas de 2,4 s; dano por poder; quem está perdendo recua ---------- */
 function lvBrawl(x,y,A,B,o){
   o=o||{};const sec=LV.sec;
-  const side=[A,B].map(l=>l.map(P=>({P,hp:P.hp,pw:lvPw(P)*LVRW[P.r],dead:false,fl:false,by:new Set(),ke:null})));
+  const side=[A,B].map(l=>l.map(P=>({P,hp:P.hp,pw:lvPw(P)*LVRW[P.r]*lvCm(P.s,'fight',l.length),dead:false,fl:false,by:new Set(),ke:null})));
   const noise=[Math.exp(g()*.15),Math.exp(g()*.15)],evs=[];let t=0;
   const flee=[o.fl===0,o.fl===1],pwr=i=>side[i].filter(m=>!m.dead&&!m.fl).reduce((a,m)=>a+m.pw*(.55+.45*m.hp),0);
   const liv=i=>side[i].filter(m=>!m.dead&&!m.fl);
@@ -2527,7 +3077,7 @@ function lvBrawl(x,y,A,B,o){
     (Math.random()<.5?[0,1]:[1,0]).forEach(i=>{
       if(flee[i])return;
       const j=1-i,tg=liv(j);if(!tg.length||!snap[i].length)return;
-      let dmg=q[i]*noise[i]*(rd===0&&o.eng===i?1.18:1)*.25*(.8+.4*Math.random());
+      let dmg=q[i]*noise[i]*(rd===0&&o.eng===i?1.18*(side[i][0]?lvCm(side[i][0].P.s,'eng'):1):1)*.25*(.8+.4*Math.random());
       if(flee[j])dmg*=.5;
       let guard=0;
       while(dmg>.01&&guard++<12){
@@ -2605,7 +3155,7 @@ function lvObjDone(s,k){
   const sec=LV.sec,tn=lvTeamNm(s),S2=LV.st[s],o=lvOpp(s);LV.at=null;
   lvLive(s).forEach(P=>{P.gt+=k==='b'?300:k==='g'?60:k==='e'?250:150;P.xp+=k==='b'?400:120});
   if(k==='g'){
-    S2.g=(S2.g||0)+3;LV.gr[s]+=3;LV.ob.g.n=0;LV.ob.g.w++;
+    S2.g=(S2.g||0)+3;LV.gb[s]+=3;LV.ob.g.n=0;LV.ob.g.w++;
     lvSay(`${tn} derruba as larvas do Vazio e acumula os buffs de torre.`,s,'obj');
     const nx=LVCFG.grubs[LV.ob.g.w];
     if(nx!==undefined&&nx<LVCFG.grubsEnd){LV.ob.g.n=3;LV.ob.g.up=nx;LV.dn.h=nx}else LV.dn.h=LV.ob.h.up;
@@ -2614,8 +3164,9 @@ function lvObjDone(s,k){
     lvSay(`${tn} derruba o Arauto e se prepara para usá-lo numa rota.`,s,'obj');
   }else if(k==='d'){
     S2.d++;LV.dn.d=sec+LVCFG.dragonRe;
-    lvSay(`${tn} garante o dragão (${S2.d}º).`,s,'obj');
-    if(S2.d===4){LV.soul[s]=true;LV.dn.d=sec+LVCFG.elderRe;lvSay(`${tn} conquista a ALMA DO DRAGÃO! Bônus permanente pelo resto do mapa.`,s,'obj')}
+    const dy=pick(DRT);LV.dt[s][dy[0]]=lvDrN(s,dy[0])+1;
+    lvSay(`${tn} garante o dragão ${dy[1]} (${S2.d}º).`,s,'obj');
+    if(S2.d===4){LV.soul[s]=true;LV.dst[s]=dy[0];LV.dn.d=sec+LVCFG.elderRe;lvSay(`${tn} conquista a ALMA DO DRAGÃO! Bônus permanente pelo resto do mapa.`,s,'obj')}
   }else if(k==='e'){
     S2.e=(S2.e||0)+1;LV.dn.d=sec+LVCFG.elderRe;LV.elder={s,until:sec+160};
     lvSay(`${tn} derrota o Dragão Ancião! Quem fica abaixo da vida é executado nas lutas.`,s,'obj');
@@ -2681,12 +3232,13 @@ function lvPlan(s){
     if(w.length<2)return;
     const att=LV.at&&LV.at.k===ob.k?LV.at:null;
     let V=LVOBV[ob.k]*(1+(st.obj||0));if(ob.k==='d'&&LV.st[s].d===3)V+=.12;if(ob.k==='b'&&a.gd<-2500)V+=.15;
+    {const pr0=(LV.ln[ob.k==='d'||ob.k==='e'?'bot':'top'].u-.5)*(lvBlue(s)?1:-1);V*=1+.4*clamp(pr0*2,-1,1)}
     const nF=w.length>=need?1:.25+w.length/need*.35;
     const etaMe=w.reduce((x,P)=>x+lvEta(P,ob.x,ob.y),0)/w.length;
     const et=lvLive(o).filter(P=>P.hp>.3),etaOp=et.length?et.reduce((x,P)=>x+lvEta(P,ob.x,ob.y),0)/et.length:99;
     const near=et.filter(P=>lvD(P.x,P.y,ob.x,ob.y)<22&&lvSees(s,P.x,P.y)).length;
     const hpF=.6+.4*(w.reduce((x,P)=>x+P.hp,0)/w.length);
-    const reach=clamp(.5+(etaOp-etaMe)/45,.2,1);
+    const jgm=lvLive(s).find(P=>P.r===1),reach=clamp(.5+(etaOp-etaMe)/45+.08*(jgm?jgm.jk:0),.2,1);
     const jg=lvLive(o).find(P=>P.r===1),jk=jg&&lvSees(s,jg.x,jg.y)&&lvD(jg.x,jg.y,ob.x,ob.y)<30?.82:1;
     const prw=lvSum(w)/Math.max(lvSum(et.filter(P=>lvD(P.x,P.y,ob.x,ob.y)<30||!lvSees(s,P.x,P.y)))*.8+lvSum(et)*.2,.3);
     let F=nF*hpF*reach*jk*clamp(.55+.45*(prw-.7),.2,1.15)*(1-.14*near);
@@ -2747,7 +3299,7 @@ function lvPlan(s){
     const far=!jg||(known&&lvD(jg.x,jg.y,...(lvBlue(s)?[75,30]:[25,70]))>40);
     if(far&&!LV.ev.noinv){
       const w=lvLive(s).filter(P=>P.r!==0&&P.hp>.55&&P.go.k!=='retreat'&&P.rc<=0);
-      if(w.length>=3)C.push({key:'iv',k:'invade',sc:(.3+st.inv*.8+.15*clamp(a.n-a.no,0,2)+(a.gd>1500?.12:0))*(mn<12?1:.8),w})}
+      if(w.length>=3)C.push({key:'iv',k:'invade',sc:(.3+st.inv*.8+.15*clamp(a.n-a.no,0,2)+(a.gd>1500?.12:0)+.12*LV.pp[s][1].jk*(LV.cm[lvBlue(s)?'r':'b'].filter(t=>t<=sec).length/6))*(mn<12?1:.8),w})}
   }
   /* caça: jogador rival isolado e visível */
   if(mn>=5&&a.n>=3){
@@ -2815,7 +3367,7 @@ function lvInvadeGo(P,g){
   /* escolhe a metade da selva rival onde está o jungle rival menos provável */
   const jg=lvLive(lvOpp(s)).find(q=>q.r===1);
   let ix=[0,1,2,3,4,5].filter(i=>cm[i]<=LV.sec);if(!ix.length)ix=[0,1,2,3,4,5];
-  if(!g.ci||!ix.includes(g.ci))g.ci=lvWp(ix,i=>1/(1+(jg&&lvSees(s,jg.x,jg.y)?lvD(jg.x,jg.y,lvNavInit().N[lvNavInit().K['j'+(base+i)]][0],lvNavInit().N[lvNavInit().K['j'+(base+i)]][1])*-.01+.3:0)));
+  if(g.ci==null||!ix.includes(g.ci))g.ci=lvWp(ix,i=>(JGC[i].v+.4)/(1+(jg&&lvSees(s,jg.x,jg.y)?lvD(jg.x,jg.y,lvNavInit().N[lvNavInit().K['j'+(base+i)]][0],lvNavInit().N[lvNavInit().K['j'+(base+i)]][1])*-.01+.3:0)));
   const p=lvNavInit().N[lvNavInit().K['j'+(base+g.ci)]];
   lvGo(P,'invade',p[0]+(P.r-2)*.7,p[1]+(P.r-2)*.5);
 }
@@ -2932,10 +3484,10 @@ function lvJungle(P){
   /* limpando um acampamento */
   if(P.cl){
     if(P.cl.t>sec){P.st='clear';P.go.k='clear';return}
-    P.gt+=62;P.cs+=1;cm[P.cl.i]=sec+LVCFG.camp;P.cl=null;
+    lvCampDone(P);
   }
   /* decide: gank? objetivo se aproximando? */
-  const cleared=cm.filter(t=>t>0).length;
+  const cleared=LV.jc[s].cl;
   if(mn>=2.7&&cleared>=3&&P.hp>.45){
     const sc=LVL.map(l=>({l,v:lvGankScore(s,l,P)})).sort((a,b)=>b.v-a.v)[0];
     const thr=.48-st.gank*.25;
@@ -2946,12 +3498,23 @@ function lvJungle(P){
       lvJungle(P);return;
     }
   }
-  /* próximo acampamento disponível */
-  let best=-1,bd=1e9;
-  for(let i=0;i<6;i++){if(cm[i]>sec)continue;const p=G.N[G.K['j'+(off+i)]],d=lvLen(P.x,P.y,p[0],p[1]);if(d<bd){bd=d;best=i}}
-  if(best>=0){
-    const p=G.N[G.K['j'+(off+best)]];lvGo(P,'clear',p[0],p[1]);
-    if(lvAt(P,p[0],p[1],3)){P.cl={t:sec+10+Math.random()*4,i:best}}
+  /* próximo acampamento: quem lê melhor os tempos chega quando ele nasce e perde menos tempo andando à toa */
+  let best=null,bs=1e9;
+  const wmax=sec<100?95:10+22*P.jk,cand=[];
+  for(let i=0;i<6;i++)cand.push({i,n:'j'+(off+i),v:JGC[i].v,rd:cm[i]});
+  if(sec>=JGS.sp&&cleared>=3)LV.cr.forEach((t,k)=>cand.push({i:6+k,n:JGS.nodes[k],v:.45,rd:t}));
+  cand.forEach(c=>{
+    const p=G.N[G.K[c.n]],tt=lvLen(P.x,P.y,p[0],p[1])/LVCFG.spd,rd=c.rd-sec+(1-P.jk)*(Math.random()-.5)*14,wt=Math.max(0,rd-tt);
+    if(wt>wmax)return;
+    const sc=tt+wt*1.1-c.v*7+(mn<4&&c.i<6&&JGC[c.i].bf?-3:0);
+    if(sc<bs){bs=sc;best=c}
+  });
+  if(best){
+    const p=G.N[G.K[best.n]];lvGo(P,'clear',p[0],p[1]);
+    if(lvAt(P,p[0],p[1],3)&&best.rd<=sec){
+      const cl=best.i<6?JGC[best.i].cl:JGS.cl,spd=(P.cd?P.cd.cl:1)*(.92+.16*P.jk)*(1+.012*(P.lv-1));
+      P.cl={t:sec+cl*(1+.5/P.lv)/spd+Math.random()*2,i:best.i};
+    }
     return;
   }
   /* tudo na espera: controla o rio com visão e acompanha a wave do meio */
@@ -3073,7 +3636,8 @@ function lvSecond(dt){
   }));
   lvWave(dt);
   /* o jungle conclui o acampamento sem depender do ciclo */
-  ['me','op'].forEach(s=>{const P=LV.pp[s][1];if(!lvIsDead(P)&&P.cl&&P.cl.t<=sec&&P.bz<=sec){const bl=lvBlue(s),cm=LV.cm[bl?'b':'r'];P.gt+=62;P.cs+=1;cm[P.cl.i]=sec+LVCFG.camp;P.cl=null}});
+  ['me','op'].forEach(s=>{const P=LV.pp[s][1];if(!lvIsDead(P)&&P.cl&&P.cl.t<=sec&&P.bz<=sec){lvCampDone(P)}});
+  lvInvadeTick(dt);
   /* estruturas */
   lvOrd().forEach(s=>lvSiegeTick(s,dt));
   /* objetivo em andamento */
@@ -3084,6 +3648,8 @@ function lvSecond(dt){
   if(sec===LVCFG.herald&&!LV.ob.h.done){LV.ob.g.n=0;LV.dn.h=LVCFG.herald;lvSay('O Arauto do Vale nasce na toca do Barão.','sys','obj')}
   if(sec===LVCFG.heraldEnd&&!LV.ob.h.done){LV.ob.h.done=true;LV.dn.h=Infinity;LV.at=LV.at&&LV.at.k==='h'?null:LV.at}
   if(sec===LVCFG.grubs[0])lvSay('As larvas do Vazio nascem no rio superior.','sys','obj');
+  if(sec===LVCFG.grubsEnd&&LV.ob.g.n>0){LV.ob.g.n=0;LV.dn.h=LV.ob.h.up;lvSay('As larvas do Vazio desaparecem.','sys','obj')}
+  if(sec===JGS.sp)lvSay('Os Aronguejos aparecem nos dois rios.','sys','obj');
   if(sec===LVCFG.dragon)lvSay('O primeiro Dragão nasceu.','sys','obj');
   if(sec===LVCFG.baron)lvSay('O Barão Nashor nasceu.','sys','obj');
   if(sec%60===0&&LV.hd&&LV.hd.until<=sec)LV.hd=null;
@@ -3106,7 +3672,8 @@ function lvSiegeTick(s,dt){
     const hpMax=t.k==='s'?LVTWH[t.i]:t.k==='n'?LVNXH:LVNEXH;
     let dps=l.reduce((a,P)=>a+LVSP[P.r]*Math.sqrt(lvPw(P)),0);
     const w=t.k==='s'?(((LV.ln[t.ln].u-.5)*(lvBlue(s)?1:-1))>-.05?1:.7):1.1;
-    dps*=w*(1+.07*Math.min(LV.gr[s],6))*(LV.bb&&LV.bb.s===s&&LV.bb.until>sec?1.5:1)*(LV.elder&&LV.elder.s===s&&LV.elder.until>sec?1.3:1)*(1+.2*LVL.filter(L=>!LV.str[o][L][2]).length*(t.k==='s'?.5:1));
+    dps*=w*(1+.07*Math.min(LV.gb[s],6))*(LV.bb&&LV.bb.s===s&&LV.bb.until>sec?1.5:1)*(LV.elder&&LV.elder.s===s&&LV.elder.until>sec?1.3:1)*(1+.2*LVL.filter(L=>!LV.str[o][L][2]).length*(t.k==='s'?.5:1));
+    dps*=lvCm(s,'siege');
     if(sec>3000)dps*=1+(sec-3000)/300;
     const pos=lvTgtPos(s,t),hd=LV.hd&&LV.hd.s===s&&LV.hd.until>sec&&t.k==='s';
     if(hd){LV.hd=null;LV.tw[o][t.ln][t.i]-=hpMax*.5;lvSay(`${lvTeamNm(s)} usa o Arauto contra ${lvLnA(t.ln)}.`,s,'obj')}
@@ -3139,7 +3706,7 @@ function lvObjTick(dt){
   const a=LV.at,s=a.s,o=lvOpp(s);
   const dpsP=lvLive(s).filter(P=>lvD(P.x,P.y,a.x,a.y)<10&&P.bz<=sec&&(P.go.k==='obj'||P.go.k==='stage'));
   const enemies=lvLive(o).filter(P=>lvD(P.x,P.y,a.x,a.y)<10&&P.bz<=sec);
-  a.rate=dpsP.reduce((x,P)=>x+LVDPS[P.r]*Math.pow(lvPw(P),.85),0);
+  a.rate=dpsP.reduce((x,P)=>x+LVDPS[P.r]*Math.pow(lvPw(P),.85),0)*lvCm(s,'obj');
   /* o time rival percebe? */
   if(!a.seen&&lvSees(o,a.x,a.y,14)){a.seen=true;const sp=lvLive(o).find(P=>lvD(P.x,P.y,a.x,a.y)<28);if(sp)lvSay(`${lvNick(sp)} identifica a movimentação adversária.`,o,'obj')}
   if(!dpsP.length){a.prog=Math.max(0,a.prog-.01*dt);if(sec-a.t0>30&&a.prog<.05){LV.at=null}return}
@@ -3196,6 +3763,7 @@ function lvGameEnd(mine){
   LV.str[mine?'op':'me'].nex=0;
   LV.log.unshift({m:LV.sec|0,t:`${wn} destrói o Nexus! Fim do mapa ${LV.gi+1} (${LV.st.me.k}–${LV.st.op.k} em abates).`,k:'end'});
   if(mine)LV.me++;else LV.op++;
+  if(flOn(LV.m)){const pk=s=>[0,1,2,3,4].map(r=>lvChOf(s,r)||null),am=LV.us==='a';flRecord(LV.m,pk(am?'me':'op'),pk(am?'op':'me'),LV.m.bans)}
   LV.res.push(mine);LV.gi++;
   const need=Math.ceil(LV.m.n/2);
   LV.state=(LV.me>=need||LV.op>=need)?'done':'between';
@@ -3240,19 +3808,29 @@ function lvSub(name){
   t.pl[p.role]=p;m.bench[i]=old;pd(p.n).role=p.role;pd(old.n).role=p.role;
   LV.sub=true;LV.log.unshift({m:LV.sec|0,t:`Substituição: ${p.n} (OVR ${p.r}) entra no lugar de ${old.n}.`,k:'sys'});
 }
-function lvNext(){if(LV&&LV.state==='between'){lvGameStart();if(!LV.pc)lvTac('auto')}}
+function lvNext(auto){
+  if(!LV||LV.state!=='between')return;
+  if(flOn(LV.m)){LV.m.dd=0;if(dvOpen(true)){if(auto){dvAll();dvGo();lvResume()}return}}
+  lvGameStart();if(!LV.pc)lvTac('auto');
+}
+/* depois do draft do mapa seguinte: começa o jogo com os campeões escolhidos */
+function lvResume(){
+  lvGameStart();
+  if(LV.pc&&LV.m.dd&&S.pc.dr){const f=pcFind();LV.ch=S.pc.dr[f.p.role];LV.state='ckpt';LV.log.unshift({m:0,t:`Draft fechado: você joga de ${LV.ch}.`,k:'sys'})}
+  else if(!LV.pc)lvTac('auto');
+}
 function lvAll(){
   if(!LV)return;lvStop();let g=0;
   while(LV&&LV.state!=='done'&&g++<400){
     if(LV.state==='pick')lvPick(pcAuto());
     else if(LV.state==='ckpt')LV.pc?lvPosture('sf'):lvTacApply('auto');
-    else if(LV.state==='between')lvNext();
+    else if(LV.state==='between')lvNext(true);
     else if(typeof setTimeout!=='undefined'){while(LV.state==='run')lvTick()}
     else lvTick();
   }
 }
 function lvSkipPhase(){if(!LV||LV.state!=='run')return;lvStop();const cp=LV.cp,gi=LV.gi;while(LV.state==='run'&&LV.cp===cp&&LV.gi===gi)lvTick()}
-function lvDone(){lvStop();LV=null}
+function lvDone(){lvStop();if(LV&&LV.m&&LV.state!=='done'&&flOn(LV.m)){LV.m.fl=null;LV.m.dd=0}LV=null}
 function lvStList(){
   const out=[];
   ['me','op'].forEach(s=>{
@@ -3275,7 +3853,8 @@ function lvStatsHTML(){
   const bl=LV.us==='a'?'me':'op',rd=lvOpp(bl);
   const mk=s=>({k:LV.st[s].k,t:lvCnt(s,'t'),i:lvCnt(s,'i'),d:LV.st[s].d+(LV.st[s].e||0),b:LV.st[s].b,g:LV.st[s].g||0,o:LV.pp?(lvGold(s)/1000).toFixed(1)+'k':'0,0k'});
   const A=mk(bl),B=mk(rd),row=(k,l)=>`<div class="lvs"><b class="num">${A[k]}</b><small>${l}</small><b class="num">${B[k]}</b></div>`;
-  return row('k','Abates')+row('t','Torres')+row('i','Inibidores')+row('d','Dragões')+row('g','Larvas')+row('b','Arauto/Barão')+row('o','Ouro');
+  const J=s=>LV.jc?LV.jc[s]:{cl:0,st:0,bf:0,cr:0};A.c=J(bl).cl+J(bl).cr;B.c=J(rd).cl+J(rd).cr;A.r=J(bl).st;B.r=J(rd).st;A.f=J(bl).bf;B.f=J(rd).bf;
+  return row('k','Abates')+row('t','Torres')+row('i','Inibidores')+row('d','Dragões')+row('g','Larvas')+row('b','Arauto/Barão')+row('o','Ouro')+row('c','Acampamentos')+row('r','Camps roubados')+row('f','Buffs da selva')+`<div class="lvs"><button class="mini sell" data-act="lvJg">${LV.jgOpen?'Esconder tempos da selva':'Ver tempos da selva'}</button></div>`+(LV.jgOpen?lvJgHTML():'');
 }
 function lvKdaTot(s){const t=LV.kd[s].reduce((a,x)=>({k:a.k+x.k,d:a.d+x.d,a:a.a+x.a}),{k:0,d:0,a:0});return `${t.k}/${t.d}/${t.a}`}
 function lvKdaRows(s){
@@ -3355,7 +3934,7 @@ function vLive(){
     const cp=LV.cp,p=Math.round(lvP()*100);
     ctl=`<section class="dvpool"><p class="lvq"><b>${LVPH[cp]}</b> · chance neste mapa: <b class="num">${p}%</b></p><p class="note" style="margin:0 0 8px">Escolha a instrução para esta fase. Agressivo rende no começo e cobra no fim; Controle faz o contrário. Equilibrado perde para Agressivo, Agressivo perde para Controle, Controle perde para Equilibrado.${m.hint&&cp===0?' Dica do analista: rival tende a '+planName(m.hint)+'.':''}</p>${lvRecHTML(lvRec())}<div class="lvtac">${LVT3.map(([k,l])=>`<button class="cc${lvRec().k===k?' rec':''}" data-act="lvTac" data-v="${k}"><b>${l}</b><small>${k==='ag'?'+início, −fim':k==='co'?'−início, +fim':'neutro'}</small></button>`).join('')}</div>${subs}</section>`;
   }else if(LV.state==='run')ctl=`<section class="dvpool wait"><div class="dvw"><i></i><i></i><i></i></div><p>${ph}${!LV.pc&&LV.tac?' · o time joga '+planName(LV.tac):''}</p><div class="lvbtn"><button class="ghost" data-act="lvSkip">Pular fase</button></div></section>`;
-  else if(LV.state==='between')ctl=`<section class="dvpool"><p class="lvq">Mapa ${LV.gi} ${LV.res[LV.res.length-1]?'<b style="color:#00F5A0">vencido</b>':'<b style="color:#FF5C8A">perdido</b>'}. Série ${sA}–${sB}.</p>${subs}<div class="lvbtn"><button class="play" data-act="lvNext">Próximo mapa</button></div></section>`;
+  else if(LV.state==='between')ctl=`<section class="dvpool"><p class="lvq">Mapa ${LV.gi} ${LV.res[LV.res.length-1]?'<b style="color:#00F5A0">vencido</b>':'<b style="color:#FF5C8A">perdido</b>'}. Série ${sA}–${sB}.</p>${subs}<div class="lvbtn"><button class="play" data-act="lvNext">${flOn(LV.m)?'Draft do próximo mapa':'Próximo mapa'}</button></div></section>${flPanel(LV.m)}`;
   else ctl=`<section class="dvpool"><p class="lvq">Série encerrada: <b class="num">${sA}–${sB}</b> · ${LV.me>LV.op?'<b style="color:#00F5A0">vitória</b>':'<b style="color:#FF5C8A">derrota</b>'}</p><div class="lvbtn"><button class="play" data-act="lvDone">Continuar</button></div></section>`;
   if(LV.pc)ctl=pcLiveCtl(sA,sB);
   const bottom=LV.state==='done'?'':`<div class="lvbt"><button class="ghost" data-act="lvAll">Simular o resto</button><button class="ghost" data-act="lvX">Voltar</button></div>`;
@@ -3762,7 +4341,7 @@ function pcLiveCtl(sA,sB){
   }
   if(LV.state==='run')return `<section class="dvpool wait"><div class="dvw"><i></i><i></i><i></i></div><p>${LVPH[Math.min(LV.cp,2)]}</p><div class="lvbtn"><button class="ghost" data-act="lvSkip">Pular fase</button></div></section>`;
   const gl=LV.gr.map((x,i)=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr) auto"><span class="hx t${tier(Math.round(x.rt*10))} sm">${String(x.rt).replace('.',',')}</span><span class="who"><b>Mapa ${i+1} · ${esc(x.c)}</b><small>${x.k}/${x.d}/${x.a} · ${x.win?'vitória':'derrota'}</small></span></div>`).join('');
-  if(LV.state==='between')return `<section class="dvpool"><p class="lvq">Série ${sA}–${sB}.</p>${gl}<div class="lvbtn"><button class="play" data-act="lvNext">Próximo mapa</button></div></section>`;
+  if(LV.state==='between')return `<section class="dvpool"><p class="lvq">Série ${sA}–${sB}.</p>${gl}<div class="lvbtn"><button class="play" data-act="lvNext">${flOn(LV.m)?'Draft do próximo mapa':'Próximo mapa'}</button></div></section>${flPanel(LV.m)}`;
   const avg=r1(LV.gr.reduce((s,x)=>s+x.rt,0)/LV.gr.length);
   return `<section class="dvpool"><p class="lvq">Série encerrada: <b class="num">${sA}–${sB}</b> · ${LV.me>LV.op?'<b style="color:#00F5A0">vitória</b>':'<b style="color:#FF5C8A">derrota</b>'} · sua nota média <b class="num">${String(avg).replace('.',',')}</b></p>${gl}<div class="lvbtn"><button class="play" data-act="lvDone">Continuar</button></div></section>`;
 }
@@ -3790,11 +4369,11 @@ function inicioHTML(t,m){
   h+=left<=0?`<div class="playw"><button class="play" data-act="step">${dvNeeded()?'Jogar':sp?spBtn(sp):cur?(cur.k==='s1'||cur.k==='s2')?'Iniciar '+cur.l+' jogo a jogo':cur.b:'Abrir temporada '+(S.year+1)}</button></div>`
     :`<div class="dbtn"><button class="ghost" data-act="day" data-v="1">+1 dia</button><button class="ghost" data-act="day" data-v="7">+1 semana</button><button class="play sm" data-act="dayTo">Simular até o jogo</button></div>`;
   h+=`</section>`;
-  h=evHTML(m)+h+(draftOn()?'':planHTML(m));
+  h=evHTML(m)+cevHTML(m)+h+(draftOn()?'':planHTML(m));
   h+=`<section class="pn"><div class="rowc"><h2 style="margin:0">Escalação</h2><span class="chem"><small>Entrosamento</small><b class="num">${chem(t)}</b></span></div>${pitchHTML(t)}<p class="note" style="margin:6px 0 0">Entrosamento: jogadores do mesmo país e do mesmo continente se entendem melhor. Reservas e vendas ficam na aba Elenco.</p></section>`;
   h+=staffHTML(m);
   let h2='';
-  h2+=`<section class="pn"><h2>Clima do clube</h2><div class="kv"><div><small>Moral do elenco</small><b class="num">${Math.round(m.mor)}</b></div><div><small>Reputação</small><b class="num">${Math.round(m.rep)}</b></div><div><small>Confiança</small><b class="num">${m.sat}%</b></div></div><p class="note" style="margin:6px 0 0">Moral sobe com vitórias e treino mental e cai com derrotas; ela mexe um pouco nas chances. A reputação define que clubes aceitam você se for demitido.</p></section>`;
+  h2+=`<section class="pn"><h2>Clima do clube</h2><div class="kv"><div><small>Moral do elenco</small><b class="num">${Math.round(m.mor)}</b></div><div><small>Reputação</small><b class="num">${Math.round(m.rep)}</b></div><div><small>Confiança</small><b class="num">${m.sat}%</b></div><div><small>Preparação</small><b class="num">${Math.round((m.prep||0)*100)}</b></div><div><small>Fadiga</small><b class="num">${Math.round(m.fat||0)}</b></div></div><p class="note" style="margin:6px 0 0">Moral sobe com vitórias e treino mental e cai com derrotas; ela mexe um pouco nas chances. A reputação define que clubes aceitam você se for demitido.</p></section>`;
   h2+=trHTML(t,m);
   const fo=m.focus||'eq';
   h+=`<section class="pn"><h2>Foco de treino</h2><div class="pills" style="margin-bottom:6px">${FOCUS.map(([k,l])=>`<button class="pill" aria-pressed="${fo===k}" data-act="focus" data-v="${k}">${l}</button>`).join('')}</div><p class="note" style="margin:0">${FOCUS.find(x=>x[0]===fo)[2]} Vale na virada de ano.</p></section>`;
@@ -4109,6 +4688,8 @@ function aiTransfers(){
 }
 function nextSeason(){
   if(mgrT())mgrSeasonEnd();
+  if(S.mgr){S.mgr.prep=0;S.mgr.fat=0;S.mgr.rx={};S.mgr.kn={};S.mgr.sy=(S.mgr.sy||0)*.5}
+  ALLT().forEach(t=>{t.pr=0});
   const mid=S.mgr&&S.mgr.tid!=null?S.mgr.tid:-1;
   const off=[],moved=new Set(),delta=[];
   ALLT().forEach(t=>{
@@ -4212,7 +4793,7 @@ function step(){
 
 /* ---------- calendário dia a dia ---------- */
 const MES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'],MESF=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],MDN=[31,28,31,30,31,30,31,31,30,31,30,31],DSEM=['dom','seg','ter','qua','qui','sex','sáb'];
-const CAL={s1:20,m0:172,m1:178,m2:184,s2:200,wq:311,ws:317,wf:324,aw:332,cg1:337,cg2:341,cg3:345,ck1:349,ck2:352,ck3:356,ck4:360},SPG={s1:6,s2:4};
+const CAL={s1:35,m0:172,m1:178,m2:184,s2:192,wq:311,ws:317,wf:324,aw:332,cg1:337,cg2:341,cg3:345,ck1:349,ck2:352,ck3:356,ck4:360},SPG={s1:8,s2:6};
 function dmy(d){let m=0;d=Math.max(1,Math.min(365,d));while(d>MDN[m]){d-=MDN[m];m++}return{d,m}}
 const dTxt=d=>{const x=dmy(d);return `${x.d} ${MES[x.m]}`};
 const dWk=d=>{const x=dmy(d);return DSEM[new Date(Date.UTC(S.year,x.m,x.d)).getUTCDay()]};
@@ -4262,8 +4843,9 @@ function dayTick(){
 }
 function advDay(n){
   let k=0;
-  while(k<n&&dayNow()<evDay()){S.day++;dayTick();k++}
-  if(!k&&dayNow()>=evDay())msg='Hoje é dia de jogo.';
+  while(k<n&&dayNow()<evDay()){if(cevBlock())break;S.day++;dayTick();cevTick();k++}
+  if(!k&&cevBlock())msg='Há um evento do calendário esperando sua decisão (veja o Início).';
+  else if(!k&&dayNow()>=evDay())msg='Hoje é dia de jogo.';
   return k;
 }
 function calHTML(cur){
@@ -4279,11 +4861,13 @@ function calHTML(cur){
   const f=new Date(Date.UTC(S.year,x.m,1)).getUTCDay(),n=MDN[x.m];
   let base=0;for(let i=0;i<x.m;i++)base+=MDN[i];
   const evs={};for(let i=S.phase;i<PHASES.length;i++){const d=phDay(i,i===S.phase);if(d>base&&d<=base+n&&!evs[d-base])evs[d-base]=PHASES[i].l}
+  cevL().forEach(e=>{const c=CEVT[e.id];if(c.d0>base&&c.d0<=base+n&&!evs[c.d0-base]&&(e.st===0||e.st===1))evs[c.d0-base]=c.n})
   const cells=[];for(let i=0;i<f;i++)cells.push('<i></i>');
   for(let d=1;d<=n;d++)cells.push(`<span class="cd${d===x.d?' td':''}${evs[d]?' ev':''}${base+d<td?' past':''}" ${evs[d]?`title="${esc(evs[d])}"`:''}>${d}</span>`);
   h+=`<div class="cgrid"><div class="chd">${DSEM.map(s=>`<b>${s}</b>`).join('')}</div><div class="cbd">${cells.join('')}</div></div>`;
   /* agenda */
   const ag=[];for(let i=S.phase;i<PHASES.length&&ag.length<5;i++){const p=PHASES[i];if(!p)break;ag.push({d:phDay(i,i===S.phase),l:(i===S.phase&&S.season.sp)?spLabel(S.season.sp):p.l})}
+  cevL().forEach(e=>{const c=CEVT[e.id];if((e.st===0||e.st===1)&&c.d1>=td&&(!S.mgr||cevElig(e,mgrT())))ag.push({d:c.d0,l:c.n})});ag.sort((a,b)=>a.d-b.d);ag.length=Math.min(ag.length,7);
   h+=`<ul class="agenda">${ag.map(a=>`<li><span class="num">${dTxt(a.d)}</span><span>${esc(a.l)}</span></li>`).join('')}</ul></section>`;
   return h;
 }
@@ -4575,7 +5159,7 @@ const crest=(t,c='')=>{
   const o=`<path d="${P}" fill="${A}"/><g clip-path="url(#${id})">${mo}</g><path d="${P}" fill="none" stroke="${B}" stroke-width="6"/><path d="${P}" fill="none" stroke="rgba(0,0,0,.4)" stroke-width="1.5" transform="translate(50 58) scale(.88) translate(-50 -58)"/><text x="50" y="${k===2?72:68}" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-weight="800" font-size="${fs}" fill="${tc}" stroke="${sk}" stroke-width="3.5" paint-order="stroke" letter-spacing="1">${esc(tx)}</text>`;
   return `<span class="shield ${c}" aria-hidden="true"><svg viewBox="0 0 100 118"><defs><clipPath id="${id}"><path d="${P}"/></clipPath></defs>${o}</svg></span>`};
 const AVA='<svg viewBox="0 0 80 96"><circle cx="40" cy="28" r="20"/><path d="M4 96C4 66 20 54 40 54S76 66 76 96Z"/></svg>';
-/*PHOTOS*/const PHOTOS=new Set(["about","ackerman","aiming","andil","aria","artemis","bdd","betty","bie","bin","blaber","boal","boukada","breathe","brokenblade","burdol","busio","bvoy","caliste","callme","canna","canyon","caps","career","cariok","carzzy","casting","chika","chovy","clear","clozer","contractz","corejj","creme","crisp","cryogen","cuzz","daglas","darkwings","delight","deokdam","dhokla","diable","dire","doggo","doran","draktharr","dudu","duro","eddie","effort","elk","elyoya","evi","exyu","faker","fbi","fiesta","fisher","flakked","flauren","fleshy","fudge","gakgos","gala","gideon","gloryy","gryffinn","gumayusi","gury","guwon","hambak","hanssama","harky","hizto","hongq","hongsuo","huhi","ignar","impact","inspired","isles","isma","jackeylove","jackies","jiaqi","jiwoo","jojo","jojopyun","jopa","josedeodo","jun","junjia","kael","kaiwing","kanavi","karis","kaze","kellin","keria","kiaya","kiin","kingen","knight","kratos","kryra","kyeahoo","labrov","lehends","loki","lospa","lucid","lyncas","lyonz","marble","massu","maynter","meiko","mikyx","morgan","myrwn","naaknako","namgung","nuc","on","oner","oscarinin","paduck","palafox","parus","perfect","peyz","poby","pout","pun","pyosik","quad","quid","rahel","raptor","razork","rest","rhilech","roamer","rookie","rooster","ruler","saint","sajed","samd","scout","serin","shanks","shiauc","showmaker","siuloong","siwoo","skeanz","skewmond","slowq","smash","soboro","sponge","srtty","supa","tactical","taeyoon","taki","tarzan","teddy","thanatos","theshy","tian","tracyn","trymbi","tutsz","ucal","uniboy","upset","vampire","vicla","vladi","vsta","vulcan","wei","weiwei","willer","woody","wunder","xiaohu","xiaoxu","xun","yeon","yike","zeka","zeus","zeyzal","zhuo","zika","zinie","zuian"]);
+/*PHOTOS*/const PHOTOS=new Set(["1jiang","ablazeolive","about","ackerman","aegis","aiming","andil","aria","artemis","ayu","bao","baus","bdd","betty","bie","bin","blaber","bluffing","boal","booki","boukada","brance","breathe","breezy","brokenblade","bruce","burdol","busio","bvoy","bwipo","caliste","callme","canna","canyon","caps","career","cariok","carlsen","carzzy","casting","ceo","ceos","chika","chovy","citrus","clear","cloud","clozer","cody","contractz","corejj","courage","creme","crisp","crownie","cryogen","cuzz","cypher","daglas","darkwings","dash","delicate","delight","deokdam","devost","dhokla","diable","dire","disamis","doggo","doran","drakehero","draktharr","dudu","duduhh","duro","eddie","effort","elio","elk","ellim","elyoya","enga","envy","evi","exyu","faker","fbi","feisty","fenrir","fiesta","finn","fisher","flakked","flauren","fleshy","fudge","fuuu","gakgos","gala","gideon","gloryy","grevthar","gryffinn","guigo","guigs","gumayusi","gury","guti","guwon","haetae","hambak","hanssama","harky","hena","hidan","hizto","hongq","hongsuo","huhi","husha","ignar","impact","inspired","isles","isma","jackeylove","jackies","jaehyuk","jiaqi","jiwoo","jojo","jojopyun","jool","jopa","josedeodo","jun","junjia","kael","kaiwing","kakkun","kamiloo","kanavi","karis","kaze","kellin","keria","kiari","kiaya","kiin","kingen","kisee","kisno","knight","kog","kratos","kryra","kryze","kyeahoo","labrov","lazyfeel","lehends","leleko","leza","loki","loopy","lospa","lucid","lyncas","lyonz","makes","marble","marvin","massu","maynter","meiko","mikyx","minous","mireu","mnm","mobility","momo","momochi","morgan","morttheus","myrwn","naaknako","namgung","nemesis","netuno","nuc","oddie","on","oner","only35","oscarinin","paduck","painter","palafox","parus","peach","perfect","peyz","philip","piero","pilot","poby","pout","pun","pyeonsik","pyosik","quad","quid","rabelo","rahel","raptor","razork","rekkles","rest","rhilech","roamer","rookie","rooster","ruler","rym","saint","sajed","samd","scamber","scary","scout","serin","sero","shanks","shiauc","showmaker","siuloong","siwoo","skeanz","skewmond","slowq","smash","soboro","solid","spawn","spica","sponge","srtty","stepz","supa","sylvie","tactical","taeyoon","taki","tao","tarzan","tatu","teddy","thanatos","thayger","theshy","tian","tracyn","trymbi","tutsz","tyrin","ucal","uniboy","upset","uzent","vampire","velja","vicla","vladi","vsta","vulcan","wei","weiwei","willer","winner","woody","wunder","xiaohu","xiaoxu","xun","xyno","yeon","yike","young","yukino","zamudo","zeka","zeus","zeyzal","zhuo","zicssi","zika","zinie","zoelys","zothve","zuian","zynts"]);
 const phSlug=n=>String(n).toLowerCase().replace(/[^a-z0-9]/g,'');
 const phHas=n=>PHOTOS.has(phSlug(n));
 const phImg=n=>`<img src="jogadores/${phSlug(n)}.webp" alt="" loading="lazy" decoding="async" draggable="false">`;
@@ -4797,6 +5381,7 @@ function calGrid(){
   const td=dayNow(),x=dmy(td),f=new Date(Date.UTC(S.year,x.m,1)).getUTCDay(),n=MDN[x.m];
   let base=0;for(let i=0;i<x.m;i++)base+=MDN[i];
   const evs={};for(let i=S.phase;i<PHASES.length;i++){const d=phDay(i,i===S.phase);if(d>base&&d<=base+n&&!evs[d-base])evs[d-base]=PHASES[i].l}
+  cevL().forEach(e=>{const c=CEVT[e.id];if(c.d0>base&&c.d0<=base+n&&!evs[c.d0-base]&&(e.st===0||e.st===1))evs[c.d0-base]=c.n});
   const cells=[];for(let i=0;i<f;i++)cells.push('<i></i>');
   for(let d=1;d<=n;d++)cells.push(`<span class="cd${d===x.d?' td':''}${evs[d]?' ev':''}${base+d<td?' past':''}" ${evs[d]?`title="${esc(evs[d])}"`:''}>${d}</span>`);
   return `<div class="cgrid"><div class="chd">${DSEM.map(s=>`<b>${s}</b>`).join('')}</div><div class="cbd">${cells.join('')}</div></div>`;
@@ -5381,15 +5966,15 @@ function act(a,v){
   let top=false;
   if(a==='tab'){detT='';tab=v;askReset=false;askEnd=false;lastPlayed=null;prof=null;pstack=[]}
   else if(a==='step'){detT='';if(daysLeft()>0){msg='Ainda não é dia de jogo. Avance o calendário.'}else if(dvNeeded()&&(dvOpen(),dvAll(),dvGo(),!lvNeeded())){step();sndAfter();save();top=true}else if(lvNeeded()){lvOpen();top=true}else{step();sndAfter();save();top=true}}
-  else if(a==='dvBan'||a==='dvPick'){if(DV){const [r,c]=String(v).split('|'),t=SEQ[DV.i];if(t&&t[1]===DV.us&&!dvTaken(c)){
+  else if(a==='dvBan'||a==='dvPick'){if(DV){const [r,c]=String(v).split('|'),t=SEQ[DV.i];if(t&&t[1]===DV.us&&!dvTaken(c)&&!(a==='dvPick'&&dvLk(c,DV.us))){
     if(a==='dvBan'&&t[0]==='ban'){DV.bans[DV.us].push(c);DV.i++;dvAdv()}
     else if(a==='dvPick'&&t[0]==='pick'&&!DV.pk[DV.us][+r]&&(!DV.pc||+r===DV.prole)){DV.pk[DV.us][+r]=c;DV.i++;dvAdv()}}}}
   else if(a==='dvRole'){if(DV)DV.role=+v}
   else if(a==='dvAuto'){if(DV&&DV.i<SEQ.length&&SEQ[DV.i][1]===DV.us){dvAI();dvAdv()}}
   else if(a==='dvAll'){if(DV)dvAll()}
   else if(a==='dvX'){clearTimeout(DVT);DV=null}
-  else if(a==='dvGo'){if(DV&&DV.done){dvGo();if(lvNeeded())lvOpen();else step();sndAfter();save();top=true}}
-  else if(a==='lvTac'){if(LV&&LV.pc)lvPosture(v);else lvTac(v)}else if(a==='lvPick'){lvPick(v)}else if(a==='lvSub'){lvSub(v);save()}else if(a==='lvNext'){lvNext()}else if(a==='lvSkip'){lvSkipPhase()}else if(a==='lvAll'){lvAll()}else if(a==='lvX'){lvDone()}else if(a==='lvSpd'){S.opt=S.opt||{};S.opt.lvs=+v===30?30:20;save();render()}
+  else if(a==='dvGo'){if(DV&&DV.done){const lvc=DV.lv;dvGo();if(lvc)lvResume();else if(lvNeeded())lvOpen();else step();sndAfter();save();top=true}}
+  else if(a==='lvTac'){if(LV&&LV.pc)lvPosture(v);else lvTac(v)}else if(a==='lvPick'){lvPick(v)}else if(a==='lvSub'){lvSub(v);save()}else if(a==='lvNext'){lvNext()}else if(a==='lvSkip'){lvSkipPhase()}else if(a==='lvJg'){if(LV)LV.jgOpen=!LV.jgOpen}else if(a==='cevCfg'){cevCfg(v)}else if(a==='cevPs'){cevPs(v)}else if(a==='cevGo'){cevGo(v);save()}else if(a==='cevSkip'){cevSkip(v);save()}else if(a==='cevEnd'){cevEnd(v);save()}else if(a==='cevDest'){cevDest(v)}else if(a==='lvAll'){lvAll()}else if(a==='lvX'){lvDone()}else if(a==='lvSpd'){S.opt=S.opt||{};S.opt.lvs=+v===30?30:20;save();render()}
   else if(a==='lvDone'){if(LV&&LV.state==='done'){if(LV.pc)pcMatchEnd();lvDone();step();sndAfter();save();top=true}}
   else if(a==='liveOpt'){S.opt=S.opt||{};S.opt.live=+v;save()}
   else if(a==='day'){advDay(+v);save()}

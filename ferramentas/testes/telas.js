@@ -1,0 +1,14 @@
+const {load,run}=require('./harness.js');
+const ctx=load(require('path').join(__dirname,'..','..','index.html'));
+run(ctx,`S.opt=S.opt||{};S.opt.draft=1;S.opt.live=1;var __M=null;mgrMatch=function(){return __M};S.mgr={tid:3,dr:null,bench:[],acad:[],cash:30,mor:60,rep:50,sat:60,fa:[],offers:[],log:[],focus:'eq'};mEnsure();`);
+const chk=(l)=>{try{const h=run(ctx,l);console.log('ok',l.slice(0,60),String(h).length)}catch(e){console.log('ERRO',l.slice(0,60),e.message)}};
+run(ctx,`__M={a:3,b:40,n:5,res:null};dvOpen();`);
+chk('vDraft()');
+run(ctx,`dvAll();`);chk('vDraft()');
+run(ctx,`dvGo();lvOpen();lvTacApply('auto');for(var i=0;i<400;i++)lvTick(5);`);
+chk('vLive()');chk('lvStatsHTML()');run(ctx,'LV.jgOpen=true');chk('lvStatsHTML()');
+run(ctx,`while(LV.state==='run')lvTick(5);`);chk('vLive()');
+console.log(run(ctx,`LV.state+' '+LV.gi+' '+flPanel(LV.m).replace(/<[^>]+>/g,' ').slice(0,200)`));
+run(ctx,`lvNext();`);chk('vDraft()');chk('flDraftBar()');
+run(ctx,`S.day=4;S.phase=0;`);chk('cevHTML(S.mgr)');chk('inicioHTML(mgrT(),S.mgr)');chk('calHTML(PHASES[0])');chk('calGrid()');
+console.log(run(ctx,`cevHTML(S.mgr).replace(/<[^>]+>/g,' ').replace(/ +/g,' ').slice(0,420)`));
