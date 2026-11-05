@@ -6,7 +6,8 @@ function log(k,v){out.push(k+': '+JSON.stringify(v))}
 log('eventos',JSON.parse(run(ctx,`JSON.stringify(cevL().map(e=>e.id+':'+CEVT[e.id].d0+'-'+CEVT[e.id].d1))`)));
 log('s1/s2/MSI',JSON.parse(run(ctx,`JSON.stringify([phDay(0,false),phDay(4,false),CAL.m0])`)));
 // duração máxima do Split 1/2 com 12 clubes
-log('fim split1 12 clubes',run(ctx,`CAL.s1+SPG.s1*(11+2)`));log('fim split2 12 clubes',run(ctx,`CAL.s2+SPG.s2*(11+2)`));
+/* o split se ajusta ao tamanho da liga e nunca passa do MSI/Mundial; eventos ficam nas folgas */
+log('fim split1 / split2 por liga (LPL tem 22 rodadas)',run(ctx,`JSON.stringify([22,18,14].map(n=>[CAL.s1+Math.max(2,Math.floor(SPB.s1/(n+2)))*(n+2),CAL.s2+Math.max(2,Math.floor(SPB.s2/(n+2)))*(n+2)]))`));
 // ciclo da pré-temporada: bloqueio, configuração, passagem de dias
 run(ctx,`S.day=1;S.phase=0`);
 let r=JSON.parse(run(ctx,`(function(){var o=[];var k=advDay(30);o.push(['dias andados',k,'dia',S.day,'bloqueado',cevBlock()]);
