@@ -332,3 +332,18 @@ Motivo: a Liquipedia não mostra o time do jogador, ou mostra outro time, então
 
 ## Sem página na Liquipedia
 EDward Gaming/JieJie, EDward Gaming/BullDoG, Ninjas in Pyjamas/HOYA, Team Heretics/Hype, Team Heretics/Way, CTBC Flying Oyster/Shad0w, CTBC Flying Oyster/KIno, SoftBank HAWKS/Van1, Deep Cross Gaming/Pop9, LOS/ZEST, Vivo Keyd Stars/ZekaS, Dplus KIA Challengers/Wayne, Hanwha Life Challengers/Panther, Weibo Gaming Youth/0909, EDG Youth/hui, EDG Youth/13day, EDG Youth/linn, EDG Youth/Jerry, WE Academy/Qingfeng, WE Academy/Tiancheng, WE Academy/Taro, WE Academy/Yuhan, LNG Academy/Hongyu, LNG Academy/Ruoxi, LNG Academy/Kaixin, LNG Academy/Muyang, LNG Academy/Tianyu, Royal Club/Zhiyuan, Royal Club/Yuting, Royal Club/Anran, Royal Club/Zhihao, Royal Club/Haotian, LGD Youth/Yishen, LGD Youth/Yushen, LGD Youth/Mires, LGD Youth/Today, AL Young/Dahai, AL Young/Tofu, AL Young/Yenru, TES Challengers/Sywjj, TES Challengers/Bolt, BLG Junior/Xiaogao, BLG Junior/Sanling, Oh My God/Zeyu, Oh My God/Xiaoke, Oh My God/Leiyu, Karmine Corp Blue/Prime, Gentle Mates/Pavlos, Gentle Mates/Ondra, Gentle Mates/Iker, Gentle Mates/Halvor, NRG/Blake, Supernova/Lucho, Supernova/Reid, Supernova/Seth, Supernova/Rowan, Dorado Gaming/Dec0y, Dorado Gaming/Hub, FENNEL/DICE, Team Gromp/Enzo, Team Gromp/Phong, Team Gromp/Wade, Team Gromp/Fadli, SN Cybercore/Kaiyuan, SN Cybercore/Rikk, SN Cybercore/Minh, SN Cybercore/Yashiro2, Saigon Dino/Dimas, Saigon Dino/Zhuoyu, Saigon Dino/Thanh, Saigon Dino/Ryo, Saigon Dino/Neil, 7REX Team/Renan, 7REX Team/Bulas, TEAM SOLID/Gordo, TEAM SOLID/Tito, TEAM SOLID/Kenzo, paiN Academy/Luan, Vivo Keyd Stars Academy/Flaco, Vivo Keyd Stars Academy/Jhow, Vivo Keyd Stars Academy/Davi
+
+
+## Revisão profunda dos times não confirmados (Leaguepedia + Liquipedia)
+
+Método: cada titular dos 56 times principais foi cruzado com a Leaguepedia (campo Team do jogador) e, quando divergia ou não havia registro, com a página do jogador na Liquipedia (foto/infobox mais recente).
+
+- Confirmados pela Leaguepedia: 239 jogadores.
+- Divergências: 23, das quais 20 são só diferença de nome do time (Bilibili Gaming = BLG, ThunderTalk Gaming = TT Gaming, Natus Vincere = NAVI, LØS = LOS, Leviatan = Leviatán). Nenhuma correção necessária.
+- Divergências reais a acompanhar (nada alterado no jogo, evidência insuficiente):
+  - Delight (Hanwha Life): a Leaguepedia retornou outro jogador homônimo (Ohio State); a Liquipedia mostra Delight na HLE (Worlds 2025). Mantido.
+  - Draktharr (GAM Esports): a Leaguepedia diz 1TAP Dino Red, a Liquipedia mostra foto da GAM na LCP Split 3 2026. Mantido.
+  - Manel (RED Canids): a Leaguepedia diz RED Academy; a Liquipedia não informa o time. Pode ser reserva/academia, manter e revisar.
+- Sem registro na Leaguepedia (18): ucal, meiko, JieJie, BullDoG, ycx, Fengyue, hans sama, jojopyun, IgNar, Sajed, Huhi, KIno, ZEST, Jojo, CarioK, ZekaS, Ceo, Scamber. Na Liquipedia, 13 têm página ativa; JieJie, BullDoG, ZekaS, KIno e ZEST continuam sem página (nick diferente ou jogador de base) e ficam como não confirmados.
+- Rosters de time da Liquipedia: só 15 de 56 foram baixados (os demais bateram no limite de requisições, 429); a comparação por jogador acima cobre a lacuna.
+- Limite: os times de segunda divisão e ligas regionais não foram cruzados nesta rodada.
