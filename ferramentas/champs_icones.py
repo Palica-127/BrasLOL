@@ -1,7 +1,7 @@
 """Baixa os ícones oficiais (Data Dragon da Riot) dos campeões que ainda não têm imagem em champs/ e
-atualiza a lista CHFILES dentro do index.html. Uso: python ferramentas/champs_icones.py
+atualiza a lista CHFILES dentro do index.html. Uso: python ferramentas/champs_icones.py [--refazer: baixa todos de novo]
 Fonte única da lista: o próprio index.html (const CHMAP = nome no jogo -> id no Data Dragon)."""
-import json, os, re, urllib.request, io
+import json, os, re, sys, urllib.request, io
 from PIL import Image
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HTML = os.path.join(RAIZ, 'index.html')
@@ -14,8 +14,10 @@ existentes = {os.path.splitext(f)[0].lower(): f for f in os.listdir(PASTA) if f.
 novos = 0
 for nome, dd in mapa.items():
     chave = nome.lower()
-    if chave in existentes:
+    if chave in existentes and '--refazer' not in sys.argv:
         continue
+    if chave in existentes and existentes[chave] != chave + '.webp':
+        os.remove(os.path.join(PASTA, existentes[chave]))
     url = f'https://ddragon.leagueoflegends.com/cdn/{ver}/img/champion/{dd}.png'
     im = Image.open(io.BytesIO(urllib.request.urlopen(url).read())).convert('RGB')
     im.save(os.path.join(PASTA, chave + '.webp'), 'WEBP', quality=88)
