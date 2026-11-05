@@ -1642,7 +1642,7 @@ function genFA(){
     const role=i%5,age=19+Math.floor(Math.random()*12);
     const r=clamp(72+Math.floor(Math.abs(g())*6)+(Math.random()<.2?5:0),72,90);
     const pot=age<=23?clamp(r+Math.floor(Math.random()*8),r,97):r;
-    const nat=pick(poolM());let n=uniqueName(nat);while(out.some(x=>x.n===n))n=uniqueName(nat);
+    const nat=pick(poolM());const n=uniqueName(nat,out.map(x=>x.n));
     out.push({n,role,r,age,pot,f:0,d:0,nat});
   }
   return out;
@@ -1755,8 +1755,7 @@ function prospect(){
   const r=clamp(Math.round(56+Math.random()*8+lv*2+g()),54,70);
   const pot=clamp(Math.round(74+Math.abs(g())*7+Math.random()*6+lv*2),r+8,96);
   const nat=pick(poolM());
-  let n=uniqueName(nat);
-  while(m.fa&&m.fa.some(x=>x.n===n)||(m.acad||[]).some(x=>x.n===n))n=uniqueName(nat);
+  const n=uniqueName(nat,(m.fa||[]).concat(m.acad||[]).map(x=>x.n));
   S.pdb[n]={role,debut:S.year+1,ret:null,seasons:[],tl:[],nat};
   return{n,role,r,pot,age,f:0,d:0,home:true};
 }
@@ -2937,7 +2936,8 @@ function lvChamp(s,r){const w=lvWho(s,r),m=w.match(/\((.*)\)$/);return m?m[1]:''
    A cada LVCFG.cyc s roda lvThink: contatos (lutas), avaliação do estado, plano de cada time (objetivo, torre, defesa, invasão, caça)
    e ordens individuais. Nenhum acontecimento é marcado por minuto: o relógio só libera objetivos e muda os pesos das decisões.
    O vencedor sai do Nexus destruído; a força de cada time vem do lvP() (ratings, draft, instrução) via LV.mm. */
-const LVCFG={cyc:4,spd:2.3,kap:.14,dragon:300,dragonRe:300,elderRe:360,grubs:[480],grubsEnd:885,herald:900,heraldEnd:1185,baron:1200,baronRe:360,inhRe:300,camp:135,cpA:600,cpB:1200,cap:4200};
+const LVEXPO=.2;/* quanto a nota do jogador pesa na força: calibrado para a taxa de vitória ao vivo acompanhar a tabela de OVR (kgNow) */
+const LVCFG={cyc:4,spd:2.3,kap:.05,dragon:300,dragonRe:300,elderRe:360,grubs:[480],grubsEnd:885,herald:900,heraldEnd:1185,baron:1200,baronRe:360,inhRe:300,camp:135,cpA:600,cpB:1200,cap:4200};
 const LVSTY={
   ag:{n:'Agressivo',agg:.30,gank:.35,roam:.30,obj:-.05,inv:.20,split:0,def:0,fight:-.12},
   ma:{n:'Macro',agg:-.05,gank:0,roam:.05,obj:.30,inv:.05,split:.25,def:.10,fight:.05},
@@ -2948,7 +2948,7 @@ const LVSTK=['ag','ma','es','ca','re'];
 const LVST={farm:'Farmando',clear:'Farmando',rot:'Rotacionando',gank:'Realizando gank',fight:'Lutando',retreat:'Recuando',recall:'Recuando',ward:'Controlando visão',stage:'Controlando visão',obj:'Fazendo objetivo',invade:'Invadindo jungle',defend:'Defendendo torre',press:'Pressionando rota',siege:'Pressionando rota',hunt:'Invadindo jungle',base:'Na base',dead:'Morto'};
 const LVRW=[.95,1,1.1,1.25,.65],LVEXP=[.85,.8,1,1.3,1.1],LVDPS=[.9,.8,1.15,1.4,.5],LVSP=[.8,.6,.85,1.2,.35],LVRCS=[.17,0,.17,.19,.035],LVXPR=[4.2,1.9,4.2,4.0,2.4];
 const LVOBN={g:'as Larvas do Vazio',h:'o Arauto',d:'o Dragão',b:'o Barão',e:'o Dragão Ancião'},LVOBT={g:70,h:110,d:100,b:190,e:210},LVOBV={g:.62,h:.66,d:.70,b:1,e:1.05};
-const LVTWH=[140,185,215],LVNXH=200,LVNEXH=260;
+const LVTWH=[110,150,170],LVNXH=160,LVNEXH=200;
 const lvOrd=()=>Math.random()<.5?['me','op']:['op','me'];
 const lvLive=s=>LV.pp[s].filter(P=>LV.kd[s][P.r].dead<=LV.sec);
 const lvIsDead=P=>LV.kd[P.s][P.r].dead>LV.sec;
@@ -3014,7 +3014,7 @@ function lvInit(){
     LV.pp[s]=[0,1,2,3,4].map(r=>{
       const p=lvTeam(s).pl[r],ch=lvChOf(s,r);
       return{s,r,x:b[0]+(r-2)*1.3+(bl?3:-3),y:b[1]+(r-2)*.9+(bl?-2:2),path:[],go:null,st:'base',hp:1,gt:500,bg:500,xp:0,lv:1,cs:0,sk:0,
-        ar:archOf(ch||''),ch:ch||'',cd:CHD[ch],bf:{bl:0,rd:0,sc:0},jk:clamp((effR(p,lvTeam(s))-62)/30,0,1),ms:ch?mastOf(p.n,ch):.5,mu:0,b0:Math.pow(effR(p,lvTeam(s))/80,2.2)*Math.exp(g()*.05),tp:r===0,tpc:0,rc:0,bz:0,bs:0,wt:60+r*7,cl:null,jx:null,rm:null,lr:0,fl:0,was:false};
+        ar:archOf(ch||''),ch:ch||'',cd:CHD[ch],bf:{bl:0,rd:0,sc:0},jk:clamp((effR(p,lvTeam(s))-62)/30,0,1),ms:ch?mastOf(p.n,ch):.5,mu:0,b0:Math.pow(effR(p,lvTeam(s))/80,LVEXPO)*Math.exp(g()*.05),tp:r===0,tpc:0,rc:0,bz:0,bs:0,wt:60+r*7,cl:null,jx:null,rm:null,lr:0,fl:0,was:false};
     });
   });
   LV.pp.me.forEach(P=>{P.go={k:'base'};const q=LV.pp.op[P.r];P.mu=P.ch&&q.ch?chMu(P.ch,q.ch):0;q.mu=-P.mu});LV.pp.op.forEach(P=>{P.go={k:'base'}});
@@ -3157,7 +3157,7 @@ function lvBrawl(x,y,A,B,o){
   const noise=[Math.exp(g()*.15),Math.exp(g()*.15)],evs=[];let t=0;
   const flee=[o.fl===0,o.fl===1],pwr=i=>side[i].filter(m=>!m.dead&&!m.fl).reduce((a,m)=>a+m.pw*(.55+.45*m.hp),0);
   const liv=i=>side[i].filter(m=>!m.dead&&!m.fl);
-  const thr=[.44-.1*(o.rk?o.rk[0]:0),.44-.1*(o.rk?o.rk[1]:0)];
+  const thr=[.5-.1*(o.rk?o.rk[0]:0),.5-.1*(o.rk?o.rk[1]:0)];
   for(let rd=0;rd<10;rd++){
     if(!liv(0).length||!liv(1).length)break;
     const p=[pwr(0),pwr(1)];
@@ -3166,7 +3166,7 @@ function lvBrawl(x,y,A,B,o){
       if(!flee[i]&&rd>=1&&p[i]/p[j]<thr[i])flee[i]=true;
       if(flee[i]){
         liv(i).forEach(m=>{
-          const esc=clamp(.58+.3*m.hp+(m.P.r===3||m.P.r===2?.06:0)-.25*(p[j]/Math.max(p[i],.01)>2?1:0),.15,.9);
+          const esc=clamp(.62+.3*m.hp+(m.P.r===3||m.P.r===2?.06:0)+(liv(i).length<=2?.1:0)-.25*(p[j]/Math.max(p[i],.01)>2?1:0),.15,.93);
           const ch=flee[j]?[]:liv(j);
           if(!ch.length||Math.random()<esc)m.fl=true;
           else{const k=lvWp(ch,q=>LVDPS[q.P.r]*q.pw);m.dead=true;m.ke={t:t+.8+Math.random()*1.5,k,as:[]};evs.push(m)}
@@ -3178,7 +3178,7 @@ function lvBrawl(x,y,A,B,o){
     (Math.random()<.5?[0,1]:[1,0]).forEach(i=>{
       if(flee[i])return;
       const j=1-i,tg=liv(j);if(!tg.length||!snap[i].length)return;
-      let dmg=q[i]*noise[i]*(rd===0&&o.eng===i?1.18*(side[i][0]?lvCm(side[i][0].P.s,'eng'):1):1)*.25*(.8+.4*Math.random());
+      let dmg=q[i]*noise[i]*(rd===0&&o.eng===i?1.18*(side[i][0]?lvCm(side[i][0].P.s,'eng'):1):1)*.2*(.8+.4*Math.random());
       if(flee[j])dmg*=.5;
       let guard=0;
       while(dmg>.01&&guard++<12){
@@ -3415,7 +3415,7 @@ function lvPlan(s){
       if(mates>0)return;
       const w=lvLive(s).filter(P=>P.r!==0&&P.hp>.5&&P.rc<=0&&lvD(P.x,P.y,q.x,q.y)<45&&P.go.k!=='retreat');
       if(w.length<2)return;
-      const sc=.32+st.agg*.7+.1*w.length-(lvD(w[0].x,w[0].y,q.x,q.y)/160);
+      const sc=.2+st.agg*.5+.05*w.length-(lvD(w[0].x,w[0].y,q.x,q.y)/160);
       C.push({key:'h'+q.r,k:'hunt',tg:q,sc,w});
     });
   }
@@ -3628,7 +3628,7 @@ function lvJungle(P){
 }
 /* ---------- contatos: onde jogadores rivais se encontram, a lógica decide se vira luta ---------- */
 function lvContacts(){
-  const all=['me','op'].flatMap(s=>lvLive(s)).filter(P=>P.bz<=LV.sec&&P.go.k!=='base'&&P.go.k!=='dead'&&!(P.bs>LV.sec));
+  const all=['me','op'].flatMap(s=>lvLive(s)).filter(P=>P.bz<=LV.sec&&!(P.cf>LV.sec)&&P.go.k!=='base'&&P.go.k!=='dead'&&!(P.bs>LV.sec));
   const used=new Set();
   all.forEach(seed=>{
     if(used.has(seed))return;
@@ -3669,12 +3669,16 @@ function lvClash(A,B){
     lvSayOnce('gs'+cl(sec),15,`${lvNick(gs)} cai em cima de ${vict.map(lvNick).join(' e ')} ${ct.area}.`,gs.s,'gank');
   }
   if(!wa&&!wb){return}
+  /* duelo isolado fora da rota raramente vira luta de verdade: quem pode, desvia */
+  if(Math.max(A.length,B.length)<=2&&Math.min(A.length,B.length)===1&&!att[0]&&!att[1]&&Math.random()<.5)return;
   const eng=wa&&!wb?0:wb&&!wa?1:att[0]&&!att[1]?0:att[1]&&!att[0]?1:null;
   const o={eng,tag:ct.tag,rk:[lvRisk('me'),lvRisk('op')]};
   if(wa&&!wb){o.fl=1}else if(wb&&!wa){o.fl=0}
   /* quem não quer lutar só foge se tiver como; senão luta (quem está perto de estrutura/objetivo próprio) */
   const r=lvBrawl(cx,cy,A,B,o);
   const nm=ct.tag==='tf'||(A.length>=3&&B.length>=3);
+  /* depois de uma luta os envolvidos se separam um pouco antes de poderem lutar de novo */
+  [...A,...B].forEach(P=>{P.cf=sec+r.dur+(nm?10:26)});
   LV.ev.fights++;if(nm)LV.ev.tf++;else if(ct.tag==='pick')LV.ev.pick+=0;else LV.ev.skirm++;
   if(nm){
     lvSayOnce('tf'+cl(sec),20,`Inicia-se um confronto entre as equipes ${ct.area}.`,'sys','fight');
@@ -3705,7 +3709,7 @@ function lvTrade(A,B){
   const pairs=[[A,B],[B,A]];
   pairs.forEach(([w,l])=>{
     const lo=l.filter(P=>P.hp<.2),hi=w.filter(P=>P.hp>.4);
-    if(lo.length&&hi.length&&Math.random()<.22+.1*(lvRisk(w[0].s)>0?1:0)){
+    if(lo.length&&hi.length&&Math.random()<.09+.05*(lvRisk(w[0].s)>0?1:0)){
       lvBrawl(w[0].x,w[0].y,w===A?A:B,l===A?A:B,{eng:w===A?0:1,tag:'pick',rk:[0,0]});
     }
   });
@@ -3780,6 +3784,7 @@ function lvSiegeTick(s,dt){
     const w=t.k==='s'?(((LV.ln[t.ln].u-.5)*(lvBlue(s)?1:-1))>-.05?1:.7):1.1;
     dps*=w*(1+.07*Math.min(LV.gb[s],6))*(LV.bb&&LV.bb.s===s&&LV.bb.until>sec?1.5:1)*(LV.elder&&LV.elder.s===s&&LV.elder.until>sec?1.3:1)*(1+.2*LVL.filter(L=>!LV.str[o][L][2]).length*(t.k==='s'?.5:1));
     dps*=lvCm(s,'siege');
+    dps*=1.35*(1+clamp((lvGold(s)-lvGold(o))/16000,0,.7));/* vantagem de ouro derruba estruturas mais rápido */
     if(sec>2100)dps*=1+(sec-2100)/420;
     const pos=lvTgtPos(s,t),hd=LV.hd&&LV.hd.s===s&&LV.hd.until>sec&&t.k==='s';
     if(hd){LV.hd=null;LV.tw[o][t.ln][t.i]-=hpMax*.5;lvSay(`${lvTeamNm(s)} usa o Arauto contra ${lvLnA(t.ln)}.`,s,'obj')}
@@ -4760,12 +4765,13 @@ function namePools(){
   };
 }
 const NAMEG={KOR:'KOR',CHN:'CHN',HKG:'CHN',TWN:'TWN',VIE:'VIE',THA:'SEA',PHI:'SEA',IDN:'SEA',MAS:'SEA',SIN:'SEA',IND:'SEA',JPN:'JPN',USA:'EN',CAN:'EN',AUS:'EN',NZL:'EN',IRL:'EN',BRA:'PT',POR:'PT',ESP:'ES',ARG:'ES',CHI:'ES',MEX:'ES',COL:'ES',PER:'ES',URU:'ES',FRA:'FR',BEL:'FR',GER:'DE',NED:'DE',DEN:'NORD',SWE:'NORD',NOR:'NORD',FIN:'NORD',EST:'NORD',LTU:'NORD',POL:'CEE',CZE:'CEE',SVK:'CEE',SLO:'CEE',UKR:'CEE',SRB:'CEE',CRO:'CEE',HUN:'CEE',ROU:'CEE',BUL:'CEE',KAZ:'CEE',GRE:'GRE',ITA:'ITA',TUR:'TUR'};
-function uniqueName(nat){
-  const used=new Set([...Object.keys(S.hof),...Object.keys(S.pdb),...ALLT().flatMap(t=>t.pl.concat(t.bn||[]).map(p=>p.n)),...REAL,...Object.keys(NATM)].map(n=>String(n).toLowerCase()));
-  const P=namePools(),pool=P[NAMEG[nat]]||P.EN;
-  for(let i=0;i<300;i++){const n=pick(pool);if(!used.has(n.toLowerCase()))return n}
-  /* nomes simples esgotados: mesmo apelido com número, como é comum no LoL (Haru7, Kuro42) */
-  for(let k=0;k<2000;k++){const n=pick(pool)+(2+Math.floor(Math.random()*(k<500?98:900)));if(!used.has(n.toLowerCase()))return n}
+/* nome que não existe no jogo. `ex` lista nomes que ainda não foram registrados (lotes gerados em sequência); sem isso o laço do chamador podia
+   girar para sempre quando o grupo de nomes quase esgotava (travava a virada de ano). Com poucos nomes livres, passa para apelido com número (Haru7, Kuro42). */
+function uniqueName(nat,ex){
+  const used=new Set([...Object.keys(S.hof),...Object.keys(S.pdb),...ALLT().flatMap(t=>t.pl.concat(t.bn||[]).map(p=>p.n)),...REAL,...Object.keys(NATM),...(ex||[])].map(n=>String(n).toLowerCase()));
+  const P=namePools(),pool=P[NAMEG[nat]]||P.EN,free=pool.filter(n=>!used.has(n.toLowerCase()));
+  if(free.length>=8)return pick(free);
+  for(let k=0;k<4000;k++){const n=pick(pool)+(2+Math.floor(Math.random()*(k<1500?98:9900)));if(!used.has(n.toLowerCase()))return n}
   for(let i=1000;;i++){const n=pick(pool)+i;if(!used.has(n.toLowerCase()))return n}
 }
 function rookie(role,ref,d2){
