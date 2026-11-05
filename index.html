@@ -488,7 +488,7 @@ h1{letter-spacing:.02em}
 .fut .fs{position:absolute;left:17px;top:92px;width:24px;height:28px}
 .fut .fa{position:absolute;right:16px;top:20px;width:72px;height:84px;opacity:.9}
 .fut .fa svg{width:100%;height:100%;fill:currentColor;opacity:.28}
-.fut .fa.ph{opacity:1;filter:drop-shadow(0 2px 3px rgba(0,0,0,.35))}.fut .fa.ph{left:50%;right:auto;top:8%;width:72%;height:58%;transform:translateX(-50%);z-index:1}.fut .fo,.fut .fr,.fut .fn,.fut .fs,.fut .ff{z-index:2}.fut .fnm,.fut .fst{z-index:2}.fut .fa.ph img{object-position:50% 100%}
+.fut .fa.ph{opacity:1;filter:drop-shadow(0 2px 3px rgba(0,0,0,.35))}.fut .fa.ph{left:57%;right:auto;top:7%;width:66%;height:58%;transform:translateX(-50%);z-index:1}.fut .fo,.fut .fr,.fut .fn{text-shadow:0 0 3px rgba(255,255,255,.55)}.fut .fo,.fut .fr,.fut .fn,.fut .fs,.fut .ff{z-index:2}.fut .fnm,.fut .fst{z-index:2}.fut .fa.ph img{object-position:50% 100%}
 .fut .fa img{display:block;width:100%;height:100%;object-fit:contain;object-position:50% 100%;pointer-events:none}
 .fut .fnm{position:absolute;left:8px;right:8px;top:112px;font:800 17px/1 var(--d);text-transform:uppercase;letter-spacing:.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-bottom:1px solid var(--fm);padding-bottom:3px}
 .fut .fst{position:absolute;left:12px;right:12px;top:138px;display:grid;grid-template-columns:repeat(5,1fr);gap:0;font:700 14px/1 var(--d)}
@@ -2281,14 +2281,15 @@ function cmpTxt(a,b){
 function lvCm(s,kind,n){return Math.pow(lvCm0(s,kind,n),CHK)}
 function lvCm0(s,kind,n){
   const c=LV.cmp&&LV.cmp[s];if(!c||!c.n)return 1;
-  const sc=(LV.sec/60)<14?c.e:(LV.sec/60)<26?c.m:c.l;
-  if(kind==='fight')return n>=4?1+.012*(c.F+c.P*.6+c.E*.4)+.004*c.syn:n>=2?1+.012*(c.C+c.B*.5)+.003*c.syn:1+.008*c.B;
-  if(kind==='eng')return 1+.014*c.E;
-  if(kind==='siege')return 1+.035*c.K+.01*c.E;
-  if(kind==='obj')return 1+.045*c.O+.01*c.F;
+  const ed=c.ed||0;/* vantagem de tipo (pedra-papel-tesoura entre estilos), de -1 a 1 */
+  if(kind==='fight')return (n>=4?1+.012*(c.F+c.P*.6+c.E*.4)+.004*c.syn:n>=2?1+.012*(c.C+c.B*.5)+.003*c.syn:1+.008*c.B)*(1+LVTY.f*ed);
+  if(kind==='eng')return (1+.02*c.E)*(1+LVTY.e*ed);
+  if(kind==='siege')return (1+.02*c.K+.01*c.E)*(1+LVTY.s*ed);
+  if(kind==='obj')return (1+.03*c.O+.01*c.F)*(1+LVTY.o*ed);
   if(kind==='split')return 1+.06*c.X;
   return 1;
 }
+const LVTY={f:.035,e:.04,s:.025,o:.015};/* peso da vantagem de tipo de composição por situação */
 /* ---------- Fearless Draft (MD3 e MD5) ----------
    Campeões usados por um time em mapas anteriores da mesma série ficam bloqueados só para ele; o rival continua podendo escolhê-los.
    m.fl = {a:[...bloqueados do time A], b:[...bloqueados do time B], g:[{a:[5 picks],b:[5 picks],bans}]}; some junto com a série. */
@@ -2924,7 +2925,7 @@ function lvInit(){
     });
   });
   LV.pp.me.forEach(P=>{P.go={k:'base'};const q=LV.pp.op[P.r];P.mu=P.ch&&q.ch?chMu(P.ch,q.ch):0;q.mu=-P.mu});LV.pp.op.forEach(P=>{P.go={k:'base'}});
-  LV.cmp={me:cmpOf(LV.pp.me.map(P=>P.ch)),op:cmpOf(LV.pp.op.map(P=>P.ch))};
+  LV.cmp={me:cmpOf(LV.pp.me.map(P=>P.ch)),op:cmpOf(LV.pp.op.map(P=>P.ch))};LV.cmp.me.ed=cmpEdge(LV.cmp.me,LV.cmp.op);LV.cmp.op.ed=-LV.cmp.me.ed;
 }
 /* ---------- utilidades ---------- */
 function lvTeamNm(s){return lvTeam(s).name}
