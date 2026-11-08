@@ -1,0 +1,3388 @@
+{
+ "id": "Nunu",
+ "key": 20,
+ "nome": "Nunu e Willump",
+ "titulo": "o Garoto e seu Yeti",
+ "funcoes": [
+  "Tank",
+  "Mage"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 4,
+  "defense": 6,
+  "magic": 7,
+  "difficulty": 4
+ },
+ "stats_ddragon": {
+  "hp": 610,
+  "hpperlevel": 90,
+  "mp": 280,
+  "mpperlevel": 42,
+  "movespeed": 345,
+  "armor": 29,
+  "armorperlevel": 4.2,
+  "spellblock": 32,
+  "spellblockperlevel": 2.05,
+  "attackrange": 125,
+  "hpregen": 5,
+  "hpregenperlevel": 0.8,
+  "mpregen": 7,
+  "mpregenperlevel": 0.5,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 61,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2.25,
+  "attackspeed": 0.625
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Chamado de Freljord",
+  "descricao": "Nunu aumenta as Velocidades de Ataque e de Movimento de Willump e de um aliado próximo, além de fazer com que os ataques básicos de Willump causem dano a inimigos ao redor do alvo."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "NunuQ",
+   "nome": "Consumir",
+   "descricao": "Willump dá uma mordida em uma tropa, monstro ou Campeão inimigo, causando dano e se curando.",
+   "tooltip": "Nunu pede a Willump que morda o inimigo, causando <trueDamage>{{ monsterminiondamage }} de Dano Verdadeiro</trueDamage> e restaurando <healing>{{ monsterhealing }} de Vida</healing> ao ser usado contra uma tropa ou monstro da selva. Contra um Campeão, causa <magicDamage>{{ totalchampiondamage }} de Dano Mágico</magicDamage> e restaura <healing>{{ championhealing }} de Vida</healing>.<br /><br />A <healing>cura</healing> é aumentada em {{ lowhealthhealingscalar*100 }}% quando Nunu e Willump estão com menos de {{ lowhealththreshhold*100 }}% de Vida.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    13,
+    12,
+    11,
+    10,
+    9
+   ],
+   "custo": [
+    60,
+    60,
+    60,
+    60,
+    60
+   ],
+   "tipo_custo": " de Mana",
+   "alcance": [
+    125,
+    125,
+    125,
+    125,
+    125
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "NunuW",
+   "nome": "A Maior Bola de Neve de Todas!",
+   "descricao": "Willump cria uma bola de neve que aumenta em velocidade e tamanho conforme ele a rola. Ela causa dano a inimigos e os arremessa ao ar.",
+   "tooltip": "Nunu e Willump criam uma bola de neve que aumenta em velocidade e tamanho conforme eles a rolam. Eles tornam-se mais lentos enquanto preparam a bola de neve, mas a velocidade aumenta ao longo da Habilidade.<br /><br />Ela causa <magicDamage>{{ noimpactsnowballdamage }}</magicDamage> - <magicDamage>{{ maximumsnowballdamage }} de Dano Mágico</magicDamage> e <status>Arremessa ao ar</status> por {{ baseknockupduration }}s - {{ maximumstunduration }}s ao colidir com um Campeão, monstro grande ou terreno. Esses valores escalam de acordo com a distância percorrida.<br /><br />Nunu e Willump podem <recast>Reconjurar</recast> para permitir que a bola de neve seja lançada antes do tempo.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    14,
+    14,
+    14,
+    14,
+    14
+   ],
+   "custo": [
+    50,
+    55,
+    60,
+    65,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    7500,
+    7500,
+    7500,
+    7500,
+    7500
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "NunuE",
+   "nome": "Rajada de Bolas de Neve",
+   "descricao": "Nunu arremessa múltiplas bolas de neve que causam dano a inimigos. Ao terminar, Willump enraíza quaisquer Campeões ou monstros grandes que foram atingidos por uma delas.",
+   "tooltip": "Nunu arremessa três bolas de neve, causando <magicDamage>{{ totalsnowballdamage }} de Dano Mágico</magicDamage> por bola de neve e {{ slowamount*-100 }}% de <status>Lentidão</status> aos inimigos atingidos três vezes por {{ slowduration }}s. Nunu pode <recast>Reconjurar</recast> a Habilidade mais duas vezes.<br /><br />Após {{ totalspellduration }}s, Nunu <status>Enraíza</status> todos os inimigos próximos que sofreram <status>Lentidão</status> pelas bolas de neve por {{ rootduration }}s e causa <magicDamage>{{ totalrootdamage }} de Dano Mágico</magicDamage> adicional.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    14,
+    13,
+    12,
+    11,
+    10
+   ],
+   "custo": [
+    50,
+    55,
+    60,
+    65,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    625,
+    625,
+    625,
+    625,
+    625
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "NunuR",
+   "nome": "Zero Absoluto",
+   "descricao": "Nunu e Willump criam uma poderosa nevasca em uma área, causando lentidão aos inimigos e um dano massivo quando se encerrar.",
+   "tooltip": "Nunu e Willump canalizam uma poderosa nevasca por até {{ channelduration }}s. Inimigos dentro da área sofrem {{ slowstartamount*-100 }}% de <status>Lentidão</status>, que aumenta para {{ maxslowamount*-100 }}% ao longo da duração. Nunu e Willump também recebem <shield>{{ totalshieldamount }} de Escudo</shield> pela duração, antes de decair depois de {{ shielddecayduration }}s.<br /><br />Quando a nevasca termina, ela detona, causando até <magicDamage>{{ maximumdamage }} de Dano Mágico</magicDamage> com base no tempo de canalização. Nunu e Willump podem <recast>Reconjurar</recast> para encerrar a nevasca antes do tempo.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    110,
+    100,
+    90
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    650,
+    650,
+    650
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 610,
+  "vida_nivel": 90,
+  "regen_vida_nivel": 0.16,
+  "dano": 61,
+  "dano_nivel": 3,
+  "armadura": 29,
+  "armadura_nivel": 4.2,
+  "rm": 32,
+  "rm_nivel": 2.05,
+  "velocidade_mov": 345,
+  "alcance_ataque": 125,
+  "vel_ataque_base": 0.625,
+  "vel_ataque_razao": 0.625,
+  "vel_ataque_nivel": 2.25,
+  "dano_critico": 2,
+  "alcance_aquisicao": 600,
+  "raio_selecao": 140,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.10641399770975113,
+   "mAttackProbability": 0.5,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.5,
+    "mAttackName": "NunuBasicAttack2",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackProbability": 0,
+    "mAttackName": "NunuBloodBoilAttack1",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackProbability": 0,
+    "mAttackName": "NunuBloodBoilAttack2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.10641399770975113,
+    "mAttackProbability": 1,
+    "mAttackName": "NunuCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Nunu/Spells/NunuQAbility/NunuQ",
+  "Characters/Nunu/Spells/NunuWAbility/NunuW",
+  "Characters/Nunu/Spells/NunuEAbility/NunuE",
+  "Characters/Nunu/Spells/NunuRAbility/NunuR"
+ ],
+ "abilities_ref": [
+  "Characters/Nunu/Spells/NunuRAbility",
+  "Characters/Nunu/Spells/NunuQAbility",
+  "Characters/Nunu/Spells/NunuWAbility",
+  "Characters/Nunu/Spells/NunuEAbility",
+  "Characters/Nunu/Spells/NunuPassiveAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/NunuStructureAttack": {
+   "ObjectName": "NunuStructureAttack",
+   "objectPath": "Characters/Nunu/Spells/NunuStructureAttack",
+   "mScriptName": "NunuStructureAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "NunuBasicAttack2",
+    "spellCastTime": 0.291,
+    "bHaveHitEffect": true,
+    "castRange": [
+     265,
+     265,
+     265,
+     265,
+     265,
+     265,
+     265
+    ],
+    "castConeDistance": 100,
+    "castFrame": 14.57,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Nunu_BA_hit_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuWAbility/NunuWKnockup": {
+   "ObjectName": "NunuWKnockup",
+   "objectPath": "Characters/Nunu/Spells/NunuWAbility/NunuWKnockup",
+   "mScriptName": "NunuWKnockup",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_NunuWKnockup",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuWAbility/NunuW": {
+   "ObjectName": "NunuW",
+   "objectPath": "Characters/Nunu/Spells/NunuWAbility/NunuW",
+   "mScriptName": "NunuW",
+   "mSpell": {
+    "flags": 32,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "Trait_ChannelSpell",
+     "Trait_DamageAbility",
+     "Trait_RecastOrReplaceSpell",
+     "Trait_SignatureSpell",
+     "Trait_Ranged_StopsFirstHit",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "MonsterCollisionRadiusScalar",
+      "values": [
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MonsterImpactRadiusScalar",
+      "values": [
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "InitialCastRadiusScalar",
+      "values": [
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "WalkDistanceAfterThrow",
+      "values": [
+       0,
+       350,
+       350,
+       350,
+       350,
+       350,
+       350
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TurnRateMultiplier1",
+      "values": [
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TurnRateMultiplier2",
+      "values": [
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TurnRateMultiplier3",
+      "values": [
+       3.25,
+       3.25,
+       3.25,
+       3.25,
+       3.25,
+       3.25,
+       3.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TurnRateMultTime1",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TurnRateMultTime2",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TurnRateMultTime3",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       135,
+       180,
+       225,
+       270,
+       315,
+       360,
+       405
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxDamageTime",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxDamageScalar",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxDuration",
+      "values": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseKnockupDuration",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AdditionalKnockupOverTime",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AdditionalStunDurationOverTime",
+      "values": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "NoImpactDamageScalar",
+      "values": [
+       0.333,
+       0.333,
+       0.333,
+       0.333,
+       0.333,
+       0.333,
+       0.333
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaximumSnowballRollDistance",
+      "values": [
+       1750,
+       1750,
+       1750,
+       1750,
+       1750,
+       1750,
+       1750
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinimumSnowballRollDistance",
+      "values": [
+       750,
+       750,
+       750,
+       750,
+       750,
+       750,
+       750
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmount",
+      "values": [
+       -0.5,
+       -0.5,
+       -0.5,
+       -0.5,
+       -0.5,
+       -0.5,
+       -0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinimumSnowballRadius",
+      "values": [
+       75,
+       75,
+       75,
+       75,
+       75,
+       75,
+       75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaximumSnowballRadius",
+      "values": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AdditionalStartingSpeed",
+      "values": [
+       75,
+       75,
+       75,
+       75,
+       75,
+       75,
+       75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AdditionalSpeedPerLevel",
+      "values": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AdditionalSpeedCapPerLevel",
+      "values": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinimumSnowballMissileSpeed",
+      "values": [
+       350,
+       350,
+       350,
+       350,
+       350,
+       350,
+       350
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "LargeSnowballTime",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MediumSnowballTime",
+      "values": [
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "LargeSnowballMissileWidth",
+      "values": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MediumSnowballMissileWidth",
+      "values": [
+       137.5,
+       137.5,
+       137.5,
+       137.5,
+       137.5,
+       137.5,
+       137.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SmallSnowballMissileWidth",
+      "values": [
+       75,
+       75,
+       75,
+       75,
+       75,
+       75,
+       75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaximumAPRatio",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "BaseDamage",
+        "values": [
+         170,
+         215,
+         260,
+         305,
+         350,
+         395,
+         440
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "MaximumAPRatio",
+        "values": [
+         2.5,
+         2.5,
+         2.5,
+         2.5,
+         2.5,
+         2.5,
+         2.5
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "MaximumAPRatio",
+        "values": [
+         2,
+         2,
+         2,
+         2,
+         2,
+         2,
+         2
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "MaximumAPRatio",
+        "values": [
+         2,
+         2,
+         2,
+         2,
+         2,
+         2,
+         2
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "MaximumSnowballDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "MaximumAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "NoImpactSnowballDamage": {
+      "mMultiplier": {
+       "mDataValue": "NoImpactDamageScalar",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mModifiedGameCalculation": "MaximumSnowballDamage",
+      "__type": "GameCalculationModified"
+     },
+     "MaximumStunDuration": {
+      "mSimpleTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseKnockupDuration",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "AdditionalStunDurationOverTime",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "mPrecision": 2,
+      "__type": "GameCalculation"
+     }
+    },
+    "mAnimationLoopName": "Spell4_Base",
+    "mAnimationWinddownName": "Spell4_Leadout",
+    "spellCastTime": 0.125,
+    "spellTotalTime": 0.5,
+    "mChannelDuration": [
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10
+    ],
+    "cooldownTime": [
+     14,
+     14,
+     14,
+     14,
+     14,
+     14,
+     14
+    ],
+    "Cooldown": {
+     "values": [
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14
+     ],
+     "{0a3e0478}": 14,
+     "__type": "{0a0eddc9}"
+    },
+    "mChargeUpdateInterval": 0.03,
+    "mCancelChargeOnRecastTime": 0.5,
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "mUseMinimapTargeting": true,
+    "mCanMoveWhileChanneling": true,
+    "mDisableCastBar": true,
+    "useAnimatorFramerate": true,
+    "mDoNotNeedToFaceTarget": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     7500,
+     7500,
+     7500,
+     7500,
+     7500,
+     7500,
+     7500
+    ],
+    "castRadius": [
+     500,
+     500,
+     500,
+     500,
+     500,
+     500,
+     500
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1500,
+    "mLineWidth": 100,
+    "mana": [
+     50,
+     55,
+     60,
+     65,
+     70,
+     70
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mDimensionBehavior": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_NunuW",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "MaximumSnowballDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 2,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "MaxDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16777216,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSpellCalculationKey": "MaximumStunDuration",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 32768,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mNumber": 200,
+         "__type": "NumberCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuWAbility/NunuWCircleMissile2": {
+   "ObjectName": "NunuWCircleMissile2",
+   "objectPath": "Characters/Nunu/Spells/NunuWAbility/NunuWCircleMissile2",
+   "mScriptName": "NunuWCircleMissile2",
+   "mSpell": {
+    "flags": 4194308,
+    "mAffectsTypeFlags": 14346,
+    "mAffectsStatusFlags": 32,
+    "mAlternateName": "AurelionSolW",
+    "mMinimapIconName": "assets/characters/nunu/hud/icons2d/nunumapsnowball.tex",
+    "castRange": [
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500
+    ],
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mVisualsTrackHiddenTargets": true,
+      "mAngularVelocity": 0.001,
+      "__type": "SyncCircleMovement"
+     },
+     "visibilityComponent": {
+      "mMissileClientWaitForTargetUpdateBeforeMissileShow": true,
+      "__type": "EnterFOWVisibility"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 7,
+    "missileSpeed": 0,
+    "mTargetingTypeData": {
+     "__type": "TargetOrLocation"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuWAbility/NunuWSnowballMissile": {
+   "ObjectName": "NunuWSnowballMissile",
+   "objectPath": "Characters/Nunu/Spells/NunuWAbility/NunuWSnowballMissile",
+   "mScriptName": "NunuWSnowballMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "EzrealMysticShotMissile",
+    "mEffectAmount": [
+     {
+      "value": [
+       30,
+       90,
+       150,
+       245,
+       315,
+       440,
+       565
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2.25,
+       2.5,
+       2.75,
+       3,
+       3.25,
+       3.5,
+       3.75
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1.2,
+    "mMinimapIconName": "assets/characters/nunu/hud/icons2d/nunumapsnowball.tex",
+    "mCastTime": 0.251,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "useAnimatorFramerate": true,
+    "mMinimapIconDisplayFlag": 3,
+    "castRange": [
+     9999,
+     9999,
+     9999,
+     9999,
+     9999,
+     9999,
+     9999
+    ],
+    "castRangeDisplayOverride": [
+     1175,
+     1175,
+     1175,
+     1175,
+     1175,
+     1175,
+     1175
+    ],
+    "castRadius": [
+     150,
+     150,
+     150,
+     150,
+     150,
+     150,
+     150
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 137.5,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "L_hand",
+      "mSpeed": 50,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.53,
+    "missileSpeed": 50,
+    "mLineWidth": 137.5,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuWAbility/NunuW_Recast": {
+   "ObjectName": "NunuW_Recast",
+   "objectPath": "Characters/Nunu/Spells/NunuWAbility/NunuW_Recast",
+   "mScriptName": "NunuW_Recast",
+   "mSpell": {
+    "flags": 36,
+    "mAffectsTypeFlags": 14346,
+    "mSpellTags": [
+     "Trait_ChannelSpell",
+     "Trait_FreeRecast"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       625,
+       625,
+       925,
+       1275,
+       1275,
+       1275,
+       1275
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       -0.5,
+       -0.5,
+       -0.5,
+       -0.5,
+       -0.5,
+       -0.5,
+       -0.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       -0.95,
+       -0.95,
+       -0.95,
+       -0.95,
+       -0.95,
+       -0.95,
+       -0.95
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 2.5,
+    "mCoefficient2": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mAmmoUsed": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "mCanTriggerChargeSpellWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "mDoNotNeedToFaceTarget": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRangeDisplayOverride": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "missileSpeed": 1850,
+    "mLineWidth": 80,
+    "mLookAtPolicy": 1,
+    "mHitEffectKey": "Nunu_R_hit_tar",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.3,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuPassiveAbility/NunuPBloodBoil": {
+   "ObjectName": "NunuPBloodBoil",
+   "objectPath": "Characters/Nunu/Spells/NunuPassiveAbility/NunuPBloodBoil",
+   "mScriptName": "NunuPBloodBoil",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuPassiveAbility/NunuPBloodBoilMissile": {
+   "ObjectName": "NunuPBloodBoilMissile",
+   "objectPath": "Characters/Nunu/Spells/NunuPassiveAbility/NunuPBloodBoilMissile",
+   "mScriptName": "NunuPBloodBoilMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 7375,
+    "mAffectsStatusFlags": 48,
+    "mAlternateName": "NunuBloodBoil",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mDoesntBreakChannels": true,
+    "castRange": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "spine",
+      "mSpeed": 1250,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mVerticalOffset": 250,
+      "mAmplitude": 250,
+      "mNumberOfPeriods": 0.75,
+      "__type": "SinusoidalHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 1,
+    "missileSpeed": 1500,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuPassiveAbility/NunuPassive": {
+   "ObjectName": "NunuPassive",
+   "objectPath": "Characters/Nunu/Spells/NunuPassiveAbility/NunuPassive",
+   "mScriptName": "NunuPassive",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 8193,
+    "mSpellTags": [
+     "PositiveEffect_Boon"
+    ],
+    "DataValues": [
+     {
+      "name": "MonsterRadius",
+      "values": [
+       700,
+       700,
+       700,
+       700,
+       700,
+       700,
+       700
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "LargeRadius",
+      "values": [
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BloodBoilBaseDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ADRatioForAOE",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ASIncrease",
+      "values": [
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MSIncrease",
+      "values": [
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "CleaveDamage": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mDataValue": "ADRatioForAOE",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.5,
+    "mCoefficient2": 0.8,
+    "spellCastTime": 0.38125,
+    "spellTotalTime": 1.54,
+    "cooldownTime": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "Cooldown": {
+     "values": [
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20
+     ],
+     "{0a3e0478}": 20,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 20.21,
+    "missileSpeed": 347.79999,
+    "mana": [
+     40,
+     40,
+     40,
+     40,
+     40,
+     40
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_NunuPassive",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuEAbility/NunuE": {
+   "ObjectName": "NunuE",
+   "objectPath": "Characters/Nunu/Spells/NunuEAbility/NunuE",
+   "mScriptName": "NunuE",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_RecastOrReplaceSpell",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       7.5,
+       15,
+       22.5,
+       30,
+       37.5,
+       45,
+       52.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmount",
+      "values": [
+       -0.25,
+       -0.3,
+       -0.35,
+       -0.4,
+       -0.45,
+       -0.5,
+       -0.55
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RootDamage",
+      "values": [
+       10,
+       20,
+       30,
+       40,
+       50,
+       60,
+       70
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TotalSpellDuration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DelayBetweenSnowballs",
+      "values": [
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SplashConeLength",
+      "values": [
+       225,
+       225,
+       225,
+       225,
+       225,
+       225,
+       225
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SplashConeAngle",
+      "values": [
+       22.5,
+       22.5,
+       22.5,
+       22.5,
+       22.5,
+       22.5,
+       22.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalSnowballDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.12,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalRootDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "RootDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.8,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "RootDuration": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 0.5,
+        "mEndValue": 1.5,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "mPrecision": 1,
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.06,
+    "mCoefficient2": 0.8,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     14,
+     14,
+     13,
+     12,
+     11,
+     10,
+     10
+    ],
+    "Cooldown": {
+     "values": [
+      14,
+      14,
+      13,
+      12,
+      11,
+      10,
+      10
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mAmmoUsed": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "mCanMoveWhileChanneling": true,
+    "useAnimatorFramerate": true,
+    "mDoNotNeedToFaceTarget": true,
+    "castRange": [
+     5000,
+     5000,
+     5000,
+     5000,
+     5000,
+     5000,
+     5000
+    ],
+    "castRangeDisplayOverride": [
+     625,
+     625,
+     625,
+     625,
+     625,
+     625,
+     625
+    ],
+    "castRadius": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "castConeDistance": 100,
+    "missileSpeed": 1850,
+    "mLineWidth": 80,
+    "mana": [
+     50,
+     55,
+     60,
+     65,
+     70,
+     70
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.3,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSubparts": [
+        {
+         "mPart1": {
+          "mSpellCalculationKey": "TotalSnowballDamage",
+          "__type": "{f3cbe7b2}"
+         },
+         "mPart2": {
+          "mNumber": 3,
+          "__type": "NumberCalculationPart"
+         },
+         "__type": "ProductOfSubPartsCalculationPart"
+        },
+        {
+         "mSpellCalculationKey": "TotalRootDamage",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "SumOfSubPartsCalculationPart"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSpellCalculationKey": "RootDuration",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 32768,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mNumber": 80,
+         "__type": "NumberCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuEAbility/NunuERoot": {
+   "ObjectName": "NunuERoot",
+   "objectPath": "Characters/Nunu/Spells/NunuEAbility/NunuERoot",
+   "mScriptName": "NunuERoot",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_NunuERoot",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuEAbility/NunuESnowballBurstFire": {
+   "ObjectName": "NunuESnowballBurstFire",
+   "objectPath": "Characters/Nunu/Spells/NunuEAbility/NunuESnowballBurstFire",
+   "mScriptName": "NunuESnowballBurstFire",
+   "mSpell": {
+    "flags": 36,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "Trait_FreeRecast"
+    ],
+    "DataValues": [
+     {
+      "name": "MaxBursts",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "URF": {
+      "SpellDataValues": [
+       {
+        "name": "MaxBursts",
+        "values": [
+         10,
+         10,
+         10,
+         10,
+         10,
+         10,
+         10
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mCoefficient": 0.05,
+    "mCoefficient2": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0.9,
+     0.9,
+     0.9,
+     0.9,
+     0.9,
+     0.9,
+     0.9
+    ],
+    "Cooldown": {
+     "values": [
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9
+     ],
+     "{0a3e0478}": 0.9,
+     "__type": "{0a0eddc9}"
+    },
+    "mAmmoUsed": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "mCanTriggerChargeSpellWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCanMoveWhileChanneling": true,
+    "useAnimatorFramerate": true,
+    "mDoNotNeedToFaceTarget": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     700,
+     700,
+     700,
+     700,
+     700,
+     700,
+     700
+    ],
+    "castRangeDisplayOverride": [
+     625,
+     625,
+     625,
+     625,
+     625,
+     625,
+     625
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "missileSpeed": 1850,
+    "mLineWidth": 80,
+    "mLookAtPolicy": 1,
+    "mHitEffectKey": "Nunu_R_hit_tar",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.3,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuEAbility/NunuEStackMarker": {
+   "ObjectName": "NunuEStackMarker",
+   "objectPath": "Characters/Nunu/Spells/NunuEAbility/NunuEStackMarker",
+   "mScriptName": "NunuEStackMarker",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_NunuEStackMarker",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuEAbility/NunuESnowballFightBuff": {
+   "ObjectName": "NunuESnowballFightBuff",
+   "objectPath": "Characters/Nunu/Spells/NunuEAbility/NunuESnowballFightBuff",
+   "mScriptName": "NunuESnowballFightBuff",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_NunuESnowballFightBuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuEAbility/NunuESnowballMissile": {
+   "ObjectName": "NunuESnowballMissile",
+   "objectPath": "Characters/Nunu/Spells/NunuEAbility/NunuESnowballMissile",
+   "mScriptName": "NunuESnowballMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "EzrealMysticShotMissile",
+    "mEffectAmount": [
+     {
+      "value": [
+       30,
+       90,
+       150,
+       245,
+       315,
+       440,
+       565
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2.25,
+       2.5,
+       2.75,
+       3,
+       3.25,
+       3.5,
+       3.75
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1.2,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0.6,
+     0.6,
+     0.6,
+     0.6,
+     0.6,
+     0.6,
+     0.6
+    ],
+    "Cooldown": {
+     "values": [
+      0.6,
+      0.6,
+      0.6,
+      0.6,
+      0.6,
+      0.6,
+      0.6
+     ],
+     "{0a3e0478}": 0.6,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "mDoNotNeedToFaceTarget": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     700,
+     700,
+     700,
+     700,
+     700,
+     700,
+     700
+    ],
+    "castRangeDisplayOverride": [
+     700,
+     700,
+     700,
+     700,
+     700,
+     700,
+     700
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 40,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "C_BUFFBONE_GLB_CENTER_LOC",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mVerticalOffset": 150,
+      "mAmplitude": -150,
+      "mNumberOfPeriods": 0.4,
+      "{827af87a}": 40,
+      "__type": "SinusoidalHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Nunu_E_Iceblast_mis_V02",
+    "mLineWidth": 40,
+    "mHitEffectKey": "Nunu_E_Iceblast_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.3,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuRAbility/NunuR_Recast": {
+   "ObjectName": "NunuR_Recast",
+   "objectPath": "Characters/Nunu/Spells/NunuRAbility/NunuR_Recast",
+   "mScriptName": "NunuR_Recast",
+   "mSpell": {
+    "flags": 36,
+    "mAffectsTypeFlags": 14346,
+    "mSpellTags": [
+     "Trait_ChannelSpell",
+     "Trait_FreeRecast"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       625,
+       625,
+       925,
+       1275,
+       1275,
+       1275,
+       1275
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       -0.5,
+       -0.5,
+       -0.5,
+       -0.5,
+       -0.5,
+       -0.5,
+       -0.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       -0.95,
+       -0.95,
+       -0.95,
+       -0.95,
+       -0.95,
+       -0.95,
+       -0.95
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 2.5,
+    "mCoefficient2": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mAmmoUsed": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "mCanTriggerChargeSpellWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "mDoNotNeedToFaceTarget": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRangeDisplayOverride": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "missileSpeed": 1850,
+    "mLineWidth": 80,
+    "mLookAtPolicy": 1,
+    "mHitEffectKey": "Nunu_R_hit_tar",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.3,
+    "mDimensionBehavior": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuRAbility/NunuRShield": {
+   "ObjectName": "NunuRShield",
+   "objectPath": "Characters/Nunu/Spells/NunuRAbility/NunuRShield",
+   "mScriptName": "NunuRShield",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Absolute_Zero_Shield",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuRAbility/NunuR": {
+   "ObjectName": "NunuR",
+   "objectPath": "Characters/Nunu/Spells/NunuRAbility/NunuR",
+   "mScriptName": "NunuR",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_ChannelSpell",
+     "Trait_DamageAbility",
+     "Trait_Shield",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       400,
+       750,
+       1100,
+       1450,
+       1800,
+       2150,
+       2500
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowStartAmount",
+      "values": [
+       -0.5,
+       -0.5,
+       -0.5,
+       -0.5,
+       -0.5,
+       -0.5,
+       -0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxSlowAmount",
+      "values": [
+       -0.95,
+       -0.95,
+       -0.95,
+       -0.95,
+       -0.95,
+       -0.95,
+       -0.95
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ChannelDuration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxShieldDuration",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldDecayDuration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseShieldAmount",
+      "values": [
+       55,
+       65,
+       75,
+       85,
+       95,
+       105,
+       115
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldBonusHealthPercent",
+      "values": [
+       0.2,
+       0.3,
+       0.4,
+       0.5,
+       0.6,
+       0.7,
+       0.8
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "BaseDamage",
+        "values": [
+         400,
+         750,
+         1100,
+         1450,
+         1800,
+         2150,
+         2500
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "BaseShieldAmount",
+        "values": [
+         75,
+         85,
+         95,
+         105,
+         115,
+         125,
+         135
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "ShieldBonusHealthPercent",
+        "values": [
+         0.3,
+         0.4,
+         0.5,
+         0.6,
+         0.7,
+         0.8,
+         0.9
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalShieldAmount": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseShieldAmount",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 12,
+        "mStatFormula": 2,
+        "mDataValue": "ShieldBonusHealthPercent",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 1.5,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MaximumDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 3,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MinDamage": {
+      "mMultiplier": {
+       "mNumber": 0.5,
+       "__type": "NumberCalculationPart"
+      },
+      "tooltipOnly": true,
+      "mModifiedGameCalculation": "MaximumDamage",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "mCastTime": 0.01,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "mChannelDuration": [
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3
+    ],
+    "cooldownTime": [
+     110,
+     110,
+     100,
+     90,
+     90,
+     90,
+     90
+    ],
+    "Cooldown": {
+     "values": [
+      110,
+      110,
+      100,
+      90,
+      90,
+      90,
+      90
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRangeDisplayOverride": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRadius": [
+     500,
+     500,
+     500,
+     500,
+     500,
+     500,
+     500
+    ],
+    "castConeDistance": 100,
+    "missileSpeed": 828.5,
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "mTargetingTypeData": {
+     "__type": "SelfAoe"
+    },
+    "mDimensionBehavior": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "MaximumDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 524288,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSpellCalculationKey": "TotalShieldAmount",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "ChannelDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuQAbility/NunuQ": {
+   "ObjectName": "NunuQ",
+   "objectPath": "Characters/Nunu/Spells/NunuQAbility/NunuQ",
+   "mScriptName": "NunuQ",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_DamageAbility"
+    ],
+    "DataValues": [
+     {
+      "name": "MonsterMinionDamage",
+      "values": [
+       200,
+       400,
+       600,
+       800,
+       1000,
+       1200,
+       1400
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseHealing",
+      "values": [
+       35,
+       65,
+       95,
+       125,
+       155,
+       185,
+       215
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ChampionDamage",
+      "values": [
+       20,
+       60,
+       100,
+       140,
+       180,
+       220,
+       260
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PercentageOfBonusHP",
+      "values": [
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ChampionHealingScalar",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "LowHealthThreshhold",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "LowHealthHealingScalar",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusMaxHPDamage",
+      "values": [
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ChampDamageAPRatio",
+      "values": [
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MonsterHealingAPRatio",
+      "values": [
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "ChampionDamage",
+        "values": [
+         60,
+         120,
+         180,
+         240,
+         300,
+         360,
+         420
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "ChampionHealingScalar",
+        "values": [
+         1,
+         1,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "BaseHealing",
+        "values": [
+         35,
+         85,
+         135,
+         185,
+         235,
+         285,
+         335
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "BonusMaxHPDamage",
+        "values": [
+         0.07,
+         0.07,
+         0.07,
+         0.07,
+         0.07,
+         0.07,
+         0.07
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "ChampDamageAPRatio",
+        "values": [
+         0.7,
+         0.7,
+         0.7,
+         0.7,
+         0.7,
+         0.7,
+         0.7
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "MonsterHealingAPRatio",
+        "values": [
+         1.1,
+         1.1,
+         1.1,
+         1.1,
+         1.1,
+         1.1,
+         1.1
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "MonsterHealingAPRatio",
+        "values": [
+         1.1,
+         1.1,
+         1.1,
+         1.1,
+         1.1,
+         1.1,
+         1.1
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       10,
+       9,
+       8,
+       7,
+       6,
+       5,
+       4
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "MonsterHealing": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseHealing",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 12,
+        "mStatFormula": 2,
+        "mDataValue": "PercentageOfBonusHP",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "MonsterHealingAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalChampionDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "ChampionDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 12,
+        "mStatFormula": 2,
+        "mDataValue": "BonusMaxHPDamage",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "ChampDamageAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "ChampionHealing": {
+      "mMultiplier": {
+       "mDataValue": "ChampionHealingScalar",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mModifiedGameCalculation": "MonsterHealing",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "mCastTime": 0.3,
+    "spellCastTime": 0.4,
+    "spellTotalTime": 0.5,
+    "cooldownTime": [
+     13,
+     13,
+     12,
+     11,
+     10,
+     9,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      13,
+      13,
+      12,
+      11,
+      10,
+      9,
+      8
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mPostCastLockoutDeltaTime": 0.1,
+    "mCantCancelWhileWindingUp": true,
+    "castRangeUseBoundingBoxes": true,
+    "useAnimatorFramerate": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     125,
+     125,
+     125,
+     125,
+     125,
+     125,
+     125
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10,
+    "mHitEffectOrientType": 2,
+    "mana": [
+     60,
+     60,
+     60,
+     60,
+     60,
+     60
+    ],
+    "selectionPriority": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalChampionDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 8,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSpellCalculationKey": "ChampionHealing",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuCritAttack": {
+   "ObjectName": "NunuCritAttack",
+   "objectPath": "Characters/Nunu/Spells/NunuCritAttack",
+   "mScriptName": "NunuCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.291,
+    "castRange": [
+     265,
+     265,
+     265,
+     265,
+     265,
+     265,
+     265
+    ],
+    "castConeDistance": 100,
+    "castFrame": 14.57,
+    "mHitEffectOrientType": 2,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuBasicAttack": {
+   "ObjectName": "NunuBasicAttack",
+   "objectPath": "Characters/Nunu/Spells/NunuBasicAttack",
+   "mScriptName": "NunuBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "NunuBasicAttack",
+    "spellCastTime": 0.291,
+    "bHaveHitEffect": true,
+    "castRange": [
+     265,
+     265,
+     265,
+     265,
+     265,
+     265,
+     265
+    ],
+    "castConeDistance": 100,
+    "castFrame": 14.57,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Nunu_BA_Hit_right",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuBasicAttack2": {
+   "ObjectName": "NunuBasicAttack2",
+   "objectPath": "Characters/Nunu/Spells/NunuBasicAttack2",
+   "mScriptName": "NunuBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "NunuBasicAttack2",
+    "spellCastTime": 0.291,
+    "bHaveHitEffect": true,
+    "castRange": [
+     265,
+     265,
+     265,
+     265,
+     265,
+     265,
+     265
+    ],
+    "castConeDistance": 100,
+    "castFrame": 14.57,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Nunu_BA_Hit_Left",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuBloodBoilAttack1": {
+   "ObjectName": "NunuBloodBoilAttack1",
+   "objectPath": "Characters/Nunu/Spells/NunuBloodBoilAttack1",
+   "mScriptName": "NunuBloodBoilAttack1",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.291,
+    "bHaveHitEffect": true,
+    "castRange": [
+     265,
+     265,
+     265,
+     265,
+     265,
+     265,
+     265
+    ],
+    "castConeDistance": 100,
+    "castFrame": 14.57,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Nunu_BA_hit_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuBloodBoilAttack3": {
+   "ObjectName": "NunuBloodBoilAttack3",
+   "objectPath": "Characters/Nunu/Spells/NunuBloodBoilAttack3",
+   "mScriptName": "NunuBloodBoilAttack3",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.291,
+    "bHaveHitEffect": true,
+    "castRange": [
+     265,
+     265,
+     265,
+     265,
+     265,
+     265,
+     265
+    ],
+    "castConeDistance": 100,
+    "castFrame": 14.57,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Nunu_BA_hit_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NunuBloodBoilAttack2": {
+   "ObjectName": "NunuBloodBoilAttack2",
+   "objectPath": "Characters/Nunu/Spells/NunuBloodBoilAttack2",
+   "mScriptName": "NunuBloodBoilAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.291,
+    "bHaveHitEffect": true,
+    "castRange": [
+     265,
+     265,
+     265,
+     265,
+     265,
+     265,
+     265
+    ],
+    "castConeDistance": 100,
+    "castFrame": 14.57,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Nunu_BA_hit_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/NunuQAbility/NunuQ",
+  "Spells/NunuWAbility/NunuW",
+  "Spells/NunuEAbility/NunuE",
+  "Spells/NunuRAbility/NunuR"
+ ],
+ "passiva_ref": "Characters/Nunu/Spells/NunuPassiveAbility",
+ "passiva_chaves": [
+  "Spells/NunuPassiveAbility/NunuPBloodBoil",
+  "Spells/NunuPassiveAbility/NunuPBloodBoilMissile",
+  "Spells/NunuPassiveAbility/NunuPassive"
+ ]
+}

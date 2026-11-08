@@ -1,0 +1,4151 @@
+{
+ "id": "Bard",
+ "key": 432,
+ "nome": "Bardo",
+ "titulo": "o Protetor Andarilho",
+ "funcoes": [
+  "Support",
+  "Mage"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 4,
+  "defense": 4,
+  "magic": 5,
+  "difficulty": 9
+ },
+ "stats_ddragon": {
+  "hp": 630,
+  "hpperlevel": 103,
+  "mp": 350,
+  "mpperlevel": 50,
+  "movespeed": 335,
+  "armor": 32,
+  "armorperlevel": 4.7,
+  "spellblock": 30,
+  "spellblockperlevel": 1.3,
+  "attackrange": 500,
+  "hpregen": 5.5,
+  "hpregenperlevel": 0.55,
+  "mpregen": 6,
+  "mpregenperlevel": 0.45,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 52,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2,
+  "attackspeed": 0.658
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Chamado do Viajante",
+  "descricao": "<font color='#FF9900'>Mipes:</font> Bardo atrai pequenos espíritos que ajudam em seus ataques básicos e causam Dano Mágico adicional. Quando Bardo coleta <font color='#cccc00'>sinos</font> o suficiente, os mipes também causam dano em uma área e reduzem a velocidade de inimigos atingidos.<br><br><font color='#FF9900'>Sinos:</font> <font color='#cccc00'>sinos</font> ancestrais aparecem aleatoriamente para Bardo coletar. Eles concedem experiência, Velocidade de Movimento fora de combate e restauram Mana."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "BardQ",
+   "nome": "Prisão Cósmica",
+   "descricao": "Bardo dispara um projétil que causa Lentidão ao primeiro inimigo atingido, mantendo seu trajeto em seguida. Caso atinja uma parede, atordoará o alvo inicial; caso atinja outro inimigo, ambos serão atordoados.",
+   "tooltip": "Bardo libera um raio de energia espiritual, causando <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage> aos dois primeiros inimigos atingidos. O primeiro alvo atingido sofre {{ slowamountpercentage }}% de <status>Lentidão</status> por {{ slowduration }}s.<br /><br />Se o raio atingir um segundo inimigo ou uma parede, todos os inimigos atingidos são <status>Atordoados</status> por {{ stunduration }}s.<br />{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    11,
+    10,
+    9,
+    8,
+    7
+   ],
+   "custo": [
+    60,
+    60,
+    60,
+    60,
+    60
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    25000,
+    25000,
+    25000,
+    25000,
+    25000
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "BardW",
+   "nome": "Santuário do Protetor",
+   "descricao": "Revela um santuário de Vida que fica mais forte ao longo de um curto período, desaparecendo depois de curar e acelerar o primeiro aliado que o tocar.",
+   "tooltip": "Bardo cria um santuário de Vida que concede <speed>{{ calc_movespeed }} de Velocidade de Movimento</speed>, decaindo ao longo de {{ movespeed_duration }}s, e restaura pelo menos <healing>{{ initialheal }} de Vida</healing> ao primeiro aliado que entrar nele. O santuário cresce e pode restaurar até <healing>{{ maxheal }} de Vida</healing> depois de existir por {{ chargeuptime }}s.<br /><br />Bardo pode ter até {{ maxpacks }} santuários ativos ao mesmo tempo. Se um Campeão inimigo tocar no santuário, o santuário é destruído.<br /><br />Esta Habilidade tem {{ ammo_limit }} cargas.<br /><br />Santuários ativos no momento: {{ f1 }}/{{ f2 }}{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "custo": [
+    70,
+    70,
+    70,
+    70,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    800,
+    800,
+    800,
+    800,
+    800
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "3",
+    "0",
+    "0",
+    "0",
+    "0",
+    "5",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "BardE",
+   "nome": "Jornada Mágica",
+   "descricao": "Bardo abre um portal em terreno próximo. Tanto aliados quanto inimigos podem fazer uma viagem de ida através deste terreno ao entrar pelo portal.",
+   "tooltip": "Bardo abre um portal unidirecional através de um terreno por {{ doorduration }}s. Qualquer Campeão pode entrar no portal ao se mover em direção a ele enquanto está perto da entrada.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    22,
+    20.5,
+    19,
+    17.5,
+    16
+   ],
+   "custo": [
+    30,
+    30,
+    30,
+    30,
+    30
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    900,
+    900,
+    900,
+    900,
+    900
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "10",
+    "33",
+    "900",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "BardR",
+   "nome": "Têmpera do Destino",
+   "descricao": "Bardo desfere um arco de energia espiritual em um local-alvo, colocando todos os Campeões, tropas, monstros e torres atingidos em estase por um curto período de tempo.",
+   "tooltip": "Bardo lança um campo mágico de energia protetora em uma área, colocando todas as unidades e estruturas atingidas em Estase por {{ rstasisduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    110,
+    95,
+    80
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    3400,
+    3400,
+    3400
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 630,
+  "vida_nivel": 103,
+  "regen_vida": 1.1,
+  "regen_vida_nivel": 0.11,
+  "dano": 52,
+  "dano_nivel": 3,
+  "armadura": 32,
+  "armadura_nivel": 4.7,
+  "rm": 30,
+  "rm_nivel": 1.3,
+  "velocidade_mov": 335,
+  "alcance_ataque": 500,
+  "vel_ataque_base": 0.658,
+  "vel_ataque_razao": 0.658,
+  "vel_ataque_nivel": 2,
+  "dano_critico": 2,
+  "alcance_aquisicao": 600,
+  "raio_selecao": 130,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackTotalTime": 1.600000023841858,
+   "mAttackCastTime": 0.30000001192092896,
+   "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+   "mAttackProbability": 1,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackName": "BardBasicAttack2",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "BardBasicAttack3",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+    "mAttackName": "BardCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Bard/Spells/BardQAbility/BardQ",
+  "Characters/Bard/Spells/BardWAbility/BardW",
+  "Characters/Bard/Spells/BardEAbility/BardE",
+  "Characters/Bard/Spells/BardRAbility/BardR"
+ ],
+ "abilities_ref": [
+  "Characters/Bard/Spells/BardQAbility",
+  "Characters/Bard/Spells/BardWAbility",
+  "Characters/Bard/Spells/BardEAbility",
+  "Characters/Bard/Spells/BardRAbility",
+  "Characters/Bard/Spells/BardPTooltip_D_nSAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/BardPTooltip_D_nSAbility/BardPSpiritAmmoCount": {
+   "ObjectName": "BardPSpiritAmmoCount",
+   "objectPath": "Characters/Bard/Spells/BardPTooltip_D_nSAbility/BardPSpiritAmmoCount",
+   "mScriptName": "BardPSpiritAmmoCount",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_BardPSpiritAmmoCount",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardPTooltip_D_nSAbility/BardPChimes": {
+   "ObjectName": "BardPChimes",
+   "objectPath": "Characters/Bard/Spells/BardPTooltip_D_nSAbility/BardPChimes",
+   "mScriptName": "BardPChimes",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_BardPChimes",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardPTooltip_D_nSAbility/BardPTooltip_D_nS": {
+   "ObjectName": "BardPTooltip_D_nS",
+   "objectPath": "Characters/Bard/Spells/BardPTooltip_D_nSAbility/BardPTooltip_D_nS",
+   "mScriptName": "BardPTooltip_D_nS",
+   "mSpell": {
+    "mEffectAmount": [
+     {
+      "value": [
+       18,
+       18,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "TooltipMSPerStack",
+      "values": [
+       24,
+       24,
+       24,
+       24,
+       24,
+       24,
+       24
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TooltipMSMax",
+      "values": [
+       150,
+       150,
+       150,
+       150,
+       150,
+       150,
+       150
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TooltipManaRestore",
+      "values": [
+       12,
+       12,
+       12,
+       12,
+       12,
+       12,
+       12
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseMeepSpawnCD",
+      "values": [
+       8,
+       8,
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseMeepDamage",
+      "values": [
+       30,
+       30,
+       30,
+       30,
+       30,
+       30,
+       30
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TooltipChimeDamageCheckpoint",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DamagePerCheckpoint",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ChimesPerUpgrade",
+      "values": [
+       0,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MeepAPRatio",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxSpeedStacks",
+      "values": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SpeedStackDuration",
+      "values": [
+       20,
+       20,
+       20,
+       20,
+       20,
+       20,
+       20
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "URF": {
+      "SpellDataValues": [
+       {
+        "name": "ChimesPerUpgrade",
+        "values": [
+         0,
+         2,
+         2,
+         2,
+         2,
+         2,
+         2
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "TooltipChimeDamageCheckpoint",
+        "values": [
+         2,
+         2,
+         2,
+         2,
+         2,
+         2,
+         2
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "ChimesPerUpgrade",
+        "values": [
+         0,
+         3,
+         3,
+         3,
+         3,
+         3,
+         3
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "MeepAPRatio",
+        "values": [
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "{a110bc47}": {
+      "SpellDataValues": [
+       {
+        "name": "ChimesPerUpgrade",
+        "values": [
+         2,
+         2,
+         2,
+         2,
+         2,
+         2,
+         2
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "MeepAPRatio",
+        "values": [
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "ChimesPerUpgrade",
+        "values": [
+         0,
+         3,
+         3,
+         3,
+         3,
+         3,
+         3
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "TooltipChimeDamageCheckpoint",
+        "values": [
+         0,
+         3,
+         3,
+         3,
+         3,
+         3,
+         3
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "MeepAPRatio",
+        "values": [
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "ChimesPerUpgrade",
+        "values": [
+         3,
+         3,
+         3,
+         3,
+         3,
+         3,
+         3
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "TooltipChimeDamageCheckpoint",
+        "values": [
+         3,
+         3,
+         3,
+         3,
+         3,
+         3,
+         3
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "MeepAPRatio",
+        "values": [
+         0.67,
+         0.67,
+         0.67,
+         0.67,
+         0.67,
+         0.67,
+         0.67
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "BaseMeepSpawnCD",
+        "values": [
+         5,
+         5,
+         5,
+         5,
+         5,
+         5,
+         5
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "DamagePerCheckpoint",
+        "values": [
+         10,
+         10,
+         10,
+         10,
+         10,
+         10,
+         10
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "MeepDamageNoChime": {
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseMeepDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "MeepAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "ChimesForSlowUpgrade": {
+      "mMultiplier": {
+       "mNumber": 1,
+       "__type": "NumberCalculationPart"
+      },
+      "mSimpleTooltipCalculationDisplay": 5,
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mDataValue": "ChimesPerUpgrade",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "ChimesForSplashDamageUpgrade": {
+      "mMultiplier": {
+       "mNumber": 3,
+       "__type": "NumberCalculationPart"
+      },
+      "mSimpleTooltipCalculationDisplay": 5,
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mDataValue": "ChimesPerUpgrade",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "ChimesForSplashAreaUpgrade": {
+      "mMultiplier": {
+       "mNumber": 7,
+       "__type": "NumberCalculationPart"
+      },
+      "mSimpleTooltipCalculationDisplay": 5,
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mDataValue": "ChimesPerUpgrade",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Bard/Spells/BardPTooltip_D_nSAbility/BardPTooltip_D_nS",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "mRemoveWithSpell": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardPTooltip_D_nSAbility/BardPTooltip_DS_nM": {
+   "ObjectName": "BardPTooltip_DS_nM",
+   "objectPath": "Characters/Bard/Spells/BardPTooltip_D_nSAbility/BardPTooltip_DS_nM",
+   "mScriptName": "BardPTooltip_DS_nM",
+   "mSpell": {
+    "mEffectAmount": [
+     {
+      "value": [
+       19,
+       19,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardPTooltip_D_nSAbility/BardPTooltip_DS_nD": {
+   "ObjectName": "BardPTooltip_DS_nD",
+   "objectPath": "Characters/Bard/Spells/BardPTooltip_D_nSAbility/BardPTooltip_DS_nD",
+   "mScriptName": "BardPTooltip_DS_nD",
+   "mSpell": {
+    "mEffectAmount": [
+     {
+      "value": [
+       19,
+       19,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardPTooltip_D_nSAbility/BardPTooltip_DSM_nD": {
+   "ObjectName": "BardPTooltip_DSM_nD",
+   "objectPath": "Characters/Bard/Spells/BardPTooltip_D_nSAbility/BardPTooltip_DSM_nD",
+   "mScriptName": "BardPTooltip_DSM_nD",
+   "mSpell": {
+    "mEffectAmount": [
+     {
+      "value": [
+       19,
+       19,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardPTooltip_D_nSAbility/BardPSpiritMissileSlow": {
+   "ObjectName": "BardPSpiritMissileSlow",
+   "objectPath": "Characters/Bard/Spells/BardPTooltip_D_nSAbility/BardPSpiritMissileSlow",
+   "mScriptName": "BardPSpiritMissileSlow",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_BardPSpiritMissileSlow",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardPTooltip_D_nSAbility/BardPTooltip_DSM_nA": {
+   "ObjectName": "BardPTooltip_DSM_nA",
+   "objectPath": "Characters/Bard/Spells/BardPTooltip_D_nSAbility/BardPTooltip_DSM_nA",
+   "mScriptName": "BardPTooltip_DSM_nA",
+   "mSpell": {
+    "mEffectAmount": [
+     {
+      "value": [
+       19,
+       19,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardPTooltip_D_nSAbility/BardPChimePickupSpeedStacks": {
+   "ObjectName": "BardPChimePickupSpeedStacks",
+   "objectPath": "Characters/Bard/Spells/BardPTooltip_D_nSAbility/BardPChimePickupSpeedStacks",
+   "mScriptName": "BardPChimePickupSpeedStacks",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_BardPChimePickupSpeedBoost",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardPTooltip_D_nSAbility/BardPDisplayChimeCount": {
+   "ObjectName": "BardPDisplayChimeCount",
+   "objectPath": "Characters/Bard/Spells/BardPTooltip_D_nSAbility/BardPDisplayChimeCount",
+   "mScriptName": "BardPDisplayChimeCount",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_BardPDisplayChimeCount",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardPTooltip_D_nSAbility/BardPSpirits": {
+   "ObjectName": "BardPSpirits",
+   "objectPath": "Characters/Bard/Spells/BardPTooltip_D_nSAbility/BardPSpirits",
+   "mScriptName": "BardPSpirits",
+   "__type": "SpellObject"
+  },
+  "Spells/BardPTooltip_D_nSAbility/BardPChimePickupLinesMissile": {
+   "ObjectName": "BardPChimePickupLinesMissile",
+   "objectPath": "Characters/Bard/Spells/BardPTooltip_D_nSAbility/BardPChimePickupLinesMissile",
+   "mScriptName": "BardPChimePickupLinesMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1029,
+    "mAffectsStatusFlags": 32,
+    "mEffectAmount": [
+     {
+      "value": [
+       35,
+       80,
+       125,
+       170,
+       215,
+       260,
+       305
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.6,
+    "spellCastTime": 0.425,
+    "spellTotalTime": 0.8,
+    "cooldownTime": [
+     60,
+     60,
+     60,
+     60,
+     60,
+     60,
+     60
+    ],
+    "Cooldown": {
+     "values": [
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60
+     ],
+     "{0a3e0478}": 60,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRangeUseBoundingBoxes": true,
+    "castRange": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 150,
+      "mOffsetInitialTargetHeight": 150,
+      "mStartBoneName": "root",
+      "mTravelTime": 0.25,
+      "__type": "FixedTimeMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 13.34,
+    "missileSpeed": 2200,
+    "mMissileEffectKey": "Bard_P_chime_pickup_mis",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardPTooltip_D_nSAbility/BardPChimePickupSpeedBoost": {
+   "ObjectName": "BardPChimePickupSpeedBoost",
+   "objectPath": "Characters/Bard/Spells/BardPTooltip_D_nSAbility/BardPChimePickupSpeedBoost",
+   "mScriptName": "BardPChimePickupSpeedBoost",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_BardPChimePickupSpeedBoost",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardPTooltip_D_nSAbility/BardPSpiritMissile": {
+   "ObjectName": "BardPSpiritMissile",
+   "objectPath": "Characters/Bard/Spells/BardPTooltip_D_nSAbility/BardPSpiritMissile",
+   "mScriptName": "BardPSpiritMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "BardPSpirits",
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     11,
+     10,
+     9,
+     8,
+     7,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      11,
+      10,
+      9,
+      8,
+      7,
+      6,
+      6
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mStartBoneName": "Root",
+      "mSpeed": 2100,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.5,
+    "missileSpeed": 2100,
+    "mMissileEffectKey": "Bard_P_Meep_mis",
+    "bHaveHitBone": true,
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardPTooltip_D_nSAbility/BardPTooltip_DSAM_nS": {
+   "ObjectName": "BardPTooltip_DSAM_nS",
+   "objectPath": "Characters/Bard/Spells/BardPTooltip_D_nSAbility/BardPTooltip_DSAM_nS",
+   "mScriptName": "BardPTooltip_DSAM_nS",
+   "mSpell": {
+    "mEffectAmount": [
+     {
+      "value": [
+       19,
+       19,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardPTooltip_D_nSAbility/BardPTooltip_DSAM_nR": {
+   "ObjectName": "BardPTooltip_DSAM_nR",
+   "objectPath": "Characters/Bard/Spells/BardPTooltip_D_nSAbility/BardPTooltip_DSAM_nR",
+   "mScriptName": "BardPTooltip_DSAM_nR",
+   "mSpell": {
+    "mEffectAmount": [
+     {
+      "value": [
+       19,
+       19,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardPTooltip_D_nSAbility/BardPDisplaySpiritTimer": {
+   "ObjectName": "BardPDisplaySpiritTimer",
+   "objectPath": "Characters/Bard/Spells/BardPTooltip_D_nSAbility/BardPDisplaySpiritTimer",
+   "mScriptName": "BardPDisplaySpiritTimer",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_BardPDisplaySpiritTimer",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardPTooltip_D_nSAbility/BardPTooltip_DSAM_nA": {
+   "ObjectName": "BardPTooltip_DSAM_nA",
+   "objectPath": "Characters/Bard/Spells/BardPTooltip_D_nSAbility/BardPTooltip_DSAM_nA",
+   "mScriptName": "BardPTooltip_DSAM_nA",
+   "mSpell": {
+    "mEffectAmount": [
+     {
+      "value": [
+       19,
+       19,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardPTooltip_D_nSAbility/BardPTooltip_DSAM_nD": {
+   "ObjectName": "BardPTooltip_DSAM_nD",
+   "objectPath": "Characters/Bard/Spells/BardPTooltip_D_nSAbility/BardPTooltip_DSAM_nD",
+   "mScriptName": "BardPTooltip_DSAM_nD",
+   "mSpell": {
+    "mEffectAmount": [
+     {
+      "value": [
+       19,
+       19,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardPTooltip_D_nSAbility/BardPDisplayRequiredChimes": {
+   "ObjectName": "BardPDisplayRequiredChimes",
+   "objectPath": "Characters/Bard/Spells/BardPTooltip_D_nSAbility/BardPDisplayRequiredChimes",
+   "mScriptName": "BardPDisplayRequiredChimes",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_BardPDisplayRequiredChimes",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardPTooltip_D_nSAbility/BardPTooltip_DSAM_nM": {
+   "ObjectName": "BardPTooltip_DSAM_nM",
+   "objectPath": "Characters/Bard/Spells/BardPTooltip_D_nSAbility/BardPTooltip_DSAM_nM",
+   "mScriptName": "BardPTooltip_DSAM_nM",
+   "mSpell": {
+    "mEffectAmount": [
+     {
+      "value": [
+       19,
+       19,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardRAbility/BardRStasis": {
+   "ObjectName": "BardRStasis",
+   "objectPath": "Characters/Bard/Spells/BardRAbility/BardRStasis",
+   "mScriptName": "BardRStasis",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_BardRStasis",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardRAbility/BardR": {
+   "ObjectName": "BardR",
+   "objectPath": "Characters/Bard/Spells/BardRAbility/BardR",
+   "mScriptName": "BardR",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_ImmobilizingCCSpell",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "RStasisDuration",
+      "values": [
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mCoefficient": 0.5,
+    "mCastTime": 0.5,
+    "cooldownTime": [
+     10,
+     110,
+     95,
+     80,
+     10,
+     10,
+     10
+    ],
+    "Cooldown": {
+     "values": [
+      10,
+      110,
+      95,
+      80,
+      10,
+      10,
+      10
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Bard/Spells/BardRAbility/BardR",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "mUseMinimapTargeting": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     3400,
+     3400,
+     3400,
+     3400,
+     3400,
+     3400,
+     3400
+    ],
+    "castRadius": [
+     350,
+     350,
+     350,
+     350,
+     350,
+     350,
+     350
+    ],
+    "castFrame": 10,
+    "mana": [
+     100,
+     100,
+     100,
+     0,
+     0,
+     0
+    ],
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "RStasisDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 8192,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "RStasisDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "RStasisDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "RStasisDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardRAbility/BardRMissileRange1": {
+   "ObjectName": "BardRMissileRange1",
+   "objectPath": "Characters/Bard/Spells/BardRAbility/BardRMissileRange1",
+   "mScriptName": "BardRMissileRange1",
+   "mSpell": {
+    "flags": 8,
+    "mAffectsTypeFlags": 1028,
+    "mAlternateName": "BardR",
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_Elbow",
+      "mSpeed": 2100,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 8000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "missileSpeed": 2100,
+    "mMissileEffectKey": "Bard_R_mis",
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardRAbility/BardRMissileRange2": {
+   "ObjectName": "BardRMissileRange2",
+   "objectPath": "Characters/Bard/Spells/BardRAbility/BardRMissileRange2",
+   "mScriptName": "BardRMissileRange2",
+   "mSpell": {
+    "flags": 8,
+    "mAffectsTypeFlags": 1028,
+    "mAlternateName": "BardR",
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_Elbow",
+      "mSpeed": 2100,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 5500,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "missileSpeed": 2100,
+    "mMissileEffectKey": "Bard_R_mis",
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardRAbility/BardRMissileRange3": {
+   "ObjectName": "BardRMissileRange3",
+   "objectPath": "Characters/Bard/Spells/BardRAbility/BardRMissileRange3",
+   "mScriptName": "BardRMissileRange3",
+   "mSpell": {
+    "flags": 8,
+    "mAffectsTypeFlags": 1028,
+    "mAlternateName": "BardR",
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_Elbow",
+      "mSpeed": 2100,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 3500,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "missileSpeed": 2100,
+    "mMissileEffectKey": "Bard_R_mis",
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardRAbility/BardRMissileRange4": {
+   "ObjectName": "BardRMissileRange4",
+   "objectPath": "Characters/Bard/Spells/BardRAbility/BardRMissileRange4",
+   "mScriptName": "BardRMissileRange4",
+   "mSpell": {
+    "flags": 8,
+    "mAffectsTypeFlags": 1028,
+    "mAlternateName": "BardR",
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_Elbow",
+      "mSpeed": 2100,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 2500,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "missileSpeed": 2100,
+    "mMissileEffectKey": "Bard_R_mis",
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardRAbility/BardRMissileRange5": {
+   "ObjectName": "BardRMissileRange5",
+   "objectPath": "Characters/Bard/Spells/BardRAbility/BardRMissileRange5",
+   "mScriptName": "BardRMissileRange5",
+   "mSpell": {
+    "flags": 8,
+    "mAffectsTypeFlags": 1028,
+    "mAlternateName": "BardR",
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_Elbow",
+      "mSpeed": 2100,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 1500,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "missileSpeed": 2100,
+    "mMissileEffectKey": "Bard_R_mis",
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardRAbility/BardRMissileFixedTravelTime": {
+   "ObjectName": "BardRMissileFixedTravelTime",
+   "objectPath": "Characters/Bard/Spells/BardRAbility/BardRMissileFixedTravelTime",
+   "mScriptName": "BardRMissileFixedTravelTime",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "BardR",
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_Elbow",
+      "mTravelTime": 0.5,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "mGravity": 18000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "mMissileEffectKey": "Bard_R_mis",
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardEAbility/BardE": {
+   "ObjectName": "BardE",
+   "objectPath": "Characters/Bard/Spells/BardEAbility/BardE",
+   "mScriptName": "BardE",
+   "mSpell": {
+    "mAffectsTypeFlags": 15567,
+    "mEffectAmount": [
+     {
+      "value": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       900,
+       900,
+       900,
+       900,
+       900,
+       900,
+       900
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "FriendlyMovementBonusPercentage",
+      "values": [
+       33,
+       33,
+       33,
+       33,
+       33,
+       33,
+       33
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DoorDuration",
+      "values": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseTravelSpeed",
+      "values": [
+       900,
+       900,
+       900,
+       900,
+       900,
+       900,
+       900
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "FriendlyMovementBonusPercentage",
+        "values": [
+         50,
+         50,
+         50,
+         50,
+         50,
+         50,
+         50
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       18,
+       18,
+       16,
+       14,
+       12,
+       10,
+       12
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mCoefficient": 0.4,
+    "mCastTime": 0.25,
+    "cooldownTime": [
+     22,
+     22,
+     20.5,
+     19,
+     17.5,
+     16,
+     16
+    ],
+    "Cooldown": {
+     "values": [
+      22,
+      22,
+      20.5,
+      19,
+      17.5,
+      16,
+      16
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Bard/Spells/BardEAbility/BardE",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "mCursorChangesInTerrain": true,
+    "useAnimatorFramerate": true,
+    "mNoWinddownIfCancelled": true,
+    "castRange": [
+     900,
+     900,
+     900,
+     900,
+     900,
+     900,
+     900
+    ],
+    "castRadius": [
+     2600,
+     2600,
+     2600,
+     2600,
+     2600,
+     2600,
+     2600
+    ],
+    "castFrame": 10,
+    "missileSpeed": 0,
+    "mLineDragLength": 10000,
+    "mana": [
+     30,
+     30,
+     30,
+     30,
+     30,
+     30
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "TerrainLocation"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_BardE",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "{6d548702}": {
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 128,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 2,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "FriendlyMovementBonusPercentage",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "FriendlyMovementBonusPercentage",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 64,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 128,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardEAbility/BardEDoorMovement": {
+   "ObjectName": "BardEDoorMovement",
+   "objectPath": "Characters/Bard/Spells/BardEAbility/BardEDoorMovement",
+   "mScriptName": "BardEDoorMovement",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_BardEDoorMovement",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardEAbility/BardECreateDoor": {
+   "ObjectName": "BardECreateDoor",
+   "objectPath": "Characters/Bard/Spells/BardEAbility/BardECreateDoor",
+   "mScriptName": "BardECreateDoor",
+   "mSpell": {
+    "mAffectsTypeFlags": 7183,
+    "mAlternateName": "BardE",
+    "mEffectAmount": [
+     {
+      "value": [
+       20,
+       20,
+       20,
+       20,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       14,
+       14,
+       14,
+       14,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "mCastTime": 0.25,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "mCursorChangesInTerrain": true,
+    "useAnimatorFramerate": true,
+    "mNoWinddownIfCancelled": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     150,
+     150,
+     150,
+     150,
+     150,
+     150,
+     150
+    ],
+    "castFrame": 10,
+    "missileSpeed": 0,
+    "mLineDragLength": 10000,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_BardE",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardQAbility/BardQMissile2": {
+   "ObjectName": "BardQMissile2",
+   "objectPath": "Characters/Bard/Spells/BardQAbility/BardQMissile2",
+   "mScriptName": "BardQMissile2",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 7231,
+    "mAffectsStatusFlags": 32,
+    "mAlternateName": "BardQ",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mIsDisabledWhileDead": false,
+    "mProjectTargetToCastRange": true,
+    "castRange": [
+     525,
+     525,
+     525,
+     525,
+     525,
+     525,
+     525
+    ],
+    "castRadius": [
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 60,
+     "movementComponent": {
+      "mTracksTarget": false,
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Root",
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 100,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 15.075,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Bard_Q_Missile2_mis",
+    "mLineWidth": 60,
+    "bHaveHitBone": true,
+    "mHitBoneName": "Root",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardQAbility/BardQInitialTargetDebuff": {
+   "ObjectName": "BardQInitialTargetDebuff",
+   "objectPath": "Characters/Bard/Spells/BardQAbility/BardQInitialTargetDebuff",
+   "mScriptName": "BardQInitialTargetDebuff",
+   "mSpell": {
+    "mAlternateName": "BardQ",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_BardQInitialTargetDebuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardQAbility/BardQShackleDebuff": {
+   "ObjectName": "BardQShackleDebuff",
+   "objectPath": "Characters/Bard/Spells/BardQAbility/BardQShackleDebuff",
+   "mScriptName": "BardQShackleDebuff",
+   "mSpell": {
+    "mAlternateName": "BardQ",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_BardQShackleDebuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardQAbility/BardQ": {
+   "ObjectName": "BardQ",
+   "objectPath": "Characters/Bard/Spells/BardQAbility/BardQ",
+   "mScriptName": "BardQ",
+   "mSpell": {
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_SignatureSpell"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       40,
+       80,
+       120,
+       160,
+       200,
+       240,
+       280
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmountPercentage",
+      "values": [
+       60,
+       60,
+       60,
+       60,
+       60,
+       60,
+       60
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       0.8,
+       1,
+       1.2,
+       1.4,
+       1.6,
+       1.8,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StunDuration",
+      "values": [
+       0.8,
+       1,
+       1.2,
+       1.4,
+       1.6,
+       1.8,
+       2
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "SlowDuration",
+        "values": [
+         1.5,
+         1.6,
+         1.7,
+         1.8,
+         1.9,
+         2,
+         2.1
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "StunDuration",
+        "values": [
+         1.5,
+         1.6,
+         1.7,
+         1.8,
+         1.9,
+         2,
+         2.1
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "SlowDuration",
+        "values": [
+         1.5,
+         1.6,
+         1.7,
+         1.8,
+         1.9,
+         2,
+         2.1
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "StunDuration",
+        "values": [
+         1.5,
+         1.6,
+         1.7,
+         1.8,
+         1.9,
+         2,
+         2.1
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.65,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     12,
+     11,
+     10,
+     9,
+     8,
+     7,
+     7
+    ],
+    "Cooldown": {
+     "values": [
+      12,
+      11,
+      10,
+      9,
+      8,
+      7,
+      7
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10,
+    "missileSpeed": 0,
+    "mana": [
+     60,
+     60,
+     60,
+     60,
+     60,
+     60
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "SlowDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardQAbility/BardQMissile": {
+   "ObjectName": "BardQMissile",
+   "objectPath": "Characters/Bard/Spells/BardQAbility/BardQMissile",
+   "mScriptName": "BardQMissile",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "BardQ",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     950,
+     950,
+     950,
+     950,
+     950,
+     950,
+     950
+    ],
+    "castRadius": [
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 60,
+     "movementComponent": {
+      "mTracksTarget": false,
+      "mTargetHeightAugment": 50,
+      "mOffsetInitialTargetHeight": 50,
+      "mStartBoneName": "Root",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 100,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 15.075,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Bard_Q_Missile_mis",
+    "mLineWidth": 60,
+    "bHaveHitBone": true,
+    "mHitBoneName": "Root",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardWAbility/BardW": {
+   "ObjectName": "BardW",
+   "objectPath": "Characters/Bard/Spells/BardWAbility/BardW",
+   "mScriptName": "BardW",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "SpecialCase_CastNotTriggerTear",
+     "PositiveEffect_Boon",
+     "Trait_ActiveHeal",
+     "Trait_Ammo"
+    ],
+    "mEffectAmount": [
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "ChargeupTime",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxPacks",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealingMult",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Ammo_Limit",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Ammo_Cooldown",
+      "values": [
+       18,
+       18,
+       18,
+       18,
+       18,
+       18,
+       18
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MoveSpeed_Duration",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MoveSpeed_Base",
+      "values": [
+       0.175,
+       0.2,
+       0.225,
+       0.25,
+       0.275,
+       0.3,
+       0.325
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MoveSpeed_Ratio",
+      "values": [
+       0.0006,
+       0.0006,
+       0.0006,
+       0.0006,
+       0.0006,
+       0.0006,
+       0.0006
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio_Min",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio_Max",
+      "values": [
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinimumHeal",
+      "values": [
+       0,
+       25,
+       50,
+       75,
+       100,
+       125,
+       150
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaximumHeal",
+      "values": [
+       12.5,
+       50,
+       87.5,
+       125,
+       162.5,
+       200,
+       237.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "ChargeupTime",
+        "values": [
+         2.5,
+         2.5,
+         2.5,
+         2.5,
+         2.5,
+         2.5,
+         2.5
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "MaxPacks",
+        "values": [
+         33,
+         33,
+         33,
+         33,
+         33,
+         33,
+         33
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "HealingMult",
+        "values": [
+         2,
+         2,
+         2,
+         2,
+         2,
+         2,
+         2
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "Ammo_Cooldown",
+        "values": [
+         8,
+         8,
+         8,
+         8,
+         8,
+         8,
+         8
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "MoveSpeed_Ratio",
+        "values": [
+         0.0008,
+         0.0008,
+         0.0008,
+         0.0008,
+         0.0008,
+         0.0008,
+         0.0008
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "Ammo_Cooldown",
+        "values": [
+         10,
+         10,
+         10,
+         10,
+         10,
+         10,
+         10
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "APRatio_Min",
+        "values": [
+         0.6,
+         0.6,
+         0.6,
+         0.6,
+         0.6,
+         0.6,
+         0.6
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "APRatio_Max",
+        "values": [
+         0.9,
+         0.9,
+         0.9,
+         0.9,
+         0.9,
+         0.9,
+         0.9
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "Ammo_Cooldown",
+        "values": [
+         8,
+         8,
+         8,
+         8,
+         8,
+         8,
+         8
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "MoveSpeed_Base",
+        "values": [
+         0.225,
+         0.25,
+         0.275,
+         0.3,
+         0.325,
+         0.35,
+         0.375
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "MoveSpeed_Ratio",
+        "values": [
+         0.00075,
+         0.00075,
+         0.00075,
+         0.00075,
+         0.00075,
+         0.00075,
+         0.00075
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "APRatio_Min",
+        "values": [
+         0.6,
+         0.6,
+         0.6,
+         0.6,
+         0.6,
+         0.6,
+         0.6
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "APRatio_Max",
+        "values": [
+         0.9,
+         0.9,
+         0.9,
+         0.9,
+         0.9,
+         0.9,
+         0.9
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{b08bc498}": {
+     "ARAM": {
+      "value": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     "cherry": {
+      "value": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     "Kiwi": {
+      "value": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "InitialHeal": {
+      "mMultiplier": {
+       "mDataValue": "HealingMult",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mDataValue": "MinimumHeal",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio_Min",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MaxHeal": {
+      "mMultiplier": {
+       "mDataValue": "HealingMult",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mDataValue": "MaximumHeal",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio_Max",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "Calc_MoveSpeed": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "MoveSpeed_Base",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "MoveSpeed_Ratio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Bard/Spells/BardWAbility/BardW",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mMaxAmmo": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "mAmmoRechargeTime": [
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "mDoesNotConsumeMana": true,
+    "mDoesNotConsumeCooldown": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     800,
+     800,
+     800,
+     800,
+     800,
+     800,
+     800
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10,
+    "missileSpeed": 20,
+    "mana": [
+     70,
+     70,
+     70,
+     70,
+     70,
+     70
+    ],
+    "manaUiOverride": [
+     70,
+     70,
+     70,
+     70,
+     70,
+     -1
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "TargetOrLocation"
+    },
+    "TargetingForgivenessDefinitions": [
+     {
+      "ForgivenessRange": 175,
+      "TargetForgivenessDefinitions": [
+       {
+        "mUnitTags": {
+         "mObjectTagList": [
+          "{ea595ca6}",
+          "{c02a7870}"
+         ],
+         "__type": "ObjectTags"
+        },
+        "__type": "HasUnitTagsCastRequirement"
+       }
+      ],
+      "CasterForgivenessDefinitions": [
+       {
+        "__type": "SameTeamCastRequirement"
+       }
+      ],
+      "__type": "TargetingForgivenessDefinitions"
+     }
+    ],
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "Calc_MoveSpeed",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 2,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSpellCalculationKey": "Calc_MoveSpeed",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "MinimumHeal",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 8,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "MinimumHeal",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardWAbility/BardWSpeedBoost": {
+   "ObjectName": "BardWSpeedBoost",
+   "objectPath": "Characters/Bard/Spells/BardWAbility/BardWSpeedBoost",
+   "mScriptName": "BardWSpeedBoost",
+   "mSpell": {
+    "mAlternateName": "BardW",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_BardWSpeedBoost",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardWAbility/BardWActualHealing": {
+   "ObjectName": "BardWActualHealing",
+   "objectPath": "Characters/Bard/Spells/BardWAbility/BardWActualHealing",
+   "mScriptName": "BardWActualHealing",
+   "mSpell": {
+    "mAlternateName": "BardW",
+    "mSpellTags": [
+     "PositiveEffect_Boon"
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_BardWActualHealing",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardWAbility/BardWHealthPack": {
+   "ObjectName": "BardWHealthPack",
+   "objectPath": "Characters/Bard/Spells/BardWAbility/BardWHealthPack",
+   "mScriptName": "BardWHealthPack",
+   "mSpell": {
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "BardW",
+    "mSpellTags": [
+     "SpecialCase_CastNotTriggerTear"
+    ],
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     800,
+     800,
+     800,
+     800,
+     800,
+     800,
+     800
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10,
+    "missileSpeed": 20,
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardWAbility/BardWDirectHeal": {
+   "ObjectName": "BardWDirectHeal",
+   "objectPath": "Characters/Bard/Spells/BardWAbility/BardWDirectHeal",
+   "mScriptName": "BardWDirectHeal",
+   "mSpell": {
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "BardW",
+    "mSpellTags": [
+     "SpecialCase_CastNotTriggerTear",
+     "PositiveEffect_Boon"
+    ],
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     800,
+     800,
+     800,
+     800,
+     800,
+     800,
+     800
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10,
+    "missileSpeed": 20,
+    "selectionPriority": 2,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardBasicAttack3": {
+   "ObjectName": "BardBasicAttack3",
+   "objectPath": "Characters/Bard/Spells/BardBasicAttack3",
+   "mScriptName": "BardBasicAttack3",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.3821,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyAttackDamage": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mStartBoneName": "Buffbone_Glb_Weapon_1",
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 10.5,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Bard_BA_Mis",
+    "mHitEffectKey": "Bard_BA_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardBasicAttack2": {
+   "ObjectName": "BardBasicAttack2",
+   "objectPath": "Characters/Bard/Spells/BardBasicAttack2",
+   "mScriptName": "BardBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.3821,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyAttackDamage": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mStartBoneName": "Buffbone_Glb_Weapon_1",
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 10.5,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Bard_BA_Mis",
+    "mHitEffectKey": "Bard_BA_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardBasicAttack": {
+   "ObjectName": "BardBasicAttack",
+   "objectPath": "Characters/Bard/Spells/BardBasicAttack",
+   "mScriptName": "BardBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.3821,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyAttackDamage": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mStartBoneName": "Buffbone_Glb_Weapon_1",
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 10.5,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Bard_BA_Mis",
+    "mHitEffectKey": "Bard_BA_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardCritAttack": {
+   "ObjectName": "BardCritAttack",
+   "objectPath": "Characters/Bard/Spells/BardCritAttack",
+   "mScriptName": "BardCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.3821,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyAttackDamage": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mStartBoneName": "Buffbone_Glb_Weapon_1",
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 12,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Bard_BA_Mis",
+    "mHitEffectKey": "Bard_BA_Crit_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BardVOManager": {
+   "ObjectName": "BardVOManager",
+   "objectPath": "Characters/Bard/Spells/BardVOManager",
+   "mScriptName": "BardVOManager",
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/BardQAbility/BardQ",
+  "Spells/BardWAbility/BardW",
+  "Spells/BardEAbility/BardE",
+  "Spells/BardRAbility/BardR"
+ ],
+ "passiva_ref": "Characters/Bard/Spells/BardPTooltip_D_nSAbility",
+ "passiva_chaves": [
+  "Spells/BardPTooltip_D_nSAbility/BardPSpiritAmmoCount",
+  "Spells/BardPTooltip_D_nSAbility/BardPChimes",
+  "Spells/BardPTooltip_D_nSAbility/BardPTooltip_D_nS",
+  "Spells/BardPTooltip_D_nSAbility/BardPTooltip_DS_nM",
+  "Spells/BardPTooltip_D_nSAbility/BardPTooltip_DS_nD",
+  "Spells/BardPTooltip_D_nSAbility/BardPTooltip_DSM_nD",
+  "Spells/BardPTooltip_D_nSAbility/BardPSpiritMissileSlow",
+  "Spells/BardPTooltip_D_nSAbility/BardPTooltip_DSM_nA",
+  "Spells/BardPTooltip_D_nSAbility/BardPChimePickupSpeedStacks",
+  "Spells/BardPTooltip_D_nSAbility/BardPDisplayChimeCount",
+  "Spells/BardPTooltip_D_nSAbility/BardPSpirits",
+  "Spells/BardPTooltip_D_nSAbility/BardPChimePickupLinesMissile",
+  "Spells/BardPTooltip_D_nSAbility/BardPChimePickupSpeedBoost",
+  "Spells/BardPTooltip_D_nSAbility/BardPSpiritMissile",
+  "Spells/BardPTooltip_D_nSAbility/BardPTooltip_DSAM_nS",
+  "Spells/BardPTooltip_D_nSAbility/BardPTooltip_DSAM_nR",
+  "Spells/BardPTooltip_D_nSAbility/BardPDisplaySpiritTimer",
+  "Spells/BardPTooltip_D_nSAbility/BardPTooltip_DSAM_nA",
+  "Spells/BardPTooltip_D_nSAbility/BardPTooltip_DSAM_nD",
+  "Spells/BardPTooltip_D_nSAbility/BardPDisplayRequiredChimes",
+  "Spells/BardPTooltip_D_nSAbility/BardPTooltip_DSAM_nM"
+ ]
+}

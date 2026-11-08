@@ -1,0 +1,3017 @@
+{
+ "id": "Lucian",
+ "key": 236,
+ "nome": "Lucian",
+ "titulo": "o Purificador",
+ "funcoes": [
+  "Marksman",
+  "Assassin"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 8,
+  "defense": 5,
+  "magic": 3,
+  "difficulty": 6
+ },
+ "stats_ddragon": {
+  "hp": 641,
+  "hpperlevel": 100,
+  "mp": 320,
+  "mpperlevel": 43,
+  "movespeed": 335,
+  "armor": 28,
+  "armorperlevel": 4.2,
+  "spellblock": 33,
+  "spellblockperlevel": 1.1,
+  "attackrange": 500,
+  "hpregen": 3.75,
+  "hpregenperlevel": 0.65,
+  "mpregen": 7,
+  "mpregenperlevel": 0.8,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 60,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2.5,
+  "attackspeed": 0.638
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Disparo Iluminado",
+  "descricao": "Sempre que Lucian usa uma Habilidade, seu próximo Ataque se transforma em um disparo duplo. Quando Lucian é curado ou protegido por um aliado, ou quando um Campeão inimigo próximo é imobilizado, os próximos dois Ataques básicos dele causam Dano Mágico adicional."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "LucianQ",
+   "nome": "Luz Perfurante",
+   "descricao": "Lucian faz um disparo de luz perfurante através de um alvo.",
+   "tooltip": "Lucian dispara uma rajada de Luz Perfurante, causando <physicalDamage>{{ totaldamage }} de Dano Físico</physicalDamage>.<br />{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    9,
+    8,
+    7,
+    6,
+    5
+   ],
+   "custo": [
+    48,
+    56,
+    64,
+    72,
+    80
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    500,
+    500,
+    500,
+    500,
+    500
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0.41",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "LucianW",
+   "nome": "Chama Ardente",
+   "descricao": "Lucian dispara um projétil que explode em formato de estrela, marcando e revelando brevemente os inimigos. Ele recebe Velocidade de Movimento por atacar inimigos marcados.",
+   "tooltip": "Lucian dispara um tiro que explode ao chegar ao fim do alcance ou atingir um inimigo, causando <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage>, revelando inimigos por um breve momento e marcando-os por 6s.<br /><br />Quando Lucian ou um aliado causa dano a um inimigo marcado, Lucian recebe <speed>{{ movespeedamount }} de Velocidade de Movimento</speed> por 1s. Aliados que acionam esse efeito também concedem <attention>Vigilância</attention> a Lucian.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    14,
+    13,
+    12,
+    11,
+    10
+   ],
+   "custo": [
+    60,
+    60,
+    60,
+    60,
+    60
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    900,
+    900,
+    900,
+    900,
+    900
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "75/110/145/180/215",
+    "60/65/70/75/80",
+    "900",
+    "0",
+    "1",
+    "200",
+    "1",
+    "6",
+    "1",
+    "700"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "LucianE",
+   "nome": "Perseguição Implacável",
+   "descricao": "Lucian avança rapidamente uma curta distância. Disparo Iluminado reduz o Tempo de Recarga de Perseguição Implacável.",
+   "tooltip": "Lucian avança.<br /><br />O Tempo de Recarga é reduzido em {{ cdrefundbase }}s sempre que ele atinge um inimigo com <spellName>Disparo Iluminado</spellName> ({{ cdrefundchampion }}s para Campeões). {{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    16,
+    15.5,
+    15,
+    14.5,
+    14
+   ],
+   "custo": [
+    32,
+    24,
+    16,
+    8,
+    0
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    445,
+    445,
+    445,
+    445,
+    445
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "1",
+    "2",
+    "425",
+    "200",
+    "1350",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "LucianR",
+   "nome": "O Expurgo",
+   "descricao": "Lucian desfere uma torrente de disparos de suas armas.",
+   "tooltip": "Lucian atira rapidamente, lançando <keywordMajor>{{ totalnumshots }}</keywordMajor> disparos em uma direção por {{ duration }}s ou até <recast>Reconjurar</recast>. Cada disparo causa <physicalDamage>{{ damageperbullet }} de Dano Físico</physicalDamage> ao primeiro inimigo atingido.<br /><br />Enquanto estiver atirando, Lucian pode usar <spellName>Perseguição Implacável</spellName>.<br /><br />Dano total: <physicalDamage>{{ totaldamage }} de Dano Físico</physicalDamage><br />{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    110,
+    100,
+    90
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1400,
+    1400,
+    1400
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 641,
+  "vida_nivel": 100,
+  "regen_vida": 0.75,
+  "regen_vida_nivel": 0.13,
+  "dano": 60,
+  "dano_nivel": 2.9,
+  "armadura": 28,
+  "armadura_nivel": 4.2,
+  "rm": 33,
+  "rm_nivel": 1.1,
+  "velocidade_mov": 335,
+  "alcance_ataque": 500,
+  "vel_ataque_base": 0.638,
+  "vel_ataque_razao": 0.638,
+  "vel_ataque_nivel": 2.5,
+  "dano_critico": 2,
+  "alcance_aquisicao": 800,
+  "raio_selecao": 100,
+  "raio_colisao": 40.68000030517578,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 1,
+    "mAttackName": "LucianBasicAttack2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+    "mAttackName": "LucianCritAttack",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+    "mAttackName": "LucianCritAttack2",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Lucian/Spells/LucianQAbility/LucianQ",
+  "Characters/Lucian/Spells/LucianWAbility/LucianW",
+  "Characters/Lucian/Spells/LucianEAbility/LucianE",
+  "Characters/Lucian/Spells/LucianRAbility/LucianR"
+ ],
+ "abilities_ref": [
+  "Characters/Lucian/Spells/LucianRAbility",
+  "Characters/Lucian/Spells/LucianQAbility",
+  "Characters/Lucian/Spells/LucianWAbility",
+  "Characters/Lucian/Spells/LucianEAbility",
+  "Characters/Lucian/Spells/LucianPassiveAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/LucianRunCycleManager": {
+   "ObjectName": "LucianRunCycleManager",
+   "objectPath": "Characters/Lucian/Spells/LucianRunCycleManager",
+   "mScriptName": "LucianRunCycleManager",
+   "__type": "SpellObject"
+  },
+  "Spells/LucianRAbility/LucianRMissile": {
+   "ObjectName": "LucianRMissile",
+   "objectPath": "Characters/Lucian/Spells/LucianRAbility/LucianRMissile",
+   "mScriptName": "LucianRMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "LucianR",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mDoNotNeedToFaceTarget": true,
+    "castRange": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "mMissileSpec": {
+     "mMissileWidth": 110,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mTargetHeightAugment": -50,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_Pinky2",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 2800,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "missileSpeed": 2800,
+    "mMissileEffectKey": "Lucian_R_mis",
+    "mLineWidth": 110,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/LucianRAbility/LucianRMissileOffhand": {
+   "ObjectName": "LucianRMissileOffhand",
+   "objectPath": "Characters/Lucian/Spells/LucianRAbility/LucianRMissileOffhand",
+   "mScriptName": "LucianRMissileOffhand",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "LucianR",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mDoNotNeedToFaceTarget": true,
+    "castRange": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "mMissileSpec": {
+     "mMissileWidth": 110,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mTargetHeightAugment": -50,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "L_Pinky2",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 2800,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "missileSpeed": 2800,
+    "mMissileEffectKey": "Lucian_R_mis",
+    "mLineWidth": 110,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/LucianRAbility/LucianR": {
+   "ObjectName": "LucianR",
+   "objectPath": "Characters/Lucian/Spells/LucianRAbility/LucianR",
+   "mScriptName": "LucianR",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_DamageAbility",
+     "Trait_DoT",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       0,
+       15,
+       30,
+       45,
+       60,
+       75,
+       90
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DamageADRatio",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DamageAPRatio",
+      "values": [
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CritValueMod",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PercentDamageAmpToMinions",
+      "values": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "NumShots",
+      "values": [
+       22,
+       22,
+       22,
+       22,
+       22,
+       22,
+       22
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Duration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RecastLockout",
+      "values": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RangeCheck",
+      "values": [
+       1050,
+       1050,
+       1050,
+       1050,
+       1050,
+       1050,
+       1050
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "VisionBubbleRadius",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "VisionBubbleDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "DamagePerBullet": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mDataValue": "DamageADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "DamageAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalDamage": {
+      "mMultiplier": {
+       "mSubparts": [
+        {
+         "mDataValue": "BaseDamage",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        {
+         "mStat": 2,
+         "mDataValue": "DamageADRatio",
+         "__type": "StatByNamedDataValueCalculationPart"
+        },
+        {
+         "mDataValue": "DamageAPRatio",
+         "__type": "StatByNamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "SumOfSubPartsCalculationPart"
+      },
+      "mExpandedTooltipCalculationDisplay": 6,
+      "mModifiedGameCalculation": "TotalNumShots",
+      "__type": "GameCalculationModified"
+     },
+     "TotalNumShots": {
+      "mMultiplier": {
+       "mDataValue": "NumShots",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mExpandedTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mSubparts": [
+         {
+          "mNumber": 1,
+          "__type": "NumberCalculationPart"
+         },
+         {
+          "mPart1": {
+           "mStat": 8,
+           "mDataValue": "CritValueMod",
+           "__type": "StatByNamedDataValueCalculationPart"
+          },
+          "mPart2": {
+           "mSubparts": [
+            {
+             "mStat": 9,
+             "mCoefficient": 1,
+             "__type": "StatByCoefficientCalculationPart"
+            },
+            {
+             "mNumber": -1,
+             "__type": "NumberCalculationPart"
+            }
+           ],
+           "__type": "SumOfSubPartsCalculationPart"
+          },
+          "__type": "ProductOfSubPartsCalculationPart"
+         }
+        ],
+        "__type": "SumOfSubPartsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.01,
+    "cooldownTime": [
+     10,
+     110,
+     100,
+     90,
+     10,
+     10,
+     10
+    ],
+    "Cooldown": {
+     "values": [
+      10,
+      110,
+      100,
+      90,
+      10,
+      10,
+      10
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "mCanMoveWhileChanneling": true,
+    "bIsToggleSpell": true,
+    "mDoNotNeedToFaceTarget": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRangeDisplayOverride": [
+     1400,
+     1400,
+     1400,
+     1400,
+     1400,
+     1400,
+     1400
+    ],
+    "mLineWidth": 60,
+    "mLookAtPolicy": 1,
+    "mana": [
+     100,
+     100,
+     100,
+     0,
+     0,
+     0
+    ],
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mDimensionBehavior": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_LucianR",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 32768,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mNumber": 60,
+         "__type": "NumberCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 2,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/LucianRAbility/LucianRDisable": {
+   "ObjectName": "LucianRDisable",
+   "objectPath": "Characters/Lucian/Spells/LucianRAbility/LucianRDisable",
+   "mScriptName": "LucianRDisable",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "LucianR",
+    "mEffectAmount": [
+     {
+      "value": [
+       3,
+       3,
+       3,
+       3,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0,
+       20,
+       40,
+       60,
+       0,
+       0,
+       15
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2,
+       2.5,
+       3,
+       3.5,
+       0,
+       0,
+       0.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.1,
+    "mCoefficient2": 0.25,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     10,
+     10,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      10,
+      10,
+      0
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRangeDisplayOverride": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castFrame": 9.425,
+    "mLineWidth": 60,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_LucianR",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/LucianBasicAttack2": {
+   "ObjectName": "LucianBasicAttack2",
+   "objectPath": "Characters/Lucian/Spells/LucianBasicAttack2",
+   "mScriptName": "LucianBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "LucianBasicAttack",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyAttackDamage": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     552.09998,
+     552.09998,
+     552.09998,
+     552.09998,
+     552.09998,
+     552.09998,
+     552.09998
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "buffbone_cstm_Lightgun",
+      "mSpeed": 2800,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 2800,
+    "mMissileEffectKey": "Lucian_AA_mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Lucian_AA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/LucianWAbility/LucianWDebuff": {
+   "ObjectName": "LucianWDebuff",
+   "objectPath": "Characters/Lucian/Spells/LucianWAbility/LucianWDebuff",
+   "mScriptName": "LucianWDebuff",
+   "mSpell": {
+    "mAlternateName": "LucianW",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_LucianWDebuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/LucianWAbility/LucianWBuff": {
+   "ObjectName": "LucianWBuff",
+   "objectPath": "Characters/Lucian/Spells/LucianWAbility/LucianWBuff",
+   "mScriptName": "LucianWBuff",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_LucianWBuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/LucianWAbility/LucianW": {
+   "ObjectName": "LucianW",
+   "objectPath": "Characters/Lucian/Spells/LucianWAbility/LucianW",
+   "mScriptName": "LucianW",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "LucianW",
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_Low_Damage",
+     "Trait_AoE"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       75,
+       75,
+       110,
+       145,
+       180,
+       215,
+       215
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       55,
+       60,
+       65,
+       70,
+       75,
+       80,
+       85
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       900,
+       900,
+       900,
+       900,
+       900,
+       900,
+       900
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       700,
+       700,
+       700,
+       700,
+       700,
+       700,
+       700
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       40,
+       75,
+       110,
+       145,
+       180,
+       215,
+       250
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MoveSpeedAmount",
+      "values": [
+       55,
+       60,
+       65,
+       70,
+       75,
+       80,
+       85
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BuffDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "VisionBubbleSize",
+      "values": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "VisionBubbleDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DebuffDuration",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DebuffMarkerDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ImpactRangeCheck",
+      "values": [
+       700,
+       700,
+       700,
+       700,
+       700,
+       700,
+       700
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.9,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.9,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0.25,
+    "cooldownTime": [
+     15,
+     14,
+     13,
+     12,
+     11,
+     10,
+     10
+    ],
+    "Cooldown": {
+     "values": [
+      15,
+      14,
+      13,
+      12,
+      11,
+      10,
+      10
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     900,
+     900,
+     900,
+     900,
+     900,
+     900,
+     900
+    ],
+    "castFrame": 9,
+    "mLineWidth": 80,
+    "mana": [
+     60,
+     60,
+     60,
+     60,
+     60,
+     60
+    ],
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 2,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/LucianWAbility/LucianWMissile": {
+   "ObjectName": "LucianWMissile",
+   "objectPath": "Characters/Lucian/Spells/LucianWAbility/LucianWMissile",
+   "mScriptName": "LucianWMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "LucianW",
+    "mCoefficient": 1.2,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     900,
+     900,
+     900,
+     900,
+     900,
+     900,
+     900
+    ],
+    "mMissileSpec": {
+     "mMissileWidth": 55,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "buffbone_cstm_Darkgun",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1600,
+      "__type": "FixedSpeedMovement"
+     },
+     "visibilityComponent": {
+      "mPerceptionBubbleRadius": 100,
+      "__type": "Defaultvisibility"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.53,
+    "missileSpeed": 1600,
+    "mMissileEffectKey": "Lucian_W_mis",
+    "mLineWidth": 55,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/LucianPassiveAbility/LucianPassiveShotDummy": {
+   "ObjectName": "LucianPassiveShotDummy",
+   "objectPath": "Characters/Lucian/Spells/LucianPassiveAbility/LucianPassiveShotDummy",
+   "mScriptName": "LucianPassiveShotDummy",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "_BasicAttack",
+    "mCoefficient": 1.2,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mProjectTargetToCastRange": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     950,
+     950,
+     950,
+     950,
+     950,
+     950,
+     950
+    ],
+    "mMissileSpec": {
+     "mMissileWidth": 50,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "buffbone_cstm_Darkgun",
+      "mSpeed": 2800,
+      "__type": "FixedSpeedMovement"
+     },
+     "visibilityComponent": {
+      "mPerceptionBubbleRadius": 100,
+      "__type": "Defaultvisibility"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "missileSpeed": 2800,
+    "mMissileEffectKey": "Lucian_AA_mis",
+    "mLineWidth": 50,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Lucian_AA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/LucianPassiveAbility/LucianPassiveAttack": {
+   "ObjectName": "LucianPassiveAttack",
+   "objectPath": "Characters/Lucian/Spells/LucianPassiveAbility/LucianPassiveAttack",
+   "mScriptName": "LucianPassiveAttack",
+   "mSpell": {
+    "flags": 128,
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "LucianBasicAttack",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mApplyAttackDamage": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "mRollForCriticalHit": true,
+    "castRange": [
+     552.09998,
+     552.09998,
+     552.09998,
+     552.09998,
+     552.09998,
+     552.09998,
+     552.09998
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "buffbone_cstm_Darkgun",
+      "mSpeed": 2800,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 9,
+    "missileSpeed": 2800,
+    "mMissileEffectKey": "Lucian_AA_mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Lucian_AA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/LucianPassiveAbility/LucianPassiveBuff": {
+   "ObjectName": "LucianPassiveBuff",
+   "objectPath": "Characters/Lucian/Spells/LucianPassiveAbility/LucianPassiveBuff",
+   "mScriptName": "LucianPassiveBuff",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_LucianPassiveBuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/LucianPassiveAbility/LucianPAttributionMissile": {
+   "ObjectName": "LucianPAttributionMissile",
+   "objectPath": "Characters/Lucian/Spells/LucianPassiveAbility/LucianPAttributionMissile",
+   "mScriptName": "LucianPAttributionMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1,
+    "mAffectsStatusFlags": 32,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "canCastOrQueueWhileCasting": true,
+    "mDoesntBreakChannels": true,
+    "mIsDisabledWhileDead": false,
+    "mSpellRevealsChampion": false,
+    "bHaveHitEffect": true,
+    "mDoNotNeedToFaceTarget": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mStartBoneName": "C_BUFFBONE_GLB_CENTER_LOC",
+      "mTargetBoneName": "C_BUFFBONE_GLB_CENTER_LOC",
+      "mSplineInfo": {
+       "mStartPositionOffset": [
+        -62.2,
+        0,
+        8.37
+       ],
+       "mUseMissilePositionAsOrigin": true,
+       "mControlPoint1": [
+        0.892,
+        0,
+        0.409
+       ],
+       "mControlPoint2": [
+        -0.245,
+        0,
+        0.559
+       ],
+       "__type": "HermiteSplineInfo"
+      },
+      "mTravelTime": 0.425,
+      "__type": "FixedTimeSplineMovement"
+     },
+     "heightSolver": {
+      "mInitialTargetHeightOffset": 300,
+      "__type": "CurveTheDifferenceHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 8,
+    "missileSpeed": 900,
+    "mMissileEffectKey": "Lucian_P_Attribution_mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Lucian_P_Ally_Passive",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/LucianPassiveAbility/LucianPAttributionMissile2": {
+   "ObjectName": "LucianPAttributionMissile2",
+   "objectPath": "Characters/Lucian/Spells/LucianPassiveAbility/LucianPAttributionMissile2",
+   "mScriptName": "LucianPAttributionMissile2",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1,
+    "mAffectsStatusFlags": 32,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "canCastOrQueueWhileCasting": true,
+    "mDoesntBreakChannels": true,
+    "mIsDisabledWhileDead": false,
+    "mSpellRevealsChampion": false,
+    "bHaveHitEffect": true,
+    "mDoNotNeedToFaceTarget": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mStartBoneName": "C_BUFFBONE_GLB_CENTER_LOC",
+      "mTargetBoneName": "C_BUFFBONE_GLB_CENTER_LOC",
+      "mSplineInfo": {
+       "mStartPositionOffset": [
+        -62.2,
+        0,
+        8.37
+       ],
+       "mUseMissilePositionAsOrigin": true,
+       "mControlPoint1": [
+        -0.892,
+        0,
+        0.409
+       ],
+       "mControlPoint2": [
+        0.245,
+        0,
+        0.559
+       ],
+       "__type": "HermiteSplineInfo"
+      },
+      "mTravelTime": 0.425,
+      "__type": "FixedTimeSplineMovement"
+     },
+     "heightSolver": {
+      "mInitialTargetHeightOffset": 300,
+      "__type": "CurveTheDifferenceHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 8,
+    "missileSpeed": 900,
+    "mMissileEffectKey": "Lucian_P_Attribution_mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Lucian_P_Ally_Passive",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/LucianPassiveAbility/LucianPassiveShot": {
+   "ObjectName": "LucianPassiveShot",
+   "objectPath": "Characters/Lucian/Spells/LucianPassiveAbility/LucianPassiveShot",
+   "mScriptName": "LucianPassiveShot",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 15018,
+    "mAlternateName": "_BasicAttack",
+    "mCoefficient": 1.2,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "mIgnoreRangeCheck": true,
+    "mConsideredAsAutoAttack": true,
+    "mRollForCriticalHit": true,
+    "castRange": [
+     950,
+     950,
+     950,
+     950,
+     950,
+     950,
+     950
+    ],
+    "mMissileSpec": {
+     "mMissileWidth": 50,
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "buffbone_cstm_Darkgun",
+      "mSpeed": 2800,
+      "__type": "FixedSpeedMovement"
+     },
+     "visibilityComponent": {
+      "mPerceptionBubbleRadius": 100,
+      "__type": "Defaultvisibility"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "missileSpeed": 2800,
+    "mMissileEffectKey": "Lucian_AA_mis",
+    "mLineWidth": 50,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Lucian_AA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/LucianPassiveAbility/LucianPassive": {
+   "ObjectName": "LucianPassive",
+   "objectPath": "Characters/Lucian/Spells/LucianPassiveAbility/LucianPassive",
+   "mScriptName": "LucianPassive",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "PassiveDuration",
+      "values": [
+       3.5,
+       3.5,
+       3.5,
+       3.5,
+       3.5,
+       3.5,
+       3.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PassiveDamageBase",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "OnhitPassiveDuration",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "NumAuto",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxAutos",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CCRange",
+      "values": [
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mSubpart": {
+         "mLevel1Value": 0.5,
+         "mBreakpoints": [
+          {
+           "mLevel": 7,
+           "mAdditionalBonusAtThisLevel": 0.05,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 13,
+           "mAdditionalBonusAtThisLevel": 0.05,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 19,
+           "mAdditionalBonusAtThisLevel": 0.1,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 25,
+           "mAdditionalBonusAtThisLevel": 0.1,
+           "__type": "Breakpoint"
+          }
+         ],
+         "__type": "ByCharLevelBreakpointsCalculationPart"
+        },
+        "__type": "StatBySubPartCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "CritDamage": {
+      "mMultiplier": {
+       "mSubparts": [
+        {
+         "mNumber": 1.75,
+         "__type": "NumberCalculationPart"
+        },
+        {
+         "mStat": 9,
+         "mStatFormula": 2,
+         "mCoefficient": 1,
+         "__type": "StatByCoefficientCalculationPart"
+        }
+       ],
+       "__type": "SumOfSubPartsCalculationPart"
+      },
+      "mModifiedGameCalculation": "TotalDamage",
+      "__type": "GameCalculationModified"
+     },
+     "MinionDamage": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MinionCritDamage": {
+      "mMultiplier": {
+       "mSubparts": [
+        {
+         "mNumber": 1.75,
+         "__type": "NumberCalculationPart"
+        },
+        {
+         "mStat": 9,
+         "mStatFormula": 2,
+         "mCoefficient": 1,
+         "__type": "StatByCoefficientCalculationPart"
+        }
+       ],
+       "__type": "SumOfSubPartsCalculationPart"
+      },
+      "mModifiedGameCalculation": "MinionDamage",
+      "__type": "GameCalculationModified"
+     },
+     "PassiveTotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "PassiveDamageBase",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mCoefficient": 0.15,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Lucian/Spells/LucianPassiveAbility/LucianPassive",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_LucianPassive",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/LucianPassiveAbility/LucianPassiveDamageBuff": {
+   "ObjectName": "LucianPassiveDamageBuff",
+   "objectPath": "Characters/Lucian/Spells/LucianPassiveAbility/LucianPassiveDamageBuff",
+   "mScriptName": "LucianPassiveDamageBuff",
+   "mBuff": {
+    "mDescription": "buff_desc_LucianQPassiveBuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/LucianBasicAttack": {
+   "ObjectName": "LucianBasicAttack",
+   "objectPath": "Characters/Lucian/Spells/LucianBasicAttack",
+   "mScriptName": "LucianBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "LucianBasicAttack",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyAttackDamage": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     552.09998,
+     552.09998,
+     552.09998,
+     552.09998,
+     552.09998,
+     552.09998,
+     552.09998
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "buffbone_cstm_Darkgun",
+      "mSpeed": 2800,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 2800,
+    "mMissileEffectKey": "Lucian_AA_mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Lucian_AA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/LucianCritAttack": {
+   "ObjectName": "LucianCritAttack",
+   "objectPath": "Characters/Lucian/Spells/LucianCritAttack",
+   "mScriptName": "LucianCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "LucianCritAttack",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     552.09998,
+     552.09998,
+     552.09998,
+     552.09998,
+     552.09998,
+     552.09998,
+     552.09998
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "buffbone_cstm_Darkgun",
+      "mSpeed": 2800,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 2800,
+    "mMissileEffectKey": "Lucian_AA_mis_Crit",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Lucian_AA_tar_Crit",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/LucianCritAttack2": {
+   "ObjectName": "LucianCritAttack2",
+   "objectPath": "Characters/Lucian/Spells/LucianCritAttack2",
+   "mScriptName": "LucianCritAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "LucianCritAttack",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     552.09998,
+     552.09998,
+     552.09998,
+     552.09998,
+     552.09998,
+     552.09998,
+     552.09998
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "buffbone_cstm_LightGun",
+      "mSpeed": 2800,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 2800,
+    "mMissileEffectKey": "Lucian_AA_mis_Crit",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Lucian_AA_tar_Crit",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/LucianQAbility/LucianQ": {
+   "ObjectName": "LucianQ",
+   "objectPath": "Characters/Lucian/Spells/LucianQAbility/LucianQ",
+   "mScriptName": "LucianQ",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "LucianQ",
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_SignatureSpell",
+     "Trait_Target_Directional",
+     "Trait_Melee_SmallWindup",
+     "Trait_AoE"
+    ],
+    "mEffectAmount": [
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.41,
+       0.41,
+       0.41,
+       0.41,
+       0.41,
+       0.41,
+       0.41
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       50,
+       90,
+       130,
+       170,
+       210,
+       250,
+       290
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusADRatio",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Range",
+      "values": [
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Width",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "BonusADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.35,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0.25,
+    "cooldownTime": [
+     10,
+     9,
+     8,
+     7,
+     6,
+     5,
+     5
+    ],
+    "Cooldown": {
+     "values": [
+      10,
+      9,
+      8,
+      7,
+      6,
+      5,
+      5
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mPreCastLockoutDeltaTime": 0.25,
+    "mPostCastLockoutDeltaTime": 0.25,
+    "mCantCancelWhileWindingUp": true,
+    "castRangeUseBoundingBoxes": true,
+    "mShowChannelBar": false,
+    "alwaysSnapFacing": true,
+    "mNoWinddownIfCancelled": true,
+    "castRange": [
+     500,
+     500,
+     500,
+     500,
+     500,
+     500,
+     500
+    ],
+    "castFrame": 9.5,
+    "mLineWidth": 65,
+    "mana": [
+     48,
+     56,
+     64,
+     72,
+     80,
+     90
+    ],
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_LucianQ",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/LucianQAbility/LucianQDamage": {
+   "ObjectName": "LucianQDamage",
+   "objectPath": "Characters/Lucian/Spells/LucianQAbility/LucianQDamage",
+   "mScriptName": "LucianQDamage",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "LucianQ",
+    "mEffectAmount": [
+     {
+      "value": [
+       40,
+       80,
+       120,
+       160,
+       200,
+       240,
+       280
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       45,
+       60,
+       75,
+       90,
+       105,
+       120,
+       135
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCastTime": 0.42,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "Cooldown": {
+     "values": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "{0a3e0478}": 1,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRangeUseBoundingBoxes": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castFrame": 0.1,
+    "mLineWidth": 65,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/LucianEAbility/LucianE": {
+   "ObjectName": "LucianE",
+   "objectPath": "Characters/Lucian/Spells/LucianEAbility/LucianE",
+   "mScriptName": "LucianE",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 15567,
+    "mAlternateName": "LucianE",
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock",
+     "Trait_AttackReset",
+     "Trait_PlayerSelectedDashDirection"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       425,
+       425,
+       425,
+       425,
+       425,
+       425,
+       425
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1350,
+       1350,
+       1350,
+       1350,
+       1350,
+       1350,
+       1350
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "CDRefundBase",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CDRefundChampion",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxDistance",
+      "values": [
+       425,
+       425,
+       425,
+       425,
+       425,
+       425,
+       425
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinDistance",
+      "values": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DashSpeed",
+      "values": [
+       1350,
+       1350,
+       1350,
+       1350,
+       1350,
+       1350,
+       1350
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mCoefficient": 0.6,
+    "spellCastTime": 0.15,
+    "spellTotalTime": 0.6,
+    "cooldownTime": [
+     16,
+     16,
+     15.5,
+     15,
+     14.5,
+     14,
+     13.5
+    ],
+    "Cooldown": {
+     "values": [
+      16,
+      16,
+      15.5,
+      15,
+      14.5,
+      14,
+      13.5
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "cantCastWhileRooted": true,
+    "mDoesntBreakChannels": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     445,
+     445,
+     445,
+     445,
+     445,
+     445,
+     445
+    ],
+    "castConeDistance": 100,
+    "mLineWidth": 50,
+    "mana": [
+     32,
+     24,
+     16,
+     8,
+     0,
+     0
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_LucianE",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "{ec17e271}": [
+     {
+      "EffectTag": 128,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "MaxDistance",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 64,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 128,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/LucianQAbility/LucianQ",
+  "Spells/LucianWAbility/LucianW",
+  "Spells/LucianEAbility/LucianE",
+  "Spells/LucianRAbility/LucianR"
+ ],
+ "passiva_ref": "Characters/Lucian/Spells/LucianPassiveAbility",
+ "passiva_chaves": [
+  "Spells/LucianPassiveAbility/LucianPassiveShotDummy",
+  "Spells/LucianPassiveAbility/LucianPassiveAttack",
+  "Spells/LucianPassiveAbility/LucianPassiveBuff",
+  "Spells/LucianPassiveAbility/LucianPAttributionMissile",
+  "Spells/LucianPassiveAbility/LucianPAttributionMissile2",
+  "Spells/LucianPassiveAbility/LucianPassiveShot",
+  "Spells/LucianPassiveAbility/LucianPassive",
+  "Spells/LucianPassiveAbility/LucianPassiveDamageBuff"
+ ]
+}

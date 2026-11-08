@@ -1,0 +1,1962 @@
+{
+ "id": "Jax",
+ "key": 24,
+ "nome": "Jax",
+ "titulo": "o Grão-Mestre das Armas",
+ "funcoes": [
+  "Fighter"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 7,
+  "defense": 5,
+  "magic": 7,
+  "difficulty": 5
+ },
+ "stats_ddragon": {
+  "hp": 650,
+  "hpperlevel": 103,
+  "mp": 339,
+  "mpperlevel": 52,
+  "movespeed": 350,
+  "armor": 36,
+  "armorperlevel": 4.2,
+  "spellblock": 32,
+  "spellblockperlevel": 2.05,
+  "attackrange": 125,
+  "hpregen": 8.5,
+  "hpregenperlevel": 0.55,
+  "mpregen": 8.2,
+  "mpregenperlevel": 0.7,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 68,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 3.4,
+  "attackspeed": 0.638
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Investida Implacável",
+  "descricao": "Os ataques básicos consecutivos de Jax continuamente aumentam sua Velocidade de Ataque."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "JaxQ",
+   "nome": "Salto Atacante",
+   "descricao": "Jax salta em direção a uma unidade. Caso seja um inimigo, ele o atingirá com sua arma.",
+   "tooltip": "Jax salta até uma unidade ou sentinela, causando <physicalDamage>{{ totaldamage }} de Dano Físico</physicalDamage> caso seja um inimigo.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    8,
+    7.5,
+    7,
+    6.5,
+    6
+   ],
+   "custo": [
+    50,
+    50,
+    50,
+    50,
+    50
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    700,
+    700,
+    700,
+    700,
+    700
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "JaxW",
+   "nome": "Energizar",
+   "descricao": "Jax acumula energia em sua arma, fazendo com que seu próximo ataque básico ou Salto Atacante cause dano adicional.",
+   "tooltip": "Jax acumula energia na arma, fazendo com que o próximo Ataque ou <spellName>Salto Atacante</spellName> cause <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage> adicional.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    7,
+    6,
+    5,
+    4,
+    3
+   ],
+   "custo": [
+    30,
+    30,
+    30,
+    30,
+    30
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    300,
+    300,
+    300,
+    300,
+    300
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "JaxE",
+   "nome": "Contra-Ataque",
+   "descricao": "A proeza combatente de Jax lhe permite desviar de todos os ataques recebidos por um curto período de tempo, contra-atacando logo em seguida e atordoando os inimigos ao seu redor.",
+   "tooltip": "Jax adota uma postura defensiva por até {{ dodgeduration }}s, desviando de Ataques recebidos e sofrendo {{ aoedamagereduction }}% a menos de dano de Habilidades em área de ação. Depois de {{ dodgeduration }}s ou ao <recast>Reconjurar</recast> a Habilidade, Jax causa <magicDamage>{{ totaldamage }} + {{ percenthealthdamage }}% da Vida máxima como Dano Mágico</magicDamage> e <status>Atordoa</status> inimigos próximos por {{ stunduration }}s. <br /><br />O dano é aumentado em {{ percentincreasedperdodge*100 }}% por Ataque evitado, até um máximo de <magicDamage>{{ maxdamage }} + {{ maxpercenthealthdamage }}% da Vida máxima</magicDamage>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    17,
+    15,
+    13,
+    11,
+    9
+   ],
+   "custo": [
+    50,
+    60,
+    70,
+    80,
+    90
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    300,
+    300,
+    300,
+    300,
+    300
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "JaxR",
+   "nome": "Grão-Mestre de Armas",
+   "descricao": "Cada terceiro ataque consecutivo causa Dano Mágico adicional. Além disso, Jax pode ativar essa habilidade para causar dano ao redor de si e fortalecer a própria determinação, ganhando mais Armadura e Resistência Mágica por um curto período.",
+   "tooltip": "<spellPassive>Passivo:</spellPassive> todo terceiro Ataque dentro de {{ passivefallofftime }}s causa <magicDamage>{{ onhitdamage }} de Dano Mágico</magicDamage> adicional. <br /><br /><spellActive>Ativo:</spellActive> Jax golpeia com a lanterna, causando <magicDamage>{{ swingdamagetotal }} de Dano Mágico</magicDamage> aos inimigos próximos. Se acertar um Campeão, ele receberá <scaleArmor>{{ basearmor }} de Armadura</scaleArmor> e <scaleMR>{{ basemr }} de Resistência Mágica</scaleMR>, além de <scaleArmor>{{ bonusarmor }} de Armadura</scaleArmor> e <scaleMR>{{ bonusmr }} de Resistência Mágica</scaleMR> por Campeão adicional atingido por {{ duration }}s. Nesse período, todo segundo Ataque, e não o terceiro, causará <magicDamage>Dano Mágico</magicDamage> adicional.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    110,
+    100,
+    90
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    260,
+    260,
+    260
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 650,
+  "vida_nivel": 103,
+  "regen_vida": 1.7,
+  "regen_vida_nivel": 0.11,
+  "dano": 68,
+  "dano_nivel": 4.25,
+  "armadura": 36,
+  "armadura_nivel": 4.2,
+  "rm": 32,
+  "rm_nivel": 2.05,
+  "velocidade_mov": 350,
+  "alcance_ataque": 125,
+  "vel_ataque_base": 0.638,
+  "vel_ataque_razao": 0.638,
+  "vel_ataque_nivel": 3.4,
+  "dano_critico": 2,
+  "alcance_aquisicao": 400,
+  "raio_selecao": 120,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.09189043939113617,
+   "mAttackProbability": 1,
+   "mAttackName": "JaxBasicAttack",
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0,
+    "mAttackName": "JaxBasicAttack2",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackProbability": 0,
+    "mAttackName": "JaxBasicAttackTower",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "JaxBasicAttackTower2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.09189043939113617,
+    "mAttackName": "JaxCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Jax/Spells/JaxQAbility/JaxQ",
+  "Characters/Jax/Spells/JaxWAbility/JaxW",
+  "Characters/Jax/Spells/JaxEAbility/JaxE",
+  "Characters/Jax/Spells/JaxRAbility/JaxR"
+ ],
+ "abilities_ref": [
+  "Characters/Jax/Spells/JaxQAbility",
+  "Characters/Jax/Spells/JaxWAbility",
+  "Characters/Jax/Spells/JaxEAbility",
+  "Characters/Jax/Spells/JaxPassiveAbility",
+  "Characters/Jax/Spells/JaxRAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/JaxPassiveAbility/JaxVsBelvethQuestActivateCondition": {
+   "ObjectName": "JaxVsBelvethQuestActivateCondition",
+   "objectPath": "Characters/Jax/Spells/JaxPassiveAbility/JaxVsBelvethQuestActivateCondition",
+   "mScriptName": "JaxVsBelvethQuestActivateCondition",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/JaxPassiveAbility/JaxFishingPassiveGoldFishBuff": {
+   "ObjectName": "JaxFishingPassiveGoldFishBuff",
+   "objectPath": "Characters/Jax/Spells/JaxPassiveAbility/JaxFishingPassiveGoldFishBuff",
+   "mScriptName": "JaxFishingPassiveGoldFishBuff",
+   "mSpell": {
+    "ImgIconPath": "assets/characters/jax/hud/icons2d/fish_2.dds",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Buff_JaxFishingPassiveGoldFishBuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/JaxPassiveAbility/JaxPassive": {
+   "ObjectName": "JaxPassive",
+   "objectPath": "Characters/Jax/Spells/JaxPassiveAbility/JaxPassive",
+   "mScriptName": "JaxPassive",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "BuffDuration",
+      "values": [
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxStacks",
+      "values": [
+       8,
+       8,
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FallOffRate",
+      "values": [
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BelvethVsJaxQuestRewardStacks",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "AttackSpeedPerStack": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 0.05,
+        "mBreakpoints": [
+         {
+          "mLevel": 4,
+          "mAdditionalBonusAtThisLevel": 0.015,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 7,
+          "mAdditionalBonusAtThisLevel": 0.015,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 10,
+          "mAdditionalBonusAtThisLevel": 0.015,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 13,
+          "mAdditionalBonusAtThisLevel": 0.015,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 16,
+          "mAdditionalBonusAtThisLevel": 0.015,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 19,
+          "mAdditionalBonusAtThisLevel": 0.015,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": 1,
+      "__type": "GameCalculation"
+     },
+     "MaxBonusAttackSpeed": {
+      "mMultiplier": {
+       "mDataValue": "MaxStacks",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "tooltipOnly": true,
+      "mModifiedGameCalculation": "AttackSpeedPerStack",
+      "__type": "GameCalculationModified"
+     },
+     "BelvethVsJaxQuestRewardAttackSpeedPerStack": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 0.0028,
+        "mInitialBonusPerLevel": 0.0006,
+        "mBreakpoints": [
+         {
+          "mLevel": 14,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": 2,
+      "__type": "GameCalculation"
+     },
+     "BelvethVsJaxQuestRewardAttackSpeed": {
+      "mMultiplier": {
+       "mBuffName": "{a8a3dd7a}",
+       "mCoefficient": 1,
+       "__type": "BuffCounterByCoefficientCalculationPart"
+      },
+      "mSimpleTooltipCalculationDisplay": 5,
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mModifiedGameCalculation": "BelvethVsJaxQuestRewardAttackSpeedPerStack",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Jax/Spells/JaxPassiveAbility/JaxVsBelvethQuestActivateCondition",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "useAnimatorFramerate": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_JaxPassive",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/JaxPassiveAbility/JaxPassiveAS": {
+   "ObjectName": "JaxPassiveAS",
+   "objectPath": "Characters/Jax/Spells/JaxPassiveAbility/JaxPassiveAS",
+   "mScriptName": "JaxPassiveAS",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_JaxRelentlessAssaultAS",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/JaxPassiveAbility/JaxFishingPassiveBlueFishBuff": {
+   "ObjectName": "JaxFishingPassiveBlueFishBuff",
+   "objectPath": "Characters/Jax/Spells/JaxPassiveAbility/JaxFishingPassiveBlueFishBuff",
+   "mScriptName": "JaxFishingPassiveBlueFishBuff",
+   "mSpell": {
+    "ImgIconPath": "assets/characters/jax/hud/icons2d/fish_1.dds",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Buff_JaxFishingPassiveBlueFishBuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/JaxWAbility/JaxW": {
+   "ObjectName": "JaxW",
+   "objectPath": "Characters/Jax/Spells/JaxWAbility/JaxW",
+   "mScriptName": "JaxW",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "PositiveEffect_EmpowerAttack",
+     "Trait_AttackReset",
+     "Trait_DamageAbility",
+     "Trait_Strike",
+     "Trait_SignatureSpell"
+    ],
+    "DataValues": [
+     {
+      "name": "Damage",
+      "values": [
+       15,
+       50,
+       85,
+       120,
+       155,
+       190,
+       225
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StructureMod",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "Damage",
+        "values": [
+         5,
+         30,
+         55,
+         80,
+         105,
+         130,
+         155
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "Damage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.6,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "FinalDamage": {
+      "mConditionalGameCalculation": "TotalDamage",
+      "mConditionalCalculationRequirements": {
+       "mBuffName": "{12395d09}",
+       "__type": "HasBuffCastRequirement"
+      },
+      "__type": "GameCalculationConditional"
+     }
+    },
+    "spellCastTime": 0.52175,
+    "spellTotalTime": 1.5334,
+    "cooldownTime": [
+     8,
+     7,
+     6,
+     5,
+     4,
+     3,
+     3
+    ],
+    "Cooldown": {
+     "values": [
+      8,
+      7,
+      6,
+      5,
+      4,
+      3,
+      3
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "mDoesNotConsumeCooldown": true,
+    "castRange": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9.57,
+    "missileSpeed": 0,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "mana": [
+     30,
+     30,
+     30,
+     30,
+     30,
+     30
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mBuffAttributeFlag": 32,
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 128,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 512,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/JaxWAbility/JaxWAttack": {
+   "ObjectName": "JaxWAttack",
+   "objectPath": "Characters/Jax/Spells/JaxWAbility/JaxWAttack",
+   "mScriptName": "JaxWAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 23210,
+    "mSpellTags": [
+     "PositiveEffect_EmpowerAttack"
+    ],
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10.5,
+    "missileSpeed": 0,
+    "bHaveHitBone": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/JaxRAbility/JaxR": {
+   "ObjectName": "JaxR",
+   "objectPath": "Characters/Jax/Spells/JaxRAbility/JaxR",
+   "mScriptName": "JaxR",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_DamageAbility",
+     "Trait_AttackBuff_Duration",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "Duration",
+      "values": [
+       8,
+       8,
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PassiveBaseDamage",
+      "values": [
+       20,
+       75,
+       130,
+       185,
+       240,
+       295,
+       350
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PassiveFallOffTime",
+      "values": [
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseResists",
+      "values": [
+       30,
+       45,
+       60,
+       75,
+       90,
+       105,
+       120
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ResistsPerExtraTarget",
+      "values": [
+       15,
+       20,
+       25,
+       30,
+       35,
+       40,
+       45
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MRMult",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SwingDamageBase",
+      "values": [
+       25,
+       100,
+       175,
+       250,
+       325,
+       400,
+       475
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AoESize",
+      "values": [
+       375,
+       375,
+       375,
+       375,
+       375,
+       375,
+       375
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StructureMod",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "PassiveBaseDamage",
+        "values": [
+         10,
+         50,
+         90,
+         130,
+         170,
+         210,
+         250
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "SwingDamageBase",
+        "values": [
+         25,
+         100,
+         175,
+         250,
+         325,
+         400,
+         475
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "OnHitDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "PassiveBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.6,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "BaseArmor": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseResists",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 0.4,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "BonusArmor": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "ResistsPerExtraTarget",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 0.1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "SwingDamageTotal": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "SwingDamageBase",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStatFormula": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "BaseMR": {
+      "mMultiplier": {
+       "mDataValue": "MRMult",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mModifiedGameCalculation": "BaseArmor",
+      "__type": "GameCalculationModified"
+     },
+     "BonusMR": {
+      "mMultiplier": {
+       "mDataValue": "MRMult",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mModifiedGameCalculation": "BonusArmor",
+      "__type": "GameCalculationModified"
+     },
+     "FinalDamage": {
+      "mConditionalGameCalculation": "OnHitDamage",
+      "mConditionalCalculationRequirements": {
+       "mBuffName": "{1e75ffdf}",
+       "__type": "HasBuffCastRequirement"
+      },
+      "__type": "GameCalculationConditional"
+     }
+    },
+    "mCastTime": 0.25,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     110,
+     110,
+     100,
+     90,
+     8,
+     7,
+     7
+    ],
+    "Cooldown": {
+     "values": [
+      110,
+      110,
+      100,
+      90,
+      8,
+      7,
+      7
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Jax/Spells/JaxRAbility/JaxRPassive",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 2,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "mCanMoveWhileChanneling": true,
+    "useAnimatorFramerate": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castRangeDisplayOverride": [
+     260,
+     260,
+     260,
+     260,
+     260,
+     260,
+     260
+    ],
+    "castRadius": [
+     250,
+     250,
+     250,
+     250,
+     250,
+     250,
+     250
+    ],
+    "castConeDistance": 100,
+    "castFrame": 8,
+    "missileSpeed": 1500,
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "SelfAoe"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8192,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/JaxRAbility/JaxRPassive": {
+   "ObjectName": "JaxRPassive",
+   "objectPath": "Characters/Jax/Spells/JaxRAbility/JaxRPassive",
+   "mScriptName": "JaxRPassive",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_JaxPassive",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/JaxRAbility/JaxRPassiveAttack": {
+   "ObjectName": "JaxRPassiveAttack",
+   "objectPath": "Characters/Jax/Spells/JaxRAbility/JaxRPassiveAttack",
+   "mScriptName": "JaxRPassiveAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7423,
+    "mAlternateName": "JaxRelentlessAssault",
+    "spellCastTime": 0.311,
+    "spellTotalTime": 2.733,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "castRange": [
+     900,
+     900,
+     900,
+     900,
+     900,
+     900,
+     900
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 11.75,
+    "missileSpeed": 20,
+    "mHitEffectKey": "Jax_R_tar",
+    "mAfterEffectKey": "Jax_R_Hit_Both",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_GrandmasterAtArms",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/JaxAttackSequencer": {
+   "ObjectName": "JaxAttackSequencer",
+   "objectPath": "Characters/Jax/Spells/JaxAttackSequencer",
+   "mScriptName": "JaxAttackSequencer",
+   "__type": "SpellObject"
+  },
+  "Spells/JaxFishingPassive": {
+   "ObjectName": "JaxFishingPassive",
+   "objectPath": "Characters/Jax/Spells/JaxFishingPassive",
+   "mScriptName": "JaxFishingPassive",
+   "__type": "SpellObject"
+  },
+  "Spells/JaxBasicAttack": {
+   "ObjectName": "JaxBasicAttack",
+   "objectPath": "Characters/Jax/Spells/JaxBasicAttack",
+   "mScriptName": "JaxBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "JaxBasicAttack",
+    "spellCastTime": 0.40855,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10.5,
+    "missileSpeed": 400,
+    "mHitEffectKey": "Jax_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/JaxBasicAttackTower": {
+   "ObjectName": "JaxBasicAttackTower",
+   "objectPath": "Characters/Jax/Spells/JaxBasicAttackTower",
+   "mScriptName": "JaxBasicAttackTower",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "JaxBasicAttack2",
+    "spellCastTime": 0.40855,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "alwaysSnapFacing": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10.5,
+    "missileSpeed": 400,
+    "mHitEffectKey": "Jax_BA_tar_Turret",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/JaxBasicAttack2": {
+   "ObjectName": "JaxBasicAttack2",
+   "objectPath": "Characters/Jax/Spells/JaxBasicAttack2",
+   "mScriptName": "JaxBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "JaxBasicAttack2",
+    "spellCastTime": 0.40855,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10.5,
+    "missileSpeed": 400,
+    "mHitEffectKey": "Jax_BA_tar_2",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/JaxEAbility/JaxE": {
+   "ObjectName": "JaxE",
+   "objectPath": "Characters/Jax/Spells/JaxEAbility/JaxE",
+   "mScriptName": "JaxE",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "JaxCounterStrike",
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "Trait_SignatureSpell",
+     "Trait_DamageAbility",
+     "Trait_RecastOrReplaceSpell",
+     "Trait_Parry",
+     "Trait_AttackBuff_Duration",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       10,
+       40,
+       70,
+       100,
+       130,
+       160,
+       190
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StunDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PercentIncreasedPerDodge",
+      "values": [
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxDodgesForDamageIncrease",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PercentHealthDamage",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DodgeDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AoEDamageReduction",
+      "values": [
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       21.5,
+       20,
+       18.5,
+       17,
+       15.5,
+       14,
+       12.5
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStatFormula": 2,
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MaxDamage": {
+      "mMultiplier": {
+       "mNumber": 2,
+       "__type": "NumberCalculationPart"
+      },
+      "tooltipOnly": true,
+      "mModifiedGameCalculation": "TotalDamage",
+      "__type": "GameCalculationModified"
+     },
+     "MaxPercentHealthDamage": {
+      "mMultiplier": {
+       "mNumber": 2,
+       "__type": "NumberCalculationPart"
+      },
+      "mExpandedTooltipCalculationDisplay": 5,
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mDataValue": "PercentHealthDamage",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MonsterDamageCap": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 9000,
+        "mEndValue": 9000,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellTotalTime": 1.4,
+    "cooldownTime": [
+     17,
+     17,
+     15,
+     13,
+     11,
+     9,
+     9
+    ],
+    "Cooldown": {
+     "values": [
+      17,
+      17,
+      15,
+      13,
+      11,
+      9,
+      9
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castRangeDisplayOverride": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castRadius": [
+     375,
+     375,
+     375,
+     375,
+     375,
+     375,
+     375
+    ],
+    "castConeDistance": 100,
+    "castFrame": 3.04,
+    "missileSpeed": 1450,
+    "mana": [
+     50,
+     60,
+     70,
+     80,
+     90,
+     100
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/JaxFishingPassiveCounter": {
+   "ObjectName": "JaxFishingPassiveCounter",
+   "objectPath": "Characters/Jax/Spells/JaxFishingPassiveCounter",
+   "mScriptName": "JaxFishingPassiveCounter",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/JaxBasicAttackTower2": {
+   "ObjectName": "JaxBasicAttackTower2",
+   "objectPath": "Characters/Jax/Spells/JaxBasicAttackTower2",
+   "mScriptName": "JaxBasicAttackTower2",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "JaxBasicAttack2",
+    "spellCastTime": 0.40855,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "alwaysSnapFacing": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10.5,
+    "missileSpeed": 400,
+    "mHitEffectKey": "Jax_BA_tar_Turret",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/JaxQAbility/JaxQ": {
+   "ObjectName": "JaxQ",
+   "objectPath": "Characters/Jax/Spells/JaxQAbility/JaxQ",
+   "mScriptName": "JaxQ",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 23615,
+    "mAffectsStatusFlags": 16,
+    "mExcludedUnitTags": {
+     "mObjectTagList": [
+      "structure",
+      "{6f573685}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mCastRequirementsTarget": [
+     {
+      "mInvertResult": true,
+      "mUnit": "Characters/SRU_FaeLightWardPad/CharacterRecords/Root",
+      "__type": "IsSpecifiedUnitCastRequirement"
+     }
+    ],
+    "mAlternateName": "JaxLeapStrike",
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock",
+     "Trait_DamageAbility",
+     "Trait_Strike"
+    ],
+    "DataValues": [
+     {
+      "name": "Damage",
+      "values": [
+       25,
+       65,
+       105,
+       145,
+       185,
+       225,
+       265
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "Damage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     8,
+     8,
+     7.5,
+     7,
+     6.5,
+     6,
+     5.5
+    ],
+    "Cooldown": {
+     "values": [
+      8,
+      8,
+      7.5,
+      7,
+      6.5,
+      6,
+      5.5
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "alwaysSnapFacing": true,
+    "castRange": [
+     700,
+     700,
+     700,
+     700,
+     700,
+     700,
+     700
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 20.85,
+    "missileSpeed": 0,
+    "mHitEffectKey": "globalhit_yellow_tar",
+    "mana": [
+     65,
+     65,
+     65,
+     65,
+     65,
+     65
+    ],
+    "selectionPriority": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 512,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 256,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/JaxCritAttack": {
+   "ObjectName": "JaxCritAttack",
+   "objectPath": "Characters/Jax/Spells/JaxCritAttack",
+   "mScriptName": "JaxCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.40855,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 11.64,
+    "missileSpeed": 400,
+    "mHitEffectKey": "Jax_BA_crit",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/JaxQAbility/JaxQ",
+  "Spells/JaxWAbility/JaxW",
+  "Spells/JaxEAbility/JaxE",
+  "Spells/JaxRAbility/JaxR"
+ ],
+ "passiva_ref": "Characters/Jax/Spells/JaxPassiveAbility",
+ "passiva_chaves": [
+  "Spells/JaxPassiveAbility/JaxVsBelvethQuestActivateCondition",
+  "Spells/JaxPassiveAbility/JaxFishingPassiveGoldFishBuff",
+  "Spells/JaxPassiveAbility/JaxPassive",
+  "Spells/JaxPassiveAbility/JaxPassiveAS",
+  "Spells/JaxPassiveAbility/JaxFishingPassiveBlueFishBuff"
+ ]
+}

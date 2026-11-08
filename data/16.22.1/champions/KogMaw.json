@@ -1,0 +1,2579 @@
+{
+ "id": "KogMaw",
+ "key": 96,
+ "nome": "Kog'Maw",
+ "titulo": "a Boca do Abismo",
+ "funcoes": [
+  "Marksman",
+  "Mage"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 8,
+  "defense": 2,
+  "magic": 5,
+  "difficulty": 6
+ },
+ "stats_ddragon": {
+  "hp": 635,
+  "hpperlevel": 99,
+  "mp": 325,
+  "mpperlevel": 40,
+  "movespeed": 330,
+  "armor": 24,
+  "armorperlevel": 4.45,
+  "spellblock": 33,
+  "spellblockperlevel": 1.1,
+  "attackrange": 500,
+  "hpregen": 3.75,
+  "hpregenperlevel": 0.55,
+  "mpregen": 8.75,
+  "mpregenperlevel": 0.7,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 61,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2.65,
+  "attackspeed": 0.665
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Surpresa Icathiana",
+  "descricao": "Ao morrer, Kog'Maw explode depois de 4s, causando Dano Verdadeiro a inimigos próximos."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "KogMawQ",
+   "nome": "Cusparada Cáustica",
+   "descricao": "Kog'Maw dispara um projétil corrosivo que causa Dano Mágico, corroendo a Armadura e Resistência Mágica do alvo por um curto período de tempo. Kog'Maw também recebe Velocidade de Ataque adicional.",
+   "tooltip": "<spellPassive>Passivo:</spellPassive> Kog'Maw recebe <attackSpeed>{{ attackspeed*100 }}% de Velocidade de Ataque</attackSpeed>.<br /><br /><spellActive>Ativo:</spellActive> Kog'Maw vomita um projétil corrosivo que causa <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage> ao primeiro inimigo atingido e fragmenta <scaleArmor>{{ shredamount }}% de Armadura</scaleArmor> e <scaleMR>Resistência Mágica</scaleMR> por {{ shredduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    7,
+    7,
+    7,
+    7,
+    7
+   ],
+   "custo": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1175,
+    1175,
+    1175,
+    1175,
+    1175
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "1",
+    "1",
+    "100",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "KogMawBioArcaneBarrage",
+   "nome": "Barragem Bio-Arcana",
+   "descricao": "Os ataques de Kog'Maw recebem alcance e causam um percentual da Vida máxima do alvo como Dano Mágico %i:OnHit% <OnHit>ao contato</OnHit>.",
+   "tooltip": "Kog'Maw recebe {{ range }} de Alcance de Ataque e seus Ataques causam <magicDamage>{{ totalhealthdamage }} da Vida máxima como Dano Mágico</magicDamage> %i:OnHit% <OnHit>ao contato</OnHit> adicional por {{ duration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    17,
+    17,
+    17,
+    17,
+    17
+   ],
+   "custo": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    530,
+    530,
+    530,
+    530,
+    530
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "KogMawVoidOoze",
+   "nome": "Gosma do Vazio",
+   "descricao": "Kog'Maw lança uma gosma que causa dano em todos os inimigos pelos quais ela passa, deixando um rastro que reduz a velocidade de inimigos que ficarem sobre ela.",
+   "tooltip": "Kog'Maw cospe bile, causando <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage> e deixando um rastro de gosma por {{ trailduration }}s. Inimigos que estiverem na gosma sofrem {{ slowamount }}% de <status>Lentidão</status>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    12,
+    12,
+    12,
+    12,
+    12
+   ],
+   "custo": [
+    40,
+    55,
+    70,
+    85,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1200,
+    1200,
+    1200,
+    1200,
+    1200
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "KogMawLivingArtillery",
+   "nome": "Artilharia Viva",
+   "descricao": "Kog'Maw dispara uma cápsula de artilharia a uma grande distância, causando Dano Mágico (aumentado drasticamente em inimigos com pouca Vida) e revelando alvos não invisíveis. Além disso, mais de uma Artilharia Viva em um curto período de tempo faz com que custem Mana adicional.",
+   "tooltip": "Kog'Maw dispara ácido em uma área, causando <magicDamage>{{ basedamagecalc }} mais {{ tooltipmissinghealthdamageamp }}% a cada 1% da Vida perdida como Dano Mágico</magicDamage> e revelando inimigos atingidos por 2s. Inimigos com menos de <healing>40% de Vida</healing> sofrem <magicDamage>{{ maxdamagecalc }} de Dano Mágico</magicDamage>.<br /><br />Disparos subsequentes dentro de {{ manacostduration }}s custam <scaleMana>{{ basecost }} de Mana</scaleMana> adicional (máximo de <scaleMana>{{ manacostcap }} de Mana</scaleMana>).{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    2,
+    1.5,
+    1
+   ],
+   "custo": [
+    40,
+    40,
+    40
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1300,
+    1550,
+    1800
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 635,
+  "vida_nivel": 99,
+  "regen_vida": 0.75,
+  "regen_vida_nivel": 0.11,
+  "dano": 61,
+  "dano_nivel": 3.1,
+  "armadura": 24,
+  "armadura_nivel": 4.45,
+  "rm": 33,
+  "rm_nivel": 1.1,
+  "velocidade_mov": 330,
+  "alcance_ataque": 500,
+  "vel_ataque_base": 0.665,
+  "vel_ataque_razao": 0.665,
+  "vel_ataque_nivel": 2.65,
+  "dano_critico": 2,
+  "alcance_aquisicao": 900,
+  "raio_selecao": 130,
+  "raio_colisao": 30,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.13377659022808075,
+   "mAttackProbability": 0.5,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.5,
+    "mAttackName": "KogMawBasicAttack2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.13377659022808075,
+    "mAttackName": "KogMawCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/KogMaw/Spells/KogMawQAbility/KogMawQ",
+  "Characters/KogMaw/Spells/KogMawBioArcaneBarrageAbility/KogMawBioArcaneBarrage",
+  "Characters/KogMaw/Spells/KogMawVoidOozeAbility/KogMawVoidOoze",
+  "Characters/KogMaw/Spells/KogMawLivingArtilleryAbility/KogMawLivingArtillery"
+ ],
+ "abilities_ref": [
+  "Characters/KogMaw/Spells/KogMawQAbility",
+  "Characters/KogMaw/Spells/KogMawBioArcaneBarrageAbility",
+  "Characters/KogMaw/Spells/KogMawVoidOozeAbility",
+  "Characters/KogMaw/Spells/KogMawLivingArtilleryAbility",
+  "Characters/KogMaw/Spells/KogMawIcathianSurpriseReadyAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/KogMawBioArcaneBarrageAbility/KogMawBioArcaneBarrage": {
+   "ObjectName": "KogMawBioArcaneBarrage",
+   "objectPath": "Characters/KogMaw/Spells/KogMawBioArcaneBarrageAbility/KogMawBioArcaneBarrage",
+   "mScriptName": "KogMawBioArcaneBarrage",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "PositiveEffect_EmpowerAttack",
+     "Trait_AttackBuff_Duration",
+     "Trait_SignatureSpell"
+    ],
+    "DataValues": [
+     {
+      "name": "MaxHealthDamage",
+      "values": [
+       2.25,
+       3,
+       3.75,
+       4.5,
+       5.25,
+       6,
+       6.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.015,
+       0.015,
+       0.015,
+       0.015,
+       0.015,
+       0.015,
+       0.015
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Range",
+      "values": [
+       110,
+       130,
+       150,
+       170,
+       190,
+       210,
+       230
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Duration",
+      "values": [
+       8,
+       8,
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MonsterDamageCap",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "MaxHealthDamage",
+        "values": [
+         1.25,
+         2,
+         2.75,
+         3.5,
+         4.25,
+         5,
+         5.75
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "MaxHealthDamage",
+        "values": [
+         2,
+         2.5,
+         3,
+         3.5,
+         4,
+         4.5,
+         5
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "MaxHealthDamage",
+        "values": [
+         2,
+         2.5,
+         3,
+         3.5,
+         4,
+         4.5,
+         5
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalHealthDamage": {
+      "mMultiplier": {
+       "mNumber": 0.01,
+       "__type": "NumberCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mDataValue": "MaxHealthDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": 2,
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     17,
+     17,
+     17,
+     17,
+     17,
+     17,
+     17
+    ],
+    "Cooldown": {
+     "values": [
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17
+     ],
+     "{0a3e0478}": 17,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     530,
+     530,
+     530,
+     530,
+     530,
+     530,
+     530
+    ],
+    "castConeDistance": 100,
+    "castFrame": 3.335,
+    "missileSpeed": 7,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "mana": [
+     40,
+     40,
+     40,
+     40,
+     40,
+     40
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_KogMawBioArcaneBarrage",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "{a8cb9c14}": true,
+       "mStat": 12,
+       "mSubpart": {
+        "mSpellCalculationKey": "TotalHealthDamage",
+        "__type": "{f3cbe7b2}"
+       },
+       "__type": "StatBySubPartCalculationPart"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 512,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 128,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 32,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KogMawBioArcaneBarrageAbility/KogMawBioArcaneBarrageAttack": {
+   "ObjectName": "KogMawBioArcaneBarrageAttack",
+   "objectPath": "Characters/KogMaw/Spells/KogMawBioArcaneBarrageAbility/KogMawBioArcaneBarrageAttack",
+   "mScriptName": "KogMawBioArcaneBarrageAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 6794,
+    "mAlternateName": "KogMawBioArcaneBarrageAttack",
+    "spellCastTime": 0.3889,
+    "spellTotalTime": 1.3334,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mApplyAttackDamage": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 100,
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "BUFFBONE_GLB_WEAPON_LOC",
+      "mSpeed": 1800,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 5000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.5,
+    "missileSpeed": 1800,
+    "mMissileEffectKey": "KogMaw_W_mis",
+    "mLineWidth": 100,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "KogMaw_W_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KogMawLivingArtilleryAbility/KogMawLivingArtillery": {
+   "ObjectName": "KogMawLivingArtillery",
+   "objectPath": "Characters/KogMaw/Spells/KogMawLivingArtilleryAbility/KogMawLivingArtillery",
+   "mScriptName": "KogMawLivingArtillery",
+   "mSpell": {
+    "mAffectsTypeFlags": 14474,
+    "mAlternateName": "KogMawLivingArtillery",
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_DamageAbility",
+     "Trait_Target_Area",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "Damage",
+      "values": [
+       60,
+       100,
+       140,
+       180,
+       220,
+       260,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ManaCostDuration",
+      "values": [
+       8,
+       8,
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Range",
+      "values": [
+       105,
+       130,
+       155,
+       180,
+       205,
+       230,
+       255
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseCost",
+      "values": [
+       40,
+       40,
+       40,
+       40,
+       40,
+       40,
+       40
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ManaCostCap",
+      "values": [
+       400,
+       400,
+       400,
+       400,
+       400,
+       400,
+       400
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "VisionDebuffDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FinalDamageMult",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxExtraCost",
+      "values": [
+       360,
+       360,
+       360,
+       360,
+       360,
+       360,
+       360
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "VisionRadius",
+      "values": [
+       400,
+       400,
+       400,
+       400,
+       400,
+       400,
+       400
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MidDamageMult",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TooltipMissingHealthDamageAmp",
+      "values": [
+       0.83333,
+       0.83333,
+       0.83333,
+       0.83333,
+       0.83333,
+       0.83333,
+       0.83333
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.35,
+       0.35,
+       0.4,
+       0.45,
+       0.45,
+       0.45,
+       0.45
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "APRatio",
+        "values": [
+         0.55,
+         0.55,
+         0.6,
+         0.65,
+         0.65,
+         0.65,
+         0.65
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "BaseDamageCalc": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "Damage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 0.75,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MidDamageCalc": {
+      "mMultiplier": {
+       "mDataValue": "MidDamageMult",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mModifiedGameCalculation": "BaseDamageCalc",
+      "__type": "GameCalculationModified"
+     },
+     "MaxDamageCalc": {
+      "mMultiplier": {
+       "mDataValue": "FinalDamageMult",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mModifiedGameCalculation": "BaseDamageCalc",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     2,
+     2,
+     1.5,
+     1,
+     2,
+     2,
+     2
+    ],
+    "Cooldown": {
+     "values": [
+      2,
+      2,
+      1.5,
+      1,
+      2,
+      2,
+      2
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCostAlwaysShownInUI": true,
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "bHaveHitEffect": true,
+    "castRange": [
+     1300,
+     1300,
+     1550,
+     1800,
+     1200,
+     1200,
+     1200
+    ],
+    "castRadius": [
+     240,
+     240,
+     240,
+     240,
+     240,
+     240,
+     240
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 20,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "KogMaw_R_tar",
+    "bHaveHitBone": true,
+    "mana": [
+     40,
+     40,
+     40,
+     40,
+     40,
+     40
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_KogMawLivingArtillery",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "MaxDamageCalc",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 128,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KogMawLivingArtilleryAbility/KogMawLivingArtillerySight": {
+   "ObjectName": "KogMawLivingArtillerySight",
+   "objectPath": "Characters/KogMaw/Spells/KogMawLivingArtilleryAbility/KogMawLivingArtillerySight",
+   "mScriptName": "KogMawLivingArtillerySight",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_KogMawLivingArtillerySight",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KogMawQAbility/KogMawQ": {
+   "ObjectName": "KogMawQ",
+   "objectPath": "Characters/KogMaw/Spells/KogMawQAbility/KogMawQ",
+   "mScriptName": "KogMawQ",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_Ranged_StopsFirstHit",
+     "Trait_Low_Damage"
+    ],
+    "mEffectAmount": [
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "AttackSpeed",
+      "values": [
+       0,
+       0.05,
+       0.1,
+       0.15,
+       0.2,
+       0.25,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       35,
+       80,
+       125,
+       170,
+       215,
+       260,
+       305
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShredAmount",
+      "values": [
+       12,
+       16,
+       20,
+       24,
+       28,
+       32,
+       36
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShredDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "ShredAmount",
+        "values": [
+         12.5,
+         15,
+         17.5,
+         20,
+         22.5,
+         25,
+         27.5
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "APRatio",
+        "values": [
+         1,
+         1,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "ShredAmount",
+        "values": [
+         12,
+         15,
+         18,
+         21,
+         24,
+         27,
+         30
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "ShredAmount",
+        "values": [
+         12,
+         15,
+         18,
+         21,
+         24,
+         27,
+         30
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     7,
+     7,
+     7,
+     7,
+     7,
+     7,
+     7
+    ],
+    "Cooldown": {
+     "values": [
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7
+     ],
+     "{0a3e0478}": 7,
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/KogMaw/Spells/KogMawQAbility/KogMawQ",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "bHaveHitEffect": true,
+    "mUseAutoattackCastTimeData": {
+     "__type": "UseAutoattackCastTimeData"
+    },
+    "castRange": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castRangeDisplayOverride": [
+     1175,
+     1175,
+     1175,
+     1175,
+     1175,
+     1175,
+     1175
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 70,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "C_Mouth_d",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1650,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.53,
+    "missileSpeed": 1650,
+    "mMissileEffectKey": "KogMaw_Q_mis",
+    "mLineWidth": 70,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "KogMaw_Q_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_LAYOUT_LOC",
+    "mana": [
+     40,
+     40,
+     40,
+     40,
+     40,
+     40
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 32768,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mNumber": 70,
+         "__type": "NumberCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KogMawQAbility/KogMawQMis": {
+   "ObjectName": "KogMawQMis",
+   "objectPath": "Characters/KogMaw/Spells/KogMawQAbility/KogMawQMis",
+   "mScriptName": "KogMawQMis",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mEffectAmount": [
+     {
+      "value": [
+       30,
+       90,
+       150,
+       245,
+       315,
+       440,
+       565
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2.25,
+       2.5,
+       2.75,
+       3,
+       3.25,
+       3.5,
+       3.75
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1.2,
+    "mCastTime": 0.251,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castRangeDisplayOverride": [
+     1175,
+     1175,
+     1175,
+     1175,
+     1175,
+     1175,
+     1175
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 70,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "C_Mouth_d",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1650,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.53,
+    "missileSpeed": 1650,
+    "mMissileEffectKey": "KogMaw_Q_mis",
+    "mLineWidth": 70,
+    "mHitEffectKey": "KogMaw_Q_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KogMawQAbility/KogMawCausticSpittle": {
+   "ObjectName": "KogMawCausticSpittle",
+   "objectPath": "Characters/KogMaw/Spells/KogMawQAbility/KogMawCausticSpittle",
+   "mScriptName": "KogMawCausticSpittle",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "KogMawCausticSpittle",
+    "mEffectAmount": [
+     {
+      "value": [
+       10,
+       60,
+       110,
+       160,
+       210,
+       260,
+       310
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       5,
+       10,
+       15,
+       20,
+       25,
+       30,
+       35
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0,
+       5,
+       10,
+       15,
+       20,
+       25,
+       30
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.7,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     7,
+     7,
+     7,
+     7,
+     7,
+     7,
+     7
+    ],
+    "Cooldown": {
+     "values": [
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7
+     ],
+     "{0a3e0478}": 7,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     625,
+     625,
+     625,
+     625,
+     625,
+     625,
+     625
+    ],
+    "castRadius": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "C_Mouth_d",
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 3000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 11,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "KogMaw_Q_mis",
+    "mHitEffectKey": "KogMaw_Q_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "mana": [
+     60,
+     60,
+     60,
+     60,
+     60,
+     60
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_KogMawCausticSpittle",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KogMawQAbility/KogMawCausticSpittleCharged": {
+   "ObjectName": "KogMawCausticSpittleCharged",
+   "objectPath": "Characters/KogMaw/Spells/KogMawQAbility/KogMawCausticSpittleCharged",
+   "mScriptName": "KogMawCausticSpittleCharged",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_KogMawCausticSpittleCharged",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KogMawVoidOozeAbility/KogMawVoidOozeMissile": {
+   "ObjectName": "KogMawVoidOozeMissile",
+   "objectPath": "Characters/KogMaw/Spells/KogMawVoidOozeAbility/KogMawVoidOozeMissile",
+   "mScriptName": "KogMawVoidOozeMissile",
+   "mSpell": {
+    "mAffectsTypeFlags": 7183,
+    "mAlternateName": "KogMawVoidOozeMissile",
+    "mEffectAmount": [
+     {
+      "value": [
+       75,
+       250,
+       425,
+       600,
+       0,
+       0,
+       175
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     1360,
+     1360,
+     1360,
+     1360,
+     1360,
+     1360,
+     1360
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 125,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "C_Mouth",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1400,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.5,
+    "missileSpeed": 1400,
+    "mMissileEffectKey": "KogMaw_E_mis",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KogMawVoidOozeAbility/KogMawVoidOoze": {
+   "ObjectName": "KogMawVoidOoze",
+   "objectPath": "Characters/KogMaw/Spells/KogMawVoidOozeAbility/KogMawVoidOoze",
+   "mScriptName": "KogMawVoidOoze",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 13327,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "KogMawVoidOoze",
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_Ranged_Piercing",
+     "Trait_Ranged_Zone",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       30,
+       70,
+       110,
+       150,
+       190,
+       230,
+       270
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmount",
+      "values": [
+       35,
+       40,
+       45,
+       50,
+       55,
+       60,
+       65
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TrailDuration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "SlowAmount",
+        "values": [
+         10,
+         20,
+         30,
+         40,
+         50,
+         60,
+         70
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "APRatio",
+        "values": [
+         1,
+         1,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     12,
+     12,
+     12,
+     12,
+     12,
+     12,
+     12
+    ],
+    "Cooldown": {
+     "values": [
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12
+     ],
+     "{0a3e0478}": 12,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRangeDisplayOverride": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castRadius": [
+     175,
+     175,
+     175,
+     175,
+     175,
+     175,
+     175
+    ],
+    "castConeDistance": 100,
+    "castFrame": 1.98,
+    "missileSpeed": 1200,
+    "mLineWidth": 120,
+    "mana": [
+     40,
+     55,
+     70,
+     85,
+     100,
+     110
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_KogMawVoidOoze",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mEffectIndex": 4,
+         "__type": "EffectValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KogMawBasicAttack2": {
+   "ObjectName": "KogMawBasicAttack2",
+   "objectPath": "Characters/KogMaw/Spells/KogMawBasicAttack2",
+   "mScriptName": "KogMawBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "KogMawBasicAttack2",
+    "spellCastTime": 0.34615,
+    "bHaveHitEffect": true,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "root",
+      "mSpeed": 1800,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.5,
+    "missileSpeed": 1800,
+    "mMissileEffectKey": "KogMaw_BA_mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "KogMaw_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KogMawIcathianSurpriseReadyAbility/KogMawIcathianSurprise": {
+   "ObjectName": "KogMawIcathianSurprise",
+   "objectPath": "Characters/KogMaw/Spells/KogMawIcathianSurpriseReadyAbility/KogMawIcathianSurprise",
+   "mScriptName": "KogMawIcathianSurprise",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "KogMawIcathianSurprise",
+    "mEffectAmount": [
+     {
+      "value": [
+       10,
+       60,
+       110,
+       160,
+       210,
+       260,
+       310
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       10,
+       12,
+       14,
+       16,
+       18,
+       20,
+       22
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "TooltipPassiveMS",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TooltipPassiveDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "PassiveDamage": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 125,
+        "mEndValue": 550,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.7,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+     ],
+     "{0a3e0478}": 8,
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/KogMaw/Spells/KogMawIcathianSurpriseReadyAbility/KogMawIcathianSurprise",
+      "mWhenToAddSpell": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "castRadius": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "C_Mouth_d",
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 10.05,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "KogMaw_Q_mis",
+    "mHitEffectKey": "KogMaw_Q_tar",
+    "mana": [
+     70,
+     70,
+     70,
+     70,
+     70,
+     70
+    ],
+    "mDimensionBehavior": 1,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_KogMawIcathianSurprise",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KogMawIcathianSurpriseReadyAbility/KogMawIcathianDisplay": {
+   "ObjectName": "KogMawIcathianDisplay",
+   "objectPath": "Characters/KogMaw/Spells/KogMawIcathianSurpriseReadyAbility/KogMawIcathianDisplay",
+   "mScriptName": "KogMawIcathianDisplay",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "TooltipPassiveMS",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TooltipPassiveDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "PassiveDamage": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 140,
+        "mEndValue": 650,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_KogMawIcathianDisplay",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KogMawIcathianSurpriseReadyAbility/KogMawIcathianSurpriseSound": {
+   "ObjectName": "KogMawIcathianSurpriseSound",
+   "objectPath": "Characters/KogMaw/Spells/KogMawIcathianSurpriseReadyAbility/KogMawIcathianSurpriseSound",
+   "mScriptName": "KogMawIcathianSurpriseSound",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_KogMawIcathianSurpriseSound",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KogMawIcathianSurpriseReadyAbility/KogMawIcathianSurpriseReady": {
+   "ObjectName": "KogMawIcathianSurpriseReady",
+   "objectPath": "Characters/KogMaw/Spells/KogMawIcathianSurpriseReadyAbility/KogMawIcathianSurpriseReady",
+   "mScriptName": "KogMawIcathianSurpriseReady",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "TooltipPassiveMS",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TooltipPassiveDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "PassiveDamage": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 140,
+        "mEndValue": 650,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KogMawBasicAttack": {
+   "ObjectName": "KogMawBasicAttack",
+   "objectPath": "Characters/KogMaw/Spells/KogMawBasicAttack",
+   "mScriptName": "KogMawBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "KogMawBasicAttack",
+    "spellCastTime": 0.34615,
+    "bHaveHitEffect": true,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "root",
+      "mSpeed": 1800,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.5,
+    "missileSpeed": 1800,
+    "mMissileEffectKey": "KogMaw_BA_mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "KogMaw_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KogMawCritAttack": {
+   "ObjectName": "KogMawCritAttack",
+   "objectPath": "Characters/KogMaw/Spells/KogMawCritAttack",
+   "mScriptName": "KogMawCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "KogMawCritAttack",
+    "spellCastTime": 0.34615,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "root",
+      "mSpeed": 1800,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8.5,
+    "missileSpeed": 1800,
+    "mMissileEffectKey": "KogMaw_BA_mis",
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/KogMawQAbility/KogMawQ",
+  "Spells/KogMawBioArcaneBarrageAbility/KogMawBioArcaneBarrage",
+  "Spells/KogMawVoidOozeAbility/KogMawVoidOoze",
+  "Spells/KogMawLivingArtilleryAbility/KogMawLivingArtillery"
+ ],
+ "passiva_ref": "Characters/KogMaw/Spells/KogMawIcathianSurpriseReadyAbility",
+ "passiva_chaves": [
+  "Spells/KogMawIcathianSurpriseReadyAbility/KogMawIcathianSurprise",
+  "Spells/KogMawIcathianSurpriseReadyAbility/KogMawIcathianDisplay",
+  "Spells/KogMawIcathianSurpriseReadyAbility/KogMawIcathianSurpriseSound",
+  "Spells/KogMawIcathianSurpriseReadyAbility/KogMawIcathianSurpriseReady"
+ ]
+}

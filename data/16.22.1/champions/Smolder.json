@@ -1,0 +1,2802 @@
+{
+ "id": "Smolder",
+ "key": 901,
+ "nome": "Smolder",
+ "titulo": "o Filhote Flamejante",
+ "funcoes": [
+  "Marksman",
+  "Mage"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 8,
+  "defense": 2,
+  "magic": 5,
+  "difficulty": 6
+ },
+ "stats_ddragon": {
+  "hp": 575,
+  "hpperlevel": 100,
+  "mp": 300,
+  "mpperlevel": 40,
+  "movespeed": 330,
+  "armor": 24,
+  "armorperlevel": 4,
+  "spellblock": 33,
+  "spellblockperlevel": 1.1,
+  "attackrange": 550,
+  "hpregen": 3.75,
+  "hpregenperlevel": 0.6,
+  "mpregen": 8.5,
+  "mpregenperlevel": 0.7,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 58,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 4,
+  "attackspeed": 0.638
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Treinamento Dracônico",
+  "descricao": "Acertar Campeões com habilidades e abater inimigos com Super-Hálito Flamejante concede um acúmulo de Treinamento Dracônico. Os acúmulos aumentam o dano das habilidades básicas de Smolder."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "SmolderQ",
+   "nome": "Super-Hálito Flamejante",
+   "descricao": "Smolder cospe fogo em um inimigo. Conforme obtém mais acúmulos, a Habilidade se torna ainda mais poderosa.",
+   "tooltip": "Smolder cospe chamas, causando <physicalDamage>{{ totaldamage }} de Dano Físico</physicalDamage> + <magicDamage>{{ spell.smolderp:passive_qdamageincrease }} de Dano Mágico</magicDamage>. Se o alvo morre, Smolder restitui <scaleMana>{{ manarestore }} de Mana</scaleMana>, uma vez por conjuração.<br /><br />Com base nos acúmulos de <spellName>Treinamento Dracônico</spellName>, a Habilidade evolui e recebe os seguintes efeitos:<li><keywordMajor>{{ stacktier1 }} acúmulos</keywordMajor>: causa dano a todos os inimigos ao redor do alvo.<li><keywordMajor>{{ stacktier2 }} acúmulos</keywordMajor>: provoca <spellName>{{ tier2_numberofblowback }}</spellName> explosões atrás do alvo que causam {{ tier2_blowbackpercentagedamage }}% do dano desta Habilidade.<li><keywordMajor>{{ stacktier3 }} acúmulos</keywordMajor>: queima o alvo, causando <trueDamage>{{ tier3_burn }} da Vida máxima como Dano Verdadeiro</trueDamage> ao longo de {{ tier3_dotlength }}s. Campeões inimigos que ficarem com menos de <trueDamage>{{ tier3_executethreshold }}</trueDamage> de Vida total enquanto estiverem queimando serão abatidos instantaneamente.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    5.5,
+    5,
+    4.5,
+    4,
+    3.5
+   ],
+   "custo": [
+    25,
+    25,
+    25,
+    25,
+    25
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    550,
+    550,
+    550,
+    550,
+    550
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "SmolderW",
+   "nome": "Atchim!",
+   "descricao": "Smolder dá um adorável espirro flamejante que explode ao atingir Campeões inimigos.",
+   "tooltip": "Smolder dá um adorável espirro flamejante, causando <physicalDamage>{{ initialdamage }} de Dano Físico</physicalDamage> e {{ slowamount*100 }}% de <status>Lentidão</status> aos inimigos atingidos por {{ slowduration }}s.<br /><br />Atingir Campeões gera uma explosão, causando <physicalDamage>{{ explosiondamage }} de Dano Físico</physicalDamage> + <magicDamage>{{ spell.smolderp:passive_wdamageincrease }} de Dano Mágico</magicDamage>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    14,
+    13,
+    12,
+    11,
+    10
+   ],
+   "custo": [
+    50,
+    55,
+    60,
+    65,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1500,
+    1500,
+    1500,
+    1500,
+    1500
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "SmolderE",
+   "nome": "Voa, Voa, Voa",
+   "descricao": "Smolder voa, ignorando os terrenos e bombardeando o inimigo com a Vida mais baixa.",
+   "tooltip": "Smolder levanta voo, recebendo <speed>{{ movespeed*100 }}% de Velocidade de Movimento</speed> e ignorando os terrenos por {{ duration }}s.<br /><br />Durante o voo, Smolder bombardeia o inimigo com a Vida mais baixa <spellName>{{ totalnumberofattacks }}x</spellName> (arredondando para baixo), causando <physicalDamage>{{ damageperhit }} de Dano Físico</physicalDamage> + <magicDamage>{{ spell.smolderp:ebonusdamage }} de Dano Mágico</magicDamage> por acerto.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    24,
+    22,
+    20,
+    18,
+    16
+   ],
+   "custo": [
+    65,
+    65,
+    65,
+    65,
+    65
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    700,
+    700,
+    700,
+    700,
+    700
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "SmolderR",
+   "nome": "MANHÊÊÊ!",
+   "descricao": "Smolder chama sua mãe para cuspir fogo das alturas, causando dano adicional e Lentidão aos inimigos no centro das chamas.",
+   "tooltip": "A mãe de Smolder sopra fogo das alturas, causando <physicalDamage>{{ totaldamage }} de Dano Físico</physicalDamage>. Inimigos no centro sofrem <physicalDamage>{{ tooltiponly_totalsweetspotdamage }} de Dano Físico</physicalDamage> e {{ slowamount*100 }}% de <status>Lentidão</status> por {{ slowduration }}s.<br /><br />A mãe de Smolder cura o filho em <healing>{{ momhealcalc }} de Vida</healing> se o atingir.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    120,
+    110,
+    100
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    4200,
+    4200,
+    4200
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 575,
+  "vida_nivel": 100,
+  "regen_vida": 0.75,
+  "regen_vida_nivel": 0.12,
+  "dano": 58,
+  "dano_nivel": 2.3,
+  "armadura": 24,
+  "armadura_nivel": 4,
+  "rm": 33,
+  "rm_nivel": 1.1,
+  "velocidade_mov": 330,
+  "alcance_ataque": 550,
+  "vel_ataque_base": 0.638,
+  "vel_ataque_razao": 0.638,
+  "vel_ataque_nivel": 4,
+  "dano_critico": 2,
+  "alcance_aquisicao": 900,
+  "raio_selecao": 130,
+  "raio_colisao": 30,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackTotalTime": 1.5670000314712524,
+   "mAttackCastTime": 0.25,
+   "mAttackName": "SmolderBasicAttack",
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackName": "SmolderBasicAttack2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackTotalTime": 1.5670000314712524,
+    "mAttackCastTime": 0.25,
+    "mAttackName": "SmolderCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Smolder/Spells/SmolderQAbility/SmolderQ",
+  "Characters/Smolder/Spells/SmolderWAbility/SmolderW",
+  "Characters/Smolder/Spells/SmolderEAbility/SmolderE",
+  "Characters/Smolder/Spells/SmolderRAbility/SmolderR"
+ ],
+ "abilities_ref": [
+  "Characters/Smolder/Spells/SmolderPAbility",
+  "Characters/Smolder/Spells/SmolderQAbility",
+  "Characters/Smolder/Spells/SmolderWAbility",
+  "Characters/Smolder/Spells/SmolderEAbility",
+  "Characters/Smolder/Spells/SmolderRAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/SmolderWAbility/SmolderWSlow": {
+   "ObjectName": "SmolderWSlow",
+   "objectPath": "Characters/Smolder/Spells/SmolderWAbility/SmolderWSlow",
+   "mScriptName": "SmolderWSlow",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_SmolderWSlow",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SmolderWAbility/SmolderW": {
+   "ObjectName": "SmolderW",
+   "objectPath": "Characters/Smolder/Spells/SmolderWAbility/SmolderW",
+   "mScriptName": "SmolderW",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_Ranged_Piercing",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       50,
+       60,
+       70,
+       80,
+       90,
+       100,
+       110
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HitADRatio",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ExplosionBaseDamage",
+      "values": [
+       0,
+       25,
+       50,
+       75,
+       100,
+       125,
+       150
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ExplosionRadius",
+      "values": [
+       385,
+       385,
+       385,
+       385,
+       385,
+       385,
+       385
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmount",
+      "values": [
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ExplosionDamageMult",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ExplosionDamageMultihitPenalty",
+      "values": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinionMod",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "InitialDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "HitADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "ExplosionDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "ExplosionBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 0.5,
+        "__type": "StatByCoefficientCalculationPart"
+       },
+       {
+        "mCoefficient": 0.8,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.35,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     14,
+     14,
+     13,
+     12,
+     11,
+     10,
+     10
+    ],
+    "Cooldown": {
+     "values": [
+      14,
+      14,
+      13,
+      12,
+      11,
+      10,
+      10
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCasterPositionEndOfCastUpdate": 1,
+    "mCantCancelWhileWindingUp": true,
+    "mApplyAttackEffect": true,
+    "useAnimatorFramerate": true,
+    "mTurnSpeedScalar": 2.7,
+    "castRange": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castRangeDisplayOverride": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 115,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mTargetBoneName": "C_buffbone_Glb_Center_Loc",
+      "mProjectTargetToCastRange": true,
+      "mAcceleration": -1600,
+      "mMinSpeed": 400,
+      "mMaxSpeed": 2000,
+      "mInitialSpeed": 2000,
+      "__type": "DecelToLocationMovement"
+     },
+     "heightSolver": {
+      "mHeightOffset": 100,
+      "__type": "FollowTerrainHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 1.98,
+    "missileSpeed": 0,
+    "mMissileEffectKey": "Smolder_W_mis",
+    "mLineWidth": 75,
+    "mHitEffectOrientType": 2,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_buffbone_Glb_Center_Loc",
+    "mana": [
+     50,
+     55,
+     60,
+     65,
+     70,
+     70
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.05,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "InitialDamage",
+       "__type": "{f3cbe7b2}"
+      },
+      {
+       "mSpellCalculationKey": "ExplosionDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "SlowAmount",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SmolderQAbility/SmolderQ": {
+   "ObjectName": "SmolderQ",
+   "objectPath": "Characters/Smolder/Spells/SmolderQAbility/SmolderQ",
+   "mScriptName": "SmolderQ",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_MultiTargetAttack",
+     "Trait_DamageAbility",
+     "Trait_DoT",
+     "Trait_Strike",
+     "Trait_SignatureSpell",
+     "Trait_Ranged_Piercing",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       50,
+       60,
+       70,
+       80,
+       90,
+       100,
+       110
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ADRatio",
+      "values": [
+       1.3,
+       1.3,
+       1.3,
+       1.3,
+       1.3,
+       1.3,
+       1.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StackTier1",
+      "values": [
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StackTier2",
+      "values": [
+       125,
+       125,
+       125,
+       125,
+       125,
+       125,
+       125
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StackTier3",
+      "values": [
+       225,
+       225,
+       225,
+       225,
+       225,
+       225,
+       225
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Tier1_ExplosionRadius",
+      "values": [
+       285,
+       285,
+       285,
+       285,
+       285,
+       285,
+       285
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Tier2_BlowbackDistance",
+      "values": [
+       500,
+       500,
+       500,
+       500,
+       500,
+       500,
+       500
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Tier2_BlowbackAmountBase",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Tier2_BlowbackExplosionRadius",
+      "values": [
+       150,
+       150,
+       150,
+       150,
+       150,
+       150,
+       150
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Tier2_BlowbackSpreadAngle",
+      "values": [
+       15,
+       15,
+       15,
+       15,
+       15,
+       15,
+       15
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Tier3_TrueDamagePercent",
+      "values": [
+       0.01,
+       0.01,
+       0.01,
+       0.01,
+       0.01,
+       0.01,
+       0.01
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Tier3_MonsterCap",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CritRatio",
+      "values": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "LifestealMod",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Tier3_ExecuteThresholdStart",
+      "values": [
+       6.5,
+       6.5,
+       6.5,
+       6.5,
+       6.5,
+       6.5,
+       6.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Tier3_DotLength",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Tier2_BlowbackPercentageDamage",
+      "values": [
+       50,
+       50,
+       50,
+       50,
+       50,
+       50,
+       50
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "minionmod",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Tier3_Burn_Stack_Mult",
+      "values": [
+       0.00005,
+       0.00005,
+       0.00005,
+       0.00005,
+       0.00005,
+       0.00005,
+       0.00005
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ManaRestore",
+      "values": [
+       15,
+       15,
+       15,
+       15,
+       15,
+       15,
+       15
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mMultiplier": {
+       "mSubparts": [
+        {
+         "mNumber": 1,
+         "__type": "NumberCalculationPart"
+        },
+        {
+         "mPart1": {
+          "mStat": 8,
+          "mDataValue": "CritRatio",
+          "__type": "StatByNamedDataValueCalculationPart"
+         },
+         "mPart2": {
+          "mSubparts": [
+           {
+            "mNumber": -1,
+            "__type": "NumberCalculationPart"
+           },
+           {
+            "mStat": 9,
+            "mCoefficient": 1,
+            "__type": "StatByCoefficientCalculationPart"
+           }
+          ],
+          "__type": "SumOfSubPartsCalculationPart"
+         },
+         "__type": "ProductOfSubPartsCalculationPart"
+        }
+       ],
+       "__type": "SumOfSubPartsCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "ADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "Tier2_NumberOfBlowback": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "Tier2_BlowbackAmountBase",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mBuffName": "{32bcea5d}",
+        "mIconKey": "%i:Smolder%",
+        "mCoefficient": 0.008,
+        "__type": "BuffCounterByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "Tier3_ExecuteThreshold": {
+      "mMultiplier": {
+       "mNumber": 0.01,
+       "__type": "NumberCalculationPart"
+      },
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mDataValue": "Tier3_ExecuteThresholdStart",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": 1,
+      "__type": "GameCalculation"
+     },
+     "Tier3_Burn": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 0.00025,
+        "__type": "StatByCoefficientCalculationPart"
+       },
+       {
+        "mBuffName": "{32bcea5d}",
+        "mIconKey": "%i:Smolder%",
+        "mDataValue": "Tier3_Burn_Stack_Mult",
+        "__type": "BuffCounterByNamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": 1,
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.25,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     5.5,
+     5.5,
+     5,
+     4.5,
+     4,
+     3.5,
+     3.5
+    ],
+    "Cooldown": {
+     "values": [
+      5.5,
+      5.5,
+      5,
+      4.5,
+      4,
+      3.5,
+      3.5
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Smolder/Spells/SmolderQAbility/SmolderQPassive",
+      "mRemoveWhenOnCooldown": false,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "castRangeUseBoundingBoxes": true,
+    "mTurnSpeedScalar": 5.001,
+    "mUseAutoattackCastTimeData": {
+     "__type": "UseAutoattackCastTimeData"
+    },
+    "mConsideredAsAutoAttack": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castRadius": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castConeAngle": 60,
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mVisualsTrackHiddenTargets": true,
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 50,
+      "mStartBoneName": "",
+      "mStartBoneSkinOverrides": {
+       "31": "UltGun_Root"
+      },
+      "mSpeed": 1800,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8.7,
+    "missileSpeed": 2200,
+    "mMissileEffectKey": "Smolder_Q_Mis_Lvl1",
+    "mana": [
+     25,
+     25,
+     25,
+     25,
+     25,
+     25
+    ],
+    "selectionPriority": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SmolderQAbility/SmolderQPassive": {
+   "ObjectName": "SmolderQPassive",
+   "objectPath": "Characters/Smolder/Spells/SmolderQAbility/SmolderQPassive",
+   "mScriptName": "SmolderQPassive",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Buff_SmolderQ_Tooltip",
+    "mBuffAttributeFlag": 8,
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SmolderQAbility/SmolderQ3Burn": {
+   "ObjectName": "SmolderQ3Burn",
+   "objectPath": "Characters/Smolder/Spells/SmolderQAbility/SmolderQ3Burn",
+   "mScriptName": "SmolderQ3Burn",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_SmolderQ3Burn",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SmolderQAbility/SmolderQ2BlowbackMissileC": {
+   "ObjectName": "SmolderQ2BlowbackMissileC",
+   "objectPath": "Characters/Smolder/Spells/SmolderQAbility/SmolderQ2BlowbackMissileC",
+   "mScriptName": "SmolderQ2BlowbackMissileC",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 22538,
+    "mCoefficient": 0.6,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 25,
+     "movementComponent": {
+      "mStartBoneName": "C_BuffBone_Glb_Center_Loc",
+      "mSplineInfo": {
+       "mControlPoint1": [
+        0.2285,
+        -0.5,
+        1.55233
+       ],
+       "mControlPoint2": [
+        0.00364,
+        -1,
+        1.17617
+       ],
+       "__type": "HermiteSplineInfo"
+      },
+      "mTravelTime": 0.21,
+      "__type": "FixedTimeSplineMovement"
+     },
+     "heightSolver": {
+      "mGravity": 500,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8.7,
+    "missileSpeed": 900,
+    "mMissileEffectKey": "Smolder_Q_Mis_Lvl3_Bounce",
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "manaUiOverride": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SmolderQAbility/SmolderQ2BlowbackMissileB": {
+   "ObjectName": "SmolderQ2BlowbackMissileB",
+   "objectPath": "Characters/Smolder/Spells/SmolderQAbility/SmolderQ2BlowbackMissileB",
+   "mScriptName": "SmolderQ2BlowbackMissileB",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 22538,
+    "mCoefficient": 0.6,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 25,
+     "movementComponent": {
+      "mStartBoneName": "C_BuffBone_Glb_Center_Loc",
+      "mSplineInfo": {
+       "mControlPoint1": [
+        -0.23836,
+        -0.5,
+        1.49372
+       ],
+       "mControlPoint2": [
+        -0.00953,
+        -1,
+        0.96408
+       ],
+       "__type": "HermiteSplineInfo"
+      },
+      "mTravelTime": 0.36,
+      "__type": "FixedTimeSplineMovement"
+     },
+     "heightSolver": {
+      "mGravity": 500,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8.7,
+    "missileSpeed": 900,
+    "mMissileEffectKey": "Smolder_Q_Mis_Lvl3_Bounce",
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "manaUiOverride": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SmolderQAbility/SmolderQ2BlowbackMissileA": {
+   "ObjectName": "SmolderQ2BlowbackMissileA",
+   "objectPath": "Characters/Smolder/Spells/SmolderQAbility/SmolderQ2BlowbackMissileA",
+   "mScriptName": "SmolderQ2BlowbackMissileA",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 22538,
+    "mCoefficient": 0.6,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 25,
+     "movementComponent": {
+      "mStartBoneName": "C_BuffBone_Glb_Center_Loc",
+      "mSplineInfo": {
+       "mControlPoint1": [
+        0.01103,
+        -0.5,
+        1.58045
+       ],
+       "mControlPoint2": [
+        -0.00368,
+        -1,
+        1.19793
+       ],
+       "__type": "HermiteSplineInfo"
+      },
+      "mTravelTime": 0.25,
+      "__type": "FixedTimeSplineMovement"
+     },
+     "heightSolver": {
+      "mGravity": 500,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8.7,
+    "missileSpeed": 900,
+    "mMissileEffectKey": "Smolder_Q_Mis_Lvl3_Bounce",
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "manaUiOverride": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SmolderQAbility/SmolderQUpgradeTracker": {
+   "ObjectName": "SmolderQUpgradeTracker",
+   "objectPath": "Characters/Smolder/Spells/SmolderQAbility/SmolderQUpgradeTracker",
+   "mScriptName": "SmolderQUpgradeTracker",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SmolderRAbility/SmolderRMomMissile": {
+   "ObjectName": "SmolderRMomMissile",
+   "objectPath": "Characters/Smolder/Spells/SmolderRAbility/SmolderRMomMissile",
+   "mScriptName": "SmolderRMomMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 14346,
+    "mMinimapIconName": "assets/characters/smolder/hud/icons2d/icons_smolder_mom.tex",
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "mMinimapIconRotation": true,
+    "mIgnoreRangeCheck": true,
+    "mMinimapIconDisplayFlag": 3,
+    "castRange": [
+     4250,
+     4250,
+     4250,
+     4250,
+     4250,
+     4250,
+     4250
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 300,
+     "movementComponent": {
+      "mStartBoneName": "",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1700,
+      "__type": "FixedSpeedMovement"
+     },
+     "visibilityComponent": {
+      "mPerceptionBubbleRadius": 1000,
+      "__type": "Defaultvisibility"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "behaviors": [
+      {
+       "RenderParticlesAfterDestroy": false,
+       "__type": "DestroyOnMovementComplete"
+      },
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "{ccfd27e6}": 1,
+       "{dc9124b1}": [
+        0,
+        0,
+        244,
+        0
+       ],
+       "__type": "{72f86c81}"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "mMissileEffectKey": "Smolder_R_mis",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SmolderRAbility/SmolderRMomMissileSweetspot": {
+   "ObjectName": "SmolderRMomMissileSweetspot",
+   "objectPath": "Characters/Smolder/Spells/SmolderRAbility/SmolderRMomMissileSweetspot",
+   "mScriptName": "SmolderRMomMissileSweetspot",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mMinimapIconName": "assets/characters/smolder/hud/icons2d/icons_smolder_mom.tex",
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "mMinimapIconRotation": true,
+    "mIgnoreRangeCheck": true,
+    "mMinimapIconDisplayFlag": 3,
+    "castRange": [
+     4250,
+     4250,
+     4250,
+     4250,
+     4250,
+     4250,
+     4250
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 125,
+     "movementComponent": {
+      "mStartBoneName": "",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1700,
+      "__type": "FixedSpeedMovement"
+     },
+     "visibilityComponent": {
+      "mPerceptionBubbleRadius": 1000,
+      "__type": "Defaultvisibility"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "RenderParticlesAfterDestroy": false,
+       "__type": "DestroyOnMovementComplete"
+      },
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "{ccfd27e6}": 1,
+       "{dc9124b1}": [
+        13,
+        8,
+        13,
+        0
+       ],
+       "__type": "{72f86c81}"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SmolderRAbility/SmolderR": {
+   "ObjectName": "SmolderR",
+   "objectPath": "Characters/Smolder/Spells/SmolderRAbility/SmolderR",
+   "mScriptName": "SmolderR",
+   "mSpell": {
+    "mAffectsTypeFlags": 14474,
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_DamageAbility",
+     "Trait_ActiveHeal",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       50,
+       150,
+       250,
+       350,
+       450,
+       550,
+       650
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ADRatio",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MomDistBehindOffset",
+      "values": [
+       600,
+       600,
+       600,
+       600,
+       600,
+       600,
+       600
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmount",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MomSpawnDelay",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SweetspotPercentageIncrease",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MomHeal",
+      "values": [
+       25,
+       100,
+       175,
+       250,
+       325,
+       400,
+       475
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SoundDistanceBehindSmolder",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SoundDistanceBehindSmolderSelfOnly",
+      "values": [
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "LingeringSimmerSoundAmount",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "LingeringSimmerSoundOffset",
+      "values": [
+       1500,
+       1500,
+       1500,
+       1500,
+       1500,
+       1500,
+       1500
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "LingeringSimmerSoundDebug",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MissileLandingSound",
+      "values": [
+       500,
+       500,
+       500,
+       500,
+       500,
+       500,
+       500
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "VFXNorthAngleReplacement",
+      "values": [
+       90,
+       90,
+       90,
+       90,
+       90,
+       90,
+       90
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "LingeringSimmerSoundDelay",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinionMod",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "ADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TooltipOnly_TotalSweetspotDamage": {
+      "mMultiplier": {
+       "mDataValue": "SweetspotPercentageIncrease",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mModifiedGameCalculation": "TotalDamage",
+      "__type": "GameCalculationModified"
+     },
+     "MomHealCalc": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "MomHeal",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 0.75,
+        "__type": "StatByCoefficientCalculationPart"
+       },
+       {
+        "mCoefficient": 0.75,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.75,
+    "spellCastTime": 0.75,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     120,
+     120,
+     110,
+     100,
+     100,
+     100,
+     100
+    ],
+    "Cooldown": {
+     "values": [
+      120,
+      120,
+      110,
+      100,
+      100,
+      100,
+      100
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCanMoveWhileChanneling": true,
+    "useAnimatorFramerate": true,
+    "mDoNotNeedToFaceTarget": true,
+    "mIgnoreRangeCheck": true,
+    "mUpdateRotationWhenCasting": true,
+    "mDoesNotConsumeCooldown": true,
+    "castRange": [
+     4200,
+     4200,
+     4200,
+     4200,
+     4200,
+     4200,
+     4200
+    ],
+    "castRadius": [
+     240,
+     240,
+     240,
+     240,
+     240,
+     240,
+     240
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "SlowAmount",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 8,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "MomHeal",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 128,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SmolderRAbility/SmolderRSlow": {
+   "ObjectName": "SmolderRSlow",
+   "objectPath": "Characters/Smolder/Spells/SmolderRAbility/SmolderRSlow",
+   "mScriptName": "SmolderRSlow",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_SmolderRSlow",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SmolderBasicAttack3": {
+   "ObjectName": "SmolderBasicAttack3",
+   "objectPath": "Characters/Smolder/Spells/SmolderBasicAttack3",
+   "mScriptName": "SmolderBasicAttack3",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "SmolderBasicAttack2",
+    "spellCastTime": 0.34615,
+    "bHaveHitEffect": true,
+    "mConsideredAsAutoAttack": true,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "root",
+      "mSpeed": 1600,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7,
+    "missileSpeed": 1800,
+    "mMissileEffectKey": "Smolder_BA_mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Smolder_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SmolderBasicAttack2": {
+   "ObjectName": "SmolderBasicAttack2",
+   "objectPath": "Characters/Smolder/Spells/SmolderBasicAttack2",
+   "mScriptName": "SmolderBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "SmolderBasicAttack2",
+    "spellCastTime": 0.34615,
+    "bHaveHitEffect": true,
+    "mConsideredAsAutoAttack": true,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Neck2",
+      "mSpeed": 1600,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7,
+    "missileSpeed": 1800,
+    "mMissileEffectKey": "Smolder_BA_mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Smolder_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SmolderEAbility/SmolderEAttack": {
+   "ObjectName": "SmolderEAttack",
+   "objectPath": "Characters/Smolder/Spells/SmolderEAbility/SmolderEAttack",
+   "mScriptName": "SmolderEAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "spellCastTime": 0.34615,
+    "bHaveHitEffect": true,
+    "castRange": [
+     1600,
+     1600,
+     1600,
+     1600,
+     1600,
+     1600,
+     1600
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Jaw",
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7,
+    "missileSpeed": 1800,
+    "mMissileEffectKey": "Smolder_E_mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Smolder_E_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SmolderEAbility/SmolderE": {
+   "ObjectName": "SmolderE",
+   "objectPath": "Characters/Smolder/Spells/SmolderEAbility/SmolderE",
+   "mScriptName": "SmolderE",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 15375,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_ChannelSpell",
+     "Trait_DamageAbility",
+     "Trait_Low_Damage",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "Duration",
+      "values": [
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MoveSpeed",
+      "values": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "NumOfAttacksBase",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       5,
+       10,
+       15,
+       20,
+       25,
+       30,
+       35
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ADRatio",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Range",
+      "values": [
+       700,
+       700,
+       700,
+       700,
+       700,
+       700,
+       700
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "NumAttackStackRatio",
+      "values": [
+       0.01,
+       0.01,
+       0.01,
+       0.01,
+       0.01,
+       0.01,
+       0.01
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalNumberOfAttacks": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "NumOfAttacksBase",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mBuffName": "{32bcea5d}",
+        "mIconKey": "%i:Smolder%",
+        "mDataValue": "NumAttackStackRatio",
+        "__type": "BuffCounterByNamedDataValueCalculationPart"
+       }
+      ],
+      "mPrecision": 2,
+      "__type": "GameCalculation"
+     },
+     "DamagePerHit": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mDataValue": "ADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     24,
+     24,
+     22,
+     20,
+     18,
+     16,
+     16
+    ],
+    "Cooldown": {
+     "values": [
+      24,
+      24,
+      22,
+      20,
+      18,
+      16,
+      16
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "mChannelIsInterruptedByAttacking": false,
+    "mDoNotNeedToFaceTarget": true,
+    "castRange": [
+     700,
+     700,
+     700,
+     700,
+     700,
+     700,
+     700
+    ],
+    "castRangeDisplayOverride": [
+     700,
+     700,
+     700,
+     700,
+     700,
+     700,
+     700
+    ],
+    "castRadius": [
+     175,
+     175,
+     175,
+     175,
+     175,
+     175,
+     175
+    ],
+    "castConeDistance": 100,
+    "castFrame": 1.98,
+    "missileSpeed": 1200,
+    "mLineWidth": 120,
+    "mana": [
+     65,
+     65,
+     65,
+     65,
+     65,
+     65
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_SmolderE",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "DamagePerHit",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 2,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "MoveSpeed",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SmolderBasicAttack": {
+   "ObjectName": "SmolderBasicAttack",
+   "objectPath": "Characters/Smolder/Spells/SmolderBasicAttack",
+   "mScriptName": "SmolderBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7407,
+    "mAlternateName": "SmolderBasicAttack",
+    "spellCastTime": 0.346,
+    "bHaveHitEffect": true,
+    "mConsideredAsAutoAttack": true,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Neck2",
+      "mSpeed": 1600,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7,
+    "missileSpeed": 1800,
+    "mMissileEffectKey": "Smolder_BA_mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Smolder_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SmolderCritAttack": {
+   "ObjectName": "SmolderCritAttack",
+   "objectPath": "Characters/Smolder/Spells/SmolderCritAttack",
+   "mScriptName": "SmolderCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5359,
+    "mAlternateName": "SmolderCritAttack",
+    "spellCastTime": 0.34615,
+    "bHaveHitEffect": true,
+    "mConsideredAsAutoAttack": true,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Neck2",
+      "mSpeed": 1600,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7,
+    "missileSpeed": 1800,
+    "mMissileEffectKey": "Smolder_BA_mis_crit",
+    "mHitEffectKey": "Smolder_BA_tar_crit",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SmolderPAbility/SmolderP": {
+   "ObjectName": "SmolderP",
+   "objectPath": "Characters/Smolder/Spells/SmolderPAbility/SmolderP",
+   "mScriptName": "SmolderP",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "QCritRatio",
+      "values": [
+       1.4,
+       1.4,
+       1.4,
+       1.4,
+       1.4,
+       1.4,
+       1.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "QDamagePerStack",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "WDamagePerStack",
+      "values": [
+       0.55,
+       0.55,
+       0.55,
+       0.55,
+       0.55,
+       0.55,
+       0.55
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EDamagePerStack",
+      "values": [
+       0.08,
+       0.08,
+       0.08,
+       0.08,
+       0.08,
+       0.08,
+       0.08
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EStacksPerAttackTooltip",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "Passive_QDamageIncrease": {
+      "mMultiplier": {
+       "mSubparts": [
+        {
+         "mNumber": 1,
+         "__type": "NumberCalculationPart"
+        },
+        {
+         "mPart1": {
+          "mStat": 8,
+          "mDataValue": "QCritRatio",
+          "__type": "StatByNamedDataValueCalculationPart"
+         },
+         "mPart2": {
+          "mSubparts": [
+           {
+            "mNumber": -1,
+            "__type": "NumberCalculationPart"
+           },
+           {
+            "mStat": 9,
+            "mCoefficient": 1,
+            "__type": "StatByCoefficientCalculationPart"
+           }
+          ],
+          "__type": "SumOfSubPartsCalculationPart"
+         },
+         "__type": "ProductOfSubPartsCalculationPart"
+        }
+       ],
+       "__type": "SumOfSubPartsCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mBuffName": "{32bcea5d}",
+        "mIconKey": "%i:Smolder%",
+        "mDataValue": "QDamagePerStack",
+        "__type": "BuffCounterByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "Passive_WDamageIncrease": {
+      "mFormulaParts": [
+       {
+        "mBuffName": "{32bcea5d}",
+        "mIconKey": "%i:Smolder%",
+        "mDataValue": "WDamagePerStack",
+        "__type": "BuffCounterByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TooltipOnly_QStacks": {
+      "mExpandedTooltipCalculationDisplay": 2,
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mBuffName": "{32bcea5d}",
+        "mIconKey": "%i:Smolder%",
+        "mDataValue": "QDamagePerStack",
+        "__type": "BuffCounterByNamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "TooltipOnly_QCritMultiplier": {
+      "mExpandedTooltipCalculationDisplay": 2,
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mBuffName": "{098531db}",
+        "mIconKey": "%i:scaleCrit%",
+        "mDataValue": "QCritRatio",
+        "__type": "BuffCounterByNamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "EBonusDamage": {
+      "mMultiplier": {
+       "mSubparts": [
+        {
+         "mNumber": 1,
+         "__type": "NumberCalculationPart"
+        },
+        {
+         "mPart1": {
+          "mStat": 8,
+          "mCoefficient": 0.75,
+          "__type": "StatByCoefficientCalculationPart"
+         },
+         "mPart2": {
+          "mSubparts": [
+           {
+            "mNumber": -1,
+            "__type": "NumberCalculationPart"
+           },
+           {
+            "mStat": 9,
+            "mCoefficient": 1,
+            "__type": "StatByCoefficientCalculationPart"
+           }
+          ],
+          "__type": "SumOfSubPartsCalculationPart"
+         },
+         "__type": "ProductOfSubPartsCalculationPart"
+        }
+       ],
+       "__type": "SumOfSubPartsCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mBuffName": "{32bcea5d}",
+        "mIconKey": "%i:Smolder%",
+        "mDataValue": "EDamagePerStack",
+        "__type": "BuffCounterByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/SmolderQAbility/SmolderQ",
+  "Spells/SmolderWAbility/SmolderW",
+  "Spells/SmolderEAbility/SmolderE",
+  "Spells/SmolderRAbility/SmolderR"
+ ],
+ "passiva_ref": "Characters/Smolder/Spells/SmolderPAbility",
+ "passiva_chaves": [
+  "Spells/SmolderPAbility/SmolderP"
+ ]
+}

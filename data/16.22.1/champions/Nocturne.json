@@ -1,0 +1,2271 @@
+{
+ "id": "Nocturne",
+ "key": 56,
+ "nome": "Nocturne",
+ "titulo": "o Eterno Pesadelo",
+ "funcoes": [
+  "Fighter",
+  "Assassin"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 9,
+  "defense": 5,
+  "magic": 2,
+  "difficulty": 4
+ },
+ "stats_ddragon": {
+  "hp": 640,
+  "hpperlevel": 109,
+  "mp": 275,
+  "mpperlevel": 35,
+  "movespeed": 345,
+  "armor": 36,
+  "armorperlevel": 4.2,
+  "spellblock": 32,
+  "spellblockperlevel": 1.55,
+  "attackrange": 125,
+  "hpregen": 7,
+  "hpregenperlevel": 0.75,
+  "mpregen": 7,
+  "mpregenperlevel": 0.45,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 62,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2.7,
+  "attackspeed": 0.721
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Lâminas Sombrias",
+  "descricao": "A cada poucos segundos, o próximo ataque de Nocturne atinge os inimigos ao seu redor para causar Dano Físico adicional e curá-lo. <br><br>Os ataques básicos de Nocturne reduzem esse Tempo de Recarga."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "NocturneDuskbringer",
+   "nome": "Portador do Anoitecer",
+   "descricao": "Nocturne lança uma lâmina de sombras que causa dano, deixa um Rastro do Crepúsculo e faz com que os Campeões deixem um Rastro do Crepúsculo. Enquanto estiver no rastro, Nocturne ignora colisões com unidades e ganha aumento de Velocidade de Movimento e de Dano de Ataque.",
+   "tooltip": "Nocturne arremessa uma lâmina de sombras, causando <physicalDamage>{{ totaldamage }} de Dano Físico</physicalDamage> e deixando um rastro de crepúsculo por {{ trailduration }}s. Campeões inimigos atingidos também deixam um rastro. <br /><br />Enquanto está no rastro, Nocturne recebe efeito Fantasma, <speed>{{ movespeed }}% de Velocidade de Movimento</speed> e <physicalDamage>{{ bonustrailad }} de Dano de Ataque.</physicalDamage>{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "custo": [
+    60,
+    65,
+    70,
+    75,
+    80
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1125,
+    1125,
+    1125,
+    1125,
+    1125
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "15/20/25/30/35",
+    "65/105/145/185/225",
+    "5",
+    "15/25/35/45/55",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "NocturneShroudofDarkness",
+   "nome": "Proteção das Trevas",
+   "descricao": "Nocturne fortalece suas lâminas, ganhando Velocidade de Ataque passivamente. Ativar Proteção das Trevas permite que Nocturne desapareça em meio às sombras, criando uma barreira mágica que bloqueia uma única habilidade inimiga e dobra a Velocidade de Ataque passiva dele caso bem-sucedida.",
+   "tooltip": "<spellPassive>Passivo:</spellPassive> Nocturne recebe <attackSpeed>{{ activeas }}% de Velocidade de Ataque</attackSpeed>.<br /><br /><spellActive>Ativo:</spellActive> Nocturne cria uma barreira sombria por 1,5s, bloqueando a próxima Habilidade inimiga. Se uma Habilidade for bloqueada, o efeito passivo é aumentado para <attackSpeed>{{ activeas*2 }}% de Velocidade de Ataque</attackSpeed> por {{ doubleasduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    20,
+    18,
+    16,
+    14,
+    12
+   ],
+   "custo": [
+    50,
+    50,
+    50,
+    50,
+    50
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    20,
+    20,
+    20,
+    20,
+    20
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "30/35/40/45/50",
+    "0.3/0.05/0.05/0.05/0.05",
+    "1.5",
+    "5",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "NocturneUnspeakableHorror",
+   "nome": "Horror Indescritível",
+   "descricao": "Nocturne coloca um pesadelo na mente de seu alvo, causando dano a cada segundo e aterrorizando-o caso ele não saia de seu alcance enquanto durar a habilidade.",
+   "tooltip": "<spellPassive>Passivo:</spellPassive> Nocturne recebe <speed>{{ tooltipfearms*100 }}% de Velocidade de Movimento</speed> ao se mover em direção a inimigos que estão sob o efeito de <status>Temor</status>.<br /><br /><spellActive>Ativo:</spellActive> Nocturne cria um vínculo de pesadelo com o alvo, causando <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage> ao longo de {{ leashduration }}s. Se o vínculo não for quebrado, o alvo sofre <status>Temor</status> por {{ ccduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    15,
+    14,
+    13,
+    12,
+    11
+   ],
+   "custo": [
+    60,
+    65,
+    70,
+    75,
+    80
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    425,
+    425,
+    425,
+    425,
+    425
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "80/125/170/215/260",
+    "1.25/1.5/1.75/2/2.25",
+    "2",
+    "465",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "NocturneParanoia",
+   "nome": "Paranoia",
+   "descricao": "Nocturne reduz o raio de visão de todos os Campeões inimigos e ainda remove a visão que eles têm dos aliados. Depois ele pode se arremessar contra um Campeão inimigo que estiver próximo.",
+   "tooltip": "Nocturne escurece o mapa, reduzindo o raio de visão de todos os Campeões inimigos e impedindo que vejam os aliados por {{ paranoiaduration }}s. <recast>Reconjurar</recast> a Habilidade ao longo da duração faz com que Nocturne se arremesse em um Campeão inimigo, causando <physicalDamage>{{ damage }} de Dano Físico</physicalDamage>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    160,
+    130,
+    100
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    2500,
+    3250,
+    4000
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 640,
+  "vida_nivel": 109,
+  "regen_vida": 1.4,
+  "regen_vida_nivel": 0.15,
+  "dano": 62,
+  "dano_nivel": 2.6,
+  "armadura": 36,
+  "armadura_nivel": 4.2,
+  "rm": 32,
+  "rm_nivel": 1.55,
+  "velocidade_mov": 345,
+  "alcance_ataque": 125,
+  "vel_ataque_base": 0.721,
+  "vel_ataque_razao": 0.721,
+  "vel_ataque_nivel": 2.7,
+  "dano_critico": 2,
+  "alcance_aquisicao": 600,
+  "raio_selecao": 120,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.09946524351835251,
+   "mAttackProbability": 0.5,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.5,
+    "mAttackName": "NocturneBasicAttack2",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "NocturneBasicAttack",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "NocturneUmbraBladesAttack",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.09946524351835251,
+    "mAttackName": "NocturneCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Nocturne/Spells/NocturneDuskbringerAbility/NocturneDuskbringer",
+  "Characters/Nocturne/Spells/NocturneShroudofDarknessAbility/NocturneShroudofDarkness",
+  "Characters/Nocturne/Spells/NocturneUnspeakableHorrorAbility/NocturneUnspeakableHorror",
+  "Characters/Nocturne/Spells/NocturneParanoiaAbility/NocturneParanoia"
+ ],
+ "abilities_ref": [
+  "Characters/Nocturne/Spells/NocturneParanoiaAbility",
+  "Characters/Nocturne/Spells/NocturneDuskbringerAbility",
+  "Characters/Nocturne/Spells/NocturneShroudofDarknessAbility",
+  "Characters/Nocturne/Spells/NocturneUnspeakableHorrorAbility",
+  "Characters/Nocturne/Spells/NocturnePAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/NocturnePAbility/NocturneP": {
+   "ObjectName": "NocturneP",
+   "objectPath": "Characters/Nocturne/Spells/NocturnePAbility/NocturneP",
+   "mScriptName": "NocturneP",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "AACDR",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AAChampMonsterCDR",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Cooldown",
+      "values": [
+       12,
+       12,
+       12,
+       12,
+       12,
+       12,
+       12
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Radius",
+      "values": [
+       360,
+       360,
+       360,
+       360,
+       360,
+       360,
+       360
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DamageMinionMod",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealMinionMod",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealingAPRatio",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealLevel1Value",
+      "values": [
+       13,
+       13,
+       13,
+       13,
+       13,
+       13,
+       13
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealLevel18Value",
+      "values": [
+       32,
+       32,
+       32,
+       32,
+       32,
+       32,
+       32
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TotalDamageNoCritADRatio",
+      "values": [
+       1.2,
+       1.2,
+       1.2,
+       1.2,
+       1.2,
+       1.2,
+       1.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TotalDamageCritADRatio",
+      "values": [
+       1.1,
+       1.1,
+       1.1,
+       1.1,
+       1.1,
+       1.1,
+       1.1
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "Cooldown",
+        "values": [
+         9,
+         9,
+         9,
+         9,
+         9,
+         9,
+         9
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "HealLevel1Value",
+        "values": [
+         15,
+         15,
+         15,
+         15,
+         15,
+         15,
+         15
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "HealLevel18Value",
+        "values": [
+         50,
+         50,
+         50,
+         50,
+         50,
+         50,
+         50
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "TotalDamageNoCritADRatio",
+        "values": [
+         1.3,
+         1.3,
+         1.3,
+         1.3,
+         1.3,
+         1.3,
+         1.3
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "TotalDamageCritADRatio",
+        "values": [
+         1.2,
+         1.2,
+         1.2,
+         1.2,
+         1.2,
+         1.2,
+         1.2
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       9,
+       9,
+       9,
+       9,
+       9,
+       9,
+       9
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamageNoCrit": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mDataValue": "TotalDamageNoCritADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalHealing": {
+      "mFormulaParts": [
+       {
+        "StartDataValue": "HealLevel1Value",
+        "EndDataValue": "HealLevel18Value",
+        "__type": "{ee18a47b}"
+       },
+       {
+        "mDataValue": "HealingAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalDamageCrit": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mDataValue": "TotalDamageCritADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "cooldownTime": [
+     12,
+     12,
+     12,
+     12,
+     12,
+     12,
+     12
+    ],
+    "Cooldown": {
+     "values": [
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12
+     ],
+     "{0a3e0478}": 12,
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Nocturne/Spells/NocturnePAbility/NocturneP",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NocturnePAbility/NocturneUmbraBladesAttack": {
+   "ObjectName": "NocturneUmbraBladesAttack",
+   "objectPath": "Characters/Nocturne/Spells/NocturnePAbility/NocturneUmbraBladesAttack",
+   "mScriptName": "NocturneUmbraBladesAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 512,
+    "spellCastTime": 0.4236,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "castRange": [
+     622.70001,
+     622.70001,
+     622.70001,
+     622.70001,
+     622.70001,
+     622.70001,
+     622.70001
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "missileSpeed": 1500,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NocturnePAbility/NocturneUmbraBlades": {
+   "ObjectName": "NocturneUmbraBlades",
+   "objectPath": "Characters/Nocturne/Spells/NocturnePAbility/NocturneUmbraBlades",
+   "mScriptName": "NocturneUmbraBlades",
+   "mBuff": {
+    "mDescription": "Spell_NocturneP_BuffDescription",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NocturneShroudofDarknessAbility/NocturneShroudOfDarknessBuff": {
+   "ObjectName": "NocturneShroudOfDarknessBuff",
+   "objectPath": "Characters/Nocturne/Spells/NocturneShroudofDarknessAbility/NocturneShroudOfDarknessBuff",
+   "mScriptName": "NocturneShroudOfDarknessBuff",
+   "__type": "SpellObject"
+  },
+  "Spells/NocturneShroudofDarknessAbility/NocturneShroudofDarkness": {
+   "ObjectName": "NocturneShroudofDarkness",
+   "objectPath": "Characters/Nocturne/Spells/NocturneShroudofDarknessAbility/NocturneShroudofDarkness",
+   "mScriptName": "NocturneShroudofDarkness",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "NocturneShroudofDarkness",
+    "mSpellTags": [
+     "Trait_CCImmune"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       30,
+       30,
+       35,
+       40,
+       45,
+       50,
+       55
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.3,
+       0.3,
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "ActiveAS",
+      "values": [
+       30,
+       30,
+       35,
+       40,
+       45,
+       50,
+       55
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PassiveAS",
+      "values": [
+       0.3,
+       0.3,
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldDuration",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DoubleASDuration",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       18,
+       18,
+       16,
+       14,
+       12,
+       10,
+       8
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mCoefficient": 1,
+    "spellTotalTime": 1.36,
+    "cooldownTime": [
+     22,
+     20,
+     18,
+     16,
+     14,
+     12,
+     12
+    ],
+    "Cooldown": {
+     "values": [
+      22,
+      20,
+      18,
+      16,
+      14,
+      12,
+      12
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Nocturne/Spells/NocturneShroudofDarknessAbility/NocturneWSpellPassive",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 0,
+    "mana": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_NocturneShroudofDarkness",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "{6d548702}": {
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 524288,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "ShieldDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NocturneShroudofDarknessAbility/NocturneShroudofDarknessShield": {
+   "ObjectName": "NocturneShroudofDarknessShield",
+   "objectPath": "Characters/Nocturne/Spells/NocturneShroudofDarknessAbility/NocturneShroudofDarknessShield",
+   "mScriptName": "NocturneShroudofDarknessShield",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_NocturneShroudofDarknessShield",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NocturneShroudofDarknessAbility/NocturneWSpellPassive": {
+   "ObjectName": "NocturneWSpellPassive",
+   "objectPath": "Characters/Nocturne/Spells/NocturneShroudofDarknessAbility/NocturneWSpellPassive",
+   "mScriptName": "NocturneWSpellPassive",
+   "mBuff": {
+    "mDescription": "Spell_NocturneP_BuffDescription",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NocturneDuskbringerAbility/NocturneDuskbringerTrail": {
+   "ObjectName": "NocturneDuskbringerTrail",
+   "objectPath": "Characters/Nocturne/Spells/NocturneDuskbringerAbility/NocturneDuskbringerTrail",
+   "mScriptName": "NocturneDuskbringerTrail",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_NocturneDuskbringerTrail",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NocturneDuskbringerAbility/NocturneDuskbringer": {
+   "ObjectName": "NocturneDuskbringer",
+   "objectPath": "Characters/Nocturne/Spells/NocturneDuskbringerAbility/NocturneDuskbringer",
+   "mScriptName": "NocturneDuskbringer",
+   "mSpell": {
+    "mAffectsTypeFlags": 14346,
+    "mAlternateName": "NocturneDuskbringer",
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_SignatureSpell",
+     "Trait_Ranged_Piercing",
+     "Trait_Low_Damage",
+     "Trait_AoE"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       15,
+       15,
+       20,
+       25,
+       30,
+       35,
+       40
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       65,
+       65,
+       105,
+       145,
+       185,
+       225,
+       225
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       15,
+       15,
+       25,
+       35,
+       45,
+       55,
+       55
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       25,
+       65,
+       105,
+       145,
+       185,
+       225,
+       265
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MoveSpeed",
+      "values": [
+       15,
+       20,
+       25,
+       30,
+       35,
+       40,
+       45
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusTrailAD",
+      "values": [
+       5,
+       15,
+       25,
+       35,
+       45,
+       55,
+       65
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TrailDuration",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 0.85,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.85,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+     ],
+     "{0a3e0478}": 8,
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Nocturne/Spells/NocturneDuskbringerAbility/NocturneQSpellPassive",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castRangeDisplayOverride": [
+     1125,
+     1125,
+     1125,
+     1125,
+     1125,
+     1125,
+     1125
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 200,
+    "mMissileSpec": {
+     "mMissileWidth": 60,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Spine",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1600,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.5,
+    "missileSpeed": 1600,
+    "mMissileEffectKey": "Nocturne_Q_mis_01",
+    "mLineWidth": 60,
+    "bHaveHitBone": true,
+    "mana": [
+     60,
+     65,
+     70,
+     75,
+     80,
+     85
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_NocturneDuskbringer",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 2,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "TrailDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NocturneDuskbringerAbility/NocturneQSpellPassive": {
+   "ObjectName": "NocturneQSpellPassive",
+   "objectPath": "Characters/Nocturne/Spells/NocturneDuskbringerAbility/NocturneQSpellPassive",
+   "mScriptName": "NocturneQSpellPassive",
+   "mBuff": {
+    "mDescription": "Spell_NocturneP_BuffDescription",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NocturneParanoiaAbility/NocturneParanoia2": {
+   "ObjectName": "NocturneParanoia2",
+   "objectPath": "Characters/Nocturne/Spells/NocturneParanoiaAbility/NocturneParanoia2",
+   "mScriptName": "NocturneParanoia2",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 4106,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock",
+     "Trait_Ultimate"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       250,
+       250,
+       250,
+       250,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1750,
+       2500,
+       3250,
+       4000,
+       0,
+       0,
+       750
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       150,
+       150,
+       275,
+       400,
+       0,
+       0,
+       100
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       150,
+       150,
+       275,
+       400,
+       525,
+       650,
+       775
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "Damage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 1.2,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 1,
+    "mAnimationLoopName": "Spell4",
+    "mAnimationWinddownName": "Spell4",
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     150,
+     150,
+     125,
+     100,
+     75,
+     75,
+     75
+    ],
+    "Cooldown": {
+     "values": [
+      150,
+      150,
+      125,
+      100,
+      75,
+      75,
+      75
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "cantCastWhileRooted": true,
+    "mUseMinimapTargeting": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1750,
+     2500,
+     3250,
+     4000,
+     2500,
+     2500,
+     3250
+    ],
+    "castRadius": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 20,
+    "selectionPriority": 2,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "Damage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 256,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "SourceObject": "Characters/Nocturne/Spells/NocturneParanoiaAbility/NocturneParanoia",
+         "DataValue": "TrackDistance",
+         "__type": "{9e9e2e5c}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NocturneParanoiaAbility/NocturneParanoia": {
+   "ObjectName": "NocturneParanoia",
+   "objectPath": "Characters/Nocturne/Spells/NocturneParanoiaAbility/NocturneParanoia",
+   "mScriptName": "NocturneParanoia",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "NocturneParanoia",
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_ChannelSpell",
+     "Trait_DamageAbility",
+     "Trait_RecastOrReplaceSpell"
+    ],
+    "DataValues": [
+     {
+      "name": "ParanoiaDuration",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TrackDistance",
+      "values": [
+       3500,
+       3500,
+       4250,
+       5000,
+       5750,
+       6500,
+       7250
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       150,
+       150,
+       275,
+       400,
+       525,
+       650,
+       775
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DashSpeed",
+      "values": [
+       1800,
+       1800,
+       1800,
+       1800,
+       1800,
+       1800,
+       1800
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "{f9c2333e}": {
+     "{a110bc47}": {
+      "value": [
+       120,
+       120,
+       100,
+       80,
+       80,
+       80,
+       80
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     "cherry": {
+      "value": [
+       100,
+       100,
+       70,
+       40,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "Damage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 1.2,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mAnimationLoopName": "Spell4",
+    "mAnimationWinddownName": "Spell4",
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     140,
+     140,
+     115,
+     90,
+     90,
+     90,
+     90
+    ],
+    "Cooldown": {
+     "values": [
+      160,
+      160,
+      130,
+      100,
+      100,
+      100,
+      100
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "mUseMinimapTargeting": true,
+    "useAnimatorFramerate": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     2500,
+     2500,
+     3250,
+     4000,
+     2500,
+     2500,
+     2500
+    ],
+    "castRadius": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 20,
+    "mana": [
+     100,
+     100,
+     100,
+     0,
+     0,
+     0
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "SelfAoe"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_NocturneParanoia",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "Damage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 256,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "TrackDistance",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NocturneParanoiaAbility/NocturneParanoiaTarget": {
+   "ObjectName": "NocturneParanoiaTarget",
+   "objectPath": "Characters/Nocturne/Spells/NocturneParanoiaAbility/NocturneParanoiaTarget",
+   "mScriptName": "NocturneParanoiaTarget",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_NocturneParanoiaTarget",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RekSaiNocturneParanoia": {
+   "ObjectName": "RekSaiNocturneParanoia",
+   "objectPath": "Characters/Nocturne/Spells/RekSaiNocturneParanoia",
+   "mScriptName": "RekSaiNocturneParanoia",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_NocturneParanoiaTarget",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NocturneUnspeakableHorrorAbility/NocturneUnspeakableHorror": {
+   "ObjectName": "NocturneUnspeakableHorror",
+   "objectPath": "Characters/Nocturne/Spells/NocturneUnspeakableHorrorAbility/NocturneUnspeakableHorror",
+   "mScriptName": "NocturneUnspeakableHorror",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "NocturneUnspeakableHorror",
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_DoT",
+     "Trait_Low_Damage"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       35,
+       80,
+       125,
+       170,
+       215,
+       260,
+       305
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1,
+       1.25,
+       1.5,
+       1.75,
+       2,
+       2.25,
+       2.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       465,
+       465,
+       465,
+       465,
+       465,
+       465,
+       465
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "TooltipFearMS",
+      "values": [
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DamageToDeal",
+      "values": [
+       35,
+       80,
+       125,
+       170,
+       215,
+       260,
+       305
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CCDuration",
+      "values": [
+       1,
+       1.25,
+       1.5,
+       1.75,
+       2,
+       2.25,
+       2.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "LeashDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "LeashBreakRange",
+      "values": [
+       465,
+       465,
+       465,
+       465,
+       465,
+       465,
+       465
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "DamageToDeal",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 1,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     16,
+     15,
+     14,
+     13,
+     12,
+     11,
+     11
+    ],
+    "Cooldown": {
+     "values": [
+      16,
+      15,
+      14,
+      13,
+      12,
+      11,
+      11
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Nocturne/Spells/NocturneUnspeakableHorrorAbility/NocturneESpellPassive",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     425,
+     425,
+     425,
+     425,
+     425,
+     425,
+     425
+    ],
+    "castRadius": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1400,
+    "mana": [
+     60,
+     65,
+     70,
+     75,
+     80,
+     85
+    ],
+    "selectionPriority": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_NocturneUnspeakableHorror",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "CCDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "CCDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "CCDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NocturneUnspeakableHorrorAbility/NocturneEHaste": {
+   "ObjectName": "NocturneEHaste",
+   "objectPath": "Characters/Nocturne/Spells/NocturneUnspeakableHorrorAbility/NocturneEHaste",
+   "mScriptName": "NocturneEHaste",
+   "__type": "SpellObject"
+  },
+  "Spells/NocturneUnspeakableHorrorAbility/NocturneESpellPassive": {
+   "ObjectName": "NocturneESpellPassive",
+   "objectPath": "Characters/Nocturne/Spells/NocturneUnspeakableHorrorAbility/NocturneESpellPassive",
+   "mScriptName": "NocturneESpellPassive",
+   "mBuff": {
+    "mDescription": "Spell_NocturneP_BuffDescription",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NocturneBasicAttack": {
+   "ObjectName": "NocturneBasicAttack",
+   "objectPath": "Characters/Nocturne/Spells/NocturneBasicAttack",
+   "mScriptName": "NocturneBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "mAlternateName": "EbonBasicAttack",
+    "spellCastTime": 0.41305,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "missileSpeed": 0,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Nocturne_BA_hit_02",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NocturneBasicAttack2": {
+   "ObjectName": "NocturneBasicAttack2",
+   "objectPath": "Characters/Nocturne/Spells/NocturneBasicAttack2",
+   "mScriptName": "NocturneBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "mAlternateName": "NocturneBasicAttack2",
+    "spellCastTime": 0.41305,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "missileSpeed": 0,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Nocturne_BA_hit_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NocturneCritAttack": {
+   "ObjectName": "NocturneCritAttack",
+   "objectPath": "Characters/Nocturne/Spells/NocturneCritAttack",
+   "mScriptName": "NocturneCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "mAlternateName": "EbonCritAttack",
+    "spellCastTime": 0.41305,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7,
+    "missileSpeed": 0,
+    "mHitEffectKey": "Nocturne_BA_tar_crit_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/NocturneDuskbringerAbility/NocturneDuskbringer",
+  "Spells/NocturneShroudofDarknessAbility/NocturneShroudofDarkness",
+  "Spells/NocturneUnspeakableHorrorAbility/NocturneUnspeakableHorror",
+  "Spells/NocturneParanoiaAbility/NocturneParanoia"
+ ],
+ "passiva_ref": "Characters/Nocturne/Spells/NocturnePAbility",
+ "passiva_chaves": [
+  "Spells/NocturnePAbility/NocturneP",
+  "Spells/NocturnePAbility/NocturneUmbraBladesAttack",
+  "Spells/NocturnePAbility/NocturneUmbraBlades"
+ ]
+}

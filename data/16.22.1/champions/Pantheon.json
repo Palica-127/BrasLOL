@@ -1,0 +1,3391 @@
+{
+ "id": "Pantheon",
+ "key": 80,
+ "nome": "Pantheon",
+ "titulo": "a Lança Indestrutível",
+ "funcoes": [
+  "Fighter",
+  "Assassin"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 9,
+  "defense": 4,
+  "magic": 3,
+  "difficulty": 4
+ },
+ "stats_ddragon": {
+  "hp": 650,
+  "hpperlevel": 109,
+  "mp": 317,
+  "mpperlevel": 31,
+  "movespeed": 345,
+  "armor": 40,
+  "armorperlevel": 4.95,
+  "spellblock": 28,
+  "spellblockperlevel": 2.05,
+  "attackrange": 175,
+  "hpregen": 6,
+  "hpregenperlevel": 0.65,
+  "mpregen": 7.35,
+  "mpregenperlevel": 0.45,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 64,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2.95,
+  "attackspeed": 0.658
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Determinação Mortal",
+  "descricao": "Após algumas habilidades ou ataques, a próxima habilidade de Pantheon será fortalecida."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "PantheonQ",
+   "nome": "Lança Meteórica",
+   "descricao": "Pantheon pode fazer uma investida com sua lança ou arremessá-la na direção escolhida.",
+   "tooltip": "<span class=\"colorFF8C00\">Pressionar:</span> Pantheon desfere uma estocada com a lança, causando <physicalDamage>{{ tapdamagecalc }} de Dano Físico</physicalDamage> aos inimigos atingidos. Restitui {{ tapcooldownrefund*100 }}% do Tempo de Recarga desta Habilidade.<br /><br /><span class=\"colorFF8C00\">Segurar:</span> Pantheon arremessa a lança, causando <physicalDamage>{{ holddamagecalc }} de Dano Físico</physicalDamage> ao primeiro inimigo atingido e {{ damagefalloff*100 }}% a menos de dano contra os próximos alvos. <br /><br />Contra inimigos com menos de {{ crithealththreshold*100 }}% de Vida, esta Habilidade é aprimorada e causa <physicalDamage>{{ executedamagecalcmodified }} de Dano Físico</physicalDamage>.<br /><br /><span class=\"colorEDDA74\">Efeito adicional de Determinação Mortal:</span> causa <physicalDamage>{{ empowereddamagecalc }} de Dano Físico</physicalDamage> adicional.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    11,
+    10.25,
+    9.5,
+    8.75,
+    8
+   ],
+   "custo": [
+    25,
+    25,
+    25,
+    25,
+    25
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    575,
+    575,
+    575,
+    575,
+    575
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "PantheonW",
+   "nome": "Escudo-Cometa",
+   "descricao": "Pantheon avança em um alvo, causando dano e atordoando-o.",
+   "tooltip": "Pantheon salta sobre o alvo, <status>Atordoando-o</status> por {{ stunduration }}s e causando <physicalDamage>{{ maxhealthdamagecalc }} de Dano Físico com base na Vida máxima</physicalDamage>.<br /><br /><keywordMajor>Efeito adicional de Determinação Mortal:</keywordMajor> o próximo Ataque de Pantheon golpeia {{ empowerednumhits }} vezes, causando <physicalDamage>{{ empowereddamagemultcalcmodified }} de Dano Físico</physicalDamage>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    13,
+    12,
+    11,
+    10,
+    9
+   ],
+   "custo": [
+    55,
+    55,
+    55,
+    55,
+    55
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    600,
+    600,
+    600,
+    600,
+    600
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "PantheonE",
+   "nome": "Égide Impetuosa",
+   "descricao": "Pantheon posiciona seu escudo, ficando invulnerável a dano vindo de sua frente e atacando rapidamente com sua lança.",
+   "tooltip": "Pantheon prepara o escudo e enfrenta os inimigos na direção escolhida por {{ shieldduration }}s, tornando-se imune a dano vindo daquela direção (exceto de torres) e causando <physicalDamage>{{ damagecalc }} de Dano Físico</physicalDamage> ao longo da duração. Após canalizar, Pantheon golpeia com o escudo, causando <physicalDamage>{{ shielddamagecalc }} de Dano Físico</physicalDamage>.<br /><br /><span class=\"colorEDDA74\">Efeito adicional de Determinação Mortal:</span> ao golpear com o escudo, ele recebe <scaleArmor>{{ resistscalc }} de Armadura</scaleArmor> e <scaleMR>{{ resistscalc }} de Resistência Mágica</scaleMR> por {{ resistsduration }}s, além de <speed>{{ speedamount*100 }}% de Velocidade de Movimento</speed> por {{ speedduration }}s. <br />{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    22,
+    21,
+    20,
+    19,
+    18
+   ],
+   "custo": [
+    80,
+    80,
+    80,
+    80,
+    80
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    400,
+    400,
+    400,
+    400,
+    400
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "PantheonR",
+   "nome": "Constelação Cadente",
+   "descricao": "Pantheon se prepara, salta para o ar e aterrissa como um cometa no local escolhido.",
+   "tooltip": "<spellPassive>Passivo:</spellPassive> Pantheon recebe {{ armorpenetration*100 }}% de Penetração de Armadura.<br /><br /><spellActive>Ativo:</spellActive> Pantheon acumula toda a sua força e salta em direção ao céu. Ele arremessa a lança do alto em uma pequena área, causando <physicalDamage>{{ spell.pantheonq:holddamagecalc }} de Dano Físico</physicalDamage> e {{ spearslow*100 }}% de <status>Lentidão</status> por {{ spearslowduration }}s. <br /><br />Depois disso, Pantheon aterrissa como um meteoro na área-alvo. Causa até <magicDamage>{{ damagecalc }} de Dano Mágico</magicDamage> aos inimigos em linha reta (reduzido em até {{ edgedamagereduction*100 }}% nos limites da área).<br /><br />Esta Habilidade deixa <span class=\"colorEDDA74\">Determinação Mortal</span> instantaneamente pronta para ser utilizada.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    180,
+    165,
+    150
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    5500,
+    5500,
+    5500
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 650,
+  "vida_nivel": 109,
+  "regen_vida": 1.2,
+  "regen_vida_nivel": 0.13,
+  "dano": 64,
+  "dano_nivel": 3.3,
+  "armadura": 40,
+  "armadura_nivel": 4.95,
+  "rm": 28,
+  "rm_nivel": 2.05,
+  "velocidade_mov": 345,
+  "alcance_ataque": 175,
+  "vel_ataque_base": 0.658,
+  "vel_ataque_razao": 0.658,
+  "vel_ataque_nivel": 2.95,
+  "dano_critico": 2,
+  "alcance_aquisicao": 600,
+  "raio_selecao": 125,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.10968749970197678,
+   "mAttackProbability": 0.5,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.5,
+    "mAttackName": "PantheonBasicAttack2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.14687499403953552,
+    "mAttackName": "PantheonCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Pantheon/Spells/PantheonQAbility/PantheonQ",
+  "Characters/Pantheon/Spells/PantheonWAbility/PantheonW",
+  "Characters/Pantheon/Spells/PantheonEAbility/PantheonE",
+  "Characters/Pantheon/Spells/PantheonRAbility/PantheonR"
+ ],
+ "abilities_ref": [
+  "Characters/Pantheon/Spells/PantheonRAbility",
+  "Characters/Pantheon/Spells/PantheonQAbility",
+  "Characters/Pantheon/Spells/PantheonWAbility",
+  "Characters/Pantheon/Spells/PantheonEAbility",
+  "Characters/Pantheon/Spells/PantheonPassiveAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/PantheonPassiveAbility/PantheonPassiveCounter": {
+   "ObjectName": "PantheonPassiveCounter",
+   "objectPath": "Characters/Pantheon/Spells/PantheonPassiveAbility/PantheonPassiveCounter",
+   "mScriptName": "PantheonPassiveCounter",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mEffectAmount": [
+     {
+      "value": [
+       25,
+       80,
+       135,
+       190,
+       245,
+       300,
+       355
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     9,
+     9,
+     9,
+     9,
+     9,
+     9,
+     9
+    ],
+    "Cooldown": {
+     "values": [
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9
+     ],
+     "{0a3e0478}": 9,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 20.16,
+    "missileSpeed": 0,
+    "mana": [
+     80,
+     100,
+     120,
+     140,
+     160,
+     180
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonPassiveAbility/PantheonPassive": {
+   "ObjectName": "PantheonPassive",
+   "objectPath": "Characters/Pantheon/Spells/PantheonPassiveAbility/PantheonPassive",
+   "mScriptName": "PantheonPassive",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "ActionsToEmpower",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PhalanxDuration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "QDamageAmp",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "QDamageAmpMelee",
+      "values": [
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "OutOfCombatTimer",
+      "values": [
+       15,
+       15,
+       15,
+       15,
+       15,
+       15,
+       15
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "QExtraAttacks",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CritThreshold",
+      "values": [
+       -1,
+       -1,
+       -1,
+       -1,
+       -1,
+       -1,
+       -1
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonPassiveAbility/PantheonPassiveReady": {
+   "ObjectName": "PantheonPassiveReady",
+   "objectPath": "Characters/Pantheon/Spells/PantheonPassiveAbility/PantheonPassiveReady",
+   "mScriptName": "PantheonPassiveReady",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mEffectAmount": [
+     {
+      "value": [
+       25,
+       80,
+       135,
+       190,
+       245,
+       300,
+       355
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     9,
+     9,
+     9,
+     9,
+     9,
+     9,
+     9
+    ],
+    "Cooldown": {
+     "values": [
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9
+     ],
+     "{0a3e0478}": 9,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 20.16,
+    "missileSpeed": 0,
+    "mana": [
+     80,
+     100,
+     120,
+     140,
+     160,
+     180
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonWAbility/PantheonWEmpowerment": {
+   "ObjectName": "PantheonWEmpowerment",
+   "objectPath": "Characters/Pantheon/Spells/PantheonWAbility/PantheonWEmpowerment",
+   "mScriptName": "PantheonWEmpowerment",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mCoefficient": 1,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     9,
+     9,
+     9,
+     9,
+     9,
+     9,
+     9
+    ],
+    "Cooldown": {
+     "values": [
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9
+     ],
+     "{0a3e0478}": 9,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 20.16,
+    "missileSpeed": 0,
+    "mana": [
+     80,
+     100,
+     120,
+     140,
+     160,
+     180
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonWAbility/PantheonWEmpoweredAttack": {
+   "ObjectName": "PantheonWEmpoweredAttack",
+   "objectPath": "Characters/Pantheon/Spells/PantheonWAbility/PantheonWEmpoweredAttack",
+   "mScriptName": "PantheonWEmpoweredAttack",
+   "mSpell": {
+    "flags": 128,
+    "mAffectsTypeFlags": 24255,
+    "mCastTime": 0.375,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "mChannelIsInterruptedByAttacking": false,
+    "mApplyMaterialOnHitSound": true,
+    "mDisableCastBar": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 22,
+    "missileSpeed": 20,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CENTER_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonWAbility/PantheonW": {
+   "ObjectName": "PantheonW",
+   "objectPath": "Characters/Pantheon/Spells/PantheonWAbility/PantheonW",
+   "mScriptName": "PantheonW",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mCastRequirementsCaster": [
+     {
+      "mInvertResult": true,
+      "mBuffName": "{10199c2d}",
+      "__type": "HasBuffCastRequirement"
+     },
+     {
+      "mInvertResult": true,
+      "mBuffName": "{85397520}",
+      "__type": "HasBuffCastRequirement"
+     }
+    ],
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock",
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_Strike"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       25,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StunDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BuffDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EmpoweredNumHits",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EmpoweredDamageMult",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxHealthDamage",
+      "values": [
+       0.055,
+       0.06,
+       0.065,
+       0.07,
+       0.075,
+       0.08,
+       0.085
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MonsterDamageCap",
+      "values": [
+       150,
+       150,
+       150,
+       150,
+       150,
+       150,
+       150
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MonsterDamageMin",
+      "values": [
+       60,
+       60,
+       60,
+       60,
+       60,
+       60,
+       60
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxHealthPer100AP",
+      "values": [
+       0.00015,
+       0.00015,
+       0.00015,
+       0.00015,
+       0.00015,
+       0.00015,
+       0.00015
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "MaxHealthPer100AP",
+        "values": [
+         0.0002,
+         0.0002,
+         0.0002,
+         0.0002,
+         0.0002,
+         0.0002,
+         0.0002
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       15,
+       15,
+       14,
+       13,
+       12,
+       11,
+       10
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "DamageCalc": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{1b016817}": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mSubpart": {
+         "mStartValue": 0.4,
+         "mEndValue": 0.55,
+         "__type": "ByCharLevelInterpolationCalculationPart"
+        },
+        "__type": "StatBySubPartCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "EmpoweredDamageMultCalcModified": {
+      "mMultiplier": {
+       "mNumber": 3,
+       "__type": "NumberCalculationPart"
+      },
+      "mModifiedGameCalculation": "{1b016817}",
+      "__type": "GameCalculationModified"
+     },
+     "MaxHealthDamageCalc": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "MaxHealthDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 12,
+        "mStatFormula": 2,
+        "mCoefficient": 0.00004,
+        "__type": "StatByCoefficientCalculationPart"
+       },
+       {
+        "mDataValue": "MaxHealthPer100AP",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 1,
+    "spellCastTime": 0.125,
+    "spellTotalTime": 0.4,
+    "cooldownTime": [
+     13,
+     13,
+     12,
+     11,
+     10,
+     9,
+     9
+    ],
+    "Cooldown": {
+     "values": [
+      13,
+      13,
+      12,
+      11,
+      10,
+      9,
+      9
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "castRange": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 15.8,
+    "missileSpeed": 0,
+    "mana": [
+     55,
+     55,
+     55,
+     55,
+     55,
+     55
+    ],
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonQAbility/PantheonQTap": {
+   "ObjectName": "PantheonQTap",
+   "objectPath": "Characters/Pantheon/Spells/PantheonQAbility/PantheonQTap",
+   "mScriptName": "PantheonQTap",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mCoefficient": 0.2,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "useAnimatorFramerate": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     700,
+     700,
+     700,
+     700,
+     700,
+     700,
+     700
+    ],
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "{8958fee2}": {
+     "{ffcbd9e2}": 0.2,
+     "{79a2e7aa}": 0.4,
+     "__type": "{8958fee2}"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonQAbility/PantheonQMissile": {
+   "ObjectName": "PantheonQMissile",
+   "objectPath": "Characters/Pantheon/Spells/PantheonQAbility/PantheonQMissile",
+   "mScriptName": "PantheonQMissile",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mEffectAmount": [
+     {
+      "value": [
+       85,
+       100,
+       115,
+       130,
+       145,
+       160,
+       175
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       75,
+       75,
+       115,
+       155,
+       195,
+       235,
+       275
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0,
+       65,
+       100,
+       135,
+       170,
+       205,
+       240
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       150,
+       150,
+       150,
+       150,
+       150,
+       150,
+       150
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       30,
+       30,
+       30,
+       30,
+       30,
+       30,
+       30
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       18,
+       18,
+       18,
+       18,
+       18,
+       18,
+       18
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       275,
+       275,
+       275,
+       275,
+       275,
+       275,
+       275
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1.2,
+    "mCoefficient2": 0.75,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0.35,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mPostCastLockoutDeltaTime": 0.1,
+    "mCasterPositionEndOfCastUpdate": 2,
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "useAnimatorFramerate": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "mMissileSpec": {
+     "mMissileWidth": 55,
+     "movementComponent": {
+      "mTracksTarget": false,
+      "mStartBoneName": "Buffbone_Glb_Spear_Loc",
+      "mSpeed": 2700,
+      "__type": "FixedSpeedMovement"
+     },
+     "visibilityComponent": {
+      "__type": "EnterFOWVisibility"
+     },
+     "heightSolver": {
+      "__type": "CurveTheDifferenceHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 16.53,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Pantheon_Q_update_missile",
+    "mLineWidth": 60,
+    "mHitEffectOrientType": 2,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "mParticleStartOffset": [
+     0,
+     50,
+     -10
+    ],
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonQAbility/PantheonQ": {
+   "ObjectName": "PantheonQ",
+   "objectPath": "Characters/Pantheon/Spells/PantheonQAbility/PantheonQ",
+   "mScriptName": "PantheonQ",
+   "mSpell": {
+    "flags": 32,
+    "mAffectsTypeFlags": 8192,
+    "mCastRequirementsCaster": [
+     {
+      "mInvertResult": true,
+      "mBuffName": "{10199c2d}",
+      "__type": "HasBuffCastRequirement"
+     },
+     {
+      "mInvertResult": true,
+      "mBuffName": "{85397520}",
+      "__type": "HasBuffCastRequirement"
+     }
+    ],
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_ChannelSpell",
+     "Trait_SignatureSpell",
+     "Trait_Target_Directional",
+     "Trait_Melee_SmallWindup",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "HoldDamage",
+      "values": [
+       40,
+       70,
+       100,
+       130,
+       160,
+       190,
+       220
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TapDamage",
+      "values": [
+       40,
+       70,
+       100,
+       130,
+       160,
+       190,
+       220
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CritHealthThreshold",
+      "values": [
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HoldRange",
+      "values": [
+       1200,
+       1200,
+       1200,
+       1200,
+       1200,
+       1200,
+       1200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DamageFalloff",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TapCooldownRefund",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HoldExecuteDamage",
+      "values": [
+       40,
+       85,
+       130,
+       175,
+       220,
+       265,
+       310
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SelfSlow",
+      "values": [
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinTimeHoldCast",
+      "values": [
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinionDamageMod",
+      "values": [
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ExecuteBaseDamage",
+      "values": [
+       80,
+       155,
+       230,
+       305,
+       380,
+       455,
+       530
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MonsterDamageMod",
+      "values": [
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "HoldDamageCalc": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "HoldDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 1.15,
+        "__type": "StatByCoefficientCalculationPart"
+       },
+       {
+        "mCoefficient": 0.5,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TapDamageCalc": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "TapDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 1.15,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "EmpoweredDamageCalc": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 20,
+        "mEndValue": 240,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 1.15,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{6fc04dc0}": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "HoldExecuteDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 1.15,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "ExecuteDamageCalcModified": {
+      "mFormulaParts": [
+       {
+        "mSubparts": [
+         {
+          "mDataValue": "HoldDamage",
+          "__type": "NamedDataValueCalculationPart"
+         },
+         {
+          "mDataValue": "HoldExecuteDamage",
+          "__type": "NamedDataValueCalculationPart"
+         }
+        ],
+        "__type": "SumOfSubPartsCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 2.3,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "mChannelDuration": [
+     0.8,
+     0.8,
+     0.8,
+     0.8,
+     0.8,
+     0.8,
+     0.8
+    ],
+    "cooldownTime": [
+     11,
+     11,
+     10.25,
+     9.5,
+     8.75,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      11,
+      11,
+      10.25,
+      9.5,
+      8.75,
+      8,
+      8
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "mUseChargeChanneling": true,
+    "mCanMoveWhileChanneling": true,
+    "useAnimatorFramerate": true,
+    "mDoNotNeedToFaceTarget": true,
+    "mIgnoreRangeCheck": true,
+    "mDoesNotConsumeMana": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRangeDisplayOverride": [
+     575,
+     575,
+     575,
+     575,
+     575,
+     575,
+     575
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 4,
+    "missileSpeed": 1200,
+    "mLineWidth": 80,
+    "mana": [
+     25,
+     25,
+     25,
+     25,
+     25,
+     25
+    ],
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "{8958fee2}": {
+     "{ffcbd9e2}": 0.2,
+     "{79a2e7aa}": 0.4,
+     "__type": "{8958fee2}"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mMultiplier": {
+      "mDataValue": "TapDamage",
+      "__type": "NamedDataValueCalculationPart"
+     },
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonEAbility/PantheonEResists": {
+   "ObjectName": "PantheonEResists",
+   "objectPath": "Characters/Pantheon/Spells/PantheonEAbility/PantheonEResists",
+   "mScriptName": "PantheonEResists",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mCoefficient": 1,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     9,
+     9,
+     9,
+     9,
+     9,
+     9,
+     9
+    ],
+    "Cooldown": {
+     "values": [
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9
+     ],
+     "{0a3e0478}": 9,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 20.16,
+    "missileSpeed": 0,
+    "mana": [
+     80,
+     100,
+     120,
+     140,
+     160,
+     180
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonEAbility/PantheonEShieldSlam": {
+   "ObjectName": "PantheonEShieldSlam",
+   "objectPath": "Characters/Pantheon/Spells/PantheonEAbility/PantheonEShieldSlam",
+   "mScriptName": "PantheonEShieldSlam",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "SpecialCase_CastWhileTeleporting",
+     "Trait_FreeRecast"
+    ],
+    "mCoefficient": 0.2,
+    "mCastTime": 0.25,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "mDoesntBreakChannels": true,
+    "mCanMoveWhileChanneling": true,
+    "useAnimatorFramerate": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     700,
+     700,
+     700,
+     700,
+     700,
+     700,
+     700
+    ],
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonEAbility/PantheonE": {
+   "ObjectName": "PantheonE",
+   "objectPath": "Characters/Pantheon/Spells/PantheonEAbility/PantheonE",
+   "mScriptName": "PantheonE",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_RecastOrReplaceSpell",
+     "Trait_DoT",
+     "Trait_Parry",
+     "Trait_Immune",
+     "Trait_Low_Damage",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "ShieldDuration",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SelfSlowAmount",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AttacksPerSecond",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldBaseDamage",
+      "values": [
+       5,
+       55,
+       105,
+       155,
+       205,
+       255,
+       305
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SpearStrikesRadius",
+      "values": [
+       525,
+       525,
+       525,
+       525,
+       525,
+       525,
+       525
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldSwipeRadius",
+      "values": [
+       375,
+       375,
+       375,
+       375,
+       375,
+       375,
+       375
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinionDamageReduction",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RecastLockout",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SpeedDuration",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SpeedAmount",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ResistsDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "DamageCalc": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "ShieldDamageCalc": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "ShieldBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 1.5,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{e62bc5e9}": {
+      "mMultiplier": {
+       "mNumber": 0.167,
+       "__type": "NumberCalculationPart"
+      },
+      "mModifiedGameCalculation": "DamageCalc",
+      "__type": "GameCalculationModified"
+     },
+     "EmpoweredDamageCalc": {
+      "mMultiplier": {
+       "mNumber": 1.67,
+       "__type": "NumberCalculationPart"
+      },
+      "mModifiedGameCalculation": "DamageCalc",
+      "__type": "GameCalculationModified"
+     },
+     "HealCalc": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 40,
+        "mInitialBonusPerLevel": 5,
+        "mBreakpoints": [
+         {
+          "mLevel": 9,
+          "mBonusPerLevelAtAndAfter": 10,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 15,
+          "mBonusPerLevelAtAndAfter": 20,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 1.5,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "ResistsCalc": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 5,
+        "mEndValue": 30,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       },
+       {
+        "mStat": 12,
+        "mStatFormula": 2,
+        "mCoefficient": 0.025,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "mChannelDuration": [
+     1.5,
+     1.5,
+     1.5,
+     1.5,
+     1.5,
+     1.5,
+     1.5
+    ],
+    "cooldownTime": [
+     22,
+     22,
+     21,
+     20,
+     19,
+     18,
+     18
+    ],
+    "Cooldown": {
+     "values": [
+      22,
+      22,
+      21,
+      20,
+      19,
+      18,
+      18
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mCanMoveWhileChanneling": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRangeDisplayOverride": [
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 15.8,
+    "missileSpeed": 0,
+    "mHitEffectName": "doesnotexist.troy",
+    "mana": [
+     80,
+     80,
+     80,
+     80,
+     80,
+     80
+    ],
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonEAbility/PantheonE2": {
+   "ObjectName": "PantheonE2",
+   "objectPath": "Characters/Pantheon/Spells/PantheonEAbility/PantheonE2",
+   "mScriptName": "PantheonE2",
+   "mSpell": {
+    "flags": 4,
+    "mSpellTags": [
+     "Trait_FreeRecast"
+    ],
+    "mCoefficient": 1,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     18,
+     18,
+     16,
+     14,
+     12,
+     10,
+     10
+    ],
+    "Cooldown": {
+     "values": [
+      18,
+      18,
+      16,
+      14,
+      12,
+      10,
+      10
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRangeDisplayOverride": [
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 15.8,
+    "missileSpeed": 0,
+    "mHitEffectName": "doesnotexist.troy",
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonEAbility/PantheonESpeed": {
+   "ObjectName": "PantheonESpeed",
+   "objectPath": "Characters/Pantheon/Spells/PantheonEAbility/PantheonESpeed",
+   "mScriptName": "PantheonESpeed",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mCoefficient": 1,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     9,
+     9,
+     9,
+     9,
+     9,
+     9,
+     9
+    ],
+    "Cooldown": {
+     "values": [
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9
+     ],
+     "{0a3e0478}": 9,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 20.16,
+    "missileSpeed": 0,
+    "mana": [
+     80,
+     100,
+     120,
+     140,
+     160,
+     180
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonRAbility/PantheonRMissile": {
+   "ObjectName": "PantheonRMissile",
+   "objectPath": "Characters/Pantheon/Spells/PantheonRAbility/PantheonRMissile",
+   "mScriptName": "PantheonRMissile",
+   "mSpell": {
+    "mAffectsTypeFlags": 14346,
+    "mSpellTags": [
+     "Trait_ChannelSpell"
+    ],
+    "mCoefficient": 1,
+    "mAnimationLoopName": "Spell4_Loop",
+    "mAnimationWinddownName": "Spell4_Winddown",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "bHaveHitEffect": true,
+    "mIgnoreRangeCheck": true,
+    "mMinimapIconDisplayFlag": 0,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "castRadius": [
+     750,
+     750,
+     750,
+     750,
+     750,
+     750,
+     750
+    ],
+    "castConeDistance": 100,
+    "castTargetAdditionalUnitsRadius": 700,
+    "mMissileSpec": {
+     "mMissileWidth": 250,
+     "movementComponent": {
+      "mTracksTarget": false,
+      "mStartBoneName": "L_BUFFBONE_GLB_HAND_LOC",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 5000,
+      "__type": "FixedSpeedMovement"
+     },
+     "visibilityComponent": {
+      "__type": "EnterFOWVisibility"
+     },
+     "heightSolver": {
+      "mGravity": 100,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 10,
+    "missileSpeed": 20,
+    "mMissileEffectKey": "Pantheon_R_update_missile",
+    "mHitEffectName": "DATA/Particles/infernalguardian_tar.troy",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mDimensionBehavior": 1,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_PantheonUpdateR",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonRAbility/PantheonRMissile3": {
+   "ObjectName": "PantheonRMissile3",
+   "objectPath": "Characters/Pantheon/Spells/PantheonRAbility/PantheonRMissile3",
+   "mScriptName": "PantheonRMissile3",
+   "mSpell": {
+    "mAffectsTypeFlags": 14346,
+    "mSpellTags": [
+     "Trait_ChannelSpell"
+    ],
+    "mCoefficient": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "mIgnoreRangeCheck": true,
+    "mMinimapIconDisplayFlag": 0,
+    "castRange": [
+     3350,
+     3350,
+     3350,
+     3350,
+     3350,
+     3350,
+     3350
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 55,
+     "movementComponent": {
+      "mTracksTarget": false,
+      "mStartBoneName": "L_BUFFBONE_GLB_HAND_LOC",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 14000,
+      "__type": "FixedSpeedMovement"
+     },
+     "visibilityComponent": {
+      "__type": "EnterFOWVisibility"
+     },
+     "heightSolver": {
+      "mGravity": 50,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "DestroyOnMovementComplete"
+      },
+      {
+       "__type": "CastOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 10,
+    "missileSpeed": 20,
+    "mMissileEffectKey": "Pantheon_R_Spear_Landing",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mDimensionBehavior": 1,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_PantheonUpdateR",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonRAbility/PantheonRMissile2": {
+   "ObjectName": "PantheonRMissile2",
+   "objectPath": "Characters/Pantheon/Spells/PantheonRAbility/PantheonRMissile2",
+   "mScriptName": "PantheonRMissile2",
+   "mSpell": {
+    "mAffectsTypeFlags": 14346,
+    "mSpellTags": [
+     "Trait_ChannelSpell"
+    ],
+    "mCoefficient": 1,
+    "mAnimationLoopName": "Spell4_Loop",
+    "mAnimationWinddownName": "Spell4_Winddown",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "mIgnoreRangeCheck": true,
+    "mMinimapIconDisplayFlag": 0,
+    "castRange": [
+     1350,
+     1350,
+     1350,
+     1350,
+     1350,
+     1350,
+     1350
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 450,
+     "movementComponent": {
+      "mTracksTarget": false,
+      "mStartBoneName": "L_BUFFBONE_GLB_HAND_LOC",
+      "mProjectTargetToCastRange": true,
+      "mAcceleration": -4000,
+      "mMinSpeed": 180,
+      "mMaxSpeed": 4000,
+      "mInitialSpeed": 3400,
+      "__type": "AcceleratingMovement"
+     },
+     "visibilityComponent": {
+      "__type": "EnterFOWVisibility"
+     },
+     "heightSolver": {
+      "mGravity": 100,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "DestroyOnMovementComplete"
+      },
+      {
+       "__type": "CastOnHit"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 10,
+    "missileSpeed": 20,
+    "mMissileEffectKey": "Pantheon_R_Damage_Mis",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mDimensionBehavior": 1,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_PantheonUpdateR",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonRAbility/PantheonRSlow": {
+   "ObjectName": "PantheonRSlow",
+   "objectPath": "Characters/Pantheon/Spells/PantheonRAbility/PantheonRSlow",
+   "mScriptName": "PantheonRSlow",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mCoefficient": 1,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     9,
+     9,
+     9,
+     9,
+     9,
+     9,
+     9
+    ],
+    "Cooldown": {
+     "values": [
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9
+     ],
+     "{0a3e0478}": 9,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 20.16,
+    "missileSpeed": 0,
+    "mana": [
+     80,
+     100,
+     120,
+     140,
+     160,
+     180
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonRAbility/PantheonR": {
+   "ObjectName": "PantheonR",
+   "objectPath": "Characters/Pantheon/Spells/PantheonRAbility/PantheonR",
+   "mScriptName": "PantheonR",
+   "mSpell": {
+    "mAffectsTypeFlags": 14346,
+    "mCastRequirementsCaster": [
+     {
+      "mInvertResult": true,
+      "mBuffName": "{10199c2d}",
+      "__type": "HasBuffCastRequirement"
+     }
+    ],
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "PositiveEffect_Teleport",
+     "Trait_DamageAbility",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       100,
+       300,
+       500,
+       700,
+       900,
+       1100,
+       1300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EdgeDamageReduction",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Radius",
+      "values": [
+       450,
+       450,
+       450,
+       450,
+       450,
+       450,
+       450
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SweetSpotRadius",
+      "values": [
+       125,
+       125,
+       125,
+       125,
+       125,
+       125,
+       125
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CancelCooldown",
+      "values": [
+       30,
+       30,
+       30,
+       30,
+       30,
+       30,
+       30
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SpearSlow",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SpearSlowDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ArmorPenetration",
+      "values": [
+       0,
+       0.1,
+       0.2,
+       0.3,
+       0.4,
+       0.5,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "APRatio",
+        "values": [
+         1.5,
+         1.5,
+         1.5,
+         1.5,
+         1.5,
+         1.5,
+         1.5
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       60,
+       60,
+       50,
+       40,
+       30,
+       20,
+       10
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     "{a110bc47}": {
+      "value": [
+       120,
+       120,
+       100,
+       80,
+       80,
+       80,
+       80
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "DamageCalc": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MinDamage": {
+      "mMultiplier": {
+       "mDataValue": "EdgeDamageReduction",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "tooltipOnly": true,
+      "mModifiedGameCalculation": "DamageCalc",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "mCastTime": 0.1,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     180,
+     180,
+     165,
+     150,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      180,
+      180,
+      165,
+      150,
+      0,
+      0,
+      0
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Pantheon/Spells/PantheonRAbility/PantheonRArmorPen",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "cantCastWhileRooted": true,
+    "mSpellRevealsChampion": false,
+    "mUseMinimapTargeting": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     5500,
+     5500,
+     5500,
+     5500,
+     5500,
+     5500,
+     5500
+    ],
+    "castRadius": [
+     750,
+     750,
+     750,
+     750,
+     750,
+     750,
+     750
+    ],
+    "castConeDistance": 100,
+    "castTargetAdditionalUnitsRadius": 700,
+    "castFrame": 10,
+    "missileSpeed": 20,
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "AreaClamped"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_PantheonUpdateR",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonRAbility/PantheonRArmorPen": {
+   "ObjectName": "PantheonRArmorPen",
+   "objectPath": "Characters/Pantheon/Spells/PantheonRAbility/PantheonRArmorPen",
+   "mScriptName": "PantheonRArmorPen",
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonRAbility/PantheonRFall": {
+   "ObjectName": "PantheonRFall",
+   "objectPath": "Characters/Pantheon/Spells/PantheonRAbility/PantheonRFall",
+   "mScriptName": "PantheonRFall",
+   "mSpell": {
+    "mAffectsTypeFlags": 14346,
+    "mEffectAmount": [
+     {
+      "value": [
+       100,
+       400,
+       700,
+       1000,
+       0,
+       0,
+       300
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       5500,
+       5500,
+       5500,
+       5500,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "__type": "SpellDataValue"
+     }
+    ],
+    "spellCastTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     10,
+     10,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      10,
+      10,
+      0
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "mSpellRevealsChampion": false,
+    "mDisableCastBar": true,
+    "mShowChannelBar": false,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     700,
+     700,
+     700,
+     700,
+     700,
+     700,
+     700
+    ],
+    "castConeDistance": 100,
+    "castTargetAdditionalUnitsRadius": 700,
+    "castFrame": 15,
+    "missileSpeed": 20,
+    "mHitEffectName": "DATA/Particles/infernalguardian_tar.troy",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonRAbility/PantheonRJump": {
+   "ObjectName": "PantheonRJump",
+   "objectPath": "Characters/Pantheon/Spells/PantheonRAbility/PantheonRJump",
+   "mScriptName": "PantheonRJump",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_PantheonUpdateR",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonPlumeManager": {
+   "ObjectName": "PantheonPlumeManager",
+   "objectPath": "Characters/Pantheon/Spells/PantheonPlumeManager",
+   "mScriptName": "PantheonPlumeManager",
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonCritAttack": {
+   "ObjectName": "PantheonCritAttack",
+   "objectPath": "Characters/Pantheon/Spells/PantheonCritAttack",
+   "mScriptName": "PantheonCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.35,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileChanneling": true,
+    "mApplyMaterialOnHitSound": true,
+    "castRange": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.36,
+    "missileSpeed": 0,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonSpearGlowVFX": {
+   "ObjectName": "PantheonSpearGlowVFX",
+   "objectPath": "Characters/Pantheon/Spells/PantheonSpearGlowVFX",
+   "mScriptName": "PantheonSpearGlowVFX",
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonAttackSequencer": {
+   "ObjectName": "PantheonAttackSequencer",
+   "objectPath": "Characters/Pantheon/Spells/PantheonAttackSequencer",
+   "mScriptName": "PantheonAttackSequencer",
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonBasicAttack3": {
+   "ObjectName": "PantheonBasicAttack3",
+   "objectPath": "Characters/Pantheon/Spells/PantheonBasicAttack3",
+   "mScriptName": "PantheonBasicAttack3",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "PantheonUpdateBasicAttack",
+    "spellCastTime": 0.35,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileChanneling": true,
+    "mApplyMaterialOnHitSound": true,
+    "mTurnSpeedScalar": 3,
+    "castRange": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.8,
+    "missileSpeed": 0,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonBasicAttack2": {
+   "ObjectName": "PantheonBasicAttack2",
+   "objectPath": "Characters/Pantheon/Spells/PantheonBasicAttack2",
+   "mScriptName": "PantheonBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "PantheonUpdateBasicAttack",
+    "spellCastTime": 0.35,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileChanneling": true,
+    "mApplyMaterialOnHitSound": true,
+    "mTurnSpeedScalar": 3,
+    "castRange": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.8,
+    "missileSpeed": 0,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PantheonBasicAttack": {
+   "ObjectName": "PantheonBasicAttack",
+   "objectPath": "Characters/Pantheon/Spells/PantheonBasicAttack",
+   "mScriptName": "PantheonBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "PantheonUpdateBasicAttack",
+    "spellCastTime": 0.35,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileChanneling": true,
+    "mApplyMaterialOnHitSound": true,
+    "mTurnSpeedScalar": 3,
+    "castRange": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 8.97,
+    "missileSpeed": 20,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/PantheonQAbility/PantheonQ",
+  "Spells/PantheonWAbility/PantheonW",
+  "Spells/PantheonEAbility/PantheonE",
+  "Spells/PantheonRAbility/PantheonR"
+ ],
+ "passiva_ref": "Characters/Pantheon/Spells/PantheonPassiveAbility",
+ "passiva_chaves": [
+  "Spells/PantheonPassiveAbility/PantheonPassiveCounter",
+  "Spells/PantheonPassiveAbility/PantheonPassive",
+  "Spells/PantheonPassiveAbility/PantheonPassiveReady"
+ ]
+}

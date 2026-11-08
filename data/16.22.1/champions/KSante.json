@@ -1,0 +1,6374 @@
+{
+ "id": "KSante",
+ "key": 897,
+ "nome": "K'Sante",
+ "titulo": "o Orgulho de Nazumah.",
+ "funcoes": [
+  "Tank",
+  "Fighter"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 8,
+  "defense": 8,
+  "magic": 7,
+  "difficulty": 9
+ },
+ "stats_ddragon": {
+  "hp": 625,
+  "hpperlevel": 120,
+  "mp": 320,
+  "mpperlevel": 60,
+  "movespeed": 330,
+  "armor": 36,
+  "armorperlevel": 5.2,
+  "spellblock": 30,
+  "spellblockperlevel": 2.1,
+  "attackrange": 150,
+  "hpregen": 9.5,
+  "hpregenperlevel": 1,
+  "mpregen": 7,
+  "mpregenperlevel": 1,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 64,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2.5,
+  "attackspeed": 0.688
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Instinto Valente",
+  "descricao": "As habilidades de K'Sante marcam os alvos para que sofram mais dano do próximo ataque dele.<br><br>Na Forma Irrestrita, K'Sante causa mais dano com todos os ataques e habilidades."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "KSanteQ",
+   "nome": "Golpes de Ntofo",
+   "descricao": "K'Sante executa um golpe, causando dano e Lentidão aos inimigos em uma linha curta à frente.<br><br>Ao contato, concede um acúmulo de Golpes de Ntofo. Com 2 acúmulos, ele dispara uma onda de choque que puxa os inimigos.<br><br>Na Forma Irrestrita, o Tempo de Recarga é reduzido.",
+   "tooltip": "K'Sante bate com força a arma no chão, causando <physicalDamage>{{ basedamage }} de Dano Físico</physicalDamage> e {{ slowpercent*100 }}% de <status>Lentidão</status> aos inimigos por {{ slowduration }}s. Se acertar, ele recebe um acúmulo de Golpes de Ntofo por {{ recastwindow }}s. Com 2 acúmulos, ele dispara uma onda de choque que <status>Atordoa</status> e <status>Puxa</status> os inimigos por {{ stunduration }}s.<br /><br /><keywordMajor>Forma Irrestrita</keywordMajor>: o Tempo de Recarga é reduzido em {{ rcooldownreduction.0*100 }}%.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    3.5,
+    3.5,
+    3.5,
+    3.5,
+    3.5
+   ],
+   "custo": [
+    20,
+    20,
+    20,
+    20,
+    20
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    450,
+    450,
+    450,
+    450,
+    450
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "KSanteW",
+   "nome": "Criador de Caminhos",
+   "descricao": "K'Sante carrega, sofrendo dano reduzido, e depois avança, empurrando e atordoando os inimigos.<br><br>Na Forma Irrestrita, causa dano aumentado e não empurra nem atordoa mais.",
+   "tooltip": "K'Sante levanta suas armas defensivamente por {{ mindurationtooltip }}s - {{ maxduration.1 }}s, tornando-se Imbatível e sofrendo {{ damagereduction*100 }}% a menos de dano. Depois, ele avança, causando <physicalDamage>{{ basedamage }} + {{ totalmaxhealthdamage }} da Vida máxima como Dano Físico</physicalDamage>. Inimigos atingidos são <status>Empurrados</status> e <status>Atordoados</status> por {{ minknockbackduration }}s - {{ maxknockbackduration }}s (com base no tempo de carregamento).<br /><br /><keywordMajor>Forma Irrestrita:</keywordMajor> o Tempo de Recarga é redefinido. Causa {{ rdamageincreasemin*100 }}% - {{ rdamageincreasemax*100 }}% de dano adicional como <trueDamage>Dano Verdadeiro</trueDamage> (com base no tempo de carregamento), a redução de dano aumenta para {{ rdamagereduction*100 }}% e a velocidade do avanço é aumentada, mas não <status>Empurra</status> nem <status>Atordoa</status> mais.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    14,
+    13,
+    12,
+    11,
+    10
+   ],
+   "custo": [
+    45,
+    50,
+    55,
+    60,
+    65
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    600,
+    600,
+    600,
+    600,
+    600
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "KSanteE",
+   "nome": "Passo Forte",
+   "descricao": "K'Sante avança e recebe um Escudo. Se o alvo for um aliado, K'Sante avança até o aliado com alcance aumentado e os dois recebem Escudo.<br><br>Quando na Forma Irrestrita, o Tempo de Recarga é reduzido e a velocidade é aumentada.",
+   "tooltip": "K'Sante avança, recebendo <shield>{{ totalshield }} de Escudo</shield> por {{ shieldduration }}s. Ao avançar até um aliado, a distância do avanço é significativamente aumentada e o aliado também recebe um <shield>Escudo</shield>.<br /><br /><keywordMajor>Forma Irrestrita</keywordMajor>: o Tempo de Recarga é reduzido em {{ cooldownmodao*100 }}% e a velocidade do avanço é aumentada.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    10,
+    9.5,
+    9,
+    8.5,
+    8
+   ],
+   "custo": [
+    45,
+    50,
+    55,
+    60,
+    65
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    525,
+    525,
+    525,
+    525,
+    525
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "KSanteR",
+   "nome": "Forma Irrestrita",
+   "descricao": "K'Sante empurra um inimigo, fazendo-o atravessar qualquer parede no caminho. Depois, K'Sante assume a Forma Irrestrita e avança em direção ao inimigo, recebendo aumento de dano, cura e habilidades transformadas ao custo da redução das defesas.",
+   "tooltip": "K'Sante quebra seus ntofos para <status>Empurrar</status> um Campeão inimigo, causando <physicalDamage>{{ basedamage }} de Dano Físico</physicalDamage>. Depois, ele avança para trás e assume a <keywordMajor>Forma Irrestrita</keywordMajor> por {{ alloutduration }}s. Se o inimigo atingir uma parede, ele será <status>Empurrado</status> através dela e K'Sante golpeará novamente, causando <physicalDamage>{{ totaldamageslamdown }} de Dano Físico</physicalDamage>.<br /><br />Enquanto K'Sante estiver na <keywordMajor>Forma Irrestrita</keywordMajor>, suas habilidades são melhoradas e ele recebe <attackSpeed>{{ attackspeed*100 }}% de Velocidade de Ataque</attackSpeed>, {{ armorpenpercent*100 }}% de Penetração de Armadura adicional e <omnivamp>{{ omnivamp*100 }}% de Vampirismo Universal</omnivamp>, mas perde <healing>{{ healthlost*100 }}% da Vida máxima</healing>, <scaleArmor>{{ defenseslost*100 }}% da Armadura adicional</scaleArmor> e <scaleMR>{{ defenseslost*100 }}% da Resistência Mágica adicional</scaleMR>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    120,
+    100,
+    80
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    250,
+    250,
+    250
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 625,
+  "vida_nivel": 120,
+  "regen_vida": 1.9,
+  "regen_vida_nivel": 0.2,
+  "dano": 64,
+  "dano_nivel": 3.5,
+  "armadura": 36,
+  "armadura_nivel": 5.2,
+  "rm": 30,
+  "rm_nivel": 2.1,
+  "velocidade_mov": 330,
+  "alcance_ataque": 150,
+  "vel_ataque_base": 0.688,
+  "vel_ataque_razao": 0.625,
+  "vel_ataque_nivel": 2.5,
+  "dano_critico": 2,
+  "alcance_aquisicao": 400,
+  "raio_selecao": 140,
+  "raio_colisao": 50,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.10468749701976776,
+   "mAttackName": "KSanteBasicAttack",
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackName": "KSanteBasicAttack2",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "KSanteBasicAttack3",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "KSanteBasicAttack4",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.10468749701976776,
+    "mAttackName": "KSanteCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/KSante/Spells/KSanteQAbility/KSanteQ",
+  "Characters/KSante/Spells/KSanteWAbility/KSanteW",
+  "Characters/KSante/Spells/KSanteEAbility/KSanteE",
+  "Characters/KSante/Spells/KSanteRAbility/KSanteR"
+ ],
+ "abilities_ref": [
+  "Characters/KSante/Spells/KSanteQAbility",
+  "Characters/KSante/Spells/KSanteEAbility",
+  "Characters/KSante/Spells/KSantePAbility",
+  "Characters/KSante/Spells/KSanteRAbility",
+  "Characters/KSante/Spells/KSanteWAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/KSanteRAbility/KSanteRSpellPassive": {
+   "ObjectName": "KSanteRSpellPassive",
+   "objectPath": "Characters/KSante/Spells/KSanteRAbility/KSanteRSpellPassive",
+   "mScriptName": "KSanteRSpellPassive",
+   "mSpell": {
+    "mAffectsTypeFlags": 22538,
+    "mCastTime": 0.4,
+    "cooldownTime": [
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+     ],
+     "{0a3e0478}": 8,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "alwaysSnapFacing": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "castRadius": [
+     180,
+     180,
+     180,
+     180,
+     180,
+     180,
+     180
+    ],
+    "castRadiusSecondary": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castFrame": 8,
+    "missileSpeed": 0,
+    "mLineWidth": 100,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "mana": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteRAbility/KSanteREndEarly": {
+   "ObjectName": "KSanteREndEarly",
+   "objectPath": "Characters/KSante/Spells/KSanteRAbility/KSanteREndEarly",
+   "mScriptName": "KSanteREndEarly",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_Ultimate"
+    ],
+    "mEffectAmount": [
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.75,
+    "mCoefficient2": 0.4,
+    "spellCastTime": 0.529,
+    "cooldownTime": [
+     1.5,
+     1.5,
+     1.5,
+     1.5,
+     1.5,
+     1.5,
+     1.5
+    ],
+    "Cooldown": {
+     "values": [
+      1.5,
+      1.5,
+      1.5,
+      1.5,
+      1.5,
+      1.5,
+      1.5
+     ],
+     "{0a3e0478}": 1.5,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "missileSpeed": 943.79999,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteRAbility/KSanteRConversionArmor": {
+   "ObjectName": "KSanteRConversionArmor",
+   "objectPath": "Characters/KSante/Spells/KSanteRAbility/KSanteRConversionArmor",
+   "mScriptName": "KSanteRConversionArmor",
+   "mSpell": {
+    "mAffectsTypeFlags": 22538,
+    "mCastTime": 0.4,
+    "cooldownTime": [
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+     ],
+     "{0a3e0478}": 8,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "alwaysSnapFacing": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "castRadius": [
+     180,
+     180,
+     180,
+     180,
+     180,
+     180,
+     180
+    ],
+    "castRadiusSecondary": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castFrame": 8,
+    "missileSpeed": 0,
+    "mLineWidth": 100,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "mana": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteRAbility/KSanteRConversionHealth": {
+   "ObjectName": "KSanteRConversionHealth",
+   "objectPath": "Characters/KSante/Spells/KSanteRAbility/KSanteRConversionHealth",
+   "mScriptName": "KSanteRConversionHealth",
+   "mSpell": {
+    "mAffectsTypeFlags": 22538,
+    "mCastTime": 0.4,
+    "cooldownTime": [
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+     ],
+     "{0a3e0478}": 8,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "alwaysSnapFacing": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "castRadius": [
+     180,
+     180,
+     180,
+     180,
+     180,
+     180,
+     180
+    ],
+    "castRadiusSecondary": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castFrame": 8,
+    "missileSpeed": 0,
+    "mLineWidth": 100,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "mana": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteRAbility/KsanteRTransform": {
+   "ObjectName": "KsanteRTransform",
+   "objectPath": "Characters/KSante/Spells/KSanteRAbility/KsanteRTransform",
+   "mScriptName": "KsanteRTransform",
+   "mSpell": {
+    "ImgIconPath": "assets/characters/ksante/hud/icons2d/icons_ksante_r1.dds",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_KsanteRTransform",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteRAbility/KsanteRCastRoot": {
+   "ObjectName": "KsanteRCastRoot",
+   "objectPath": "Characters/KSante/Spells/KSanteRAbility/KsanteRCastRoot",
+   "mScriptName": "KsanteRCastRoot",
+   "mSpell": {
+    "ImgIconPath": "assets/characters/ksante/hud/icons2d/icons_ksante_r2.dds",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_KsanteRCastRoot",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteRAbility/KsanteRKnockbackWall": {
+   "ObjectName": "KsanteRKnockbackWall",
+   "objectPath": "Characters/KSante/Spells/KSanteRAbility/KsanteRKnockbackWall",
+   "mScriptName": "KsanteRKnockbackWall",
+   "mSpell": {
+    "ImgIconPath": "assets/characters/ksante/hud/icons2d/icons_ksante_r1.dds",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_KsanteRKnockbackWall",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteRAbility/KSanteR": {
+   "ObjectName": "KSanteR",
+   "objectPath": "Characters/KSante/Spells/KSanteRAbility/KSanteR",
+   "mScriptName": "KSanteR",
+   "mSpell": {
+    "mAffectsTypeFlags": 16386,
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock",
+     "Trait_Ultimate",
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_KnockBack",
+     "Trait_CCImmune"
+    ],
+    "DataValues": [
+     {
+      "name": "AllOutDuration",
+      "values": [
+       15,
+       15,
+       15,
+       15,
+       15,
+       15,
+       15
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       45,
+       80,
+       115,
+       150,
+       185,
+       220,
+       255
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlamDownStrikeDamage",
+      "values": [
+       45,
+       80,
+       115,
+       150,
+       185,
+       220,
+       255
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "WallStunDuration",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "NoWallStunDuration",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxSuppressTime",
+      "values": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MOVEMENT_VARS",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TackleRange",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TackleSpeed",
+      "values": [
+       2000,
+       2000,
+       2000,
+       2000,
+       2000,
+       2000,
+       2000
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CarrySpeed",
+      "values": [
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxWallCarry",
+      "values": [
+       25000,
+       25000,
+       25000,
+       25000,
+       25000,
+       25000,
+       25000
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxWallCarrySR",
+      "values": [
+       5000,
+       5000,
+       5000,
+       5000,
+       5000,
+       5000,
+       5000
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "WallCheckDist",
+      "values": [
+       -25,
+       -25,
+       -25,
+       -25,
+       -25,
+       -25,
+       -25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KSanteLandingOffset",
+      "values": [
+       250,
+       250,
+       250,
+       250,
+       250,
+       250,
+       250
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "WallBuffer",
+      "values": [
+       350,
+       350,
+       350,
+       350,
+       350,
+       350,
+       350
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "STAT_CHANGE_VARS",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealthLost",
+      "values": [
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DefensesLost",
+      "values": [
+       0.85,
+       0.85,
+       0.85,
+       0.85,
+       0.85,
+       0.85,
+       0.85
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Omnivamp",
+      "values": [
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AttackSpeed",
+      "values": [
+       0.2,
+       0.4,
+       0.6,
+       0.8,
+       1,
+       1.2,
+       1.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ArmorPenPercent",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KsanteArrivesFirstBySec",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AfterImageArrivesFirstBySec",
+      "values": [
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ManaRegenPercent",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockGrav",
+      "values": [
+       14,
+       14,
+       14,
+       14,
+       14,
+       14,
+       14
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TimeToLast",
+      "values": [
+       0.18,
+       0.18,
+       0.18,
+       0.18,
+       0.18,
+       0.18,
+       0.18
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TackleRangeOverstatedNoWall",
+      "values": [
+       3000,
+       3000,
+       3000,
+       3000,
+       3000,
+       3000,
+       3000
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CarrySpeedUnderstatedNoWall",
+      "values": [
+       1600,
+       1600,
+       1600,
+       1600,
+       1600,
+       1600,
+       1600
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CarrySpeedNoWall",
+      "values": [
+       800,
+       800,
+       800,
+       800,
+       800,
+       800,
+       800
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KsanteAnimLockWall",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KsanteAnimLockNoWall",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DistanceTriggerFasterCarrySpeed",
+      "values": [
+       1400,
+       1400,
+       1400,
+       1400,
+       1400,
+       1400,
+       1400
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FasterCarrySpeed",
+      "values": [
+       1500,
+       1500,
+       1500,
+       1500,
+       1500,
+       1500,
+       1500
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AuraOffset",
+      "values": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "LingeringPerceptionPostStun",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DelayToStartSlamDown",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "WallLookAhead",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "VfxInWallPerDistance",
+      "values": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DebugWallExplosions",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AnimationDashTime",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DistanceRatioMin",
+      "values": [
+       600,
+       600,
+       600,
+       600,
+       600,
+       600,
+       600
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DistanceRatioMax",
+      "values": [
+       2000,
+       2000,
+       2000,
+       2000,
+       2000,
+       2000,
+       2000
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CarrySpeedRatioMin",
+      "values": [
+       900,
+       900,
+       900,
+       900,
+       900,
+       900,
+       900
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CarrySpeedRatioMax",
+      "values": [
+       1700,
+       1700,
+       1700,
+       1700,
+       1700,
+       1700,
+       1700
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CameraHoldRatioMin",
+      "values": [
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CameraHoldRatioMax",
+      "values": [
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "InitialAnimHoldMin",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "InitialAnimHoldMax",
+      "values": [
+       0.27,
+       0.27,
+       0.27,
+       0.27,
+       0.27,
+       0.27,
+       0.27
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CastTime",
+      "values": [
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "WallBufferFailCase",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "VictimCameraZoomMin",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "VictimCameraZoomMax",
+      "values": [
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "MaxWallCarry",
+        "values": [
+         0,
+         2000,
+         2000,
+         2000,
+         2000,
+         2000,
+         2000
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       105,
+       90,
+       75,
+       60,
+       45,
+       45,
+       45
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamageSlamDown": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "SlamDownStrikeDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 12,
+        "mStatFormula": 2,
+        "mCoefficient": 0.05,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.4,
+    "spellCastTime": 0.4,
+    "spellTotalTime": 0.5,
+    "cooldownTime": [
+     120,
+     120,
+     100,
+     80,
+     80,
+     80,
+     80
+    ],
+    "Cooldown": {
+     "values": [
+      120,
+      120,
+      100,
+      80,
+      80,
+      80,
+      80
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/KSante/Spells/KSanteRAbility/KSanteRSpellPassive",
+      "mRemoveWhenOnCooldown": false,
+      "mRemoveWithSpell": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     },
+     {
+      "mBuff": "Characters/KSante/Spells/KSanteRAbility/KSanteRConversionArmor",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "mRemoveWithSpell": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     },
+     {
+      "mBuff": "Characters/KSante/Spells/KSanteRAbility/KSanteRConversionHealth",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "mRemoveWithSpell": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     },
+     {
+      "mBuff": "Characters/KSante/Spells/KSanteRAbility/KSanteRConversionMagicResist",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "mRemoveWithSpell": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "mDoesntBreakChannels": true,
+    "mProjectTargetToCastRange": true,
+    "alwaysSnapFacing": true,
+    "useAnimatorFramerate": true,
+    "mDoesNotConsumeCooldown": true,
+    "castRange": [
+     350,
+     350,
+     350,
+     350,
+     350,
+     350,
+     350
+    ],
+    "castRangeDisplayOverride": [
+     250,
+     250,
+     250,
+     250,
+     250,
+     250,
+     250
+    ],
+    "castRadius": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "castFrame": 7.5,
+    "missileSpeed": 0,
+    "mLineWidth": 160,
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "selectionPriority": 1,
+    "TargetingForgivenessDefinitions": [
+     {
+      "ForgivenessRange": 50,
+      "__type": "TargetingForgivenessDefinitions"
+     }
+    ],
+    "mDimensionBehavior": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamageSlamDown",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 4194304,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "NoWallStunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 256,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "NoWallStunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "NoWallStunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "NoWallStunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteRAbility/KSanteRMissile2": {
+   "ObjectName": "KSanteRMissile2",
+   "objectPath": "Characters/KSante/Spells/KSanteRAbility/KSanteRMissile2",
+   "mScriptName": "KSanteRMissile2",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mCoefficient": 1.1,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4
+    ],
+    "Cooldown": {
+     "values": [
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+     ],
+     "{0a3e0478}": 4,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "castRangeDisplayOverride": [
+     800,
+     800,
+     800,
+     800,
+     800,
+     800,
+     800
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 125,
+    "mMissileSpec": {
+     "mMissileWidth": 70,
+     "movementComponent": {
+      "mTracksTarget": false,
+      "mStartBoneName": "",
+      "mInferDirectionFromFacingIfNeeded": false,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "missileSpeed": 1800,
+    "mLineWidth": 60,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_OrnnQ",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteRAbility/KSanteRMissile1": {
+   "ObjectName": "KSanteRMissile1",
+   "objectPath": "Characters/KSante/Spells/KSanteRAbility/KSanteRMissile1",
+   "mScriptName": "KSanteRMissile1",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mEffectIndex": 1,
+        "__type": "EffectValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 1.1,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4
+    ],
+    "Cooldown": {
+     "values": [
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+     ],
+     "{0a3e0478}": 4,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "castRangeDisplayOverride": [
+     800,
+     800,
+     800,
+     800,
+     800,
+     800,
+     800
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 125,
+    "mMissileSpec": {
+     "mMissileWidth": 70,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mTargetHeightAugment": 200,
+      "mStartBoneName": "",
+      "mSpeed": 2400,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 4.545,
+    "missileSpeed": 1800,
+    "mLineWidth": 60,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_OrnnQ",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteRAbility/KSanteRConversionMagicResist": {
+   "ObjectName": "KSanteRConversionMagicResist",
+   "objectPath": "Characters/KSante/Spells/KSanteRAbility/KSanteRConversionMagicResist",
+   "mScriptName": "KSanteRConversionMagicResist",
+   "mSpell": {
+    "mAffectsTypeFlags": 22538,
+    "mCastTime": 0.4,
+    "cooldownTime": [
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+     ],
+     "{0a3e0478}": 8,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "alwaysSnapFacing": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "castRadius": [
+     180,
+     180,
+     180,
+     180,
+     180,
+     180,
+     180
+    ],
+    "castRadiusSecondary": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castFrame": 8,
+    "missileSpeed": 0,
+    "mLineWidth": 100,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "mana": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSantePAbility/KSantePAttack": {
+   "ObjectName": "KSantePAttack",
+   "objectPath": "Characters/KSante/Spells/KSantePAbility/KSantePAttack",
+   "mScriptName": "KSantePAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.41215,
+    "cooldownTime": [
+     -100,
+     -100,
+     -100,
+     -100,
+     -100,
+     -100,
+     -100
+    ],
+    "Cooldown": {
+     "values": [
+      -100,
+      -100,
+      -100,
+      -100,
+      -100,
+      -100,
+      -100
+     ],
+     "{0a3e0478}": -100,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "missileSpeed": 0,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSantePAbility/KsantePMark": {
+   "ObjectName": "KsantePMark",
+   "objectPath": "Characters/KSante/Spells/KSantePAbility/KsantePMark",
+   "mScriptName": "KsantePMark",
+   "mSpell": {
+    "ImgIconPath": "assets/characters/ksante/hud/icons2d/icons_ksante_p.dds",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_KsantePMark",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSantePAbility/KSanteP": {
+   "ObjectName": "KSanteP",
+   "objectPath": "Characters/KSante/Spells/KSantePAbility/KSanteP",
+   "mScriptName": "KSanteP",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "MarkDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusRange",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RecoveryPercent",
+      "values": [
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ArmorMRMultiplier",
+      "values": [
+       0.002,
+       0.002,
+       0.002,
+       0.002,
+       0.002,
+       0.002,
+       0.002
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PassiveStartingDamage",
+      "values": [
+       0.0035,
+       0.0035,
+       0.0035,
+       0.0035,
+       0.0035,
+       0.0035,
+       0.0035
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxHealthDamagePercentBase",
+      "values": [
+       0.01,
+       0.01,
+       0.01,
+       0.01,
+       0.01,
+       0.01,
+       0.01
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxHealthDamageResistRatio",
+      "values": [
+       0.0001,
+       0.0001,
+       0.0001,
+       0.0001,
+       0.0001,
+       0.0001,
+       0.0001
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FlatDamage",
+      "values": [
+       12,
+       12,
+       12,
+       12,
+       12,
+       12,
+       12
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MarkDamagePercentMin",
+      "values": [
+       0.01,
+       0.01,
+       0.01,
+       0.01,
+       0.01,
+       0.01,
+       0.01
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MarkDamagePercentMax",
+      "values": [
+       0.02,
+       0.02,
+       0.02,
+       0.02,
+       0.02,
+       0.02,
+       0.02
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "MaxHealthDamagePercentBase",
+        "values": [
+         0.015,
+         0.015,
+         0.015,
+         0.015,
+         0.015,
+         0.015,
+         0.015
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "MarkDamagePercentMin",
+        "values": [
+         0.02,
+         0.02,
+         0.02,
+         0.02,
+         0.02,
+         0.02,
+         0.02
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "MarkDamagePercentMax",
+        "values": [
+         0.03,
+         0.03,
+         0.03,
+         0.03,
+         0.03,
+         0.03,
+         0.03
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "{281dd874}": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 0.1,
+        "mBreakpoints": [
+         {
+          "mLevel": 6,
+          "mAdditionalBonusAtThisLevel": 0.03,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 11,
+          "mAdditionalBonusAtThisLevel": 0.03,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 16,
+          "mAdditionalBonusAtThisLevel": 0.03,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": -1,
+      "__type": "GameCalculation"
+     },
+     "PercentHealthDamage": {
+      "mFormulaParts": [
+       {
+        "StartDataValue": "MarkDamagePercentMin",
+        "EndDataValue": "MarkDamagePercentMax",
+        "__type": "{ee18a47b}"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": -1,
+      "__type": "GameCalculation"
+     },
+     "MaxHealthDamagePercent": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "MaxHealthDamagePercentBase",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 1,
+        "mStatFormula": 2,
+        "mDataValue": "MaxHealthDamageResistRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 6,
+        "mStatFormula": 2,
+        "mDataValue": "MaxHealthDamageResistRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": 2,
+      "__type": "GameCalculation"
+     }
+    },
+    "useAnimatorFramerate": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSantePAbility/KSantePDoubleAttack": {
+   "ObjectName": "KSantePDoubleAttack",
+   "objectPath": "Characters/KSante/Spells/KSantePAbility/KSantePDoubleAttack",
+   "mScriptName": "KSantePDoubleAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.41215,
+    "cooldownTime": [
+     -100,
+     -100,
+     -100,
+     -100,
+     -100,
+     -100,
+     -100
+    ],
+    "Cooldown": {
+     "values": [
+      -100,
+      -100,
+      -100,
+      -100,
+      -100,
+      -100,
+      -100
+     ],
+     "{0a3e0478}": -100,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "missileSpeed": 0,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteEAbility/KSanteESelfDash": {
+   "ObjectName": "KSanteESelfDash",
+   "objectPath": "Characters/KSante/Spells/KSanteEAbility/KSanteESelfDash",
+   "mScriptName": "KSanteESelfDash",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 17413,
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock"
+    ],
+    "DataValues": [
+     {
+      "name": "DashDistance",
+      "values": [
+       550,
+       550,
+       550,
+       550,
+       550,
+       550,
+       550
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AllyDashSpeed",
+      "values": [
+       1600,
+       1600,
+       1600,
+       1600,
+       1600,
+       1600,
+       1600
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TargetingForgiveness",
+      "values": [
+       150,
+       150,
+       150,
+       150,
+       150,
+       150,
+       150
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldBaseAmount",
+      "values": [
+       20,
+       45,
+       70,
+       95,
+       120,
+       145,
+       170
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BASE_FORM",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FreeTargetRangeBase",
+      "values": [
+       250,
+       250,
+       250,
+       250,
+       250,
+       250,
+       250
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FreeTargetSpeedBase",
+      "values": [
+       1500,
+       1500,
+       1500,
+       1500,
+       1500,
+       1500,
+       1500
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ULT_FORM",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FreeTargetRangeAO",
+      "values": [
+       400,
+       400,
+       400,
+       400,
+       400,
+       400,
+       400
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FreeTargetSpeedAO",
+      "values": [
+       2100,
+       2100,
+       2100,
+       2100,
+       2100,
+       2100,
+       2100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldBaseAmountFast",
+      "values": [
+       25,
+       45,
+       65,
+       85,
+       105,
+       125,
+       145
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalShield": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "ShieldBaseAmountFast",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mBuffName": "{5eb30a0d}",
+        "mIconKey": "%i:scaleHealth%",
+        "mCoefficient": 0.15,
+        "__type": "BuffCounterByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "ImgIconPath": "assets/characters/ksante/hud/icons2d/icons_ksante_e.dds",
+    "spellCastTime": 0.4,
+    "spellTotalTime": 0.5,
+    "cooldownTime": [
+     9,
+     9,
+     8.5,
+     8,
+     7.5,
+     7,
+     6.5
+    ],
+    "Cooldown": {
+     "values": [
+      9,
+      9,
+      8.5,
+      8,
+      7.5,
+      7,
+      6.5
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/KSante/Spells/KSanteEAbility/KSanteESpellPassive",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "mDoesntBreakChannels": true,
+    "alwaysSnapFacing": true,
+    "useAnimatorFramerate": true,
+    "mDoesNotConsumeMana": true,
+    "mDoesNotConsumeCooldown": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     525,
+     525,
+     525,
+     525,
+     525,
+     525,
+     525
+    ],
+    "castRadius": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "castFrame": 7.5,
+    "missileSpeed": 0,
+    "mLineWidth": 160,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "TargetOrLocation"
+    },
+    "TargetingForgivenessDefinitions": [
+     {
+      "ForgivenessRange": 200,
+      "TargetForgivenessDefinitions": [
+       {
+        "mAffectsTypeFlags": 16385,
+        "__type": "HasTypeAndStatusFlags"
+       }
+      ],
+      "__type": "TargetingForgivenessDefinitions"
+     },
+     {
+      "ForgivenessRange": 100,
+      "TargetForgivenessDefinitions": [
+       {
+        "mAffectsTypeFlags": 17412,
+        "__type": "HasTypeAndStatusFlags"
+       }
+      ],
+      "__type": "TargetingForgivenessDefinitions"
+     }
+    ],
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "mDimensionBehavior": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteEAbility/KsanteEShield": {
+   "ObjectName": "KsanteEShield",
+   "objectPath": "Characters/KSante/Spells/KSanteEAbility/KsanteEShield",
+   "mScriptName": "KsanteEShield",
+   "mSpell": {
+    "ImgIconPath": "assets/characters/ksante/hud/icons2d/icons_ksante_e.dds",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_KsanteEShield",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteEAbility/KSanteEAllyDash": {
+   "ObjectName": "KSanteEAllyDash",
+   "objectPath": "Characters/KSante/Spells/KSanteEAbility/KSanteEAllyDash",
+   "mScriptName": "KSanteEAllyDash",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1045,
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock"
+    ],
+    "DataValues": [
+     {
+      "name": "DashRange",
+      "values": [
+       700,
+       700,
+       700,
+       700,
+       700,
+       700,
+       700
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DashSpeed",
+      "values": [
+       1400,
+       1400,
+       1400,
+       1400,
+       1400,
+       1400,
+       1400
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockbackSpeed",
+      "values": [
+       1600,
+       1600,
+       1600,
+       1600,
+       1600,
+       1600,
+       1600
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockupDuration",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockbackRange",
+      "values": [
+       325,
+       325,
+       325,
+       325,
+       325,
+       325,
+       325
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       60,
+       60,
+       60,
+       60,
+       60,
+       60,
+       60
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CoolddownRefund",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TargetingForgiveness",
+      "values": [
+       150,
+       150,
+       150,
+       150,
+       150,
+       150,
+       150
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowLinger",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmount",
+      "values": [
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldDuration",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldAmountBase",
+      "values": [
+       50,
+       90,
+       130,
+       170,
+       210,
+       250,
+       290
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ALL_OUT_DASH",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FreeTargetRange",
+      "values": [
+       250,
+       250,
+       250,
+       250,
+       250,
+       250,
+       250
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FreeTargetSpeed",
+      "values": [
+       1400,
+       1400,
+       1400,
+       1400,
+       1400,
+       1400,
+       1400
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FixedTravelTime",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FreeTargetRangeAO",
+      "values": [
+       400,
+       400,
+       400,
+       400,
+       400,
+       400,
+       400
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FreeTargetSpeedAO",
+      "values": [
+       1600,
+       1600,
+       1600,
+       1600,
+       1600,
+       1600,
+       1600
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDecayFactor",
+      "values": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalShield": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "ShieldAmountBase",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mBuffName": "{7a26bd77}",
+        "mIconKey": "%i:scaleHealth%",
+        "mCoefficient": 0.1,
+        "__type": "BuffCounterByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "cooldownTime": [
+     8,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      8,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "mDoesntBreakChannels": true,
+    "alwaysSnapFacing": true,
+    "useAnimatorFramerate": true,
+    "mDoesNotConsumeMana": true,
+    "mDoesNotConsumeCooldown": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castRangeDisplayOverride": [
+     700,
+     700,
+     700,
+     700,
+     700,
+     700,
+     700
+    ],
+    "castRadius": [
+     700,
+     700,
+     700,
+     700,
+     700,
+     700,
+     700
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "castFrame": 7.5,
+    "missileSpeed": 0,
+    "mLineWidth": 160,
+    "selectionPriority": 2,
+    "TargetingForgivenessDefinitions": [
+     {
+      "ForgivenessRange": 150,
+      "TargetForgivenessDefinitions": [
+       {
+        "mAffectsTypeFlags": 16385,
+        "__type": "HasTypeAndStatusFlags"
+       }
+      ],
+      "__type": "TargetingForgivenessDefinitions"
+     },
+     {
+      "ForgivenessRange": 150,
+      "TargetForgivenessDefinitions": [
+       {
+        "mAffectsTypeFlags": 17428,
+        "__type": "HasTypeAndStatusFlags"
+       }
+      ],
+      "__type": "TargetingForgivenessDefinitions"
+     },
+     {
+      "ForgivenessRange": 150,
+      "TargetForgivenessDefinitions": [
+       {
+        "mAffectsTypeFlags": 8192,
+        "__type": "HasTypeAndStatusFlags"
+       }
+      ],
+      "__type": "TargetingForgivenessDefinitions"
+     }
+    ],
+    "mDimensionBehavior": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteEAbility/KSanteE": {
+   "ObjectName": "KSanteE",
+   "objectPath": "Characters/KSante/Spells/KSanteEAbility/KSanteE",
+   "mScriptName": "KSanteE",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 17413,
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock",
+     "Trait_PlayerSelectedDashDirection",
+     "Trait_Shield"
+    ],
+    "DataValues": [
+     {
+      "name": "DashDistance",
+      "values": [
+       550,
+       550,
+       550,
+       550,
+       550,
+       550,
+       550
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TargetingForgiveness",
+      "values": [
+       150,
+       150,
+       150,
+       150,
+       150,
+       150,
+       150
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BASE_FORM",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FreeTargetRangeBase",
+      "values": [
+       250,
+       250,
+       250,
+       250,
+       250,
+       250,
+       250
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FreeTargetSpeedBase",
+      "values": [
+       550,
+       550,
+       550,
+       550,
+       550,
+       550,
+       550
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AllySpeedBase",
+      "values": [
+       1100,
+       1100,
+       1100,
+       1100,
+       1100,
+       1100,
+       1100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ULT_FORM",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FreeTargetRangeAO",
+      "values": [
+       400,
+       400,
+       400,
+       400,
+       400,
+       400,
+       400
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FreeTargetSpeedAO",
+      "values": [
+       1250,
+       1250,
+       1250,
+       1250,
+       1250,
+       1250,
+       1250
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AllySpeedAO",
+      "values": [
+       1400,
+       1400,
+       1400,
+       1400,
+       1400,
+       1400,
+       1400
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldBaseAmountFast",
+      "values": [
+       27.5,
+       70,
+       112.5,
+       155,
+       197.5,
+       240,
+       282.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DashArrivial",
+      "values": [
+       500,
+       500,
+       500,
+       500,
+       500,
+       500,
+       500
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldHealthRatio",
+      "values": [
+       0.135,
+       0.135,
+       0.135,
+       0.135,
+       0.135,
+       0.135,
+       0.135
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CooldownModAO",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "ShieldHealthRatio",
+        "values": [
+         0.15,
+         0.15,
+         0.15,
+         0.15,
+         0.15,
+         0.15,
+         0.15
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "ShieldHealthRatio",
+        "values": [
+         0.15,
+         0.15,
+         0.15,
+         0.15,
+         0.15,
+         0.15,
+         0.15
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       9.5,
+       9,
+       8.5,
+       8,
+       7.5,
+       7,
+       6.5
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalShield": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "ShieldBaseAmountFast",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 12,
+        "mStatFormula": 2,
+        "mDataValue": "ShieldHealthRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.4,
+    "spellTotalTime": 0.5,
+    "cooldownTime": [
+     10,
+     10,
+     9.5,
+     9,
+     8.5,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      10,
+      10,
+      9.5,
+      9,
+      8.5,
+      8,
+      8
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/KSante/Spells/KSanteEAbility/KSanteESpellPassive",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "mDoesntBreakChannels": true,
+    "alwaysSnapFacing": true,
+    "useAnimatorFramerate": true,
+    "mNoWinddownIfCancelled": true,
+    "mDoesNotConsumeMana": true,
+    "mDoesNotConsumeCooldown": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     525,
+     525,
+     525,
+     525,
+     525,
+     525,
+     525
+    ],
+    "castRadius": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "castFrame": 7.5,
+    "missileSpeed": 0,
+    "mLineWidth": 160,
+    "mana": [
+     45,
+     50,
+     55,
+     60,
+     65,
+     70
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "TargetOrLocation"
+    },
+    "TargetingForgivenessDefinitions": [
+     {
+      "ForgivenessRange": 100,
+      "TargetForgivenessDefinitions": [
+       {
+        "mAffectsTypeFlags": 16385,
+        "__type": "HasTypeAndStatusFlags"
+       }
+      ],
+      "__type": "TargetingForgivenessDefinitions"
+     },
+     {
+      "ForgivenessRange": 75,
+      "TargetForgivenessDefinitions": [
+       {
+        "mAffectsTypeFlags": 17412,
+        "__type": "HasTypeAndStatusFlags"
+       }
+      ],
+      "__type": "TargetingForgivenessDefinitions"
+     }
+    ],
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "mDimensionBehavior": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 524288,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSpellCalculationKey": "TotalShield",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 262144,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSpellCalculationKey": "TotalShield",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 128,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteEAbility/KSanteESpellPassive": {
+   "ObjectName": "KSanteESpellPassive",
+   "objectPath": "Characters/KSante/Spells/KSanteEAbility/KSanteESpellPassive",
+   "mScriptName": "KSanteESpellPassive",
+   "mSpell": {
+    "mAffectsTypeFlags": 22538,
+    "mCastTime": 0.4,
+    "cooldownTime": [
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+     ],
+     "{0a3e0478}": 8,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "alwaysSnapFacing": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "castRadius": [
+     180,
+     180,
+     180,
+     180,
+     180,
+     180,
+     180
+    ],
+    "castRadiusSecondary": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castFrame": 8,
+    "missileSpeed": 0,
+    "mLineWidth": 100,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "mana": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteBasicAttack": {
+   "ObjectName": "KSanteBasicAttack",
+   "objectPath": "Characters/KSante/Spells/KSanteBasicAttack",
+   "mScriptName": "KSanteBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.41215,
+    "cooldownTime": [
+     -100,
+     -100,
+     -100,
+     -100,
+     -100,
+     -100,
+     -100
+    ],
+    "Cooldown": {
+     "values": [
+      -100,
+      -100,
+      -100,
+      -100,
+      -100,
+      -100,
+      -100
+     ],
+     "{0a3e0478}": -100,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "missileSpeed": 0,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "KSante_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteWAbility/KSanteWKnockback": {
+   "ObjectName": "KSanteWKnockback",
+   "objectPath": "Characters/KSante/Spells/KSanteWAbility/KSanteWKnockback",
+   "mScriptName": "KSanteWKnockback",
+   "mSpell": {
+    "mAffectsTypeFlags": 22538,
+    "ImgIconPath": "assets/characters/ksante/hud/icons2d/icons_ksante_w.dds",
+    "mCastTime": 0.4,
+    "cooldownTime": [
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+     ],
+     "{0a3e0478}": 8,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "alwaysSnapFacing": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "castRadius": [
+     180,
+     180,
+     180,
+     180,
+     180,
+     180,
+     180
+    ],
+    "castRadiusSecondary": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castFrame": 8,
+    "missileSpeed": 0,
+    "mLineWidth": 100,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "mana": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "{8958fee2}": {
+     "__type": "{8958fee2}"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Buff_KSanteWKnockBack",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteWAbility/KSanteW": {
+   "ObjectName": "KSanteW",
+   "objectPath": "Characters/KSante/Spells/KSanteWAbility/KSanteW",
+   "mScriptName": "KSanteW",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "ViQ",
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock",
+     "Trait_ChannelSpell",
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_KnockBack",
+     "Trait_Parry",
+     "Trait_Target_Directional",
+     "Trait_Melee_BigWindup",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       15,
+       45,
+       75,
+       105,
+       135,
+       165,
+       195
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxHealthDamage",
+      "values": [
+       0.08,
+       0.08,
+       0.08,
+       0.08,
+       0.08,
+       0.08,
+       0.08
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxHealthDamageResistRatio",
+      "values": [
+       0.0002,
+       0.0002,
+       0.0002,
+       0.0002,
+       0.0002,
+       0.0002,
+       0.0002
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TimeToFullCharge",
+      "values": [
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DashSpeedBase",
+      "values": [
+       1400,
+       1400,
+       1400,
+       1400,
+       1400,
+       1400,
+       1400
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DashSpeedAO",
+      "values": [
+       1800,
+       1800,
+       1800,
+       1800,
+       1800,
+       1800,
+       1800
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "VictimDashMod",
+      "values": [
+       1.3,
+       1.3,
+       1.3,
+       1.3,
+       1.3,
+       1.3,
+       1.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinKnockbackDuration",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxKnockbackDuration",
+      "values": [
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockbackSpeed",
+      "values": [
+       800,
+       800,
+       800,
+       800,
+       800,
+       800,
+       800
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockbackDist",
+      "values": [
+       125,
+       125,
+       125,
+       125,
+       125,
+       125,
+       125
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockbackDistOnTopOfMod",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinDashBase",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxDashBase",
+      "values": [
+       450,
+       450,
+       450,
+       450,
+       450,
+       450,
+       450
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinDurationTOOLTIP",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AOMinDurationTOOLTIP",
+      "values": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HexflashBugfixLockout",
+      "values": [
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinChargeTime",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RDamageIncreaseMin",
+      "values": [
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RDamageIncreaseMax",
+      "values": [
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinimumMinionDamage",
+      "values": [
+       30,
+       80,
+       130,
+       180,
+       230,
+       280,
+       330
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DamageReduction",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RDamageReduction",
+      "values": [
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxMonsterDamage",
+      "values": [
+       100,
+       180,
+       260,
+       340,
+       420,
+       500,
+       580
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "DamageReduction",
+        "values": [
+         0.45,
+         0.45,
+         0.45,
+         0.45,
+         0.45,
+         0.45,
+         0.45
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       12,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     "Kiwi": {
+      "value": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalMaxHealthDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "MaxHealthDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 1,
+        "mStatFormula": 2,
+        "mDataValue": "MaxHealthDamageResistRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 6,
+        "mStatFormula": 2,
+        "mDataValue": "MaxHealthDamageResistRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": -1,
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.7,
+    "mCoefficient2": 0.7,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "mChannelDuration": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "cooldownTime": [
+     16,
+     14,
+     13,
+     12,
+     11,
+     10,
+     12
+    ],
+    "Cooldown": {
+     "values": [
+      16,
+      14,
+      13,
+      12,
+      11,
+      10,
+      12
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCastRangeGrowthMax": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "mCastRangeGrowthDuration": [
+     0.8,
+     0.8,
+     0.8,
+     0.8,
+     0.8,
+     0.8,
+     0.8
+    ],
+    "{48201b0d}": 0.4,
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/KSante/Spells/KSanteWAbility/KSanteWSpellPassive",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCanTriggerChargeSpellWhileDisabled": true,
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileChanneling": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "mUseChargeChanneling": true,
+    "mCanMoveWhileChanneling": true,
+    "mDisableCastBar": true,
+    "alwaysSnapFacing": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     250,
+     250,
+     250,
+     250,
+     250,
+     250,
+     250
+    ],
+    "castRangeDisplayOverride": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "castRadius": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1500,
+    "mLineWidth": 55,
+    "mana": [
+     40,
+     45,
+     50,
+     55,
+     60,
+     65
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "{8958fee2}": {
+     "__type": "{8958fee2}"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.25,
+    "mDimensionBehavior": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_KSanteW",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalMaxHealthDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 128,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "MaxKnockbackDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "MaxKnockbackDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "MaxKnockbackDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteWAbility/KsanteWStun": {
+   "ObjectName": "KsanteWStun",
+   "objectPath": "Characters/KSante/Spells/KSanteWAbility/KsanteWStun",
+   "mScriptName": "KsanteWStun",
+   "mSpell": {
+    "ImgIconPath": "assets/characters/ksante/hud/icons2d/icons_ksante_w.dds",
+    "{8958fee2}": {
+     "__type": "{8958fee2}"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_KsanteWStun",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteWAbility/KSanteW_AllOut": {
+   "ObjectName": "KSanteW_AllOut",
+   "objectPath": "Characters/KSante/Spells/KSanteWAbility/KSanteW_AllOut",
+   "mScriptName": "KSanteW_AllOut",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock",
+     "Trait_ChannelSpell",
+     "Trait_ImmobilizingCCSpell"
+    ],
+    "DataValues": [
+     {
+      "name": "MaxDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TimeToFullCharge",
+      "values": [
+       0.95,
+       0.95,
+       0.95,
+       0.95,
+       0.95,
+       0.95,
+       0.95
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DashSpeedBase",
+      "values": [
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "VictimDashMod",
+      "values": [
+       1.3,
+       1.3,
+       1.3,
+       1.3,
+       1.3,
+       1.3,
+       1.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockbackSpeed",
+      "values": [
+       800,
+       800,
+       800,
+       800,
+       800,
+       800,
+       800
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockbackDist",
+      "values": [
+       125,
+       125,
+       125,
+       125,
+       125,
+       125,
+       125
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockbackDistOnTopOfMod",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinDashBase",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxDashBase",
+      "values": [
+       450,
+       450,
+       450,
+       450,
+       450,
+       450,
+       450
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "{98da435c}": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 40,
+        "mInitialBonusPerLevel": 12,
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MaxMonsterDamage": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 50,
+        "mInitialBonusPerLevel": 25,
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.7,
+    "mCoefficient2": 0.7,
+    "mAnimationWinddownName": "Spell1_Fire",
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "mChannelDuration": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "cooldownTime": [
+     14,
+     14,
+     13,
+     12,
+     11,
+     10,
+     10
+    ],
+    "Cooldown": {
+     "values": [
+      14,
+      14,
+      13,
+      12,
+      11,
+      10,
+      10
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCastRangeGrowthMax": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "mCastRangeGrowthDuration": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "{48201b0d}": 0.4,
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/KSante/Spells/KSanteWAbility/KSanteWSpellPassive",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCanTriggerChargeSpellWhileDisabled": true,
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileChanneling": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "mUseChargeChanneling": true,
+    "mCanMoveWhileChanneling": true,
+    "mDisableCastBar": true,
+    "alwaysSnapFacing": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     250,
+     250,
+     250,
+     250,
+     250,
+     250,
+     250
+    ],
+    "castRadius": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1500,
+    "mLineWidth": 55,
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "{8958fee2}": {
+     "__type": "{8958fee2}"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.25,
+    "mDimensionBehavior": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_KSanteW",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteWAbility/KSanteWSpellPassive": {
+   "ObjectName": "KSanteWSpellPassive",
+   "objectPath": "Characters/KSante/Spells/KSanteWAbility/KSanteWSpellPassive",
+   "mScriptName": "KSanteWSpellPassive",
+   "mSpell": {
+    "mAffectsTypeFlags": 22538,
+    "mCastTime": 0.4,
+    "cooldownTime": [
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+     ],
+     "{0a3e0478}": 8,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "alwaysSnapFacing": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "castRadius": [
+     180,
+     180,
+     180,
+     180,
+     180,
+     180,
+     180
+    ],
+    "castRadiusSecondary": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castFrame": 8,
+    "missileSpeed": 0,
+    "mLineWidth": 100,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "mana": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteQAbility/KSanteQ3": {
+   "ObjectName": "KSanteQ3",
+   "objectPath": "Characters/KSante/Spells/KSanteQAbility/KSanteQ3",
+   "mScriptName": "KSanteQ3",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_AttackReset",
+     "Trait_DamageAbility"
+    ],
+    "DataValues": [
+     {
+      "name": "RecastWindow",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DamageOneBase",
+      "values": [
+       0,
+       15,
+       30,
+       45,
+       60,
+       75,
+       90
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CooldownOneBase",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RectangleWidth",
+      "values": [
+       125,
+       125,
+       125,
+       125,
+       125,
+       125,
+       125
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RectangleLength",
+      "values": [
+       500,
+       500,
+       500,
+       500,
+       500,
+       500,
+       500
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RDamageBase",
+      "values": [
+       15,
+       35,
+       55,
+       75,
+       95,
+       115,
+       135
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PercentHealthDamage",
+      "values": [
+       0.01,
+       0.02,
+       0.03,
+       0.04,
+       0.05,
+       0.06,
+       0.07
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CritBonus",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Q2_VARS",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ArcRange",
+      "values": [
+       450,
+       450,
+       450,
+       450,
+       450,
+       450,
+       450
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ArcAngle",
+      "values": [
+       80,
+       80,
+       80,
+       80,
+       80,
+       80,
+       80
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ArcSweetSpot",
+      "values": [
+       150,
+       150,
+       150,
+       150,
+       150,
+       150,
+       150
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Q3_VARS",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Range",
+      "values": [
+       700,
+       700,
+       700,
+       700,
+       700,
+       700,
+       700
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DashSpeed",
+      "values": [
+       1500,
+       1500,
+       1500,
+       1500,
+       1500,
+       1500,
+       1500
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AttackRangeExtension",
+      "values": [
+       500,
+       500,
+       500,
+       500,
+       500,
+       500,
+       500
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BetweenCastsCD",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowPercent",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "LeapWindow",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StrikeWidth",
+      "values": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StrikeRange",
+      "values": [
+       600,
+       600,
+       600,
+       600,
+       600,
+       600,
+       600
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DashSpeed",
+      "values": [
+       1600,
+       1600,
+       1600,
+       1600,
+       1600,
+       1600,
+       1600
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AttackRangeExtension",
+      "values": [
+       450,
+       450,
+       450,
+       450,
+       450,
+       450,
+       450
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EdgeDamagePercent",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinCastTime",
+      "values": [
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxCastTime",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusHPToMinCastTime",
+      "values": [
+       1200,
+       1200,
+       1200,
+       1200,
+       1200,
+       1200,
+       1200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EmpoweredDashSpeed",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StunDuration",
+      "values": [
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KickoffSpeed",
+      "values": [
+       1200,
+       1200,
+       1200,
+       1200,
+       1200,
+       1200,
+       1200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KickoffDistance",
+      "values": [
+       350,
+       350,
+       350,
+       350,
+       350,
+       350,
+       350
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DashThroughDistance",
+      "values": [
+       350,
+       350,
+       350,
+       350,
+       350,
+       350,
+       350
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AllOutPercentHealth",
+      "values": [
+       0.05,
+       0.06,
+       0.07,
+       0.08,
+       0.09,
+       0.1,
+       0.11
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AllOutPercentHealthValor",
+      "values": [
+       0.001,
+       0.001,
+       0.001,
+       0.001,
+       0.001,
+       0.001,
+       0.001
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SweetSpotWidth",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DefenseCapforCooldown",
+      "values": [
+       250,
+       250,
+       250,
+       250,
+       250,
+       250,
+       250
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealthCapForCastTime",
+      "values": [
+       1800,
+       1800,
+       1800,
+       1800,
+       1800,
+       1800,
+       1800
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "{04324da6}": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "DamageOneBase",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{cdd991ce}": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "CooldownOneBase",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 12,
+        "mStatFormula": 2,
+        "mCoefficient": -0.001,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "RDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "RDamageBase",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "EmpoweredAttackDamage": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       },
+       {
+        "mNumber": 20,
+        "__type": "NumberCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "BonusPercentHealth": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "PercentHealthDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mBuffName": "{93574dbd}",
+        "mIconKey": "%i:kindredPassiveIcon%",
+        "mDataValue": "AllOutPercentHealthValor",
+        "__type": "BuffCounterByNamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": -1,
+      "__type": "GameCalculation"
+     },
+     "BonusResistsTooltip": {
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mStat": 1,
+        "mStatFormula": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       },
+       {
+        "mStat": 6,
+        "mStatFormula": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "BonusHealthTooltip": {
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mStat": 12,
+        "mStatFormula": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.45,
+    "cooldownTime": [
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4
+    ],
+    "Cooldown": {
+     "values": [
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+     ],
+     "{0a3e0478}": 4,
+     "__type": "{0a0eddc9}"
+    },
+    "mCasterPositionEndOfCastUpdate": 2,
+    "{f4ca428f}": 2,
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "alwaysSnapFacing": true,
+    "mDoNotNeedToFaceTarget": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "castRadius": [
+     180,
+     180,
+     180,
+     180,
+     180,
+     180,
+     180
+    ],
+    "castRadiusSecondary": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castFrame": 8,
+    "missileSpeed": 0,
+    "mLineWidth": 100,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "mana": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_KSanteQ3",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "{04324da6}",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 65536,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteQAbility/KSanteQ": {
+   "ObjectName": "KSanteQ",
+   "objectPath": "Characters/KSante/Spells/KSanteQAbility/KSanteQ",
+   "mScriptName": "KSanteQ",
+   "mSpell": {
+    "mAffectsTypeFlags": 22538,
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_RecastOrReplaceSpell",
+     "Trait_SignatureSpell",
+     "Trait_Target_Directional",
+     "Trait_Melee_SmallWindup",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "FlatDamage",
+      "values": [
+       40,
+       70,
+       100,
+       130,
+       160,
+       190,
+       220
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RectangleWidth",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RectangleLength",
+      "values": [
+       465,
+       465,
+       465,
+       465,
+       465,
+       465,
+       465
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowPercent",
+      "values": [
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Range",
+      "values": [
+       700,
+       700,
+       700,
+       700,
+       700,
+       700,
+       700
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RecastWindow",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RecastLockoutAO",
+      "values": [
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Q3_VARS",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockupDuration",
+      "values": [
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PullSpeed",
+      "values": [
+       500,
+       500,
+       500,
+       500,
+       500,
+       500,
+       500
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PullDistance",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockGrav",
+      "values": [
+       30,
+       30,
+       30,
+       30,
+       30,
+       30,
+       30
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StunDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CAST_TIME_AND_COOLDOWN",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxCastTime",
+      "values": [
+       0.45,
+       0.45,
+       0.45,
+       0.45,
+       0.45,
+       0.45,
+       0.45
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinCastTime",
+      "values": [
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinCastTimeQ3",
+      "values": [
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseCD",
+      "values": [
+       3.5,
+       3.5,
+       3.5,
+       3.5,
+       3.5,
+       3.5,
+       3.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinCD",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RCooldownReduction",
+      "values": [
+       0.33333,
+       0.33333,
+       0.33333,
+       0.33333,
+       0.33333,
+       0.33333,
+       0.33333
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DefenseCapforCooldown",
+      "values": [
+       120,
+       120,
+       120,
+       120,
+       120,
+       120,
+       120
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PullSpeedMin",
+      "values": [
+       110,
+       110,
+       110,
+       110,
+       110,
+       110,
+       110
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PullSpeedMax",
+      "values": [
+       600,
+       600,
+       600,
+       600,
+       600,
+       600,
+       600
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PullDistanceMin",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PullDistanceMax",
+      "values": [
+       400,
+       400,
+       400,
+       400,
+       400,
+       400,
+       400
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "LifetimeMax",
+      "values": [
+       0.45,
+       0.45,
+       0.45,
+       0.45,
+       0.45,
+       0.45,
+       0.45
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MissileOffset",
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "BaseCD",
+        "values": [
+         2.75,
+         2.75,
+         2.75,
+         2.75,
+         2.75,
+         2.75,
+         2.75
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "FlatDamage",
+        "values": [
+         0,
+         40,
+         80,
+         120,
+         160,
+         200,
+         240
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "BaseDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "FlatDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 1,
+        "mStatFormula": 2,
+        "mCoefficient": 0.4,
+        "__type": "StatByCoefficientCalculationPart"
+       },
+       {
+        "mStat": 6,
+        "mStatFormula": 2,
+        "mCoefficient": 0.4,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{9c9367bc}": {
+      "mFormulaParts": [
+       {
+        "mBuffName": "{6244221a}",
+        "mIconKey": "%i:scaleArmor%",
+        "mCoefficient": 1,
+        "__type": "BuffCounterByCoefficientCalculationPart"
+       },
+       {
+        "mBuffName": "{e3b83f84}",
+        "mIconKey": "%i:scaleMR%",
+        "mCoefficient": 1,
+        "__type": "BuffCounterByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.35,
+    "cooldownTime": [
+     3.5,
+     3.5,
+     3.5,
+     3.5,
+     3.5,
+     3.5,
+     3.5
+    ],
+    "Cooldown": {
+     "values": [
+      3.5,
+      3.5,
+      3.5,
+      3.5,
+      3.5,
+      3.5,
+      3.5
+     ],
+     "{0a3e0478}": 3.5,
+     "__type": "{0a0eddc9}"
+    },
+    "{f4ca428f}": 2,
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/KSante/Spells/KSanteQAbility/KSanteQSpellPassive",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "mRemoveWithSpell": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCooldownNotAffectedByCDR": true,
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "alwaysSnapFacing": true,
+    "mIgnoreRangeCheck": true,
+    "mDoesNotConsumeCooldown": true,
+    "castRange": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "castRadius": [
+     180,
+     180,
+     180,
+     180,
+     180,
+     180,
+     180
+    ],
+    "castRadiusSecondary": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castFrame": 8,
+    "missileSpeed": 0,
+    "mLineWidth": 100,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "mana": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_KSanteQ",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "BaseDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "SlowDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 65536,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "PullDistance",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteQAbility/KSanteQSpellPassive": {
+   "ObjectName": "KSanteQSpellPassive",
+   "objectPath": "Characters/KSante/Spells/KSanteQAbility/KSanteQSpellPassive",
+   "mScriptName": "KSanteQSpellPassive",
+   "mSpell": {
+    "mAffectsTypeFlags": 22538,
+    "mCastTime": 0.4,
+    "cooldownTime": [
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+     ],
+     "{0a3e0478}": 8,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "alwaysSnapFacing": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "castRadius": [
+     180,
+     180,
+     180,
+     180,
+     180,
+     180,
+     180
+    ],
+    "castRadiusSecondary": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castFrame": 8,
+    "missileSpeed": 0,
+    "mLineWidth": 100,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "mana": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteQAbility/KSanteQ3Missile": {
+   "ObjectName": "KSanteQ3Missile",
+   "objectPath": "Characters/KSante/Spells/KSanteQAbility/KSanteQ3Missile",
+   "mScriptName": "KSanteQ3Missile",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mEffectIndex": 1,
+        "__type": "EffectValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 1.1,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4
+    ],
+    "Cooldown": {
+     "values": [
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+     ],
+     "{0a3e0478}": 4,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     825,
+     825,
+     825,
+     825,
+     825,
+     825,
+     825
+    ],
+    "castRangeDisplayOverride": [
+     800,
+     800,
+     800,
+     800,
+     800,
+     800,
+     800
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 150,
+    "mMissileSpec": {
+     "mMissileWidth": 70,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mStartBoneName": "",
+      "mProjectTargetToCastRange": true,
+      "mUseGroundHeightAtTarget": false,
+      "mSpeed": 1600,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 4.545,
+    "missileSpeed": 1800,
+    "mMissileEffectKey": "KSante_Q3_Mis",
+    "mLineWidth": 60,
+    "mHitEffectName": "r:Ornn_Q_hit_tar",
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_OrnnQ",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteBasicAttack3": {
+   "ObjectName": "KSanteBasicAttack3",
+   "objectPath": "Characters/KSante/Spells/KSanteBasicAttack3",
+   "mScriptName": "KSanteBasicAttack3",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.41215,
+    "cooldownTime": [
+     -100,
+     -100,
+     -100,
+     -100,
+     -100,
+     -100,
+     -100
+    ],
+    "Cooldown": {
+     "values": [
+      -100,
+      -100,
+      -100,
+      -100,
+      -100,
+      -100,
+      -100
+     ],
+     "{0a3e0478}": -100,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "missileSpeed": 0,
+    "mHitEffectKey": "KSante_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteBasicAttack2": {
+   "ObjectName": "KSanteBasicAttack2",
+   "objectPath": "Characters/KSante/Spells/KSanteBasicAttack2",
+   "mScriptName": "KSanteBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.41215,
+    "cooldownTime": [
+     -100,
+     -100,
+     -100,
+     -100,
+     -100,
+     -100,
+     -100
+    ],
+    "Cooldown": {
+     "values": [
+      -100,
+      -100,
+      -100,
+      -100,
+      -100,
+      -100,
+      -100
+     ],
+     "{0a3e0478}": -100,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "missileSpeed": 0,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "KSante_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteBasicAttack4": {
+   "ObjectName": "KSanteBasicAttack4",
+   "objectPath": "Characters/KSante/Spells/KSanteBasicAttack4",
+   "mScriptName": "KSanteBasicAttack4",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.41215,
+    "cooldownTime": [
+     -100,
+     -100,
+     -100,
+     -100,
+     -100,
+     -100,
+     -100
+    ],
+    "Cooldown": {
+     "values": [
+      -100,
+      -100,
+      -100,
+      -100,
+      -100,
+      -100,
+      -100
+     ],
+     "{0a3e0478}": -100,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "missileSpeed": 0,
+    "mHitEffectKey": "KSante_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/KSanteCritAttack": {
+   "ObjectName": "KSanteCritAttack",
+   "objectPath": "Characters/KSante/Spells/KSanteCritAttack",
+   "mScriptName": "KSanteCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.41215,
+    "cooldownTime": [
+     -100,
+     -100,
+     -100,
+     -100,
+     -100,
+     -100,
+     -100
+    ],
+    "Cooldown": {
+     "values": [
+      -100,
+      -100,
+      -100,
+      -100,
+      -100,
+      -100,
+      -100
+     ],
+     "{0a3e0478}": -100,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "missileSpeed": 0,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "KSante_BA_Crit_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/KSanteQAbility/KSanteQ",
+  "Spells/KSanteWAbility/KSanteW",
+  "Spells/KSanteEAbility/KSanteE",
+  "Spells/KSanteRAbility/KSanteR"
+ ],
+ "passiva_ref": "Characters/KSante/Spells/KSantePAbility",
+ "passiva_chaves": [
+  "Spells/KSantePAbility/KSantePAttack",
+  "Spells/KSantePAbility/KsantePMark",
+  "Spells/KSantePAbility/KSanteP",
+  "Spells/KSantePAbility/KSantePDoubleAttack"
+ ]
+}

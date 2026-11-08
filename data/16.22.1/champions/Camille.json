@@ -1,0 +1,3259 @@
+{
+ "id": "Camille",
+ "key": 164,
+ "nome": "Camille",
+ "titulo": "a Sombra de Aço",
+ "funcoes": [
+  "Fighter",
+  "Assassin"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 8,
+  "defense": 6,
+  "magic": 3,
+  "difficulty": 4
+ },
+ "stats_ddragon": {
+  "hp": 650,
+  "hpperlevel": 99,
+  "mp": 375,
+  "mpperlevel": 52,
+  "movespeed": 340,
+  "armor": 35,
+  "armorperlevel": 4.5,
+  "spellblock": 32,
+  "spellblockperlevel": 2.05,
+  "attackrange": 125,
+  "hpregen": 8.5,
+  "hpregenperlevel": 0.8,
+  "mpregen": 8.15,
+  "mpregenperlevel": 0.75,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 68,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2.5,
+  "attackspeed": 0.644
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Defesa Adaptativa",
+  "descricao": "Ataques básicos contra Campeões concedem um Escudo equivalente a uma porcentagem da Vida máxima de Camille contra o tipo de dano deles (Físico ou Mágico) por um breve período."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "CamilleQ",
+   "nome": "Protocolo de Precisão",
+   "descricao": "O próximo ataque de Camille causa dano adicional e concede Velocidade de Movimento adicional. Esta habilidade pode ser conjurada novamente por um curto período de tempo, causando dano adicional consideravelmente aumentado se Camille criar um intervalo entre os dois ataques.",
+   "tooltip": "O próximo Ataque de Camille causa <physicalDamage>{{ bonusdamage }} de Dano Físico adicional</physicalDamage> e concede a ela <speed>{{ msbonus*100 }}% de Velocidade de Movimento</speed> por {{ msduration }}s. A habilidade pode ser <recast>Reconjurada</recast> nos próximos {{ qtotalrecasttime }}s.<br /><br />Se o Ataque da <recast>Reconjuração</recast> atingir um alvo em ao menos {{ qrampuptime }}s depois do primeiro, o dano adicional é aumentado para <physicalDamage>{{ empoweredbonusdamage }}</physicalDamage>, e {{ damageconversionpercentage }} do dano do Ataque é convertido em <trueDamage>Dano Verdadeiro</trueDamage>.<br /><br /><rules>Esta Habilidade ativa efeitos ao causar dano.</rules>{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    9,
+    8,
+    7,
+    6,
+    5
+   ],
+   "custo": [
+    25,
+    25,
+    25,
+    25,
+    25
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    325,
+    325,
+    325,
+    325,
+    325
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "CamilleW",
+   "nome": "Varredura Tática",
+   "descricao": "Camille faz um disparo em área de cone após um intervalo, causando dano. Inimigos na metade exterior têm sua velocidade reduzida e recebem dano adicional, ao mesmo tempo em que curam Camille.",
+   "tooltip": "Camille se prepara e depois golpeia, causando <physicalDamage>{{ basedamagetotal }} de Dano Físico</physicalDamage>.<br /><br />Inimigos atingidos pela metade exterior sofrem {{ slowpercentage }}% de <status>Lentidão</status>, que decai ao longo de {{ slowduration }}s, e sofrem <physicalDamage>{{ outeredgetooltip }} da Vida máxima como Dano Físico adicional</physicalDamage>. Camille restaura <healing>{{ outerconehealingratio }}% do dano adicional causado a Campeões como Vida</healing>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    12,
+    11.5,
+    11,
+    10.5,
+    10
+   ],
+   "custo": [
+    50,
+    55,
+    60,
+    65,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    610,
+    610,
+    610,
+    610,
+    610
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "CamilleE",
+   "nome": "Disparo de Gancho",
+   "descricao": "Camille puxa a si mesma na direção de uma parede, saltando e arremessando ao ar Campeões inimigos ao aterrissar.",
+   "tooltip": "Camille dispara um gancho que se prende a um terreno, puxando-se na direção dele por 1s e podendo <recast>Reconjurar</recast>.<br /><br /><recast>Reconjuração:</recast> Camille avança a partir da parede, colidindo com o primeiro Campeão inimigo atingido. Ao aterrissar, ela recebe <attackSpeed>{{ asbuff*100 }}% Velocidade de Ataque</attackSpeed> por {{ asduration }}s, causa <physicalDamage>{{ totaldamage }} de Dano Físico</physicalDamage> a inimigos próximos e <status>Atordoa</status> Campeões inimigos por {{ knockupduration }}s. Avanços em direção a Campeões inimigos têm alcance dobrado.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    16,
+    15,
+    14,
+    13,
+    12
+   ],
+   "custo": [
+    70,
+    70,
+    70,
+    70,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    800,
+    800,
+    800,
+    800,
+    800
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "CamilleR",
+   "nome": "Ultimato Hextec",
+   "descricao": "Camille avança em direção ao Campeão alvo, ancorando-o à área. Ela também causa Dano Mágico adicional ao alvo com seus ataques básicos.",
+   "tooltip": "Camille fica brevemente Inalvejável e salta sobre um Campeão inimigo, interrompendo canalizações e prendendo-o em uma área da qual ele não pode escapar durante {{ rduration }}s. Outros inimigos próximos são <status>Empurrados</status>. Os Ataques dela contra o inimigo preso causam <magicDamage>{{ rpercentcurrenthpdamage }}% da Vida atual como Dano Mágico adicional</magicDamage>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    140,
+    115,
+    90
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    475,
+    475,
+    475
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 650,
+  "vida_nivel": 99,
+  "regen_vida": 1.7,
+  "regen_vida_nivel": 0.16,
+  "dano": 68,
+  "dano_nivel": 3.8,
+  "armadura": 35,
+  "armadura_nivel": 4.5,
+  "rm": 32,
+  "rm_nivel": 2.05,
+  "velocidade_mov": 340,
+  "alcance_ataque": 125,
+  "vel_ataque_base": 0.644,
+  "vel_ataque_razao": 0.644,
+  "vel_ataque_nivel": 2.5,
+  "dano_critico": 2,
+  "alcance_aquisicao": 600,
+  "raio_selecao": 100,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackTotalTime": 1.5520000457763672,
+   "mAttackCastTime": 0.30000001192092896,
+   "mAttackProbability": 1,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackName": "CamilleBasicAttack2",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "CamilleBasicAttack3",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackName": "CamilleCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Camille/Spells/CamilleQAbility/CamilleQ",
+  "Characters/Camille/Spells/CamilleWAbility/CamilleW",
+  "Characters/Camille/Spells/CamilleEAbility/CamilleE",
+  "Characters/Camille/Spells/CamilleRAbility/CamilleR"
+ ],
+ "abilities_ref": [
+  "Characters/Camille/Spells/CamilleQAbility",
+  "Characters/Camille/Spells/CamilleEAbility",
+  "Characters/Camille/Spells/CamillePassiveAbility",
+  "Characters/Camille/Spells/CamilleWAbility",
+  "Characters/Camille/Spells/CamilleRAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/CamillePassiveAbility/CamillePassiveReady": {
+   "ObjectName": "CamillePassiveReady",
+   "objectPath": "Characters/Camille/Spells/CamillePassiveAbility/CamillePassiveReady",
+   "mScriptName": "CamillePassiveReady",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_CamillePassiveReady",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamillePassiveAbility/CamillePassiveShieldMagic": {
+   "ObjectName": "CamillePassiveShieldMagic",
+   "objectPath": "Characters/Camille/Spells/CamillePassiveAbility/CamillePassiveShieldMagic",
+   "mScriptName": "CamillePassiveShieldMagic",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_CamillePassiveShieldMagic",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamillePassiveAbility/CamillePassive": {
+   "ObjectName": "CamillePassive",
+   "objectPath": "Characters/Camille/Spells/CamillePassiveAbility/CamillePassive",
+   "mScriptName": "CamillePassive",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "ShieldDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "PassiveCooldown": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 14,
+        "mBreakpoints": [
+         {
+          "mLevel": 7,
+          "mAdditionalBonusAtThisLevel": -3,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 13,
+          "mAdditionalBonusAtThisLevel": -3,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "ShieldAmount": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mStat": 12,
+        "mSubpart": {
+         "mLevel1Value": 0.1,
+         "mBreakpoints": [
+          {
+           "mLevel": 7,
+           "mAdditionalBonusAtThisLevel": 0.05,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 13,
+           "mAdditionalBonusAtThisLevel": 0.05,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 19,
+           "mAdditionalBonusAtThisLevel": 0.05,
+           "__type": "Breakpoint"
+          }
+         ],
+         "__type": "ByCharLevelBreakpointsCalculationPart"
+        },
+        "__type": "StatBySubPartCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_CamillePassive",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamillePassiveAbility/CamillePassiveCooldown": {
+   "ObjectName": "CamillePassiveCooldown",
+   "objectPath": "Characters/Camille/Spells/CamillePassiveAbility/CamillePassiveCooldown",
+   "mScriptName": "CamillePassiveCooldown",
+   "__type": "SpellObject"
+  },
+  "Spells/CamillePassiveAbility/CamillePassiveShieldPhysical": {
+   "ObjectName": "CamillePassiveShieldPhysical",
+   "objectPath": "Characters/Camille/Spells/CamillePassiveAbility/CamillePassiveShieldPhysical",
+   "mScriptName": "CamillePassiveShieldPhysical",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_CamillePassiveShieldPhysical",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleEAbility/CamilleERightMissile": {
+   "ObjectName": "CamilleERightMissile",
+   "objectPath": "Characters/Camille/Spells/CamilleEAbility/CamilleERightMissile",
+   "mScriptName": "CamilleERightMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 16384,
+    "mEffectAmount": [
+     {
+      "value": [
+       15,
+       40,
+       65,
+       90,
+       115,
+       140,
+       165
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.5,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     15.5,
+     14,
+     12.5,
+     11,
+     9.5,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      15.5,
+      14,
+      12.5,
+      11,
+      9.5,
+      8,
+      8
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mMaxAmmo": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "castRange": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRangeDisplayOverride": [
+     925,
+     925,
+     925,
+     925,
+     925,
+     925,
+     925
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 30,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mTargetHeightAugment": -125,
+      "mStartBoneName": "R_Buffbone_Thigh_Cylinder",
+      "mSpeed": 1400,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 11,
+    "missileSpeed": 1400,
+    "mMissileEffectKey": "Camille_E_mis_shoot_side",
+    "mLineWidth": 30,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleEAbility/CamilleEStun": {
+   "ObjectName": "CamilleEStun",
+   "objectPath": "Characters/Camille/Spells/CamilleEAbility/CamilleEStun",
+   "mScriptName": "CamilleEStun",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_CamilleEKnockback2",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleEAbility/CamilleEAttackSpeed": {
+   "ObjectName": "CamilleEAttackSpeed",
+   "objectPath": "Characters/Camille/Spells/CamilleEAbility/CamilleEAttackSpeed",
+   "mScriptName": "CamilleEAttackSpeed",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_CamilleEAttackSpeed",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleEAbility/CamilleEDash2": {
+   "ObjectName": "CamilleEDash2",
+   "objectPath": "Characters/Camille/Spells/CamilleEAbility/CamilleEDash2",
+   "mScriptName": "CamilleEDash2",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 14346,
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock",
+     "Trait_ImmobilizingCCSpell",
+     "Trait_FreeRecast"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.3,
+       0.4,
+       0.5,
+       0.6,
+       0.7,
+       0.8,
+       0.9
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       25,
+       60,
+       95,
+       130,
+       165,
+       200,
+       235
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1050,
+       1050,
+       1050,
+       1050,
+       1050,
+       1050,
+       1050
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       800,
+       800,
+       800,
+       800,
+       800,
+       800,
+       800
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       400,
+       400,
+       400,
+       400,
+       400,
+       400,
+       400
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       130,
+       130,
+       130,
+       130,
+       130,
+       130,
+       130
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.6,
+    "cooldownTime": [
+     17.5,
+     16,
+     14.5,
+     13,
+     11.5,
+     10,
+     10
+    ],
+    "Cooldown": {
+     "values": [
+      17.5,
+      16,
+      14.5,
+      13,
+      11.5,
+      10,
+      10
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "canCastOrQueueWhileCasting": true,
+    "cantCastWhileRooted": true,
+    "alwaysSnapFacing": true,
+    "castRange": [
+     800,
+     800,
+     800,
+     800,
+     800,
+     800,
+     800
+    ],
+    "castRangeDisplayOverride": [
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400
+    ],
+    "castRadius": [
+     800,
+     800,
+     800,
+     800,
+     800,
+     800,
+     800
+    ],
+    "mTargetingTypeData": {
+     "__type": "LocationClamped"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_CamilleEDash2",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "SourceObject": "Characters/Camille/Spells/CamilleEAbility/CamilleE",
+       "{3de6ce2d}": "TotalDamage",
+       "__type": "{ba007871}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "SourceObject": "Characters/Camille/Spells/CamilleEAbility/CamilleE",
+         "DataValue": "KnockupDuration",
+         "__type": "{9e9e2e5c}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "SourceObject": "Characters/Camille/Spells/CamilleEAbility/CamilleE",
+         "DataValue": "KnockupDuration",
+         "__type": "{9e9e2e5c}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 8192,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "SourceObject": "Characters/Camille/Spells/CamilleEAbility/CamilleE",
+         "DataValue": "KnockupDuration",
+         "__type": "{9e9e2e5c}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16777216,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "SourceObject": "Characters/Camille/Spells/CamilleEAbility/CamilleE",
+         "DataValue": "KnockupDuration",
+         "__type": "{9e9e2e5c}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 128,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleEAbility/CamilleEDash1": {
+   "ObjectName": "CamilleEDash1",
+   "objectPath": "Characters/Camille/Spells/CamilleEAbility/CamilleEDash1",
+   "mScriptName": "CamilleEDash1",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_CamilleEDash1",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleEAbility/CamilleEOnWall": {
+   "ObjectName": "CamilleEOnWall",
+   "objectPath": "Characters/Camille/Spells/CamilleEAbility/CamilleEOnWall",
+   "mScriptName": "CamilleEOnWall",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_CamilleEOnWall",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleEAbility/CamilleE": {
+   "ObjectName": "CamilleE",
+   "objectPath": "Characters/Camille/Spells/CamilleEAbility/CamilleE",
+   "mScriptName": "CamilleE",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_ImmobilizingCCAbility",
+     "PositiveEffect_MoveBlock",
+     "Trait_DamageAbility",
+     "Trait_RecastOrReplaceSpell",
+     "Trait_SignatureSpell"
+    ],
+    "DataValues": [
+     {
+      "name": "EMinionMonsterGhostDuration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockupDuration",
+      "values": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ASBuff",
+      "values": [
+       0.35,
+       0.4,
+       0.45,
+       0.5,
+       0.55,
+       0.6,
+       0.65
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       30,
+       60,
+       90,
+       120,
+       150,
+       180,
+       210
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DashSpeed",
+      "values": [
+       1050,
+       1050,
+       1050,
+       1050,
+       1050,
+       1050,
+       1050
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ASDuration",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "WallHangDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "E2LongDashRange",
+      "values": [
+       800,
+       800,
+       800,
+       800,
+       800,
+       800,
+       800
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "E2ShortDashRange",
+      "values": [
+       400,
+       400,
+       400,
+       400,
+       400,
+       400,
+       400
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ECollisionRange",
+      "values": [
+       130,
+       130,
+       130,
+       130,
+       130,
+       130,
+       130
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BADRatio",
+      "values": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       14,
+       14,
+       13,
+       12,
+       11,
+       10,
+       10
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "BADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.25,
+    "cooldownTime": [
+     16,
+     16,
+     15,
+     14,
+     13,
+     12,
+     12
+    ],
+    "Cooldown": {
+     "values": [
+      16,
+      16,
+      15,
+      14,
+      13,
+      12,
+      12
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "mCursorChangesInTerrain": true,
+    "alwaysSnapFacing": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     800,
+     800,
+     800,
+     800,
+     800,
+     800,
+     800
+    ],
+    "mLookAtPolicy": 1,
+    "mana": [
+     70,
+     70,
+     70,
+     70,
+     70,
+     70
+    ],
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 128,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "KnockupDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "KnockupDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16777216,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "KnockupDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleEAbility/CamilleELeftMissile": {
+   "ObjectName": "CamilleELeftMissile",
+   "objectPath": "Characters/Camille/Spells/CamilleEAbility/CamilleELeftMissile",
+   "mScriptName": "CamilleELeftMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 16384,
+    "mEffectAmount": [
+     {
+      "value": [
+       15,
+       40,
+       65,
+       90,
+       115,
+       140,
+       165
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.5,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     15.5,
+     14,
+     12.5,
+     11,
+     9.5,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      15.5,
+      14,
+      12.5,
+      11,
+      9.5,
+      8,
+      8
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mMaxAmmo": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "castRange": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRangeDisplayOverride": [
+     925,
+     925,
+     925,
+     925,
+     925,
+     925,
+     925
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 30,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mTargetHeightAugment": -125,
+      "mStartBoneName": "L_Buffbone_Thigh_Cylinder",
+      "mSpeed": 1400,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 11,
+    "missileSpeed": 1400,
+    "mMissileEffectKey": "Camille_E_mis_shoot_side",
+    "mLineWidth": 30,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleEAbility/CamilleEKnockback2": {
+   "ObjectName": "CamilleEKnockback2",
+   "objectPath": "Characters/Camille/Spells/CamilleEAbility/CamilleEKnockback2",
+   "mScriptName": "CamilleEKnockback2",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_CamilleEKnockback2",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleEAbility/CamilleEMissile": {
+   "ObjectName": "CamilleEMissile",
+   "objectPath": "Characters/Camille/Spells/CamilleEAbility/CamilleEMissile",
+   "mScriptName": "CamilleEMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 16384,
+    "mEffectAmount": [
+     {
+      "value": [
+       15,
+       40,
+       65,
+       90,
+       115,
+       140,
+       165
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.5,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     15.5,
+     14,
+     12.5,
+     11,
+     9.5,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      15.5,
+      14,
+      12.5,
+      11,
+      9.5,
+      8,
+      8
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mMaxAmmo": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "castRange": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRangeDisplayOverride": [
+     925,
+     925,
+     925,
+     925,
+     925,
+     925,
+     925
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 30,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mTargetHeightAugment": -125,
+      "mStartBoneName": "C_Buffbone_Glb_Center_Loc",
+      "mSpeed": 1400,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 11,
+    "missileSpeed": 1400,
+    "mMissileEffectKey": "Camille_E_mis_shoot_center",
+    "mLineWidth": 30,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleBasicAttack": {
+   "ObjectName": "CamilleBasicAttack",
+   "objectPath": "Characters/Camille/Spells/CamilleBasicAttack",
+   "mScriptName": "CamilleBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 4234,
+    "mAlternateName": "CamilleBasicAttack",
+    "spellCastTime": 0.32465,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mMaxAmmo": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "missileSpeed": 467,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleQAbility/CamilleQ": {
+   "ObjectName": "CamilleQ",
+   "objectPath": "Characters/Camille/Spells/CamilleQAbility/CamilleQ",
+   "mScriptName": "CamilleQ",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_AttackReset",
+     "Trait_DamageAbility",
+     "Trait_RecastOrReplaceSpell",
+     "Trait_Strike"
+    ],
+    "DataValues": [
+     {
+      "name": "QRampUpTime",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusAARange",
+      "values": [
+       50,
+       50,
+       50,
+       50,
+       50,
+       50,
+       50
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TADRatio",
+      "values": [
+       0.15,
+       0.2,
+       0.25,
+       0.3,
+       0.35,
+       0.4,
+       0.45
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MSBonus",
+      "values": [
+       0.2,
+       0.25,
+       0.3,
+       0.35,
+       0.4,
+       0.45,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MSDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "QEmpoweredAmp",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Q2Duration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "QTotalRecastTime",
+      "values": [
+       3.5,
+       3.5,
+       3.5,
+       3.5,
+       3.5,
+       3.5,
+       3.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "DamageConversionPercentage": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 0.4,
+        "mInitialBonusPerLevel": 0.04,
+        "mBreakpoints": [
+         {
+          "mLevel": 17,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "BonusDamage": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mDataValue": "tADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "EmpoweredBonusDamage": {
+      "mMultiplier": {
+       "mDataValue": "QEmpoweredAmp",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mModifiedGameCalculation": "BonusDamage",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     9,
+     9,
+     8,
+     7,
+     6,
+     5,
+     5
+    ],
+    "Cooldown": {
+     "values": [
+      9,
+      9,
+      8,
+      7,
+      6,
+      5,
+      5
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "alwaysSnapFacing": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     325,
+     325,
+     325,
+     325,
+     325,
+     325,
+     325
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 20,
+    "mana": [
+     25,
+     25,
+     25,
+     25,
+     25,
+     25
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_CamilleQ",
+    "mBuffAttributeFlag": 32,
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "BonusDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 2,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "MSDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 128,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 512,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 128,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 32,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleQAbility/CamilleQPrimingComplete": {
+   "ObjectName": "CamilleQPrimingComplete",
+   "objectPath": "Characters/Camille/Spells/CamilleQAbility/CamilleQPrimingComplete",
+   "mScriptName": "CamilleQPrimingComplete",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_CamilleQPrimingComplete",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleQAbility/CamilleQSpeed": {
+   "ObjectName": "CamilleQSpeed",
+   "objectPath": "Characters/Camille/Spells/CamilleQAbility/CamilleQSpeed",
+   "mScriptName": "CamilleQSpeed",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_CamilleQSpeed",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleQAbility/CamilleQ2": {
+   "ObjectName": "CamilleQ2",
+   "objectPath": "Characters/Camille/Spells/CamilleQAbility/CamilleQ2",
+   "mScriptName": "CamilleQ2",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_AttackReset"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       50,
+       50,
+       50,
+       50,
+       50,
+       50,
+       50
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.15,
+       0.2,
+       0.25,
+       0.3,
+       0.35,
+       0.4,
+       0.45
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.15,
+       0.2,
+       0.25,
+       0.3,
+       0.35,
+       0.4,
+       0.45
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.55,
+       0.55,
+       0.55,
+       0.55,
+       0.55,
+       0.55,
+       0.55
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.03,
+       0.03,
+       0.03,
+       0.03,
+       0.03,
+       0.03,
+       0.03
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.5,
+    "mCoefficient2": 1.56,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     9.75,
+     9,
+     8.25,
+     7.5,
+     6.75,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      9.75,
+      9,
+      8.25,
+      7.5,
+      6.75,
+      6,
+      6
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "alwaysSnapFacing": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     325,
+     325,
+     325,
+     325,
+     325,
+     325,
+     325
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 20,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_CamilleQ2",
+    "mBuffAttributeFlag": 32,
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 2,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "SourceObject": "Characters/Camille/Spells/CamilleQAbility/CamilleQ",
+       "{3de6ce2d}": "EmpoweredBonusDamage",
+       "__type": "{ba007871}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 128,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleQAbility/CamilleQPrimingStart": {
+   "ObjectName": "CamilleQPrimingStart",
+   "objectPath": "Characters/Camille/Spells/CamilleQAbility/CamilleQPrimingStart",
+   "mScriptName": "CamilleQPrimingStart",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_CamilleQPrimingStart",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleQAbility/CamilleQAttackEmpowered": {
+   "ObjectName": "CamilleQAttackEmpowered",
+   "objectPath": "Characters/Camille/Spells/CamilleQAbility/CamilleQAttackEmpowered",
+   "mScriptName": "CamilleQAttackEmpowered",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 4234,
+    "spellCastTime": 0.32465,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mPreCastLockoutDeltaTime": 0.3,
+    "mMaxAmmo": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mUseAutoattackCastTimeData": {
+     "__type": "UseAutoattackCastTimeData"
+    },
+    "mConsideredAsAutoAttack": true,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10,
+    "missileSpeed": 467,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleQAbility/CamilleQAttack": {
+   "ObjectName": "CamilleQAttack",
+   "objectPath": "Characters/Camille/Spells/CamilleQAbility/CamilleQAttack",
+   "mScriptName": "CamilleQAttack",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 4234,
+    "mSpellTags": [
+     "Trait_FreeRecast"
+    ],
+    "spellCastTime": 0.3245,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mPreCastLockoutDeltaTime": 0.3,
+    "mMaxAmmo": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mUseAutoattackCastTimeData": {
+     "__type": "UseAutoattackCastTimeData"
+    },
+    "mConsideredAsAutoAttack": true,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 8,
+    "missileSpeed": 467,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleAttackAnimationCycle": {
+   "ObjectName": "CamilleAttackAnimationCycle",
+   "objectPath": "Characters/Camille/Spells/CamilleAttackAnimationCycle",
+   "mScriptName": "CamilleAttackAnimationCycle",
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleRAbility/CamilleRRange": {
+   "ObjectName": "CamilleRRange",
+   "objectPath": "Characters/Camille/Spells/CamilleRAbility/CamilleRRange",
+   "mScriptName": "CamilleRRange",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_CamilleRRange",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleRAbility/CamilleRTether": {
+   "ObjectName": "CamilleRTether",
+   "objectPath": "Characters/Camille/Spells/CamilleRAbility/CamilleRTether",
+   "mScriptName": "CamilleRTether",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 13327,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mEffectAmount": [
+     {
+      "value": [
+       75,
+       200,
+       325,
+       450,
+       0,
+       0,
+       125
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       70,
+       70,
+       70,
+       70,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1.5,
+    "cooldownTime": [
+     120,
+     110,
+     100,
+     90,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      120,
+      110,
+      100,
+      90,
+      0,
+      0,
+      0
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     1150,
+     1150,
+     1150,
+     1150,
+     1150,
+     1150,
+     1150
+    ],
+    "castConeDistance": 100,
+    "missileSpeed": 1200,
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_CamilleRTether",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleRAbility/CamilleR": {
+   "ObjectName": "CamilleR",
+   "objectPath": "Characters/Camille/Spells/CamilleRAbility/CamilleR",
+   "mScriptName": "CamilleR",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 20490,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mExcludedUnitTags": {
+     "mObjectTagList": [
+      "{003a1b93}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "PositiveEffect_MoveBlock",
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_KnockBack",
+     "Trait_AttackBuff_Duration",
+     "Trait_Untargetable",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "RPercentCurrentHPDamage",
+      "values": [
+       2,
+       4,
+       6,
+       8,
+       10,
+       12,
+       14
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ROnHitDamage",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RDuration",
+      "values": [
+       1.75,
+       2.5,
+       3.25,
+       4,
+       4.75,
+       5.5,
+       6.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RCircleRadius",
+      "values": [
+       425,
+       425,
+       425,
+       425,
+       425,
+       425,
+       425
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "{f9c2333e}": {
+     "{a110bc47}": {
+      "value": [
+       120,
+       120,
+       100,
+       80,
+       80,
+       80,
+       80
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mCastTime": 0.25,
+    "cooldownTime": [
+     140,
+     140,
+     115,
+     90,
+     0,
+     0,
+     70
+    ],
+    "Cooldown": {
+     "values": [
+      140,
+      140,
+      115,
+      90,
+      0,
+      0,
+      70
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "cantCastWhileRooted": true,
+    "castRange": [
+     475,
+     475,
+     475,
+     475,
+     475,
+     475,
+     475
+    ],
+    "castConeDistance": 100,
+    "missileSpeed": 1200,
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mDataValue": "ROnHitDamage",
+       "__type": "NamedDataValueCalculationPart"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 256,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4194304,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "RCircleRadius",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "RDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleWAbility/CamilleW": {
+   "ObjectName": "CamilleW",
+   "objectPath": "Characters/Camille/Spells/CamilleWAbility/CamilleW",
+   "mScriptName": "CamilleW",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_ActiveHeal",
+     "Trait_Target_Directional",
+     "Trait_Melee_SmallWindup",
+     "Trait_Low_Damage",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       35,
+       60,
+       85,
+       110,
+       135,
+       160,
+       185
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BADRatio",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ChargeDuration",
+      "values": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowPercentage",
+      "values": [
+       80,
+       80,
+       80,
+       80,
+       80,
+       80,
+       80
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "OuterConeMaxHPDamage",
+      "values": [
+       0.065,
+       0.07,
+       0.075,
+       0.08,
+       0.085,
+       0.09,
+       0.095
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ADRequiredFor1PercentDamage",
+      "values": [
+       40,
+       40,
+       40,
+       40,
+       40,
+       40,
+       40
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ADRequiredTooltipOnly",
+      "values": [
+       0.00025,
+       0.00025,
+       0.00025,
+       0.00025,
+       0.00025,
+       0.00025,
+       0.00025
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MonsterDamageReduction",
+      "values": [
+       50,
+       50,
+       50,
+       50,
+       50,
+       50,
+       50
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "OuterConeHealingRatio",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BlastLength",
+      "values": [
+       650,
+       650,
+       650,
+       650,
+       650,
+       650,
+       650
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ConeAngle",
+      "values": [
+       35,
+       35,
+       35,
+       35,
+       35,
+       35,
+       35
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "ADRequiredTooltipOnly",
+        "values": [
+         0.0003,
+         0.0003,
+         0.0003,
+         0.0003,
+         0.0003,
+         0.0003,
+         0.0003
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "OuterEdgeTooltip": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "OuterConeMaxHPDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "ADRequiredTooltipOnly",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "BaseDamageTotal": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "BADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MonsterHealthDamageCap": {
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mNumber": 300,
+        "__type": "NumberCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     15,
+     15,
+     14,
+     13,
+     12,
+     11,
+     11
+    ],
+    "Cooldown": {
+     "values": [
+      12.5,
+      12,
+      11.5,
+      11,
+      10.5,
+      10,
+      9.5
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     610,
+     610,
+     610,
+     610,
+     610,
+     610,
+     610
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10,
+    "missileSpeed": 1750,
+    "mLineWidth": 100,
+    "mLookAtPolicy": 1,
+    "mana": [
+     50,
+     55,
+     60,
+     65,
+     70,
+     75
+    ],
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TaricE",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSubparts": [
+        {
+         "{a8cb9c14}": true,
+         "mStat": 12,
+         "mDataValue": "OuterConeMaxHPDamage",
+         "__type": "StatByNamedDataValueCalculationPart"
+        },
+        {
+         "mSpellCalculationKey": "BaseDamageTotal",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "SumOfSubPartsCalculationPart"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "SlowDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 8,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mPart1": {
+          "mDataValue": "OuterConeHealingRatio",
+          "__type": "NamedDataValueCalculationPart"
+         },
+         "mPart2": {
+          "mSubparts": [
+           {
+            "{a8cb9c14}": true,
+            "mStat": 12,
+            "mDataValue": "OuterConeMaxHPDamage",
+            "__type": "StatByNamedDataValueCalculationPart"
+           },
+           {
+            "mSpellCalculationKey": "BaseDamageTotal",
+            "__type": "{f3cbe7b2}"
+           }
+          ],
+          "__type": "SumOfSubPartsCalculationPart"
+         },
+         "__type": "ProductOfSubPartsCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleWAbility/CamilleWConeSlashCharge": {
+   "ObjectName": "CamilleWConeSlashCharge",
+   "objectPath": "Characters/Camille/Spells/CamilleWAbility/CamilleWConeSlashCharge",
+   "mScriptName": "CamilleWConeSlashCharge",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_CamilleWConeSlashCharge",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleWAbility/CamilleWConeSlashSlow": {
+   "ObjectName": "CamilleWConeSlashSlow",
+   "objectPath": "Characters/Camille/Spells/CamilleWAbility/CamilleWConeSlashSlow",
+   "mScriptName": "CamilleWConeSlashSlow",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_CamilleWConeSlashSlow",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleVOManager": {
+   "ObjectName": "CamilleVOManager",
+   "objectPath": "Characters/Camille/Spells/CamilleVOManager",
+   "mScriptName": "CamilleVOManager",
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleEnemyScouter": {
+   "ObjectName": "CamilleEnemyScouter",
+   "objectPath": "Characters/Camille/Spells/CamilleEnemyScouter",
+   "mScriptName": "CamilleEnemyScouter",
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleCritAttack": {
+   "ObjectName": "CamilleCritAttack",
+   "objectPath": "Characters/Camille/Spells/CamilleCritAttack",
+   "mScriptName": "CamilleCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 4234,
+    "mAlternateName": "CamilleCritAttack",
+    "spellCastTime": 0.32465,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mMaxAmmo": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 8,
+    "missileSpeed": 467,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleBasicAttack3": {
+   "ObjectName": "CamilleBasicAttack3",
+   "objectPath": "Characters/Camille/Spells/CamilleBasicAttack3",
+   "mScriptName": "CamilleBasicAttack3",
+   "mSpell": {
+    "mAffectsTypeFlags": 4234,
+    "mAlternateName": "CamilleBasicAttack3",
+    "spellCastTime": 0.32465,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mMaxAmmo": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "missileSpeed": 467,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleBasicAttack2": {
+   "ObjectName": "CamilleBasicAttack2",
+   "objectPath": "Characters/Camille/Spells/CamilleBasicAttack2",
+   "mScriptName": "CamilleBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 4234,
+    "mAlternateName": "CamilleBasicAttack2",
+    "spellCastTime": 0.32465,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mMaxAmmo": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 8,
+    "missileSpeed": 467,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CamilleBasicAttack4": {
+   "ObjectName": "CamilleBasicAttack4",
+   "objectPath": "Characters/Camille/Spells/CamilleBasicAttack4",
+   "mScriptName": "CamilleBasicAttack4",
+   "mSpell": {
+    "mAffectsTypeFlags": 4234,
+    "mAlternateName": "CamilleBasicAttack4",
+    "spellCastTime": 0.32465,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mMaxAmmo": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 8,
+    "missileSpeed": 467,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/CamilleQAbility/CamilleQ",
+  "Spells/CamilleWAbility/CamilleW",
+  "Spells/CamilleEAbility/CamilleE",
+  "Spells/CamilleRAbility/CamilleR"
+ ],
+ "passiva_ref": "Characters/Camille/Spells/CamillePassiveAbility",
+ "passiva_chaves": [
+  "Spells/CamillePassiveAbility/CamillePassiveReady",
+  "Spells/CamillePassiveAbility/CamillePassiveShieldMagic",
+  "Spells/CamillePassiveAbility/CamillePassive",
+  "Spells/CamillePassiveAbility/CamillePassiveCooldown",
+  "Spells/CamillePassiveAbility/CamillePassiveShieldPhysical"
+ ]
+}

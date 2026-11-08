@@ -1,0 +1,2553 @@
+{
+ "id": "Corki",
+ "key": 42,
+ "nome": "Corki",
+ "titulo": "o Bombardeiro Ousado",
+ "funcoes": [
+  "Marksman",
+  "Mage"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 8,
+  "defense": 3,
+  "magic": 6,
+  "difficulty": 6
+ },
+ "stats_ddragon": {
+  "hp": 610,
+  "hpperlevel": 100,
+  "mp": 350,
+  "mpperlevel": 40,
+  "movespeed": 325,
+  "armor": 27,
+  "armorperlevel": 4.5,
+  "spellblock": 33,
+  "spellblockperlevel": 1.1,
+  "attackrange": 550,
+  "hpregen": 5.5,
+  "hpregenperlevel": 0.55,
+  "mpregen": 7.4,
+  "mpregenperlevel": 0.7,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 52,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2.8,
+  "attackspeed": 0.644
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Munição Hextec",
+  "descricao": "Uma porcentagem do Dano de Ataque Básico de Corki é causada como <trueDamage>Dano Verdadeiro</trueDamage> adicional."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "PhosphorusBomb",
+   "nome": "Bomba de Fósforo",
+   "descricao": "Corki dispara uma bomba luminosa em um local alvo, causando Dano Mágico a inimigos na área. Este ataque também revela unidades na área por uma curta duração.",
+   "tooltip": "Corki lança uma bomba, causando <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage>. A área e os Campeões atingidos são revelados por {{ revealduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    9,
+    8.5,
+    8,
+    7.5,
+    7
+   ],
+   "custo": [
+    60,
+    65,
+    70,
+    75,
+    80
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    825,
+    825,
+    825,
+    825,
+    825
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "CarpetBomb",
+   "nome": "Valquíria",
+   "descricao": "Corki sobrevoa uma curta distância, soltando bombas que criam um rastro de fogo, causando dano a oponentes que nele permanecerem.",
+   "tooltip": "Corki sobrevoa e incendeia um trajeto, fazendo com que queime por {{ trailduration }}s. Inimigos na área sofrem até <magicDamage>{{ maximumdamage }} de Dano Mágico</magicDamage> ao longo da duração.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    20,
+    18,
+    16,
+    14,
+    12
+   ],
+   "custo": [
+    80,
+    85,
+    90,
+    95,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    600,
+    600,
+    600,
+    600,
+    600
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "GGun",
+   "nome": "Metralhadora",
+   "descricao": "A metralhadora de Corki dispara rapidamente em área de cone à sua frente, causando dano, reduzindo a Armadura e a Resistência Mágica do inimigo.",
+   "tooltip": "Corki atira à frente com uma metralhadora, causando <physicalDamage>{{ totaldamage }} de Dano Físico</physicalDamage> ao longo de {{ sprayduration }}s e fragmentando até <scaleArmor>{{ shredmax*-1 }} de Armadura</scaleArmor> e <scaleMR>Resistência Mágica</scaleMR>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    12,
+    12,
+    12,
+    12,
+    12
+   ],
+   "custo": [
+    50,
+    55,
+    60,
+    65,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    600,
+    600,
+    600,
+    600,
+    600
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "MissileBarrage",
+   "nome": "Barragem de Mísseis",
+   "descricao": "Corki dispara um míssil em direção ao local alvo, que explode com o impacto, causando dano aos inimigos na área. Corki armazena mísseis ao longo do tempo, com um limite máximo. O 3º míssil armazenado será um Grandão, que causa dano adicional.",
+   "tooltip": "Corki dispara um míssil que explode ao atingir o primeiro inimigo, causando <physicalDamage>{{ rsmallmissiledamage }} de Dano Físico</physicalDamage> aos inimigos ao redor. Cada terceiro míssil causa <physicalDamage>{{ rbigmissiledamage }} de Dano Físico</physicalDamage>.<br /><br />A Habilidade tem até {{ maxammotooltip }} cargas. Ataques básicos contra Campeões reduzem o tempo entre as cargas em <attention>{{ attackrefund }}</attention>s ao contato.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    2,
+    2,
+    2
+   ],
+   "custo": [
+    35,
+    35,
+    35
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1225,
+    1225,
+    1225
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 610,
+  "vida_nivel": 100,
+  "regen_vida": 1.1,
+  "regen_vida_nivel": 0.11,
+  "dano": 52,
+  "dano_nivel": 2.5,
+  "armadura": 27,
+  "armadura_nivel": 4.5,
+  "rm": 33,
+  "rm_nivel": 1.1,
+  "velocidade_mov": 325,
+  "alcance_ataque": 550,
+  "vel_ataque_base": 0.644,
+  "vel_ataque_razao": 0.644,
+  "vel_ataque_nivel": 2.8,
+  "dano_critico": 2,
+  "alcance_aquisicao": 550,
+  "raio_selecao": 135,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackTotalTime": 1.5529999732971191,
+   "mAttackCastTime": 0.18000000715255737,
+   "mAttackProbability": 0.5,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.5,
+    "mAttackName": "CorkiBasicAttack2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackName": "CorkiCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Corki/Spells/PhosphorusBombAbility/PhosphorusBomb",
+  "Characters/Corki/Spells/CarpetBombAbility/CarpetBomb",
+  "Characters/Corki/Spells/GGunAbility/GGun",
+  "Characters/Corki/Spells/MissileBarrageAbility/MissileBarrage"
+ ],
+ "abilities_ref": [
+  "Characters/Corki/Spells/PhosphorusBombAbility",
+  "Characters/Corki/Spells/CarpetBombAbility",
+  "Characters/Corki/Spells/GGunAbility",
+  "Characters/Corki/Spells/MissileBarrageAbility",
+  "Characters/Corki/Spells/RapidReloadAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/MissileBarrageAbility/CorkiMissileBarrageCounterNormal": {
+   "ObjectName": "CorkiMissileBarrageCounterNormal",
+   "objectPath": "Characters/Corki/Spells/MissileBarrageAbility/CorkiMissileBarrageCounterNormal",
+   "mScriptName": "CorkiMissileBarrageCounterNormal",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_CorkiMissileBarrageCounterNormal",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/MissileBarrageAbility/MissileBarrage": {
+   "ObjectName": "MissileBarrage",
+   "objectPath": "Characters/Corki/Spells/MissileBarrageAbility/MissileBarrage",
+   "mScriptName": "MissileBarrage",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "MissileBarrage",
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_DamageAbility",
+     "Trait_Ammo",
+     "Trait_Ranged_StopsFirstHit",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       10,
+       100,
+       190,
+       280,
+       370,
+       460,
+       550
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ADRatio",
+      "values": [
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RBaseMissileRadius",
+      "values": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RBigOneMissileRadius",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RBigOneMultiplier",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CDReductionOnHit",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxAmmoTOOLTIP",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AmmoWhenLearned",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "BaseDamage",
+        "values": [
+         0,
+         100,
+         200,
+         300,
+         400,
+         500,
+         600
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "ADRatio",
+        "values": [
+         0.8,
+         0.8,
+         0.8,
+         0.8,
+         0.8,
+         0.8,
+         0.8
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "APRatio",
+        "values": [
+         0.2,
+         0.2,
+         0.2,
+         0.2,
+         0.2,
+         0.2,
+         0.2
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "RSmallMissileDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "ADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "RBigMissileDamage": {
+      "mMultiplier": {
+       "mDataValue": "RBigOneMultiplier",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mModifiedGameCalculation": "RSmallMissileDamage",
+      "__type": "GameCalculationModified"
+     },
+     "AttackRefund": {
+      "mMultiplier": {
+       "mDataValue": "CDReductionOnHit",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mNumber": 1,
+        "__type": "NumberCalculationPart"
+       },
+       {
+        "mStat": 8,
+        "mCoefficient": 2,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "mPrecision": 1,
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "Cooldown": {
+     "values": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+     ],
+     "{0a3e0478}": 2,
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Corki/Spells/MissileBarrageAbility/MissileBarrage",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mMaxAmmo": [
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4
+    ],
+    "mAmmoRechargeTime": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     1225,
+     1225,
+     1225,
+     1225,
+     1225,
+     1225,
+     1225
+    ],
+    "castRadius": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castConeDistance": 100,
+    "castFrame": 5.17,
+    "missileSpeed": 828.5,
+    "mLineWidth": 40,
+    "mHitEffectKey": "Corki_R_MB_tar_01",
+    "mana": [
+     35,
+     35,
+     35,
+     35,
+     35,
+     35
+    ],
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "RSmallMissileDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 32768,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mNumber": 40,
+         "__type": "NumberCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/MissileBarrageAbility/MissileBarrageCheck": {
+   "ObjectName": "MissileBarrageCheck",
+   "objectPath": "Characters/Corki/Spells/MissileBarrageAbility/MissileBarrageCheck",
+   "mScriptName": "MissileBarrageCheck",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_MissileBarrageCheck",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/MissileBarrageAbility/CorkiMissileBarrageCounterBig": {
+   "ObjectName": "CorkiMissileBarrageCounterBig",
+   "objectPath": "Characters/Corki/Spells/MissileBarrageAbility/CorkiMissileBarrageCounterBig",
+   "mScriptName": "CorkiMissileBarrageCounterBig",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_CorkiMissileBarrageCounterBig",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/MissileBarrageAbility/MissileBarrageMissile2": {
+   "ObjectName": "MissileBarrageMissile2",
+   "objectPath": "Characters/Corki/Spells/MissileBarrageAbility/MissileBarrageMissile2",
+   "mScriptName": "MissileBarrageMissile2",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "MissileBarrage",
+    "mEffectAmount": [
+     {
+      "value": [
+       25,
+       30,
+       35,
+       40,
+       45,
+       50,
+       55
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       12,
+       15,
+       18,
+       21,
+       23,
+       25,
+       28
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       5,
+       20,
+       35,
+       50,
+       65,
+       80,
+       95
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       25,
+       75,
+       125,
+       175,
+       225,
+       250,
+       300
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "spellCastTime": 0.175,
+    "spellTotalTime": 0.6,
+    "cooldownTime": [
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6
+     ],
+     "{0a3e0478}": 6,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castRadius": [
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 40,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "MissileBoneName=C_BUFFBONE_GLB_CENTER_LOC",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 5.55,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Corki_R_mis_big",
+    "mLineWidth": 40,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/MissileBarrageAbility/MissileBarrageMissile": {
+   "ObjectName": "MissileBarrageMissile",
+   "objectPath": "Characters/Corki/Spells/MissileBarrageAbility/MissileBarrageMissile",
+   "mScriptName": "MissileBarrageMissile",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "MissileBarrage",
+    "mEffectAmount": [
+     {
+      "value": [
+       25,
+       30,
+       35,
+       40,
+       45,
+       50,
+       55
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       12,
+       15,
+       18,
+       21,
+       23,
+       25,
+       28
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       5,
+       20,
+       35,
+       50,
+       65,
+       80,
+       95
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       25,
+       75,
+       125,
+       175,
+       225,
+       250,
+       300
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "spellCastTime": 0.175,
+    "spellTotalTime": 0.6,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     1300,
+     1300,
+     1300,
+     1300,
+     1300,
+     1300,
+     1300
+    ],
+    "castRadius": [
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 40,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "C_BUFFBONE_GLB_CENTER_LOC",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 6,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Corki_R_mis",
+    "mLineWidth": 40,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PhosphorusBombAbility/PhosphorusBombMissile": {
+   "ObjectName": "PhosphorusBombMissile",
+   "objectPath": "Characters/Corki/Spells/PhosphorusBombAbility/PhosphorusBombMissile",
+   "mScriptName": "PhosphorusBombMissile",
+   "mSpell": {
+    "flags": 4194308,
+    "mAffectsTypeFlags": 7183,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     13,
+     12,
+     11,
+     10,
+     9,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      13,
+      12,
+      11,
+      10,
+      9,
+      8,
+      8
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_HAND",
+      "mSpeed": 1100,
+      "__type": "FixedSpeedMovement"
+     },
+     "visibilityComponent": {
+      "mPerceptionBubbleRadius": 500,
+      "__type": "Defaultvisibility"
+     },
+     "heightSolver": {
+      "mGravity": 6000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 14.8,
+    "missileSpeed": 1000,
+    "mMissileEffectKey": "Corki_Q_Mis",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PhosphorusBombAbility/PhosphorusBombMissileMin": {
+   "ObjectName": "PhosphorusBombMissileMin",
+   "objectPath": "Characters/Corki/Spells/PhosphorusBombAbility/PhosphorusBombMissileMin",
+   "mScriptName": "PhosphorusBombMissileMin",
+   "mSpell": {
+    "flags": 4194308,
+    "mAffectsTypeFlags": 7183,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     13,
+     12,
+     11,
+     10,
+     9,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      13,
+      12,
+      11,
+      10,
+      9,
+      8,
+      8
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_HAND",
+      "mTravelTime": 0.227,
+      "__type": "FixedTimeMovement"
+     },
+     "visibilityComponent": {
+      "mPerceptionBubbleRadius": 500,
+      "__type": "Defaultvisibility"
+     },
+     "heightSolver": {
+      "mGravity": 15000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 14.8,
+    "missileSpeed": 1000,
+    "mMissileEffectKey": "Corki_Q_Mis",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PhosphorusBombAbility/CorkiBombDebuff": {
+   "ObjectName": "CorkiBombDebuff",
+   "objectPath": "Characters/Corki/Spells/PhosphorusBombAbility/CorkiBombDebuff",
+   "mScriptName": "CorkiBombDebuff",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_CorkiBombDebuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PhosphorusBombAbility/PhosphorusBomb": {
+   "ObjectName": "PhosphorusBomb",
+   "objectPath": "Characters/Corki/Spells/PhosphorusBombAbility/PhosphorusBomb",
+   "mScriptName": "PhosphorusBomb",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "PhosphorusBomb",
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_Target_Area",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       15,
+       60,
+       105,
+       150,
+       195,
+       240,
+       285
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RevealDuration",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ADRatio",
+      "values": [
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "ADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     8,
+     9,
+     8.5,
+     8,
+     7.5,
+     7,
+     7
+    ],
+    "Cooldown": {
+     "values": [
+      8,
+      9,
+      8.5,
+      8,
+      7.5,
+      7,
+      7
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     825,
+     825,
+     825,
+     825,
+     825,
+     825,
+     825
+    ],
+    "castRadius": [
+     250,
+     250,
+     250,
+     250,
+     250,
+     250,
+     250
+    ],
+    "castConeDistance": 100,
+    "castFrame": 8,
+    "missileSpeed": 0,
+    "mana": [
+     60,
+     65,
+     70,
+     75,
+     80,
+     80
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_PhosphorusBomb",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CorkiBasicAttack2": {
+   "ObjectName": "CorkiBasicAttack2",
+   "objectPath": "Characters/Corki/Spells/CorkiBasicAttack2",
+   "mScriptName": "CorkiBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 24527,
+    "mAlternateName": "CorkiBasicAttack2",
+    "spellCastTime": 0.485,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     475,
+     475,
+     475,
+     475,
+     475,
+     475,
+     475
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "gun",
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 5.5,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Corki_BA_mis",
+    "mHitEffectKey": "Corki_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CorkiCritAttack": {
+   "ObjectName": "CorkiCritAttack",
+   "objectPath": "Characters/Corki/Spells/CorkiCritAttack",
+   "mScriptName": "CorkiCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 24527,
+    "mAlternateName": "CorkiCritAttack",
+    "spellCastTime": 0.485,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     475,
+     475,
+     475,
+     475,
+     475,
+     475,
+     475
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "gun",
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 5.5,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Corki_BA_mis_crit",
+    "mHitEffectKey": "Corki_BA_tar_crit",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GGunAbility/Gatling_Gun": {
+   "ObjectName": "Gatling_Gun",
+   "objectPath": "Characters/Corki/Spells/GGunAbility/Gatling_Gun",
+   "mScriptName": "Gatling_Gun",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Gatling_Gun",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GGunAbility/GGSpray": {
+   "ObjectName": "GGSpray",
+   "objectPath": "Characters/Corki/Spells/GGunAbility/GGSpray",
+   "mScriptName": "GGSpray",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "GGSpray",
+    "mEffectAmount": [
+     {
+      "value": [
+       25,
+       85,
+       145,
+       205,
+       265,
+       325,
+       385
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.5,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "bHaveHitEffect": true,
+    "castRange": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeAngle": 30.76,
+    "castConeDistance": 685,
+    "castFrame": 8.84,
+    "missileSpeed": 1500,
+    "mHitEffectKey": "Corki_E_tar",
+    "mHitBoneName": "C_Buffbone_Glb_Chest_Loc",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Cone"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GGunAbility/GatlingGunSelf": {
+   "ObjectName": "GatlingGunSelf",
+   "objectPath": "Characters/Corki/Spells/GGunAbility/GatlingGunSelf",
+   "mScriptName": "GatlingGunSelf",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_GatlingGunSelf",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GGunAbility/GGun": {
+   "ObjectName": "GGun",
+   "objectPath": "Characters/Corki/Spells/GGunAbility/GGun",
+   "mScriptName": "GGun",
+   "mSpell": {
+    "flags": 36,
+    "mAffectsTypeFlags": 23759,
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_DoT",
+     "Trait_AttackBuff_Duration",
+     "Trait_SignatureSpell",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       30,
+       80,
+       130,
+       180,
+       230,
+       280,
+       330
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ADRatio",
+      "values": [
+       2.4,
+       2.4,
+       2.4,
+       2.4,
+       2.4,
+       2.4,
+       2.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SprayDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TicksPerSecond",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShredMax",
+      "values": [
+       -10,
+       -12,
+       -14,
+       -16,
+       -18,
+       -20,
+       -22
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShredCap",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShredDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "ADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     12,
+     12,
+     12,
+     12,
+     12,
+     12,
+     12
+    ],
+    "Cooldown": {
+     "values": [
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12
+     ],
+     "{0a3e0478}": 12,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeAngle": 28,
+    "castConeDistance": 725,
+    "castFrame": 17.2,
+    "missileSpeed": 902,
+    "mana": [
+     50,
+     55,
+     60,
+     65,
+     70,
+     70
+    ],
+    "mTargetingTypeData": {
+     "__type": "Cone"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 33554432,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mPart1": {
+          "mSpellCalculationKey": "TotalDamage",
+          "__type": "{f3cbe7b2}"
+         },
+         "mPart2": {
+          "mNumber": 0.063,
+          "__type": "NumberCalculationPart"
+         },
+         "__type": "ProductOfSubPartsCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 64,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 128,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ValkyrieSound": {
+   "ObjectName": "ValkyrieSound",
+   "objectPath": "Characters/Corki/Spells/ValkyrieSound",
+   "mScriptName": "ValkyrieSound",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_ValkyrieSound",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CarpetBombAbility/DangerZone": {
+   "ObjectName": "DangerZone",
+   "objectPath": "Characters/Corki/Spells/CarpetBombAbility/DangerZone",
+   "mScriptName": "DangerZone",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mEffectAmount": [
+     {
+      "value": [
+       10,
+       25,
+       40,
+       55,
+       70,
+       85,
+       100
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       60,
+       80,
+       100,
+       120,
+       140,
+       160,
+       180
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.2,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     14,
+     14,
+     14,
+     14,
+     14,
+     14,
+     14
+    ],
+    "Cooldown": {
+     "values": [
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14
+     ],
+     "{0a3e0478}": 14,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     900,
+     900,
+     900,
+     900,
+     900,
+     900,
+     900
+    ],
+    "castRadius": [
+     250,
+     250,
+     250,
+     250,
+     250,
+     250,
+     250
+    ],
+    "castConeDistance": 100,
+    "castFrame": 20.16,
+    "missileSpeed": 20,
+    "bHaveHitBone": true,
+    "mHitBoneName": "head",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CarpetBombAbility/CarpetBomb": {
+   "ObjectName": "CarpetBomb",
+   "objectPath": "Characters/Corki/Spells/CarpetBombAbility/CarpetBomb",
+   "mScriptName": "CarpetBomb",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock",
+     "Trait_PlayerSelectedDashDirection",
+     "Trait_DamageAbility",
+     "Trait_DoT",
+     "Trait_Low_Damage",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       75,
+       150,
+       225,
+       300,
+       375,
+       450,
+       525
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TrailDuration",
+      "values": [
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TicksPerSecond",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaximumTicks",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DamageRadius",
+      "values": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DashSpeedBase",
+      "values": [
+       650,
+       650,
+       650,
+       650,
+       650,
+       650,
+       650
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DashSpeedRatio",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinimumRange",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaximumRange",
+      "values": [
+       600,
+       600,
+       600,
+       600,
+       600,
+       600,
+       600
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ADRatio",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "APRatio",
+        "values": [
+         1.8,
+         1.8,
+         1.8,
+         1.8,
+         1.8,
+         1.8,
+         1.8
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       16,
+       16,
+       15,
+       14,
+       13,
+       12,
+       12
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "MaximumDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "ADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "DashSpeed": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "DashSpeedBase",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 7,
+        "mDataValue": "DashSpeedRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "cooldownTime": [
+     20,
+     20,
+     18,
+     16,
+     14,
+     12,
+     12
+    ],
+    "Cooldown": {
+     "values": [
+      20,
+      20,
+      18,
+      16,
+      14,
+      12,
+      12
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "mProjectTargetToCastRange": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRangeDisplayOverride": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9.75,
+    "missileSpeed": 700,
+    "mLineWidth": 160,
+    "mana": [
+     80,
+     85,
+     90,
+     95,
+     100,
+     100
+    ],
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "MaximumDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 128,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CorkiBasicAttack": {
+   "ObjectName": "CorkiBasicAttack",
+   "objectPath": "Characters/Corki/Spells/CorkiBasicAttack",
+   "mScriptName": "CorkiBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 24527,
+    "mAlternateName": "CorkiBasicAttack",
+    "spellCastTime": 0.485,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     475,
+     475,
+     475,
+     475,
+     475,
+     475,
+     475
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "gun",
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 5.5,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Corki_BA_mis",
+    "mHitEffectKey": "Corki_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RapidReloadAbility/RapidReload": {
+   "ObjectName": "RapidReload",
+   "objectPath": "Characters/Corki/Spells/RapidReloadAbility/RapidReload",
+   "mScriptName": "RapidReload",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "AttackConversion",
+      "values": [
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "InitialCD",
+      "values": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PackageDuration",
+      "values": [
+       45,
+       45,
+       45,
+       45,
+       45,
+       45,
+       45
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusMS",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SubsequentCD",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "BasicAttackTOOLTIP": {
+      "DamageType": 2,
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mDataValue": "AttackConversion",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "CriticalStrikeTOOLTIP": {
+      "mMultiplier": {
+       "mStat": 9,
+       "mCoefficient": 1,
+       "__type": "StatByCoefficientCalculationPart"
+      },
+      "mModifiedGameCalculation": "BasicAttackTOOLTIP",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "LastHitData": [
+     {
+      "{6166b756}": "BasicAttackTOOLTIP",
+      "__type": "LastHitData"
+     }
+    ],
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_RapidReload",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/PhosphorusBombAbility/PhosphorusBomb",
+  "Spells/CarpetBombAbility/CarpetBomb",
+  "Spells/GGunAbility/GGun",
+  "Spells/MissileBarrageAbility/MissileBarrage"
+ ],
+ "passiva_ref": "Characters/Corki/Spells/RapidReloadAbility",
+ "passiva_chaves": [
+  "Spells/RapidReloadAbility/RapidReload"
+ ]
+}

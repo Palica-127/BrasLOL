@@ -1,0 +1,2630 @@
+{
+ "id": "Sivir",
+ "key": 15,
+ "nome": "Sivir",
+ "titulo": "a Mestra da Batalha",
+ "funcoes": [
+  "Marksman"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 9,
+  "defense": 3,
+  "magic": 1,
+  "difficulty": 4
+ },
+ "stats_ddragon": {
+  "hp": 600,
+  "hpperlevel": 104,
+  "mp": 340,
+  "mpperlevel": 45,
+  "movespeed": 335,
+  "armor": 30,
+  "armorperlevel": 4,
+  "spellblock": 33,
+  "spellblockperlevel": 1.1,
+  "attackrange": 500,
+  "hpregen": 3.25,
+  "hpregenperlevel": 0.55,
+  "mpregen": 6,
+  "mpregenperlevel": 0.8,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 60,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 1.6,
+  "attackspeed": 0.625
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Pés Ligeiros",
+  "descricao": "Sivir ganha um pequeno impulso de Velocidade de Movimento quando ela ataca um campeão inimigo."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "SivirQ",
+   "nome": "Lâmina Bumerangue",
+   "descricao": "Sivir arremessa sua lâmina como um bumerangue, causando dano tanto na ida quanto na volta.",
+   "tooltip": "Sivir arremessa sua arma como um bumerangue, causando <physicalDamage>{{ totaldamage }}</physicalDamage> a todos os inimigos que atravessar. Atingir não Campeões reduz o dano nos alvos subsequentes, até um mínimo de {{ falloffminimum*100 }}%.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    10,
+    9.5,
+    9,
+    8.5,
+    8
+   ],
+   "custo": [
+    55,
+    60,
+    65,
+    70,
+    75
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1200,
+    1200,
+    1200,
+    1200,
+    1200
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "SivirW",
+   "nome": "Ricochete",
+   "descricao": "Os próximos ataques básicos de Sivir recebem Velocidade de Ataque adicional e ricocheteiam em alvos próximos, causando dano reduzido enquanto rebatem.",
+   "tooltip": "Pelos próximos {{ buffduration }}s, Sivir recebe <attackSpeed>{{ ricochetattackspeed*100 }}% de Velocidade de Ataque</attackSpeed> e seus ataques básicos são fortalecidos e rebatem em mais inimigos próximos, causando <physicalDamage>{{ bouncedamage }} de Dano Físico</physicalDamage> por ricochete até um máximo de {{ maxbounces }} ricochetes.<br /><br />Se um ataque causar Acerto Crítico, o ricochete também causará.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    12,
+    12,
+    12,
+    12,
+    12
+   ],
+   "custo": [
+    60,
+    60,
+    60,
+    60,
+    60
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    20,
+    20,
+    20,
+    20,
+    20
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "SivirE",
+   "nome": "Escudo de Feitiço",
+   "descricao": "Cria uma barreira mágica que bloqueia a habilidade de um único inimigo lançada em Sivir. Ela recebe Vida e uma explosão de Velocidade de Movimento se uma habilidade for bloqueada.",
+   "tooltip": "Sivir cria uma barreira mágica por {{ spellshieldduration }}s que bloqueia a próxima Habilidade inimiga. Caso a Habilidade seja bloqueada, Sivir restaura <healing>{{ totalheal }} de Vida</healing> e ativa Pés Ligeiros.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    24,
+    22.5,
+    21,
+    19.5,
+    18
+   ],
+   "custo": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    20,
+    20,
+    20,
+    20,
+    20
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "1.5",
+    "55",
+    "60",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "SivirR",
+   "nome": "Na Caçada",
+   "descricao": "Sivir conduz os aliados até a batalha, concedendo uma explosão de Velocidade de Movimento a eles por um curto período. Além disso, os ataques de Sivir reduzem o Tempo de Recarga das habilidades.",
+   "tooltip": "Sivir convoca seus aliados próximos, concedendo a eles <speed>{{ maxms*100 }}% de Velocidade de Movimento</speed> por {{ ultduration }}s.<br /><br />Os ataques de Sivir contra Campeões durante Na Caçada reduzem o Tempo de Recarga das habilidades básicas em {{ attackcooldownrefund }}s.<br /><br />Eliminações de inimigos atingidos recentemente redefinem a duração da caçada.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    120,
+    100,
+    80
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1000,
+    1000,
+    1000
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 600,
+  "vida_nivel": 104,
+  "regen_vida": 0.65,
+  "regen_vida_nivel": 0.11,
+  "dano": 60,
+  "dano_nivel": 2.5,
+  "armadura": 30,
+  "armadura_nivel": 4,
+  "rm": 33,
+  "rm_nivel": 1.1,
+  "velocidade_mov": 335,
+  "alcance_ataque": 500,
+  "vel_ataque_base": 0.625,
+  "vel_ataque_razao": 0.625,
+  "vel_ataque_nivel": 1.6,
+  "dano_critico": 2,
+  "alcance_aquisicao": 500,
+  "raio_selecao": 115,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.18000000715255737,
+   "mAttackProbability": 1,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackName": "SivirBasicAttack2",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "SivirBasicAttack3",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "SivirBasicAttack4",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.18000000715255737,
+    "mAttackName": "SivirCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Sivir/Spells/SivirQAbility/SivirQ",
+  "Characters/Sivir/Spells/SivirWAbility/SivirW",
+  "Characters/Sivir/Spells/SivirEAbility/SivirE",
+  "Characters/Sivir/Spells/SivirRAbility/SivirR"
+ ],
+ "abilities_ref": [
+  "Characters/Sivir/Spells/SivirQAbility",
+  "Characters/Sivir/Spells/SivirWAbility",
+  "Characters/Sivir/Spells/SivirEAbility",
+  "Characters/Sivir/Spells/SivirRAbility",
+  "Characters/Sivir/Spells/SivirPassiveAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/On_The_Hunt": {
+   "ObjectName": "On_The_Hunt",
+   "objectPath": "Characters/Sivir/Spells/On_The_Hunt",
+   "mScriptName": "On_The_Hunt",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_On_The_Hunt",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SivirQMissileReturn": {
+   "ObjectName": "SivirQMissileReturn",
+   "objectPath": "Characters/Sivir/Spells/SivirQMissileReturn",
+   "mScriptName": "SivirQMissileReturn",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 14346,
+    "mAffectsStatusFlags": 32,
+    "mAlternateName": "SivirQ",
+    "mEffectAmount": [
+     {
+      "value": [
+       35,
+       55,
+       75,
+       95,
+       115,
+       135,
+       155
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.6,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     11,
+     11,
+     11,
+     11,
+     11,
+     11,
+     11
+    ],
+    "Cooldown": {
+     "values": [
+      11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11
+     ],
+     "{0a3e0478}": 11,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     275,
+     275,
+     275,
+     275,
+     275,
+     275,
+     275
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 50.1,
+    "mMissileSpec": {
+     "mMissileWidth": 100,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mStartBoneName": "Buffbone_Glb_Channel_Loc",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1200,
+      "__type": "FixedSpeedMovement"
+     },
+     "visibilityComponent": {
+      "__type": "EnterFOWVisibility"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.5,
+    "missileSpeed": 1200,
+    "mMissileEffectKey": "Sivir_Q_mis_return",
+    "mLineWidth": 100,
+    "mHitBoneName": "spine",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SivirCritAttack": {
+   "ObjectName": "SivirCritAttack",
+   "objectPath": "Characters/Sivir/Spells/SivirCritAttack",
+   "mScriptName": "SivirCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 24527,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     387.5,
+     387.5,
+     387.5,
+     387.5,
+     387.5,
+     387.5,
+     387.5
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_hand",
+      "mSpeed": 1750,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 15,
+    "missileSpeed": 1750,
+    "mMissileEffectKey": "Sivir_BasicAttack_mis",
+    "mHitEffectKey": "Sivir_BA_tar_crit_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SivirQAbility/SivirQ": {
+   "ObjectName": "SivirQ",
+   "objectPath": "Characters/Sivir/Spells/SivirQAbility/SivirQ",
+   "mScriptName": "SivirQ",
+   "mSpell": {
+    "mAffectsTypeFlags": 13327,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_Ranged_Piercing",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       35,
+       60,
+       85,
+       110,
+       135,
+       160,
+       185
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ADRatio",
+      "values": [
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FallOffRatio",
+      "values": [
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FallOffMinimum",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "QAttackSpeedCastReductionPercent",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "QBaseCastTime",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "QAttackSpeedCastReductionMax",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CritRatio",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "APRatio",
+        "values": [
+         0.8,
+         0.8,
+         0.8,
+         0.8,
+         0.8,
+         0.8,
+         0.8
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "ARAM": {
+      "value": [
+       14,
+       14,
+       13,
+       12,
+       11,
+       10,
+       9
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     "Kiwi": {
+      "value": [
+       14,
+       14,
+       13,
+       12,
+       11,
+       10,
+       9
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mMultiplier": {
+       "mSubparts": [
+        {
+         "mNumber": 1,
+         "__type": "NumberCalculationPart"
+        },
+        {
+         "mPart1": {
+          "mStat": 8,
+          "mDataValue": "CritRatio",
+          "__type": "StatByNamedDataValueCalculationPart"
+         },
+         "mPart2": {
+          "mSubparts": [
+           {
+            "mStat": 9,
+            "mCoefficient": 1,
+            "__type": "StatByCoefficientCalculationPart"
+           },
+           {
+            "mNumber": -1,
+            "__type": "NumberCalculationPart"
+           }
+          ],
+          "__type": "SumOfSubPartsCalculationPart"
+         },
+         "__type": "ProductOfSubPartsCalculationPart"
+        }
+       ],
+       "__type": "SumOfSubPartsCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "ADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "PreCritDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "ADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.6,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "CritScaling": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mStat": 8,
+        "mDataValue": "CritRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     10,
+     10,
+     9.5,
+     9,
+     8.5,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      10,
+      10,
+      9.5,
+      9,
+      8.5,
+      8,
+      8
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRangeDisplayOverride": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castRadius": [
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999
+    ],
+    "castConeDistance": 100,
+    "castFrame": 12,
+    "missileSpeed": 1350,
+    "mMissileEffectKey": "Sivir_Q_mis",
+    "mLineWidth": 90,
+    "bHaveHitBone": true,
+    "mHitBoneName": "spine",
+    "mana": [
+     55,
+     60,
+     65,
+     70,
+     75,
+     70
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SivirQAbility/SivirQMissile": {
+   "ObjectName": "SivirQMissile",
+   "objectPath": "Characters/Sivir/Spells/SivirQAbility/SivirQMissile",
+   "mScriptName": "SivirQMissile",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "SivirQ",
+    "mEffectAmount": [
+     {
+      "value": [
+       45,
+       100,
+       155,
+       210,
+       265,
+       320,
+       375
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       65,
+       80,
+       95,
+       110,
+       125,
+       140,
+       155
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.75,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     9,
+     9,
+     9,
+     9,
+     9,
+     9,
+     9
+    ],
+    "Cooldown": {
+     "values": [
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9
+     ],
+     "{0a3e0478}": 9,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1250,
+     1250,
+     1250,
+     1250,
+     1250,
+     1250,
+     1250
+    ],
+    "castRadius": [
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 50.1,
+    "mMissileSpec": {
+     "mMissileWidth": 90,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Buffbone_Glb_Channel_Loc",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1450,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.5,
+    "missileSpeed": 1450,
+    "mMissileEffectKey": "Sivir_Q_mis",
+    "mLineWidth": 90,
+    "bHaveHitBone": true,
+    "mHitBoneName": "spine",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/Spell_Shield": {
+   "ObjectName": "Spell_Shield",
+   "objectPath": "Characters/Sivir/Spells/Spell_Shield",
+   "mScriptName": "Spell_Shield",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Spell_Shield",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SivirRAbility/SivirR": {
+   "ObjectName": "SivirR",
+   "objectPath": "Characters/Sivir/Spells/SivirRAbility/SivirR",
+   "mScriptName": "SivirR",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "PositiveEffect_Boon",
+     "Trait_AttackBuff_Duration",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "HuntAttackSpeed",
+      "values": [
+       0.04,
+       0.05,
+       0.06,
+       0.07,
+       0.08,
+       0.09,
+       0.1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxMS",
+      "values": [
+       0.15,
+       0.2,
+       0.25,
+       0.3,
+       0.35,
+       0.4,
+       0.45
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinMS",
+      "values": [
+       0.25,
+       0.3,
+       0.35,
+       0.4,
+       0.45,
+       0.5,
+       0.55
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxMSDuration",
+      "values": [
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "UltDuration",
+      "values": [
+       6,
+       8,
+       10,
+       12,
+       14,
+       16,
+       18
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AuraRange",
+      "values": [
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BuffExtension",
+      "values": [
+       6,
+       8,
+       10,
+       12,
+       14,
+       16,
+       18
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DamagedMarkerDuration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AttackCooldownRefund",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mCoefficient": 1,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     10,
+     120,
+     100,
+     80,
+     90,
+     90,
+     10
+    ],
+    "Cooldown": {
+     "values": [
+      10,
+      120,
+      100,
+      80,
+      90,
+      90,
+      10
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castRadius": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 0,
+    "mana": [
+     100,
+     100,
+     100,
+     0,
+     0,
+     0
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "SelfAoe"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "{ec17e271}": [
+     {
+      "EffectTag": 2,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "MinMS",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "MinMS",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SivirRAbility/SivirRASBuff": {
+   "ObjectName": "SivirRASBuff",
+   "objectPath": "Characters/Sivir/Spells/SivirRAbility/SivirRASBuff",
+   "mScriptName": "SivirRASBuff",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SivirPizzaStacks": {
+   "ObjectName": "SivirPizzaStacks",
+   "objectPath": "Characters/Sivir/Spells/SivirPizzaStacks",
+   "mScriptName": "SivirPizzaStacks",
+   "__type": "SpellObject"
+  },
+  "Spells/SivirPassiveAbility/SivirPassive": {
+   "ObjectName": "SivirPassive",
+   "objectPath": "Characters/Sivir/Spells/SivirPassiveAbility/SivirPassive",
+   "mScriptName": "SivirPassive",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "HasteDuration",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "FlatMS": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 55,
+        "mBreakpoints": [
+         {
+          "mLevel": 6,
+          "mAdditionalBonusAtThisLevel": 5,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 11,
+          "mAdditionalBonusAtThisLevel": 5,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 16,
+          "mAdditionalBonusAtThisLevel": 5,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 18,
+          "mAdditionalBonusAtThisLevel": 5,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 24,
+          "mAdditionalBonusAtThisLevel": 5,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 30,
+          "mAdditionalBonusAtThisLevel": 5,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SivirBasicAttack": {
+   "ObjectName": "SivirBasicAttack",
+   "objectPath": "Characters/Sivir/Spells/SivirBasicAttack",
+   "mScriptName": "SivirBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 24527,
+    "mAlternateName": "SivirBasicAttack",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     387.5,
+     387.5,
+     387.5,
+     387.5,
+     387.5,
+     387.5,
+     387.5
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_hand",
+      "mSpeed": 1750,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 15,
+    "missileSpeed": 1750,
+    "mMissileEffectKey": "Sivir_BasicAttack_mis",
+    "mHitEffectKey": "Sivir_BA_tar_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SivirWAttackBounce": {
+   "ObjectName": "SivirWAttackBounce",
+   "objectPath": "Characters/Sivir/Spells/SivirWAttackBounce",
+   "mScriptName": "SivirWAttackBounce",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6794,
+    "mAlternateName": "SivirW",
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mIsDisabledWhileDead": false,
+    "bHaveHitEffect": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mSpeed": 1000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.5,
+    "missileSpeed": 1000,
+    "mMissileEffectKey": "Sivir_W_mis",
+    "mHitEffectKey": "Sivir_W_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SivirWAbility/SivirW": {
+   "ObjectName": "SivirW",
+   "objectPath": "Characters/Sivir/Spells/SivirWAbility/SivirW",
+   "mScriptName": "SivirW",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_AttackReset",
+     "Trait_DamageAbility",
+     "Trait_AttackBuff_Duration",
+     "Trait_Strike",
+     "Trait_SignatureSpell",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BounceADRatio",
+      "values": [
+       0.375,
+       0.4,
+       0.425,
+       0.45,
+       0.475,
+       0.5,
+       0.525
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BounceAttacks",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BuffDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxBounces",
+      "values": [
+       8,
+       8,
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RicochetAttackSpeed",
+      "values": [
+       0.15,
+       0.2,
+       0.25,
+       0.3,
+       0.35,
+       0.4,
+       0.45
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinionDamageMod",
+      "values": [
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "BounceDamage": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mDataValue": "BounceADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "FirstTargetDamage": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalMaxDamage": {
+      "mFormulaParts": [
+       {
+        "mSubparts": [
+         {
+          "mStat": 2,
+          "mCoefficient": 1,
+          "__type": "StatByCoefficientCalculationPart"
+         },
+         {
+          "mPart1": {
+           "mDataValue": "MaxBounces",
+           "__type": "NamedDataValueCalculationPart"
+          },
+          "mPart2": {
+           "mStat": 2,
+           "mDataValue": "BounceADRatio",
+           "__type": "StatByNamedDataValueCalculationPart"
+          },
+          "__type": "ProductOfSubPartsCalculationPart"
+         }
+        ],
+        "__type": "SumOfSubPartsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 1,
+    "cooldownTime": [
+     12,
+     12,
+     12,
+     12,
+     12,
+     12,
+     12
+    ],
+    "Cooldown": {
+     "values": [
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12
+     ],
+     "{0a3e0478}": 12,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castRadius": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castConeDistance": 100,
+    "castFrame": 15,
+    "missileSpeed": 1400,
+    "mana": [
+     60,
+     60,
+     60,
+     60,
+     60,
+     60
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_SivirW",
+    "mBuffAttributeFlag": 32,
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SivirQMissileReturnDead": {
+   "ObjectName": "SivirQMissileReturnDead",
+   "objectPath": "Characters/Sivir/Spells/SivirQMissileReturnDead",
+   "mScriptName": "SivirQMissileReturnDead",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "SivirQ",
+    "mEffectAmount": [
+     {
+      "value": [
+       35,
+       55,
+       75,
+       95,
+       115,
+       135,
+       155
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.6,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     11,
+     11,
+     11,
+     11,
+     11,
+     11,
+     11
+    ],
+    "Cooldown": {
+     "values": [
+      11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11
+     ],
+     "{0a3e0478}": 11,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "mProjectTargetToCastRange": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     275,
+     275,
+     275,
+     275,
+     275,
+     275,
+     275
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 50.1,
+    "mMissileSpec": {
+     "mMissileWidth": 100,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mStartBoneName": "Buffbone_Glb_Channel_Loc",
+      "mSpeed": 1200,
+      "__type": "FixedSpeedMovement"
+     },
+     "visibilityComponent": {
+      "__type": "EnterFOWVisibility"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.5,
+    "missileSpeed": 1350,
+    "mMissileEffectKey": "Sivir_Q_mis_return",
+    "mLineWidth": 100,
+    "mHitBoneName": "spine",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SivirWAttack": {
+   "ObjectName": "SivirWAttack",
+   "objectPath": "Characters/Sivir/Spells/SivirWAttack",
+   "mScriptName": "SivirWAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 6826,
+    "mAlternateName": "SivirW",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mSpeed": 1750,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 15,
+    "missileSpeed": 1750,
+    "mMissileEffectKey": "Sivir_W_mis",
+    "mHitEffectKey": "Sivir_W_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SivirRunCycleManager": {
+   "ObjectName": "SivirRunCycleManager",
+   "objectPath": "Characters/Sivir/Spells/SivirRunCycleManager",
+   "mScriptName": "SivirRunCycleManager",
+   "__type": "SpellObject"
+  },
+  "Spells/SivirEAbility/SpellShieldSpellImmunity": {
+   "ObjectName": "SpellShieldSpellImmunity",
+   "objectPath": "Characters/Sivir/Spells/SivirEAbility/SpellShieldSpellImmunity",
+   "mScriptName": "SpellShieldSpellImmunity",
+   "__type": "SpellObject"
+  },
+  "Spells/SivirEAbility/SivirE": {
+   "ObjectName": "SivirE",
+   "objectPath": "Characters/Sivir/Spells/SivirEAbility/SivirE",
+   "mScriptName": "SivirE",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_CCImmune"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       55,
+       55,
+       55,
+       55,
+       55,
+       55,
+       55
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       60,
+       60,
+       60,
+       60,
+       60,
+       60,
+       60
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "HealRatio",
+      "values": [
+       0.55,
+       0.6,
+       0.65,
+       0.7,
+       0.75,
+       0.8,
+       0.85
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SpellShieldDuration",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealAPRatio",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "HealAPRatio",
+        "values": [
+         1.2,
+         1.2,
+         1.2,
+         1.2,
+         1.2,
+         1.2,
+         1.2
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalHeal": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mDataValue": "HealRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "HealAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 1,
+    "spellTotalTime": 1.36,
+    "cooldownTime": [
+     25,
+     24,
+     22.5,
+     21,
+     19.5,
+     18,
+     10
+    ],
+    "Cooldown": {
+     "values": [
+      25,
+      24,
+      22.5,
+      21,
+      19.5,
+      18,
+      10
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 0,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{ec17e271}": [
+     {
+      "EffectTag": 8,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSpellCalculationKey": "TotalHeal",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SivirBasicAttack2": {
+   "ObjectName": "SivirBasicAttack2",
+   "objectPath": "Characters/Sivir/Spells/SivirBasicAttack2",
+   "mScriptName": "SivirBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 24527,
+    "mAlternateName": "SivirBasicAttack2",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     387.5,
+     387.5,
+     387.5,
+     387.5,
+     387.5,
+     387.5,
+     387.5
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_hand",
+      "mSpeed": 1750,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 15,
+    "missileSpeed": 1750,
+    "mMissileEffectKey": "Sivir_BasicAttack_mis",
+    "mHitEffectKey": "Sivir_BA_tar_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SivirWMarker": {
+   "ObjectName": "SivirWMarker",
+   "objectPath": "Characters/Sivir/Spells/SivirWMarker",
+   "mScriptName": "SivirWMarker",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mEffectAmount": [
+     {
+      "value": [
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       5,
+       20,
+       35,
+       50,
+       65,
+       80,
+       95
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       60,
+       60,
+       60,
+       60,
+       60,
+       60,
+       60
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1,
+    "cooldownTime": [
+     8,
+     7,
+     6,
+     5,
+     4,
+     3,
+     3
+    ],
+    "Cooldown": {
+     "values": [
+      8,
+      7,
+      6,
+      5,
+      4,
+      3,
+      3
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castRadius": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castConeDistance": 100,
+    "castFrame": 5.365,
+    "missileSpeed": 1400,
+    "mana": [
+     40,
+     40,
+     40,
+     40,
+     40,
+     40
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_SivirW",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SivirRPassiveBuff": {
+   "ObjectName": "SivirRPassiveBuff",
+   "objectPath": "Characters/Sivir/Spells/SivirRPassiveBuff",
+   "mScriptName": "SivirRPassiveBuff",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_SivirRPassiveBuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SivirPassiveSpeed": {
+   "ObjectName": "SivirPassiveSpeed",
+   "objectPath": "Characters/Sivir/Spells/SivirPassiveSpeed",
+   "mScriptName": "SivirPassiveSpeed",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_SivirPassiveSpeed",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SivirRMissile": {
+   "ObjectName": "SivirRMissile",
+   "objectPath": "Characters/Sivir/Spells/SivirRMissile",
+   "mScriptName": "SivirRMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mAlternateName": "SonaAriaofPerseveranceMissile",
+    "mEffectAmount": [
+     {
+      "value": [
+       35,
+       80,
+       125,
+       170,
+       215,
+       260,
+       305
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.6,
+    "spellCastTime": 0.425,
+    "spellTotalTime": 0.8,
+    "cooldownTime": [
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4
+    ],
+    "Cooldown": {
+     "values": [
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+     ],
+     "{0a3e0478}": 4,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "root",
+      "mSpeed": 3000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "missileSpeed": 3000,
+    "mMissileEffectKey": "Sivir_R_mis",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/SivirQAbility/SivirQ",
+  "Spells/SivirWAbility/SivirW",
+  "Spells/SivirEAbility/SivirE",
+  "Spells/SivirRAbility/SivirR"
+ ],
+ "passiva_ref": "Characters/Sivir/Spells/SivirPassiveAbility",
+ "passiva_chaves": [
+  "Spells/SivirPassiveAbility/SivirPassive"
+ ]
+}

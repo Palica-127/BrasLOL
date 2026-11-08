@@ -1,0 +1,2287 @@
+{
+ "id": "Olaf",
+ "key": 2,
+ "nome": "Olaf",
+ "titulo": "o Berserker",
+ "funcoes": [
+  "Fighter",
+  "Tank"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 9,
+  "defense": 5,
+  "magic": 3,
+  "difficulty": 3
+ },
+ "stats_ddragon": {
+  "hp": 645,
+  "hpperlevel": 119,
+  "mp": 316,
+  "mpperlevel": 50,
+  "movespeed": 350,
+  "armor": 35,
+  "armorperlevel": 4.2,
+  "spellblock": 32,
+  "spellblockperlevel": 2.05,
+  "attackrange": 125,
+  "hpregen": 6.5,
+  "hpregenperlevel": 0.6,
+  "mpregen": 7.5,
+  "mpregenperlevel": 0.6,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 68,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2.7,
+  "attackspeed": 0.72
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Fúria Berserker",
+  "descricao": "Olaf recebe Velocidade de Ataque e Roubo de Vida com base na sua Vida perdida."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "OlafAxeThrowCast",
+   "nome": "Ressaca",
+   "descricao": "Olaf arremessa um machado no local-alvo, causando dano e reduzindo a Armadura e a Velocidade de Movimento dos inimigos que atravessar. Se Olaf apanhar o machado, o Tempo de Recarga da habilidade é redefinido.",
+   "tooltip": "Olaf arremessa um machado, causando <physicalDamage>{{ totaldamage }} de Dano Físico</physicalDamage> e aplicando {{ slowamount*100 }}% de <status>Lentidão</status> por até {{ maxslowduration }}s (com base na distância percorrida). Campeões atingidos perdem <scaleArmor>{{ shredamount*100 }}% de Armadura</scaleArmor> por {{ debuffduration }}s.<br /><br />Se Olaf apanhar o machado, o Tempo de Recarga desta habilidade é reduzido para {{ tooltipcdrefund }}s, ou completamente restituído se {{ tooltipcdrefund }}s tiverem decorrido.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    9,
+    9,
+    9,
+    9,
+    9
+   ],
+   "custo": [
+    50,
+    55,
+    60,
+    65,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1000,
+    1000,
+    1000,
+    1000,
+    1000
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "OlafFrenziedStrikes",
+   "nome": "Duro na Queda",
+   "descricao": "Olaf recebe aumento de Velocidade de Ataque e um Escudo.",
+   "tooltip": "Olaf recebe <attackSpeed>{{ attackspeed*100 }}% de Velocidade de Ataque</attackSpeed> por {{ duration }}s, e <shield>{{ baseshield }} mais {{ shieldpercmissinghp*100 }}% de Escudo com base na Vida perdida (até um máximo de {{ maxshieldcalc }} de Escudo com menos de {{ thresholdformax*100 }}% de Vida)</shield> por {{ shieldduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    16,
+    15,
+    14,
+    13,
+    12
+   ],
+   "custo": [
+    50,
+    50,
+    50,
+    50,
+    50
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    700,
+    700,
+    700,
+    700,
+    700
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "OlafRecklessStrike",
+   "nome": "Balanço Temerário",
+   "descricao": "Olaf ataca com tal força que causa Dano Verdadeiro a seu alvo e a si mesmo, recuperando o custo de Vida caso destrua o alvo.",
+   "tooltip": "Olaf brande ferozmente seus machados, causando <trueDamage>{{ totaldamage }} de Dano Verdadeiro</trueDamage>. Se o inimigo morrer, o custo será restituído.<br /><br />Ataques reduzem o Tempo de Recarga em 1s, aumentado para 2s ao atacar monstros.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    11,
+    10,
+    9,
+    8,
+    7
+   ],
+   "custo": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "tipo_custo": " de Vida",
+   "alcance": [
+    325,
+    325,
+    325,
+    325,
+    325
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "70/115/160/205/250",
+    "40",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "OlafRagnarok",
+   "nome": "Ragnarok",
+   "descricao": "Olaf recebe Armadura e Resistência Mágica adicionais passivamente. Ele pode ativar essa habilidade para se tornar imune a desarmes enquanto continuar atacando.",
+   "tooltip": "<spellPassive>Passivo: </spellPassive>Olaf recebe <scaleArmor>{{ resists }} de Armadura</scaleArmor> e <scaleMR>{{ resists }} de Resistência Mágica</scaleMR>.<br /><br /><spellActive>Ativo: </spellActive>Olaf purifica todos os efeitos <status>Imobilizadores</status> e <status>Debilitantes</status> que o estiverem afetando, tornando-se imune a eles durante {{ duration }}s. Enquanto a habilidade estiver ativa, Olaf recebe <scaleAD>{{ ad }} de Dano de Ataque</scaleAD>. Atingir um Campeão com um Ataque ou <spellName>Balanço Temerário</spellName> aumenta a duração em {{ durationextension }}s.<br /><br />Além disso, Olaf recebe <speed>{{ haste*100 }}% de Velocidade de Movimento</speed> ao mover-se em direção a Campeões inimigos por {{ hasteduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    100,
+    90,
+    80
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    400,
+    400,
+    400
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 645,
+  "vida_nivel": 119,
+  "regen_vida": 1.3,
+  "regen_vida_nivel": 0.12,
+  "dano": 68,
+  "dano_nivel": 4.7,
+  "armadura": 35,
+  "armadura_nivel": 4.2,
+  "rm": 32,
+  "rm_nivel": 2.05,
+  "velocidade_mov": 350,
+  "alcance_ataque": 125,
+  "vel_ataque_base": 0.72,
+  "vel_ataque_razao": 0.694,
+  "vel_ataque_nivel": 2.7,
+  "dano_critico": 2,
+  "alcance_aquisicao": 400,
+  "raio_selecao": 111.11109924316406,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.06562499701976776,
+   "mAttackProbability": 0.5,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.5,
+    "mAttackName": "OlafBasicAttack2",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "OlafBasicAttack3",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.06562499701976776,
+    "mAttackName": "OlafCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Olaf/Spells/OlafAxeThrowCastAbility/OlafAxeThrowCast",
+  "Characters/Olaf/Spells/OlafFrenziedStrikesAbility/OlafFrenziedStrikes",
+  "Characters/Olaf/Spells/OlafRecklessStrikeAbility/OlafRecklessStrike",
+  "Characters/Olaf/Spells/OlafRagnarokAbility/OlafRagnarok"
+ ],
+ "abilities_ref": [
+  "Characters/Olaf/Spells/OlafAxeThrowCastAbility",
+  "Characters/Olaf/Spells/OlafFrenziedStrikesAbility",
+  "Characters/Olaf/Spells/OlafRecklessStrikeAbility",
+  "Characters/Olaf/Spells/OlafRagnarokAbility",
+  "Characters/Olaf/Spells/OlafBerzerkerRageAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/OlafRagnarokAbility/OlafRagnarokPassiveBuff": {
+   "ObjectName": "OlafRagnarokPassiveBuff",
+   "objectPath": "Characters/Olaf/Spells/OlafRagnarokAbility/OlafRagnarokPassiveBuff",
+   "mScriptName": "OlafRagnarokPassiveBuff",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "OlafAxeThrow",
+    "mEffectAmount": [
+     {
+      "value": [
+       30,
+       80,
+       125,
+       170,
+       215,
+       260,
+       305
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       25,
+       29,
+       33,
+       37,
+       41,
+       45,
+       49
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1,
+    "mCoefficient2": 0.5,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "castRange": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castRadius": [
+     220,
+     220,
+     220,
+     220,
+     220,
+     220,
+     220
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 90,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Root",
+      "mSpeed": 1600,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7,
+    "missileSpeed": 1600,
+    "mMissileEffectKey": "Olaf_Q_mis",
+    "mLineWidth": 90,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "mParticleStartOffset": [
+     -40,
+     0,
+     0
+    ],
+    "mana": [
+     60,
+     60,
+     60,
+     60,
+     60,
+     60
+    ],
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/OlafRagnarokAbility/OlafRagnarok": {
+   "ObjectName": "OlafRagnarok",
+   "objectPath": "Characters/Olaf/Spells/OlafRagnarokAbility/OlafRagnarok",
+   "mScriptName": "OlafRagnarok",
+   "mSpell": {
+    "flags": 20,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "SpecialCase_StasisLocked",
+     "Trait_AttackBuff_Duration",
+     "Trait_CCImmune"
+    ],
+    "DataValues": [
+     {
+      "name": "Resists",
+      "values": [
+       5,
+       10,
+       15,
+       20,
+       25,
+       30,
+       35
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Duration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FlatAD",
+      "values": [
+       0,
+       10,
+       20,
+       30,
+       40,
+       50,
+       60
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PercentTotalADAmp",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HasteDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Haste",
+      "values": [
+       -0.05,
+       0.2,
+       0.45,
+       0.7,
+       0.95,
+       1.2,
+       1.45
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DurationExtension",
+      "values": [
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "AD": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "FlatAD",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mDataValue": "PercentTotalADAmp",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     100,
+     100,
+     90,
+     80,
+     160,
+     160,
+     100
+    ],
+    "Cooldown": {
+     "values": [
+      100,
+      100,
+      90,
+      80,
+      160,
+      160,
+      100
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Olaf/Spells/OlafRagnarokAbility/OlafRagnarokPassiveBuff",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "castRadius": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castConeDistance": 100,
+    "castFrame": 13,
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Olaf_OlafR_OnCast",
+     "18": "Play_sfx_Olaf_OlafR_OnBuffActivate"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_OlafRagnarok",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "AD",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 2,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "HasteDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 2097152,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "Duration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/OlafRecklessStrikeAbility/OlafEPassive": {
+   "ObjectName": "OlafEPassive",
+   "objectPath": "Characters/Olaf/Spells/OlafRecklessStrikeAbility/OlafEPassive",
+   "mScriptName": "OlafEPassive",
+   "__type": "SpellObject"
+  },
+  "Spells/OlafRecklessStrikeAbility/OlafRecklessStrike": {
+   "ObjectName": "OlafRecklessStrike",
+   "objectPath": "Characters/Olaf/Spells/OlafRecklessStrikeAbility/OlafRecklessStrike",
+   "mScriptName": "OlafRecklessStrike",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "OlafRecklessStrike",
+    "mSpellTags": [
+     "Trait_DamageAbility"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       25,
+       70,
+       115,
+       160,
+       205,
+       250,
+       250
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       40,
+       40,
+       40,
+       40,
+       40,
+       40,
+       40
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "Cast_Time_Base",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Cast_Time_Min",
+      "values": [
+       0.175,
+       0.175,
+       0.175,
+       0.175,
+       0.175,
+       0.175,
+       0.175
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Cast_Time_Attack_Speed_Cap",
+      "values": [
+       125,
+       125,
+       125,
+       125,
+       125,
+       125,
+       125
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ADRatio",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseHealthCost",
+      "values": [
+       10,
+       28,
+       46,
+       64,
+       82,
+       100,
+       118
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealthCostADRatio",
+      "values": [
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       25,
+       70,
+       115,
+       160,
+       205,
+       250,
+       295
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealthCostPercent",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MonsterRefresh",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ChampionRefresh",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mCoefficient": 0.5,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{fcf1daee}": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseHealthCost",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mDataValue": "HealthCostADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "HealthCostCalc": {
+      "mMultiplier": {
+       "mDataValue": "HealthCostPercent",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mModifiedGameCalculation": "TotalDamage",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "mCoefficient": 0.5,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     12,
+     11,
+     10,
+     9,
+     8,
+     7,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      12,
+      11,
+      10,
+      9,
+      8,
+      7,
+      6
+     ],
+     "{0a3e0478}": 12,
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Olaf/Spells/OlafRecklessStrikeAbility/OlafEPassive",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     325,
+     325,
+     325,
+     325,
+     325,
+     325,
+     325
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 13.825,
+    "missileSpeed": 20,
+    "selectionPriority": 1,
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Olaf_OlafE_OnCast",
+     "13": "Play_sfx_Olaf_OlafE_OnHit"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 2,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/OlafCritAttack": {
+   "ObjectName": "OlafCritAttack",
+   "objectPath": "Characters/Olaf/Spells/OlafCritAttack",
+   "mScriptName": "OlafCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "OlafCritAttack",
+    "spellCastTime": 0.3161,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "missileSpeed": 347.79999,
+    "mHitEffectKey": "Olaf_BA_tar_crit_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Olaf_OlafCritAttack_OnCast",
+     "13": "Play_sfx_Olaf_OlafCritAttack_OnHit"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/OlafAxeThrowCastAbility/OlafAxeThrowDamage": {
+   "ObjectName": "OlafAxeThrowDamage",
+   "objectPath": "Characters/Olaf/Spells/OlafAxeThrowCastAbility/OlafAxeThrowDamage",
+   "mScriptName": "OlafAxeThrowDamage",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "OlafAxeThrow",
+    "mEffectAmount": [
+     {
+      "value": [
+       30,
+       80,
+       125,
+       170,
+       215,
+       260,
+       305
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       25,
+       29,
+       33,
+       37,
+       41,
+       45,
+       49
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1,
+    "mCoefficient2": 0.5,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "castRange": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castRadius": [
+     220,
+     220,
+     220,
+     220,
+     220,
+     220,
+     220
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 90,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Root",
+      "mSpeed": 1600,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7,
+    "missileSpeed": 1600,
+    "mMissileEffectKey": "Olaf_Q_mis",
+    "mLineWidth": 90,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "mParticleStartOffset": [
+     -40,
+     0,
+     0
+    ],
+    "mana": [
+     60,
+     60,
+     60,
+     60,
+     60,
+     60
+    ],
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/OlafAxeThrowCastAbility/OlafQShred": {
+   "ObjectName": "OlafQShred",
+   "objectPath": "Characters/Olaf/Spells/OlafAxeThrowCastAbility/OlafQShred",
+   "mScriptName": "OlafQShred",
+   "mBuff": {
+    "mDescription": "Buff_OlafQShred_Tooltip",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/OlafAxeThrowCastAbility/OlafAxeThrow": {
+   "ObjectName": "OlafAxeThrow",
+   "objectPath": "Characters/Olaf/Spells/OlafAxeThrowCastAbility/OlafAxeThrow",
+   "mScriptName": "OlafAxeThrow",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "OlafAxeThrow",
+    "mCoefficient": 1,
+    "mCoefficient2": 0.5,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "castRange": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castRadius": [
+     220,
+     220,
+     220,
+     220,
+     220,
+     220,
+     220
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 90,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Root",
+      "mSpeed": 1600,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7,
+    "missileSpeed": 1600,
+    "mMissileEffectKey": "Olaf_Q_mis",
+    "mLineWidth": 90,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "SpellEventToAudioEventSuffix": {
+     "16": "Play_sfx_Olaf_OlafQ_OnMissileLaunch"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/OlafAxeThrowCastAbility/OlafAxeThrowCast": {
+   "ObjectName": "OlafAxeThrowCast",
+   "objectPath": "Characters/Olaf/Spells/OlafAxeThrowCastAbility/OlafAxeThrowCast",
+   "mScriptName": "OlafAxeThrowCast",
+   "mSpell": {
+    "mAffectsTypeFlags": 14346,
+    "mAlternateName": "OlafAxeThrow",
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_SignatureSpell",
+     "Trait_Target_Area",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "MinimumRange",
+      "values": [
+       425,
+       425,
+       425,
+       425,
+       425,
+       425,
+       425
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmount",
+      "values": [
+       0.25,
+       0.3,
+       0.35,
+       0.4,
+       0.45,
+       0.5,
+       0.55
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShredAmount",
+      "values": [
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DebuffDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinimumCooldown",
+      "values": [
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       20,
+       70,
+       120,
+       170,
+       220,
+       270,
+       320
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MonsterDamage",
+      "values": [
+       -5,
+       20,
+       45,
+       70,
+       95,
+       120,
+       145
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxSlowDuration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinSlowDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxSlowDistance",
+      "values": [
+       800,
+       800,
+       800,
+       800,
+       800,
+       800,
+       800
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinSlowDistance",
+      "values": [
+       400,
+       400,
+       400,
+       400,
+       400,
+       400,
+       400
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TooltipCDRefund": {
+      "mMultiplier": {
+       "__type": "CooldownMultiplierCalculationPart"
+      },
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mDataValue": "MinimumCooldown",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "mPrecision": 1,
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 1,
+    "mCoefficient2": 0.5,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     9,
+     9,
+     9,
+     9,
+     9,
+     9,
+     9
+    ],
+    "Cooldown": {
+     "values": [
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9
+     ],
+     "{0a3e0478}": 9,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "castRange": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castRadius": [
+     220,
+     220,
+     220,
+     220,
+     220,
+     220,
+     220
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7,
+    "missileSpeed": 1600,
+    "mLineWidth": 90,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "mParticleStartOffset": [
+     -40,
+     0,
+     0
+    ],
+    "mana": [
+     50,
+     55,
+     60,
+     65,
+     70,
+     70
+    ],
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Olaf_OlafQCast_OnCast"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "SlowAmount",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/OlafFrenziedStrikesAbility/OlafFrenziedStrikes": {
+   "ObjectName": "OlafFrenziedStrikes",
+   "objectPath": "Characters/Olaf/Spells/OlafFrenziedStrikesAbility/OlafFrenziedStrikes",
+   "mScriptName": "OlafFrenziedStrikes",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1029,
+    "mSpellTags": [
+     "PositiveEffect_EmpowerAttack",
+     "Trait_AttackReset",
+     "Trait_Shield",
+     "Trait_AttackBuff_Duration",
+     "Trait_Strike"
+    ],
+    "DataValues": [
+     {
+      "name": "Attackspeed",
+      "values": [
+       0.3,
+       0.4,
+       0.5,
+       0.6,
+       0.7,
+       0.8,
+       0.9
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Duration",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldPercMissingHP",
+      "values": [
+       0.175,
+       0.175,
+       0.175,
+       0.175,
+       0.175,
+       0.175,
+       0.175
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldDuration",
+      "values": [
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseShield",
+      "values": [
+       -20,
+       10,
+       40,
+       70,
+       100,
+       130,
+       160
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ThresholdForMax",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "ShieldCalc": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mExpandedTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseShield",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 16,
+        "mSubpart": {
+         "mStat": 12,
+         "mDataValue": "ShieldPercMissingHP",
+         "__type": "StatByNamedDataValueCalculationPart"
+        },
+        "__type": "StatBySubPartCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MaxShieldCalc": {
+      "mSimpleTooltipCalculationDisplay": 5,
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseShield",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 12,
+        "mSubpart": {
+         "mPart1": {
+          "mDataValue": "ShieldPercMissingHP",
+          "__type": "NamedDataValueCalculationPart"
+         },
+         "mPart2": {
+          "mSubparts": [
+           {
+            "mNumber": 1,
+            "__type": "NumberCalculationPart"
+           },
+           {
+            "mPart1": {
+             "mNumber": -1,
+             "__type": "NumberCalculationPart"
+            },
+            "mPart2": {
+             "mDataValue": "ThresholdForMax",
+             "__type": "NamedDataValueCalculationPart"
+            },
+            "__type": "ProductOfSubPartsCalculationPart"
+           }
+          ],
+          "__type": "SumOfSubPartsCalculationPart"
+         },
+         "__type": "ProductOfSubPartsCalculationPart"
+        },
+        "__type": "StatBySubPartCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 1,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     16,
+     16,
+     15,
+     14,
+     13,
+     12,
+     11
+    ],
+    "Cooldown": {
+     "values": [
+      16,
+      16,
+      15,
+      14,
+      13,
+      12,
+      11
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     700,
+     700,
+     700,
+     700,
+     700,
+     700,
+     700
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 13,
+    "missileSpeed": 0,
+    "bHaveHitBone": true,
+    "mHitBoneName": "R_hand",
+    "mana": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Olaf_OlafW_OnCast",
+     "18": "Play_sfx_Olaf_OlafW_OnBuffActivate"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_OlafFrenziedStrikes",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "{ec17e271}": [
+     {
+      "EffectTag": 524288,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSubparts": [
+          {
+           "mDataValue": "BaseShield",
+           "__type": "NamedDataValueCalculationPart"
+          },
+          {
+           "mPart1": {
+            "mStat": 16,
+            "mDataValue": "ShieldPercMissingHP",
+            "__type": "StatByNamedDataValueCalculationPart"
+           },
+           "mPart2": {
+            "mNumber": 100,
+            "__type": "NumberCalculationPart"
+           },
+           "__type": "ProductOfSubPartsCalculationPart"
+          }
+         ],
+         "__type": "SumOfSubPartsCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/OlafFrenziedStrikesAbility/OlafWShield": {
+   "ObjectName": "OlafWShield",
+   "objectPath": "Characters/Olaf/Spells/OlafFrenziedStrikesAbility/OlafWShield",
+   "mScriptName": "OlafWShield",
+   "mSpell": {
+    "ImgIconPath": "assets/characters/olaf/hud/icons2d/olafwbuff.dds",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Buff_OlafWShield_Tooltip",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/OlafBerzerkerRageAbility/OlafBerzerkerRage": {
+   "ObjectName": "OlafBerzerkerRage",
+   "objectPath": "Characters/Olaf/Spells/OlafBerzerkerRageAbility/OlafBerzerkerRage",
+   "mScriptName": "OlafBerzerkerRage",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "AttackSpeedPerMissingHPPerc",
+      "values": [
+       0.009,
+       0.009,
+       0.009,
+       0.009,
+       0.009,
+       0.009,
+       0.009
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxStatsThreshold",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "MaxAttackSpeed": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 0.5,
+        "mEndValue": 1,
+        "mScaleByStatProgressionMultiplier": true,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "MaxLifeSteal": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 0.08,
+        "mEndValue": 0.25,
+        "mScaleByStatProgressionMultiplier": true,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     }
+    },
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mMaxAmmo": [
+     75,
+     75,
+     75,
+     75,
+     75,
+     75,
+     75
+    ],
+    "mAmmoUsed": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "mAmmoNotAffectedByCDR": true,
+    "mAmmoCountHiddenInUI": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_OlafBerzerkerRage",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/OlafCritAttack2": {
+   "ObjectName": "OlafCritAttack2",
+   "objectPath": "Characters/Olaf/Spells/OlafCritAttack2",
+   "mScriptName": "OlafCritAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "OlafCritAttack",
+    "spellCastTime": 0.3161,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "missileSpeed": 347.79999,
+    "mHitEffectKey": "Olaf_BA_tar_crit_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Olaf_OlafCritAttack2_OnCast",
+     "13": "Play_sfx_Olaf_OlafCritAttack2_OnHit"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/OlafBasicAttack": {
+   "ObjectName": "OlafBasicAttack",
+   "objectPath": "Characters/Olaf/Spells/OlafBasicAttack",
+   "mScriptName": "OlafBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "OlafBasicAttack",
+    "spellCastTime": 0.3161,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "missileSpeed": 347.79999,
+    "mHitEffectKey": "Olaf_BA_tar_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Olaf_OlafBasicAttack_OnCast",
+     "13": "Play_sfx_Olaf_OlafBasicAttack_OnHit"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/OlafBasicAttack3": {
+   "ObjectName": "OlafBasicAttack3",
+   "objectPath": "Characters/Olaf/Spells/OlafBasicAttack3",
+   "mScriptName": "OlafBasicAttack3",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "OlafBasicAttack",
+    "spellCastTime": 0.3161,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "missileSpeed": 347.79999,
+    "mHitEffectKey": "Olaf_BA_tar_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Olaf_OlafBasicAttack3_OnCast",
+     "13": "Play_sfx_Olaf_OlafBasicAttack3_OnHit"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/OlafBasicAttack2": {
+   "ObjectName": "OlafBasicAttack2",
+   "objectPath": "Characters/Olaf/Spells/OlafBasicAttack2",
+   "mScriptName": "OlafBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "OlafBasicAttack2",
+    "spellCastTime": 0.3161,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "missileSpeed": 347.79999,
+    "mHitEffectKey": "Olaf_BA_tar_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Olaf_OlafBasicAttack2_OnCast",
+     "13": "Play_sfx_Olaf_OlafBasicAttack2_OnHit"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/OlafAxeThrowCastAbility/OlafAxeThrowCast",
+  "Spells/OlafFrenziedStrikesAbility/OlafFrenziedStrikes",
+  "Spells/OlafRecklessStrikeAbility/OlafRecklessStrike",
+  "Spells/OlafRagnarokAbility/OlafRagnarok"
+ ],
+ "passiva_ref": "Characters/Olaf/Spells/OlafBerzerkerRageAbility",
+ "passiva_chaves": [
+  "Spells/OlafBerzerkerRageAbility/OlafBerzerkerRage"
+ ]
+}

@@ -1,0 +1,2068 @@
+{
+ "id": "Trundle",
+ "key": 48,
+ "nome": "Trundle",
+ "titulo": "o Rei dos Trolls",
+ "funcoes": [
+  "Fighter",
+  "Tank"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 7,
+  "defense": 6,
+  "magic": 2,
+  "difficulty": 5
+ },
+ "stats_ddragon": {
+  "hp": 650,
+  "hpperlevel": 110,
+  "mp": 340,
+  "mpperlevel": 45,
+  "movespeed": 350,
+  "armor": 37,
+  "armorperlevel": 4.5,
+  "spellblock": 32,
+  "spellblockperlevel": 2.05,
+  "attackrange": 175,
+  "hpregen": 6,
+  "hpregenperlevel": 0.75,
+  "mpregen": 7.5,
+  "mpregenperlevel": 0.6,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 68,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2.9,
+  "attackspeed": 0.67
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Tributo do Rei",
+  "descricao": "Quando uma unidade inimiga morre perto de Trundle, ele é curado em um percentual da Vida máxima desta unidade."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "TrundleTrollSmash",
+   "nome": "Mordida",
+   "descricao": "Trundle morde seu oponente, causando dano, brevemente reduzindo sua Velocidade de Movimento e drenando parte de seu Dano de Ataque.",
+   "tooltip": "O próximo Ataque de Trundle causa <physicalDamage>{{ totaldamage }} de Dano Físico</physicalDamage> e {{ slowamount*100 }}% de <status>Lentidão</status>. Depois, Trundle recebe <physicalDamage>{{ bonusad }} de Dano de Ataque</physicalDamage> por {{ sapdebuffduration }}s e o inimigo perde <physicalDamage>{{ sappedad*-1 }} de Dano de Ataque</physicalDamage> pela mesma duração.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    3.5,
+    3.5,
+    3.5,
+    3.5,
+    3.5
+   ],
+   "custo": [
+    20,
+    20,
+    20,
+    20,
+    20
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    300,
+    300,
+    300,
+    300,
+    300
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "trundledesecrate",
+   "nome": "Domínio Congelado",
+   "descricao": "Trundle transforma o local-alvo em seu domínio, recebendo Velocidade de Ataque, Velocidade de Movimento e cura aprimorada de todas as fontes enquanto estiver sobre a região.",
+   "tooltip": "Trundle congela uma área por {{ duration }}s. Enquanto está dentro dela, ele recebe <speed>{{ msbonus*100 }}% de Velocidade de Movimento</speed>, <attackSpeed>{{ asbonus*100 }}% de Velocidade de Ataque</attackSpeed> e {{ healingbonus*100 }}% a mais de cura.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    18,
+    17,
+    16,
+    15,
+    14
+   ],
+   "custo": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    750,
+    750,
+    750,
+    750,
+    750
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "TrundleCircle",
+   "nome": "Pilar de Gelo",
+   "descricao": "Trundle cria um pilar de gelo no local-alvo, tornando-o um terreno intransponível e causando Lentidão a todas as unidades inimigas próximas.",
+   "tooltip": "Trundle cria um pilar de gelo por {{ pillarduration }}s, <status>Empurrando</status> os inimigos brevemente por cima dele e causando {{ slowamount }}% de <status>Lentidão</status> aos inimigos próximos.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    21,
+    19.5,
+    18,
+    16.5,
+    15
+   ],
+   "custo": [
+    75,
+    75,
+    75,
+    75,
+    75
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1000,
+    1000,
+    1000,
+    1000,
+    1000
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "6",
+    "34/38/42/46/50",
+    "360",
+    "225",
+    "150",
+    "225",
+    "400",
+    "60",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "TrundlePain",
+   "nome": "Subjugar",
+   "descricao": "Trundle imediatamente rouba um percentual da Vida, Armadura e Resistência Mágica de seu alvo. Ao longo dos próximos 4 segundos, a quantia de Vida, Armadura e Resistência Mágica roubada é dobrada.",
+   "tooltip": "Trundle drena a força vital de um Campeão inimigo, causando <magicDamage>{{ totalpercenthpdamage }} da Vida máxima como Dano Mágico</magicDamage> e roubando <scaleArmor>{{ armormrshred*100 }}% de Armadura</scaleArmor> e <scaleMR>Resistência Mágica</scaleMR> ao longo de {{ actualdurationofdrainbuff }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    120,
+    100,
+    80
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    650,
+    650,
+    650
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 650,
+  "vida_nivel": 110,
+  "regen_vida": 1.2,
+  "regen_vida_nivel": 0.15,
+  "dano": 68,
+  "dano_nivel": 4.5,
+  "armadura": 37,
+  "armadura_nivel": 4.5,
+  "rm": 32,
+  "rm_nivel": 2.05,
+  "velocidade_mov": 350,
+  "alcance_ataque": 175,
+  "vel_ataque_base": 0.67,
+  "vel_ataque_razao": 0.67,
+  "vel_ataque_nivel": 2.9,
+  "dano_critico": 2,
+  "alcance_aquisicao": 400,
+  "raio_selecao": 135,
+  "raio_colisao": 25.766599655151367,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.09166666865348816,
+   "mAttackProbability": 0.5,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.5,
+    "mAttackName": "TrundleBasicAttack2",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "TrundleBasicAttack3",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.09166666865348816,
+    "mAttackName": "TrundleCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Trundle/Spells/TrundleTrollSmashAbility/TrundleTrollSmash",
+  "Characters/Trundle/Spells/trundledesecrateAbility/trundledesecrate",
+  "Characters/Trundle/Spells/TrundleCircleAbility/TrundleCircle",
+  "Characters/Trundle/Spells/TrundlePainAbility/TrundlePain"
+ ],
+ "abilities_ref": [
+  "Characters/Trundle/Spells/TrundleTrollSmashAbility",
+  "Characters/Trundle/Spells/trundledesecrateAbility",
+  "Characters/Trundle/Spells/TrundleCircleAbility",
+  "Characters/Trundle/Spells/TrundlePainAbility",
+  "Characters/Trundle/Spells/TrundleDiseaseOverseerAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/TrundlePainAbility/TrundlePainHeal": {
+   "ObjectName": "TrundlePainHeal",
+   "objectPath": "Characters/Trundle/Spells/TrundlePainAbility/TrundlePainHeal",
+   "mScriptName": "TrundlePainHeal",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 7375,
+    "mAlternateName": "VladimirTransfusionHeal",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "spine",
+      "mSpeed": 1000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 1,
+    "missileSpeed": 1000,
+    "mMissileEffectKey": "Trundle_R_Heal_mis",
+    "SpellEventToAudioEventSuffix": {
+     "16": "Play_sfx_Trundle_TrundlePainHeal_OnMissileLaunch"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TrundlePainAbility/TrundlePainHealBig": {
+   "ObjectName": "TrundlePainHealBig",
+   "objectPath": "Characters/Trundle/Spells/TrundlePainAbility/TrundlePainHealBig",
+   "mScriptName": "TrundlePainHealBig",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 7375,
+    "mAlternateName": "VladimirTransfusionHeal",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "spine",
+      "mSpeed": 1000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 1,
+    "missileSpeed": 1000,
+    "mMissileEffectKey": "Trundle_R_Big_Heal_mis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TrundlePainAbility/TrundlePainShred": {
+   "ObjectName": "TrundlePainShred",
+   "objectPath": "Characters/Trundle/Spells/TrundlePainAbility/TrundlePainShred",
+   "mScriptName": "TrundlePainShred",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TrundlePainShred",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TrundlePainAbility/TrundlePain": {
+   "ObjectName": "TrundlePain",
+   "objectPath": "Characters/Trundle/Spells/TrundlePainAbility/TrundlePain",
+   "mScriptName": "TrundlePain",
+   "mSpell": {
+    "mAffectsTypeFlags": 4106,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "TrundlePain",
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_DamageAbility",
+     "Trait_ActiveHeal",
+     "Trait_DoT",
+     "Trait_AttackBuff_Duration"
+    ],
+    "DataValues": [
+     {
+      "name": "PercentHPDamage",
+      "values": [
+       0.15,
+       0.2,
+       0.25,
+       0.3,
+       0.35,
+       0.4,
+       0.45
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ArmorMRShred",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DurationOfDrainForTooltip",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "NumberOfTicks",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShredDuration",
+      "values": [
+       8,
+       8,
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PercentOfDamageAndShredUpfront",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ActualDurationOfDrainBuff",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ScaleModelAmount",
+      "values": [
+       0.02,
+       0.02,
+       0.02,
+       0.02,
+       0.02,
+       0.02,
+       0.02
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PercentHPDamageAPRatio",
+      "values": [
+       0.0002,
+       0.0002,
+       0.0002,
+       0.0002,
+       0.0002,
+       0.0002,
+       0.0002
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "PercentHPDamage",
+        "values": [
+         0.05,
+         0.1,
+         0.15,
+         0.2,
+         0.25,
+         0.3,
+         0.35
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalPercentHPDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "PercentHPDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "PercentHPDamageAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     120,
+     120,
+     100,
+     80,
+     80,
+     80,
+     80
+    ],
+    "Cooldown": {
+     "values": [
+      120,
+      120,
+      100,
+      80,
+      80,
+      80,
+      80
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRadius": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castConeDistance": 100,
+    "castFrame": 11,
+    "missileSpeed": 1400,
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "selectionPriority": 1,
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Trundle_TrundlePain_OnCast",
+     "18": "Play_sfx_Trundle_TrundlePain_OnBuffActivate"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TrundlePain",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalPercentHPDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8192,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TrundlePainAbility/TrundlePainBuff": {
+   "ObjectName": "TrundlePainBuff",
+   "objectPath": "Characters/Trundle/Spells/TrundlePainAbility/TrundlePainBuff",
+   "mScriptName": "TrundlePainBuff",
+   "mSpell": {
+    "SpellEventToAudioEventSuffix": {
+     "18": "Play_sfx_Trundle_TrundlePainBuff_OnBuffActivate"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TrundlePainBuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TrundleBasicAttack": {
+   "ObjectName": "TrundleBasicAttack",
+   "objectPath": "Characters/Trundle/Spells/TrundleBasicAttack",
+   "mScriptName": "TrundleBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "TrundleBasicAttack",
+    "spellCastTime": 0.3161,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7,
+    "missileSpeed": 347.79999,
+    "mHitEffectKey": "Trundle_BA_tar_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Trundle_TrundleBasicAttack_OnCast",
+     "13": "Play_sfx_Trundle_TrundleBasicAttack_OnHit"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TrundleDiseaseOverseerAbility/TrundleDiseaseOverseer": {
+   "ObjectName": "TrundleDiseaseOverseer",
+   "objectPath": "Characters/Trundle/Spells/TrundleDiseaseOverseerAbility/TrundleDiseaseOverseer",
+   "mScriptName": "TrundleDiseaseOverseer",
+   "mSpell": {
+    "mSpellTags": [
+     "Trait_AttackBuff_Duration"
+    ],
+    "mSpellCalculations": {
+     "RegenPercent": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 0.018,
+        "mEndValue": 0.055,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": 1,
+      "__type": "GameCalculation"
+     }
+    },
+    "castRange": [
+     1400,
+     1400,
+     1400,
+     1400,
+     1400,
+     1400,
+     1400
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TrundleDiseaseOverseer",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/trundledesecrateAbility/TrundleDesecrateBuffs": {
+   "ObjectName": "TrundleDesecrateBuffs",
+   "objectPath": "Characters/Trundle/Spells/trundledesecrateAbility/TrundleDesecrateBuffs",
+   "mScriptName": "TrundleDesecrateBuffs",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TrundleDesecrateBuffs",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/trundledesecrateAbility/trundledesecrate": {
+   "ObjectName": "trundledesecrate",
+   "objectPath": "Characters/Trundle/Spells/trundledesecrateAbility/trundledesecrate",
+   "mScriptName": "trundledesecrate",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 15372,
+    "mAlternateName": "TrundleDesecrate",
+    "mSpellTags": [
+     "Trait_ActiveHeal",
+     "Trait_Target_Area"
+    ],
+    "DataValues": [
+     {
+      "name": "MSBonus",
+      "values": [
+       0.12,
+       0.2,
+       0.28,
+       0.36,
+       0.44,
+       0.52,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ASBonus",
+      "values": [
+       0.1,
+       0.3,
+       0.5,
+       0.7,
+       0.9,
+       1.1,
+       1.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealingBonus",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Duration",
+      "values": [
+       8,
+       8,
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DomainArea",
+      "values": [
+       775,
+       775,
+       775,
+       775,
+       775,
+       775,
+       775
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     18,
+     18,
+     17,
+     16,
+     15,
+     14,
+     13
+    ],
+    "Cooldown": {
+     "values": [
+      18,
+      18,
+      17,
+      16,
+      15,
+      14,
+      13
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     750,
+     750,
+     750,
+     750,
+     750,
+     750,
+     750
+    ],
+    "castRadius": [
+     750,
+     750,
+     750,
+     750,
+     750,
+     750,
+     750
+    ],
+    "castConeDistance": 100,
+    "castTargetAdditionalUnitsRadius": 650,
+    "castFrame": 8,
+    "mana": [
+     40,
+     40,
+     40,
+     40,
+     40,
+     40
+    ],
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Trundle_TrundleDesecrate_OnCast"
+    },
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "{ec17e271}": [
+     {
+      "EffectTag": 2,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "MSBonus",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TrundleCircleAbility/TrundleCircle": {
+   "ObjectName": "TrundleCircle",
+   "objectPath": "Characters/Trundle/Spells/TrundleCircleAbility/TrundleCircle",
+   "mScriptName": "TrundleCircle",
+   "mSpell": {
+    "mAffectsTypeFlags": 15567,
+    "mAlternateName": "TrundleCircle",
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "Trait_KnockBack",
+     "Trait_CreateTerrain",
+     "Trait_Ranged_Zone",
+     "Trait_AoE"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       30,
+       34,
+       38,
+       42,
+       46,
+       50,
+       54
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       360,
+       360,
+       360,
+       360,
+       360,
+       360,
+       360
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       225,
+       225,
+       225,
+       225,
+       225,
+       225,
+       225
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       150,
+       150,
+       150,
+       150,
+       150,
+       150,
+       150
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       225,
+       225,
+       225,
+       225,
+       225,
+       225,
+       225
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       400,
+       400,
+       400,
+       400,
+       400,
+       400,
+       400
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       60,
+       60,
+       60,
+       60,
+       60,
+       60,
+       60
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "PillarDuration",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmount",
+      "values": [
+       30,
+       34,
+       38,
+       42,
+       46,
+       50,
+       54
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowRadius",
+      "values": [
+       360,
+       360,
+       360,
+       360,
+       360,
+       360,
+       360
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockbackRadius",
+      "values": [
+       225,
+       225,
+       225,
+       225,
+       225,
+       225,
+       225
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AllyDisplacementRange",
+      "values": [
+       150,
+       150,
+       150,
+       150,
+       150,
+       150,
+       150
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EnemyDisplacementRange",
+      "values": [
+       225,
+       225,
+       225,
+       225,
+       225,
+       225,
+       225
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EnemyDisplacementSpeed",
+      "values": [
+       400,
+       400,
+       400,
+       400,
+       400,
+       400,
+       400
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EnemyDisplacementGravity",
+      "values": [
+       60,
+       60,
+       60,
+       60,
+       60,
+       60,
+       60
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     21,
+     21,
+     19.5,
+     18,
+     16.5,
+     15,
+     15
+    ],
+    "Cooldown": {
+     "values": [
+      21,
+      21,
+      19.5,
+      18,
+      16.5,
+      15,
+      15
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castRadius": [
+     125,
+     125,
+     125,
+     125,
+     125,
+     125,
+     125
+    ],
+    "castRadiusSecondary": [
+     340,
+     340,
+     340,
+     340,
+     340,
+     340,
+     340
+    ],
+    "castConeDistance": 100,
+    "castFrame": 8,
+    "missileSpeed": 1600,
+    "mana": [
+     75,
+     75,
+     75,
+     75,
+     75,
+     75
+    ],
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Trundle_TrundleCircle_OnCast"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TrundleCircle",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "{ec17e271}": [
+     {
+      "EffectTag": 16777216,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "EnemyDisplacementRange",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "SlowAmount",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 64,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 128,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TrundleCircleAbility/TrundleCircleSlow": {
+   "ObjectName": "TrundleCircleSlow",
+   "objectPath": "Characters/Trundle/Spells/TrundleCircleAbility/TrundleCircleSlow",
+   "mScriptName": "TrundleCircleSlow",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Slow",
+    "mShowDuration": false,
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TrundleTrollSmashAbility/TrundleTrollSmash": {
+   "ObjectName": "TrundleTrollSmash",
+   "objectPath": "Characters/Trundle/Spells/TrundleTrollSmashAbility/TrundleTrollSmash",
+   "mScriptName": "TrundleTrollSmash",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 14472,
+    "mAlternateName": "TrundleTrollSmash",
+    "mSpellTags": [
+     "PositiveEffect_EmpowerAttack",
+     "Trait_AttackReset",
+     "Trait_DamageAbility",
+     "Trait_Strike",
+     "Trait_SignatureSpell"
+    ],
+    "DataValues": [
+     {
+      "name": "TooltipQADRatio",
+      "values": [
+       0.05,
+       0.15,
+       0.25,
+       0.35,
+       0.45,
+       0.55,
+       0.65
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusRange",
+      "values": [
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ADScaling",
+      "values": [
+       1.05,
+       1.15,
+       1.25,
+       1.35,
+       1.45,
+       1.55,
+       1.65
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusDamage",
+      "values": [
+       -10,
+       10,
+       30,
+       50,
+       70,
+       90,
+       110
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusAD",
+      "values": [
+       15,
+       20,
+       25,
+       30,
+       35,
+       40,
+       45
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SappedAD",
+      "values": [
+       -7.5,
+       -10,
+       -12.5,
+       -15,
+       -17.5,
+       -20,
+       -22.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SapDebuffDuration",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmount",
+      "values": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PrepDuration",
+      "values": [
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BonusDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mDataValue": "ADScaling",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.52175,
+    "spellTotalTime": 1.5334,
+    "cooldownTime": [
+     3.5,
+     3.5,
+     3.5,
+     3.5,
+     3.5,
+     3.5,
+     3.5
+    ],
+    "Cooldown": {
+     "values": [
+      3.5,
+      3.5,
+      3.5,
+      3.5,
+      3.5,
+      3.5,
+      3.5
+     ],
+     "{0a3e0478}": 3.5,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "castRange": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 5.265,
+    "missileSpeed": 0,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "mana": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Trundle_TrundleTrollSmash_OnCast",
+     "18": "Play_sfx_Trundle_TrundleTrollSmash_OnBuffActivate"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TrundleTrollSmash",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "SlowAmount",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 512,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 32,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 512,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TrundleTrollSmashAbility/TrundleQ": {
+   "ObjectName": "TrundleQ",
+   "objectPath": "Characters/Trundle/Spells/TrundleTrollSmashAbility/TrundleQ",
+   "mScriptName": "TrundleQ",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6186,
+    "mAlternateName": "TrundleTrollSmash",
+    "mEffectAmount": [
+     {
+      "value": [
+       20,
+       20,
+       40,
+       60,
+       80,
+       100,
+       120
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1,
+       1,
+       1.05,
+       1.1,
+       1.15,
+       1.2,
+       1.25
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       20,
+       20,
+       25,
+       30,
+       35,
+       40,
+       45
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       -10,
+       -10,
+       -12.5,
+       -15,
+       -17.5,
+       -20,
+       -22.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       8,
+       8,
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "castRange": [
+     700,
+     700,
+     700,
+     700,
+     700,
+     700,
+     700
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 0,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Trundle_TrundleQ_OnCast",
+     "13": "Play_sfx_Trundle_TrundleQ_OnHit",
+     "18": "Play_sfx_Trundle_TrundleQ_OnBuffActivate"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TrundleQ",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TrundleTrollSmashAbility/TrundleQDebuff": {
+   "ObjectName": "TrundleQDebuff",
+   "objectPath": "Characters/Trundle/Spells/TrundleTrollSmashAbility/TrundleQDebuff",
+   "mScriptName": "TrundleQDebuff",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TrundleQDebuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TrundleCritAttack": {
+   "ObjectName": "TrundleCritAttack",
+   "objectPath": "Characters/Trundle/Spells/TrundleCritAttack",
+   "mScriptName": "TrundleCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "TrundleCritAttack",
+    "spellCastTime": 0.3161,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7,
+    "missileSpeed": 347.79999,
+    "mHitEffectKey": "Trundle_BA_tar_crit_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Trundle_TrundleCritAttack_OnCast",
+     "13": "Play_sfx_Trundle_TrundleCritAttack_OnHit"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TrundleBasicAttack3": {
+   "ObjectName": "TrundleBasicAttack3",
+   "objectPath": "Characters/Trundle/Spells/TrundleBasicAttack3",
+   "mScriptName": "TrundleBasicAttack3",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "TrundleBasicAttack3",
+    "spellCastTime": 0.3161,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7,
+    "missileSpeed": 347.79999,
+    "mHitEffectKey": "Trundle_BA_tar_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Trundle_TrundleBasicAttack3_OnCast",
+     "13": "Play_sfx_Trundle_TrundleBasicAttack3_OnHit"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TrundleBasicAttack2": {
+   "ObjectName": "TrundleBasicAttack2",
+   "objectPath": "Characters/Trundle/Spells/TrundleBasicAttack2",
+   "mScriptName": "TrundleBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "TrundleBasicAttack2",
+    "spellCastTime": 0.3161,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7,
+    "missileSpeed": 347.79999,
+    "mHitEffectKey": "Trundle_BA_tar_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Trundle_TrundleBasicAttack2_OnCast",
+     "13": "Play_sfx_Trundle_TrundleBasicAttack2_OnHit"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/TrundleTrollSmashAbility/TrundleTrollSmash",
+  "Spells/trundledesecrateAbility/trundledesecrate",
+  "Spells/TrundleCircleAbility/TrundleCircle",
+  "Spells/TrundlePainAbility/TrundlePain"
+ ],
+ "passiva_ref": "Characters/Trundle/Spells/TrundleDiseaseOverseerAbility",
+ "passiva_chaves": [
+  "Spells/TrundleDiseaseOverseerAbility/TrundleDiseaseOverseer"
+ ]
+}

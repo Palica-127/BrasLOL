@@ -1,0 +1,2351 @@
+{
+ "id": "Twitch",
+ "key": 29,
+ "nome": "Twitch",
+ "titulo": "o Semeador da Peste",
+ "funcoes": [
+  "Marksman",
+  "Assassin"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 9,
+  "defense": 2,
+  "magic": 3,
+  "difficulty": 6
+ },
+ "stats_ddragon": {
+  "hp": 630,
+  "hpperlevel": 98,
+  "mp": 300,
+  "mpperlevel": 40,
+  "movespeed": 330,
+  "armor": 27,
+  "armorperlevel": 4,
+  "spellblock": 33,
+  "spellblockperlevel": 1.1,
+  "attackrange": 550,
+  "hpregen": 3.75,
+  "hpregenperlevel": 0.6,
+  "mpregen": 7.25,
+  "mpregenperlevel": 0.7,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 59,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 3,
+  "attackspeed": 0.679
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Veneno Mortal",
+  "descricao": "Os ataques básicos de Twitch infectam o alvo %i:OnHit% <OnHit>ao contato</OnHit>, causando Dano Verdadeiro a cada segundo."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "TwitchHideInShadows",
+   "nome": "Emboscada",
+   "descricao": "Twitch fica Camuflado por um curto período e recebe Velocidade de Movimento. Ao sair da Camuflagem, Twitch recebe Velocidade de Ataque por um curto período.<br><br>Quando um Campeão inimigo com Veneno Mortal é abatido, o Tempo de Recarga de Emboscada é reiniciado.",
+   "tooltip": "Twitch entra em <keywordStealth>Camuflagem</keywordStealth> e recebe <speed>{{ movespeedmod }}% de Velocidade de Movimento</speed> por {{ stealthduration }}s. A Velocidade de Movimento aumenta para {{ hiddenspeed }}% quando está perto de Campeões inimigos que não podem vê-lo. Após sair da <keywordStealth>Camuflagem</keywordStealth>, Twitch recebe <attackSpeed>{{ attackspeedmod*100 }}% de Velocidade de Ataque</attackSpeed> por {{ attackspeedduration }}s.<br /><br />Quando um Campeão inimigo é abatido com <keywordMajor>Veneno</keywordMajor>, o Tempo de Recarga da Habilidade é redefinido.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    16,
+    16,
+    16,
+    16,
+    16
+   ],
+   "custo": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    20,
+    20,
+    20,
+    20,
+    20
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "3",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "TwitchVenomCask",
+   "nome": "Tonel de Veneno",
+   "descricao": "Twitch joga um tonel de veneno que explode em uma área, causando Lentidão e veneno mortal aos alvos.",
+   "tooltip": "Twitch arremessa um tonel que adiciona um acúmulo de <spellName>Veneno Mortal</spellName> a todos os inimigos atingidos, além de deixar uma nuvem tóxica que persiste por {{ duration }}s.<br /><br />Inimigos que permanecerem na nuvem sofrem {{ totalslowamount }}% de <status>Lentidão</status> e recebem um acúmulo adicional de <spellName>Veneno Mortal</spellName> a cada segundo.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    13,
+    12,
+    11,
+    10,
+    9
+   ],
+   "custo": [
+    70,
+    70,
+    70,
+    70,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    950,
+    950,
+    950,
+    950,
+    950
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "TwitchExpunge",
+   "nome": "Contaminar",
+   "descricao": "Twitch causa ainda mais destruição em inimigos envenenados com uma explosão de suas pestes.",
+   "tooltip": "Causa <physicalDamage>{{ basedamage }} de Dano Físico</physicalDamage> a todos os inimigos próximos afetados por <spellName>Veneno Mortal</spellName>, além de <physicalDamage>{{ physicaldamageperstack }} de Dano Físico</physicalDamage> e <magicDamage>{{ magicdamageperstack }} de Dano Mágico</magicDamage> adicionais por cada acúmulo de <spellName>Veneno Mortal</spellName>.<br /><br />Dano máximo: <physicalDamage>{{ maxphysicaldamage }} de Dano Físico</physicalDamage> e <magicDamage>{{ maxmagicdamage }} de Dano Mágico</magicDamage>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    12,
+    11,
+    10,
+    9,
+    8
+   ],
+   "custo": [
+    50,
+    60,
+    70,
+    80,
+    90
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1200,
+    1200,
+    1200,
+    1200,
+    1200
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "TwitchFullAutomatic",
+   "nome": "Passando Fogo",
+   "descricao": "Twitch desfere o poder total de sua besta, fazendo disparos de longuíssimo alcance que perfuram todos os inimigos pegos em seu trajeto.",
+   "tooltip": "Twitch liberta sua balestra, recebendo {{ bonusrange }} de Alcance de Ataque e <scaleAD>{{ bonusad }} de Dano de Ataque</scaleAD>, tornando seus Ataques perfurantes por {{ duration }}s. Os dardos disparados atingem todos os inimigos pelos quais passarem, mas causam {{ falloffdamage*100 }}% a menos de dano a alvos subsequentes, chegando a um mínimo de {{ minimumfalloffdamage*100 }}%.<br />{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    90,
+    90,
+    90
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1200,
+    1200,
+    1200
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 630,
+  "vida_nivel": 98,
+  "regen_vida": 0.75,
+  "regen_vida_nivel": 0.12,
+  "dano": 59,
+  "dano_nivel": 3,
+  "armadura": 27,
+  "armadura_nivel": 4,
+  "rm": 33,
+  "rm_nivel": 1.1,
+  "velocidade_mov": 330,
+  "alcance_ataque": 550,
+  "vel_ataque_base": 0.679,
+  "vel_ataque_razao": 0.679,
+  "vel_ataque_nivel": 3,
+  "dano_critico": 2,
+  "alcance_aquisicao": 575,
+  "raio_selecao": 135,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.09808401763439178,
+   "mAttackProbability": 1,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackName": "TwitchBasicAttack2",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "TwitchBasicAttack3",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackName": "TwitchCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Twitch/Spells/TwitchHideInShadowsAbility/TwitchHideInShadows",
+  "Characters/Twitch/Spells/TwitchVenomCaskAbility/TwitchVenomCask",
+  "Characters/Twitch/Spells/TwitchExpungeAbility/TwitchExpunge",
+  "Characters/Twitch/Spells/TwitchFullAutomaticAbility/TwitchFullAutomatic"
+ ],
+ "abilities_ref": [
+  "Characters/Twitch/Spells/TwitchHideInShadowsAbility",
+  "Characters/Twitch/Spells/TwitchVenomCaskAbility",
+  "Characters/Twitch/Spells/TwitchExpungeAbility",
+  "Characters/Twitch/Spells/TwitchFullAutomaticAbility",
+  "Characters/Twitch/Spells/TwitchDeadlyVenomMarkerAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/TwitchHideInShadowsAbility/TwitchHideInShadowsImproved": {
+   "ObjectName": "TwitchHideInShadowsImproved",
+   "objectPath": "Characters/Twitch/Spells/TwitchHideInShadowsAbility/TwitchHideInShadowsImproved",
+   "mScriptName": "TwitchHideInShadowsImproved",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mEffectAmount": [
+     {
+      "value": [
+       20,
+       30,
+       40,
+       50,
+       60,
+       70,
+       80
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       25,
+       30,
+       35,
+       40,
+       45,
+       50,
+       55
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       4.5,
+       4.5,
+       4.5,
+       4.5,
+       4.5,
+       4.5,
+       4.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "spellCastTime": 0.25,
+    "spellTotalTime": 2.3666,
+    "cooldownTime": [
+     16,
+     16,
+     16,
+     16,
+     16,
+     16,
+     16
+    ],
+    "Cooldown": {
+     "values": [
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16
+     ],
+     "{0a3e0478}": 16,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 0.145,
+    "missileSpeed": 0,
+    "mana": [
+     40,
+     40,
+     40,
+     40,
+     40,
+     40
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TwitchHideInShadowsImproved",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TwitchHideInShadowsAbility/TwitchHideInShadows": {
+   "ObjectName": "TwitchHideInShadows",
+   "objectPath": "Characters/Twitch/Spells/TwitchHideInShadowsAbility/TwitchHideInShadows",
+   "mScriptName": "TwitchHideInShadows",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_AttackBuff_Duration",
+     "Trait_Camouflage"
+    ],
+    "mEffectAmount": [
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "AttackSpeedMod",
+      "values": [
+       0.35,
+       0.4,
+       0.45,
+       0.5,
+       0.55,
+       0.6,
+       0.65
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AttackSpeedDuration",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StealthDuration",
+      "values": [
+       9,
+       10,
+       11,
+       12,
+       13,
+       14,
+       15
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxFadeTime",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StealthDetectionRange",
+      "values": [
+       500,
+       500,
+       500,
+       500,
+       500,
+       500,
+       500
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MoveSpeedMod",
+      "values": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HiddenSpeed",
+      "values": [
+       30,
+       30,
+       30,
+       30,
+       30,
+       30,
+       30
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MoveBonusRange",
+      "values": [
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "spellCastTime": 0.25,
+    "spellTotalTime": 2.3666,
+    "cooldownTime": [
+     16,
+     16,
+     16,
+     16,
+     16,
+     16,
+     16
+    ],
+    "Cooldown": {
+     "values": [
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16
+     ],
+     "{0a3e0478}": 16,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 0.145,
+    "missileSpeed": 0,
+    "mana": [
+     40,
+     40,
+     40,
+     40,
+     40,
+     40
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TwitchHideInShadows",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "{ec17e271}": [
+     {
+      "EffectTag": 2,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 1024,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TwitchHideInShadowsAbility/TwitchHideInShadowsBuff": {
+   "ObjectName": "TwitchHideInShadowsBuff",
+   "objectPath": "Characters/Twitch/Spells/TwitchHideInShadowsAbility/TwitchHideInShadowsBuff",
+   "mScriptName": "TwitchHideInShadowsBuff",
+   "mBuff": {
+    "mDescription": "buff_desc_TwitchHideInShadowsBuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TwitchDeadlyVenomMarkerAbility/TwitchDeadlyVenom": {
+   "ObjectName": "TwitchDeadlyVenom",
+   "objectPath": "Characters/Twitch/Spells/TwitchDeadlyVenomMarkerAbility/TwitchDeadlyVenom",
+   "mScriptName": "TwitchDeadlyVenom",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TwitchDeadlyVenom",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TwitchDeadlyVenomMarkerAbility/TwitchDeadlyVenomMarker": {
+   "ObjectName": "TwitchDeadlyVenomMarker",
+   "objectPath": "Characters/Twitch/Spells/TwitchDeadlyVenomMarkerAbility/TwitchDeadlyVenomMarker",
+   "mScriptName": "TwitchDeadlyVenomMarker",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "Duration",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxStacks",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.03,
+       0.03,
+       0.03,
+       0.03,
+       0.03,
+       0.03,
+       0.03
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "APRatio",
+        "values": [
+         0.04,
+         0.04,
+         0.04,
+         0.04,
+         0.04,
+         0.04,
+         0.04
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "DamagePerSecond": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 1,
+        "mBreakpoints": [
+         {
+          "mLevel": 5,
+          "mAdditionalBonusAtThisLevel": 1,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 9,
+          "mAdditionalBonusAtThisLevel": 1,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 13,
+          "mAdditionalBonusAtThisLevel": 1,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 17,
+          "mAdditionalBonusAtThisLevel": 1,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 21,
+          "mAdditionalBonusAtThisLevel": 1,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 25,
+          "mAdditionalBonusAtThisLevel": 1,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 29,
+          "mAdditionalBonusAtThisLevel": 1,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "DamagePerSecondMax": {
+      "mMultiplier": {
+       "mDataValue": "MaxStacks",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mModifiedGameCalculation": "DamagePerSecond",
+      "__type": "GameCalculationModified"
+     },
+     "DamageMaxTotal": {
+      "mMultiplier": {
+       "mPart1": {
+        "mDataValue": "Duration",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       "mPart2": {
+        "mDataValue": "MaxStacks",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       "__type": "ProductOfSubPartsCalculationPart"
+      },
+      "mModifiedGameCalculation": "DamagePerSecond",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TwitchDeadlyVenomMarker",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TwitchFullAutomaticAbility/TwitchUlt": {
+   "ObjectName": "TwitchUlt",
+   "objectPath": "Characters/Twitch/Spells/TwitchFullAutomaticAbility/TwitchUlt",
+   "mScriptName": "TwitchUlt",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TwitchUlt",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TwitchFullAutomaticAbility/TwitchSprayAndPrayAttack": {
+   "ObjectName": "TwitchSprayAndPrayAttack",
+   "objectPath": "Characters/Twitch/Spells/TwitchFullAutomaticAbility/TwitchSprayAndPrayAttack",
+   "mScriptName": "TwitchSprayAndPrayAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 23210,
+    "mAlternateName": "TwitchFullAutomatic",
+    "mSpellTags": [
+     "Trait_MultiTargetAttack"
+    ],
+    "spellCastTime": 0.3889,
+    "spellTotalTime": 1.3334,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     5000,
+     5000,
+     5000,
+     5000,
+     5000,
+     5000,
+     5000
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 60,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "{03046674}": true,
+      "mTracksTarget": false,
+      "mTargetHeightAugment": 20,
+      "mStartBoneName": "weapon",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 5000,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.5,
+    "missileSpeed": 4000,
+    "mMissileEffectKey": "Twitch_R_mis",
+    "mLineWidth": 60,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Twitch_R_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TwitchFullAutomaticAbility/TwitchFullAutomatic": {
+   "ObjectName": "TwitchFullAutomatic",
+   "objectPath": "Characters/Twitch/Spells/TwitchFullAutomaticAbility/TwitchFullAutomatic",
+   "mScriptName": "TwitchFullAutomatic",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_SylasSpecialAttackOverride",
+     "Trait_MultiTargetAttack",
+     "Trait_AttackBuff_Duration",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BonusRange",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FallOffDamage",
+      "values": [
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinimumFallOffDamage",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusAD",
+      "values": [
+       15,
+       30,
+       45,
+       60,
+       75,
+       90,
+       105
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Duration",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "OvershootMult",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "OvershootMin",
+      "values": [
+       250,
+       250,
+       250,
+       250,
+       250,
+       250,
+       250
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mCoefficient": 1,
+    "cooldownTime": [
+     90,
+     90,
+     90,
+     90,
+     90,
+     90,
+     90
+    ],
+    "Cooldown": {
+     "values": [
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90
+     ],
+     "{0a3e0478}": 90,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castRadius": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castConeDistance": 100,
+    "castFrame": 3.06,
+    "mana": [
+     100,
+     100,
+     100,
+     0,
+     0,
+     0
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mDataValue": "BonusAD",
+       "__type": "NamedDataValueCalculationPart"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TwitchExpungeAbility/TwitchEParticle": {
+   "ObjectName": "TwitchEParticle",
+   "objectPath": "Characters/Twitch/Spells/TwitchExpungeAbility/TwitchEParticle",
+   "mScriptName": "TwitchEParticle",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 7375,
+    "mAlternateName": "VladimirTransfusionHeal",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "root",
+      "mSpeed": 3000,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 3000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 1,
+    "missileSpeed": 3000,
+    "mMissileEffectKey": "Twitch_E_Mis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TwitchExpungeAbility/TwitchExpunge": {
+   "ObjectName": "TwitchExpunge",
+   "objectPath": "Characters/Twitch/Spells/TwitchExpungeAbility/TwitchExpunge",
+   "mScriptName": "TwitchExpunge",
+   "mSpell": {
+    "mAffectsTypeFlags": 6152,
+    "mAlternateName": "TwitchExpunge",
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_SignatureSpell",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       10,
+       20,
+       30,
+       40,
+       50,
+       60,
+       70
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BasePhysicalDamagePerStack",
+      "values": [
+       10,
+       15,
+       20,
+       25,
+       30,
+       35,
+       40
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "bADRatioPerStack",
+      "values": [
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatioPerStack",
+      "values": [
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxStacks",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "bADRatioPerStack",
+        "values": [
+         0.4,
+         0.4,
+         0.4,
+         0.4,
+         0.4,
+         0.4,
+         0.4
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "APRatioPerStack",
+        "values": [
+         0.35,
+         0.35,
+         0.35,
+         0.35,
+         0.35,
+         0.35,
+         0.35
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "PhysicalDamagePerStack": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BasePhysicalDamagePerStack",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "bADRatioPerStack",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MagicDamagePerStack": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "APRatioPerStack",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MaxPhysicalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mPart1": {
+         "mDataValue": "MaxStacks",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        "mPart2": {
+         "mDataValue": "BasePhysicalDamagePerStack",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        "__type": "ProductOfSubPartsCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mSubpart": {
+         "mPart1": {
+          "mDataValue": "bADRatioPerStack",
+          "__type": "NamedDataValueCalculationPart"
+         },
+         "mPart2": {
+          "mDataValue": "MaxStacks",
+          "__type": "NamedDataValueCalculationPart"
+         },
+         "__type": "ProductOfSubPartsCalculationPart"
+        },
+        "__type": "StatBySubPartCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MaxMagicDamage": {
+      "mMultiplier": {
+       "mDataValue": "MaxStacks",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mModifiedGameCalculation": "MagicDamagePerStack",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     13,
+     12,
+     11,
+     10,
+     9,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      13,
+      12,
+      11,
+      10,
+      9,
+      8,
+      8
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "mPingableWhileDisabled": true,
+    "castRange": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castRadius": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castConeDistance": 100,
+    "castFrame": 14.645,
+    "missileSpeed": 20,
+    "mana": [
+     50,
+     60,
+     70,
+     80,
+     90,
+     100
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "SelfAoe"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "PhysicalDamagePerStack",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TwitchCritAttack": {
+   "ObjectName": "TwitchCritAttack",
+   "objectPath": "Characters/Twitch/Spells/TwitchCritAttack",
+   "mScriptName": "TwitchCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "mAlternateName": "TwitchCritAttack",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "weapon",
+      "mSpeed": 2500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 12.74,
+    "missileSpeed": 2500,
+    "mMissileEffectKey": "Twitch_AA_mis",
+    "mHitEffectKey": "Twitch_AA_crit_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TwitchVenomCaskAbility/TwitchVenomCask": {
+   "ObjectName": "TwitchVenomCask",
+   "objectPath": "Characters/Twitch/Spells/TwitchVenomCaskAbility/TwitchVenomCask",
+   "mScriptName": "TwitchVenomCask",
+   "mSpell": {
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "TwitchVenomCask",
+    "mSpellTags": [
+     "Trait_Target_Area",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseSlowAmount",
+      "values": [
+       25,
+       30,
+       35,
+       40,
+       45,
+       50,
+       55
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Duration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AoERadius",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAPRatio",
+      "values": [
+       0.06,
+       0.06,
+       0.06,
+       0.06,
+       0.06,
+       0.06,
+       0.06
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalSlowAmount": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseSlowAmount",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "SlowAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.7,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     14,
+     13,
+     12,
+     11,
+     10,
+     9,
+     9
+    ],
+    "Cooldown": {
+     "values": [
+      14,
+      13,
+      12,
+      11,
+      10,
+      9,
+      9
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "mSpellRevealsChampion": false,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     950,
+     950,
+     950,
+     950,
+     950,
+     950,
+     950
+    ],
+    "castRadius": [
+     275,
+     275,
+     275,
+     275,
+     275,
+     275,
+     275
+    ],
+    "castConeDistance": 100,
+    "castTargetAdditionalUnitsRadius": 325,
+    "castFrame": 8.5,
+    "missileSpeed": 1750,
+    "mana": [
+     70,
+     70,
+     70,
+     70,
+     70,
+     70
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 512,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TwitchVenomCaskAbility/TwitchVenomCaskMissile": {
+   "ObjectName": "TwitchVenomCaskMissile",
+   "objectPath": "Characters/Twitch/Spells/TwitchVenomCaskAbility/TwitchVenomCaskMissile",
+   "mScriptName": "TwitchVenomCaskMissile",
+   "mSpell": {
+    "flags": 4194304,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "TwitchVenomCask",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "castRange": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mStartBoneName": "Root",
+      "mSpeed": 1400,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 4000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1400,
+    "mMissileEffectKey": "Twitch_W_Mis",
+    "mLineWidth": 120,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TwitchVenomCaskAbility/TwitchVenomCaskDebuff": {
+   "ObjectName": "TwitchVenomCaskDebuff",
+   "objectPath": "Characters/Twitch/Spells/TwitchVenomCaskAbility/TwitchVenomCaskDebuff",
+   "mScriptName": "TwitchVenomCaskDebuff",
+   "mSpell": {
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "TwitchVenomCask",
+    "mEffectAmount": [
+     {
+      "value": [
+       20,
+       75,
+       130,
+       185,
+       240,
+       295,
+       350
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       10,
+       12,
+       14,
+       16,
+       18,
+       20,
+       22
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.7,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     11,
+     11,
+     11,
+     11,
+     11,
+     11,
+     11
+    ],
+    "Cooldown": {
+     "values": [
+      11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11
+     ],
+     "{0a3e0478}": 11,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     950,
+     950,
+     950,
+     950,
+     950,
+     950,
+     950
+    ],
+    "castRadius": [
+     250,
+     250,
+     250,
+     250,
+     250,
+     250,
+     250
+    ],
+    "castConeDistance": 100,
+    "castTargetAdditionalUnitsRadius": 325,
+    "castFrame": 8.5,
+    "missileSpeed": 1750,
+    "mana": [
+     50,
+     55,
+     60,
+     65,
+     70,
+     75
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TwitchVenomCaskDebuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TwitchBasicAttack": {
+   "ObjectName": "TwitchBasicAttack",
+   "objectPath": "Characters/Twitch/Spells/TwitchBasicAttack",
+   "mScriptName": "TwitchBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "mAlternateName": "TwitchBasicAttack",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "weapon",
+      "mSpeed": 2500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 12.74,
+    "missileSpeed": 2500,
+    "mMissileEffectKey": "Twitch_AA_mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Twitch_AA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TwitchBasicAttack3": {
+   "ObjectName": "TwitchBasicAttack3",
+   "objectPath": "Characters/Twitch/Spells/TwitchBasicAttack3",
+   "mScriptName": "TwitchBasicAttack3",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "mAlternateName": "TwitchBasicAttack3",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "weapon",
+      "mSpeed": 2500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 13.16,
+    "missileSpeed": 2500,
+    "mMissileEffectKey": "Twitch_AA_mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Twitch_AA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TwitchBasicAttack2": {
+   "ObjectName": "TwitchBasicAttack2",
+   "objectPath": "Characters/Twitch/Spells/TwitchBasicAttack2",
+   "mScriptName": "TwitchBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "mAlternateName": "TwitchBasicAttack2",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "weapon",
+      "mSpeed": 2500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 13.16,
+    "missileSpeed": 2500,
+    "mMissileEffectKey": "Twitch_AA_mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Twitch_AA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/Deadly_Venom": {
+   "ObjectName": "Deadly_Venom",
+   "objectPath": "Characters/Twitch/Spells/Deadly_Venom",
+   "mScriptName": "Deadly_Venom",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TwitchDeadlyVenom",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/TwitchHideInShadowsAbility/TwitchHideInShadows",
+  "Spells/TwitchVenomCaskAbility/TwitchVenomCask",
+  "Spells/TwitchExpungeAbility/TwitchExpunge",
+  "Spells/TwitchFullAutomaticAbility/TwitchFullAutomatic"
+ ],
+ "passiva_ref": "Characters/Twitch/Spells/TwitchDeadlyVenomMarkerAbility",
+ "passiva_chaves": [
+  "Spells/TwitchDeadlyVenomMarkerAbility/TwitchDeadlyVenom",
+  "Spells/TwitchDeadlyVenomMarkerAbility/TwitchDeadlyVenomMarker"
+ ]
+}

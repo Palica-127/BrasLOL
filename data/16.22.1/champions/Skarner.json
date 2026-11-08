@@ -1,0 +1,2027 @@
+{
+ "id": "Skarner",
+ "key": 72,
+ "nome": "Skarner",
+ "titulo": "o Soberano Primordial",
+ "funcoes": [
+  "Tank",
+  "Fighter"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 7,
+  "defense": 8,
+  "magic": 5,
+  "difficulty": 5
+ },
+ "stats_ddragon": {
+  "hp": 630,
+  "hpperlevel": 110,
+  "mp": 320,
+  "mpperlevel": 40,
+  "movespeed": 335,
+  "armor": 33,
+  "armorperlevel": 4.5,
+  "spellblock": 32,
+  "spellblockperlevel": 2.05,
+  "attackrange": 150,
+  "hpregen": 7.5,
+  "hpregenperlevel": 0.75,
+  "mpregen": 7.2,
+  "mpregenperlevel": 0.75,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 63,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2,
+  "attackspeed": 0.625
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Linhas de Vibração",
+  "descricao": "Os Ataques do Skarner, Terra Arrasada, Sublevação e Empalar, aplicam Tremor. Com o máximo de acúmulos de Tremor, os inimigos sofrem Dano Mágico com base na Vida máxima ao longo da duração."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "SkarnerQ",
+   "nome": "Terra Arrasada/Sublevação",
+   "descricao": "Skarner arranca um pedregulho do chão que fortalece seus Ataques e pode ser arremessado como um projétil poderoso.",
+   "tooltip": "Skarner arranca um pedregulho do chão, fortalecendo seus próximos 3 Ataques com <attackSpeed>{{ attackspeed*100 }}% de Velocidade de Ataque</attackSpeed> e causando <physicalDamage>{{ abilitydamage }} de Dano Físico</physicalDamage> a inimigos próximos. O último Ataque causa <physicalDamage>{{ maxhppercent*100 }}% da Vida máxima como Dano Físico</physicalDamage> adicional e {{ slowpercent*100 }}% de <status>Lentidão</status> por {{ slowduration }}s a inimigos atingidos.<br /><br /><recast>Reconjurar:</recast> Skarner encerra esta Habilidade e arremessa o pedregulho, causando <physicalDamage>{{ spell.skarnerq:abilitydamage }} + {{ spell.skarnerq:maxhppercent*100 }}% da Vida máxima como Dano Físico</physicalDamage>, além de {{ spell.skarnerq:slowpercent*100 }}% de <status>Lentidão</status> ao primeiro inimigo atingido e aos inimigos próximos por {{ spell.skarnerq:slowduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    8,
+    6.75,
+    5.5,
+    4.25,
+    3
+   ],
+   "custo": [
+    30,
+    30,
+    30,
+    30,
+    30
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    400,
+    400,
+    400,
+    400,
+    400
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "SkarnerW",
+   "nome": "Bastião Sísmico",
+   "descricao": "Skarner recebe um Escudo e cria um terremoto cuja onda de choque causa dano e Lentidão aos inimigos.",
+   "tooltip": "Skarner recebe <shield>{{ initialshield }} de Escudo</shield> por {{ shieldduration }}s e gera um terremoto que causa <magicDamage>{{ damage }} de Dano Mágico</magicDamage> e {{ sloweffect*-100 }}% de <status>Lentidão</status> aos inimigos próximos por {{ slowduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    10,
+    9,
+    8,
+    7,
+    6
+   ],
+   "custo": [
+    60,
+    65,
+    70,
+    75,
+    80
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    700,
+    700,
+    700,
+    700,
+    700
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "SkarnerE",
+   "nome": "Impacto de Ixtal",
+   "descricao": "Skarner avança e atravessa o terreno. Se colidir com um Campeão ou monstro grande, ele o empurrará contra uma parede próxima para causar dano e atordoá-lo.",
+   "tooltip": "Skarner avança, seguindo na direção escolhida e ignorando o terreno. Se cruzar com um Campeão ou monstro grande, Skarner o arrastará pelo restante da investida.<br /><br />Colidir com uma parede enquanto segura um inimigo causa <physicalDamage>{{ pindamage }} de Dano Físico</physicalDamage> ao inimigo e o <status>Atordoa</status> por {{ stunduration }}s.<br /><br />Skarner pode <recast>Reconjurar</recast> esta Habilidade para encerrar a investida mais cedo.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    22,
+    21,
+    20,
+    19,
+    18
+   ],
+   "custo": [
+    50,
+    55,
+    60,
+    65,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1700,
+    1700,
+    1700,
+    1700,
+    1700
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "SkarnerR",
+   "nome": "Empalar",
+   "descricao": "As caudas de Skarner atacam e suprimem Campeões inimigos. Após serem suprimidas, as vítimas serão arrastadas por Skarner enquanto ele se movimenta.",
+   "tooltip": "As caudas de Skarner atacam, causando <magicDamage>{{ damage }} de Dano Mágico</magicDamage> e <status>Suprimindo</status> os 3 primeiros Campeões atingidos por {{ duration }}s. Os Campeões atingidos são arrastados por Skarner pela duração da Habilidade.<br /><br />Se Skarner atingir ao menos um Campeão, ele recebe <speed>{{ speedboostamount*100 }}% de Velocidade de Movimento</speed> por {{ speedboostduration }}s.<br /><br />Se <spellName>Terra Arrasada</spellName> estiver ativa, Skarner conjurará <spellName>Sublevação</spellName> primeiro.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    120,
+    105,
+    90
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    625,
+    625,
+    625
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 630,
+  "vida_nivel": 110,
+  "regen_vida": 1.5,
+  "regen_vida_nivel": 0.15,
+  "dano": 63,
+  "dano_nivel": 5,
+  "armadura": 33,
+  "armadura_nivel": 4.5,
+  "rm": 32,
+  "rm_nivel": 2.05,
+  "velocidade_mov": 335,
+  "alcance_ataque": 150,
+  "vel_ataque_base": 0.625,
+  "vel_ataque_razao": 0.625,
+  "vel_ataque_nivel": 2,
+  "dano_critico": 2,
+  "alcance_aquisicao": 600,
+  "raio_selecao": 130,
+  "raio_colisao": 50,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackTotalTime": 1.600000023841858,
+   "mAttackCastTime": 0.30000001192092896,
+   "mAttackProbability": 0.4000000059604645,
+   "__type": "AttackSlotData"
+  }
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Skarner/Spells/SkarnerQAbility/SkarnerQ",
+  "Characters/Skarner/Spells/SkarnerWAbility/SkarnerW",
+  "Characters/Skarner/Spells/SkarnerEAbility/SkarnerE",
+  "Characters/Skarner/Spells/SkarnerRAbility/SkarnerR"
+ ],
+ "abilities_ref": [
+  "Characters/Skarner/Spells/SkarnerQAbility",
+  "Characters/Skarner/Spells/SkarnerWAbility",
+  "Characters/Skarner/Spells/SkarnerEAbility",
+  "Characters/Skarner/Spells/SkarnerRAbility",
+  "Characters/Skarner/Spells/SkarnerPassiveAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/SkarnerWAbility/SkarnerW": {
+   "ObjectName": "SkarnerW",
+   "objectPath": "Characters/Skarner/Spells/SkarnerWAbility/SkarnerW",
+   "mScriptName": "SkarnerW",
+   "mSpell": {
+    "flags": 32,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_Shield",
+     "Trait_Low_Damage",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       30,
+       50,
+       70,
+       90,
+       110,
+       130,
+       150
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DamageAPRatio",
+      "values": [
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "InitialShieldRatio",
+      "values": [
+       0.08,
+       0.08,
+       0.08,
+       0.08,
+       0.08,
+       0.08,
+       0.08
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldDuration",
+      "values": [
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowEffect",
+      "values": [
+       -0.2,
+       -0.2,
+       -0.2,
+       -0.2,
+       -0.2,
+       -0.2,
+       -0.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "DamageAPRatio",
+        "values": [
+         1.2,
+         1.2,
+         1.2,
+         1.2,
+         1.2,
+         1.2,
+         1.2
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       8,
+       8,
+       7,
+       6,
+       5,
+       4,
+       4
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "InitialShield": {
+      "mFormulaParts": [
+       {
+        "mStat": 12,
+        "mDataValue": "InitialShieldRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "Damage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "DamageAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.3,
+    "spellTotalTime": 0.5,
+    "cooldownTime": [
+     10,
+     10,
+     9,
+     8,
+     7,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      10,
+      10,
+      9,
+      8,
+      7,
+      6,
+      6
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCasterPositionEndOfCastUpdate": 2,
+    "mCantCancelWhileWindingUp": true,
+    "mCanMoveWhileChanneling": true,
+    "useAnimatorFramerate": true,
+    "mDoNotNeedToFaceTarget": true,
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRangeDisplayOverride": [
+     700,
+     700,
+     700,
+     700,
+     700,
+     700,
+     700
+    ],
+    "mMissileSpec": {
+     "mMissileWidth": 200,
+     "movementComponent": {
+      "mStartBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+      "mSpeed": 1650,
+      "__type": "FixedSpeedMovement"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 7,
+    "mana": [
+     60,
+     65,
+     70,
+     75,
+     80,
+     80
+    ],
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SkarnerWAbility/SkarnerWShield": {
+   "ObjectName": "SkarnerWShield",
+   "objectPath": "Characters/Skarner/Spells/SkarnerWAbility/SkarnerWShield",
+   "mScriptName": "SkarnerWShield",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_SkarnerWShield",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SkarnerRAbility/SkarnerR": {
+   "ObjectName": "SkarnerR",
+   "objectPath": "Characters/Skarner/Spells/SkarnerRAbility/SkarnerR",
+   "mScriptName": "SkarnerR",
+   "mSpell": {
+    "mAffectsTypeFlags": 2,
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_Target_Directional",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BackwardOffset",
+      "values": [
+       50,
+       50,
+       50,
+       50,
+       50,
+       50,
+       50
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HitboxStartHalfWidth",
+      "values": [
+       175,
+       175,
+       175,
+       175,
+       175,
+       175,
+       175
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HitboxEndHalfWidth",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       50,
+       150,
+       250,
+       350,
+       450,
+       550,
+       650
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Duration",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HoldDistance",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SpeedBoostAmount",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SpeedBoostDuration",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DropDistance",
+      "values": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "BaseDamage",
+        "values": [
+         250,
+         350,
+         450,
+         550,
+         650,
+         750,
+         850
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "SpeedBoostAmount",
+        "values": [
+         0.6,
+         0.6,
+         0.6,
+         0.6,
+         0.6,
+         0.6,
+         0.6
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "Damage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.75,
+    "spellCastTime": 0.75,
+    "spellTotalTime": 0.75,
+    "cooldownTime": [
+     120,
+     120,
+     105,
+     90,
+     90,
+     90,
+     90
+    ],
+    "Cooldown": {
+     "values": [
+      120,
+      120,
+      105,
+      90,
+      90,
+      90,
+      90
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCasterPositionEndOfCastUpdate": 2,
+    "mCantCancelWhileWindingUp": true,
+    "alwaysSnapFacing": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     625,
+     625,
+     625,
+     625,
+     625,
+     625,
+     625
+    ],
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SkarnerRAbility/SkarnerRTailGrabLeft": {
+   "ObjectName": "SkarnerRTailGrabLeft",
+   "objectPath": "Characters/Skarner/Spells/SkarnerRAbility/SkarnerRTailGrabLeft",
+   "mScriptName": "SkarnerRTailGrabLeft",
+   "__type": "SpellObject"
+  },
+  "Spells/SkarnerRAbility/SkarnerRTailGrabRight": {
+   "ObjectName": "SkarnerRTailGrabRight",
+   "objectPath": "Characters/Skarner/Spells/SkarnerRAbility/SkarnerRTailGrabRight",
+   "mScriptName": "SkarnerRTailGrabRight",
+   "__type": "SpellObject"
+  },
+  "Spells/SkarnerRAbility/SkarnerRImpale": {
+   "ObjectName": "SkarnerRImpale",
+   "objectPath": "Characters/Skarner/Spells/SkarnerRAbility/SkarnerRImpale",
+   "mScriptName": "SkarnerRImpale",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_SkarnerRImpale",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SkarnerRAbility/SkarnerRTailGrabCenter": {
+   "ObjectName": "SkarnerRTailGrabCenter",
+   "objectPath": "Characters/Skarner/Spells/SkarnerRAbility/SkarnerRTailGrabCenter",
+   "mScriptName": "SkarnerRTailGrabCenter",
+   "__type": "SpellObject"
+  },
+  "Spells/SkarnerEAbility/SkarnerECancel": {
+   "ObjectName": "SkarnerECancel",
+   "objectPath": "Characters/Skarner/Spells/SkarnerEAbility/SkarnerECancel",
+   "mScriptName": "SkarnerECancel",
+   "mSpell": {
+    "flags": 36,
+    "mAffectsTypeFlags": 8192,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SkarnerEAbility/SkarnerEGrabbed": {
+   "ObjectName": "SkarnerEGrabbed",
+   "objectPath": "Characters/Skarner/Spells/SkarnerEAbility/SkarnerEGrabbed",
+   "mScriptName": "SkarnerEGrabbed",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_SkarnerEGrabbed",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SkarnerEAbility/SkarnerEStun": {
+   "ObjectName": "SkarnerEStun",
+   "objectPath": "Characters/Skarner/Spells/SkarnerEAbility/SkarnerEStun",
+   "mScriptName": "SkarnerEStun",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_SkarnerEStun",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SkarnerEAbility/SkarnerE": {
+   "ObjectName": "SkarnerE",
+   "objectPath": "Characters/Skarner/Spells/SkarnerEAbility/SkarnerE",
+   "mScriptName": "SkarnerE",
+   "mSpell": {
+    "flags": 36,
+    "mAffectsTypeFlags": 8192,
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_Low_Damage"
+    ],
+    "DataValues": [
+     {
+      "name": "ChargeDuration",
+      "values": [
+       2.75,
+       2.75,
+       2.75,
+       2.75,
+       2.75,
+       2.75,
+       2.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "InitialSpeed",
+      "values": [
+       150,
+       150,
+       150,
+       150,
+       150,
+       150,
+       150
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Acceleration",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaximumSpeed",
+      "values": [
+       950,
+       950,
+       950,
+       950,
+       950,
+       950,
+       950
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "GrabHitboxRadius",
+      "values": [
+       160,
+       160,
+       160,
+       160,
+       160,
+       160,
+       160
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "GrabHitboxOffset",
+      "values": [
+       90,
+       90,
+       90,
+       90,
+       90,
+       90,
+       90
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "WallRevealRadius",
+      "values": [
+       650,
+       650,
+       650,
+       650,
+       650,
+       650,
+       650
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "WallWarningRadius",
+      "values": [
+       1750,
+       1750,
+       1750,
+       1750,
+       1750,
+       1750,
+       1750
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "GrabbedMoveSpeedBonus",
+      "values": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinGrabbedSpeed",
+      "values": [
+       650,
+       650,
+       650,
+       650,
+       650,
+       650,
+       650
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DistancePostGrab",
+      "values": [
+       675,
+       675,
+       675,
+       675,
+       675,
+       675,
+       675
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StunDuration",
+      "values": [
+       1.1,
+       1.1,
+       1.1,
+       1.1,
+       1.1,
+       1.1,
+       1.1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PinBaseDamage",
+      "values": [
+       0,
+       30,
+       60,
+       90,
+       120,
+       150,
+       180
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ADRatio",
+      "values": [
+       1.2,
+       1.2,
+       1.2,
+       1.2,
+       1.2,
+       1.2,
+       1.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PinDamageRatio",
+      "values": [
+       0.06,
+       0.06,
+       0.06,
+       0.06,
+       0.06,
+       0.06,
+       0.06
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "VictimOffsetIncrease",
+      "values": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RefundPercent",
+      "values": [
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinimumQRenew",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "InitialHitboxRadius",
+      "values": [
+       160,
+       160,
+       160,
+       160,
+       160,
+       160,
+       160
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "InitialHitboxOffset",
+      "values": [
+       90,
+       90,
+       90,
+       90,
+       90,
+       90,
+       90
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SecondHitboxDelay",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SecondHitboxRadius",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SecondHitboxOffset",
+      "values": [
+       150,
+       150,
+       150,
+       150,
+       150,
+       150,
+       150
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FinalHitboxDelay",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "PinBaseDamage",
+        "values": [
+         20,
+         50,
+         80,
+         110,
+         140,
+         170,
+         200
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "DistancePostGrab",
+        "values": [
+         1000,
+         1000,
+         1000,
+         1000,
+         1000,
+         1000,
+         1000
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       14,
+       14,
+       13,
+       12,
+       11,
+       10,
+       9
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     "Kiwi": {
+      "value": [
+       18,
+       18,
+       17,
+       16,
+       15,
+       14,
+       13
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "PinDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "PinBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "ADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 12,
+        "mDataValue": "PinDamageRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "cooldownTime": [
+     23,
+     22,
+     21,
+     20,
+     19,
+     18,
+     18
+    ],
+    "Cooldown": {
+     "values": [
+      23,
+      22,
+      21,
+      20,
+      19,
+      18,
+      18
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "cantCastWhileRooted": true,
+    "castRange": [
+     1700,
+     1700,
+     1700,
+     1700,
+     1700,
+     1700,
+     1700
+    ],
+    "mana": [
+     50,
+     55,
+     60,
+     65,
+     70,
+     70
+    ],
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_SkarnerE",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SkarnerQAbility/SkarnerQFirstClawEmpower": {
+   "ObjectName": "SkarnerQFirstClawEmpower",
+   "objectPath": "Characters/Skarner/Spells/SkarnerQAbility/SkarnerQFirstClawEmpower",
+   "mScriptName": "SkarnerQFirstClawEmpower",
+   "__type": "SpellObject"
+  },
+  "Spells/SkarnerQAbility/SkarnerQRockThrow": {
+   "ObjectName": "SkarnerQRockThrow",
+   "objectPath": "Characters/Skarner/Spells/SkarnerQAbility/SkarnerQRockThrow",
+   "mScriptName": "SkarnerQRockThrow",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_FreeRecast"
+    ],
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "mCasterPositionEndOfCastUpdate": 1,
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1050,
+     1050,
+     1050,
+     1050,
+     1050,
+     1050,
+     1050
+    ],
+    "mMissileSpec": {
+     "mMissileWidth": 90,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "BUFFBONE_CSTM_WEAPON_GAP_10",
+      "mSpeed": 1600,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "mMissileEffectKey": "Skarner_P_Rock_2",
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SkarnerQAbility/SkarnerQRockAttack": {
+   "ObjectName": "SkarnerQRockAttack",
+   "objectPath": "Characters/Skarner/Spells/SkarnerQAbility/SkarnerQRockAttack",
+   "mScriptName": "SkarnerQRockAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 22666,
+    "mCastTime": 0.1067,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "mApplyAttackDamage": true,
+    "mApplyMaterialOnHitSound": true,
+    "useAnimatorFramerate": true,
+    "castFrame": 10,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SkarnerQAbility/SkarnerQSecondClawEmpower": {
+   "ObjectName": "SkarnerQSecondClawEmpower",
+   "objectPath": "Characters/Skarner/Spells/SkarnerQAbility/SkarnerQSecondClawEmpower",
+   "mScriptName": "SkarnerQSecondClawEmpower",
+   "mBuff": {
+    "PersistentEffectConditions": [
+     {
+      "PersistentVfxs": [
+       {
+        "effectKey": "Skarner_Q_State_Claws",
+        "__type": "PersistentVfxData"
+       }
+      ],
+      "__type": "PersistentEffectConditionData"
+     },
+     {
+      "PersistentVfxs": [
+       {
+        "boneName": "L_Claw",
+        "effectKey": "Skarner_Q_State_ClawLeft",
+        "__type": "PersistentVfxData"
+       }
+      ],
+      "__type": "PersistentEffectConditionData"
+     },
+     {
+      "PersistentVfxs": [
+       {
+        "boneName": "R_Claw",
+        "effectKey": "Skarner_Q_State_ClawRight",
+        "__type": "PersistentVfxData"
+       }
+      ],
+      "__type": "PersistentEffectConditionData"
+     }
+    ],
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SkarnerQAbility/SkarnerQ": {
+   "ObjectName": "SkarnerQ",
+   "objectPath": "Characters/Skarner/Spells/SkarnerQAbility/SkarnerQ",
+   "mScriptName": "SkarnerQ",
+   "mSpell": {
+    "flags": 32,
+    "mSpellTags": [
+     "Trait_AttackReset",
+     "Trait_DamageAbility",
+     "Trait_SignatureSpell",
+     "Trait_Ranged_StopsFirstHit",
+     "Trait_AoE",
+     "PositiveEffect_EmpowerAttack"
+    ],
+    "DataValues": [
+     {
+      "name": "RockHoldDuration",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AttackRadius",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       0,
+       10,
+       20,
+       30,
+       40,
+       50,
+       60
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxHPPercent",
+      "values": [
+       0.11,
+       0.11,
+       0.11,
+       0.11,
+       0.11,
+       0.11,
+       0.11
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowPercent",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MonsterDamageCap",
+      "values": [
+       100,
+       150,
+       200,
+       250,
+       300,
+       350,
+       400
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AttackRange",
+      "values": [
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AttackSpeed",
+      "values": [
+       0.15,
+       0.2,
+       0.25,
+       0.3,
+       0.35,
+       0.4,
+       0.45
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusHealthRatio",
+      "values": [
+       0.03,
+       0.03,
+       0.03,
+       0.03,
+       0.03,
+       0.03,
+       0.03
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ADRatio",
+      "values": [
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TurretDamageMod",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "BaseDamage",
+        "values": [
+         0,
+         20,
+         40,
+         60,
+         80,
+         100,
+         120
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "MaxHPPercent",
+        "values": [
+         0.12,
+         0.12,
+         0.12,
+         0.12,
+         0.12,
+         0.12,
+         0.12
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "ADRatio",
+        "values": [
+         1.5,
+         1.5,
+         1.5,
+         1.5,
+         1.5,
+         1.5,
+         1.5
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "AbilityDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "ADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 12,
+        "mStatFormula": 2,
+        "mDataValue": "BonusHealthRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.35,
+    "spellTotalTime": 0.35,
+    "cooldownTime": [
+     8,
+     8,
+     6.75,
+     5.5,
+     4.25,
+     3,
+     3
+    ],
+    "Cooldown": {
+     "values": [
+      8,
+      8,
+      6.75,
+      5.5,
+      4.25,
+      3,
+      3
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "useAnimatorFramerate": true,
+    "mDoesNotConsumeCooldown": true,
+    "mana": [
+     30,
+     30,
+     30,
+     30,
+     30,
+     30
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_SkarnerQ",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SkarnerQAbility/SkarnerQClawAttack": {
+   "ObjectName": "SkarnerQClawAttack",
+   "objectPath": "Characters/Skarner/Spells/SkarnerQAbility/SkarnerQClawAttack",
+   "mScriptName": "SkarnerQClawAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.405,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "mCantCancelWhileChanneling": true,
+    "mApplyAttackDamage": true,
+    "mApplyMaterialOnHitSound": true,
+    "castRange": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "BUFFBONE_CSTM_WEAPON_1",
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "castFrame": 10,
+    "missileSpeed": 2000,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SkarnerTurretAttack": {
+   "ObjectName": "SkarnerTurretAttack",
+   "objectPath": "Characters/Skarner/Spells/SkarnerTurretAttack",
+   "mScriptName": "SkarnerTurretAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.34615,
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRadius": [
+     385,
+     385,
+     385,
+     385,
+     385,
+     385,
+     385
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10,
+    "mHitEffectKey": "Skarner_BA_tar_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SkarnerCritAttack": {
+   "ObjectName": "SkarnerCritAttack",
+   "objectPath": "Characters/Skarner/Spells/SkarnerCritAttack",
+   "mScriptName": "SkarnerCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "Skarner_ReworkCritAttack",
+    "spellCastTime": 0.34615,
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castConeDistance": 100,
+    "castFrame": 10,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Skarner_BA_tar_crit_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SkarnerBasicAttack2": {
+   "ObjectName": "SkarnerBasicAttack2",
+   "objectPath": "Characters/Skarner/Spells/SkarnerBasicAttack2",
+   "mScriptName": "SkarnerBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "Skarner_ReworkBasicAttack2",
+    "spellCastTime": 0.34615,
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castConeDistance": 100,
+    "castFrame": 10,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Skarner_BA_tar_02",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SkarnerPassiveAbility/SkarnerPassive": {
+   "ObjectName": "SkarnerPassive",
+   "objectPath": "Characters/Skarner/Spells/SkarnerPassiveAbility/SkarnerPassive",
+   "mScriptName": "SkarnerPassive",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "StacksToTriggerPassive",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Duration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TickFrequency",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "PercentHealthDamage": {
+      "mMultiplier": {
+       "mNumber": 0.01,
+       "__type": "NumberCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mStartValue": 5,
+        "mEndValue": 9,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": 1,
+      "__type": "GameCalculation"
+     },
+     "DamageMonsterCap": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 100,
+        "mEndValue": 300,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SkarnerPassiveAbility/SkarnerPassiveDot": {
+   "ObjectName": "SkarnerPassiveDot",
+   "objectPath": "Characters/Skarner/Spells/SkarnerPassiveAbility/SkarnerPassiveDot",
+   "mScriptName": "SkarnerPassiveDot",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_SkarnerPDot",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SkarnerPassiveAbility/SkarnerPassiveAttack": {
+   "ObjectName": "SkarnerPassiveAttack",
+   "objectPath": "Characters/Skarner/Spells/SkarnerPassiveAbility/SkarnerPassiveAttack",
+   "mScriptName": "SkarnerPassiveAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "Skarner_ReworkBasicAttack",
+    "spellCastTime": 0.34615,
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRadius": [
+     385,
+     385,
+     385,
+     385,
+     385,
+     385,
+     385
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Skarner_BA_tar_03",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SkarnerBasicAttack": {
+   "ObjectName": "SkarnerBasicAttack",
+   "objectPath": "Characters/Skarner/Spells/SkarnerBasicAttack",
+   "mScriptName": "SkarnerBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "Skarner_ReworkBasicAttack",
+    "spellCastTime": 0.34615,
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRadius": [
+     385,
+     385,
+     385,
+     385,
+     385,
+     385,
+     385
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Skarner_BA_tar_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/SkarnerQAbility/SkarnerQ",
+  "Spells/SkarnerWAbility/SkarnerW",
+  "Spells/SkarnerEAbility/SkarnerE",
+  "Spells/SkarnerRAbility/SkarnerR"
+ ],
+ "passiva_ref": "Characters/Skarner/Spells/SkarnerPassiveAbility",
+ "passiva_chaves": [
+  "Spells/SkarnerPassiveAbility/SkarnerPassive",
+  "Spells/SkarnerPassiveAbility/SkarnerPassiveDot",
+  "Spells/SkarnerPassiveAbility/SkarnerPassiveAttack"
+ ]
+}

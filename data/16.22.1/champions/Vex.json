@@ -1,0 +1,2315 @@
+{
+ "id": "Vex",
+ "key": 711,
+ "nome": "Vex",
+ "titulo": "a Melancolista",
+ "funcoes": [
+  "Mage"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 0,
+  "defense": 0,
+  "magic": 0,
+  "difficulty": 0
+ },
+ "stats_ddragon": {
+  "hp": 590,
+  "hpperlevel": 104,
+  "mp": 490,
+  "mpperlevel": 32,
+  "movespeed": 335,
+  "armor": 23,
+  "armorperlevel": 4.45,
+  "spellblock": 28,
+  "spellblockperlevel": 1.3,
+  "attackrange": 550,
+  "hpregen": 6.5,
+  "hpregenperlevel": 0.6,
+  "mpregen": 6,
+  "mpregenperlevel": 0.8,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 54,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 1,
+  "attackspeed": 0.669
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Destruição e Escuridão",
+  "descricao": "Periodicamente, Vex é fortalecida, fazendo com que a próxima Habilidade básica dela cause Temor aos inimigos e interrompa avanços. Sempre que um inimigo próximo avança, Vex aplica uma marca que é consumida para causar dano adicional, além de reduzir o Tempo de Recarga do estado fortalecido."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "VexQ",
+   "nome": "Rajada Mistral",
+   "descricao": "Lança um projétil que causa dano e acelera no meio do trajeto.",
+   "tooltip": "Vex lança uma onda de névoa que causa <magicDamage>{{ qdamagecalc }} de Dano Mágico</magicDamage>. Depois de um intervalo, a onda fica menor e mais rápida.<br /><br />Consome a <keywordMajor>Escuridão</keywordMajor> dos inimigos atingidos.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    8,
+    7,
+    6,
+    5,
+    4
+   ],
+   "custo": [
+    45,
+    50,
+    55,
+    60,
+    65
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1200,
+    1200,
+    1200,
+    1200,
+    1200
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "VexW",
+   "nome": "Espaço Pessoal",
+   "descricao": "Recebe um Escudo e causa dano a inimigos próximos.",
+   "tooltip": "Vex recebe <shield>{{ shieldcalc }} de Escudo</shield> por {{ shieldduration }}s e emite uma onda de choque que causa <magicDamage>{{ wdamagecalc }} de Dano Mágico</magicDamage>.<br /><br />Consome a <keywordMajor>Escuridão</keywordMajor> dos inimigos atingidos.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    16,
+    15,
+    14,
+    13,
+    12
+   ],
+   "custo": [
+    75,
+    75,
+    75,
+    75,
+    75
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    475,
+    475,
+    475,
+    475,
+    475
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "VexE",
+   "nome": "Penumbra Iminente",
+   "descricao": "Invoca uma área que causa dano e Lentidão aos inimigos, além de aplicar Escuridão.",
+   "tooltip": "Vex faz a Sombra voar até um determinado local, aumentando de tamanho durante o trajeto. Ao chegar, ela causa <magicDamage>{{ edamagecalc }} de Dano Mágico</magicDamage> e {{ slowamount*100 }}% de <status>Lentidão</status> por {{ slowduration }}s.<br /><br />Abater um inimigo com esta Habilidade reduz o Tempo de Recarga de <keywordMajor>Destruição e Escuridão</keywordMajor> em {{ gloomcdnonchamptooltip*100 }}%.<br /><br />Aplica <keywordMajor>Escuridão</keywordMajor> aos inimigos atingidos.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    12,
+    12,
+    12,
+    12,
+    12
+   ],
+   "custo": [
+    70,
+    80,
+    90,
+    100,
+    110
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    800,
+    800,
+    800,
+    800,
+    800
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "VexR",
+   "nome": "Onda Sombria",
+   "descricao": "Dispara um projétil que marca um Campeão inimigo.  Reconjure para avançar até o alvo e causar dano.",
+   "tooltip": "A Sombra se empolga e avança, causando <magicDamage>{{ spell.vexr:rdamagecalc }} de Dano Mágico</magicDamage> e marcando o primeiro Campeão inimigo atingido por 4s.<br /><br /><recast>Reconjuração</recast>: avança até o Campeão marcado, causando <magicDamage>{{ spell.vexr:recastdamagecalc }} de Dano Mágico</magicDamage> ao chegar.<br /><br />Se o Campeão marcado morrer dentro de {{ spell.vexr:takedownwindow }}s depois de sofrer dano desta Habilidade, o Tempo de Recarga dela é temporariamente redefinido.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    140,
+    120,
+    100
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    2000,
+    2500,
+    3000
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 590,
+  "vida_nivel": 104,
+  "regen_vida": 1.3,
+  "regen_vida_nivel": 0.12,
+  "dano": 54,
+  "dano_nivel": 2.75,
+  "armadura": 23,
+  "armadura_nivel": 4.45,
+  "rm": 28,
+  "rm_nivel": 1.3,
+  "velocidade_mov": 335,
+  "alcance_ataque": 550,
+  "vel_ataque_base": 0.669,
+  "vel_ataque_razao": 0.625,
+  "vel_ataque_nivel": 1,
+  "dano_critico": 2,
+  "raio_selecao": 100,
+  "raio_colisao": 30,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackTotalTime": 1.600000023841858,
+   "mAttackCastTime": 0.25,
+   "mAttackProbability": 0.5,
+   "mAttackName": "VexBasicAttack",
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.5,
+    "mAttackName": "VexBasicAttack2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackTotalTime": 1.600000023841858,
+    "mAttackCastTime": 0.25,
+    "mAttackName": "VexCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Vex/Spells/VexQAbility/VexQ",
+  "Characters/Vex/Spells/VexWAbility/VexW",
+  "Characters/Vex/Spells/VexEAbility/VexE",
+  "Characters/Vex/Spells/VexRAbility/VexR"
+ ],
+ "abilities_ref": [
+  "Characters/Vex/Spells/VexRAbility",
+  "Characters/Vex/Spells/VexQAbility",
+  "Characters/Vex/Spells/VexWAbility",
+  "Characters/Vex/Spells/VexEAbility",
+  "Characters/Vex/Spells/VexPAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/Attacks/VexPGloomAttackMissile": {
+   "ObjectName": "VexPGloomAttackMissile",
+   "objectPath": "Characters/Vex/Spells/Attacks/VexPGloomAttackMissile",
+   "mScriptName": "VexPGloomAttackMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 7375,
+    "mAlternateName": "VladimirTransfusionHeal",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mDoesntBreakChannels": true,
+    "castRange": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "C_Buffbone_Glb_Chest_Loc",
+      "mSpeed": 4500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 1,
+    "missileSpeed": 4500,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/Attacks/VexCritAttack": {
+   "ObjectName": "VexCritAttack",
+   "objectPath": "Characters/Vex/Spells/Attacks/VexCritAttack",
+   "mScriptName": "VexCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "TristanaCritAttack",
+    "spellCastTime": 0.225,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_Buffbone_Glb_ShadowHand_Loc",
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 2250,
+    "mMissileEffectKey": "Vex_BA_mis",
+    "mHitEffectKey": "Vex_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/Attacks/VexPGloomAttack": {
+   "ObjectName": "VexPGloomAttack",
+   "objectPath": "Characters/Vex/Spells/Attacks/VexPGloomAttack",
+   "mScriptName": "VexPGloomAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "TristanaBasicAttack",
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mApplyMaterialOnHitSound": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "mTurnSpeedScalar": 3.5,
+    "castRange": [
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_Buffbone_Glb_ShadowHand_Loc",
+      "mSpeed": 8000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 2,
+    "missileSpeed": 8000,
+    "mHitEffectKey": "Vex_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/Attacks/VexBasicAttack2": {
+   "ObjectName": "VexBasicAttack2",
+   "objectPath": "Characters/Vex/Spells/Attacks/VexBasicAttack2",
+   "mScriptName": "VexBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "TristanaBasicAttack",
+    "spellCastTime": 0.225,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "L_Buffbone_Glb_ShadowHand_Loc",
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 2250,
+    "mMissileEffectKey": "Vex_BA_mis",
+    "mHitEffectKey": "Vex_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/Attacks/VexBasicAttack": {
+   "ObjectName": "VexBasicAttack",
+   "objectPath": "Characters/Vex/Spells/Attacks/VexBasicAttack",
+   "mScriptName": "VexBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "TristanaBasicAttack",
+    "spellCastTime": 0.225,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_Buffbone_Glb_ShadowHand_Loc",
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 2250,
+    "mMissileEffectKey": "Vex_BA_mis",
+    "mHitEffectKey": "Vex_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VexRAbility/VexR2": {
+   "ObjectName": "VexR2",
+   "objectPath": "Characters/Vex/Spells/VexRAbility/VexR2",
+   "mScriptName": "VexR2",
+   "mSpell": {
+    "flags": 36,
+    "mAffectsTypeFlags": 2,
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_FreeRecast"
+    ],
+    "DataValues": [
+     {
+      "name": "RecastDamage",
+      "values": [
+       50,
+       150,
+       250,
+       350,
+       450,
+       550,
+       650
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "RecastDamageCalc": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "RecastDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.5,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "alwaysSnapFacing": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "RecastDamageCalc",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 256,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VexRAbility/VexR": {
+   "ObjectName": "VexR",
+   "objectPath": "Characters/Vex/Spells/VexRAbility/VexR",
+   "mScriptName": "VexR",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_DamageAbility",
+     "Trait_CCImmune",
+     "PositiveEffect_MoveBlock"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       25,
+       75,
+       125,
+       175,
+       225,
+       275,
+       325
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RecastDamage",
+      "values": [
+       50,
+       150,
+       250,
+       350,
+       450,
+       550,
+       650
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "R2Duration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TakedownWindow",
+      "values": [
+       8,
+       8,
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ResetWindow",
+      "values": [
+       12,
+       12,
+       12,
+       12,
+       12,
+       12,
+       12
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       110,
+       110,
+       90,
+       70,
+       70,
+       70,
+       70
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "RDamageCalc": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.2,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "RecastDamageCalc": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "RecastDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.5,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     140,
+     140,
+     120,
+     100,
+     100,
+     100,
+     100
+    ],
+    "Cooldown": {
+     "values": [
+      140,
+      140,
+      120,
+      100,
+      100,
+      100,
+      100
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCasterPositionEndOfCastUpdate": 1,
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Vex/Spells/VexRAbility/VexRSpellPassive",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "mRemoveWithSpell": false,
+      "RemoveOnPushCharacterData": true,
+      "RemoveOnPopCharacterData": true,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "alwaysSnapFacing": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "mTurnSpeedScalar": 2.5,
+    "castRange": [
+     2000,
+     2000,
+     2500,
+     3000,
+     3000,
+     3000,
+     3000
+    ],
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 130,
+     "movementComponent": {
+      "mStartBoneName": "root",
+      "mSpeed": 1600,
+      "__type": "FixedSpeedMovement"
+     },
+     "visibilityComponent": {
+      "mPerceptionBubbleRadius": 650,
+      "__type": "Defaultvisibility"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7,
+    "missileSpeed": 1750,
+    "mLineWidth": 100,
+    "mHitEffectKey": "Vex_R_R1_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_Buffbone_Glb_Chest_Loc",
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "RDamageCalc",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 256,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VexRAbility/VexRSpellPassive": {
+   "ObjectName": "VexRSpellPassive",
+   "objectPath": "Characters/Vex/Spells/VexRAbility/VexRSpellPassive",
+   "mScriptName": "VexRSpellPassive",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VexRAbility/VexRTarget": {
+   "ObjectName": "VexRTarget",
+   "objectPath": "Characters/Vex/Spells/VexRAbility/VexRTarget",
+   "mScriptName": "VexRTarget",
+   "mSpell": {
+    "flags": 36,
+    "mAffectsTypeFlags": 2,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "alwaysSnapFacing": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VexPFear": {
+   "ObjectName": "VexPFear",
+   "objectPath": "Characters/Vex/Spells/VexPFear",
+   "mScriptName": "VexPFear",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VexPCooldown": {
+   "ObjectName": "VexPCooldown",
+   "objectPath": "Characters/Vex/Spells/VexPCooldown",
+   "mScriptName": "VexPCooldown",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VexPAbility/VexP": {
+   "ObjectName": "VexP",
+   "objectPath": "Characters/Vex/Spells/VexPAbility/VexP",
+   "mScriptName": "VexP",
+   "mSpell": {
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell"
+    ],
+    "DataValues": [
+     {
+      "name": "GloomDuration",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxDoomCD",
+      "values": [
+       15,
+       15,
+       15,
+       15,
+       15,
+       15,
+       15
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DashListenerRange",
+      "values": [
+       1600,
+       1600,
+       1600,
+       1600,
+       1600,
+       1600,
+       1600
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DashLockoutTime",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "GloomCDChamp",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "GloomCDNonChamp",
+      "values": [
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FearSlowPercentMax",
+      "values": [
+       0.99,
+       0.99,
+       0.99,
+       0.99,
+       0.99,
+       0.99,
+       0.99
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FearedMinionSpeed",
+      "values": [
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EFearedMinionSpeed",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FearSlowPercentMin",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RangeOfMaxFearSlow",
+      "values": [
+       800,
+       800,
+       800,
+       800,
+       800,
+       800,
+       800
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RangeOfMinFearSlow",
+      "values": [
+       250,
+       250,
+       250,
+       250,
+       250,
+       250,
+       250
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "SWIFTPLAY": {
+      "SpellDataValues": [
+       {
+        "name": "APRatio",
+        "values": [
+         0.4,
+         0.4,
+         0.4,
+         0.4,
+         0.4,
+         0.4,
+         0.4
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "GloomProcCalc": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 40,
+        "mEndValue": 150,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "FearDuration": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 0.75,
+        "mBreakpoints": [
+         {
+          "mLevel": 6,
+          "mAdditionalBonusAtThisLevel": 0.25,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 9,
+          "mAdditionalBonusAtThisLevel": 0.25,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 13,
+          "mAdditionalBonusAtThisLevel": 0.25,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "mPrecision": -1,
+      "__type": "GameCalculation"
+     },
+     "{c21c264c}": {
+      "mFormulaParts": [
+       {
+        "mNumber": 25000,
+        "__type": "NumberCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "DoomCD": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 25,
+        "mBreakpoints": [
+         {
+          "mLevel": 6,
+          "mAdditionalBonusAtThisLevel": -3,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 11,
+          "mAdditionalBonusAtThisLevel": -3,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 16,
+          "mAdditionalBonusAtThisLevel": -3,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "GloomMinionMod": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 0.4,
+        "mBreakpoints": [
+         {
+          "mLevel": 6,
+          "mAdditionalBonusAtThisLevel": 0.05,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 9,
+          "mAdditionalBonusAtThisLevel": 0.05,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 13,
+          "mAdditionalBonusAtThisLevel": 0.05,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 16,
+          "mAdditionalBonusAtThisLevel": 0.05,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     }
+    },
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Vex/Spells/VexPAbility/VexP",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mTurnSpeedScalar": 3,
+    "castRange": [
+     1600,
+     1600,
+     1600,
+     1600,
+     1600,
+     1600,
+     1600
+    ],
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VexWAbility/VexW": {
+   "ObjectName": "VexW",
+   "objectPath": "Characters/Vex/Spells/VexWAbility/VexW",
+   "mScriptName": "VexW",
+   "mSpell": {
+    "mAffectsTypeFlags": 14346,
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_Shield",
+     "Trait_Low_Damage",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "ShieldAmount",
+      "values": [
+       25,
+       50,
+       75,
+       100,
+       125,
+       150,
+       175
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       40,
+       80,
+       120,
+       160,
+       200,
+       240,
+       280
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldDuration",
+      "values": [
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AOERadius",
+      "values": [
+       475,
+       475,
+       475,
+       475,
+       475,
+       475,
+       475
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusAOERadiusVsDashes",
+      "values": [
+       75,
+       75,
+       75,
+       75,
+       75,
+       75,
+       75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DamageAPRatio",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "SWIFTPLAY": {
+      "SpellDataValues": [
+       {
+        "name": "DamageAPRatio",
+        "values": [
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       13,
+       13,
+       12.5,
+       12,
+       11.5,
+       11,
+       11
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "ShieldCalc": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "ShieldAmount",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.75,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "WDamageCalc": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "DamageAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     17,
+     16,
+     15,
+     14,
+     13,
+     12,
+     11
+    ],
+    "Cooldown": {
+     "values": [
+      17,
+      16,
+      15,
+      14,
+      13,
+      12,
+      11
+     ],
+     "{0a3e0478}": 17,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "mCanMoveWhileChanneling": true,
+    "useAnimatorFramerate": true,
+    "mDoNotNeedToFaceTarget": true,
+    "mUpdateRotationWhenCasting": true,
+    "castRange": [
+     475,
+     475,
+     475,
+     475,
+     475,
+     475,
+     475
+    ],
+    "castRadius": [
+     750,
+     750,
+     750,
+     750,
+     750,
+     750,
+     750
+    ],
+    "castConeDistance": 100,
+    "castFrame": 8.5,
+    "missileSpeed": 1500,
+    "mana": [
+     75,
+     75,
+     75,
+     75,
+     75,
+     75
+    ],
+    "mTargetingTypeData": {
+     "__type": "SelfAoe"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "WDamageCalc",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 524288,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSpellCalculationKey": "ShieldCalc",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VexPDoom": {
+   "ObjectName": "VexPDoom",
+   "objectPath": "Characters/Vex/Spells/VexPDoom",
+   "mScriptName": "VexPDoom",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "PersistentEffectConditions": [
+     {
+      "PersistentVfxs": [
+       {
+        "boneName": "C_Buffbone_Glb_Chest_Loc",
+        "effectKey": "Vex_P_Doom",
+        "__type": "PersistentVfxData"
+       }
+      ],
+      "__type": "PersistentEffectConditionData"
+     }
+    ],
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VexPGloom": {
+   "ObjectName": "VexPGloom",
+   "objectPath": "Characters/Vex/Spells/VexPGloom",
+   "mScriptName": "VexPGloom",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VexEAbility/VexE": {
+   "ObjectName": "VexE",
+   "objectPath": "Characters/Vex/Spells/VexEAbility/VexE",
+   "mScriptName": "VexE",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "AhriOrbofDeception",
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_Target_Area",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       30,
+       50,
+       70,
+       90,
+       110,
+       130,
+       150
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmount",
+      "values": [
+       0.25,
+       0.3,
+       0.35,
+       0.4,
+       0.45,
+       0.5,
+       0.55
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StartingRadius",
+      "values": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RadiusGrowthRate",
+      "values": [
+       13,
+       13,
+       13,
+       13,
+       13,
+       13,
+       13
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.35,
+       0.4,
+       0.45,
+       0.5,
+       0.55,
+       0.6,
+       0.65
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxRadius",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "GloomCDChampTooltip",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "GloomCDNonChampTooltip",
+      "values": [
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "SlowAmount",
+        "values": [
+         0.35,
+         0.4,
+         0.45,
+         0.5,
+         0.55,
+         0.6,
+         0.65
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "EDamageCalc": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     13,
+     13,
+     13,
+     13,
+     13,
+     13,
+     13
+    ],
+    "Cooldown": {
+     "values": [
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12
+     ],
+     "{0a3e0478}": 12,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "mTurnSpeedScalar": 1.8,
+    "castRange": [
+     800,
+     800,
+     800,
+     800,
+     800,
+     800,
+     800
+    ],
+    "castRadius": [
+     175,
+     175,
+     175,
+     175,
+     175,
+     175,
+     175
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 80,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mSpeed": 1300,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "missileSpeed": 1250,
+    "mMissileEffectKey": "Vex_E_mis",
+    "mLineWidth": 60,
+    "mHitEffectKey": "{c0fd4a21}",
+    "mana": [
+     70,
+     80,
+     90,
+     100,
+     110,
+     110
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "LocationClamped"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "EDamageCalc",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "SlowAmount",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VexQAbility/VexQ": {
+   "ObjectName": "VexQ",
+   "objectPath": "Characters/Vex/Spells/VexQAbility/VexQ",
+   "mScriptName": "VexQ",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_SignatureSpell",
+     "Trait_DamageAbility",
+     "Trait_SignatureSpell",
+     "Trait_Ranged_Piercing",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       25,
+       70,
+       115,
+       160,
+       205,
+       250,
+       295
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "BaseDamage",
+        "values": [
+         45,
+         90,
+         135,
+         180,
+         225,
+         270,
+         315
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "APRatio",
+        "values": [
+         0.7,
+         0.7,
+         0.7,
+         0.7,
+         0.7,
+         0.7,
+         0.7
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "QDamageCalc": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{7b4a4737}": {
+      "mMultiplier": {
+       "mNumber": 1.1,
+       "__type": "NumberCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.5,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.15,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     8,
+     8,
+     7,
+     6,
+     5,
+     4,
+     4
+    ],
+    "Cooldown": {
+     "values": [
+      8,
+      8,
+      7,
+      6,
+      5,
+      4,
+      4
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCasterPositionEndOfCastUpdate": 1,
+    "mAmmoUsed": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "mTurnSpeedScalar": 2,
+    "castRange": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "luaOnMissileUpdateDistanceInterval": 390,
+    "mMissileSpec": {
+     "mMissileWidth": 180,
+     "movementComponent": {
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 600,
+      "__type": "FixedSpeedMovement"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      },
+      {
+       "mActions": [
+        {
+         "mSpeedValue": 3200,
+         "__type": "ChangeMissileSpeed"
+        },
+        {
+         "WidthChangeType": 1,
+         "WidthValue": 80,
+         "__type": "ChangeMissileWidth"
+        }
+       ],
+       "mTriggerName": "VexQTransform",
+       "__type": "TriggerFromScript"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "missileSpeed": 700,
+    "mHitEffectKey": "Vex_Q_New_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_Buffbone_Glb_Chest_Loc",
+    "mana": [
+     45,
+     50,
+     55,
+     60,
+     65,
+     65
+    ],
+    "mTargetingTypeData": {
+     "__type": "LocationClamped"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "QDamageCalc",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/VexQAbility/VexQ",
+  "Spells/VexWAbility/VexW",
+  "Spells/VexEAbility/VexE",
+  "Spells/VexRAbility/VexR"
+ ],
+ "passiva_ref": "Characters/Vex/Spells/VexPAbility",
+ "passiva_chaves": [
+  "Spells/VexPAbility/VexP"
+ ]
+}

@@ -1,0 +1,3018 @@
+{
+ "id": "Shaco",
+ "key": 35,
+ "nome": "Shaco",
+ "titulo": "o Bufão Demoníaco",
+ "funcoes": [
+  "Assassin"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 8,
+  "defense": 4,
+  "magic": 6,
+  "difficulty": 9
+ },
+ "stats_ddragon": {
+  "hp": 630,
+  "hpperlevel": 99,
+  "mp": 297,
+  "mpperlevel": 40,
+  "movespeed": 345,
+  "armor": 30,
+  "armorperlevel": 4,
+  "spellblock": 32,
+  "spellblockperlevel": 2.05,
+  "attackrange": 125,
+  "hpregen": 8.5,
+  "hpregenperlevel": 0.55,
+  "mpregen": 6,
+  "mpregenperlevel": 0.35,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 63,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 3,
+  "attackspeed": 0.694
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Apunhalar",
+  "descricao": "Os ataques básicos de Shaco e Veneno de Dois Gumes causam dano adicional ao atingirem o inimigo por trás."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "Deceive",
+   "nome": "Enganar",
+   "descricao": "Shaco fica Invisível e se teleporta para o local-alvo.<br><br>Seu primeiro ataque enquanto está Invisível é fortalecido, causando dano adicional e crítico ao atingir o inimigo por trás.",
+   "tooltip": "Shaco se teleporta e fica <keywordStealth>Invisível</keywordStealth> por {{ stealthduration }}s. Conjurar <spellName>Caixinha-Surpresa</spellName> ou <spellName>Alucinações</spellName> não anula a <keywordStealth>Invisibilidade</keywordStealth>.<br /><br />O próximo Ataque de Shaco enquanto estiver <keywordStealth>Invisível</keywordStealth> causará <physicalDamage>{{ totaldamage }} de Dano Físico</physicalDamage> adicional. Se atingir por trás, o Ataque será um Acerto Crítico que causará {{ qcritdamagemod }} de dano.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    13,
+    12.5,
+    12,
+    11.5,
+    11
+   ],
+   "custo": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    400,
+    400,
+    400,
+    400,
+    400
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "JackInTheBox",
+   "nome": "Caixinha-Surpresa",
+   "descricao": "Shaco cria uma Caixinha-Surpresa escondida. Quando ativada, ela causará temor e atacará inimigos próximos.",
+   "tooltip": "Shaco cria uma armadilha que fica invisível depois de {{ armtime }}s e dura {{ trapduration }}s. Ela é ativada quando um inimigo se aproxima ou quando ela é revelada, <status>Aterrorizando</status> Campeões inimigos próximos por {{ fearduration }}s ou tropas e monstros da selva por {{ minionfearduration }}s.<br /><br />Uma vez ativada, a armadilha dispara em todos os inimigos próximos por 5 segundos, causando <magicDamage>{{ aoedamage }} de Dano Mágico</magicDamage>, ou <magicDamage>{{ stdamage }} de dano</magicDamage> se focada em um único alvo.<br /><br />Os ataques da Caixinha-Surpresa causam <magicDamage>{{ monsterbonusdamage }}</magicDamage> a mais de dano a monstros.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    15,
+    15,
+    15,
+    15,
+    15
+   ],
+   "custo": [
+    70,
+    65,
+    60,
+    55,
+    50
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    500,
+    500,
+    500,
+    500,
+    500
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "35/50/65/80/95",
+    "200/300/400/500/600",
+    "0.5/0.75/1/1.25/1.5",
+    "40",
+    "2",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "TwoShivPoison",
+   "nome": "Veneno de Dois Gumes",
+   "descricao": "As facas de Shaco envenenam alvos passivamente ao contato, reduzindo sua Velocidade de Movimento. Ele pode arremessá-las para causar dano e envenenar o alvo. A faca arremessada causa dano adicional se a Vida do alvo estiver abaixo de 30%.",
+   "tooltip": "<spellPassive>Passivo:</spellPassive> enquanto a Habilidade estiver fora do Tempo de Recarga, os Ataques de Shaco causam {{ slowamount*-100 }}% de <status>Lentidão</status> por {{ slowdurationpassive }}s.<br /><br /><spellActive>Ativo:</spellActive> Shaco arremessa uma faca, causando <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage> e {{ slowamount*-100 }}% de <status>Lentidão</status> por {{ slowdurationactive }}s. Se o alvo tiver menos que {{ executehealththreshold*100 }}% de Vida, a faca causa <magicDamage>{{ totalexecutedamage }} de dano</magicDamage>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "custo": [
+    75,
+    75,
+    75,
+    75,
+    75
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    625,
+    625,
+    625,
+    625,
+    625
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "HallucinateFull",
+   "nome": "Alucinações",
+   "descricao": "Shaco cria uma ilusão de si mesmo próxima a ele, que pode atacar inimigos próximos (causa dano reduzido a torres). Ao morrer, ela explode, fazendo surgir três Caixinhas-Surpresa e causando dano a todos os inimigos próximos.",
+   "tooltip": "Shaco desaparece por um instante e, então, reaparece com um clone que dura {{ clonelifetime }}s e detona ao morrer, causando <magicDamage>{{ explosiontotaldamage }} de Dano Mágico</magicDamage> e fazendo surgir três <spellName>Caixinhas-Surpresa</spellName> menores que são ativadas imediatamente. O clone causa {{ cloneaadamagepercent*100 }}% do dano de Shaco e sofre {{ cloneincomingdamagepercent*100 }}% de dano aumentado.<br /><br />As <spellName>Caixinhas-Surpresa</spellName> menores causam <magicDamage>{{ aoedamage }} de Dano Mágico</magicDamage>, ou <magicDamage>{{ stdamage }} de Dano Mágico</magicDamage> se Atacarem somente um inimigo, além de infligirem <status>Temor</status> por {{ boxfearduration }}s.<br />{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    100,
+    90,
+    80
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    200,
+    200,
+    200
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "6",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 630,
+  "vida_nivel": 99,
+  "regen_vida": 1.7,
+  "regen_vida_nivel": 0.11,
+  "dano": 63,
+  "dano_nivel": 3,
+  "armadura": 30,
+  "armadura_nivel": 4,
+  "rm": 32,
+  "rm_nivel": 2.05,
+  "velocidade_mov": 345,
+  "alcance_ataque": 125,
+  "vel_ataque_base": 0.694,
+  "vel_ataque_razao": 0.694,
+  "vel_ataque_nivel": 3,
+  "dano_critico": 2,
+  "alcance_aquisicao": 400,
+  "raio_selecao": 135,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.07849616557359695,
+   "mAttackProbability": 0.5,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.5,
+    "mAttackName": "ShacoBasicAttack2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.07849616557359695,
+    "mAttackName": "ShacoCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Shaco/Spells/DeceiveAbility/Deceive",
+  "Characters/Shaco/Spells/JackInTheBoxAbility/JackInTheBox",
+  "Characters/Shaco/Spells/TwoShivPoisonAbility/TwoShivPoison",
+  "Characters/Shaco/Spells/HallucinateFullAbility/HallucinateFull"
+ ],
+ "abilities_ref": [
+  "Characters/Shaco/Spells/HallucinateFullAbility",
+  "Characters/Shaco/Spells/DeceiveAbility",
+  "Characters/Shaco/Spells/JackInTheBoxAbility",
+  "Characters/Shaco/Spells/TwoShivPoisonAbility",
+  "Characters/Shaco/Spells/ShacoPassiveAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/HallucinateFullAbility/Hallucinate": {
+   "ObjectName": "Hallucinate",
+   "objectPath": "Characters/Shaco/Spells/HallucinateFullAbility/Hallucinate",
+   "mScriptName": "Hallucinate",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mEffectAmount": [
+     {
+      "value": [
+       100,
+       200,
+       300,
+       400,
+       0,
+       0,
+       100
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       50,
+       50,
+       50,
+       50,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       105,
+       90,
+       75,
+       60,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       75,
+       75,
+       75,
+       75,
+       75,
+       75,
+       75
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1,
+    "cooldownTime": [
+     110,
+     100,
+     90,
+     80,
+     10,
+     10,
+     10
+    ],
+    "Cooldown": {
+     "values": [
+      110,
+      100,
+      90,
+      80,
+      10,
+      10,
+      10
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     500,
+     500,
+     500,
+     500,
+     500,
+     500,
+     500
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 0.66,
+    "missileSpeed": 0,
+    "bHaveHitBone": true,
+    "mHitBoneName": "R_hand",
+    "mana": [
+     75,
+     75,
+     75,
+     75,
+     75,
+     75
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/HallucinateFullAbility/HallucinateFull": {
+   "ObjectName": "HallucinateFull",
+   "objectPath": "Characters/Shaco/Spells/HallucinateFullAbility/HallucinateFull",
+   "mScriptName": "HallucinateFull",
+   "mSpell": {
+    "mAffectsTypeFlags": 9221,
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_ChannelSpell",
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_ProjectileDestruction",
+     "Trait_Pet",
+     "Trait_AoE"
+    ],
+    "mEffectAmount": [
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "TeleportRange",
+      "values": [
+       150,
+       150,
+       150,
+       150,
+       150,
+       150,
+       150
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "STBaseDamage",
+      "values": [
+       0,
+       25,
+       50,
+       75,
+       100,
+       125,
+       150
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AoEBaseDamage",
+      "values": [
+       0,
+       10,
+       20,
+       30,
+       40,
+       50,
+       60
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CloneAADamagePercent",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CloneIncomingDamagePercent",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BoxFearDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ExplosionBaseDamage",
+      "values": [
+       75,
+       150,
+       225,
+       300,
+       375,
+       450,
+       525
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BoxArmTime",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BoxLifetime",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CloneLifetime",
+      "values": [
+       18,
+       18,
+       18,
+       18,
+       18,
+       18,
+       18
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "STDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "STBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.15,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "AoEDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "AoEBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "ExplosionTotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "ExplosionBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.7,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     100,
+     100,
+     90,
+     80,
+     10,
+     10,
+     10
+    ],
+    "Cooldown": {
+     "values": [
+      100,
+      100,
+      90,
+      80,
+      10,
+      10,
+      10
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mDoNotNeedToFaceTarget": true,
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 56.7,
+    "missileSpeed": 0,
+    "bHaveHitBone": true,
+    "mHitBoneName": "R_hand",
+    "mana": [
+     100,
+     100,
+     100,
+     75,
+     75,
+     0
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "LocationClamped"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/HallucinateFullAbility/HallucinateGuide": {
+   "ObjectName": "HallucinateGuide",
+   "objectPath": "Characters/Shaco/Spells/HallucinateFullAbility/HallucinateGuide",
+   "mScriptName": "HallucinateGuide",
+   "mSpell": {
+    "flags": 36,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "HallucinateGuide",
+    "mSpellTags": [
+     "Trait_ChannelSpell"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       75,
+       150,
+       225,
+       300,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       50,
+       50,
+       50,
+       50,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       15,
+       15,
+       15,
+       15,
+       15,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0,
+       25,
+       50,
+       75,
+       75,
+       75,
+       100
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1,
+    "mCoefficient2": 0.15,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mDoesntBreakChannels": true,
+    "mSpellRevealsChampion": false,
+    "mUseMinimapTargeting": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     20000,
+     20000,
+     20000,
+     20000,
+     20000,
+     20000,
+     20000
+    ],
+    "castRadius": [
+     250.3,
+     250.3,
+     250.3,
+     250.3,
+     250.3,
+     250.3,
+     250.3
+    ],
+    "castConeDistance": 100,
+    "castFrame": 20.8,
+    "missileSpeed": 0,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ShacoPassiveAbility/ShacoPassive": {
+   "ObjectName": "ShacoPassive",
+   "objectPath": "Characters/Shaco/Spells/ShacoPassiveAbility/ShacoPassive",
+   "mScriptName": "ShacoPassive",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "PerUnitCD",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MonsterCritMod",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CloneMult",
+      "values": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShivSlowAmount",
+      "values": [
+       -0.4,
+       -0.4,
+       -0.4,
+       -0.4,
+       -0.4,
+       -0.4,
+       -0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShredDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShivExecuteDamagePercent",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AttackBonusADRatio",
+      "values": [
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "AttackBonusADRatio",
+        "values": [
+         0.4,
+         0.4,
+         0.4,
+         0.4,
+         0.4,
+         0.4,
+         0.4
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "AttackBonusADRatio",
+        "values": [
+         0.4,
+         0.4,
+         0.4,
+         0.4,
+         0.4,
+         0.4,
+         0.4
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "AttackBonusADRatio",
+        "values": [
+         0.4,
+         0.4,
+         0.4,
+         0.4,
+         0.4,
+         0.4,
+         0.4
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "MonsterDamageTooltip": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mSubpart": {
+         "mSubparts": [
+          {
+           "mDataValue": "MonsterCritMod",
+           "__type": "NamedDataValueCalculationPart"
+          },
+          {
+           "mStat": 9,
+           "mStatFormula": 2,
+           "mCoefficient": 1,
+           "__type": "StatByCoefficientCalculationPart"
+          }
+         ],
+         "__type": "SumOfSubPartsCalculationPart"
+        },
+        "__type": "StatBySubPartCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "BasicAttackDamage": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 20,
+        "mEndValue": 35,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "AttackBonusADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "ShivDamage": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 15,
+        "mEndValue": 50,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       },
+       {
+        "mCoefficient": 0.1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "ShivDamageExecute": {
+      "mMultiplier": {
+       "mDataValue": "ShivExecuteDamagePercent",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mModifiedGameCalculation": "ShivDamage",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Backstab",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ShacoWPlacementMissile": {
+   "ObjectName": "ShacoWPlacementMissile",
+   "objectPath": "Characters/Shaco/Spells/ShacoWPlacementMissile",
+   "mScriptName": "ShacoWPlacementMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 3076,
+    "mAlternateName": "EzrealMysticShotMissile",
+    "mEffectAmount": [
+     {
+      "value": [
+       15,
+       40,
+       65,
+       90,
+       115,
+       140,
+       165
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2.25,
+       2.5,
+       2.75,
+       3,
+       3.25,
+       3.5,
+       3.75
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1.2,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     6.5,
+     6,
+     5.5,
+     5,
+     4.5,
+     4,
+     4
+    ],
+    "Cooldown": {
+     "values": [
+      6.5,
+      6,
+      5.5,
+      5,
+      4.5,
+      4,
+      4
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "castRange": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castRangeDisplayOverride": [
+     1175,
+     1175,
+     1175,
+     1175,
+     1175,
+     1175,
+     1175
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 60,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mSpeed": 3000,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 4,
+    "missileSpeed": 3000,
+    "mMissileEffectKey": "Shaco_W_Placement_mis",
+    "mLineWidth": 60,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/Jack_In_The_Box": {
+   "ObjectName": "Jack_In_The_Box",
+   "objectPath": "Characters/Shaco/Spells/Jack_In_The_Box",
+   "mScriptName": "Jack_In_The_Box",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Jack_In_The_Box",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ShacoBasicAttack2": {
+   "ObjectName": "ShacoBasicAttack2",
+   "objectPath": "Characters/Shaco/Spells/ShacoBasicAttack2",
+   "mScriptName": "ShacoBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "ShacoBasicAttack2",
+    "spellCastTime": 0.41665,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9.36,
+    "missileSpeed": 0,
+    "mHitEffectKey": "Shaco_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TrapLimiter_Shaco": {
+   "ObjectName": "TrapLimiter_Shaco",
+   "objectPath": "Characters/Shaco/Spells/TrapLimiter_Shaco",
+   "mScriptName": "TrapLimiter_Shaco",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TrapLimiter",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ShacoQTrail": {
+   "ObjectName": "ShacoQTrail",
+   "objectPath": "Characters/Shaco/Spells/ShacoQTrail",
+   "mScriptName": "ShacoQTrail",
+   "mSpell": {
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mEffectAmount": [
+     {
+      "value": [
+       0,
+       10,
+       40,
+       70,
+       100,
+       130,
+       160
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       17.5,
+       20,
+       22.5,
+       25,
+       27.5,
+       30,
+       32.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       17.5,
+       20,
+       22.5,
+       25,
+       27.5,
+       30,
+       32.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       25,
+       30,
+       35,
+       40,
+       45,
+       50,
+       55
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1,
+    "mCoefficient2": 1,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     625,
+     625,
+     625,
+     625,
+     625,
+     625,
+     625
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mSpeed": 5000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 9,
+    "missileSpeed": 5000,
+    "mMissileEffectName": "doesnotexist.troy",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/JackInTheBoxAbility/JackInTheBox": {
+   "ObjectName": "JackInTheBox",
+   "objectPath": "Characters/Shaco/Spells/JackInTheBoxAbility/JackInTheBox",
+   "mScriptName": "JackInTheBox",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_Trap",
+     "Trait_Target_Area",
+     "Trait_Ranged_Zone",
+     "Trait_AoE"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       20,
+       35,
+       50,
+       65,
+       80,
+       95,
+       110
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       100,
+       200,
+       300,
+       400,
+       500,
+       600,
+       700
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.25,
+       0.5,
+       0.75,
+       1,
+       1.25,
+       1.5,
+       1.75
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       40,
+       40,
+       40,
+       40,
+       40,
+       40,
+       40
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "AoEBaseDamage",
+      "values": [
+       5,
+       10,
+       15,
+       20,
+       25,
+       30,
+       35
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "STBaseDamage",
+      "values": [
+       10,
+       25,
+       40,
+       55,
+       70,
+       85,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinionFearDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MonsterBonusDamage",
+      "values": [
+       5,
+       20,
+       35,
+       50,
+       65,
+       80,
+       95
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxTraps",
+      "values": [
+       25000,
+       25000,
+       25000,
+       25000,
+       25000,
+       25000,
+       25000
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FearDuration",
+      "values": [
+       0.25,
+       0.5,
+       0.75,
+       1,
+       1.25,
+       1.5,
+       1.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "WAoEAPRatio",
+      "values": [
+       0.12,
+       0.12,
+       0.12,
+       0.12,
+       0.12,
+       0.12,
+       0.12
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "WSingleTargetAPRatio",
+      "values": [
+       0.18,
+       0.18,
+       0.18,
+       0.18,
+       0.18,
+       0.18,
+       0.18
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BoxDuration",
+      "values": [
+       40,
+       40,
+       40,
+       40,
+       40,
+       40,
+       40
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ArmTime",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "URF": {
+      "SpellDataValues": [
+       {
+        "name": "MaxTraps",
+        "values": [
+         6,
+         6,
+         6,
+         6,
+         6,
+         6,
+         6
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "MaxTraps",
+        "values": [
+         6,
+         6,
+         6,
+         6,
+         6,
+         6,
+         6
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "FearDuration",
+        "values": [
+         0.375,
+         0.5,
+         0.625,
+         0.75,
+         0.875,
+         1,
+         1.125
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "MaxTraps",
+        "values": [
+         6,
+         6,
+         6,
+         6,
+         6,
+         6,
+         6
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "MaxTraps",
+        "values": [
+         6,
+         6,
+         6,
+         6,
+         6,
+         6,
+         6
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "AoEDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "AoEBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "WAoEAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "STDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "STBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "WSingleTargetAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TrapDuration": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BoxDuration",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.2,
+    "mCoefficient2": 0.1,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     15,
+     15,
+     15,
+     15,
+     15,
+     15,
+     15
+    ],
+    "Cooldown": {
+     "values": [
+      15,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15
+     ],
+     "{0a3e0478}": 15,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     500,
+     500,
+     500,
+     500,
+     500,
+     500,
+     500
+    ],
+    "castRadius": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castConeDistance": 100,
+    "castFrame": 17.5,
+    "missileSpeed": 1450,
+    "mana": [
+     70,
+     65,
+     60,
+     55,
+     50,
+     50
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/DeceiveAbility/Deceive": {
+   "ObjectName": "Deceive",
+   "objectPath": "Characters/Shaco/Spells/DeceiveAbility/Deceive",
+   "mScriptName": "Deceive",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 13327,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "PositiveEffect_Teleport",
+     "Trait_PlayerSelectedDashDirection",
+     "Trait_DamageAbility",
+     "Trait_Invisibility"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       15,
+       25,
+       35,
+       45,
+       55,
+       65,
+       75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StealthDuration",
+      "values": [
+       2.25,
+       2.5,
+       2.75,
+       3,
+       3.25,
+       3.5,
+       3.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CDRefund",
+      "values": [
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ExtraAATime",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PseudoCastTime",
+      "values": [
+       0.125,
+       0.125,
+       0.125,
+       0.125,
+       0.125,
+       0.125,
+       0.125
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusADRatio",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "NonCritBackstabMod",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "BaseDamage",
+        "values": [
+         25,
+         45,
+         65,
+         85,
+         105,
+         125,
+         145
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "BonusADRatio",
+        "values": [
+         0.85,
+         0.85,
+         0.85,
+         0.85,
+         0.85,
+         0.85,
+         0.85
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "BonusADRatio",
+        "values": [
+         0.85,
+         0.85,
+         0.85,
+         0.85,
+         0.85,
+         0.85,
+         0.85
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "BonusADRatio",
+        "values": [
+         0.85,
+         0.85,
+         0.85,
+         0.85,
+         0.85,
+         0.85,
+         0.85
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       14.5,
+       14,
+       13.5,
+       13,
+       12.5,
+       12,
+       11.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     "ARAM": {
+      "value": [
+       12,
+       12,
+       11,
+       10,
+       9,
+       8,
+       8
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     "Kiwi": {
+      "value": [
+       12,
+       12,
+       11,
+       10,
+       9,
+       8,
+       8
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "BonusADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "QCritDamageMod": {
+      "mFormulaParts": [
+       {
+        "mSubparts": [
+         {
+          "mNumber": 1,
+          "__type": "NumberCalculationPart"
+         },
+         {
+          "mPart1": {
+           "mDataValue": "NonCritBackstabMod",
+           "__type": "NamedDataValueCalculationPart"
+          },
+          "mPart2": {
+           "mSubparts": [
+            {
+             "mStat": 9,
+             "mCoefficient": 1,
+             "__type": "StatByCoefficientCalculationPart"
+            },
+            {
+             "mNumber": -1,
+             "__type": "NumberCalculationPart"
+            }
+           ],
+           "__type": "SumOfSubPartsCalculationPart"
+          },
+          "__type": "ProductOfSubPartsCalculationPart"
+         }
+        ],
+        "__type": "SumOfSubPartsCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 2.3666,
+    "cooldownTime": [
+     13,
+     13,
+     12.5,
+     12,
+     11.5,
+     11,
+     11
+    ],
+    "Cooldown": {
+     "values": [
+      13,
+      13,
+      12.5,
+      12,
+      11.5,
+      11,
+      11
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "cantCastWhileRooted": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "missileSpeed": 0,
+    "mana": [
+     40,
+     40,
+     40,
+     40,
+     40,
+     40
+    ],
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Deceive",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ShacoBoxBasicAttack": {
+   "ObjectName": "ShacoBoxBasicAttack",
+   "objectPath": "Characters/Shaco/Spells/ShacoBoxBasicAttack",
+   "mScriptName": "ShacoBoxBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "bHaveHitEffect": true,
+    "castRange": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "head",
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 10,
+    "missileSpeed": 1500,
+    "mMissileEffectName": "DATA/Particles/Blaster_mis.troy",
+    "mHitEffectName": "doesnotexist.troy",
+    "mAfterEffectName": "DATA/Particles/BlasterHit_tar.troy",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TwoShivPoisonAbility/TwoShivPoison": {
+   "ObjectName": "TwoShivPoison",
+   "objectPath": "Characters/Shaco/Spells/TwoShivPoisonAbility/TwoShivPoison",
+   "mScriptName": "TwoShivPoison",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_SignatureSpell"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       45,
+       70,
+       95,
+       120,
+       145,
+       170,
+       195
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ExecuteDamagePercent",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ExecuteHealthThreshold",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmount",
+      "values": [
+       -0.175,
+       -0.2,
+       -0.225,
+       -0.25,
+       -0.275,
+       -0.3,
+       -0.325
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDurationPassive",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDurationActive",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusADRatio",
+      "values": [
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "APRatio",
+        "values": [
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "BonusADRatio",
+        "values": [
+         1,
+         1,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "BonusADRatio",
+        "values": [
+         1,
+         1,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "BonusADRatio",
+        "values": [
+         1,
+         1,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "BonusADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalExecuteDamage": {
+      "mMultiplier": {
+       "mDataValue": "ExecuteDamagePercent",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mModifiedGameCalculation": "TotalDamage",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+     ],
+     "{0a3e0478}": 8,
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Shaco/Spells/TwoShivPoisonAbility/TwoShivPoison",
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     625,
+     625,
+     625,
+     625,
+     625,
+     625,
+     625
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "L_hand",
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 9,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Shaco_E_mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Shaco_E_tar",
+    "mana": [
+     75,
+     75,
+     75,
+     75,
+     75,
+     75
+    ],
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ShacoCritAttack": {
+   "ObjectName": "ShacoCritAttack",
+   "objectPath": "Characters/Shaco/Spells/ShacoCritAttack",
+   "mScriptName": "ShacoCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.41665,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9.315,
+    "missileSpeed": 0,
+    "mHitEffectKey": "Shaco_BA_tar_crit",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ShacoBoxSpell": {
+   "ObjectName": "ShacoBoxSpell",
+   "objectPath": "Characters/Shaco/Spells/ShacoBoxSpell",
+   "mScriptName": "ShacoBoxSpell",
+   "mSpell": {
+    "mAffectsTypeFlags": 24239,
+    "mAlternateName": "ShacoBoxSpell",
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0.1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "head",
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 10,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Shaco_W_Box_Mis",
+    "mHitEffectKey": "Shaco_W_box_hit",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_Buffbone_Glb_Chest_Loc",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ShacoBoxSpell2": {
+   "ObjectName": "ShacoBoxSpell2",
+   "objectPath": "Characters/Shaco/Spells/ShacoBoxSpell2",
+   "mScriptName": "ShacoBoxSpell2",
+   "mSpell": {
+    "mAffectsTypeFlags": 24239,
+    "mAlternateName": "ShacoBoxSpell",
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0.1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "head",
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 10,
+    "missileSpeed": 1500,
+    "mMissileEffectName": "DATA/Particles/Blaster_mis.troy",
+    "mHitEffectName": "doesnotexist.troy",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/DeceiveCritBonus": {
+   "ObjectName": "DeceiveCritBonus",
+   "objectPath": "Characters/Shaco/Spells/DeceiveCritBonus",
+   "mScriptName": "DeceiveCritBonus",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 13327,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 2.3666,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cantCastWhileRooted": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castRangeDisplayOverride": [
+     500,
+     500,
+     500,
+     500,
+     500,
+     500,
+     500
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "missileSpeed": 0,
+    "mana": [
+     0,
+     80,
+     70,
+     60,
+     50,
+     40
+    ],
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_DeceiveCritBonus",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/Two_Shiv_Poison": {
+   "ObjectName": "Two_Shiv_Poison",
+   "objectPath": "Characters/Shaco/Spells/Two_Shiv_Poison",
+   "mScriptName": "Two_Shiv_Poison",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Two_Shiv_Poison",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ShacoBasicAttack": {
+   "ObjectName": "ShacoBasicAttack",
+   "objectPath": "Characters/Shaco/Spells/ShacoBasicAttack",
+   "mScriptName": "ShacoBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "ShacoBasicAttack",
+    "spellCastTime": 0.41665,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9.25,
+    "missileSpeed": 0,
+    "mHitEffectKey": "Shaco_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/DeceiveAbility/Deceive",
+  "Spells/JackInTheBoxAbility/JackInTheBox",
+  "Spells/TwoShivPoisonAbility/TwoShivPoison",
+  "Spells/HallucinateFullAbility/HallucinateFull"
+ ],
+ "passiva_ref": "Characters/Shaco/Spells/ShacoPassiveAbility",
+ "passiva_chaves": [
+  "Spells/ShacoPassiveAbility/ShacoPassive"
+ ]
+}

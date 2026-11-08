@@ -1,0 +1,3588 @@
+{
+ "id": "Brand",
+ "key": 63,
+ "nome": "Brand",
+ "titulo": "a Vingança Flamejante",
+ "funcoes": [
+  "Mage",
+  "Support"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 2,
+  "defense": 2,
+  "magic": 9,
+  "difficulty": 4
+ },
+ "stats_ddragon": {
+  "hp": 570,
+  "hpperlevel": 105,
+  "mp": 469,
+  "mpperlevel": 21,
+  "movespeed": 340,
+  "armor": 24,
+  "armorperlevel": 4.2,
+  "spellblock": 30,
+  "spellblockperlevel": 1.3,
+  "attackrange": 550,
+  "hpregen": 5.5,
+  "hpregenperlevel": 0.55,
+  "mpregen": 11,
+  "mpregenperlevel": 0.6,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 57,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2,
+  "attackspeed": 0.681
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Labareda",
+  "descricao": "As habilidades de Brand deixam seus alvos incandescentes, causando dano ao longo de 4s, acumulando até 3 vezes. Se Brand abate um inimigo que estiver incandescente, ele recupera Mana. Quando Labareda chegar ao máximo de acúmulos em um Campeão ou monstro grande, ela se torna instável. Detona depois de 2s, aplicando efeitos de habilidades e causando muito dano em uma área ao redor da vítima."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "BrandQ",
+   "nome": "Cauterizar",
+   "descricao": "Brand lança uma bola de fogo que causa Dano Mágico. Se o alvo estiver incandescente, Cauterizar o atordoará.",
+   "tooltip": "Brand arremessa uma bola de fogo que causa <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage> ao primeiro inimigo atingido.<br /><br />Se o alvo estiver <keywordMajor>Incandescente</keywordMajor>, ele será <status>Atordoado</status> por {{ stunduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    8,
+    7.5,
+    7,
+    6.5,
+    6
+   ],
+   "custo": [
+    70,
+    70,
+    70,
+    70,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1050,
+    1050,
+    1050,
+    1050,
+    1050
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "70/100/130/160/190",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "BrandW",
+   "nome": "Pilar de Chamas",
+   "descricao": "Após um curto intervalo, Brand cria um Pilar de Chamas na área alvo, causando Dano Mágico a unidades inimigas na área. Unidades que estiverem incandescentes sofrem 25% de dano adicional.",
+   "tooltip": "Brand cria um pilar de fogo puro, causando <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage>.<br /><br />Unidades <keywordMajor>Incandescentes</keywordMajor> sofrem <magicDamage>{{ empowereddamage }} de dano</magicDamage>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    10,
+    9.5,
+    9,
+    8.5,
+    8
+   ],
+   "custo": [
+    60,
+    70,
+    80,
+    90,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    900,
+    900,
+    900,
+    900,
+    900
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "20/40/60/80/100",
+    "0.25",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "BrandE",
+   "nome": "Conflagração",
+   "descricao": "Brand conjura uma poderosa explosão no alvo que se espalha para inimigos próximos, causando Dano Mágico. Se o alvo estiver incandescente, o alcance de Conflagração será dobrado.",
+   "tooltip": "Brand conjura uma poderosa explosão no alvo, causando <magicDamage>{{ edamagecalc }} de Dano Mágico</magicDamage> a unidades próximas. <br /><br />Se o alvo estiver <keywordMajor>Incandescente</keywordMajor>, o alcance da dispersão de Conflagração é dobrado.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    13,
+    12,
+    11,
+    10,
+    9
+   ],
+   "custo": [
+    90,
+    90,
+    90,
+    90,
+    90
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    625,
+    625,
+    625,
+    625,
+    625
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "375",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "BrandR",
+   "nome": "Piroclasma",
+   "descricao": "Brand desfere uma devastadora torrente de fogo que ressalta 5 vezes, indo de Brand aos inimigos próximos e causando Dano Mágico a cada vez que ressaltar. Os ressaltos priorizam acumular Labareda ao máximo em Campeões. Se o alvo estiver incandescente, Piroclasma causará breve Lentidão a ele.",
+   "tooltip": "Brand desfere uma torrente de fogo devastadora que ressalta para Brand ou para outro inimigo até 5 vezes, causando <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage> aos inimigos cada vez que ressaltar. Os ressaltos priorizam o acúmulo máximo de <keywordMajor>Labareda</keywordMajor> em Campeões.<br /><br />Se o alvo estiver <keywordMajor>Incandescente</keywordMajor>, ele sofrerá {{ slowamount }}% de <status>Lentidão</status> por um breve momento.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    100,
+    90,
+    80
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    750,
+    750,
+    750
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 570,
+  "vida_nivel": 105,
+  "regen_vida": 1.1,
+  "regen_vida_nivel": 0.11,
+  "dano": 57,
+  "dano_nivel": 3,
+  "armadura": 24,
+  "armadura_nivel": 4.2,
+  "rm": 30,
+  "rm_nivel": 1.3,
+  "velocidade_mov": 340,
+  "alcance_ataque": 550,
+  "vel_ataque_base": 0.681,
+  "vel_ataque_razao": 0.625,
+  "vel_ataque_nivel": 2,
+  "dano_critico": 2,
+  "alcance_aquisicao": 600,
+  "raio_selecao": 120,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.11249999701976776,
+   "mAttackProbability": 0.75,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.25,
+    "mAttackName": "BrandBasicAttack2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackName": "BrandCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Brand/Spells/BrandQAbility/BrandQ",
+  "Characters/Brand/Spells/BrandWAbility/BrandW",
+  "Characters/Brand/Spells/BrandEAbility/BrandE",
+  "Characters/Brand/Spells/BrandRAbility/BrandR"
+ ],
+ "abilities_ref": [
+  "Characters/Brand/Spells/BrandQAbility",
+  "Characters/Brand/Spells/BrandWAbility",
+  "Characters/Brand/Spells/BrandEAbility",
+  "Characters/Brand/Spells/BrandRAbility",
+  "Characters/Brand/Spells/BrandPassiveAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/BrandPassiveAbility/BrandAblaze": {
+   "ObjectName": "BrandAblaze",
+   "objectPath": "Characters/Brand/Spells/BrandPassiveAbility/BrandAblaze",
+   "mScriptName": "BrandAblaze",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 13327,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "BrandAblaze",
+    "mEffectAmount": [
+     {
+      "value": [
+       40,
+       80,
+       120,
+       160,
+       200,
+       240,
+       280
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.65,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     8.5,
+     8,
+     7.5,
+     7,
+     6.5,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      8.5,
+      8,
+      7.5,
+      7,
+      6.5,
+      6,
+      6
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     1050,
+     1050,
+     1050,
+     1050,
+     1050,
+     1050,
+     1050
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1200,
+    "mLineWidth": 80,
+    "mana": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ],
+    "manaUiOverride": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_BrandAblaze",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BrandPassiveAbility/BrandPassive": {
+   "ObjectName": "BrandPassive",
+   "objectPath": "Characters/Brand/Spells/BrandPassiveAbility/BrandPassive",
+   "mScriptName": "BrandPassive",
+   "mSpell": {
+    "mEffectAmount": [
+     {
+      "value": [
+       20,
+       20,
+       25,
+       30,
+       35,
+       40,
+       40
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "MonsterMod",
+      "values": [
+       270,
+       270,
+       270,
+       270,
+       270,
+       270,
+       270
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PercentHealthDamage",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EpicMonsterDPSCap",
+      "values": [
+       80,
+       80,
+       80,
+       80,
+       80,
+       80,
+       80
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "JungleMonsterDPSCap",
+      "values": [
+       50,
+       50,
+       50,
+       50,
+       50,
+       50,
+       50
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ManaRestoration",
+      "values": [
+       20,
+       20,
+       25,
+       30,
+       35,
+       40,
+       40
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "PercentHealthDamage",
+        "values": [
+         1.5,
+         1.5,
+         1.5,
+         1.5,
+         1.5,
+         1.5,
+         1.5
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "ManaRestore": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 20,
+        "mBreakpoints": [
+         {
+          "mLevel": 3,
+          "mAdditionalBonusAtThisLevel": 3.33,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 6,
+          "mAdditionalBonusAtThisLevel": 3.33,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 9,
+          "mAdditionalBonusAtThisLevel": 3.33,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 12,
+          "mAdditionalBonusAtThisLevel": 3.33,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 15,
+          "mAdditionalBonusAtThisLevel": 3.333,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 18,
+          "mAdditionalBonusAtThisLevel": 3.33,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "ExplosionDamage": {
+      "mMultiplier": {
+       "mNumber": 0.01,
+       "__type": "NumberCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mStartValue": 6,
+        "mEndValue": 12,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       },
+       {
+        "mCoefficient": 0.02,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": 2,
+      "__type": "GameCalculation"
+     },
+     "{4124b2bf}": {
+      "mFormulaParts": [
+       {
+        "mPart1": {
+         "mDataValue": "EpicMonsterDPSCap",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        "mPart2": {
+         "mNumber": 0.25,
+         "__type": "NumberCalculationPart"
+        },
+        "__type": "ProductOfSubPartsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{afbf404a}": {
+      "mFormulaParts": [
+       {
+        "mPart1": {
+         "mDataValue": "JungleMonsterDPSCap",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        "mPart2": {
+         "mNumber": 0.25,
+         "__type": "NumberCalculationPart"
+        },
+        "__type": "ProductOfSubPartsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "JungleMonsterExplosionFlatCap": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mExpandedTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 270,
+        "mBreakpoints": [
+         {
+          "mLevel": 6,
+          "mAdditionalBonusAtThisLevel": 85,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 11,
+          "mAdditionalBonusAtThisLevel": 85,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 16,
+          "mAdditionalBonusAtThisLevel": 85,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_BrandPassive",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BrandPassiveAbility/BrandAblazeDetonateMarker": {
+   "ObjectName": "BrandAblazeDetonateMarker",
+   "objectPath": "Characters/Brand/Spells/BrandPassiveAbility/BrandAblazeDetonateMarker",
+   "mScriptName": "BrandAblazeDetonateMarker",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 13327,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mEffectAmount": [
+     {
+      "value": [
+       40,
+       80,
+       120,
+       160,
+       200,
+       240,
+       280
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.65,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     8.5,
+     8,
+     7.5,
+     7,
+     6.5,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      8.5,
+      8,
+      7.5,
+      7,
+      6.5,
+      6,
+      6
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     1050,
+     1050,
+     1050,
+     1050,
+     1050,
+     1050,
+     1050
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1200,
+    "mLineWidth": 80,
+    "mana": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ],
+    "manaUiOverride": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_BrandAblazeBomb",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BrandWildfire": {
+   "ObjectName": "BrandWildfire",
+   "objectPath": "Characters/Brand/Spells/BrandWildfire",
+   "mScriptName": "BrandWildfire",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_Ultimate"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       0,
+       150,
+       250,
+       350,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0,
+       5,
+       7,
+       9,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0,
+       100,
+       100,
+       100,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.5,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     105,
+     105,
+     90,
+     75,
+     105,
+     105,
+     105
+    ],
+    "Cooldown": {
+     "values": [
+      105,
+      105,
+      90,
+      75,
+      105,
+      105,
+      105
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     750,
+     750,
+     750,
+     750,
+     750,
+     750,
+     750
+    ],
+    "castRadiusSecondary": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "chest",
+      "mSpeed": 1000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 12,
+    "missileSpeed": 1000,
+    "mMissileEffectKey": "Brand_R_Wildfire_mis",
+    "mana": [
+     100,
+     100,
+     100,
+     0,
+     0,
+     0
+    ],
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BrandDamageTracker": {
+   "ObjectName": "BrandDamageTracker",
+   "objectPath": "Characters/Brand/Spells/BrandDamageTracker",
+   "mScriptName": "BrandDamageTracker",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_BrandDamageTracker",
+    "mShowDuration": false,
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BrandPassiveRunspeed": {
+   "ObjectName": "BrandPassiveRunspeed",
+   "objectPath": "Characters/Brand/Spells/BrandPassiveRunspeed",
+   "mScriptName": "BrandPassiveRunspeed",
+   "__type": "SpellObject"
+  },
+  "Spells/BrandConflagrationMissile": {
+   "ObjectName": "BrandConflagrationMissile",
+   "objectPath": "Characters/Brand/Spells/BrandConflagrationMissile",
+   "mScriptName": "BrandConflagrationMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "Disintegrate",
+    "mEffectAmount": [
+     {
+      "value": [
+       40,
+       90,
+       140,
+       190,
+       240,
+       290,
+       340
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.7,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     11,
+     10,
+     9,
+     8,
+     7,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      11,
+      10,
+      9,
+      8,
+      7,
+      6,
+      6
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     675,
+     675,
+     675,
+     675,
+     675,
+     675,
+     675
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "chest",
+      "mSpeed": 900,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.5,
+    "missileSpeed": 900,
+    "mMissileEffectKey": "Brand_E_Conflagration_mis",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BrandBasicAttack": {
+   "ObjectName": "BrandBasicAttack",
+   "objectPath": "Characters/Brand/Spells/BrandBasicAttack",
+   "mScriptName": "BrandBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 24527,
+    "mAlternateName": "BrandBasicAttack",
+    "spellCastTime": 0.4327,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     625,
+     625,
+     625,
+     625,
+     625,
+     625,
+     625
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_hand",
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 9.5,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Brand_BasicAttack_mis",
+    "mHitEffectKey": "Brand_BasicAttack_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BrandWAbility/BrandW": {
+   "ObjectName": "BrandW",
+   "objectPath": "Characters/Brand/Spells/BrandWAbility/BrandW",
+   "mScriptName": "BrandW",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_SignatureSpell",
+     "Trait_Target_Area",
+     "Trait_AoE"
+    ],
+    "mEffectAmount": [
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0,
+       20,
+       40,
+       60,
+       80,
+       100,
+       120
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "APRatio",
+      "values": [
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       30,
+       75,
+       120,
+       165,
+       210,
+       255,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PDamageBonus",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "APRatio",
+        "values": [
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "BaseDamage",
+        "values": [
+         30,
+         70,
+         110,
+         150,
+         190,
+         230,
+         270
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       12,
+       12,
+       11.5,
+       11,
+       10.5,
+       10,
+       8
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "EmpoweredDamage": {
+      "mMultiplier": {
+       "mNumber": 1.25,
+       "__type": "NumberCalculationPart"
+      },
+      "tooltipOnly": true,
+      "mModifiedGameCalculation": "TotalDamage",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "mCoefficient": 0.6,
+    "mCoefficient2": 0.75,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     10.5,
+     10,
+     9.5,
+     9,
+     8.5,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      10.5,
+      10,
+      9.5,
+      9,
+      8.5,
+      8,
+      8
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     900,
+     900,
+     900,
+     900,
+     900,
+     900,
+     900
+    ],
+    "castRadius": [
+     240,
+     240,
+     240,
+     240,
+     240,
+     240,
+     240
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 20,
+    "bHaveHitBone": true,
+    "mHitBoneName": "head",
+    "mana": [
+     60,
+     70,
+     80,
+     90,
+     100,
+     110
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BrandConflagration": {
+   "ObjectName": "BrandConflagration",
+   "objectPath": "Characters/Brand/Spells/BrandConflagration",
+   "mScriptName": "BrandConflagration",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "BrandConflagration",
+    "mEffectAmount": [
+     {
+      "value": [
+       35,
+       70,
+       105,
+       140,
+       175,
+       210,
+       245
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.55,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     13,
+     12,
+     11,
+     10,
+     9,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      13,
+      12,
+      11,
+      10,
+      9,
+      8,
+      8
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     625,
+     625,
+     625,
+     625,
+     625,
+     625,
+     625
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castRadiusSecondary": [
+     315,
+     315,
+     315,
+     315,
+     315,
+     315,
+     315
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1800,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "mana": [
+     70,
+     75,
+     80,
+     85,
+     90,
+     95
+    ],
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BrandEAbility/BrandE": {
+   "ObjectName": "BrandE",
+   "objectPath": "Characters/Brand/Spells/BrandEAbility/BrandE",
+   "mScriptName": "BrandE",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "BrandE",
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_AoE"
+    ],
+    "mEffectAmount": [
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       375,
+       375,
+       375,
+       375,
+       375,
+       375,
+       375
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       30,
+       55,
+       80,
+       105,
+       130,
+       155,
+       180
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "APRatio",
+        "values": [
+         0.45,
+         0.45,
+         0.45,
+         0.45,
+         0.45,
+         0.45,
+         0.45
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "EDamageCalc": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     13,
+     13,
+     12,
+     11,
+     10,
+     9,
+     9
+    ],
+    "Cooldown": {
+     "values": [
+      13,
+      13,
+      12,
+      11,
+      10,
+      9,
+      9
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     675,
+     675,
+     675,
+     675,
+     675,
+     675,
+     675
+    ],
+    "castRangeDisplayOverride": [
+     625,
+     625,
+     625,
+     625,
+     625,
+     625,
+     625
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1800,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "mana": [
+     70,
+     75,
+     80,
+     85,
+     90,
+     95
+    ],
+    "selectionPriority": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "EDamageCalc",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BrandEAbility/BrandEMissile": {
+   "ObjectName": "BrandEMissile",
+   "objectPath": "Characters/Brand/Spells/BrandEAbility/BrandEMissile",
+   "mScriptName": "BrandEMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "BrandE",
+    "mEffectAmount": [
+     {
+      "value": [
+       40,
+       90,
+       140,
+       190,
+       240,
+       290,
+       340
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.7,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     11,
+     10,
+     9,
+     8,
+     7,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      11,
+      10,
+      9,
+      8,
+      7,
+      6,
+      6
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     675,
+     675,
+     675,
+     675,
+     675,
+     675,
+     675
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "chest",
+      "mSpeed": 900,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.5,
+    "missileSpeed": 900,
+    "mMissileEffectKey": "Brand_E_Conflagration_mis",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "manaUiOverride": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BrandCritAttack": {
+   "ObjectName": "BrandCritAttack",
+   "objectPath": "Characters/Brand/Spells/BrandCritAttack",
+   "mScriptName": "BrandCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 24527,
+    "mAlternateName": "BrandCritAttack",
+    "spellCastTime": 0.4327,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     625,
+     625,
+     625,
+     625,
+     625,
+     625,
+     625
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_hand",
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 9,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Brand_CritAttack_mis",
+    "mHitEffectKey": "Brand_CritAttack_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BrandRAbility/BrandRMissile": {
+   "ObjectName": "BrandRMissile",
+   "objectPath": "Characters/Brand/Spells/BrandRAbility/BrandRMissile",
+   "mScriptName": "BrandRMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6155,
+    "mAffectsStatusFlags": 32,
+    "mAlternateName": "BrandR",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       90,
+       130,
+       170,
+       215,
+       260,
+       300
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.6,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+      "mAcceleration": 500,
+      "mMinSpeed": 250,
+      "mMaxSpeed": 3000,
+      "mInitialSpeed": 750,
+      "__type": "AcceleratingMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8.7,
+    "missileSpeed": 750,
+    "mMissileEffectKey": "Brand_R_Wildfire_mis",
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "manaUiOverride": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BrandRAbility/BrandR": {
+   "ObjectName": "BrandR",
+   "objectPath": "Characters/Brand/Spells/BrandRAbility/BrandR",
+   "mScriptName": "BrandR",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "BrandR",
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_DamageAbility",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       25,
+       100,
+       175,
+       250,
+       325,
+       400,
+       475
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmount",
+      "values": [
+       15,
+       30,
+       45,
+       60,
+       75,
+       90,
+       105
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "BaseDamage",
+        "values": [
+         50,
+         100,
+         150,
+         200,
+         250,
+         300,
+         350
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "APRatio",
+        "values": [
+         0.2,
+         0.2,
+         0.2,
+         0.2,
+         0.2,
+         0.2,
+         0.2
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     100,
+     100,
+     90,
+     80,
+     80,
+     80,
+     80
+    ],
+    "Cooldown": {
+     "values": [
+      100,
+      100,
+      90,
+      80,
+      80,
+      80,
+      80
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     750,
+     750,
+     750,
+     750,
+     750,
+     750,
+     750
+    ],
+    "castRangeDisplayOverride": [
+     750,
+     750,
+     750,
+     750,
+     750,
+     750,
+     750
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "r_hand",
+      "mAcceleration": 1000,
+      "mMinSpeed": 250,
+      "mMaxSpeed": 3000,
+      "mInitialSpeed": 1000,
+      "__type": "AcceleratingMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 12,
+    "missileSpeed": 1000,
+    "mMissileEffectKey": "Brand_R_Wildfire_mis",
+    "mana": [
+     100,
+     100,
+     100,
+     0,
+     0,
+     0
+    ],
+    "selectionPriority": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "SlowAmount",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BrandBlazeMissile": {
+   "ObjectName": "BrandBlazeMissile",
+   "objectPath": "Characters/Brand/Spells/BrandBlazeMissile",
+   "mScriptName": "BrandBlazeMissile",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "EzrealMysticShotMissile",
+    "mEffectAmount": [
+     {
+      "value": [
+       30,
+       90,
+       150,
+       245,
+       315,
+       440,
+       565
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2.25,
+       2.5,
+       2.75,
+       3,
+       3.25,
+       3.5,
+       3.75
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1.2,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRangeDisplayOverride": [
+     1175,
+     1175,
+     1175,
+     1175,
+     1175,
+     1175,
+     1175
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 60,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "L_hand",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1600,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.5,
+    "missileSpeed": 1600,
+    "mMissileEffectKey": "Brand_Q_Blaze_mis",
+    "mLineWidth": 60,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BrandFissure": {
+   "ObjectName": "BrandFissure",
+   "objectPath": "Characters/Brand/Spells/BrandFissure",
+   "mScriptName": "BrandFissure",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mEffectAmount": [
+     {
+      "value": [
+       30,
+       75,
+       120,
+       165,
+       210,
+       255,
+       300
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0,
+       20,
+       40,
+       60,
+       80,
+       100,
+       120
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.6,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     900,
+     900,
+     900,
+     900,
+     900,
+     900,
+     900
+    ],
+    "castRadius": [
+     240,
+     240,
+     240,
+     240,
+     240,
+     240,
+     240
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 20,
+    "bHaveHitBone": true,
+    "mHitBoneName": "head",
+    "mana": [
+     70,
+     80,
+     90,
+     100,
+     110,
+     120
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BrandWildfireMissile": {
+   "ObjectName": "BrandWildfireMissile",
+   "objectPath": "Characters/Brand/Spells/BrandWildfireMissile",
+   "mScriptName": "BrandWildfireMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAffectsStatusFlags": 32,
+    "mAlternateName": "BrandWildfire",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       90,
+       130,
+       170,
+       215,
+       260,
+       300
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.6,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+      "mAcceleration": 1600,
+      "mMinSpeed": 600,
+      "mMaxSpeed": 14000,
+      "mInitialSpeed": 600,
+      "__type": "AcceleratingMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8.7,
+    "missileSpeed": 600,
+    "mMissileEffectKey": "Brand_R_Wildfire_mis",
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BrandBasicAttack2": {
+   "ObjectName": "BrandBasicAttack2",
+   "objectPath": "Characters/Brand/Spells/BrandBasicAttack2",
+   "mScriptName": "BrandBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 24527,
+    "mAlternateName": "BrandBasicAttack2",
+    "spellCastTime": 0.4327,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     625,
+     625,
+     625,
+     625,
+     625,
+     625,
+     625
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "L_hand",
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 9,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Brand_BasicAttack_mis",
+    "mHitEffectKey": "Brand_BasicAttack_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BrandQAbility/BrandQ": {
+   "ObjectName": "BrandQ",
+   "objectPath": "Characters/Brand/Spells/BrandQAbility/BrandQ",
+   "mScriptName": "BrandQ",
+   "mSpell": {
+    "mAffectsTypeFlags": 13327,
+    "mAlternateName": "BrandQ",
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_Ranged_StopsFirstHit",
+     "Trait_Low_Damage"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       70,
+       70,
+       100,
+       130,
+       160,
+       190,
+       190
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "StunDuration",
+      "values": [
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SpellBaseDamage",
+      "values": [
+       40,
+       70,
+       100,
+       130,
+       160,
+       190,
+       220
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "URF": {
+      "SpellDataValues": [
+       {
+        "name": "StunDuration",
+        "values": [
+         1,
+         1,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "StunDuration",
+        "values": [
+         1.5,
+         1.5,
+         1.5,
+         1.5,
+         1.5,
+         1.5,
+         1.5
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       10.5,
+       10,
+       9.5,
+       9,
+       8.5,
+       8,
+       7.5
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "SpellBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.65,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.65,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     8.5,
+     8,
+     7.5,
+     7,
+     6.5,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      8.5,
+      8,
+      7.5,
+      7,
+      6.5,
+      6,
+      6
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     1050,
+     1050,
+     1050,
+     1050,
+     1050,
+     1050,
+     1050
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1200,
+    "mLineWidth": 80,
+    "mana": [
+     70,
+     70,
+     70,
+     70,
+     70,
+     70
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 32768,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mNumber": 60,
+         "__type": "NumberCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BrandQAbility/BrandQMissile": {
+   "ObjectName": "BrandQMissile",
+   "objectPath": "Characters/Brand/Spells/BrandQAbility/BrandQMissile",
+   "mScriptName": "BrandQMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "BrandQ",
+    "mEffectAmount": [
+     {
+      "value": [
+       30,
+       90,
+       150,
+       245,
+       315,
+       440,
+       565
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2.25,
+       2.5,
+       2.75,
+       3,
+       3.25,
+       3.5,
+       3.75
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1.2,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRangeDisplayOverride": [
+     1175,
+     1175,
+     1175,
+     1175,
+     1175,
+     1175,
+     1175
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 60,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "L_hand",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1600,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnHit"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.5,
+    "missileSpeed": 1600,
+    "mMissileEffectKey": "Brand_Q_Blaze_mis",
+    "mLineWidth": 60,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "manaUiOverride": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BrandBlaze": {
+   "ObjectName": "BrandBlaze",
+   "objectPath": "Characters/Brand/Spells/BrandBlaze",
+   "mScriptName": "BrandBlaze",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 13327,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "BrandBlaze",
+    "mEffectAmount": [
+     {
+      "value": [
+       40,
+       80,
+       120,
+       160,
+       200,
+       240,
+       280
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.65,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     8.5,
+     8,
+     7.5,
+     7,
+     6.5,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      8.5,
+      8,
+      7.5,
+      7,
+      6.5,
+      6,
+      6
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     1050,
+     1050,
+     1050,
+     1050,
+     1050,
+     1050,
+     1050
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1200,
+    "mLineWidth": 80,
+    "mana": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BrandScorchAttack": {
+   "ObjectName": "BrandScorchAttack",
+   "objectPath": "Characters/Brand/Spells/BrandScorchAttack",
+   "mScriptName": "BrandScorchAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 24527,
+    "mAlternateName": "BrandScorchAttack",
+    "spellCastTime": 0.4327,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     625,
+     625,
+     625,
+     625,
+     625,
+     625,
+     625
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_hand",
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 10.53,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "AnnieBasicAttack3_mis_BV2",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BrandDamageTracker2": {
+   "ObjectName": "BrandDamageTracker2",
+   "objectPath": "Characters/Brand/Spells/BrandDamageTracker2",
+   "mScriptName": "BrandDamageTracker2",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_BrandDamageTracker2",
+    "mShowDuration": false,
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/BrandQAbility/BrandQ",
+  "Spells/BrandWAbility/BrandW",
+  "Spells/BrandEAbility/BrandE",
+  "Spells/BrandRAbility/BrandR"
+ ],
+ "passiva_ref": "Characters/Brand/Spells/BrandPassiveAbility",
+ "passiva_chaves": [
+  "Spells/BrandPassiveAbility/BrandAblaze",
+  "Spells/BrandPassiveAbility/BrandPassive",
+  "Spells/BrandPassiveAbility/BrandAblazeDetonateMarker"
+ ]
+}

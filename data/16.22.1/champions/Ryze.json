@@ -1,0 +1,2799 @@
+{
+ "id": "Ryze",
+ "key": 13,
+ "nome": "Ryze",
+ "titulo": "o Mago Rúnico",
+ "funcoes": [
+  "Mage"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 2,
+  "defense": 2,
+  "magic": 10,
+  "difficulty": 7
+ },
+ "stats_ddragon": {
+  "hp": 620,
+  "hpperlevel": 124,
+  "mp": 300,
+  "mpperlevel": 70,
+  "movespeed": 340,
+  "armor": 22,
+  "armorperlevel": 4.7,
+  "spellblock": 32,
+  "spellblockperlevel": 1.3,
+  "attackrange": 550,
+  "hpregen": 8,
+  "hpregenperlevel": 0.8,
+  "mpregen": 8,
+  "mpregenperlevel": 1,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 55,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2.11,
+  "attackspeed": 0.658
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Maestria Arcana",
+  "descricao": "<mainText>As habilidades de Ryze causam dano adicional com base em seu Mana adicional. Ele recebe um percentual de aumento de Mana máximo com base em seu Poder de Habilidade.</mainText>"
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "RyzeQWrapper",
+   "nome": "Sobrecarregar",
+   "descricao": "Passivamente, as outras habilidades básicas de Ryze redefinem o Tempo de Recarga de Sobrecarregar e carregam uma runa. Quando Ryze conjura Sobrecarregar com 2 runas carregadas, ele recebe um breve surto de Velocidade de Movimento.<br><br>Ao conjurar, Ryze arremessa uma carga de energia pura em linha reta, causando dano ao primeiro inimigo atingido. Se o alvo estiver afetado por Fluxo, Sobrecarregar causa dano adicional e rebate para inimigos próximos atingidos por Fluxo.",
+   "tooltip": "<spellPassive>Passivo:</spellPassive> <spellName>Prisão de Runa</spellName> e <spellName>Fluxo de Feitiço</spellName> redefinem o Tempo de Recarga desta Habilidade e carrega uma runa por {{ runeduration }}s (máximo de {{ maximumrunes }} runas).<br /><br /><spellActive>Ativo:</spellActive> Ryze libera uma explosão, causando <magicDamage>{{ qdamagecalc }} de Dano Mágico</magicDamage> ao primeiro inimigo atingido. Se o alvo estiver afetado por <keywordMajor>Fluxo</keywordMajor>, ele é consumido, fazendo com que a Habilidade cause {{ spell.ryzer:overloaddamagebonus }}% de dano aumentado e ricocheteie para inimigos próximos afetados por <keywordMajor>Fluxo</keywordMajor>.<br /><br />Ryze também descarrega todas as runas, recebendo <speed>{{ movementspeedamount }}% de Velocidade de Movimento</speed> por {{ movementspeedduration }}s se {{ maximumrunes }} runas estavam carregadas.<br />{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    5,
+    5,
+    5,
+    5,
+    5
+   ],
+   "custo": [
+    40,
+    38,
+    36,
+    34,
+    32
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1000,
+    1000,
+    1000,
+    1000,
+    1000
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "70/110/150/190/230",
+    "25/40/55/70/85",
+    "50/75/100/125/150",
+    "25/28/31/24/37",
+    "2",
+    "2",
+    "3",
+    "0.01",
+    "2",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "RyzeW",
+   "nome": "Prisão de Runa",
+   "descricao": "Ryze prende um alvo em uma prisão de runas, causando dano e reduzindo sua Velocidade de Movimento. Se o alvo estiver afetado por Fluxo, ele é enraizado.",
+   "tooltip": "Ryze causa <magicDamage>{{ wdamagecalc }} de Dano Mágico</magicDamage> e {{ slowamount*100 }}% de <status>Lentidão</status> por {{ ccduration }}s. Se o alvo estiver afetado por <keywordMajor>Fluxo de Feitiço</keywordMajor>, ele é consumido e a Habilidade <status>Enraíza</status> em vez de causar <status>Lentidão</status>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    11,
+    10.5,
+    10,
+    9.5,
+    9
+   ],
+   "custo": [
+    50,
+    60,
+    70,
+    80,
+    90
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    615,
+    615,
+    615,
+    615,
+    615
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "RyzeE",
+   "nome": "Fluxo de Feitiço",
+   "descricao": "Ryze lança um orbe de puro poder mágico que causa dano a um inimigo e um efeito negativo em todos os inimigos próximos. As habilidades de Ryze têm efeitos adicionais contra a unidade afetada.",
+   "tooltip": "Ryze dispara um orbe, causando <magicDamage>{{ edamagecalc }} de Dano Mágico</magicDamage> e aplicando <keywordMajor>Fluxo</keywordMajor> por {{ debuffduration }}s ao alvo e aos inimigos próximos. Inimigos já afetados por <keywordMajor>Fluxo</keywordMajor> farão com que ele se espalhe ainda mais.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    3.5,
+    3.25,
+    3,
+    2.75,
+    2.5
+   ],
+   "custo": [
+    40,
+    50,
+    60,
+    70,
+    80
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    615,
+    615,
+    615,
+    615,
+    615
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "80/90/100/110/120",
+    "40/50/60/70/80",
+    "100",
+    "0.1",
+    "1.5",
+    "1.5",
+    "4",
+    "1",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "RyzeR",
+   "nome": "Portal de Reinos",
+   "descricao": "Passivamente, Sobrecarregar causa ainda mais dano contra alvos afetados por Fluxo.<br><br>Ao conjurar, Ryze cria um portal para um local próximo. Após alguns segundos, aliados próximos ao portal são teleportados ao local alvo.",
+   "tooltip": "<spellPassive>Passivo:</spellPassive> o dano adicional de <spellName>Sobrecarregar</spellName> contra alvos afetados por <keywordMajor>Fluxo</keywordMajor> é aumentado para {{ overloaddamagebonus }}%.<br /><br /><spellActive>Ativo:</spellActive> Ryze abre um portal para outro local. Após {{ chargetimetooltip }}s, todos os aliados próximos ao portal são teleportados para o local escolhido.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    180,
+    160,
+    140
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    3000,
+    3000,
+    3000
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "6",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 620,
+  "vida_nivel": 124,
+  "regen_vida": 1.6,
+  "regen_vida_nivel": 0.16,
+  "dano": 55,
+  "dano_nivel": 3,
+  "armadura": 22,
+  "armadura_nivel": 4.7,
+  "rm": 32,
+  "rm_nivel": 1.3,
+  "velocidade_mov": 340,
+  "alcance_ataque": 550,
+  "vel_ataque_base": 0.658,
+  "vel_ataque_razao": 0.625,
+  "vel_ataque_nivel": 2.11,
+  "dano_critico": 2,
+  "alcance_aquisicao": 575,
+  "raio_selecao": 120,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+   "mAttackProbability": 1,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0,
+    "mAttackName": "RyzeBasicAttack2",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackProbability": 0,
+    "mAttackName": "RyzeBasicAttack3",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackProbability": 0,
+    "mAttackName": "RyzeBasicAttack4",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+    "mAttackName": "RyzeCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Ryze/Spells/RyzeQWrapperAbility/RyzeQWrapper",
+  "Characters/Ryze/Spells/RyzeWAbility/RyzeW",
+  "Characters/Ryze/Spells/RyzeEAbility/RyzeE",
+  "Characters/Ryze/Spells/RyzeRAbility/RyzeR"
+ ],
+ "abilities_ref": [
+  "Characters/Ryze/Spells/RyzeQWrapperAbility",
+  "Characters/Ryze/Spells/RyzeWAbility",
+  "Characters/Ryze/Spells/RyzeEAbility",
+  "Characters/Ryze/Spells/RyzeRAbility",
+  "Characters/Ryze/Spells/RyzePassiveAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/RyzeWAbility/RyzeWRoot": {
+   "ObjectName": "RyzeWRoot",
+   "objectPath": "Characters/Ryze/Spells/RyzeWAbility/RyzeWRoot",
+   "mScriptName": "RyzeWRoot",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_RyzeWRoot",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RyzeWAbility/RyzeW": {
+   "ObjectName": "RyzeW",
+   "objectPath": "Characters/Ryze/Spells/RyzeWAbility/RyzeW",
+   "mScriptName": "RyzeW",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "RyzeW",
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_Low_Damage"
+    ],
+    "DataValues": [
+     {
+      "name": "SlowAmount",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       30,
+       60,
+       90,
+       120,
+       150,
+       180,
+       210
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CCDuration",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "SlowAmount",
+        "values": [
+         0.4,
+         0.4,
+         0.4,
+         0.4,
+         0.4,
+         0.4,
+         0.4
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "CCDuration",
+        "values": [
+         1.25,
+         1.25,
+         1.25,
+         1.25,
+         1.25,
+         1.25,
+         1.25
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "WDamageCalc": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.7,
+        "__type": "StatByCoefficientCalculationPart"
+       },
+       {
+        "mCoefficient": 0.03,
+        "mStatFormula": 2,
+        "__type": "AbilityResourceByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     11,
+     11,
+     10.5,
+     10,
+     9.5,
+     9,
+     8.5
+    ],
+    "Cooldown": {
+     "values": [
+      11,
+      11,
+      10.5,
+      10,
+      9.5,
+      9,
+      8.5
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRangeUseBoundingBoxes": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castRangeDisplayOverride": [
+     615,
+     615,
+     615,
+     615,
+     615,
+     615,
+     615
+    ],
+    "castRadius": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "mHitBoneName": "head",
+    "mana": [
+     50,
+     60,
+     70,
+     80,
+     90,
+     100
+    ],
+    "selectionPriority": 1,
+    "mSpellCooldownOrSealedQueueThreshold": 0.35,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_RyzeW",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RyzeWAbility/RyzeWShield": {
+   "ObjectName": "RyzeWShield",
+   "objectPath": "Characters/Ryze/Spells/RyzeWAbility/RyzeWShield",
+   "mScriptName": "RyzeWShield",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_RyzeWShield",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RyzeQWrapperAbility/RyzeQ": {
+   "ObjectName": "RyzeQ",
+   "objectPath": "Characters/Ryze/Spells/RyzeQWrapperAbility/RyzeQ",
+   "mScriptName": "RyzeQ",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "RyzeQ",
+    "mEffectAmount": [
+     {
+      "value": [
+       35,
+       60,
+       85,
+       110,
+       135,
+       160,
+       185
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       55,
+       55,
+       55,
+       55,
+       55,
+       55,
+       55
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       22,
+       25,
+       28,
+       31,
+       34,
+       37,
+       40
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.45,
+    "mCoefficient2": 0.6,
+    "mCastTime": 0.25,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6
+     ],
+     "{0a3e0478}": 6,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 55,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mStartBoneName": "C_Buffbone_Glb_Chest_Loc",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1700,
+      "__type": "FixedSpeedMovement"
+     },
+     "visibilityComponent": {
+      "__type": "EnterFOWVisibility"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.5,
+    "missileSpeed": 1700,
+    "mMissileEffectKey": "Ryze_Q_Mis",
+    "mLineWidth": 55,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.35,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RyzeQWrapperAbility/RyzeQWrapper": {
+   "ObjectName": "RyzeQWrapper",
+   "objectPath": "Characters/Ryze/Spells/RyzeQWrapperAbility/RyzeQWrapper",
+   "mScriptName": "RyzeQWrapper",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_SignatureSpell",
+     "Trait_Ranged_StopsFirstHit"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       70,
+       70,
+       110,
+       150,
+       190,
+       230,
+       270
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       25,
+       25,
+       40,
+       55,
+       70,
+       85,
+       100
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       50,
+       50,
+       75,
+       100,
+       125,
+       150,
+       175
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       25,
+       25,
+       28,
+       31,
+       24,
+       37,
+       40
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.015,
+       0.015,
+       0.015,
+       0.015,
+       0.015,
+       0.015,
+       0.015
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       55,
+       75,
+       95,
+       115,
+       135,
+       155,
+       175
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DamageAmp",
+      "values": [
+       30,
+       40,
+       50,
+       60,
+       70,
+       80,
+       90
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MovementSpeedAmount",
+      "values": [
+       25,
+       30,
+       35,
+       40,
+       45,
+       50,
+       55
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MovementSpeedDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaximumRunes",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RuneDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "MovementSpeedAmount",
+        "values": [
+         20,
+         24,
+         28,
+         32,
+         36,
+         40,
+         44
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "QDamageCalc": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.55,
+        "__type": "StatByCoefficientCalculationPart"
+       },
+       {
+        "mCoefficient": 0.02,
+        "mStatFormula": 2,
+        "__type": "AbilityResourceByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.5,
+    "mCoefficient2": 0.3,
+    "mCastTime": 0.25,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5
+    ],
+    "Cooldown": {
+     "values": [
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5
+     ],
+     "{0a3e0478}": 5,
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Ryze/Spells/RyzeQWrapperAbility/RyzeQ",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1700,
+    "mLineWidth": 55,
+    "mana": [
+     40,
+     38,
+     36,
+     34,
+     32,
+     32
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.35,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RyzeQWrapperAbility/RyzeQMS": {
+   "ObjectName": "RyzeQMS",
+   "objectPath": "Characters/Ryze/Spells/RyzeQWrapperAbility/RyzeQMS",
+   "mScriptName": "RyzeQMS",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mEffectAmount": [
+     {
+      "value": [
+       0,
+       10,
+       20,
+       30,
+       40,
+       50,
+       60
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       30,
+       60,
+       90,
+       120,
+       150,
+       180,
+       210
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "bHaveHitEffect": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     625,
+     625,
+     625,
+     625,
+     625,
+     625,
+     625
+    ],
+    "castRadius": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castConeDistance": 100,
+    "castFrame": 5.365,
+    "missileSpeed": 1200,
+    "mHitEffectKey": "Ryze_Q_ManaLeach_chrg_01",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_RyzeQMS",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RyzeQWrapperAbility/RyzeQMissile": {
+   "ObjectName": "RyzeQMissile",
+   "objectPath": "Characters/Ryze/Spells/RyzeQWrapperAbility/RyzeQMissile",
+   "mScriptName": "RyzeQMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "RyzeQ",
+    "mEffectAmount": [
+     {
+      "value": [
+       25,
+       50,
+       75,
+       100,
+       125,
+       150,
+       175
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       40,
+       40,
+       40,
+       40,
+       40,
+       40,
+       40
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "mCastTime": 0.25,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRangeUseBoundingBoxes": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 55,
+     "movementComponent": {
+      "mStartBoneName": "C_Buffbone_Glb_Chest_Loc",
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.5,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Ryze_Q_Mis",
+    "mLineWidth": 55,
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RyzeBasicAttack4": {
+   "ObjectName": "RyzeBasicAttack4",
+   "objectPath": "Characters/Ryze/Spells/RyzeBasicAttack4",
+   "mScriptName": "RyzeBasicAttack4",
+   "mSpell": {
+    "mAffectsTypeFlags": 24527,
+    "mAlternateName": "RyzeBasicAttack2",
+    "bHaveHitEffect": true,
+    "castRange": [
+     402,
+     402,
+     402,
+     402,
+     402,
+     402,
+     402
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_hand",
+      "mSpeed": 2400,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 9,
+    "missileSpeed": 2400,
+    "mMissileEffectKey": "Ryze_BA_Mis",
+    "mHitEffectKey": "Ryze_BA_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RyzeBasicAttack3": {
+   "ObjectName": "RyzeBasicAttack3",
+   "objectPath": "Characters/Ryze/Spells/RyzeBasicAttack3",
+   "mScriptName": "RyzeBasicAttack3",
+   "mSpell": {
+    "mAffectsTypeFlags": 24527,
+    "mAlternateName": "RyzeBasicAttack2",
+    "bHaveHitEffect": true,
+    "castRange": [
+     402,
+     402,
+     402,
+     402,
+     402,
+     402,
+     402
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_hand",
+      "mSpeed": 2400,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 9,
+    "missileSpeed": 2400,
+    "mMissileEffectKey": "Ryze_BA_Mis",
+    "mHitEffectKey": "Ryze_BA_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RyzeBasicAttack2": {
+   "ObjectName": "RyzeBasicAttack2",
+   "objectPath": "Characters/Ryze/Spells/RyzeBasicAttack2",
+   "mScriptName": "RyzeBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 24527,
+    "mAlternateName": "RyzeBasicAttack2",
+    "bHaveHitEffect": true,
+    "castRange": [
+     402,
+     402,
+     402,
+     402,
+     402,
+     402,
+     402
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_hand",
+      "mSpeed": 2400,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 9,
+    "missileSpeed": 2400,
+    "mMissileEffectKey": "Ryze_BA_Mis",
+    "mHitEffectKey": "Ryze_BA_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RyzeBasicAttack": {
+   "ObjectName": "RyzeBasicAttack",
+   "objectPath": "Characters/Ryze/Spells/RyzeBasicAttack",
+   "mScriptName": "RyzeBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 24527,
+    "mAlternateName": "RyzeBasicAttack",
+    "bHaveHitEffect": true,
+    "castRange": [
+     402,
+     402,
+     402,
+     402,
+     402,
+     402,
+     402
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_hand",
+      "mSpeed": 2400,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 9,
+    "missileSpeed": 2400,
+    "mMissileEffectKey": "Ryze_BA_Mis",
+    "mHitEffectKey": "Ryze_BA_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RyzeRAbility/RyzeR2": {
+   "ObjectName": "RyzeR2",
+   "objectPath": "Characters/Ryze/Spells/RyzeRAbility/RyzeR2",
+   "mScriptName": "RyzeR2",
+   "mSpell": {
+    "mAffectsTypeFlags": 8192,
+    "mSpellTags": [
+     "Trait_Ultimate"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       12,
+       12,
+       12,
+       12,
+       12,
+       12,
+       12
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       50,
+       50,
+       75,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       150,
+       150,
+       250,
+       350,
+       350,
+       350,
+       350
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.6,
+    "mCastTime": 0.75,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mAmmoUsed": [
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3
+    ],
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500
+    ],
+    "castRadius": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 55,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 4000,
+      "__type": "FixedSpeedMovement"
+     },
+     "visibilityComponent": {
+      "mVisibleToOwnerTeamOnly": true,
+      "__type": "Defaultvisibility"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 5.365,
+    "missileSpeed": 4000,
+    "mMissileEffectKey": "Ryze_R_arrow_green",
+    "mLineWidth": 55,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_RyzeR",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RyzeRAbility/RyzeRChannel": {
+   "ObjectName": "RyzeRChannel",
+   "objectPath": "Characters/Ryze/Spells/RyzeRAbility/RyzeRChannel",
+   "mScriptName": "RyzeRChannel",
+   "mSpell": {
+    "mAffectsTypeFlags": 8192,
+    "mSpellTags": [
+     "Trait_Ultimate"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       25,
+       25,
+       40,
+       55,
+       55,
+       55,
+       55
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       150,
+       150,
+       250,
+       350,
+       350,
+       350,
+       350
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.6,
+    "spellCastTime": 0,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mAmmoUsed": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mUseMinimapTargeting": true,
+    "castRangeUseBoundingBoxes": true,
+    "mShowChannelBar": false,
+    "bIsToggleSpell": true,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "castRangeDisplayOverride": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "castRadius": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "castRadiusSecondary": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "castConeDistance": 100,
+    "castFrame": 5.365,
+    "missileSpeed": 1700,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_RyzeRChannel",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RyzeRAbility/RyzeR": {
+   "ObjectName": "RyzeR",
+   "objectPath": "Characters/Ryze/Spells/RyzeRAbility/RyzeR",
+   "mScriptName": "RyzeR",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 8192,
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "PositiveEffect_Teleport"
+    ],
+    "mEffectAmount": [
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "ChargeTime",
+      "values": [
+       2.1,
+       2.1,
+       2.1,
+       2.1,
+       2.1,
+       2.1,
+       2.1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TeleportTime",
+      "values": [
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AllyIndicatorBuffDuration",
+      "values": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ChargeTimeTooltip",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "OverloadDamageBonus",
+      "values": [
+       10,
+       40,
+       70,
+       100,
+       130,
+       160,
+       190
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "OverloadHealPercent",
+      "values": [
+       0,
+       20,
+       25,
+       30,
+       40,
+       50,
+       60
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealPercentMinionMod",
+      "values": [
+       0.33,
+       0.33,
+       0.33,
+       0.33,
+       0.33,
+       0.33,
+       0.33
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinimumCastRange",
+      "values": [
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "OverloadDamageBonus",
+        "values": [
+         10,
+         30,
+         50,
+         70,
+         90,
+         110,
+         130
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "{a110bc47}": {
+      "value": [
+       120,
+       120,
+       100,
+       80,
+       80,
+       80,
+       80
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mCoefficient": 0.6,
+    "spellCastTime": 0,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     180,
+     180,
+     160,
+     140,
+     140,
+     140,
+     140
+    ],
+    "Cooldown": {
+     "values": [
+      180,
+      180,
+      160,
+      140,
+      140,
+      140,
+      140
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "cantCastWhileRooted": true,
+    "mUseMinimapTargeting": true,
+    "castRangeUseBoundingBoxes": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000
+    ],
+    "castRangeDisplayOverride": [
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000
+    ],
+    "castRadius": [
+     365,
+     365,
+     365,
+     365,
+     365,
+     365,
+     365
+    ],
+    "castRadiusSecondary": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castConeDistance": 100,
+    "castFrame": 5.365,
+    "missileSpeed": 1700,
+    "mLookAtPolicy": 0,
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "LocationClamped"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_RyzeR",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RyzeEAbility/RyzeEMissile": {
+   "ObjectName": "RyzeEMissile",
+   "objectPath": "Characters/Ryze/Spells/RyzeEAbility/RyzeEMissile",
+   "mScriptName": "RyzeEMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 14346,
+    "mAlternateName": "RyzeE",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.5,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Ryze_E_mis_bounce",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_RyzeEMissile",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RyzeEAbility/RyzeE": {
+   "ObjectName": "RyzeE",
+   "objectPath": "Characters/Ryze/Spells/RyzeEAbility/RyzeE",
+   "mScriptName": "RyzeE",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "RyzeE",
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_Low_Damage",
+     "Trait_AoE"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       80,
+       80,
+       90,
+       100,
+       110,
+       120,
+       130
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       30,
+       40,
+       50,
+       60,
+       70,
+       80,
+       90
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       30,
+       60,
+       90,
+       120,
+       150,
+       180,
+       210
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DebuffDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BounceRadius",
+      "values": [
+       350,
+       350,
+       350,
+       350,
+       350,
+       350,
+       350
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DamageAmp",
+      "values": [
+       0,
+       10,
+       20,
+       30,
+       40,
+       50,
+       60
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BounceRadiusLargeUnit",
+      "values": [
+       400,
+       400,
+       400,
+       400,
+       400,
+       400,
+       400
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BounceRadiusQSmallUnit",
+      "values": [
+       350,
+       350,
+       350,
+       350,
+       350,
+       350,
+       350
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BounceRadiusQLargeUnit",
+      "values": [
+       500,
+       500,
+       500,
+       500,
+       500,
+       500,
+       500
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "EDamageCalc": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.5,
+        "__type": "StatByCoefficientCalculationPart"
+       },
+       {
+        "mCoefficient": 0.02,
+        "mStatFormula": 2,
+        "__type": "AbilityResourceByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.35,
+    "mCoefficient2": 2,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     3.75,
+     3.5,
+     3.25,
+     3,
+     2.75,
+     2.5,
+     2.5
+    ],
+    "Cooldown": {
+     "values": [
+      3.75,
+      3.5,
+      3.25,
+      3,
+      2.75,
+      2.5,
+      2.5
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "castRangeUseBoundingBoxes": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castRangeDisplayOverride": [
+     615,
+     615,
+     615,
+     615,
+     615,
+     615,
+     615
+    ],
+    "castRadius": [
+     350,
+     350,
+     350,
+     350,
+     350,
+     350,
+     350
+    ],
+    "castRadiusSecondary": [
+     350,
+     350,
+     350,
+     350,
+     350,
+     350,
+     350
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "",
+      "mSpeed": 4000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.5,
+    "missileSpeed": 3500,
+    "mMissileEffectKey": "Ryze_E_mis",
+    "mana": [
+     40,
+     50,
+     60,
+     70,
+     80,
+     90
+    ],
+    "selectionPriority": 1,
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_RyzeE",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RyzeCritAttack": {
+   "ObjectName": "RyzeCritAttack",
+   "objectPath": "Characters/Ryze/Spells/RyzeCritAttack",
+   "mScriptName": "RyzeCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 24527,
+    "bHaveHitEffect": true,
+    "castRange": [
+     402,
+     402,
+     402,
+     402,
+     402,
+     402,
+     402
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_hand",
+      "mSpeed": 2400,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 9,
+    "missileSpeed": 2400,
+    "mMissileEffectKey": "Ryze_BA_Mis",
+    "mHitEffectKey": "Ryze_BA_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RyzePassiveAbility/RyzePassive": {
+   "ObjectName": "RyzePassive",
+   "objectPath": "Characters/Ryze/Spells/RyzePassiveAbility/RyzePassive",
+   "mScriptName": "RyzePassive",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mEffectAmount": [
+     {
+      "value": [
+       0,
+       10,
+       20,
+       30,
+       40,
+       50,
+       60
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       30,
+       60,
+       90,
+       120,
+       150,
+       180,
+       210
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "PercentManaIncrease",
+      "values": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APAmount",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "PercentManaIncrease",
+        "values": [
+         6.5,
+         6.5,
+         6.5,
+         6.5,
+         6.5,
+         6.5,
+         6.5
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "{92bc0080}": {
+      "mFormulaParts": [
+       {
+        "mCoefficient": 0.05,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "PassiveManaCalcTooltip": {
+      "mMultiplier": {
+       "mNumber": 0.01,
+       "__type": "NumberCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mDataValue": "PercentManaIncrease",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "mPrecision": -1,
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "bHaveHitEffect": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     625,
+     625,
+     625,
+     625,
+     625,
+     625,
+     625
+    ],
+    "castRadius": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castConeDistance": 100,
+    "castFrame": 5.365,
+    "missileSpeed": 1200,
+    "mHitEffectKey": "Ryze_Q_ManaLeach_chrg_01",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_RyzePassive",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/RyzeQWrapperAbility/RyzeQWrapper",
+  "Spells/RyzeWAbility/RyzeW",
+  "Spells/RyzeEAbility/RyzeE",
+  "Spells/RyzeRAbility/RyzeR"
+ ],
+ "passiva_ref": "Characters/Ryze/Spells/RyzePassiveAbility",
+ "passiva_chaves": [
+  "Spells/RyzePassiveAbility/RyzePassive"
+ ]
+}

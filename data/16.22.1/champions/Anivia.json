@@ -1,0 +1,1793 @@
+{
+ "id": "Anivia",
+ "key": 34,
+ "nome": "Anivia",
+ "titulo": "a Criofênix",
+ "funcoes": [
+  "Mage"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 1,
+  "defense": 4,
+  "magic": 10,
+  "difficulty": 10
+ },
+ "stats_ddragon": {
+  "hp": 550,
+  "hpperlevel": 92,
+  "mp": 495,
+  "mpperlevel": 45,
+  "movespeed": 325,
+  "armor": 19,
+  "armorperlevel": 4.1,
+  "spellblock": 30,
+  "spellblockperlevel": 1.3,
+  "attackrange": 600,
+  "hpregen": 5.5,
+  "hpregenperlevel": 0.55,
+  "mpregen": 8,
+  "mpregenperlevel": 0.8,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 51,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 1.68,
+  "attackspeed": 0.658
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Renascimento",
+  "descricao": "Ao receber dano letal, Anivia volta à forma de ovo e renasce com a Vida completa."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "FlashFrost",
+   "nome": "Lampejo Gelado",
+   "descricao": "Anivia junta suas asas e invoca uma esfera de gelo que voa em direção ao oponente, congelando e causando dano a qualquer um em seu caminho. Ao explodir, ela causa dano moderado em um raio, atordoando qualquer um dentro da área.",
+   "tooltip": "Anivia dispara um bloco de gelo maciço, causando <magicDamage>{{ totalpassthroughdamage }} de Dano Mágico</magicDamage>, <keywordMajor>Congelando</keywordMajor> e causando {{ spell.glacialstorm:slowamount }} de <status>Lentidão</status> aos inimigos atingidos por {{ slowduration }}s. Quando chega ao alcance máximo, o gelo explode, <status>Atordoando</status> os inimigos por {{ stunduration }}s e causando a eles <magicDamage>{{ totalexplosiondamage }} de Dano Mágico</magicDamage>.<br /><br />Ela pode <recast>Reconjurar</recast> a Habilidade durante o trajeto do gelo para detoná-lo antecipadamente.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    11,
+    10,
+    9,
+    8,
+    7
+   ],
+   "custo": [
+    80,
+    85,
+    90,
+    95,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1075,
+    1075,
+    1075,
+    1075,
+    1075
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "Crystallize",
+   "nome": "Cristalizar",
+   "descricao": "Anivia condensa a umidade do ar, transformando-a num muro impenetrável de gelo que bloqueia todo o movimento. O muro dura um curto período antes de derreter.",
+   "tooltip": "Anivia invoca um muro de gelo com {{ wallwidth }} unidades de largura. O muro dura {{ wallduration }}s antes de derreter.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    17,
+    17,
+    17,
+    17,
+    17
+   ],
+   "custo": [
+    70,
+    70,
+    70,
+    70,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1000,
+    1000,
+    1000,
+    1000,
+    1000
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "5",
+    "400/500/600/700/800",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "Frostbite",
+   "nome": "Congelamento",
+   "descricao": "Com um bater de asas, Anivia dispara uma rajada congelante de vento no alvo, causando dano. Se o alvo tiver sido atingido recentemente por Lampejo Gelado ou sofrido dano de uma Tempestade Glacial totalmente formada, o dano sofrido é dobrado.",
+   "tooltip": "Anivia atinge um inimigo com um vento congelante, causando <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage>. Contra inimigos <keywordMajor>Congelados</keywordMajor>, ela causa <magicDamage>{{ empowereddamage }} de Dano Mágico</magicDamage>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "custo": [
+    50,
+    50,
+    50,
+    50,
+    50
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    650,
+    650,
+    650,
+    650,
+    650
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "GlacialStorm",
+   "nome": "Tempestade Glacial",
+   "descricao": "Anivia invoca uma chuva torrencial de gelo e granizo para causar dano aos inimigos e atrasar seu avanço.",
+   "tooltip": "<toggle>Alternar:</toggle> Anivia invoca uma chuva de gelo e granizo que causa {{ slowamount }}% de <status>Lentidão</status> aos inimigos e <magicDamage>{{ totaldamagepersecond }} de Dano Mágico por segundo</magicDamage>. A tempestade aumenta de tamanho ao longo de {{ growthtime }}s.<br /><br />No tamanho máximo, ela <keywordMajor>Congela</keywordMajor> os inimigos, causando {{ slowpercentempoweredtt }}% de <status>Lentidão</status> e <magicDamage>{{ empowereddamagepersecondtooltiponly }} de Dano Mágico</magicDamage> por segundo.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    4,
+    3,
+    2
+   ],
+   "custo": [
+    60,
+    60,
+    60
+   ],
+   "tipo_custo": " + {{ manacostpersecond }} de Mana por segundo",
+   "alcance": [
+    750,
+    750,
+    750
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 550,
+  "vida_nivel": 92,
+  "regen_vida": 1.1,
+  "regen_vida_nivel": 0.11,
+  "dano": 51,
+  "dano_nivel": 3.2,
+  "armadura": 19,
+  "armadura_nivel": 4.1,
+  "rm": 30,
+  "rm_nivel": 1.3,
+  "velocidade_mov": 325,
+  "alcance_ataque": 600,
+  "vel_ataque_base": 0.658,
+  "vel_ataque_razao": 0.625,
+  "vel_ataque_nivel": 1.68,
+  "dano_critico": 2,
+  "alcance_aquisicao": 600,
+  "raio_selecao": 140,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+   "mAttackProbability": 0.6000000238418579,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.4000000059604645,
+    "mAttackName": "AniviaBasicAttack2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+    "mAttackName": "AniviaCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Anivia/Spells/FlashFrostAbility/FlashFrost",
+  "Characters/Anivia/Spells/CrystallizeAbility/Crystallize",
+  "Characters/Anivia/Spells/FrostbiteAbility/Frostbite",
+  "Characters/Anivia/Spells/GlacialStormAbility/GlacialStorm"
+ ],
+ "abilities_ref": [
+  "Characters/Anivia/Spells/GlacialStormAbility",
+  "Characters/Anivia/Spells/FlashFrostAbility",
+  "Characters/Anivia/Spells/CrystallizeAbility",
+  "Characters/Anivia/Spells/FrostbiteAbility",
+  "Characters/Anivia/Spells/RebirthMarkerAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/GlacialStormAbility/GlacialStormSpell": {
+   "ObjectName": "GlacialStormSpell",
+   "objectPath": "Characters/Anivia/Spells/GlacialStormAbility/GlacialStormSpell",
+   "mScriptName": "GlacialStormSpell",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     700,
+     700,
+     700,
+     700,
+     700,
+     700,
+     700
+    ],
+    "castRadius": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castConeDistance": 100,
+    "castFrame": 24.07,
+    "missileSpeed": 20,
+    "bHaveHitBone": true,
+    "mHitBoneName": "head",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GlacialStormAbility/ChilledAniviaUlt": {
+   "ObjectName": "ChilledAniviaUlt",
+   "objectPath": "Characters/Anivia/Spells/GlacialStormAbility/ChilledAniviaUlt",
+   "mScriptName": "ChilledAniviaUlt",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Chilled",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GlacialStormAbility/GlacialStorm": {
+   "ObjectName": "GlacialStorm",
+   "objectPath": "Characters/Anivia/Spells/GlacialStormAbility/GlacialStorm",
+   "mScriptName": "GlacialStorm",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_DamageAbility",
+     "Trait_DoT",
+     "Trait_Toggle",
+     "Trait_Toggle",
+     "Trait_Target_Area",
+     "Trait_Ranged_Zone",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "DamagePerSecond",
+      "values": [
+       15,
+       30,
+       45,
+       60,
+       75,
+       90,
+       105
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusMultiplier",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ManaCostPerSecond",
+      "values": [
+       25,
+       35,
+       45,
+       55,
+       65,
+       75,
+       85
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TickRate",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmount",
+      "values": [
+       20,
+       20,
+       30,
+       40,
+       50,
+       60,
+       70
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ChillDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "GrowthTime",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AdditionalSlowPercentAtMax",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDurationAtMaxMultiplier",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "LeashWarning",
+      "values": [
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "LeashBreak",
+      "values": [
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowPercentEmpoweredTT",
+      "values": [
+       15,
+       30,
+       45,
+       60,
+       75,
+       90,
+       105
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinCooldown",
+      "values": [
+       0,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamagePerSecond": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mDataValue": "DamagePerSecond",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.125,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "EnhancedSlow": {
+      "mMultiplier": {
+       "mSubparts": [
+        {
+         "mSubparts": [
+          {
+           "mDataValue": "AdditionalSlowPercentAtMax",
+           "__type": "NamedDataValueCalculationPart"
+          },
+          {
+           "mNumber": 1,
+           "__type": "NumberCalculationPart"
+          }
+         ],
+         "__type": "SumOfSubPartsCalculationPart"
+        }
+       ],
+       "__type": "SumOfSubPartsCalculationPart"
+      },
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mDataValue": "SlowAmount",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "EmpoweredDamagePerSecondTooltipOnly": {
+      "mMultiplier": {
+       "mNumber": 3,
+       "__type": "NumberCalculationPart"
+      },
+      "mSimpleTooltipCalculationDisplay": 6,
+      "tooltipOnly": true,
+      "mModifiedGameCalculation": "TotalDamagePerSecond",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     4,
+     4,
+     3,
+     2,
+     2,
+     2,
+     2
+    ],
+    "Cooldown": {
+     "values": [
+      4,
+      4,
+      3,
+      2,
+      2,
+      2,
+      2
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     750,
+     750,
+     750,
+     750,
+     750,
+     750,
+     750
+    ],
+    "castRadius": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castConeDistance": 100,
+    "castFrame": 23.78,
+    "missileSpeed": 20,
+    "mLineWidth": 150,
+    "mana": [
+     60,
+     60,
+     60,
+     60,
+     60,
+     60
+    ],
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_GlacialStorm",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamagePerSecond",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "SlowAmount",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 4,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RebirthMarkerAbility/RebirthReady": {
+   "ObjectName": "RebirthReady",
+   "objectPath": "Characters/Anivia/Spells/RebirthMarkerAbility/RebirthReady",
+   "mScriptName": "RebirthReady",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_RebirthReady",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RebirthMarkerAbility/RebirthMarker": {
+   "ObjectName": "RebirthMarker",
+   "objectPath": "Characters/Anivia/Spells/RebirthMarkerAbility/RebirthMarker",
+   "mScriptName": "RebirthMarker",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "Cooldown",
+      "values": [
+       240,
+       240,
+       240,
+       240,
+       240,
+       240,
+       240
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "URF": {
+      "SpellDataValues": [
+       {
+        "name": "Cooldown",
+        "values": [
+         60,
+         60,
+         60,
+         60,
+         60,
+         60,
+         60
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "BonusResists": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": -40,
+        "mBreakpoints": [
+         {
+          "mLevel": 5,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 8,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 12,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 15,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "BonusResistsTooltip": {
+      "mMultiplier": {
+       "mNumber": -1,
+       "__type": "NumberCalculationPart"
+      },
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mExpandedTooltipCalculationDisplay": 1,
+      "mModifiedGameCalculation": "BonusResists",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Rebirth_Marker",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RebirthMarkerAbility/RebirthCooldown": {
+   "ObjectName": "RebirthCooldown",
+   "objectPath": "Characters/Anivia/Spells/RebirthMarkerAbility/RebirthCooldown",
+   "mScriptName": "RebirthCooldown",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_RebirthCooldown",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RebirthMarkerAbility/Rebirth": {
+   "ObjectName": "Rebirth",
+   "objectPath": "Characters/Anivia/Spells/RebirthMarkerAbility/Rebirth",
+   "mScriptName": "Rebirth",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Rebirth",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/FlashFrostAbility/FlashFrostSpell": {
+   "ObjectName": "FlashFrostSpell",
+   "objectPath": "Characters/Anivia/Spells/FlashFrostAbility/FlashFrostSpell",
+   "mScriptName": "FlashFrostSpell",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "FlashFrostSpell",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.45,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     10,
+     10,
+     9.5,
+     9,
+     8.5,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      10,
+      10,
+      9.5,
+      9,
+      8.5,
+      8,
+      8
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 110,
+     "movementComponent": {
+      "mTracksTarget": false,
+      "mStartBoneName": "head",
+      "mProjectTargetToCastRange": true,
+      "mUseGroundHeightAtTarget": false,
+      "mSpeed": 950,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.5,
+    "missileSpeed": 850,
+    "mMissileEffectKey": "Anivia_Q_Mis",
+    "mLineWidth": 110,
+    "mHitEffectKey": "Anivia_BA_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/FlashFrostAbility/FlashFrost": {
+   "ObjectName": "FlashFrost",
+   "objectPath": "Characters/Anivia/Spells/FlashFrostAbility/FlashFrost",
+   "mScriptName": "FlashFrost",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "FlashFrost",
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_RecastOrReplaceSpell",
+     "Trait_Ranged_StopsFirstHit",
+     "Trait_Low_Damage",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "PassthroughBaseDamage",
+      "values": [
+       30,
+       50,
+       70,
+       90,
+       110,
+       130,
+       150
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ExplosionBaseDamage",
+      "values": [
+       25,
+       60,
+       95,
+       130,
+       165,
+       200,
+       235
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StunDuration",
+      "values": [
+       1,
+       1.1,
+       1.2,
+       1.3,
+       1.4,
+       1.5,
+       1.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalPassthroughDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "PassthroughBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.25,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalExplosionDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "ExplosionBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.45,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     11,
+     11,
+     10,
+     9,
+     8,
+     7,
+     7
+    ],
+    "Cooldown": {
+     "values": [
+      11,
+      11,
+      10,
+      9,
+      8,
+      7,
+      7
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "useAnimatorFramerate": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     1075,
+     1075,
+     1075,
+     1075,
+     1075,
+     1075,
+     1075
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 850,
+    "mLineWidth": 110,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "mana": [
+     80,
+     85,
+     90,
+     95,
+     100,
+     100
+    ],
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalExplosionDamage",
+       "__type": "{f3cbe7b2}"
+      },
+      {
+       "mSpellCalculationKey": "TotalPassthroughDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "SlowDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AniviaIced": {
+   "ObjectName": "AniviaIced",
+   "objectPath": "Characters/Anivia/Spells/AniviaIced",
+   "mScriptName": "AniviaIced",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_AniviaIced",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AniviaBasicAttack": {
+   "ObjectName": "AniviaBasicAttack",
+   "objectPath": "Characters/Anivia/Spells/AniviaBasicAttack",
+   "mScriptName": "AniviaBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 8143,
+    "mAlternateName": "AniviaBasicAttack",
+    "spellCastTime": 0.29385,
+    "bHaveHitEffect": true,
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "",
+      "mSpeed": 1600,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 14,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Anivia_BA_Mis",
+    "mHitEffectKey": "Anivia_BA_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AniviaBasicAttack2": {
+   "ObjectName": "AniviaBasicAttack2",
+   "objectPath": "Characters/Anivia/Spells/AniviaBasicAttack2",
+   "mScriptName": "AniviaBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 8143,
+    "mAlternateName": "AniviaBasicAttack2",
+    "spellCastTime": 0.29385,
+    "bHaveHitEffect": true,
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "head",
+      "mSpeed": 1600,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 14,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Anivia_BA_Mis",
+    "mHitEffectKey": "Anivia_BA_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/FrostbiteAbility/Frostbite": {
+   "ObjectName": "Frostbite",
+   "objectPath": "Characters/Anivia/Spells/FrostbiteAbility/Frostbite",
+   "mScriptName": "Frostbite",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "Frostbite",
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_SignatureSpell"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       30,
+       55,
+       80,
+       105,
+       130,
+       155,
+       180
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.55,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "EmpoweredDamage": {
+      "mMultiplier": {
+       "mNumber": 2,
+       "__type": "NumberCalculationPart"
+      },
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mModifiedGameCalculation": "TotalDamage",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4
+    ],
+    "Cooldown": {
+     "values": [
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+     ],
+     "{0a3e0478}": 4,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRangeUseBoundingBoxes": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "castRangeDisplayOverride": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "head",
+      "mSpeed": 1600,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.5,
+    "missileSpeed": 1600,
+    "mMissileEffectKey": "Anivia_E_Mis",
+    "mHitEffectKey": "Anivia_E_Tar",
+    "mana": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ],
+    "selectionPriority": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AniviaCritAttack": {
+   "ObjectName": "AniviaCritAttack",
+   "objectPath": "Characters/Anivia/Spells/AniviaCritAttack",
+   "mScriptName": "AniviaCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 8143,
+    "spellCastTime": 0.29385,
+    "bHaveHitEffect": true,
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "head",
+      "mSpeed": 1600,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 14.22,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Anivia_BA_Mis",
+    "mHitEffectKey": "Anivia_BA_Crit_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/CrystallizeAbility/Crystallize": {
+   "ObjectName": "Crystallize",
+   "objectPath": "Characters/Anivia/Spells/CrystallizeAbility/Crystallize",
+   "mScriptName": "Crystallize",
+   "mSpell": {
+    "mAffectsTypeFlags": 15567,
+    "mAlternateName": "Crystallize",
+    "mSpellTags": [
+     "Trait_CreateTerrain"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       400,
+       400,
+       500,
+       600,
+       700,
+       800,
+       900
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "WallDuration",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "WallWidth",
+      "values": [
+       300,
+       400,
+       500,
+       600,
+       700,
+       800,
+       900
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "WallChunks",
+      "values": [
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ChampPushDistance",
+      "values": [
+       120,
+       120,
+       120,
+       120,
+       120,
+       120,
+       120
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "NonChampPushDistance",
+      "values": [
+       250,
+       250,
+       250,
+       250,
+       250,
+       250,
+       250
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     17,
+     17,
+     17,
+     17,
+     17,
+     17,
+     17
+    ],
+    "Cooldown": {
+     "values": [
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17
+     ],
+     "{0a3e0478}": 17,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1600,
+    "mana": [
+     70,
+     70,
+     70,
+     70,
+     70,
+     70
+    ],
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "{ec17e271}": [
+     {
+      "EffectTag": 1048576,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/FlashFrostAbility/FlashFrost",
+  "Spells/CrystallizeAbility/Crystallize",
+  "Spells/FrostbiteAbility/Frostbite",
+  "Spells/GlacialStormAbility/GlacialStorm"
+ ],
+ "passiva_ref": "Characters/Anivia/Spells/RebirthMarkerAbility",
+ "passiva_chaves": [
+  "Spells/RebirthMarkerAbility/RebirthReady",
+  "Spells/RebirthMarkerAbility/RebirthMarker",
+  "Spells/RebirthMarkerAbility/RebirthCooldown",
+  "Spells/RebirthMarkerAbility/Rebirth"
+ ]
+}

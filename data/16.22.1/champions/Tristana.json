@@ -1,0 +1,1760 @@
+{
+ "id": "Tristana",
+ "key": 18,
+ "nome": "Tristana",
+ "titulo": "a Artilheira Yordle",
+ "funcoes": [
+  "Marksman",
+  "Assassin"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 9,
+  "defense": 3,
+  "magic": 5,
+  "difficulty": 4
+ },
+ "stats_ddragon": {
+  "hp": 640,
+  "hpperlevel": 102,
+  "mp": 300,
+  "mpperlevel": 32,
+  "movespeed": 325,
+  "armor": 30,
+  "armorperlevel": 4,
+  "spellblock": 33,
+  "spellblockperlevel": 1.1,
+  "attackrange": 550,
+  "hpregen": 4,
+  "hpregenperlevel": 0.5,
+  "mpregen": 7.2,
+  "mpregenperlevel": 0.45,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 60,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 1.5,
+  "attackspeed": 0.656
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Tiro Certeiro",
+  "descricao": "Aumenta o Alcance de Ataque de Tristana conforme ela sobe de nível."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "TristanaQ",
+   "nome": "Tiro Rápido",
+   "descricao": "Tristana dispara rapidamente com seu canhão, aumentando sua Velocidade de Ataque por um curto período de tempo.",
+   "tooltip": "Tristana aumenta a frequência de disparos, recebendo <attackSpeed>{{ attackspeedmod*100 }}% de Velocidade de Ataque</attackSpeed> por {{ buffduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    20,
+    19,
+    18,
+    17,
+    16
+   ],
+   "custo": [
+    15,
+    20,
+    25,
+    30,
+    35
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    20,
+    20,
+    20,
+    20,
+    20
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "TristanaW",
+   "nome": "Salto-foguete",
+   "descricao": "Tristana dispara no chão para lançar-se ao local-alvo, causando dano e reduzindo a Velocidade de Movimento das unidades ao seu redor por um breve momento ao aterrissar.",
+   "tooltip": "Tristana se lança ao ar, causando <magicDamage>{{ landingdamage }} de Dano Mágico</magicDamage> e {{ slowmod*-100 }}% de <status>Lentidão</status> por {{ slowduration }}s ao aterrissar.<br /><br />Eliminações de Campeões e detonações de <spellName>Carga Explosiva</spellName> com acúmulos máximos em Campeões redefinem o Tempo de Recarga desta Habilidade.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    22,
+    20,
+    18,
+    16,
+    14
+   ],
+   "custo": [
+    30,
+    35,
+    40,
+    45,
+    50
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    900,
+    900,
+    900,
+    900,
+    900
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "TristanaE",
+   "nome": "Carga Explosiva",
+   "descricao": "Quando Tristana abate uma unidade, seus projéteis explodem com estilhaços, causando dano a inimigos próximos. Isso pode ser ativado para posicionar uma bomba em um alvo inimigo, que explodirá após uma curta duração, causando dano a unidades ao seu redor.",
+   "tooltip": "<spellPassive>Passivo: </spellPassive>os Ataques de Tristana que abaterem inimigos causarão <magicDamage>{{ passivedamage }} de Dano Mágico</magicDamage> aos inimigos ao redor.<br /><br /><spellActive>Ativo:</spellActive> Tristana implanta uma bomba em um inimigo ou em uma torre, causando <physicalDamage>{{ activedamage }} de Dano Físico</physicalDamage> aos inimigos ao redor após {{ activeduration }}s. O dano aumenta em {{ activeperstackamp*100 }}% a cada vez que Tristana acerta um Ataque ou Habilidade (máximo de 4 acúmulos).<br /><br />Com {{ activemaxstacks }} acúmulos, a bomba explode imediatamente (máximo de <physicalDamage>{{ activemaxdamage }} de Dano Físico</physicalDamage>).{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    16,
+    15.5,
+    15,
+    14.5,
+    14
+   ],
+   "custo": [
+    50,
+    55,
+    60,
+    65,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    550,
+    550,
+    550,
+    550,
+    550
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "TristanaR",
+   "nome": "Tiro Destruidor",
+   "descricao": "Tristana carrega uma gigantesca bala de canhão em sua arma e a dispara em uma unidade inimiga. Isso causa Dano Mágico e empurra o alvo para trás. Se o alvo estiver carregando uma bomba da Carga Explosiva, o raio de explosão da bomba é dobrado.",
+   "tooltip": "Tristana dispara uma enorme bola de canhão, causando <magicDamage>{{ damagecalc }} de Dano Mágico</magicDamage> ao alvo, além de <status>Empurrar</status> e <status>Atordoar</status> o alvo e os inimigos ao redor dele por {{ stunduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    100,
+    100,
+    100
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    550,
+    550,
+    550
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 640,
+  "vida_nivel": 102,
+  "regen_vida": 0.8,
+  "regen_vida_nivel": 0.1,
+  "dano": 60,
+  "dano_nivel": 3.4,
+  "armadura": 30,
+  "armadura_nivel": 4,
+  "rm": 33,
+  "rm_nivel": 1.1,
+  "velocidade_mov": 325,
+  "alcance_ataque": 550,
+  "vel_ataque_base": 0.656,
+  "vel_ataque_razao": 0.694,
+  "vel_ataque_nivel": 1.5,
+  "dano_critico": 2,
+  "alcance_aquisicao": 800,
+  "raio_selecao": 100,
+  "raio_colisao": 30,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.15199999511241913,
+   "mAttackProbability": 0.8500000238418579,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.15000000596046448,
+    "mAttackName": "TristanaBasicAttack2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.15199336409568787,
+    "mAttackName": "TristanaCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Tristana/Spells/TristanaQAbility/TristanaQ",
+  "Characters/Tristana/Spells/TristanaWAbility/TristanaW",
+  "Characters/Tristana/Spells/TristanaEAbility/TristanaE",
+  "Characters/Tristana/Spells/TristanaRAbility/TristanaR"
+ ],
+ "abilities_ref": [
+  "Characters/Tristana/Spells/TristanaQAbility",
+  "Characters/Tristana/Spells/TristanaWAbility",
+  "Characters/Tristana/Spells/TristanaEAbility",
+  "Characters/Tristana/Spells/TristanaRAbility",
+  "Characters/Tristana/Spells/TristanaPassiveAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/TristanaEAbility/TristanaEChargeSound": {
+   "ObjectName": "TristanaEChargeSound",
+   "objectPath": "Characters/Tristana/Spells/TristanaEAbility/TristanaEChargeSound",
+   "mScriptName": "TristanaEChargeSound",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TristanaE",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TristanaEAbility/TristanaEDebuff": {
+   "ObjectName": "TristanaEDebuff",
+   "objectPath": "Characters/Tristana/Spells/TristanaEAbility/TristanaEDebuff",
+   "mScriptName": "TristanaEDebuff",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Explosive_Shot_Debuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TristanaEAbility/TristanaE": {
+   "ObjectName": "TristanaE",
+   "objectPath": "Characters/Tristana/Spells/TristanaEAbility/TristanaE",
+   "mScriptName": "TristanaE",
+   "mSpell": {
+    "mAffectsTypeFlags": 6282,
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_SignatureSpell",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "PassiveBaseDamage",
+      "values": [
+       30,
+       45,
+       60,
+       75,
+       90,
+       105,
+       120
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PassiveRadius",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ActiveBaseDamage",
+      "values": [
+       35,
+       60,
+       85,
+       110,
+       135,
+       160,
+       185
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ActiveBADRatio",
+      "values": [
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ActiveRadius",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ActiveTowerRadius",
+      "values": [
+       600,
+       600,
+       600,
+       600,
+       600,
+       600,
+       600
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ActiveMaxStacks",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ActiveDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ActivePerStackAmp",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CritChanceModifier",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "ActiveBADRatio",
+        "values": [
+         0.65,
+         0.75,
+         0.85,
+         0.95,
+         1.05,
+         1.15,
+         1.25
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "APRatio",
+        "values": [
+         0.8,
+         0.8,
+         0.8,
+         0.8,
+         0.8,
+         0.8,
+         0.8
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "PassiveDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "PassiveBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.25,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "ActiveDamage": {
+      "mMultiplier": {
+       "mSubparts": [
+        {
+         "mNumber": 1,
+         "__type": "NumberCalculationPart"
+        },
+        {
+         "mPart1": {
+          "mStat": 8,
+          "mDataValue": "CritChanceModifier",
+          "__type": "StatByNamedDataValueCalculationPart"
+         },
+         "mPart2": {
+          "mSubparts": [
+           {
+            "mStat": 9,
+            "mCoefficient": 1,
+            "__type": "StatByCoefficientCalculationPart"
+           },
+           {
+            "mNumber": -1,
+            "__type": "NumberCalculationPart"
+           }
+          ],
+          "__type": "SumOfSubPartsCalculationPart"
+         },
+         "__type": "ProductOfSubPartsCalculationPart"
+        }
+       ],
+       "__type": "SumOfSubPartsCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mDataValue": "ActiveBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mSubpart": {
+         "mDataValue": "ActiveBADRatio",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        "__type": "StatBySubPartCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "ActiveMaxDamage": {
+      "mMultiplier": {
+       "mSubparts": [
+        {
+         "mNumber": 1,
+         "__type": "NumberCalculationPart"
+        },
+        {
+         "mPart1": {
+          "mDataValue": "ActivePerStackAmp",
+          "__type": "NamedDataValueCalculationPart"
+         },
+         "mPart2": {
+          "mDataValue": "ActiveMaxStacks",
+          "__type": "NamedDataValueCalculationPart"
+         },
+         "__type": "ProductOfSubPartsCalculationPart"
+        }
+       ],
+       "__type": "SumOfSubPartsCalculationPart"
+      },
+      "mModifiedGameCalculation": "ActiveDamage",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "cooldownTime": [
+     16,
+     16,
+     15.5,
+     15,
+     14.5,
+     14,
+     14
+    ],
+    "Cooldown": {
+     "values": [
+      16,
+      16,
+      15.5,
+      15,
+      14.5,
+      14,
+      14
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Tristana/Spells/TristanaEAbility/TristanaE",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "castRangeUseBoundingBoxes": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "mUseAutoattackCastTimeData": {
+     "__type": "UseAutoattackCastTimeData"
+    },
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Root",
+      "mSpeed": 2400,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 22000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 2400,
+    "mMissileEffectKey": "Tristana_E_mis",
+    "mHitEffectKey": "Tristana_E_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_OVERHEAD_LOC",
+    "mana": [
+     50,
+     55,
+     60,
+     65,
+     70,
+     70
+    ],
+    "selectionPriority": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "ActiveMaxDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TristanaEAbility/TristanaECharge": {
+   "ObjectName": "TristanaECharge",
+   "objectPath": "Characters/Tristana/Spells/TristanaEAbility/TristanaECharge",
+   "mScriptName": "TristanaECharge",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TristanaE_Stack",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TristanaPassiveAbility/TristanaPassive": {
+   "ObjectName": "TristanaPassive",
+   "objectPath": "Characters/Tristana/Spells/TristanaPassiveAbility/TristanaPassive",
+   "mScriptName": "TristanaPassive",
+   "mSpell": {
+    "mSpellCalculations": {
+     "BonusPassiveRange": {
+      "mFormulaParts": [
+       {
+        "mEndValue": 150,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRangeUseBoundingBoxes": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Draw_a_Bead",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TristanaBasicAttack2": {
+   "ObjectName": "TristanaBasicAttack2",
+   "objectPath": "Characters/Tristana/Spells/TristanaBasicAttack2",
+   "mScriptName": "TristanaBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "TristanaBasicAttack2",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "castRange": [
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Buffbone_Glb_Weapon_1",
+      "mSpeed": 2250,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 6.4625,
+    "missileSpeed": 2250,
+    "mMissileEffectKey": "Tristana_BA_mis",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TristanaRAbility/TristanaR": {
+   "ObjectName": "TristanaR",
+   "objectPath": "Characters/Tristana/Spells/TristanaRAbility/TristanaR",
+   "mScriptName": "TristanaR",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_KnockBack"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       175,
+       225,
+       275,
+       325,
+       375,
+       425,
+       475
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockbackDistance",
+      "values": [
+       400,
+       600,
+       800,
+       1000,
+       1200,
+       1400,
+       1600
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockbackArea",
+      "values": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StunDuration",
+      "values": [
+       0.25,
+       0.4,
+       0.55,
+       0.7,
+       0.85,
+       1,
+       1.15
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "APRatio",
+        "values": [
+         1.5,
+         1.5,
+         1.5,
+         1.5,
+         1.5,
+         1.5,
+         1.5
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "DamageCalc": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 0.7,
+        "__type": "StatByCoefficientCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "Cooldown": {
+     "values": [
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100
+     ],
+     "{0a3e0478}": 100,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRangeUseBoundingBoxes": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castRadiusSecondary": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Root",
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 10.26,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Tristana_R_mis",
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "selectionPriority": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Buster_Shot",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "DamageCalc",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 4194304,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "KnockbackDistance",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TristanaQAbility/TristanaQ": {
+   "ObjectName": "TristanaQ",
+   "objectPath": "Characters/Tristana/Spells/TristanaQAbility/TristanaQ",
+   "mScriptName": "TristanaQ",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_AttackBuff_Duration"
+    ],
+    "DataValues": [
+     {
+      "name": "AttackSpeedMod",
+      "values": [
+       0.2,
+       0.4,
+       0.6,
+       0.8,
+       1,
+       1.2,
+       1.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BuffDuration",
+      "values": [
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "AttackSpeedMod",
+        "values": [
+         0.5,
+         0.6,
+         0.7,
+         0.8,
+         0.9,
+         1,
+         1.1
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "spellTotalTime": 1.4,
+    "cooldownTime": [
+     21,
+     20,
+     19,
+     18,
+     17,
+     16,
+     16
+    ],
+    "Cooldown": {
+     "values": [
+      21,
+      20,
+      19,
+      18,
+      17,
+      16,
+      16
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 3.04,
+    "missileSpeed": 1450,
+    "mana": [
+     30,
+     35,
+     40,
+     45,
+     50,
+     50
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Rapid_Fire",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 128,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 512,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TristanaWAbility/TristanaW": {
+   "ObjectName": "TristanaW",
+   "objectPath": "Characters/Tristana/Spells/TristanaWAbility/TristanaW",
+   "mScriptName": "TristanaW",
+   "mSpell": {
+    "mAffectsTypeFlags": 7183,
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock",
+     "Trait_PlayerSelectedDashDirection",
+     "Trait_DamageAbility",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       35,
+       70,
+       105,
+       140,
+       175,
+       210,
+       245
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowMod",
+      "values": [
+       -0.4,
+       -0.4,
+       -0.4,
+       -0.4,
+       -0.4,
+       -0.4,
+       -0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DamageRadius",
+      "values": [
+       350,
+       350,
+       350,
+       350,
+       350,
+       350,
+       350
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ADRatio",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "APRatio",
+        "values": [
+         0.8,
+         0.8,
+         0.8,
+         0.8,
+         0.8,
+         0.8,
+         0.8
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "LandingDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "ADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     24,
+     22,
+     20,
+     18,
+     16,
+     14,
+     14
+    ],
+    "Cooldown": {
+     "values": [
+      24,
+      22,
+      20,
+      18,
+      16,
+      14,
+      14
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "mSpellRevealsChampion": false,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     900,
+     900,
+     900,
+     900,
+     900,
+     900,
+     900
+    ],
+    "castRadius": [
+     270,
+     270,
+     270,
+     270,
+     270,
+     270,
+     270
+    ],
+    "castConeDistance": 100,
+    "castFrame": 4.535,
+    "missileSpeed": 20,
+    "mana": [
+     30,
+     35,
+     40,
+     45,
+     50,
+     50
+    ],
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "LandingDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "SlowMod",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 128,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TristanaWAbility/TristanaWSlow": {
+   "ObjectName": "TristanaWSlow",
+   "objectPath": "Characters/Tristana/Spells/TristanaWAbility/TristanaWSlow",
+   "mScriptName": "TristanaWSlow",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_RocketJump",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TristanaCritAttack": {
+   "ObjectName": "TristanaCritAttack",
+   "objectPath": "Characters/Tristana/Spells/TristanaCritAttack",
+   "mScriptName": "TristanaCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "TristanaCritAttack",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "castRange": [
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Buffbone_Glb_Weapon_1",
+      "mSpeed": 2250,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 6.4625,
+    "missileSpeed": 2250,
+    "mMissileEffectKey": "Tristana_BA_mis2",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TristanaBasicAttack": {
+   "ObjectName": "TristanaBasicAttack",
+   "objectPath": "Characters/Tristana/Spells/TristanaBasicAttack",
+   "mScriptName": "TristanaBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "TristanaBasicAttack",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "castRange": [
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998,
+     554.09998
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Buffbone_Glb_Weapon_1",
+      "mSpeed": 2250,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 6.4625,
+    "missileSpeed": 2250,
+    "mMissileEffectKey": "Tristana_BA_mis",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SkinProxy": {
+   "ObjectName": "SkinProxy",
+   "objectPath": "Characters/Tristana/Spells/SkinProxy",
+   "mScriptName": "SkinProxy",
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/TristanaQAbility/TristanaQ",
+  "Spells/TristanaWAbility/TristanaW",
+  "Spells/TristanaEAbility/TristanaE",
+  "Spells/TristanaRAbility/TristanaR"
+ ],
+ "passiva_ref": "Characters/Tristana/Spells/TristanaPassiveAbility",
+ "passiva_chaves": [
+  "Spells/TristanaPassiveAbility/TristanaPassive"
+ ]
+}

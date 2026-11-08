@@ -1,0 +1,2143 @@
+{
+ "id": "Velkoz",
+ "key": 161,
+ "nome": "Vel'Koz",
+ "titulo": "o Olho do Vazio",
+ "funcoes": [
+  "Mage",
+  "Support"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 2,
+  "defense": 2,
+  "magic": 10,
+  "difficulty": 8
+ },
+ "stats_ddragon": {
+  "hp": 590,
+  "hpperlevel": 102,
+  "mp": 469,
+  "mpperlevel": 21,
+  "movespeed": 340,
+  "armor": 22,
+  "armorperlevel": 4.7,
+  "spellblock": 30,
+  "spellblockperlevel": 1.3,
+  "attackrange": 525,
+  "hpregen": 5.5,
+  "hpregenperlevel": 0.55,
+  "mpregen": 8,
+  "mpregenperlevel": 0.8,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 55,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 1.59,
+  "attackspeed": 0.643
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Desconstrução Orgânica",
+  "descricao": "As habilidades de Vel'Koz aplicam <keywordName>Desconstrução Orgânica</keywordName> nos inimigos ao contato. Ao chegar a 3 acúmulos, o inimigo receberá uma rajada de Dano Verdadeiro."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "VelkozQ",
+   "nome": "Fissão Plasmática",
+   "descricao": "Vel'Koz dispara um projétil de plasma que se divide em dois ao ser reativado ou ao atingir um inimigo. O projétil causa dano e redução de velocidade a inimigos ao contato.",
+   "tooltip": "Vel'Koz dispara um projétil de plasma que causa <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage> e {{ slowamount*100 }}% de <status>Lentidão</status>, que decai ao longo de {{ slowduration }}s. Quando chega ao alcance máximo, seja ao atingir um inimigo ou ao ser <recast>Reconjurado</recast>, o projétil se divide em dois, traçando uma trajetória perpendicular.<br /><br />Abater uma unidade com a Habilidade restaura <scaleMana>{{ tooltipmanarefund }} de Mana</scaleMana>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    7,
+    7,
+    7,
+    7,
+    7
+   ],
+   "custo": [
+    40,
+    45,
+    50,
+    55,
+    60
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1050,
+    1050,
+    1050,
+    1050,
+    1050
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "VelkozW",
+   "nome": "Fenda do Vazio",
+   "descricao": "Vel'Koz abre uma fenda ao Vazio que causa uma rajada inicial de dano, explodindo em seguida para causar mais dano após um breve intervalo.",
+   "tooltip": "Vel'Koz abre uma fenda ao Vazio, causando <magicDamage>{{ initialdamage }} de Dano Mágico</magicDamage>. A fenda detona, causando <magicDamage>{{ secondarydamage }} de Dano Mágico</magicDamage>.<br /><br />A Habilidade tem 2 cargas (recarrega a cada {{ ammorechargetime }}s).{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    1.5,
+    1.5,
+    1.5,
+    1.5,
+    1.5
+   ],
+   "custo": [
+    50,
+    55,
+    60,
+    65,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1050,
+    1050,
+    1050,
+    1050,
+    1050
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "30/50/70/90/110",
+    "45/75/105/135/165",
+    "100",
+    "0",
+    "0.25",
+    "0.5",
+    "88",
+    "500",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "VelkozE",
+   "nome": "Ruptura Tectônica",
+   "descricao": "Vel'Koz faz com que uma área exploda, arremessando inimigos ao ar e afastando inimigos próximos.",
+   "tooltip": "Vel'Koz rompe uma área próxima, fazendo com que ela exploda, <status>Arremessando ao ar</status> por {{ stunduration }}s e causando <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage>. Inimigos próximos a ele são <status>Empurrados</status> em vez de <status>Arremessados ao ar</status>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    12,
+    11.5,
+    11,
+    10.5,
+    10
+   ],
+   "custo": [
+    50,
+    55,
+    60,
+    65,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    810,
+    810,
+    810,
+    810,
+    810
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "VelkozR",
+   "nome": "Raio Desintegrador de Formas de Vida",
+   "descricao": "Vel'Koz desfere um raio canalizado que segue o cursor por 2,5s, causando Dano Mágico. Desconstrução Orgânica pesquisa Campeões inimigos, fazendo com que recebam Dano Verdadeiro em vez de Dano Mágico.",
+   "tooltip": "Vel'Koz canaliza um raio de energia que segue o cursor, causando até <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage> por 2,5s e {{ e3 }}% de <status>Lentidão</status>. Causa <trueDamage>Dano Verdadeiro</trueDamage> ao atingir inimigos que sofreram dano de <spellName>Desconstrução Orgânica</spellName> recentemente.<br /><br />Inimigos ganham acúmulos periódicos de <keywordMajor>Desconstrução Orgânica</keywordMajor> enquanto estiverem dentro do raio.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    100,
+    90,
+    80
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1575,
+    1575,
+    1575
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "450/700/925",
+    "7",
+    "20",
+    "40",
+    "175",
+    "7",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 590,
+  "vida_nivel": 102,
+  "regen_vida": 1.1,
+  "regen_vida_nivel": 0.11,
+  "dano": 55,
+  "dano_nivel": 3.14159,
+  "armadura": 22,
+  "armadura_nivel": 4.7,
+  "rm": 30,
+  "rm_nivel": 1.3,
+  "velocidade_mov": 340,
+  "alcance_ataque": 525,
+  "vel_ataque_base": 0.643,
+  "vel_ataque_razao": 0.625,
+  "vel_ataque_nivel": 1.59,
+  "dano_critico": 2,
+  "alcance_aquisicao": 575,
+  "raio_selecao": 120,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackName": "VelkozBasicAttack2",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "VelkozBasicAttack3",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackName": "VelkozCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Velkoz/Spells/VelkozQAbility/VelkozQ",
+  "Characters/Velkoz/Spells/VelkozWAbility/VelkozW",
+  "Characters/Velkoz/Spells/VelkozEAbility/VelkozE",
+  "Characters/Velkoz/Spells/VelkozRAbility/VelkozR"
+ ],
+ "abilities_ref": [
+  "Characters/Velkoz/Spells/VelkozQAbility",
+  "Characters/Velkoz/Spells/VelkozWAbility",
+  "Characters/Velkoz/Spells/VelkozEAbility",
+  "Characters/Velkoz/Spells/VelkozRAbility",
+  "Characters/Velkoz/Spells/VelkozPassiveAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/VelkozQAbility/VelkozQ": {
+   "ObjectName": "VelkozQ",
+   "objectPath": "Characters/Velkoz/Spells/VelkozQAbility/VelkozQ",
+   "mScriptName": "VelkozQ",
+   "mSpell": {
+    "mAffectsTypeFlags": 13327,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_RecastOrReplaceSpell",
+     "Trait_SignatureSpell",
+     "Trait_Ranged_StopsFirstHit",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "PassiveStacksToAdd",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       40,
+       80,
+       120,
+       160,
+       200,
+       240,
+       280
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmount",
+      "values": [
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       0.6,
+       1,
+       1.4,
+       1.8,
+       2.2,
+       2.6,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SplitTelegraphTime",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ManaRefund",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TooltipManaRefund",
+      "values": [
+       17.5,
+       20,
+       22.5,
+       25,
+       27.5,
+       30,
+       32.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.9,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.251,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     7,
+     7,
+     7,
+     7,
+     7,
+     7,
+     7
+    ],
+    "Cooldown": {
+     "values": [
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7
+     ],
+     "{0a3e0478}": 7,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRangeDisplayOverride": [
+     1050,
+     1050,
+     1050,
+     1050,
+     1050,
+     1050,
+     1050
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.53,
+    "missileSpeed": 1200,
+    "mLineWidth": 60,
+    "mana": [
+     40,
+     45,
+     50,
+     55,
+     60,
+     65
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "SlowDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 32768,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mNumber": 60,
+         "__type": "NumberCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VelkozQAbility/VelkozQSlow": {
+   "ObjectName": "VelkozQSlow",
+   "objectPath": "Characters/Velkoz/Spells/VelkozQAbility/VelkozQSlow",
+   "mScriptName": "VelkozQSlow",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_VelkozQSlow",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VelkozQAbility/VelkozQMissile": {
+   "ObjectName": "VelkozQMissile",
+   "objectPath": "Characters/Velkoz/Spells/VelkozQAbility/VelkozQMissile",
+   "mScriptName": "VelkozQMissile",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mCoefficient": 1.2,
+    "mCastTime": 0.251,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "luaOnMissileUpdateDistanceInterval": 175,
+    "mMissileSpec": {
+     "mMissileWidth": 50,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1300,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.53,
+    "missileSpeed": 1300,
+    "mMissileEffectKey": "Velkoz_Q_Mis",
+    "mLineWidth": 50,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VelkozQAbility/VelkozQMissileSplit": {
+   "ObjectName": "VelkozQMissileSplit",
+   "objectPath": "Characters/Velkoz/Spells/VelkozQAbility/VelkozQMissileSplit",
+   "mScriptName": "VelkozQMissileSplit",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mEffectAmount": [
+     {
+      "value": [
+       30,
+       90,
+       150,
+       245,
+       315,
+       440,
+       565
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2.25,
+       2.5,
+       2.75,
+       3,
+       3.25,
+       3.5,
+       3.75
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1.2,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "useAnimatorFramerate": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 45,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 2100,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.53,
+    "missileSpeed": 2100,
+    "mMissileEffectKey": "Velkoz_Q_Split_mis",
+    "mLineWidth": 45,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VelkozQAbility/VelkozQSplitActivate": {
+   "ObjectName": "VelkozQSplitActivate",
+   "objectPath": "Characters/Velkoz/Spells/VelkozQAbility/VelkozQSplitActivate",
+   "mScriptName": "VelkozQSplitActivate",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "bIsToggleSpell": true,
+    "castRange": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castRadius": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castConeDistance": 100,
+    "castFrame": 2,
+    "missileSpeed": 0,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VelkozEAbility/VelkozEStun": {
+   "ObjectName": "VelkozEStun",
+   "objectPath": "Characters/Velkoz/Spells/VelkozEAbility/VelkozEStun",
+   "mScriptName": "VelkozEStun",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_VelkozEStun",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VelkozEAbility/VelkozEMissile": {
+   "ObjectName": "VelkozEMissile",
+   "objectPath": "Characters/Velkoz/Spells/VelkozEAbility/VelkozEMissile",
+   "mScriptName": "VelkozEMissile",
+   "mSpell": {
+    "mAffectsTypeFlags": 1028,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mStartBoneName": "Buffbone_Glb_Ground_Loc",
+      "mTravelTime": 0.55,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "mHeightOffset": 60,
+      "__type": "FollowTerrainHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Velkoz_E_terraform_mis",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VelkozEAbility/VelkozE": {
+   "ObjectName": "VelkozE",
+   "objectPath": "Characters/Velkoz/Spells/VelkozEAbility/VelkozE",
+   "mScriptName": "VelkozE",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_KnockBack",
+     "Trait_Target_Area",
+     "Trait_Ranged_Zone",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "PassiveStacksToAdd",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       40,
+       70,
+       100,
+       130,
+       160,
+       190,
+       220
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StunDuration",
+      "values": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MoveDistance",
+      "values": [
+       225,
+       225,
+       225,
+       225,
+       225,
+       225,
+       225
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxDetonationTime",
+      "values": [
+       0.55,
+       0.55,
+       0.55,
+       0.55,
+       0.55,
+       0.55,
+       0.55
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinDetonationTime",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.3,
+    "mAnimationWinddownName": "Tentacles",
+    "mCastTime": 0.25,
+    "cooldownTime": [
+     12,
+     12,
+     11.5,
+     11,
+     10.5,
+     10,
+     10
+    ],
+    "Cooldown": {
+     "values": [
+      12,
+      12,
+      11.5,
+      11,
+      10.5,
+      10,
+      10
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "bIsToggleSpell": true,
+    "castRange": [
+     800,
+     800,
+     800,
+     800,
+     800,
+     800,
+     800
+    ],
+    "castRangeDisplayOverride": [
+     810,
+     810,
+     810,
+     810,
+     810,
+     810,
+     810
+    ],
+    "castRadius": [
+     225,
+     225,
+     225,
+     225,
+     225,
+     225,
+     225
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10,
+    "mana": [
+     50,
+     55,
+     60,
+     65,
+     70,
+     75
+    ],
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 16777216,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4194304,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VelkozResearchedStack": {
+   "ObjectName": "VelkozResearchedStack",
+   "objectPath": "Characters/Velkoz/Spells/VelkozResearchedStack",
+   "mScriptName": "VelkozResearchedStack",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_VelkozResearchedStack",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VelkozBasicAttack3": {
+   "ObjectName": "VelkozBasicAttack3",
+   "objectPath": "Characters/Velkoz/Spells/VelkozBasicAttack3",
+   "mScriptName": "VelkozBasicAttack3",
+   "mSpell": {
+    "mAffectsTypeFlags": 24527,
+    "mAlternateName": "VelkozBasicAttack3",
+    "mAnimationWinddownName": "Tentacles",
+    "spellCastTime": 0.4327,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     625,
+     625,
+     625,
+     625,
+     625,
+     625,
+     625
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "missileSpeed": 2000,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VelkozBasicAttack2": {
+   "ObjectName": "VelkozBasicAttack2",
+   "objectPath": "Characters/Velkoz/Spells/VelkozBasicAttack2",
+   "mScriptName": "VelkozBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 24527,
+    "mAlternateName": "VelkozBasicAttack2",
+    "mAnimationWinddownName": "Tentacles",
+    "spellCastTime": 0.4327,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     625,
+     625,
+     625,
+     625,
+     625,
+     625,
+     625
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "missileSpeed": 2000,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VelkozWAbility/VelkozWMissile": {
+   "ObjectName": "VelkozWMissile",
+   "objectPath": "Characters/Velkoz/Spells/VelkozWAbility/VelkozWMissile",
+   "mScriptName": "VelkozWMissile",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mCoefficient": 1.2,
+    "mCastTime": 0.251,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "luaOnMissileUpdateDistanceInterval": 175,
+    "mMissileSpec": {
+     "mMissileWidth": 87.5,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mTargetHeightAugment": 20,
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1700,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mHeightOffset": 20,
+      "__type": "FollowTerrainHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.53,
+    "missileSpeed": 1700,
+    "mMissileEffectKey": "Velkoz_W_Turret",
+    "mLineWidth": 87.5,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VelkozWAbility/VelkozW": {
+   "ObjectName": "VelkozW",
+   "objectPath": "Characters/Velkoz/Spells/VelkozWAbility/VelkozW",
+   "mScriptName": "VelkozW",
+   "mSpell": {
+    "flags": 12,
+    "mAffectsTypeFlags": 13327,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_Ammo",
+     "Trait_Ranged_Piercing",
+     "Trait_Low_Damage",
+     "Trait_AoE"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       10,
+       30,
+       50,
+       70,
+       90,
+       110,
+       130
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       15,
+       45,
+       75,
+       105,
+       135,
+       165,
+       195
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       88,
+       88,
+       88,
+       88,
+       88,
+       88,
+       88
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       500,
+       500,
+       500,
+       500,
+       500,
+       500,
+       500
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "PassiveStacksToAdd",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseInitialDamage",
+      "values": [
+       10,
+       30,
+       50,
+       70,
+       90,
+       110,
+       130
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseSecondaryDamage",
+      "values": [
+       15,
+       45,
+       75,
+       105,
+       135,
+       165,
+       195
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "InitialDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseInitialDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.2,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "SecondaryDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseSecondaryDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.25,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.2,
+    "mCoefficient2": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     1.5,
+     1.5,
+     1.5,
+     1.5,
+     1.5,
+     1.5,
+     1.5
+    ],
+    "Cooldown": {
+     "values": [
+      1.5,
+      1.5,
+      1.5,
+      1.5,
+      1.5,
+      1.5,
+      1.5
+     ],
+     "{0a3e0478}": 1.5,
+     "__type": "{0a0eddc9}"
+    },
+    "mMaxAmmo": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "mAmmoRechargeTime": [
+     19,
+     18,
+     17,
+     16,
+     15,
+     14,
+     14
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     1050,
+     1050,
+     1050,
+     1050,
+     1050,
+     1050,
+     1050
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 1.92,
+    "missileSpeed": 1200,
+    "mLineWidth": 87.5,
+    "mLookAtPolicy": 1,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_HEAD_LOC",
+    "mana": [
+     50,
+     55,
+     60,
+     65,
+     70,
+     75
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSubparts": [
+        {
+         "mSpellCalculationKey": "InitialDamage",
+         "__type": "{f3cbe7b2}"
+        },
+        {
+         "mSpellCalculationKey": "SecondaryDamage",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "SumOfSubPartsCalculationPart"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VelkozCritAttack": {
+   "ObjectName": "VelkozCritAttack",
+   "objectPath": "Characters/Velkoz/Spells/VelkozCritAttack",
+   "mScriptName": "VelkozCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 24527,
+    "mAlternateName": "VelkozBasicAttack",
+    "mAnimationWinddownName": "Tentacles",
+    "spellCastTime": 0.4327,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     625,
+     625,
+     625,
+     625,
+     625,
+     625,
+     625
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9.5,
+    "missileSpeed": 8000,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VelkozRAbility/VelkozR": {
+   "ObjectName": "VelkozR",
+   "objectPath": "Characters/Velkoz/Spells/VelkozRAbility/VelkozR",
+   "mScriptName": "VelkozR",
+   "mSpell": {
+    "flags": 32,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_ChannelSpell",
+     "Trait_DamageAbility",
+     "Trait_DoT",
+     "Trait_AoE"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       0,
+       450,
+       700,
+       925,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0,
+       20,
+       20,
+       20,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       40,
+       40,
+       40,
+       40,
+       40,
+       40,
+       40
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       175,
+       175,
+       175,
+       175,
+       175,
+       175,
+       175
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "PassiveStacksToAddPerTick",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mEffectIndex": 1,
+        "__type": "EffectValueCalculationPart"
+       },
+       {
+        "mCoefficient": 1.25,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 1.25,
+    "mAnimationLoopName": "Spell4_Base",
+    "mAnimationWinddownName": "Spell4_Leadout",
+    "mCastTime": 0.25,
+    "spellCastTime": 0.125,
+    "spellTotalTime": 0.5,
+    "mChannelDuration": [
+     2.6,
+     2.6,
+     2.6,
+     2.6,
+     2.6,
+     2.6,
+     2.6
+    ],
+    "cooldownTime": [
+     10,
+     100,
+     90,
+     80,
+     10,
+     10,
+     10
+    ],
+    "Cooldown": {
+     "values": [
+      10,
+      100,
+      90,
+      80,
+      10,
+      10,
+      10
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mChargeUpdateInterval": 0.1,
+    "mCancelChargeOnRecastTime": 1,
+    "mCantCancelWhileWindingUp": true,
+    "mUseChargeChanneling": true,
+    "mDisableCastBar": true,
+    "useAnimatorFramerate": true,
+    "bIsToggleSpell": true,
+    "mDoNotNeedToFaceTarget": true,
+    "mHideRangeIndicatorWhenCasting": true,
+    "castRange": [
+     1550,
+     1550,
+     1550,
+     1550,
+     1550,
+     1550,
+     1550
+    ],
+    "castRangeDisplayOverride": [
+     1575,
+     1575,
+     1575,
+     1575,
+     1575,
+     1575,
+     1575
+    ],
+    "castRadius": [
+     500,
+     500,
+     500,
+     500,
+     500,
+     500,
+     500
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1500,
+    "mana": [
+     100,
+     100,
+     100,
+     0,
+     0,
+     0
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mDimensionBehavior": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_VelkozR",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 2,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mNumber": 2.5,
+         "__type": "NumberCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VelkozPassiveAbility/VelkozPassive": {
+   "ObjectName": "VelkozPassive",
+   "objectPath": "Characters/Velkoz/Spells/VelkozPassiveAbility/VelkozPassive",
+   "mScriptName": "VelkozPassive",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "Duration",
+      "values": [
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxStacks",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mCoefficient": 0.65,
+        "__type": "StatByCoefficientCalculationPart"
+       },
+       {
+        "mStartValue": 35,
+        "mEndValue": 205,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_VelkozPassive",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VelkozBasicAttack": {
+   "ObjectName": "VelkozBasicAttack",
+   "objectPath": "Characters/Velkoz/Spells/VelkozBasicAttack",
+   "mScriptName": "VelkozBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 24527,
+    "mAlternateName": "VelkozBasicAttack",
+    "mAnimationWinddownName": "Tentacles",
+    "spellCastTime": 0.4327,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     625,
+     625,
+     625,
+     625,
+     625,
+     625,
+     625
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9.5,
+    "missileSpeed": 8000,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VelkozResearchProc": {
+   "ObjectName": "VelkozResearchProc",
+   "objectPath": "Characters/Velkoz/Spells/VelkozResearchProc",
+   "mScriptName": "VelkozResearchProc",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VelkozResearchStack": {
+   "ObjectName": "VelkozResearchStack",
+   "objectPath": "Characters/Velkoz/Spells/VelkozResearchStack",
+   "mScriptName": "VelkozResearchStack",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_VelkozResearchStack",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/VelkozQAbility/VelkozQ",
+  "Spells/VelkozWAbility/VelkozW",
+  "Spells/VelkozEAbility/VelkozE",
+  "Spells/VelkozRAbility/VelkozR"
+ ],
+ "passiva_ref": "Characters/Velkoz/Spells/VelkozPassiveAbility",
+ "passiva_chaves": [
+  "Spells/VelkozPassiveAbility/VelkozPassive"
+ ]
+}

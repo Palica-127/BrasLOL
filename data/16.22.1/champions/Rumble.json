@@ -1,0 +1,2980 @@
+{
+ "id": "Rumble",
+ "key": 68,
+ "nome": "Rumble",
+ "titulo": "a Ameaça Mecânica",
+ "funcoes": [
+  "Fighter",
+  "Mage"
+ ],
+ "recurso": "de Aquecimento",
+ "info": {
+  "attack": 3,
+  "defense": 6,
+  "magic": 8,
+  "difficulty": 10
+ },
+ "stats_ddragon": {
+  "hp": 640,
+  "hpperlevel": 105,
+  "mp": 150,
+  "mpperlevel": 0,
+  "movespeed": 345,
+  "armor": 36,
+  "armorperlevel": 4.7,
+  "spellblock": 28,
+  "spellblockperlevel": 1.55,
+  "attackrange": 125,
+  "hpregen": 7,
+  "hpregenperlevel": 0.6,
+  "mpregen": 0,
+  "mpregenperlevel": 0,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 64,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 1.85,
+  "attackspeed": 0.644
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Titã do Ferro-Velho",
+  "descricao": "Cada habilidade que Rumble conjura lhe concede Aquecimento. Ao chegar em 50% de Aquecimento, ele entra na Zona de Perigo, concedendo efeitos adicionais a todas as suas habilidades. Ao chegar a 100% de Aquecimento, ele começa a superaquecer, recebendo Velocidade de Ataque adicional e dano adicional em seus ataques básicos, mas fica incapaz de conjurar habilidades por alguns segundos."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "RumbleFlameThrower",
+   "nome": "Cospe-Fogo",
+   "descricao": "Rumble incinera os inimigos à sua frente, causando Dano Mágico em área de cone por 3 segundos. O dano aumenta enquanto ele estiver na Zona de Perigo.",
+   "tooltip": "Rumble acende seu lançador de chamas, causando <magicDamage>{{ flatdamage }} e {{ healthdamage*100 }}% de Dano Mágico com base na Vida máxima </magicDamage> por {{ flamespitterduration }}s, menos <attention>{{ minionmod*100 }}%</attention> contra tropas.<br /><br /><keywordMajor>Zona de Perigo:</keywordMajor> o dano aumenta para <magicDamage>{{ empowereddamage }} e {{ empoweredhealth }} da Vida máxima</magicDamage>.<br /><br /><rules>A porcentagem de dano é limitada a {{ monstercap }} de dano a monstros. </rules>{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    10,
+    9,
+    8,
+    7,
+    6
+   ],
+   "custo": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "tipo_custo": " de Aquecimento",
+   "alcance": [
+    600,
+    600,
+    600,
+    600,
+    600
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "RumbleShield",
+   "nome": "Escudo de Sucata",
+   "descricao": "Rumble puxa um escudo que o protege de dano e lhe concede um rápido aumento de velocidade. Enquanto estiver na Zona de Perigo, a Resistência do Escudo e a velocidade adicional aumentam.",
+   "tooltip": "Rumble ergue uma barreira, ganhando <shield>{{ totalshield }} de Escudo</shield> por {{ shieldduration.1 }}s e <speed>{{ movespeed*100 }}% de Velocidade de Movimento</speed> por {{ movespeedduration }}s.<br /><br /><keywordMajor>Zona de Perigo:</keywordMajor> em vez disso, a barreira concede <shield>{{ empoweredshield }} de Escudo</shield> e <speed>{{ empoweredms }} de Velocidade de Movimento</speed>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    6,
+    6,
+    6,
+    6,
+    6
+   ],
+   "custo": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "tipo_custo": " de Aquecimento",
+   "alcance": [
+    20,
+    20,
+    20,
+    20,
+    20
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "60/90/120/150/180",
+    "10/15/20/25/30",
+    "20",
+    "0",
+    "1.5",
+    "1",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "RumbleGrenade",
+   "nome": "Arpão Elétrico",
+   "descricao": "Rumble lança um arpão, eletrocutando o alvo com Dano Mágico, causando Lentidão e reduzindo a Resistência Mágica dele. Ele pode carregar 2 arpões por vez. O dano e o percentual de Lentidão aumentarão dentro da Zona de Perigo.",
+   "tooltip": "Rumble lança um arpão elétrico, causando <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage>, {{ baseslowamount }}% de <status>Lentidão</status> por {{ slowduration }}s e reduzindo a <scaleMR>Resistência Mágica</scaleMR> do inimigo em {{ percmagicpen*100 }}% por {{ shredduration }}s.<br /><br />Atingir inimigos sob <status>Lentidão</status> causada por esta Habilidade aumenta a <status>Lentidão</status> em {{ empoweredslowamount }}% e reduz a <scaleMR>Resistência Mágica</scaleMR> do inimigo em {{ enhancedmagicpen*100 }}%<br /><br /><keywordMajor>Zona de Perigo:</keywordMajor> o arpão causa <magicDamage>{{ empdamage }} de Dano Mágico</magicDamage> e a <status>Lentidão</status> e <scaleMR>Resistência Mágica</scaleMR> reduzidas aumentam em 50%.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "custo": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "tipo_custo": " de Aquecimento",
+   "alcance": [
+    850,
+    850,
+    850,
+    850,
+    850
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "RumbleCarpetBomb",
+   "nome": "O Equalizador",
+   "descricao": "Rumble dispara um grupo de mísseis, criando uma parede de fogo que causa dano e Lentidão a inimigos.",
+   "tooltip": "Rumble lança foguetes em linha reta, criando um rastro flamejante que dura {{ trailduration }}s, causando {{ slowamount }}% de <status>Lentidão</status> e <magicDamage>{{ damagepersecond }} de Dano Mágico</magicDamage> por segundo.<br /><br />Ele pode controlar a direção do rastro clicando e arrastando enquanto conjura a Habilidade.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    130,
+    105,
+    80
+   ],
+   "custo": [
+    0,
+    0,
+    0
+   ],
+   "tipo_custo": "Sem custo",
+   "alcance": [
+    1750,
+    1750,
+    1750
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "6",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 640,
+  "vida_nivel": 105,
+  "regen_vida": 1.4,
+  "regen_vida_nivel": 0.12,
+  "dano": 64,
+  "dano_nivel": 3.2,
+  "armadura": 36,
+  "armadura_nivel": 4.7,
+  "rm": 28,
+  "rm_nivel": 1.55,
+  "velocidade_mov": 345,
+  "alcance_ataque": 125,
+  "vel_ataque_base": 0.644,
+  "vel_ataque_razao": 0.644,
+  "vel_ataque_nivel": 1.85,
+  "dano_critico": 2,
+  "alcance_aquisicao": 600,
+  "raio_selecao": 140,
+  "raio_colisao": 35,
+  "recurso_tipo": 7,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+   "mAttackProbability": 0.5,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.5,
+    "mAttackName": "RumbleBasicAttack2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+    "mAttackName": "RumbleCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Rumble/Spells/RumbleFlameThrowerAbility/RumbleFlameThrower",
+  "Characters/Rumble/Spells/RumbleShieldAbility/RumbleShield",
+  "Characters/Rumble/Spells/RumbleGrenadeAbility/RumbleGrenade",
+  "Characters/Rumble/Spells/RumbleCarpetBombAbility/RumbleCarpetBomb"
+ ],
+ "abilities_ref": [
+  "Characters/Rumble/Spells/RumbleFlameThrowerAbility",
+  "Characters/Rumble/Spells/RumbleShieldAbility",
+  "Characters/Rumble/Spells/RumbleGrenadeAbility",
+  "Characters/Rumble/Spells/RumbleCarpetBombAbility",
+  "Characters/Rumble/Spells/RumbleHeatSystemAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/RumbleShieldAbility/RumbleShieldVO": {
+   "ObjectName": "RumbleShieldVO",
+   "objectPath": "Characters/Rumble/Spells/RumbleShieldAbility/RumbleShieldVO",
+   "mScriptName": "RumbleShieldVO",
+   "mSpell": {
+    "flags": 20,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "castRadius": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castConeDistance": 100,
+    "castFrame": 13,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_OlafRagnarok",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleShieldAbility/RumbleShieldBuff": {
+   "ObjectName": "RumbleShieldBuff",
+   "objectPath": "Characters/Rumble/Spells/RumbleShieldAbility/RumbleShieldBuff",
+   "mScriptName": "RumbleShieldBuff",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_RumbleShieldBuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleShieldAbility/RumbleShieldVODangerZone": {
+   "ObjectName": "RumbleShieldVODangerZone",
+   "objectPath": "Characters/Rumble/Spells/RumbleShieldAbility/RumbleShieldVODangerZone",
+   "mScriptName": "RumbleShieldVODangerZone",
+   "mSpell": {
+    "flags": 20,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "castRadius": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castConeDistance": 100,
+    "castFrame": 13,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_OlafRagnarok",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleShieldAbility/RumbleShield": {
+   "ObjectName": "RumbleShield",
+   "objectPath": "Characters/Rumble/Spells/RumbleShieldAbility/RumbleShield",
+   "mScriptName": "RumbleShield",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "RumbleShield",
+    "mSpellTags": [
+     "Trait_Shield",
+     "PositiveEffect_Boon"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       60,
+       60,
+       90,
+       120,
+       150,
+       180,
+       210
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       10,
+       10,
+       15,
+       20,
+       25,
+       30,
+       30
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       20,
+       20,
+       20,
+       20,
+       20,
+       20,
+       20
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "HeatCost",
+      "values": [
+       20,
+       20,
+       20,
+       20,
+       20,
+       20,
+       20
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseShield",
+      "values": [
+       -5,
+       25,
+       55,
+       85,
+       115,
+       145,
+       175
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealthShield",
+      "values": [
+       0.04,
+       0.04,
+       0.04,
+       0.04,
+       0.04,
+       0.04,
+       0.04
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MoveSpeed",
+      "values": [
+       0.05,
+       0.1,
+       0.15,
+       0.2,
+       0.25,
+       0.3,
+       0.35
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldDuration",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MoveSpeedDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalShield": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseShield",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 12,
+        "mDataValue": "HealthShield",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "EmpoweredShield": {
+      "mMultiplier": {
+       "mNumber": 1.5,
+       "__type": "NumberCalculationPart"
+      },
+      "tooltipOnly": true,
+      "mModifiedGameCalculation": "TotalShield",
+      "__type": "GameCalculationModified"
+     },
+     "EmpoweredMS": {
+      "mMultiplier": {
+       "mNumber": 1.5,
+       "__type": "NumberCalculationPart"
+      },
+      "mExpandedTooltipCalculationDisplay": 5,
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mDataValue": "MoveSpeed",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.3,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6
+     ],
+     "{0a3e0478}": 6,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castRadius": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castConeDistance": 100,
+    "castFrame": 16.095,
+    "missileSpeed": 828.5,
+    "manaUiOverride": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Rumble_RumbleW_OnCast",
+     "18": "Play_sfx_Rumble_RumbleW_OnBuffActivate",
+     "19": "Play_sfx_Rumble_RumbleW_OnBuffDeactivate"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_RumbleShield",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "{ec17e271}": [
+     {
+      "EffectTag": 2,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "MoveSpeedDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 524288,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "BaseShield",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleBasicAttack": {
+   "ObjectName": "RumbleBasicAttack",
+   "objectPath": "Characters/Rumble/Spells/RumbleBasicAttack",
+   "mScriptName": "RumbleBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "RumbleBasicAttack",
+    "spellCastTime": 0.3161,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 11,
+    "missileSpeed": 347.79999,
+    "mHitEffectKey": "Rumble_BA_tar_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Rumble_RumbleBasicAttack_OnCast",
+     "13": "Play_sfx_Rumble_RumbleBasicAttack_OnHit"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleFlameThrowerAbility/RumbleFlameThrowerVODangerZone": {
+   "ObjectName": "RumbleFlameThrowerVODangerZone",
+   "objectPath": "Characters/Rumble/Spells/RumbleFlameThrowerAbility/RumbleFlameThrowerVODangerZone",
+   "mScriptName": "RumbleFlameThrowerVODangerZone",
+   "mSpell": {
+    "flags": 20,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "castRadius": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castConeDistance": 100,
+    "castFrame": 13,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_OlafRagnarok",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleFlameThrowerAbility/RumbleFlameThrowerVO": {
+   "ObjectName": "RumbleFlameThrowerVO",
+   "objectPath": "Characters/Rumble/Spells/RumbleFlameThrowerAbility/RumbleFlameThrowerVO",
+   "mScriptName": "RumbleFlameThrowerVO",
+   "mSpell": {
+    "flags": 20,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "castRadius": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castConeDistance": 100,
+    "castFrame": 13,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_OlafRagnarok",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleFlameThrowerAbility/RumbleFlameThrowerSpray": {
+   "ObjectName": "RumbleFlameThrowerSpray",
+   "objectPath": "Characters/Rumble/Spells/RumbleFlameThrowerAbility/RumbleFlameThrowerSpray",
+   "mScriptName": "RumbleFlameThrowerSpray",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mCoefficient": 0.5,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeAngle": 32,
+    "castConeDistance": 600,
+    "castFrame": 8.84,
+    "missileSpeed": 4500,
+    "mParticleStartOffset": [
+     122,
+     0,
+     100
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Cone"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleFlameThrowerAbility/RumbleFlameThrower": {
+   "ObjectName": "RumbleFlameThrower",
+   "objectPath": "Characters/Rumble/Spells/RumbleFlameThrowerAbility/RumbleFlameThrower",
+   "mScriptName": "RumbleFlameThrower",
+   "mSpell": {
+    "flags": 36,
+    "mAffectsTypeFlags": 23759,
+    "mAlternateName": "RumbleFlameThrower",
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_DoT",
+     "Trait_SignatureSpell",
+     "Trait_Target_Directional",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       25,
+       50,
+       75,
+       100,
+       125,
+       150,
+       175
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinionMod",
+      "values": [
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealthDamage",
+      "values": [
+       0.055,
+       0.06,
+       0.065,
+       0.07,
+       0.075,
+       0.08,
+       0.085
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       1.05,
+       1.05,
+       1.05,
+       1.05,
+       1.05,
+       1.05,
+       1.05
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "OverheatMulti",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FlamespitterDuration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DebuffTicks",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TickRate",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TotalTicks",
+      "values": [
+       12,
+       12,
+       12,
+       12,
+       12,
+       12,
+       12
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "InitialHeatCost",
+      "values": [
+       20,
+       20,
+       20,
+       20,
+       20,
+       20,
+       20
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BurnDuration",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "FlatDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MinionDamage": {
+      "mMultiplier": {
+       "mDataValue": "MinionMod",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "tooltipOnly": true,
+      "mModifiedGameCalculation": "FlatDamage",
+      "__type": "GameCalculationModified"
+     },
+     "EmpoweredDamage": {
+      "mMultiplier": {
+       "mDataValue": "OverheatMulti",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mModifiedGameCalculation": "FlatDamage",
+      "__type": "GameCalculationModified"
+     },
+     "EmpoweredHealth": {
+      "mMultiplier": {
+       "mDataValue": "OverheatMulti",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mDataValue": "HealthDamage",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": 1,
+      "__type": "GameCalculation"
+     },
+     "MonsterCap": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 65,
+        "mEndValue": 300,
+        "mScaleByStatProgressionMultiplier": true,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     10,
+     10,
+     9,
+     8,
+     7,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      10,
+      10,
+      9,
+      8,
+      7,
+      6,
+      6
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeAngle": 32,
+    "castConeDistance": 625,
+    "castFrame": 17,
+    "missileSpeed": 5000,
+    "mLineWidth": 500,
+    "bHaveHitBone": true,
+    "manaUiOverride": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "mTargetingTypeData": {
+     "__type": "Cone"
+    },
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Rumble_RumbleQ_OnCast",
+     "18": "Play_sfx_Rumble_RumbleQ_OnBuffActivate"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_RumbleFlameThrower",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "FlatDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 64,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 128,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleFlameThrowerAbility/RumbleFlameThrowerSpraySuper": {
+   "ObjectName": "RumbleFlameThrowerSpraySuper",
+   "objectPath": "Characters/Rumble/Spells/RumbleFlameThrowerAbility/RumbleFlameThrowerSpraySuper",
+   "mScriptName": "RumbleFlameThrowerSpraySuper",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mCoefficient": 0.5,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeAngle": 32,
+    "castConeDistance": 600,
+    "castFrame": 8.84,
+    "missileSpeed": 4500,
+    "mParticleStartOffset": [
+     122,
+     0,
+     100
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Cone"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleGrenadeAbility/RumbleGrenadeVO": {
+   "ObjectName": "RumbleGrenadeVO",
+   "objectPath": "Characters/Rumble/Spells/RumbleGrenadeAbility/RumbleGrenadeVO",
+   "mScriptName": "RumbleGrenadeVO",
+   "mSpell": {
+    "flags": 20,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "castRadius": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castConeDistance": 100,
+    "castFrame": 13,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_OlafRagnarok",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleGrenadeAbility/RumbleGrenadeShred": {
+   "ObjectName": "RumbleGrenadeShred",
+   "objectPath": "Characters/Rumble/Spells/RumbleGrenadeAbility/RumbleGrenadeShred",
+   "mScriptName": "RumbleGrenadeShred",
+   "mBuff": {
+    "mDescription": "buff_desc_RumbleGrenadeShred",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleGrenadeAbility/RumbleGrenadeSlow": {
+   "ObjectName": "RumbleGrenadeSlow",
+   "objectPath": "Characters/Rumble/Spells/RumbleGrenadeAbility/RumbleGrenadeSlow",
+   "mScriptName": "RumbleGrenadeSlow",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_RumbleGrenadeSlow",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleGrenadeAbility/RumbleGrenadeVODangerZone": {
+   "ObjectName": "RumbleGrenadeVODangerZone",
+   "objectPath": "Characters/Rumble/Spells/RumbleGrenadeAbility/RumbleGrenadeVODangerZone",
+   "mScriptName": "RumbleGrenadeVODangerZone",
+   "mSpell": {
+    "flags": 20,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "castRadius": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castConeDistance": 100,
+    "castFrame": 13,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_OlafRagnarok",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleGrenadeAbility/RumbleGrenadeMissileDangerZone": {
+   "ObjectName": "RumbleGrenadeMissileDangerZone",
+   "objectPath": "Characters/Rumble/Spells/RumbleGrenadeAbility/RumbleGrenadeMissileDangerZone",
+   "mScriptName": "RumbleGrenadeMissileDangerZone",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mCoefficient": 1.2,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3
+    ],
+    "Cooldown": {
+     "values": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+     ],
+     "{0a3e0478}": 3,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     950,
+     950,
+     950,
+     950,
+     950,
+     950,
+     950
+    ],
+    "castRangeDisplayOverride": [
+     1175,
+     1175,
+     1175,
+     1175,
+     1175,
+     1175,
+     1175
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 60,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Spike",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 14.1,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Rumble_E_mis_02",
+    "mLineWidth": 60,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "SpellEventToAudioEventSuffix": {
+     "16": "Play_sfx_Rumble_RumbleEMissileDangerZone_OnMissileLaunch"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleGrenadeAbility/RumbleGrenade": {
+   "ObjectName": "RumbleGrenade",
+   "objectPath": "Characters/Rumble/Spells/RumbleGrenadeAbility/RumbleGrenade",
+   "mScriptName": "RumbleGrenade",
+   "mSpell": {
+    "mAffectsTypeFlags": 13327,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "RumbleGrenade",
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_Ammo",
+     "Trait_Ranged_StopsFirstHit"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       30,
+       55,
+       80,
+       105,
+       130,
+       155,
+       180
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FirstCastHeatCost",
+      "values": [
+       20,
+       20,
+       20,
+       20,
+       20,
+       20,
+       20
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SecondCastHeatCost",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PercMagicPen",
+      "values": [
+       0.08,
+       0.1,
+       0.12,
+       0.14,
+       0.16,
+       0.18,
+       0.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EnhancedMagicPen",
+      "values": [
+       0.16,
+       0.2,
+       0.24,
+       0.28,
+       0.32,
+       0.36,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShredDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseSlowAmount",
+      "values": [
+       10,
+       15,
+       20,
+       25,
+       30,
+       35,
+       40
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EmpoweredSlowAmount",
+      "values": [
+       20,
+       30,
+       40,
+       50,
+       60,
+       70,
+       80
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.5,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "EmpDamage": {
+      "mMultiplier": {
+       "mNumber": 1.5,
+       "__type": "NumberCalculationPart"
+      },
+      "mModifiedGameCalculation": "TotalDamage",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "mCoefficient": 0.4,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5
+    ],
+    "Cooldown": {
+     "values": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+     ],
+     "{0a3e0478}": 0.5,
+     "__type": "{0a0eddc9}"
+    },
+    "mMaxAmmo": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "mAmmoRechargeTime": [
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     850,
+     850,
+     850,
+     850,
+     850,
+     850,
+     850
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1200,
+    "mLineWidth": 90,
+    "manaUiOverride": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Rumble_RumbleE_OnCast"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_RumbleGrenade",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "SlowDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 32768,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mNumber": 90,
+         "__type": "NumberCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleGrenadeAbility/RumbleGrenadeMissile": {
+   "ObjectName": "RumbleGrenadeMissile",
+   "objectPath": "Characters/Rumble/Spells/RumbleGrenadeAbility/RumbleGrenadeMissile",
+   "mScriptName": "RumbleGrenadeMissile",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mCoefficient": 1.2,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3
+    ],
+    "Cooldown": {
+     "values": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+     ],
+     "{0a3e0478}": 3,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     950,
+     950,
+     950,
+     950,
+     950,
+     950,
+     950
+    ],
+    "castRangeDisplayOverride": [
+     1175,
+     1175,
+     1175,
+     1175,
+     1175,
+     1175,
+     1175
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 60,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Spike",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 14.1,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Rumble_E_mis",
+    "mLineWidth": 60,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "SpellEventToAudioEventSuffix": {
+     "16": "Play_sfx_Rumble_RumbleEMissile_OnMissileLaunch"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleDangerZoneBuff": {
+   "ObjectName": "RumbleDangerZoneBuff",
+   "objectPath": "Characters/Rumble/Spells/RumbleDangerZoneBuff",
+   "mScriptName": "RumbleDangerZoneBuff",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_RumbleDangerZoneBuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleCarpetBombAbility/RumbleCarpetBomb": {
+   "ObjectName": "RumbleCarpetBomb",
+   "objectPath": "Characters/Rumble/Spells/RumbleCarpetBombAbility/RumbleCarpetBomb",
+   "mScriptName": "RumbleCarpetBomb",
+   "mSpell": {
+    "flags": 12,
+    "mAffectsTypeFlags": 13327,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_DamageAbility",
+     "Trait_DoT",
+     "Trait_AoE"
+    ],
+    "mEffectAmount": [
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "NumMissiles",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TrailDuration",
+      "values": [
+       4.5,
+       4.5,
+       4.5,
+       4.5,
+       4.5,
+       4.5,
+       4.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TickRate",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmount",
+      "values": [
+       35,
+       35,
+       35,
+       35,
+       35,
+       35,
+       35
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamagePerSecond",
+      "values": [
+       40,
+       120,
+       200,
+       280,
+       360,
+       440,
+       520
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxBurnSeconds",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BurnLingerTime",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "DamagePerSecond": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamagePerSecond",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.4,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalDamage": {
+      "mMultiplier": {
+       "mDataValue": "TrailDuration",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "tooltipOnly": true,
+      "mModifiedGameCalculation": "DamagePerSecond",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "mCoefficient": 0.5,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     130,
+     130,
+     105,
+     80,
+     80,
+     80,
+     80
+    ],
+    "Cooldown": {
+     "values": [
+      130,
+      130,
+      105,
+      80,
+      80,
+      80,
+      80
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     1700,
+     1700,
+     1700,
+     1700,
+     1700,
+     1700,
+     1700
+    ],
+    "castRangeDisplayOverride": [
+     1750,
+     1750,
+     1750,
+     1750,
+     1750,
+     1750,
+     1750
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 1.92,
+    "missileSpeed": 1200,
+    "mLineWidth": 90,
+    "mLineDragLength": 1050,
+    "bHaveHitBone": true,
+    "mHitBoneName": "head",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "DragDirection"
+    },
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Rumble_RumbleR_OnCast"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "DamagePerSecond",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "SlowAmount",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleCarpetBombAbility/RumbleCarpetBombDummy": {
+   "ObjectName": "RumbleCarpetBombDummy",
+   "objectPath": "Characters/Rumble/Spells/RumbleCarpetBombAbility/RumbleCarpetBombDummy",
+   "mScriptName": "RumbleCarpetBombDummy",
+   "mSpell": {
+    "mAffectsTypeFlags": 13327,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mCoefficient": 0.5,
+    "mCoefficient2": 0.25,
+    "mCastTime": 0.5833,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     75,
+     75,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      75,
+      75,
+      0
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "mIsDisabledWhileDead": false,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1700,
+     1700,
+     1700,
+     1700,
+     1700,
+     1700,
+     1700
+    ],
+    "castRangeDisplayOverride": [
+     1650,
+     1650,
+     1650,
+     1650,
+     1650,
+     1650,
+     1650
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 35,
+    "missileSpeed": 1200,
+    "mLineWidth": 90,
+    "mLineDragLength": 1100,
+    "bHaveHitBone": true,
+    "mHitBoneName": "head",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleCarpetBombAbility/RumbleCarpetBombMissile": {
+   "ObjectName": "RumbleCarpetBombMissile",
+   "objectPath": "Characters/Rumble/Spells/RumbleCarpetBombAbility/RumbleCarpetBombMissile",
+   "mScriptName": "RumbleCarpetBombMissile",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "RumbleCarpetBombMissile",
+    "spellCastTime": 0.175,
+    "spellTotalTime": 0.6,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "mIsDisabledWhileDead": false,
+    "mProjectTargetToCastRange": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 180,
+    "mMissileSpec": {
+     "mMissileWidth": 200,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_hand",
+      "mSpeed": 1600,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "missileSpeed": 1600,
+    "mLineWidth": 200,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleCarpetBombAbility/RumbleCarpetBombSlow": {
+   "ObjectName": "RumbleCarpetBombSlow",
+   "objectPath": "Characters/Rumble/Spells/RumbleCarpetBombAbility/RumbleCarpetBombSlow",
+   "mScriptName": "RumbleCarpetBombSlow",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_RumbleCarpetBombSlow",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleHeatSystemAbility/RumbleOverheatAttack": {
+   "ObjectName": "RumbleOverheatAttack",
+   "objectPath": "Characters/Rumble/Spells/RumbleHeatSystemAbility/RumbleOverheatAttack",
+   "mScriptName": "RumbleOverheatAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5375,
+    "mAlternateName": "RumbleOverheatAttack",
+    "spellCastTime": 0.3161,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 11,
+    "missileSpeed": 347.79999,
+    "mHitEffectName": "doesnotexist.troy",
+    "mAfterEffectKey": "Rumble_P_Overheat_attack_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Rumble_RumblePAttack_OnCast",
+     "13": "Play_sfx_Rumble_RumblePAttack_OnHit"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleHeatSystemAbility/RumbleHeatSystem": {
+   "ObjectName": "RumbleHeatSystem",
+   "objectPath": "Characters/Rumble/Spells/RumbleHeatSystemAbility/RumbleHeatSystem",
+   "mScriptName": "RumbleHeatSystem",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "OverheatDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DangerZoneHeat",
+      "values": [
+       50,
+       50,
+       50,
+       50,
+       50,
+       50,
+       50
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "OverheatingHeat",
+      "values": [
+       150,
+       150,
+       150,
+       150,
+       150,
+       150,
+       150
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "OverheatPercBonusDamage",
+      "values": [
+       0.04,
+       0.04,
+       0.04,
+       0.04,
+       0.04,
+       0.04,
+       0.04
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MonsterCap",
+      "values": [
+       80,
+       80,
+       80,
+       80,
+       80,
+       80,
+       80
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HeatDecayPerS",
+      "values": [
+       -10,
+       -10,
+       -10,
+       -10,
+       -10,
+       -10,
+       -10
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalBaseDamage": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 5,
+        "mEndValue": 40,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       },
+       {
+        "mCoefficient": 0.25,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "OverheatAS": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 0.3,
+        "mEndValue": 1,
+        "mScaleByStatProgressionMultiplier": true,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "MonsterCapScaling": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 90,
+        "mEndValue": 175,
+        "mScaleByStatProgressionMultiplier": true,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Rumble/Spells/RumbleHeatSystemAbility/RumbleHeatSystem",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_RumbleHeatSystem",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleHeatSystemAbility/RumbleOverheat": {
+   "ObjectName": "RumbleOverheat",
+   "objectPath": "Characters/Rumble/Spells/RumbleHeatSystemAbility/RumbleOverheat",
+   "mScriptName": "RumbleOverheat",
+   "mSpell": {
+    "SpellEventToAudioEventSuffix": {
+     "18": "Play_sfx_Rumble_RumbleP_OnBuffActivate",
+     "19": "Play_sfx_Rumble_RumbleP_OnBuffDeactivate"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_RumbleOverheat",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleCritAttack": {
+   "ObjectName": "RumbleCritAttack",
+   "objectPath": "Characters/Rumble/Spells/RumbleCritAttack",
+   "mScriptName": "RumbleCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 8143,
+    "spellCastTime": 0.3439,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 11,
+    "missileSpeed": 0,
+    "mHitEffectName": "doesnotexist.troy",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Rumble_RumbleCritAttack_OnCast",
+     "13": "Play_sfx_Rumble_RumbleCritAttack_OnHit"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RumbleBasicAttack2": {
+   "ObjectName": "RumbleBasicAttack2",
+   "objectPath": "Characters/Rumble/Spells/RumbleBasicAttack2",
+   "mScriptName": "RumbleBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 8143,
+    "mAlternateName": "RumbleBasicAttack2",
+    "spellCastTime": 0.3439,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 11,
+    "missileSpeed": 0,
+    "mHitEffectKey": "Rumble_BA_tar_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Rumble_RumbleBasicAttack2_OnCast",
+     "13": "Play_sfx_Rumble_RumbleBasicAttack2_OnHit"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/RumbleFlameThrowerAbility/RumbleFlameThrower",
+  "Spells/RumbleShieldAbility/RumbleShield",
+  "Spells/RumbleGrenadeAbility/RumbleGrenade",
+  "Spells/RumbleCarpetBombAbility/RumbleCarpetBomb"
+ ],
+ "passiva_ref": "Characters/Rumble/Spells/RumbleHeatSystemAbility",
+ "passiva_chaves": [
+  "Spells/RumbleHeatSystemAbility/RumbleOverheatAttack",
+  "Spells/RumbleHeatSystemAbility/RumbleHeatSystem",
+  "Spells/RumbleHeatSystemAbility/RumbleOverheat"
+ ]
+}

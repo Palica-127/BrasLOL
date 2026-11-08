@@ -1,0 +1,3484 @@
+{
+ "id": "Talon",
+ "key": 91,
+ "nome": "Talon",
+ "titulo": "a Sombra da Lâmina",
+ "funcoes": [
+  "Assassin"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 9,
+  "defense": 3,
+  "magic": 1,
+  "difficulty": 7
+ },
+ "stats_ddragon": {
+  "hp": 658,
+  "hpperlevel": 109,
+  "mp": 400,
+  "mpperlevel": 37,
+  "movespeed": 335,
+  "armor": 30,
+  "armorperlevel": 4.7,
+  "spellblock": 36,
+  "spellblockperlevel": 2.05,
+  "attackrange": 125,
+  "hpregen": 8.5,
+  "hpregenperlevel": 0.75,
+  "mpregen": 7.6,
+  "mpregenperlevel": 0.8,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 68,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2.9,
+  "attackspeed": 0.625
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Limiar da Lâmina",
+  "descricao": "As habilidades de Talon causam Ferimentos em Campeões e monstros grandes, acumulando até 3 vezes. Quando Talon ataca um Campeão com 3 acúmulos de Ferimento, o alvo sofre intenso dano de sangramento ao longo do tempo."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "TalonQ",
+   "nome": "Diplomacia Noxiana",
+   "descricao": "Talon apunhala a unidade alvo. Caso eles estejam próximos o suficiente para um ataque corpo a corpo, o ataque causa dano crítico. Caso estejam fora do alcance corpo a corpo, Talon saltará no alvo e o apunhalará. Talon recupera um pouco da vida e do Tempo de Recarga caso sua habilidade abata o alvo.",
+   "tooltip": "Talon salta em direção ao alvo e causa <physicalDamage>{{ leapdamage }} de Dano Físico</physicalDamage>. Se a Habilidade for usada em alcance corpo a corpo, ela causará Acerto Crítico de <physicalDamage>{{ criticaldamage }} de Dano Físico</physicalDamage>.<br /><br />Se a Habilidade abater o alvo, Talon restaurará <healing>{{ totalhealing }} de Vida</healing> e terá {{ cooldownrefund*100 }}% do Tempo de Recarga restituído.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    8,
+    7.5,
+    7,
+    6.5,
+    6
+   ],
+   "custo": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    575,
+    575,
+    575,
+    575,
+    575
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "TalonW",
+   "nome": "Ancinho",
+   "descricao": "Talon envia um voleio de adagas que retorna a ele, causando Dano Físico a cada vez que passar por um inimigo. As lâminas que retornarem causam dano adicional e reduzem a velocidade da unidade.",
+   "tooltip": "Talon lança uma rajada de lâminas em uma direção, causando <physicalDamage>{{ totalinitialdamage }} de Dano Físico</physicalDamage>. Então, as lâminas voltam para ele, causando <physicalDamage>{{ totalreturndamage }} de Dano Físico</physicalDamage> e {{ movespeedslow*100 }}% de <status>Lentidão</status> por {{ slowduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    9,
+    8.5,
+    8,
+    7.5,
+    7
+   ],
+   "custo": [
+    50,
+    55,
+    60,
+    65,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    650,
+    650,
+    650,
+    650,
+    650
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "TalonE",
+   "nome": "Caminho do Assassino",
+   "descricao": "Talon salta sobre quaisquer terrenos ou estruturas, até uma distância máxima. Esta habilidade possui um Tempo de Recarga baixo, mas deixa o terreno inutilizável por um longo período de tempo.",
+   "tooltip": "Talon salta sobre o terreno ou estrutura que estiver mais perto. Ele não pode avançar sobre a mesma seção de terreno por mais de uma vez a cada {{ wallcd }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "custo": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "tipo_custo": "Sem custo",
+   "alcance": [
+    725,
+    725,
+    725,
+    725,
+    725
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "625",
+    "1250",
+    "2",
+    "160/135/110/85/60",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "TalonR",
+   "nome": "Ataque das Sombras",
+   "descricao": "Talon dispara um anel de lâminas e fica Invisível ao mesmo tempo em que recebe Velocidade de Movimento adicional. Quando Talon surge da Invisibilidade, as lâminas convergem em sua direção. A cada vez que a lâmina se move, Ataque das Sombras causa Dano Físico aos inimigos atingidos por ao menos uma lâmina.",
+   "tooltip": "Talon dispara um anel de lâminas que causa <physicalDamage>{{ damage }} de Dano Físico</physicalDamage>, recebe <speed>{{ movespeed*100 }}% de Velocidade de Movimento</speed> e fica <keywordStealth>Invisível</keywordStealth> por {{ duration }}s. Quando a <keywordStealth>Invisibilidade</keywordStealth> acaba, as lâminas retornam para Talon, causando <physicalDamage>{{ damage }} de Dano Físico</physicalDamage> novamente.<br /><br />Se ele cancelar a <keywordStealth>Invisibilidade</keywordStealth> com um Ataque ou com <spellName>Diplomacia Noxiana</spellName>, as lâminas retornam para o alvo.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    100,
+    80,
+    60
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    550,
+    550,
+    550
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 658,
+  "vida_nivel": 109,
+  "regen_vida": 1.7,
+  "regen_vida_nivel": 0.15,
+  "dano": 68,
+  "dano_nivel": 3.1,
+  "armadura": 30,
+  "armadura_nivel": 4.7,
+  "rm": 36,
+  "rm_nivel": 2.05,
+  "velocidade_mov": 335,
+  "alcance_ataque": 125,
+  "vel_ataque_base": 0.625,
+  "vel_ataque_razao": 0.625,
+  "vel_ataque_nivel": 2.9,
+  "dano_critico": 2,
+  "alcance_aquisicao": 400,
+  "raio_selecao": 120,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackTotalTime": 1.600000023841858,
+   "mAttackCastTime": 0.1979999989271164,
+   "mAttackProbability": 0.5,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.5,
+    "mAttackName": "TalonBasicAttack2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackName": "TalonCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Talon/Spells/TalonQAbility/TalonQ",
+  "Characters/Talon/Spells/TalonWAbility/TalonW",
+  "Characters/Talon/Spells/TalonEAbility/TalonE",
+  "Characters/Talon/Spells/TalonRAbility/TalonR"
+ ],
+ "abilities_ref": [
+  "Characters/Talon/Spells/TalonRAbility",
+  "Characters/Talon/Spells/TalonQAbility",
+  "Characters/Talon/Spells/TalonWAbility",
+  "Characters/Talon/Spells/TalonEAbility",
+  "Characters/Talon/Spells/TalonPassiveAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/TalonRAbility/TalonRStealth": {
+   "ObjectName": "TalonRStealth",
+   "objectPath": "Characters/Talon/Spells/TalonRAbility/TalonRStealth",
+   "mScriptName": "TalonRStealth",
+   "mSpell": {
+    "mAffectsTypeFlags": 8191,
+    "mAlternateName": "TalonRStealth",
+    "mCastTime": 0.1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "mDisableCastBar": true,
+    "bHaveHitEffect": true,
+    "mUseAutoattackCastTimeData": {
+     "__type": "UseAutoattackCastTimeData"
+    },
+    "castRange": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castConeDistance": 100,
+    "castFrame": 2,
+    "missileSpeed": 0,
+    "mHitEffectKey": "Talon_P_pro_cas_01",
+    "mAfterEffectName": "doesnotexist.troy",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TalonRStealth",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonRAbility/TalonRToggle": {
+   "ObjectName": "TalonRToggle",
+   "objectPath": "Characters/Talon/Spells/TalonRAbility/TalonRToggle",
+   "mScriptName": "TalonRToggle",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 8192,
+    "mAlternateName": "TalonR",
+    "mSpellTags": [
+     "Trait_Ultimate"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       90,
+       90,
+       135,
+       180,
+       180,
+       180,
+       180
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.4,
+       0.4,
+       0.55,
+       0.7,
+       0.7,
+       0.7,
+       0.7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1,
+    "spellCastTime": 0.52175,
+    "spellTotalTime": 1.5334,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     800,
+     800,
+     800,
+     800,
+     800,
+     800,
+     800
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9.57,
+    "missileSpeed": 0,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonRAbility/TalonRMisTwo": {
+   "ObjectName": "TalonRMisTwo",
+   "objectPath": "Characters/Talon/Spells/TalonRAbility/TalonRMisTwo",
+   "mScriptName": "TalonRMisTwo",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 7183,
+    "mAffectsStatusFlags": 40,
+    "mAlternateName": "game_spell_displayname_TalonR",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       90,
+       130,
+       170,
+       215,
+       260,
+       300
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.6,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "mProjectTargetToCastRange": true,
+    "castRange": [
+     20000,
+     20000,
+     20000,
+     20000,
+     20000,
+     20000,
+     20000
+    ],
+    "castRadius": [
+     8000,
+     8000,
+     8000,
+     8000,
+     8000,
+     8000,
+     8000
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 140,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_hand",
+      "mSpeed": 4000,
+      "__type": "FixedSpeedMovement"
+     },
+     "visibilityComponent": {
+      "__type": "EnterFOWVisibility"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 20,
+    "missileSpeed": 4000,
+    "mMissileEffectKey": "Talon_R_Mis_02",
+    "mMissileEffectEnemyKey": "Talon_R_Mis_02_enemy",
+    "mLineWidth": 140,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "TargetOrLocation"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonRAbility/TalonRMisOne": {
+   "ObjectName": "TalonRMisOne",
+   "objectPath": "Characters/Talon/Spells/TalonRAbility/TalonRMisOne",
+   "mScriptName": "TalonRMisOne",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "game_spell_displayname_TalonR",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileChanneling": true,
+    "mProjectTargetToCastRange": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     800,
+     800,
+     800,
+     800,
+     800,
+     800,
+     800
+    ],
+    "castRadius": [
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 140,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Weapon",
+      "mSpeed": 2400,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 15.075,
+    "missileSpeed": 2400,
+    "mMissileEffectKey": "Talon_R_Mis",
+    "mMissileEffectEnemyKey": "Talon_R_Mis_enemy",
+    "mLineWidth": 140,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonRAbility/TalonRHaste": {
+   "ObjectName": "TalonRHaste",
+   "objectPath": "Characters/Talon/Spells/TalonRAbility/TalonRHaste",
+   "mScriptName": "TalonRHaste",
+   "mSpell": {
+    "mAffectsTypeFlags": 8191,
+    "mAlternateName": "TalonRHaste",
+    "mCastTime": 0.1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "mDisableCastBar": true,
+    "bHaveHitEffect": true,
+    "mUseAutoattackCastTimeData": {
+     "__type": "UseAutoattackCastTimeData"
+    },
+    "castRange": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castConeDistance": 100,
+    "castFrame": 2,
+    "missileSpeed": 0,
+    "mHitEffectKey": "Talon_P_pro_cas_01",
+    "mAfterEffectName": "doesnotexist.troy",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TalonRHaste",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonRAbility/TalonR": {
+   "ObjectName": "TalonR",
+   "objectPath": "Characters/Talon/Spells/TalonRAbility/TalonR",
+   "mScriptName": "TalonR",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 8192,
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_DamageAbility",
+     "Trait_Invisibility",
+     "Trait_Untargetable",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       45,
+       90,
+       135,
+       180,
+       225,
+       270,
+       315
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MoveSpeed",
+      "values": [
+       0.25,
+       0.4,
+       0.55,
+       0.7,
+       0.85,
+       1,
+       1.15
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Duration",
+      "values": [
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "MoveSpeed",
+        "values": [
+         0.4,
+         0.6,
+         0.8,
+         1,
+         1.2,
+         1.4,
+         1.6
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       80,
+       80,
+       70,
+       60,
+       80,
+       80,
+       80
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     "ARAM": {
+      "value": [
+       80,
+       80,
+       70,
+       60,
+       60,
+       60,
+       60
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     "Kiwi": {
+      "value": [
+       80,
+       80,
+       70,
+       60,
+       60,
+       60,
+       60
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "Damage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     100,
+     100,
+     80,
+     60,
+     60,
+     60,
+     60
+    ],
+    "Cooldown": {
+     "values": [
+      100,
+      100,
+      80,
+      60,
+      60,
+      60,
+      60
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castRadius": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castConeDistance": 100,
+    "castFrame": 17,
+    "missileSpeed": 902,
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "mTargetingTypeData": {
+     "__type": "SelfAoe"
+    },
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "Damage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 2,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "MoveSpeed",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 1024,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "Duration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonEAbility/TalonEHop": {
+   "ObjectName": "TalonEHop",
+   "objectPath": "Characters/Talon/Spells/TalonEAbility/TalonEHop",
+   "mScriptName": "TalonEHop",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 8192,
+    "mAlternateName": "TalonE",
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       99,
+       99,
+       99,
+       99,
+       99,
+       99,
+       99
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       30,
+       35,
+       40,
+       45,
+       50,
+       55,
+       60
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       10.5,
+       10,
+       9.5,
+       9,
+       8.5,
+       8,
+       8
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       15,
+       40,
+       65,
+       90,
+       115,
+       140,
+       165
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.5,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castConeDistance": 100,
+    "castFrame": 25.85,
+    "missileSpeed": 0,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonEAbility/TalonE2": {
+   "ObjectName": "TalonE2",
+   "objectPath": "Characters/Talon/Spells/TalonEAbility/TalonE2",
+   "mScriptName": "TalonE2",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9152,
+    "mAlternateName": "TalonE",
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       99,
+       99,
+       99,
+       99,
+       99,
+       99,
+       99
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       15,
+       40,
+       65,
+       90,
+       115,
+       140,
+       165
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.5,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     13,
+     12,
+     11,
+     10,
+     9,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      13,
+      12,
+      11,
+      10,
+      9,
+      8,
+      8
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mMaxAmmo": [
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4
+    ],
+    "mAmmoRechargeTime": [
+     50,
+     45,
+     40,
+     35,
+     30,
+     25,
+     25
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "mCursorChangesInTerrain": true,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 25.85,
+    "missileSpeed": 0,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonEAbility/TalonE": {
+   "ObjectName": "TalonE",
+   "objectPath": "Characters/Talon/Spells/TalonEAbility/TalonE",
+   "mScriptName": "TalonE",
+   "mSpell": {
+    "flags": 4,
+    "mAlternateName": "TalonE",
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock",
+     "Trait_NoCooldown"
+    ],
+    "mEffectAmount": [
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       625,
+       625,
+       625,
+       625,
+       625,
+       625,
+       625
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1250,
+       1250,
+       1250,
+       1250,
+       1250,
+       1250,
+       1250
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       185,
+       160,
+       135,
+       110,
+       85,
+       60,
+       60
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "WallCD",
+      "values": [
+       185,
+       160,
+       135,
+       110,
+       85,
+       60,
+       35
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "WallJumpDistance",
+      "values": [
+       625,
+       625,
+       625,
+       625,
+       625,
+       625,
+       625
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "WallLockoutWidth",
+      "values": [
+       1250,
+       1250,
+       1250,
+       1250,
+       1250,
+       1250,
+       1250
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DisplayCD",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "WallCD",
+        "values": [
+         20,
+         16,
+         12,
+         8,
+         4,
+         0,
+         -4
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "{a110bc47}": {
+      "SpellDataValues": [
+       {
+        "name": "WallCD",
+        "values": [
+         11,
+         10,
+         9,
+         8,
+         7,
+         6,
+         5
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "WallCD",
+        "values": [
+         11,
+         10,
+         9,
+         8,
+         7,
+         6,
+         5
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "WallCD",
+        "values": [
+         11,
+         10,
+         9,
+         8,
+         7,
+         6,
+         5
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "mCursorChangesInTerrain": true,
+    "mUseMinimapTargeting": true,
+    "castRange": [
+     6000,
+     6000,
+     6000,
+     6000,
+     6000,
+     6000,
+     6000
+    ],
+    "castRangeDisplayOverride": [
+     725,
+     725,
+     725,
+     725,
+     725,
+     725,
+     725
+    ],
+    "castConeDistance": 100,
+    "castFrame": 25.85,
+    "missileSpeed": 0,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "{ec17e271}": [
+     {
+      "EffectTag": 128,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8192,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonBasicAttack": {
+   "ObjectName": "TalonBasicAttack",
+   "objectPath": "Characters/Talon/Spells/TalonBasicAttack",
+   "mScriptName": "TalonBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "mAlternateName": "EbonBasicAttack",
+    "spellCastTime": 0.41305,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 6.5,
+    "missileSpeed": 0,
+    "mHitEffectKey": "Talon_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonPassiveAbility/TalonPassive": {
+   "ObjectName": "TalonPassive",
+   "objectPath": "Characters/Talon/Spells/TalonPassiveAbility/TalonPassive",
+   "mScriptName": "TalonPassive",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1029,
+    "mEffectAmount": [
+     {
+      "value": [
+       25,
+       80,
+       135,
+       190,
+       245,
+       300,
+       355
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       10,
+       15,
+       20,
+       25,
+       30,
+       35,
+       40
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "MonsterMod",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StackDuration",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BleedDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusADRatio",
+      "values": [
+       2.1,
+       2.1,
+       2.1,
+       2.1,
+       2.1,
+       2.1,
+       2.1
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "BonusADRatio",
+        "values": [
+         2.6,
+         2.6,
+         2.6,
+         2.6,
+         2.6,
+         2.6,
+         2.6
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "BleedDamage": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 80,
+        "mEndValue": 280,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "BonusADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 1,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 15.12,
+    "missileSpeed": 0,
+    "selectionPriority": 2,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TalonPassive",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonPassiveAbility/TalonPassiveAttack": {
+   "ObjectName": "TalonPassiveAttack",
+   "objectPath": "Characters/Talon/Spells/TalonPassiveAbility/TalonPassiveAttack",
+   "mScriptName": "TalonPassiveAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "GarenBasicAttack",
+    "spellCastTime": 0.3161,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 8,
+    "missileSpeed": 347.79999,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Talon_BA_tar_crit_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonPassiveAbility/TalonPassiveCooldown": {
+   "ObjectName": "TalonPassiveCooldown",
+   "objectPath": "Characters/Talon/Spells/TalonPassiveAbility/TalonPassiveCooldown",
+   "mScriptName": "TalonPassiveCooldown",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_PoppyPassiveCooldown",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonPassiveAbility/TalonPassiveStack": {
+   "ObjectName": "TalonPassiveStack",
+   "objectPath": "Characters/Talon/Spells/TalonPassiveAbility/TalonPassiveStack",
+   "mScriptName": "TalonPassiveStack",
+   "mSpell": {
+    "mAffectsTypeFlags": 8191,
+    "mAlternateName": "TalonPassiveStack",
+    "mCastTime": 0.1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "mDisableCastBar": true,
+    "bHaveHitEffect": true,
+    "mUseAutoattackCastTimeData": {
+     "__type": "UseAutoattackCastTimeData"
+    },
+    "castRange": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castConeDistance": 100,
+    "castFrame": 2,
+    "missileSpeed": 0,
+    "mHitEffectKey": "Talon_P_pro_cas_01",
+    "mAfterEffectName": "doesnotexist.troy",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TalonPassiveStack",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonPassiveAbility/TalonPassiveBleed": {
+   "ObjectName": "TalonPassiveBleed",
+   "objectPath": "Characters/Talon/Spells/TalonPassiveAbility/TalonPassiveBleed",
+   "mScriptName": "TalonPassiveBleed",
+   "mSpell": {
+    "mAffectsTypeFlags": 8191,
+    "mAlternateName": "TalonPassiveBleed",
+    "mCastTime": 0.1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "mDisableCastBar": true,
+    "bHaveHitEffect": true,
+    "mUseAutoattackCastTimeData": {
+     "__type": "UseAutoattackCastTimeData"
+    },
+    "castRange": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castConeDistance": 100,
+    "castFrame": 2,
+    "missileSpeed": 0,
+    "mHitEffectKey": "Talon_P_pro_cas_01",
+    "mAfterEffectName": "doesnotexist.troy",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_TalonPassiveBleed",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonWAbility/TalonWMissileTwo": {
+   "ObjectName": "TalonWMissileTwo",
+   "objectPath": "Characters/Talon/Spells/TalonWAbility/TalonWMissileTwo",
+   "mScriptName": "TalonWMissileTwo",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       90,
+       130,
+       170,
+       215,
+       260,
+       300
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.6,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "mProjectTargetToCastRange": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     5000,
+     5000,
+     5000,
+     5000,
+     5000,
+     20000,
+     20000
+    ],
+    "castRadius": [
+     8000,
+     8000,
+     8000,
+     8000,
+     8000,
+     8000,
+     8000
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 60,
+    "mMissileSpec": {
+     "mMissileWidth": 75,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Chest",
+      "mSpeed": 3000,
+      "__type": "FixedSpeedMovement"
+     },
+     "visibilityComponent": {
+      "__type": "EnterFOWVisibility"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 20,
+    "missileSpeed": 3000,
+    "mMissileEffectKey": "Talon_W_Mis_02",
+    "mMissileEffectEnemyKey": "Talon_W_Mis_02_enemy",
+    "mLineWidth": 75,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonWAbility/TalonWMissileOne": {
+   "ObjectName": "TalonWMissileOne",
+   "objectPath": "Characters/Talon/Spells/TalonWAbility/TalonWMissileOne",
+   "mScriptName": "TalonWMissileOne",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "TalonW",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mProjectTargetToCastRange": true,
+    "castRange": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castRadius": [
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 75,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Chest",
+      "mTravelTime": 0.35,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 15.075,
+    "missileSpeed": 2500,
+    "mMissileEffectKey": "Talon_W_Mis_01",
+    "mLineWidth": 75,
+    "mHitEffectOrientType": 2,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonWAbility/TalonW": {
+   "ObjectName": "TalonW",
+   "objectPath": "Characters/Talon/Spells/TalonWAbility/TalonW",
+   "mScriptName": "TalonW",
+   "mSpell": {
+    "mAffectsTypeFlags": 23759,
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_SignatureSpell",
+     "Trait_Ranged_Piercing",
+     "Trait_Melee_SmallWindup",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "InitialBaseDamage",
+      "values": [
+       40,
+       50,
+       60,
+       70,
+       80,
+       90,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ReturnBaseDamage",
+      "values": [
+       30,
+       60,
+       90,
+       120,
+       150,
+       180,
+       210
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MovespeedSlow",
+      "values": [
+       0.35,
+       0.4,
+       0.45,
+       0.5,
+       0.55,
+       0.6,
+       0.65
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ReturnDelay",
+      "values": [
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MonsterDamageMod",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "InitialBonusADRatio",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ReturnBonusADRatio",
+      "values": [
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "InitialBaseDamage",
+        "values": [
+         45,
+         60,
+         75,
+         90,
+         105,
+         120,
+         135
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "ReturnBaseDamage",
+        "values": [
+         37.5,
+         75,
+         112.5,
+         150,
+         187.5,
+         225,
+         262.5
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "MovespeedSlow",
+        "values": [
+         0.45,
+         0.5,
+         0.55,
+         0.6,
+         0.65,
+         0.7,
+         0.75
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "InitialBonusADRatio",
+        "values": [
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "ReturnBonusADRatio",
+        "values": [
+         1,
+         1,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "InitialBonusADRatio",
+        "values": [
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5,
+         0.5
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "ReturnBonusADRatio",
+        "values": [
+         1,
+         1,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalInitialDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "InitialBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "InitialBonusADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalReturnDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "ReturnBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "ReturnBonusADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     9,
+     9,
+     8.5,
+     8,
+     7.5,
+     7,
+     7
+    ],
+    "Cooldown": {
+     "values": [
+      9,
+      9,
+      8.5,
+      8,
+      7.5,
+      7,
+      7
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeAngle": 26,
+    "castConeDistance": 700,
+    "castFrame": 12,
+    "missileSpeed": 902,
+    "mana": [
+     50,
+     55,
+     60,
+     65,
+     70,
+     75
+    ],
+    "mTargetingTypeData": {
+     "__type": "Cone"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalInitialDamage",
+       "__type": "{f3cbe7b2}"
+      },
+      {
+       "mSpellCalculationKey": "TotalReturnDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "MoveSpeedSlow",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 64,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 128,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonRakeMissileTwoDead": {
+   "ObjectName": "TalonRakeMissileTwoDead",
+   "objectPath": "Characters/Talon/Spells/TalonRakeMissileTwoDead",
+   "mScriptName": "TalonRakeMissileTwoDead",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 7183,
+    "mAlternateName": "CaitlynAceintheHoleMissile",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       90,
+       130,
+       170,
+       215,
+       260,
+       300
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.6,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "canOnlyCastWhileDead": true,
+    "mProjectTargetToCastRange": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     5000,
+     5000,
+     5000,
+     5000,
+     5000,
+     20000,
+     20000
+    ],
+    "castRadius": [
+     8000,
+     8000,
+     8000,
+     8000,
+     8000,
+     8000,
+     8000
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 75,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Chest",
+      "mSpeed": 1850,
+      "__type": "FixedSpeedMovement"
+     },
+     "visibilityComponent": {
+      "__type": "EnterFOWVisibility"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 20,
+    "missileSpeed": 1850,
+    "mMissileEffectKey": "Talon_W_Mis_02",
+    "mLineWidth": 75,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonQAbility/TalonQ": {
+   "ObjectName": "TalonQ",
+   "objectPath": "Characters/Talon/Spells/TalonQAbility/TalonQ",
+   "mScriptName": "TalonQ",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "TalonQ",
+    "mSpellTags": [
+     "Trait_AttackReset",
+     "Trait_DamageAbility",
+     "Trait_ActiveHeal",
+     "Trait_Strike"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       45,
+       65,
+       85,
+       105,
+       125,
+       145,
+       165
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusADRatio",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EnhancedDamageMod",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CooldownRefund",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "BonusADRatio",
+        "values": [
+         1.15,
+         1.15,
+         1.15,
+         1.15,
+         1.15,
+         1.15,
+         1.15
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "BonusADRatio",
+        "values": [
+         1.15,
+         1.15,
+         1.15,
+         1.15,
+         1.15,
+         1.15,
+         1.15
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "BonusADRatio",
+        "values": [
+         1.15,
+         1.15,
+         1.15,
+         1.15,
+         1.15,
+         1.15,
+         1.15
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalHealing": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 9,
+        "mEndValue": 55,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "LeapDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "BonusADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "CriticalDamage": {
+      "mMultiplier": {
+       "mSubparts": [
+        {
+         "mDataValue": "EnhancedDamageMod",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        {
+         "mStat": 9,
+         "mStatFormula": 2,
+         "mCoefficient": 1,
+         "__type": "StatByCoefficientCalculationPart"
+        }
+       ],
+       "__type": "SumOfSubPartsCalculationPart"
+      },
+      "mModifiedGameCalculation": "LeapDamage",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "spellCastTime": 0.52175,
+    "spellTotalTime": 1.5334,
+    "cooldownTime": [
+     8,
+     8,
+     7.5,
+     7,
+     6.5,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      8,
+      8,
+      7.5,
+      7,
+      6.5,
+      6,
+      6
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "canCastOrQueueWhileCasting": true,
+    "mSpellRevealsChampion": false,
+    "mShowChannelBar": false,
+    "mDoesNotConsumeMana": true,
+    "mDoesNotConsumeCooldown": true,
+    "castRange": [
+     575,
+     575,
+     575,
+     575,
+     575,
+     575,
+     575
+    ],
+    "castRadius": [
+     250,
+     250,
+     250,
+     250,
+     250,
+     250,
+     250
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_hand",
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 9.57,
+    "missileSpeed": 2000,
+    "mana": [
+     40,
+     40,
+     40,
+     40,
+     40,
+     40
+    ],
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "LeapDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 256,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 8,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSpellCalculationKey": "TotalHealing",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonQAbility/TalonQAttack": {
+   "ObjectName": "TalonQAttack",
+   "objectPath": "Characters/Talon/Spells/TalonQAbility/TalonQAttack",
+   "mScriptName": "TalonQAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 22538,
+    "mAlternateName": "TalonQ",
+    "mSpellTags": [
+     ""
+    ],
+    "mCastTime": 0.25,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "castRangeUseBoundingBoxes": true,
+    "alwaysSnapFacing": true,
+    "mUseAutoattackCastTimeData": {
+     "__type": "UseAutoattackCastTimeData"
+    },
+    "mUpdateRotationWhenCasting": true,
+    "castRange": [
+     170,
+     170,
+     170,
+     170,
+     170,
+     170,
+     170
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 12,
+    "missileSpeed": 0,
+    "mana": [
+     40,
+     40,
+     40,
+     40,
+     40,
+     40
+    ],
+    "selectionPriority": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonQAbility/TalonQDashAttack": {
+   "ObjectName": "TalonQDashAttack",
+   "objectPath": "Characters/Talon/Spells/TalonQAbility/TalonQDashAttack",
+   "mScriptName": "TalonQDashAttack",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "TalonQ",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "cantCastWhileRooted": true,
+    "mCanMoveWhileChanneling": true,
+    "mShowChannelBar": false,
+    "castRange": [
+     575,
+     575,
+     575,
+     575,
+     575,
+     575,
+     575
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "missileSpeed": 0,
+    "mana": [
+     40,
+     40,
+     40,
+     40,
+     40,
+     40
+    ],
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonShadowAssaultMisOneHalf": {
+   "ObjectName": "TalonShadowAssaultMisOneHalf",
+   "objectPath": "Characters/Talon/Spells/TalonShadowAssaultMisOneHalf",
+   "mScriptName": "TalonShadowAssaultMisOneHalf",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "game_spell_displayname_TalonShadowAssault",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castRadius": [
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 125,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Weapon",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 2300,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 15.075,
+    "missileSpeed": 2300,
+    "mLineWidth": 125,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonBasicAttack2": {
+   "ObjectName": "TalonBasicAttack2",
+   "objectPath": "Characters/Talon/Spells/TalonBasicAttack2",
+   "mScriptName": "TalonBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "mAlternateName": "NocturneBasicAttack2",
+    "spellCastTime": 0.41305,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "missileSpeed": 0,
+    "mHitEffectKey": "Talon_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TalonCritAttack": {
+   "ObjectName": "TalonCritAttack",
+   "objectPath": "Characters/Talon/Spells/TalonCritAttack",
+   "mScriptName": "TalonCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "mAlternateName": "EbonCritAttack",
+    "spellCastTime": 0.41305,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "missileSpeed": 0,
+    "mHitEffectKey": "Talon_BA_tar_crit_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/TalonQAbility/TalonQ",
+  "Spells/TalonWAbility/TalonW",
+  "Spells/TalonEAbility/TalonE",
+  "Spells/TalonRAbility/TalonR"
+ ],
+ "passiva_ref": "Characters/Talon/Spells/TalonPassiveAbility",
+ "passiva_chaves": [
+  "Spells/TalonPassiveAbility/TalonPassive",
+  "Spells/TalonPassiveAbility/TalonPassiveAttack",
+  "Spells/TalonPassiveAbility/TalonPassiveCooldown",
+  "Spells/TalonPassiveAbility/TalonPassiveStack",
+  "Spells/TalonPassiveAbility/TalonPassiveBleed"
+ ]
+}

@@ -1,0 +1,2768 @@
+{
+ "id": "Gwen",
+ "key": 887,
+ "nome": "Gwen",
+ "titulo": "A Costureira Encantada",
+ "funcoes": [
+  "Fighter"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 7,
+  "defense": 4,
+  "magic": 5,
+  "difficulty": 5
+ },
+ "stats_ddragon": {
+  "hp": 620,
+  "hpperlevel": 115,
+  "mp": 330,
+  "mpperlevel": 40,
+  "movespeed": 340,
+  "armor": 39,
+  "armorperlevel": 4.9,
+  "spellblock": 32,
+  "spellblockperlevel": 2.05,
+  "attackrange": 150,
+  "hpregen": 9,
+  "hpregenperlevel": 0.9,
+  "mpregen": 7.5,
+  "mpregenperlevel": 0.7,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 63,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2.25,
+  "attackspeed": 0.69
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Mil Retalhos",
+  "descricao": "Os Ataques de Gwen causam Dano Mágico adicional com base na Vida do alvo. Ela se cura em parte do dano causado a Campeões com esse efeito. "
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "GwenQ",
+   "nome": "Corte e Recorte",
+   "descricao": "Gwen corta uma área em cone até seis vezes com a tesoura, causando Dano Mágico. Ela causa Dano Verdadeiro às unidades atingidas no centro e aplica a Passiva a cada corte.",
+   "tooltip": "<spellPassive>Passivo</spellPassive>: Gwen recebe 1 acúmulo ao acertar um inimigo com um Ataque (máximo de 4, com duração de {{ buffduration }}s).<br /><br /><spellActive>Ativo</spellActive>: consome o acúmulo. Gwen corta uma vez, causando <magicDamage>{{ miniswipedamage }} de Dano Mágico</magicDamage>. Depois, corta novamente para cada munição consumida. Por fim, corta uma última vez para causar <magicDamage>{{ finalswipedamage }} de Dano Mágico</magicDamage>. <br /><br />O centro de cada um dos golpes converte {{ truedamageconversion*100 }}% do dano em <trueDamage>Dano Verdadeiro</trueDamage> e aplica <spellName>Mil Retalhos</spellName> aos inimigos atingidos.<br /><rules><br />Causa {{ minionmod*100 }}% de dano a tropas.<br />Tropas com menos de {{ executethreshold*100 }}% de Vida sofrem {{ executebonus }}% de dano adicional em vez de dano reduzido.</rules>{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    6.5,
+    5.75,
+    5,
+    4.25,
+    3.5
+   ],
+   "custo": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    450,
+    450,
+    450,
+    450,
+    450
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "GwenW",
+   "nome": "Névoa Sagrada",
+   "descricao": "Gwen invoca uma Névoa que a protege dos inimigos que estiverem do lado de fora. Ela só pode ser alvejada por inimigos que entrarem na área da Névoa.",
+   "tooltip": "Gwen invoca a Névoa Sagrada, ficando inalvejável perante os inimigos (exceto torres) fora da zona por {{ zoneduration }}s ou até que ela saia da Névoa. Enquanto estiver dentro da Névoa, Gwen receberá {{ totalresists }} de <scaleArmor>Armadura</scaleArmor> e <scaleMR>Resistência Mágica</scaleMR>.<br /><br />Gwen pode <recast>Reconjurar</recast> a Habilidade uma vez para trazer a Névoa até ela. A Habilidade será <recast>Reconjurada</recast> automaticamente na primeira vez que Gwen tentar sair da área da Névoa.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    22,
+    21,
+    20,
+    19,
+    18
+   ],
+   "custo": [
+    60,
+    60,
+    60,
+    60,
+    60
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "GwenE",
+   "nome": "Avanço Afiado",
+   "descricao": "Gwen avança por uma curta distância e ganha Velocidade de Ataque, Alcance de Ataque e Dano Mágico <OnHit>ao contato</OnHit> por alguns segundos. Se ela atingir um inimigo durante esse período, o Tempo de Recarga da Habilidade será parcialmente restituído. ",
+   "tooltip": "Gwen avança e fortalece os Ataques dela por {{ buffduration }}s.<br /><br />Ataques fortalecidos recebem <attackSpeed>{{ bonusattackspeed }} de Velocidade de Ataque</attackSpeed>, <magicDamage>{{ onhitdamage }} de Dano Mágico</magicDamage> %i:OnHit% <OnHit>ao contato</OnHit> e {{ bonusattackrange }} de alcance, e o primeiro acerto em um inimigo restitui {{ cdrefund*100 }}% do Tempo de Recarga da Habilidade.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    13,
+    12.5,
+    12,
+    11.5,
+    11
+   ],
+   "custo": [
+    35,
+    35,
+    35,
+    35,
+    35
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    400,
+    400,
+    400,
+    400,
+    400
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "GwenR",
+   "nome": "Ponto-Cruz",
+   "descricao": "Gwen arremessa uma agulha que causa Dano Mágico e Lentidão, aplicando Mil Retalhos aos Campeões atingidos. <br><br>A Habilidade pode ser conjurada mais duas vezes, e cada conjuração arremessa agulhas adicionais e causa mais dano. ",
+   "tooltip": "<spellActive>Primeira conjuração:</spellActive> arremessa uma agulha que causa <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage> e {{ initialslow*-100 }}% de <status>Lentidão</status> por {{ debuffduration }}s, aplicando <spellName>Mil Retalhos</spellName> a todos os inimigos atingidos. Gwen pode <recast>Reconjurar</recast> a Habilidade mais 2 vezes nos próximos 6s ({{ lockouttime }}s de Tempo de Recarga entre conjurações).<br /><br /><recast>Segunda conjuração:</recast> arremessa três agulhas, causando <magicDamage>{{ totaldamage3 }} de Dano Mágico</magicDamage>.<br /><recast>Terceira conjuração:</recast> arremessa cinco agulhas, causando <magicDamage>{{ totaldamage5 }} de Dano Mágico</magicDamage>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    120,
+    100,
+    80
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1200,
+    1200,
+    1200
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 620,
+  "vida_nivel": 115,
+  "regen_vida": 1.8,
+  "regen_vida_nivel": 0.18,
+  "dano": 63,
+  "dano_nivel": 3,
+  "armadura": 39,
+  "armadura_nivel": 4.9,
+  "rm": 32,
+  "rm_nivel": 2.05,
+  "velocidade_mov": 340,
+  "alcance_ataque": 150,
+  "vel_ataque_base": 0.69,
+  "vel_ataque_razao": 0.69,
+  "vel_ataque_nivel": 2.25,
+  "dano_critico": 2,
+  "alcance_aquisicao": 600,
+  "raio_selecao": 100,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackTotalTime": 1.524999976158142,
+   "mAttackCastTime": 0.30000001192092896,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackName": "GwenPEmpoweredAttack",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "GwenPEmpoweredAttack2",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "GwenPEmpoweredAttack3",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Gwen/Spells/GwenQAbility/GwenQ",
+  "Characters/Gwen/Spells/GwenWAbility/GwenW",
+  "Characters/Gwen/Spells/GwenEAbility/GwenE",
+  "Characters/Gwen/Spells/GwenRAbility/GwenR"
+ ],
+ "abilities_ref": [
+  "Characters/Gwen/Spells/GwenRAbility",
+  "Characters/Gwen/Spells/GwenQAbility",
+  "Characters/Gwen/Spells/GwenWAbility",
+  "Characters/Gwen/Spells/GwenEAbility",
+  "Characters/Gwen/Spells/GwenPAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/GwenQAbility/GwenQ": {
+   "ObjectName": "GwenQ",
+   "objectPath": "Characters/Gwen/Spells/GwenQAbility/GwenQ",
+   "mScriptName": "GwenQ",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_SignatureSpell",
+     "Trait_Target_Directional",
+     "Trait_Melee_SmallWindup",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "InitialArcLength",
+      "values": [
+       475,
+       475,
+       475,
+       475,
+       475,
+       475,
+       475
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SwipeDamageBase",
+      "values": [
+       35,
+       60,
+       85,
+       110,
+       135,
+       160,
+       185
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MiniDamageRatio",
+      "values": [
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BuffDuration",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MiniSwipeBaseDamage",
+      "values": [
+       6,
+       10,
+       14,
+       18,
+       22,
+       26,
+       30
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TrueDamageConversion",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ExecuteBonus",
+      "values": [
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinionMod",
+      "values": [
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ExecuteThreshold",
+      "values": [
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MiniSwipeAPRatio",
+      "values": [
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "APRatio",
+        "values": [
+         0.25,
+         0.25,
+         0.25,
+         0.25,
+         0.25,
+         0.25,
+         0.25
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "SwipeDamageBase",
+        "values": [
+         30,
+         50,
+         70,
+         90,
+         110,
+         130,
+         150
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "APRatio",
+        "values": [
+         0.4,
+         0.4,
+         0.4,
+         0.4,
+         0.4,
+         0.4,
+         0.4
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "FinalSwipeDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "SwipeDamageBase",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MiniSwipeDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "MiniSwipeBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "MiniSwipeAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MaxDamage": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mExpandedTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mSubparts": [
+         {
+          "mSubparts": [
+           {
+            "mDataValue": "SwipeDamageBase",
+            "__type": "NamedDataValueCalculationPart"
+           },
+           {
+            "mDataValue": "APRatio",
+            "__type": "StatByNamedDataValueCalculationPart"
+           }
+          ],
+          "__type": "SumOfSubPartsCalculationPart"
+         },
+         {
+          "mPart1": {
+           "mDataValue": "MiniSwipeAPRatio",
+           "__type": "StatByNamedDataValueCalculationPart"
+          },
+          "mPart2": {
+           "mNumber": 5,
+           "__type": "NumberCalculationPart"
+          },
+          "__type": "ProductOfSubPartsCalculationPart"
+         },
+         {
+          "mPart1": {
+           "mDataValue": "MiniSwipeBaseDamage",
+           "__type": "NamedDataValueCalculationPart"
+          },
+          "mPart2": {
+           "mNumber": 5,
+           "__type": "NumberCalculationPart"
+          },
+          "__type": "ProductOfSubPartsCalculationPart"
+         }
+        ],
+        "__type": "SumOfSubPartsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.5,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     6.5,
+     6.5,
+     5.75,
+     5,
+     4.25,
+     3.5,
+     3.5
+    ],
+    "Cooldown": {
+     "values": [
+      6.5,
+      6.5,
+      5.75,
+      5,
+      4.25,
+      3.5,
+      3.5
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCasterPositionEndOfCastUpdate": 2,
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Gwen/Spells/GwenQAbility/GwenQStacker",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "mProjectTargetToCastRange": true,
+    "mSpellRevealsChampion": false,
+    "mShowChannelBar": false,
+    "mTurnSpeedScalar": 0.001,
+    "mIgnoreRangeCheck": true,
+    "mDoesNotConsumeMana": true,
+    "castRange": [
+     500,
+     500,
+     500,
+     500,
+     500,
+     500,
+     500
+    ],
+    "castRangeDisplayOverride": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 60,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mTargetBoneName": "C_buffbone_Glb_Center_Loc",
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "castFrame": 1.98,
+    "mLineWidth": 60,
+    "mHitEffectOrientType": 2,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_buffbone_Glb_Center_Loc",
+    "mana": [
+     40,
+     40,
+     40,
+     40,
+     40,
+     40
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.05,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "MaxDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GwenQAbility/GwenQStacker": {
+   "ObjectName": "GwenQStacker",
+   "objectPath": "Characters/Gwen/Spells/GwenQAbility/GwenQStacker",
+   "mScriptName": "GwenQStacker",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_GwenQStacker",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GwenWAbility/GwenW": {
+   "ObjectName": "GwenW",
+   "objectPath": "Characters/Gwen/Spells/GwenWAbility/GwenW",
+   "mScriptName": "GwenW",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 8195,
+    "mSpellTags": [
+     "Trait_Immune",
+     "Trait_Untargetable"
+    ],
+    "DataValues": [
+     {
+      "name": "ZONE_VARS",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ZoneDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ZoneRadius",
+      "values": [
+       370,
+       370,
+       370,
+       370,
+       370,
+       370,
+       370
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ZonePullSpeed",
+      "values": [
+       2000,
+       2000,
+       2000,
+       2000,
+       2000,
+       2000,
+       2000
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PullOffset",
+      "values": [
+       75,
+       75,
+       75,
+       75,
+       75,
+       75,
+       75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ZoneWallOffset",
+      "values": [
+       -100,
+       -100,
+       -100,
+       -100,
+       -100,
+       -100,
+       -100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "NewDashCooldown",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RecastDelay",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseResists",
+      "values": [
+       20,
+       22,
+       24,
+       26,
+       28,
+       30,
+       32
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DashTargetForgiveness",
+      "values": [
+       125,
+       125,
+       125,
+       125,
+       125,
+       125,
+       125
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       27,
+       26,
+       25,
+       24,
+       23,
+       22,
+       21
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalResists": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseResists",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.07,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     22,
+     22,
+     21,
+     20,
+     19,
+     18,
+     18
+    ],
+    "Cooldown": {
+     "values": [
+      22,
+      22,
+      21,
+      20,
+      19,
+      18,
+      18
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "mShowChannelBar": false,
+    "alwaysSnapFacing": true,
+    "useAnimatorFramerate": true,
+    "bIsToggleSpell": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castRadius": [
+     500,
+     500,
+     500,
+     500,
+     500,
+     500,
+     500
+    ],
+    "mana": [
+     60,
+     60,
+     60,
+     60,
+     60,
+     60
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_GwenW",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "{ec17e271}": [
+     {
+      "EffectTag": 524288,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "ZoneDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 2,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GwenWAbility/GwenWRecast": {
+   "ObjectName": "GwenWRecast",
+   "objectPath": "Characters/Gwen/Spells/GwenWAbility/GwenWRecast",
+   "mScriptName": "GwenWRecast",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 8195,
+    "mSpellTags": [
+     "Trait_FreeRecast"
+    ],
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     33,
+     30,
+     27,
+     24,
+     21,
+     18,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      33,
+      30,
+      27,
+      24,
+      21,
+      18,
+      8
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Gwen/Spells/GwenWAbility/GwenWRecast",
+      "mRemoveWhenOnCooldown": false,
+      "mRemoveWithSpell": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "mShowChannelBar": false,
+    "alwaysSnapFacing": true,
+    "useAnimatorFramerate": true,
+    "bIsToggleSpell": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castRangeDisplayOverride": [
+     350,
+     350,
+     350,
+     350,
+     350,
+     350,
+     350
+    ],
+    "castRadius": [
+     425,
+     425,
+     425,
+     425,
+     425,
+     425,
+     425
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_SwainR",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GwenWAbility/GwenW_GwenInsideW": {
+   "ObjectName": "GwenW_GwenInsideW",
+   "objectPath": "Characters/Gwen/Spells/GwenWAbility/GwenW_GwenInsideW",
+   "mScriptName": "GwenW_GwenInsideW",
+   "mBuff": {
+    "mDescription": "buff_desc_GwenW",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GwenEAbility/GwenEEmpoweredAttack": {
+   "ObjectName": "GwenEEmpoweredAttack",
+   "objectPath": "Characters/Gwen/Spells/GwenEAbility/GwenEEmpoweredAttack",
+   "mScriptName": "GwenEEmpoweredAttack",
+   "mSpell": {
+    "flags": 128,
+    "mAffectsTypeFlags": 4234,
+    "mAlternateName": "PeppySkirmisherBasicAttack",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCanMoveWhileChanneling": true,
+    "mTurnSpeedScalar": 5,
+    "mConsideredAsAutoAttack": true,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 8,
+    "missileSpeed": 467,
+    "mMissileEffectName": "doesnotexist.troy",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GwenEAbility/GwenEEmpoweredAttack_RResetCannotCancel": {
+   "ObjectName": "GwenEEmpoweredAttack_RResetCannotCancel",
+   "objectPath": "Characters/Gwen/Spells/GwenEAbility/GwenEEmpoweredAttack_RResetCannotCancel",
+   "mScriptName": "GwenEEmpoweredAttack_RResetCannotCancel",
+   "mSpell": {
+    "flags": 128,
+    "mAffectsTypeFlags": 4234,
+    "mAlternateName": "PeppySkirmisherBasicAttack",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "mCanMoveWhileChanneling": true,
+    "mTurnSpeedScalar": 5,
+    "mConsideredAsAutoAttack": true,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 8,
+    "missileSpeed": 467,
+    "mMissileEffectName": "doesnotexist.troy",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GwenEAbility/GwenEAttackBuff": {
+   "ObjectName": "GwenEAttackBuff",
+   "objectPath": "Characters/Gwen/Spells/GwenEAbility/GwenEAttackBuff",
+   "mScriptName": "GwenEAttackBuff",
+   "mSpell": {
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Gwen/Spells/GwenPAbility/GwenP",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_GwenEAttackBuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GwenEAbility/GwenE": {
+   "ObjectName": "GwenE",
+   "objectPath": "Characters/Gwen/Spells/GwenEAbility/GwenE",
+   "mScriptName": "GwenE",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_AttackReset",
+     "PositiveEffect_EmpowerAttack",
+     "PositiveEffect_MoveBlock",
+     "Trait_PlayerSelectedDashDirection",
+     "Trait_AttackBuff_Duration"
+    ],
+    "DataValues": [
+     {
+      "name": "DashRange",
+      "values": [
+       350,
+       350,
+       350,
+       350,
+       350,
+       350,
+       350
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DashSpeed",
+      "values": [
+       800,
+       800,
+       800,
+       800,
+       800,
+       800,
+       800
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "WallCheatDistance",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BuffDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseAttackSpeed",
+      "values": [
+       17.5,
+       30,
+       42.5,
+       55,
+       67.5,
+       80,
+       92.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CDRefund",
+      "values": [
+       0.15,
+       0.25,
+       0.35,
+       0.45,
+       0.55,
+       0.65,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusAttackRange",
+      "values": [
+       75,
+       75,
+       75,
+       75,
+       75,
+       75,
+       75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       15,
+       15,
+       15,
+       15,
+       15,
+       15,
+       15
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "BonusAttackSpeed": {
+      "mMultiplier": {
+       "mNumber": 0.01,
+       "__type": "NumberCalculationPart"
+      },
+      "mSimpleTooltipCalculationDisplay": 5,
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseAttackSpeed",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "OnHitDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.2,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "cooldownTime": [
+     13,
+     13,
+     12.5,
+     12,
+     11.5,
+     11,
+     11
+    ],
+    "Cooldown": {
+     "values": [
+      13,
+      13,
+      12.5,
+      12,
+      11.5,
+      11,
+      11
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "mDoesntBreakChannels": true,
+    "mProjectTargetToCastRange": true,
+    "alwaysSnapFacing": true,
+    "mIgnoreRangeCheck": true,
+    "castRadius": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9.75,
+    "missileSpeed": 700,
+    "mLineWidth": 160,
+    "mana": [
+     35,
+     35,
+     35,
+     35,
+     35,
+     35
+    ],
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "OnHitDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 128,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "DashRange",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8192,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GwenRAbility/GwenRMis_VisualOnly": {
+   "ObjectName": "GwenRMis_VisualOnly",
+   "objectPath": "Characters/Gwen/Spells/GwenRAbility/GwenRMis_VisualOnly",
+   "mScriptName": "GwenRMis_VisualOnly",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "mChannelDuration": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCasterPositionEndOfCastUpdate": 1,
+    "mCantCancelWhileWindingUp": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "mSpellRevealsChampion": false,
+    "mCanMoveWhileChanneling": true,
+    "mShowChannelBar": false,
+    "alwaysSnapFacing": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     1300,
+     1300,
+     1300,
+     1300,
+     1300,
+     1300,
+     1300
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1800,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 12,
+    "mMissileEffectKey": "Gwen_R_Missile",
+    "mHitEffectKey": "Gwen_R_Impact_Target_Generic",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.275,
+    "mDimensionBehavior": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GwenRAbility/GwenRMis": {
+   "ObjectName": "GwenRMis",
+   "objectPath": "Characters/Gwen/Spells/GwenRAbility/GwenRMis",
+   "mScriptName": "GwenRMis",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "mChannelDuration": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCasterPositionEndOfCastUpdate": 1,
+    "mCantCancelWhileWindingUp": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "mSpellRevealsChampion": false,
+    "mCanMoveWhileChanneling": true,
+    "mShowChannelBar": false,
+    "alwaysSnapFacing": true,
+    "castRange": [
+     1350,
+     1350,
+     1350,
+     1350,
+     1350,
+     1350,
+     1350
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1800,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      },
+      {
+       "mWidthPerSecond": -150,
+       "__type": "WidthPerSecond"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 12,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.275,
+    "mDimensionBehavior": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GwenRAbility/GwenR": {
+   "ObjectName": "GwenR",
+   "objectPath": "Characters/Gwen/Spells/GwenRAbility/GwenR",
+   "mScriptName": "GwenR",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_DamageAbility",
+     "Trait_RecastOrReplaceSpell",
+     "Trait_Ranged_Piercing",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "DebuffDuration",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmount",
+      "values": [
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       10,
+       30,
+       50,
+       70,
+       90,
+       110,
+       130
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "InitialSlow",
+      "values": [
+       -0.3,
+       -0.4,
+       -0.5,
+       -0.6,
+       -0.7,
+       -0.8,
+       -0.9
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SubsequentSlow",
+      "values": [
+       -0.1,
+       -0.15,
+       -0.2,
+       -0.25,
+       -0.3,
+       -0.35,
+       -0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "LockoutTime",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "BaseDamage",
+        "values": [
+         0,
+         25,
+         50,
+         75,
+         100,
+         125,
+         150
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "ARAM": {
+      "value": [
+       10,
+       110,
+       90,
+       70,
+       8.5,
+       8,
+       7.5
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MaxDamage": {
+      "mMultiplier": {
+       "mNumber": 9,
+       "__type": "NumberCalculationPart"
+      },
+      "mModifiedGameCalculation": "TotalDamage",
+      "__type": "GameCalculationModified"
+     },
+     "TotalDamage3": {
+      "mMultiplier": {
+       "mNumber": 3,
+       "__type": "NumberCalculationPart"
+      },
+      "mModifiedGameCalculation": "TotalDamage",
+      "__type": "GameCalculationModified"
+     },
+     "TotalDamage5": {
+      "mMultiplier": {
+       "mNumber": 5,
+       "__type": "NumberCalculationPart"
+      },
+      "mModifiedGameCalculation": "TotalDamage",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "mCoefficient": 0.6,
+    "mCastTime": 0.25,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     10,
+     120,
+     100,
+     80,
+     8.5,
+     8,
+     7.5
+    ],
+    "Cooldown": {
+     "values": [
+      10,
+      120,
+      100,
+      80,
+      8.5,
+      8,
+      7.5
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCasterPositionEndOfCastUpdate": 2,
+    "mCantCancelWhileWindingUp": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "mSpellRevealsChampion": false,
+    "mCanMoveWhileChanneling": true,
+    "mShowChannelBar": false,
+    "alwaysSnapFacing": true,
+    "bHaveHitEffect": true,
+    "mDoesNotConsumeMana": true,
+    "castRange": [
+     1300,
+     1300,
+     1300,
+     1300,
+     1300,
+     1300,
+     1300
+    ],
+    "castRangeDisplayOverride": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "castFrame": 12,
+    "mMissileEffectKey": "Gwen_R_Missile",
+    "mHitEffectKey": "Gwen_R_Impact_Target_Generic",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "mDimensionBehavior": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "InitialSlow",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GwenRAbility/GwenRMis3_VisualOnly": {
+   "ObjectName": "GwenRMis3_VisualOnly",
+   "objectPath": "Characters/Gwen/Spells/GwenRAbility/GwenRMis3_VisualOnly",
+   "mScriptName": "GwenRMis3_VisualOnly",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "mChannelDuration": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCasterPositionEndOfCastUpdate": 1,
+    "mCantCancelWhileWindingUp": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "mSpellRevealsChampion": false,
+    "mCanMoveWhileChanneling": true,
+    "mShowChannelBar": false,
+    "alwaysSnapFacing": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     1300,
+     1300,
+     1300,
+     1300,
+     1300,
+     1300,
+     1300
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1800,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 12,
+    "mMissileEffectKey": "Gwen_R_Missile02",
+    "mHitEffectKey": "Gwen_R_Impact_Target_Generic",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.275,
+    "mDimensionBehavior": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GwenRAbility/GwenRRecast": {
+   "ObjectName": "GwenRRecast",
+   "objectPath": "Characters/Gwen/Spells/GwenRAbility/GwenRRecast",
+   "mScriptName": "GwenRRecast",
+   "mSpell": {
+    "mAffectsTypeFlags": 16386,
+    "mSpellTags": [
+     "Trait_FreeRecast",
+     "Trait_Ultimate"
+    ],
+    "mCoefficient": 0.6,
+    "mCastTime": 0.5,
+    "spellTotalTime": 0.5,
+    "cooldownTime": [
+     0.1,
+     0.1,
+     0.1,
+     0.1,
+     0.1,
+     0.1,
+     0.1
+    ],
+    "Cooldown": {
+     "values": [
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1
+     ],
+     "{0a3e0478}": 0.1,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "mSpellRevealsChampion": false,
+    "mCanMoveWhileChanneling": true,
+    "mShowChannelBar": false,
+    "alwaysSnapFacing": true,
+    "bHaveHitEffect": true,
+    "mDoNotNeedToFaceTarget": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     1300,
+     1300,
+     1300,
+     1300,
+     1300,
+     1300,
+     1300
+    ],
+    "castRangeDisplayOverride": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "mMissileSpec": {
+     "mMissileWidth": 60,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "castFrame": 24,
+    "mMissileEffectKey": "Gwen_R_Missile",
+    "mHitEffectKey": "Gwen_R_Impact_Target_Generic",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "mDimensionBehavior": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_GwenRRecast",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GwenRAbility/GwenRDebuff": {
+   "ObjectName": "GwenRDebuff",
+   "objectPath": "Characters/Gwen/Spells/GwenRAbility/GwenRDebuff",
+   "mScriptName": "GwenRDebuff",
+   "mBuff": {
+    "mDescription": "buff_desc_GwenRDebuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GwenBasicAttack_RResetCannotCancel": {
+   "ObjectName": "GwenBasicAttack_RResetCannotCancel",
+   "objectPath": "Characters/Gwen/Spells/GwenBasicAttack_RResetCannotCancel",
+   "mScriptName": "GwenBasicAttack_RResetCannotCancel",
+   "mSpell": {
+    "mAffectsTypeFlags": 4234,
+    "spellCastTime": 0.32465,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "mTurnSpeedScalar": 5,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10,
+    "missileSpeed": 467,
+    "mMissileEffectName": "doesnotexist.troy",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GwenBasicAttack": {
+   "ObjectName": "GwenBasicAttack",
+   "objectPath": "Characters/Gwen/Spells/GwenBasicAttack",
+   "mScriptName": "GwenBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 4234,
+    "spellCastTime": 0.32465,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mTurnSpeedScalar": 5,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10,
+    "missileSpeed": 467,
+    "mMissileEffectName": "doesnotexist.troy",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GwenZ_GeneralFunctions": {
+   "ObjectName": "GwenZ_GeneralFunctions",
+   "objectPath": "Characters/Gwen/Spells/GwenZ_GeneralFunctions",
+   "mScriptName": "GwenZ_GeneralFunctions",
+   "mSpell": {
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GwenPAbility/GwenP": {
+   "ObjectName": "GwenP",
+   "objectPath": "Characters/Gwen/Spells/GwenPAbility/GwenP",
+   "mScriptName": "GwenP",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "ExecuteThreshold",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "HealingPercent": {
+      "mSimpleTooltipCalculationDisplay": 5,
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mNumber": 0.67,
+        "__type": "NumberCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "{540bce84}": {
+      "DamageType": 1,
+      "mFormulaParts": [
+       {
+        "mNumber": 1,
+        "__type": "NumberCalculationPart"
+       },
+       {
+        "mCoefficient": 0.006,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": 2,
+      "__type": "GameCalculation"
+     },
+     "HealCap": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 12,
+        "mEndValue": 40,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       },
+       {
+        "mCoefficient": 0.07,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "PercentHealth1000Cuts": {
+      "mMultiplier": {
+       "mNumber": 0.01,
+       "__type": "NumberCalculationPart"
+      },
+      "mModifiedGameCalculation": "{540bce84}",
+      "__type": "GameCalculationModified"
+     },
+     "MonsterDamageCap": {
+      "mFormulaParts": [
+       {
+        "mNumber": 3,
+        "__type": "NumberCalculationPart"
+       },
+       {
+        "mCoefficient": 0.05,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "PassiveMaxQTooltip": {
+      "mMultiplier": {
+       "mNumber": 0.06,
+       "__type": "NumberCalculationPart"
+      },
+      "mExpandedTooltipCalculationDisplay": 6,
+      "mModifiedGameCalculation": "{540bce84}",
+      "__type": "GameCalculationModified"
+     },
+     "PassiveMaxRTooltip": {
+      "mMultiplier": {
+       "mNumber": 0.09,
+       "__type": "NumberCalculationPart"
+      },
+      "mExpandedTooltipCalculationDisplay": 6,
+      "mModifiedGameCalculation": "{540bce84}",
+      "__type": "GameCalculationModified"
+     },
+     "{4197830d}": {
+      "mMultiplier": {
+       "mNumber": 0.03,
+       "__type": "NumberCalculationPart"
+      },
+      "mModifiedGameCalculation": "{540bce84}",
+      "__type": "GameCalculationModified"
+     },
+     "{4097817a}": {
+      "mMultiplier": {
+       "mNumber": 0.05,
+       "__type": "NumberCalculationPart"
+      },
+      "mModifiedGameCalculation": "{540bce84}",
+      "__type": "GameCalculationModified"
+     },
+     "{5bade13c}": {
+      "mFormulaParts": [
+       {
+        "mBuffName": "{9d0c98ec}",
+        "mCoefficient": 1,
+        "__type": "BuffCounterByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "ExecuteDamage": {
+      "DamageType": 1,
+      "mFormulaParts": [
+       {
+        "mStartValue": 8,
+        "mEndValue": 30,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "LastHitData": [
+     {
+      "{6166b756}": "PercentHealth1000Cuts",
+      "__type": "LastHitData"
+     },
+     {
+      "{6166b756}": "ExecuteDamage",
+      "Requirements": [
+       {
+        "mInvertResult": true,
+        "DataValue": "ExecuteThreshold",
+        "__type": "AboveHealthPercentCastRequirement"
+       }
+      ],
+      "__type": "LastHitData"
+     }
+    ],
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Gwen/Spells/GwenPAbility/GwenP",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GwenCritAttack": {
+   "ObjectName": "GwenCritAttack",
+   "objectPath": "Characters/Gwen/Spells/GwenCritAttack",
+   "mScriptName": "GwenCritAttack",
+   "mSpell": {
+    "mAffectsStatusFlags": 8,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyAttackDamage": true,
+    "alwaysSnapFacing": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castFrame": 10,
+    "mHitEffectKey": "Gwen_R_Impact_Target_Generic",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GwenBasicAttack3": {
+   "ObjectName": "GwenBasicAttack3",
+   "objectPath": "Characters/Gwen/Spells/GwenBasicAttack3",
+   "mScriptName": "GwenBasicAttack3",
+   "mSpell": {
+    "mAffectsTypeFlags": 4234,
+    "mAlternateName": "PeppySkirmisherBasicAttack2",
+    "spellCastTime": 0.32465,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "alwaysSnapFacing": true,
+    "mTurnSpeedScalar": 5,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10,
+    "missileSpeed": 467,
+    "mMissileEffectName": "doesnotexist.troy",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GwenBasicAttack2": {
+   "ObjectName": "GwenBasicAttack2",
+   "objectPath": "Characters/Gwen/Spells/GwenBasicAttack2",
+   "mScriptName": "GwenBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 4234,
+    "mAlternateName": "PeppySkirmisherBasicAttack2",
+    "spellCastTime": 0.32465,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mTurnSpeedScalar": 5,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10,
+    "missileSpeed": 467,
+    "mMissileEffectName": "doesnotexist.troy",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/GwenQAbility/GwenQ",
+  "Spells/GwenWAbility/GwenW",
+  "Spells/GwenEAbility/GwenE",
+  "Spells/GwenRAbility/GwenR"
+ ],
+ "passiva_ref": "Characters/Gwen/Spells/GwenPAbility",
+ "passiva_chaves": [
+  "Spells/GwenPAbility/GwenP"
+ ]
+}

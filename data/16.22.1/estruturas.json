@@ -1,0 +1,553 @@
+{
+ "turret": {
+  "id": "turret",
+  "registro": {
+   "mCharacterName": "Turret",
+   "targetLaserEffects": {
+    "beamEffectDefinition": {
+     "effectKey": "Turret_BA_LaserSight_beam",
+     "boneName": "joint2",
+     "__type": "SkinCharacterDataProperties_CharacterIdleEffect"
+    },
+    "towerTargetingEffectDefinition": {
+     "effectKey": "Yikes-Tower",
+     "boneName": "joint2",
+     "__type": "SkinCharacterDataProperties_CharacterIdleEffect"
+    },
+    "champTargetingEffectDefinition": {
+     "effectKey": "Yikes-Champ",
+     "boneName": "C_Buffbone_Glb_Head_Loc",
+     "__type": "SkinCharacterDataProperties_CharacterIdleEffect"
+    },
+    "__type": "TargetLaserComponentEffects"
+   },
+   "DisabledTargetLaserEffects": {
+    "beamEffectDefinition": {
+     "effectKey": "LaserSight_Beam_Disabled",
+     "boneName": "joint2",
+     "__type": "SkinCharacterDataProperties_CharacterIdleEffect"
+    },
+    "towerTargetingEffectDefinition": {
+     "effectKey": "Yikes-Tower",
+     "boneName": "joint2",
+     "__type": "SkinCharacterDataProperties_CharacterIdleEffect"
+    },
+    "champTargetingEffectDefinition": {
+     "effectKey": "Yikes-Champ",
+     "boneName": "C_Buffbone_Glb_Head_Loc",
+     "__type": "SkinCharacterDataProperties_CharacterIdleEffect"
+    },
+    "__type": "TargetLaserComponentEffects"
+   },
+   "baseHPModifiable": {
+    "baseValue": 5000,
+    "__type": "ModifiableFloat"
+   },
+   "baseStaticHPRegenModifiable": {
+    "baseValue": 0,
+    "__type": "ModifiableFloat"
+   },
+   "healthBarHeight": 525,
+   "healthBarFullParallax": true,
+   "primaryAbilityResource": {
+    "arType": 7,
+    "{726ee5cd}": {
+     "baseValue": 3,
+     "__type": "ModifiableFloat"
+    },
+    "{c4ab3550}": {
+     "baseValue": 0,
+     "__type": "ModifiableFloat"
+    },
+    "arIncrements": 1,
+    "arMaxSegments": 3,
+    "arHasRegenText": false,
+    "{4eb6a404}": 2,
+    "__type": "AbilityResourceSlotInfo"
+   },
+   "baseDamageModifiable": {
+    "baseValue": 152,
+    "__type": "ModifiableFloat"
+   },
+   "baseArmorModifiable": {
+    "baseValue": 15,
+    "__type": "ModifiableFloat"
+   },
+   "baseMR": {
+    "baseValue": 15,
+    "__type": "ModifiableFloat"
+   },
+   "critDamageMultiplier": 2,
+   "baseMoveSpeedModifiable": {
+    "baseValue": 0,
+    "__type": "ModifiableFloat"
+   },
+   "attackRangeModifiable": {
+    "baseValue": 750,
+    "__type": "ModifiableFloat"
+   },
+   "attackSpeedModifiable": {
+    "baseValue": 0.833,
+    "__type": "ModifiableFloat"
+   },
+   "attackSpeedRatioModifiable": {
+    "baseValue": 0.833,
+    "__type": "ModifiableFloat"
+   },
+   "attackSpeedPerLevelModifiable": {
+    "baseValue": 2.125,
+    "__type": "ModifiableFloat"
+   },
+   "basicAttack": {
+    "mAttackDelayCastOffsetPercent": -0.161,
+    "mAttackProbability": 0,
+    "mAttackName": "TurretBasicAttack",
+    "__type": "AttackSlotData"
+   },
+   "extraAttacks": [
+    {
+     "mAttackProbability": 0,
+     "mAttackName": "TurretBasicAttack2",
+     "__type": "AttackSlotData"
+    },
+    {
+     "mAttackProbability": 0,
+     "mAttackName": "TurretBasicAttack3",
+     "__type": "AttackSlotData"
+    },
+    {
+     "mAttackProbability": 0,
+     "mAttackName": "TurretBasicAttack4",
+     "__type": "AttackSlotData"
+    }
+   ],
+   "expGivenOnDeath": 0,
+   "goldGivenOnDeath": 0,
+   "localGoldGivenOnDeath": 250,
+   "localGoldSplitWithLastHitter": true,
+   "globalGoldGivenOnDeath": 50,
+   "name": "game_character_displayname_TurretNormal",
+   "hitFxScale": 0.5,
+   "selectionHeight": 200,
+   "selectionRadius": 130,
+   "pathfindingCollisionRadius": 125,
+   "overrideGameplayCollisionRadius": 88.4,
+   "unitTagsString": "Structure | Structure_Turret | Structure_Turret_Outer",
+   "characterToolData": {
+    "mapAIPresence": {
+     "0": {
+      "__type": "ToolAiPresence"
+     },
+     "1": {
+      "__type": "ToolAiPresence"
+     },
+     "2": {
+      "__type": "ToolAiPresence"
+     }
+    },
+    "description": "game_character_description_RootTurret",
+    "__type": "CharacterToolData"
+   },
+   "mClientSideItemInventory": [
+    "Items/1500",
+    "Items/1502",
+    "Items/1503",
+    "Items/1501",
+    "Items/1515",
+    "Items/1517"
+   ],
+   "occludedUnitSelectableDistance": 500,
+   "__type": "CharacterRecord"
+  },
+  "objetos": {
+   "Characters/Turret/Spells/TurretBasicAttack": {
+    "ObjectName": "TurretBasicAttack",
+    "objectPath": "Characters/Turret/Spells/TurretBasicAttack",
+    "mScriptName": "TurretBasicAttack",
+    "mSpell": {
+     "mAffectsTypeFlags": 5375,
+     "mAlternateName": "OrderTurretNormalBasicAttack",
+     "bHaveHitEffect": true,
+     "castConeDistance": 100,
+     "mMissileSpec": {
+      "movementComponent": {
+       "mTargetHeightAugment": 100,
+       "mOffsetInitialTargetHeight": 100,
+       "mStartBoneName": "joint2",
+       "mSpeed": 1200,
+       "__type": "FixedSpeedMovement"
+      },
+      "verticalFacing": {
+       "__type": "VeritcalFacingMatchVelocity"
+      },
+      "behaviors": [
+       {
+        "__type": "CastOnMovementComplete"
+       },
+       {
+        "__type": "DestroyOnMovementComplete"
+       }
+      ],
+      "__type": "MissileSpecification"
+     },
+     "mCastType": 1,
+     "castFrame": 4.95,
+     "missileSpeed": 1200,
+     "mMissileEffectKey": "Turret_BA",
+     "mMissileEffectPlayerKey": "{f118ff29}",
+     "mHitEffectKey": "Turret_BA_Tar_Champ_02",
+     "bHaveHitBone": true,
+     "mHitBoneName": "C_Buffbone_Glb_Chest_Loc",
+     "__type": "SpellDataResource"
+    },
+    "__type": "SpellObject"
+   },
+   "Characters/Turret/Spells/TurretGoldRewardParticleMissile": {
+    "ObjectName": "TurretGoldRewardParticleMissile",
+    "objectPath": "Characters/Turret/Spells/TurretGoldRewardParticleMissile",
+    "mScriptName": "TurretGoldRewardParticleMissile",
+    "mSpell": {
+     "flags": 4,
+     "mAffectsTypeFlags": 7375,
+     "spellCastTime": 0,
+     "spellTotalTime": 0,
+     "cooldownTime": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "Cooldown": {
+      "values": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "{0a3e0478}": 0,
+      "__type": "{0a0eddc9}"
+     },
+     "mDoNotNeedToFaceTarget": true,
+     "castRange": [
+      2500,
+      2500,
+      2500,
+      2500,
+      2500,
+      2500,
+      2500
+     ],
+     "castConeDistance": 100,
+     "mMissileSpec": {
+      "movementComponent": {
+       "mTargetHeightAugment": 100,
+       "mOffsetInitialTargetHeight": 100,
+       "mStartBoneName": "",
+       "mSpeed": 1700,
+       "__type": "FixedSpeedMovement"
+      },
+      "heightSolver": {
+       "mGravity": 3000,
+       "__type": "GravityHeightSolver"
+      },
+      "verticalFacing": {
+       "__type": "VeritcalFacingMatchVelocity"
+      },
+      "behaviors": [
+       {
+        "__type": "CastOnMovementComplete"
+       },
+       {
+        "__type": "DestroyOnMovementComplete"
+       }
+      ],
+      "__type": "MissileSpecification"
+     },
+     "mCastType": 1,
+     "castFrame": 1,
+     "missileSpeed": 1700,
+     "mMissileEffectKey": "PreSeason_Turret_Shield_Gold_Reward_Mis",
+     "mLookAtPolicy": 0,
+     "__type": "SpellDataResource"
+    },
+    "__type": "SpellObject"
+   },
+   "Characters/Turret/Spells/TurretBasicAttack3": {
+    "ObjectName": "TurretBasicAttack3",
+    "objectPath": "Characters/Turret/Spells/TurretBasicAttack3",
+    "mScriptName": "TurretBasicAttack3",
+    "mSpell": {
+     "mAffectsTypeFlags": 5375,
+     "mAlternateName": "OrderTurretNormalBasicAttack",
+     "bHaveHitEffect": true,
+     "castConeDistance": 100,
+     "mMissileSpec": {
+      "movementComponent": {
+       "mTargetHeightAugment": 100,
+       "mOffsetInitialTargetHeight": 100,
+       "mStartBoneName": "joint2",
+       "mSpeed": 1200,
+       "__type": "FixedSpeedMovement"
+      },
+      "verticalFacing": {
+       "__type": "VeritcalFacingMatchVelocity"
+      },
+      "behaviors": [
+       {
+        "__type": "CastOnMovementComplete"
+       },
+       {
+        "__type": "DestroyOnMovementComplete"
+       }
+      ],
+      "__type": "MissileSpecification"
+     },
+     "mCastType": 1,
+     "castFrame": 4.95,
+     "missileSpeed": 1200,
+     "mMissileEffectKey": "Turret_BA_Champ_03",
+     "mMissileEffectPlayerKey": "Turret_BA_Champ_03",
+     "mHitEffectKey": "Turret_BA_Tar_Champ_03",
+     "bHaveHitBone": true,
+     "mHitBoneName": "C_Buffbone_Glb_Chest_Loc",
+     "__type": "SpellDataResource"
+    },
+    "__type": "SpellObject"
+   },
+   "Characters/Turret/Spells/TurretBasicAttack2": {
+    "ObjectName": "TurretBasicAttack2",
+    "objectPath": "Characters/Turret/Spells/TurretBasicAttack2",
+    "mScriptName": "TurretBasicAttack2",
+    "mSpell": {
+     "mAffectsTypeFlags": 5375,
+     "mAlternateName": "OrderTurretNormalBasicAttack",
+     "bHaveHitEffect": true,
+     "castConeDistance": 100,
+     "mMissileSpec": {
+      "movementComponent": {
+       "mTargetHeightAugment": 100,
+       "mOffsetInitialTargetHeight": 100,
+       "mStartBoneName": "joint2",
+       "mSpeed": 1200,
+       "__type": "FixedSpeedMovement"
+      },
+      "verticalFacing": {
+       "__type": "VeritcalFacingMatchVelocity"
+      },
+      "behaviors": [
+       {
+        "__type": "CastOnMovementComplete"
+       },
+       {
+        "__type": "DestroyOnMovementComplete"
+       }
+      ],
+      "__type": "MissileSpecification"
+     },
+     "mCastType": 1,
+     "castFrame": 4.95,
+     "missileSpeed": 1200,
+     "mMissileEffectKey": "Turret_BA_Champ_02",
+     "mMissileEffectPlayerKey": "Turret_BA_Champ_02",
+     "mHitEffectKey": "Turret_BA_Tar_Champ_02",
+     "bHaveHitBone": true,
+     "mHitBoneName": "C_Buffbone_Glb_Chest_Loc",
+     "__type": "SpellDataResource"
+    },
+    "__type": "SpellObject"
+   },
+   "Characters/Turret/Spells/TurretBasicAttack4": {
+    "ObjectName": "TurretBasicAttack4",
+    "objectPath": "Characters/Turret/Spells/TurretBasicAttack4",
+    "mScriptName": "TurretBasicAttack4",
+    "mSpell": {
+     "mAffectsTypeFlags": 5375,
+     "mAlternateName": "OrderTurretNormalBasicAttack",
+     "bHaveHitEffect": true,
+     "castConeDistance": 100,
+     "mMissileSpec": {
+      "movementComponent": {
+       "mTargetHeightAugment": 100,
+       "mOffsetInitialTargetHeight": 100,
+       "mStartBoneName": "joint2",
+       "mSpeed": 1200,
+       "__type": "FixedSpeedMovement"
+      },
+      "verticalFacing": {
+       "__type": "VeritcalFacingMatchVelocity"
+      },
+      "behaviors": [
+       {
+        "__type": "CastOnMovementComplete"
+       },
+       {
+        "__type": "DestroyOnMovementComplete"
+       }
+      ],
+      "__type": "MissileSpecification"
+     },
+     "mCastType": 1,
+     "castFrame": 4.95,
+     "missileSpeed": 1200,
+     "mMissileEffectKey": "Turret_BA_Champ_04",
+     "mMissileEffectPlayerKey": "Turret_BA_Champ_04",
+     "mHitEffectKey": "Turret_BA_Tar_Champ_04",
+     "bHaveHitBone": true,
+     "mHitBoneName": "C_Buffbone_Glb_Chest_Loc",
+     "__type": "SpellDataResource"
+    },
+    "__type": "SpellObject"
+   },
+   "Characters/Turret/Spells/NexusTurretBasicAttack": {
+    "ObjectName": "NexusTurretBasicAttack",
+    "objectPath": "Characters/Turret/Spells/NexusTurretBasicAttack",
+    "mScriptName": "NexusTurretBasicAttack",
+    "mSpell": {
+     "mAffectsTypeFlags": 5375,
+     "mAlternateName": "OrderTurretNormalBasicAttack",
+     "bHaveHitEffect": true,
+     "castConeDistance": 100,
+     "mMissileSpec": {
+      "movementComponent": {
+       "mTargetHeightAugment": 100,
+       "mOffsetInitialTargetHeight": 100,
+       "mStartBoneName": "joint2",
+       "mSpeed": 1200,
+       "__type": "FixedSpeedMovement"
+      },
+      "verticalFacing": {
+       "__type": "VeritcalFacingMatchVelocity"
+      },
+      "behaviors": [
+       {
+        "__type": "CastOnMovementComplete"
+       },
+       {
+        "__type": "DestroyOnMovementComplete"
+       }
+      ],
+      "__type": "MissileSpecification"
+     },
+     "mCastType": 1,
+     "castFrame": 4.95,
+     "missileSpeed": 1200,
+     "mMissileEffectKey": "Turret_BA",
+     "mMissileEffectPlayerKey": "{f118ff29}",
+     "mHitEffectKey": "Turret_BA_Tar",
+     "bHaveHitBone": true,
+     "mHitBoneName": "C_Buffbone_Glb_Chest_Loc",
+     "__type": "SpellDataResource"
+    },
+    "__type": "SpellObject"
+   }
+  },
+  "src": "riot-cdragon"
+ },
+ "inhibitor": {
+  "id": "inhibitor",
+  "registro": {
+   "mCharacterName": "Inhibitor",
+   "baseHPModifiable": {
+    "baseValue": 4000,
+    "__type": "ModifiableFloat"
+   },
+   "baseStaticHPRegenModifiable": {
+    "baseValue": 15,
+    "__type": "ModifiableFloat"
+   },
+   "healthBarHeight": 370,
+   "healthBarFullParallax": true,
+   "primaryAbilityResource": {
+    "arType": 0,
+    "__type": "AbilityResourceSlotInfo"
+   },
+   "attackSpeedRatioModifiable": {
+    "baseValue": 0,
+    "__type": "ModifiableFloat"
+   },
+   "name": "game_character_displayname_Inhibitor",
+   "pathfindingCollisionRadius": 213.75,
+   "unitTagsString": "Structure | Structure_Inhibitor",
+   "characterToolData": {
+    "mapAIPresence": {
+     "0": {
+      "__type": "ToolAiPresence"
+     },
+     "1": {
+      "__type": "ToolAiPresence"
+     },
+     "2": {
+      "__type": "ToolAiPresence"
+     }
+    },
+    "__type": "CharacterToolData"
+   },
+   "__type": "CharacterRecord"
+  },
+  "objetos": {},
+  "src": "riot-cdragon"
+ },
+ "nexus": {
+  "id": "nexus",
+  "registro": {
+   "mCharacterName": "Nexus",
+   "baseHPModifiable": {
+    "baseValue": 5500,
+    "__type": "ModifiableFloat"
+   },
+   "baseStaticHPRegenModifiable": {
+    "baseValue": 20,
+    "__type": "ModifiableFloat"
+   },
+   "healthBarHeight": 500,
+   "healthBarFullParallax": true,
+   "primaryAbilityResource": {
+    "arType": 0,
+    "__type": "AbilityResourceSlotInfo"
+   },
+   "attackSpeedRatioModifiable": {
+    "baseValue": 0,
+    "__type": "ModifiableFloat"
+   },
+   "perceptionBubbleRadius": 1350,
+   "name": "game_character_displayname_Nexus",
+   "selectionHeight": 117,
+   "selectionRadius": 397.22198,
+   "pathfindingCollisionRadius": 304,
+   "unitTagsString": "Structure | Structure_Nexus",
+   "characterToolData": {
+    "mapAIPresence": {
+     "0": {
+      "__type": "ToolAiPresence"
+     },
+     "1": {
+      "__type": "ToolAiPresence"
+     },
+     "2": {
+      "__type": "ToolAiPresence"
+     }
+    },
+    "__type": "CharacterToolData"
+   },
+   "{6854087e}": [
+    {
+     "{e4f7105d}": "Maps/Shipping/Map12/Modes/KIWI",
+     "{cf19cb5d}": {
+      "baseHP": -2500,
+      "__type": "{770f7888}"
+     },
+     "__type": "{47f13ab0}"
+    }
+   ],
+   "__type": "CharacterRecord"
+  },
+  "objetos": {},
+  "src": "riot-cdragon"
+ }
+}

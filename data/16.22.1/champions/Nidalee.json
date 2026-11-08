@@ -1,0 +1,2968 @@
+{
+ "id": "Nidalee",
+ "key": 76,
+ "nome": "Nidalee",
+ "titulo": "a Caçadora Bestial",
+ "funcoes": [
+  "Assassin",
+  "Mage"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 5,
+  "defense": 4,
+  "magic": 7,
+  "difficulty": 8
+ },
+ "stats_ddragon": {
+  "hp": 610,
+  "hpperlevel": 109,
+  "mp": 295,
+  "mpperlevel": 45,
+  "movespeed": 335,
+  "armor": 32,
+  "armorperlevel": 5,
+  "spellblock": 30,
+  "spellblockperlevel": 1.45,
+  "attackrange": 525,
+  "hpregen": 6,
+  "hpregenperlevel": 0.6,
+  "mpregen": 6,
+  "mpregenperlevel": 0.8,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 58,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 3.22,
+  "attackspeed": 0.638
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Espreitar",
+  "descricao": "Mover-se pelos arbustos aumenta a Velocidade de Movimento de Nidalee em 10% por 2 segundos, aumentando para 30% em direção a campeões inimigos visíveis dentre 1400 de alcance.<br>Atingir Campeões ou monstros com Arremessar Lança ou Arapuca aciona uma <font color='#FFF673'>Caçada</font>, que concede <font color='#ee91d7'>Visão Mágica</font> deles por 4 segundos. Durante esse tempo, Nidalee recebe 10% de Velocidade de Movimento (aumentando para 30% em direção ao alvo <font color='#FFF673'>Caçado</font>) e o uso de Bote ou Investida contra o alvo é aprimorado."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "JavelinToss",
+   "nome": "Arremessar Lança / Bote",
+   "descricao": "Na forma humana, Nidalee arremessa uma lança perfurante em seu alvo, que acumula dano enquanto está no ar. Como puma, seu próximo ataque irá tentar ferir o inimigo de maneira letal, causando dano inversamente proporcional à Vida do alvo.",
+   "tooltip": "<keywordMajor>Forma Humana:</keywordMajor> Nidalee arremessa uma lança, causando <magicDamage>{{ humanminimumdamage }} de Dano Mágico</magicDamage>, aumentando até <magicDamage>{{ humanmaximumdamage }} de Dano Mágico</magicDamage> com base na distância percorrida.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    6,
+    6,
+    6,
+    6,
+    6
+   ],
+   "custo": [
+    50,
+    55,
+    60,
+    65,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1500,
+    1500,
+    1500,
+    1500,
+    1500
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "70/90/110/130/150",
+    "227.5/292.5/357.5/422.5/487.5",
+    "0",
+    "0",
+    "0.4",
+    "1.2",
+    "525",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "Bushwhack",
+   "nome": "Arapuca / Investida",
+   "descricao": "Na forma humana, Nidalee posiciona uma armadilha para seus oponentes descuidados que, quando ativada, causa dano e os revela. Em forma de puma, ela salta em uma direção, causando dano na área em que aterrissar.",
+   "tooltip": "<keywordMajor>Forma Humana:</keywordMajor> Nidalee posiciona uma armadilha invisível por 2min. Quando um inimigo passa por cima da armadilha, ele sofre <magicDamage>{{ damagepersecond }} de Dano Mágico</magicDamage> por segundo durante {{ dotduration }}s.<br /><br />Nidalee pode ativar até {{ maxtraps }} armadilhas ao mesmo tempo.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    13,
+    12,
+    11,
+    10,
+    9
+   ],
+   "custo": [
+    30,
+    35,
+    40,
+    45,
+    50
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    900,
+    900,
+    900,
+    900,
+    900
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "4",
+    "13/12/11/10/9",
+    "10/20/30/40/50",
+    "120",
+    "40/80/120/160/200",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "PrimalSurge",
+   "nome": "Ímpeto Selvagem / Patada",
+   "descricao": "Na forma humana, Nidalee canaliza o espírito do puma para curar seus aliados e lhes concede Velocidade de Ataque por um curto período de tempo. Em forma de puma, ela golpeia em uma direção, causando dano aos inimigos à sua frente.",
+   "tooltip": "<keywordMajor>Forma Humana:</keywordMajor> Nidalee restaura <healing>{{ totalhealing }} de Vida</healing>, aumentado para até <healing>{{ maxhealing }}</healing> com base na Vida perdida, e concede <attackSpeed>{{ bonusas*100 }}% de Velocidade de Ataque</attackSpeed> por {{ asduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    12,
+    12,
+    12,
+    12,
+    12
+   ],
+   "custo": [
+    50,
+    55,
+    60,
+    65,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    900,
+    900,
+    900,
+    900,
+    900
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "AspectOfTheCougar",
+   "nome": "Aspecto do Puma",
+   "descricao": "Nidalee transforma-se em um puma, recebendo novas habilidades.",
+   "tooltip": "<spellPassive>Passivo:</spellPassive> enquanto estiver na <keywordMajor>Forma Humana</keywordMajor>, aplicar <keywordMajor>Caça</keywordMajor> redefine o Tempo de Recarga da Habilidade.<br /><br /><keywordMajor>Forma Humana:</keywordMajor> Nidalee se transforma na <keywordMajor>Forma de Puma</keywordMajor>, recebendo alcance corpo a corpo nos Ataques e substituindo suas Habilidades ativas.<br /><br /><keywordMajor>Forma de Puma:</keywordMajor> Nidalee se transforma na <keywordMajor>Forma Humana</keywordMajor>, recebendo alcance à distância nos Ataques e substituindo suas Habilidades ativas.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    3,
+    3,
+    3,
+    3
+   ],
+   "custo": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "tipo_custo": "Sem custo",
+   "alcance": [
+    20,
+    20,
+    20,
+    20
+   ],
+   "nivel_max": 4,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "6",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 610,
+  "vida_nivel": 109,
+  "regen_vida": 1.2,
+  "regen_vida_nivel": 0.12,
+  "dano": 58,
+  "dano_nivel": 3.5,
+  "armadura": 32,
+  "armadura_nivel": 5,
+  "rm": 30,
+  "rm_nivel": 1.45,
+  "velocidade_mov": 335,
+  "alcance_ataque": 525,
+  "vel_ataque_base": 0.638,
+  "vel_ataque_razao": 0.638,
+  "vel_ataque_nivel": 3.22,
+  "dano_critico": 2,
+  "raio_selecao": 110,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+   "mAttackProbability": 0.5,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+    "mAttackProbability": 0.5,
+    "mAttackName": "NidaleeBasicAttack2",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+    "mAttackName": "NidaleeCougarBasicAttack",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+    "mAttackName": "NidaleeCougarBasicAttack2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+    "mAttackName": "NidaleeCritAttack",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "NidaleeCougarCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Nidalee/Spells/JavelinTossAbility/JavelinToss",
+  "Characters/Nidalee/Spells/BushwhackAbility/Bushwhack",
+  "Characters/Nidalee/Spells/PrimalSurgeAbility/PrimalSurge",
+  "Characters/Nidalee/Spells/AspectOfTheCougarAbility/AspectOfTheCougar"
+ ],
+ "abilities_ref": [
+  "Characters/Nidalee/Spells/AspectOfTheCougarAbility",
+  "Characters/Nidalee/Spells/JavelinTossAbility",
+  "Characters/Nidalee/Spells/BushwhackAbility",
+  "Characters/Nidalee/Spells/PrimalSurgeAbility",
+  "Characters/Nidalee/Spells/NidaleePassiveHuntAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/Takedown": {
+   "ObjectName": "Takedown",
+   "objectPath": "Characters/Nidalee/Spells/Takedown",
+   "mScriptName": "Takedown",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_AttackReset"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       75,
+       75,
+       75,
+       75,
+       75,
+       75,
+       75
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       5,
+       5,
+       30,
+       55,
+       80,
+       80,
+       80
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       10,
+       10,
+       67.5,
+       137.5,
+       220,
+       220,
+       220
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1,
+       1,
+       1.25,
+       1.5,
+       1.75,
+       1.75,
+       1.75
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "TotalADRatio",
+      "values": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BuffDuration",
+      "values": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusAttackRange",
+      "values": [
+       75,
+       75,
+       75,
+       75,
+       75,
+       75,
+       75
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "TotalADRatio",
+        "values": [
+         1.2,
+         1.2,
+         1.2,
+         1.2,
+         1.2,
+         1.2,
+         1.2
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mCoefficient": 0.75,
+    "mCoefficient2": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6
+     ],
+     "{0a3e0478}": 6,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "mSpellRevealsChampion": false,
+    "bIsToggleSpell": true,
+    "castRange": [
+     500,
+     500,
+     500,
+     500,
+     500,
+     500,
+     500
+    ],
+    "castRadius": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castConeDistance": 100,
+    "castFrame": 5.25,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Takedown",
+    "mBuffAttributeFlag": 32,
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSubparts": [
+        {
+         "SourceObject": "Characters/Nidalee/Spells/AspectOfTheCougarAbility/AspectOfTheCougar",
+         "{3de6ce2d}": "TotalTakedownDamage",
+         "__type": "{ba007871}"
+        },
+        {
+         "{a8cb9c14}": true,
+         "mStat": 15,
+         "{a519b194}": "Characters/Nidalee/Spells/AspectOfTheCougarAbility/AspectOfTheCougar",
+         "DataValue": "TakedownDamageAmp",
+         "__type": "{1d452085}"
+        }
+       ],
+       "__type": "SumOfSubPartsCalculationPart"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 128,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 512,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/JavelinTossAbility/JavelinToss": {
+   "ObjectName": "JavelinToss",
+   "objectPath": "Characters/Nidalee/Spells/JavelinTossAbility/JavelinToss",
+   "mScriptName": "JavelinToss",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "JavelinToss",
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_SignatureSpell",
+     "Trait_Ranged_StopsFirstHit"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       70,
+       90,
+       110,
+       130,
+       150,
+       170
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       150,
+       227.5,
+       292.5,
+       357.5,
+       422.5,
+       487.5,
+       555
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1.2,
+       1.2,
+       1.2,
+       1.2,
+       1.2,
+       1.2,
+       1.2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       525,
+       525,
+       525,
+       525,
+       525,
+       525,
+       525
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "TooltipCougarMinimumDamage",
+      "values": [
+       -20,
+       5,
+       30,
+       55,
+       80,
+       105,
+       130
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SpearMinimumAPRatio",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SpearMinimumDamage",
+      "values": [
+       50,
+       70,
+       90,
+       110,
+       130,
+       150,
+       170
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SpearMaximumDamage",
+      "values": [
+       162.5,
+       227.5,
+       292.5,
+       357.5,
+       422.5,
+       487.5,
+       552.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DamageMulti",
+      "values": [
+       3.25,
+       3.25,
+       3.25,
+       3.25,
+       3.25,
+       3.25,
+       3.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RangeThreshold",
+      "values": [
+       525,
+       525,
+       525,
+       525,
+       525,
+       525,
+       525
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "SpearMinimumAPRatio",
+        "values": [
+         0.8,
+         0.8,
+         0.8,
+         0.8,
+         0.8,
+         0.8,
+         0.8
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "SpearMaximumDamage",
+        "values": [
+         200,
+         280,
+         360,
+         440,
+         520,
+         600,
+         680
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "DamageMulti",
+        "values": [
+         4,
+         4,
+         4,
+         4,
+         4,
+         4,
+         4
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "SWIFTPLAY": {
+      "SpellDataValues": [
+       {
+        "name": "SpearMinimumAPRatio",
+        "values": [
+         0.55,
+         0.55,
+         0.55,
+         0.55,
+         0.55,
+         0.55,
+         0.55
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "SpearMinimumDamage",
+        "values": [
+         45,
+         70,
+         95,
+         120,
+         145,
+         170,
+         195
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "SpearMaximumDamage",
+        "values": [
+         135,
+         210,
+         285,
+         360,
+         435,
+         510,
+         585
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "HumanMinimumDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "SpearMinimumDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "SpearMinimumAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "HumanMaximumDamage": {
+      "mMultiplier": {
+       "mDataValue": "DamageMulti",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mModifiedGameCalculation": "HumanMinimumDamage",
+      "__type": "GameCalculationModified"
+     },
+     "{38f95809}": {
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mDataValue": "TooltipCougarMinimumDamage",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 1.5,
+    "mCoefficient2": 0.5,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6
+     ],
+     "{0a3e0478}": 6,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "alwaysSnapFacing": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castRangeDisplayOverride": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castRadius": [
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 40,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": -50,
+      "mStartBoneName": "R_Buffbone_GLB_Hand_Loc",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1300,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.5,
+    "missileSpeed": 1300,
+    "mMissileEffectKey": "Nidalee_Q_Mis",
+    "mLineWidth": 40,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "mana": [
+     50,
+     55,
+     60,
+     65,
+     70,
+     75
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "HumanMaximumDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 32768,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mNumber": 40,
+         "__type": "NumberCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PrimalSurgeAbility/PrimalSurge": {
+   "ObjectName": "PrimalSurge",
+   "objectPath": "Characters/Nidalee/Spells/PrimalSurgeAbility/PrimalSurge",
+   "mScriptName": "PrimalSurge",
+   "mSpell": {
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "PositiveEffect_Boon",
+     "Trait_ActiveHeal"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseHeal",
+      "values": [
+       25,
+       50,
+       75,
+       100,
+       125,
+       150,
+       175
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxHealMult",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxHealThreshold",
+      "values": [
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusAS",
+      "values": [
+       0.1,
+       0.2,
+       0.3,
+       0.4,
+       0.5,
+       0.6,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ASDuration",
+      "values": [
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "BaseHeal",
+        "values": [
+         30,
+         60,
+         90,
+         120,
+         150,
+         180,
+         210
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "BonusAS",
+        "values": [
+         0.3,
+         0.4,
+         0.5,
+         0.6,
+         0.7,
+         0.8,
+         0.9
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalHealing": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseHeal",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.35,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MaxHealing": {
+      "mMultiplier": {
+       "mSubparts": [
+        {
+         "mNumber": 1,
+         "__type": "NumberCalculationPart"
+        },
+        {
+         "mDataValue": "MaxHealMult",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "SumOfSubPartsCalculationPart"
+      },
+      "mModifiedGameCalculation": "TotalHealing",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     12,
+     12,
+     12,
+     12,
+     12,
+     12,
+     12
+    ],
+    "Cooldown": {
+     "values": [
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12
+     ],
+     "{0a3e0478}": 12,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     900,
+     900,
+     900,
+     900,
+     900,
+     900,
+     900
+    ],
+    "castRadius": [
+     350,
+     350,
+     350,
+     350,
+     350,
+     350,
+     350
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 0,
+    "mana": [
+     50,
+     55,
+     60,
+     65,
+     70,
+     75
+    ],
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_PrimalSurge",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 16,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSpellCalculationKey": "MaxHealing",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NidaleeBasicAttack2": {
+   "ObjectName": "NidaleeBasicAttack2",
+   "objectPath": "Characters/Nidalee/Spells/NidaleeBasicAttack2",
+   "mScriptName": "NidaleeBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "NidaleeBasicAttack2",
+    "spellCastTime": 0.3821,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyAttackDamage": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_hand",
+      "mSpeed": 2500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 17.995,
+    "missileSpeed": 2500,
+    "mMissileEffectKey": "Nidalee_BA_Mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Nidalee_BA_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AspectOfTheCougarAbility/AspectOfTheCougar": {
+   "ObjectName": "AspectOfTheCougar",
+   "objectPath": "Characters/Nidalee/Spells/AspectOfTheCougarAbility/AspectOfTheCougar",
+   "mScriptName": "AspectOfTheCougar",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_Transformation",
+     "Trait_Ultimate",
+     "Trait_RecastOrReplaceSpell"
+    ],
+    "mEffectAmount": [
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "PassivePercentMS",
+      "values": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TakedownBaseDamage",
+      "values": [
+       -20,
+       5,
+       30,
+       55,
+       80,
+       105,
+       130
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TakedownADRatio",
+      "values": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TakedownAPRatio",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TakedownDamageAmp",
+      "values": [
+       0.75,
+       1,
+       1.25,
+       1.5,
+       1.75,
+       2,
+       2.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PounceCooldown",
+      "values": [
+       3.5,
+       3,
+       2.5,
+       2,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PounceDamage",
+      "values": [
+       10,
+       50,
+       90,
+       130,
+       170,
+       210,
+       250
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PounceADRatio",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PounceAPRatio",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SwipeDamage",
+      "values": [
+       10,
+       70,
+       130,
+       190,
+       250,
+       310,
+       370
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SwipeADRatio",
+      "values": [
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SwipeAPRatio",
+      "values": [
+       0.55,
+       0.55,
+       0.55,
+       0.55,
+       0.55,
+       0.55,
+       0.55
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "PassivePercentMS",
+        "values": [
+         20,
+         20,
+         20,
+         20,
+         20,
+         20,
+         20
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "SwipeADRatio",
+        "values": [
+         1,
+         1,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "TakedownADRatio",
+        "values": [
+         1.2,
+         1.2,
+         1.2,
+         1.2,
+         1.2,
+         1.2,
+         1.2
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "SwipeAPRatio",
+        "values": [
+         0.75,
+         0.75,
+         0.75,
+         0.75,
+         0.75,
+         0.75,
+         0.75
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalPounceDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "PounceDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "PounceADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "PounceAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalSwipeDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "SwipeDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "SwipeADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "SwipeAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalTakedownDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "TakedownBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mDataValue": "TakedownADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "TakedownAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.75,
+    "mCoefficient2": 0.4,
+    "spellCastTime": 0.5287,
+    "cooldownTime": [
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3
+    ],
+    "Cooldown": {
+     "values": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+     ],
+     "{0a3e0478}": 3,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "missileSpeed": 943.79999,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NidaleeCougarTakedownAttack": {
+   "ObjectName": "NidaleeCougarTakedownAttack",
+   "objectPath": "Characters/Nidalee/Spells/NidaleeCougarTakedownAttack",
+   "mScriptName": "NidaleeCougarTakedownAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mCoefficient2": 1,
+    "spellCastTime": 0.34615,
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "castConeDistance": 100,
+    "castFrame": 11,
+    "mAfterEffectName": "doesnotexist.troy",
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/Prowl": {
+   "ObjectName": "Prowl",
+   "objectPath": "Characters/Nidalee/Spells/Prowl",
+   "mScriptName": "Prowl",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Prowl",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PounceEnabler": {
+   "ObjectName": "PounceEnabler",
+   "objectPath": "Characters/Nidalee/Spells/PounceEnabler",
+   "mScriptName": "PounceEnabler",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/Swipe": {
+   "ObjectName": "Swipe",
+   "objectPath": "Characters/Nidalee/Spells/Swipe",
+   "mScriptName": "Swipe",
+   "mSpell": {
+    "flags": 32,
+    "mAffectsTypeFlags": 6154,
+    "mEffectAmount": [
+     {
+      "value": [
+       80,
+       80,
+       140,
+       200,
+       260,
+       260,
+       260
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mCoefficient": 0.5,
+    "mCoefficient2": 0.45,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6
+     ],
+     "{0a3e0478}": 6,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     350,
+     350,
+     350,
+     350,
+     350,
+     350,
+     350
+    ],
+    "castConeAngle": 90,
+    "castConeDistance": 310,
+    "castFrame": 22,
+    "missileSpeed": 0,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Cone"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "SourceObject": "Characters/Nidalee/Spells/AspectOfTheCougarAbility/AspectOfTheCougar",
+       "{3de6ce2d}": "TotalSwipeDamage",
+       "__type": "{ba007871}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BushwhackAbility/Bushwhack": {
+   "ObjectName": "Bushwhack",
+   "objectPath": "Characters/Nidalee/Spells/BushwhackAbility/Bushwhack",
+   "mScriptName": "Bushwhack",
+   "mSpell": {
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_Trap",
+     "Trait_DamageAbility",
+     "Trait_DoT",
+     "Trait_AttackBuff_Duration",
+     "Trait_Target_Area",
+     "Trait_Low_Damage"
+    ],
+    "mEffectAmount": [
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       14,
+       13,
+       12,
+       11,
+       10,
+       9,
+       9
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0,
+       10,
+       20,
+       30,
+       40,
+       50,
+       60
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       120,
+       120,
+       120,
+       120,
+       120,
+       120,
+       120
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0,
+       40,
+       80,
+       120,
+       160,
+       200,
+       240
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "ModesBonusMaxTraps",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DotDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamagePerTick",
+      "values": [
+       0,
+       10,
+       20,
+       30,
+       40,
+       50,
+       60
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TrapLifetime",
+      "values": [
+       120,
+       120,
+       120,
+       120,
+       120,
+       120,
+       120
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TotalFlatDamage",
+      "values": [
+       0,
+       40,
+       80,
+       120,
+       160,
+       200,
+       240
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "ModesBonusMaxTraps",
+        "values": [
+         90,
+         90,
+         90,
+         90,
+         90,
+         90,
+         90
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       8,
+       8,
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "MaxTraps": {
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 4,
+        "mBreakpoints": [
+         {
+          "mLevel": 6,
+          "mAdditionalBonusAtThisLevel": 2,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 11,
+          "mAdditionalBonusAtThisLevel": 2,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 16,
+          "mAdditionalBonusAtThisLevel": 2,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       },
+       {
+        "mDataValue": "ModesBonusMaxTraps",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "DamagePerSecond": {
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamagePerTick",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.05,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.05,
+    "mCoefficient2": 0.2,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     14,
+     13,
+     12,
+     11,
+     10,
+     9,
+     9
+    ],
+    "Cooldown": {
+     "values": [
+      14,
+      13,
+      12,
+      11,
+      10,
+      9,
+      9
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mMaxAmmo": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "mAmmoUsed": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "mAmmoRechargeTime": [
+     -1,
+     -1,
+     -1,
+     -1,
+     -1,
+     -1,
+     -1
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     900,
+     900,
+     900,
+     900,
+     900,
+     900,
+     900
+    ],
+    "castRadius": [
+     80,
+     80,
+     80,
+     80,
+     80,
+     80,
+     80
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1450,
+    "mana": [
+     30,
+     35,
+     40,
+     45,
+     50,
+     55
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Bushwhack",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mPart1": {
+        "mSpellCalculationKey": "DamagePerSecond",
+        "__type": "{f3cbe7b2}"
+       },
+       "mPart2": {
+        "mDataValue": "DotDuration",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       "__type": "ProductOfSubPartsCalculationPart"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/BushwhackAbility/BushwhackDamage": {
+   "ObjectName": "BushwhackDamage",
+   "objectPath": "Characters/Nidalee/Spells/BushwhackAbility/BushwhackDamage",
+   "mScriptName": "BushwhackDamage",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_BushwhackDamage",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NidaleeTakedownAttack": {
+   "ObjectName": "NidaleeTakedownAttack",
+   "objectPath": "Characters/Nidalee/Spells/NidaleeTakedownAttack",
+   "mScriptName": "NidaleeTakedownAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7423,
+    "mAlternateName": "Takedown",
+    "mCoefficient2": 1,
+    "spellCastTime": 0.375,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "castRangeUseBoundingBoxes": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     125,
+     125,
+     125,
+     125,
+     125,
+     125,
+     125
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 20,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NidaleePassiveHuntAbility/NidaleePassiveHunted": {
+   "ObjectName": "NidaleePassiveHunted",
+   "objectPath": "Characters/Nidalee/Spells/NidaleePassiveHuntAbility/NidaleePassiveHunted",
+   "mScriptName": "NidaleePassiveHunted",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_NidaleePassiveHunted",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NidaleePassiveHuntAbility/NidaleePassiveHunting": {
+   "ObjectName": "NidaleePassiveHunting",
+   "objectPath": "Characters/Nidalee/Spells/NidaleePassiveHuntAbility/NidaleePassiveHunting",
+   "mScriptName": "NidaleePassiveHunting",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_NidaleePassiveHunting",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NidaleePassiveHuntAbility/NidaleePassiveHunt": {
+   "ObjectName": "NidaleePassiveHunt",
+   "objectPath": "Characters/Nidalee/Spells/NidaleePassiveHuntAbility/NidaleePassiveHunt",
+   "mScriptName": "NidaleePassiveHunt",
+   "mSpell": {
+    "mUseMinimapTargeting": true,
+    "castRange": [
+     1400,
+     1400,
+     1400,
+     1400,
+     1400,
+     1400,
+     1400
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_NidaleePassiveHunt",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NidaleePassiveHuntAbility/BrushPassive": {
+   "ObjectName": "BrushPassive",
+   "objectPath": "Characters/Nidalee/Spells/NidaleePassiveHuntAbility/BrushPassive",
+   "mScriptName": "BrushPassive",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_BrushPassive",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PounceBlocker": {
+   "ObjectName": "PounceBlocker",
+   "objectPath": "Characters/Nidalee/Spells/PounceBlocker",
+   "mScriptName": "PounceBlocker",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/Pounce": {
+   "ObjectName": "Pounce",
+   "objectPath": "Characters/Nidalee/Spells/Pounce",
+   "mScriptName": "Pounce",
+   "mSpell": {
+    "flags": 36,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock",
+     "Trait_PlayerSelectedDashDirection"
+    ],
+    "mEffectAmount": [
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       750,
+       750,
+       750,
+       750,
+       750,
+       750,
+       750
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       14,
+       13,
+       12,
+       11,
+       10,
+       9,
+       8
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0,
+       10,
+       20,
+       30,
+       40,
+       50,
+       60
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0,
+       40,
+       80,
+       120,
+       160,
+       200,
+       240
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "EnhancedPounceRange",
+      "values": [
+       750,
+       750,
+       750,
+       750,
+       750,
+       750,
+       750
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mCoefficient": 0.3,
+    "mCoefficient2": 0.2,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6
+     ],
+     "{0a3e0478}": 6,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400
+    ],
+    "castRadius": [
+     235,
+     235,
+     235,
+     235,
+     235,
+     235,
+     235
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "missileSpeed": 0,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "SourceObject": "Characters/Nidalee/Spells/AspectOfTheCougarAbility/AspectOfTheCougar",
+       "{3de6ce2d}": "TotalPounceDamage",
+       "__type": "{ba007871}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 128,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 512,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 128,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NidaleeCougarBasicAttack": {
+   "ObjectName": "NidaleeCougarBasicAttack",
+   "objectPath": "Characters/Nidalee/Spells/NidaleeCougarBasicAttack",
+   "mScriptName": "NidaleeCougarBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.34615,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     125,
+     125,
+     125,
+     125,
+     125,
+     125,
+     125
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "mHitEffectKey": "Nidalee_BA_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NidaleeCougarScent": {
+   "ObjectName": "NidaleeCougarScent",
+   "objectPath": "Characters/Nidalee/Spells/NidaleeCougarScent",
+   "mScriptName": "NidaleeCougarScent",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_NidaleeCougarScent",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NidaleeCougarCritAttack": {
+   "ObjectName": "NidaleeCougarCritAttack",
+   "objectPath": "Characters/Nidalee/Spells/NidaleeCougarCritAttack",
+   "mScriptName": "NidaleeCougarCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.34615,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     125,
+     125,
+     125,
+     125,
+     125,
+     125,
+     125
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "mHitEffectKey": "Nidalee_BA_Crit",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SwipeBlocker": {
+   "ObjectName": "SwipeBlocker",
+   "objectPath": "Characters/Nidalee/Spells/SwipeBlocker",
+   "mScriptName": "SwipeBlocker",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NidaleeCritAttack": {
+   "ObjectName": "NidaleeCritAttack",
+   "objectPath": "Characters/Nidalee/Spells/NidaleeCritAttack",
+   "mScriptName": "NidaleeCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.3821,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyAttackDamage": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_hand",
+      "mSpeed": 2500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 6.23,
+    "missileSpeed": 2500,
+    "mMissileEffectKey": "Nidalee_BA_Mis",
+    "mHitEffectKey": "Nidalee_BA_Crit",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TakedownBlocker": {
+   "ObjectName": "TakedownBlocker",
+   "objectPath": "Characters/Nidalee/Spells/TakedownBlocker",
+   "mScriptName": "TakedownBlocker",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NidaleeBasicAttack": {
+   "ObjectName": "NidaleeBasicAttack",
+   "objectPath": "Characters/Nidalee/Spells/NidaleeBasicAttack",
+   "mScriptName": "NidaleeBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "NidaleeBasicAttack",
+    "spellCastTime": 0.3821,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyAttackDamage": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_hand",
+      "mSpeed": 2500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 18.29,
+    "missileSpeed": 2500,
+    "mMissileEffectKey": "Nidalee_BA_Mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Nidalee_BA_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/NidaleeCougarBasicAttack2": {
+   "ObjectName": "NidaleeCougarBasicAttack2",
+   "objectPath": "Characters/Nidalee/Spells/NidaleeCougarBasicAttack2",
+   "mScriptName": "NidaleeCougarBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.34615,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     125,
+     125,
+     125,
+     125,
+     125,
+     125,
+     125
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "mHitEffectKey": "Nidalee_BA_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PounceMS": {
+   "ObjectName": "PounceMS",
+   "objectPath": "Characters/Nidalee/Spells/PounceMS",
+   "mScriptName": "PounceMS",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_PounceMS",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/JavelinTossAbility/JavelinToss",
+  "Spells/BushwhackAbility/Bushwhack",
+  "Spells/PrimalSurgeAbility/PrimalSurge",
+  "Spells/AspectOfTheCougarAbility/AspectOfTheCougar"
+ ],
+ "passiva_ref": "Characters/Nidalee/Spells/NidaleePassiveHuntAbility",
+ "passiva_chaves": [
+  "Spells/NidaleePassiveHuntAbility/NidaleePassiveHunted",
+  "Spells/NidaleePassiveHuntAbility/NidaleePassiveHunting",
+  "Spells/NidaleePassiveHuntAbility/NidaleePassiveHunt",
+  "Spells/NidaleePassiveHuntAbility/BrushPassive"
+ ]
+}

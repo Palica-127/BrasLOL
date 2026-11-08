@@ -1,0 +1,2056 @@
+{
+ "id": "Alistar",
+ "key": 12,
+ "nome": "Alistar",
+ "titulo": "o Minotauro",
+ "funcoes": [
+  "Tank",
+  "Support"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 6,
+  "defense": 9,
+  "magic": 5,
+  "difficulty": 7
+ },
+ "stats_ddragon": {
+  "hp": 685,
+  "hpperlevel": 120,
+  "mp": 350,
+  "mpperlevel": 40,
+  "movespeed": 335,
+  "armor": 40,
+  "armorperlevel": 4.7,
+  "spellblock": 32,
+  "spellblockperlevel": 2.05,
+  "attackrange": 125,
+  "hpregen": 8.5,
+  "hpregenperlevel": 0.85,
+  "mpregen": 8.5,
+  "mpregenperlevel": 0.8,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 62,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2.125,
+  "attackspeed": 0.625
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Urro Triunfante",
+  "descricao": "Alistar carrega seu urro ao atordoar, deslocar a posição de Campeões inimigos ou quando inimigos próximos morrem. Quando estiver com o máximo de cargas, ele cura a si mesmo e aos Campeões aliados próximos."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "Pulverize",
+   "nome": "Pulverizar",
+   "descricao": "Alistar golpeia o chão, causando dano a inimigos próximos e arremessando-os ao ar.",
+   "tooltip": "Alistar golpeia o chão, <status>Arremessando ao ar</status> os inimigos por {{ knockupduration }}s e causando <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    14,
+    13,
+    12,
+    11,
+    10
+   ],
+   "custo": [
+    50,
+    55,
+    60,
+    65,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    365,
+    365,
+    365,
+    365,
+    365
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "Headbutt",
+   "nome": "Cabeçada",
+   "descricao": "Alistar atinge o inimigo com sua cabeça, causando dano e jogando o alvo para trás.",
+   "tooltip": "Alistar avança até um inimigo, <status>Empurrando-o</status> e causando <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    14,
+    13,
+    12,
+    11,
+    10
+   ],
+   "custo": [
+    50,
+    55,
+    60,
+    65,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    650,
+    650,
+    650,
+    650,
+    650
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "700",
+    "0.75",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "AlistarE",
+   "nome": "Atropelar",
+   "descricao": "Alistar atropela unidades inimigas próximas, ignorando colisão com unidades e recebendo acúmulos caso cause dano a um Campeão inimigo. O próximo ataque básico com o máximo de acúmulos contra um Campeão inimigo causa Dano Mágico adicional e o atordoa.",
+   "tooltip": "Alistar começa a pisotear o chão, recebendo efeito Fantasma e causando <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage> a inimigos próximos ao longo de {{ duration }}s. Cada pulso que causar dano a um Campeão concederá um acúmulo.<br /><br />Com {{ maxstacks }} acúmulos, o próximo Ataque de Alistar contra Campeões <status>Atordoa</status> por {{ stunduration }}s e causa <magicDamage>{{ attackbonusdamage }} de Dano Mágico</magicDamage> adicional.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    12,
+    11.5,
+    11,
+    10.5,
+    10
+   ],
+   "custo": [
+    50,
+    55,
+    60,
+    65,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    350,
+    350,
+    350,
+    350,
+    350
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "80/110/140/170/200",
+    "50",
+    "5",
+    "350",
+    "5",
+    "1",
+    "5",
+    "20",
+    "15",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "FerociousHowl",
+   "nome": "Vontade Indestrutível",
+   "descricao": "Alistar solta um urro selvagem, removendo todos os efeitos de Controle de Grupo de si mesmo, além de reduzir o Dano Físico e Mágico enquanto durar o efeito.",
+   "tooltip": "Alistar purifica imediatamente todos os efeitos <status>Debilitantes</status> e sofre {{ rdamagereduction }}% de dano reduzido por {{ rduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    120,
+    100,
+    80
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1,
+    1,
+    1
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 685,
+  "vida_nivel": 120,
+  "regen_vida": 1.7,
+  "regen_vida_nivel": 0.17,
+  "dano": 62,
+  "dano_nivel": 3.75,
+  "armadura": 40,
+  "armadura_nivel": 4.7,
+  "rm": 32,
+  "rm_nivel": 2.05,
+  "velocidade_mov": 335,
+  "alcance_ataque": 125,
+  "vel_ataque_base": 0.625,
+  "vel_ataque_razao": 0.625,
+  "vel_ataque_nivel": 2.125,
+  "dano_critico": 2,
+  "alcance_aquisicao": 600,
+  "raio_selecao": 140,
+  "raio_colisao": 50,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackProbability": 0.5,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.5,
+    "mAttackName": "AlistarBasicAttack2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackName": "AlistarCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Alistar/Spells/PulverizeAbility/Pulverize",
+  "Characters/Alistar/Spells/HeadbuttAbility/Headbutt",
+  "Characters/Alistar/Spells/AlistarEAbility/AlistarE",
+  "Characters/Alistar/Spells/FerociousHowlAbility/FerociousHowl"
+ ],
+ "abilities_ref": [
+  "Characters/Alistar/Spells/PulverizeAbility",
+  "Characters/Alistar/Spells/HeadbuttAbility",
+  "Characters/Alistar/Spells/AlistarEAbility",
+  "Characters/Alistar/Spells/AlistarPassiveAbility",
+  "Characters/Alistar/Spells/FerociousHowlAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/AlistarPassiveAbility/AlistarPassiveStacks": {
+   "ObjectName": "AlistarPassiveStacks",
+   "objectPath": "Characters/Alistar/Spells/AlistarPassiveAbility/AlistarPassiveStacks",
+   "mScriptName": "AlistarPassiveStacks",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_AlistarPassiveStacks",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AlistarPassiveAbility/AlistarPassive": {
+   "ObjectName": "AlistarPassive",
+   "objectPath": "Characters/Alistar/Spells/AlistarPassiveAbility/AlistarPassive",
+   "mScriptName": "AlistarPassive",
+   "mSpell": {
+    "mSpellTags": [
+     "PositiveEffect_Boon"
+    ],
+    "DataValues": [
+     {
+      "name": "AlistarPassiveHealRatio",
+      "values": [
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AlistarPassiveAllyHealRatio",
+      "values": [
+       1.4,
+       1.4,
+       1.4,
+       1.4,
+       1.4,
+       1.4,
+       1.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PassiveCooldown",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PassiveMaxStacks",
+      "values": [
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PassiveStacksChampionKill",
+      "values": [
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PassiveAllyNumHeal",
+      "values": [
+       15,
+       15,
+       15,
+       15,
+       15,
+       15,
+       15
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "BaseHeal": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mStat": 12,
+        "mDataValue": "AlistarPassiveHealRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "AllyHeal": {
+      "mMultiplier": {
+       "mDataValue": "AlistarPassiveAllyHealRatio",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mModifiedGameCalculation": "BaseHeal",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "cooldownTime": [
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3
+    ],
+    "Cooldown": {
+     "values": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+     ],
+     "{0a3e0478}": 3,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     950,
+     950,
+     950,
+     950,
+     950,
+     950,
+     950
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_AlistarPassive",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AlistarPassiveAbility/AlistarPassiveHealMis": {
+   "ObjectName": "AlistarPassiveHealMis",
+   "objectPath": "Characters/Alistar/Spells/AlistarPassiveAbility/AlistarPassiveHealMis",
+   "mScriptName": "AlistarPassiveHealMis",
+   "mSpell": {
+    "flags": 4,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     5000,
+     5000,
+     5000,
+     5000,
+     5000,
+     5000,
+     5000
+    ],
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+      "mSpeed": 700,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 3000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "missileSpeed": 700,
+    "mMissileEffectKey": "Alistar_P_Heal_mis_01",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AlistarPassiveAbility/AlistarPassiveHeal": {
+   "ObjectName": "AlistarPassiveHeal",
+   "objectPath": "Characters/Alistar/Spells/AlistarPassiveAbility/AlistarPassiveHeal",
+   "mScriptName": "AlistarPassiveHeal",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 8192,
+    "mSpellTags": [
+     "PositiveEffect_Boon"
+    ],
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/FerociousHowlAbility/FerociousHowl": {
+   "ObjectName": "FerociousHowl",
+   "objectPath": "Characters/Alistar/Spells/FerociousHowlAbility/FerociousHowl",
+   "mScriptName": "FerociousHowl",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "FerociousHowl",
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "SpecialCase_StasisLocked",
+     "Trait_Parry"
+    ],
+    "DataValues": [
+     {
+      "name": "RDuration",
+      "values": [
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RDamageReduction",
+      "values": [
+       45,
+       55,
+       65,
+       75,
+       85,
+       95,
+       105
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "URF": {
+      "SpellDataValues": [
+       {
+        "name": "RDuration",
+        "values": [
+         3.5,
+         3.5,
+         3.5,
+         3.5,
+         3.5,
+         3.5,
+         3.5
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "RDamageReduction",
+        "values": [
+         40,
+         50,
+         60,
+         70,
+         80,
+         90,
+         100
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       180,
+       180,
+       150,
+       120,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     120,
+     120,
+     100,
+     80,
+     120,
+     120,
+     120
+    ],
+    "Cooldown": {
+     "values": [
+      120,
+      120,
+      100,
+      80,
+      120,
+      120,
+      120
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "castConeDistance": 100,
+    "castFrame": 20.8,
+    "missileSpeed": 828.5,
+    "mana": [
+     100,
+     100,
+     100,
+     0,
+     0,
+     0
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Alistar_FerociousHowl_OnCast",
+     "18": "Play_sfx_Alistar_FerociousHowl_OnBuffActivate"
+    },
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "{ec17e271}": [
+     {
+      "EffectTag": 2097152,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "RDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 524288,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "RDamageReduction",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 2,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AlistarEAbility/AlistarE": {
+   "ObjectName": "AlistarE",
+   "objectPath": "Characters/Alistar/Spells/AlistarEAbility/AlistarE",
+   "mScriptName": "AlistarE",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mAlternateName": "Trample",
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_DoT",
+     "Trait_Low_Damage",
+     "Trait_AoE"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       80,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       50,
+       50,
+       50,
+       50,
+       50,
+       50,
+       50
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       350,
+       350,
+       350,
+       350,
+       350,
+       350,
+       350
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       20,
+       20,
+       20,
+       20,
+       20,
+       20,
+       20
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       15,
+       15,
+       15,
+       15,
+       15,
+       15,
+       15
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "APRatio",
+      "values": [
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TrampleDamage",
+      "values": [
+       80,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusAARange",
+      "values": [
+       50,
+       50,
+       50,
+       50,
+       50,
+       50,
+       50
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Duration",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Radius",
+      "values": [
+       350,
+       350,
+       350,
+       350,
+       350,
+       350,
+       350
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxStacks",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StunDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ProcDamageBase",
+      "values": [
+       20,
+       20,
+       20,
+       20,
+       20,
+       20,
+       20
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ProcDamageScale",
+      "values": [
+       15,
+       15,
+       15,
+       15,
+       15,
+       15,
+       15
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FullChargeDuration",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "APRatio",
+        "values": [
+         1,
+         1,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mDataValue": "TrampleDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "AttackBonusDamage": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 20,
+        "mInitialBonusPerLevel": 15,
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.7,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     12.5,
+     12,
+     11.5,
+     11,
+     10.5,
+     10,
+     9.5
+    ],
+    "Cooldown": {
+     "values": [
+      12.5,
+      12,
+      11.5,
+      11,
+      10.5,
+      10,
+      9.5
+     ],
+     "{0a3e0478}": 12.5,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     350,
+     350,
+     350,
+     350,
+     350,
+     350,
+     350
+    ],
+    "castRadius": [
+     575,
+     575,
+     575,
+     575,
+     575,
+     575,
+     575
+    ],
+    "castConeDistance": 100,
+    "castFrame": 20.76,
+    "missileSpeed": 0,
+    "mAfterEffectKey": "Alistar_E_Meditate_01",
+    "mana": [
+     50,
+     55,
+     60,
+     65,
+     70,
+     75
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "SelfAoe"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_AlistarE",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/PulverizeAbility/Pulverize": {
+   "ObjectName": "Pulverize",
+   "objectPath": "Characters/Alistar/Spells/PulverizeAbility/Pulverize",
+   "mScriptName": "Pulverize",
+   "mSpell": {
+    "mAffectsTypeFlags": 14346,
+    "mAlternateName": "Pulverize",
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_SignatureSpell",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       20,
+       60,
+       100,
+       140,
+       180,
+       220,
+       260
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AoERadius",
+      "values": [
+       375,
+       375,
+       375,
+       375,
+       375,
+       375,
+       375
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockupDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       17,
+       17,
+       16,
+       15,
+       14,
+       13,
+       13
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     15,
+     14,
+     13,
+     12,
+     11,
+     10,
+     9
+    ],
+    "Cooldown": {
+     "values": [
+      15,
+      14,
+      13,
+      12,
+      11,
+      10,
+      9
+     ],
+     "{0a3e0478}": 15,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     330,
+     330,
+     330,
+     330,
+     330,
+     330,
+     330
+    ],
+    "castRangeDisplayOverride": [
+     365,
+     365,
+     365,
+     365,
+     365,
+     365,
+     365
+    ],
+    "castRadius": [
+     365,
+     365,
+     365,
+     365,
+     365,
+     365,
+     365
+    ],
+    "castConeDistance": 100,
+    "castFrame": 11.78,
+    "missileSpeed": 20,
+    "mana": [
+     50,
+     55,
+     60,
+     65,
+     70,
+     75
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "SelfAoe"
+    },
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Alistar_Pulverize_OnCast"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Pulverize",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mMultiplier": {
+      "mSpellCalculationKey": "TotalDamage",
+      "__type": "{f3cbe7b2}"
+     },
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "KnockupDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "KnockupDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "KnockupDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16777216,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "KnockupDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/HeadbuttAbility/Headbutt": {
+   "ObjectName": "Headbutt",
+   "objectPath": "Characters/Alistar/Spells/HeadbuttAbility/Headbutt",
+   "mScriptName": "Headbutt",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "Headbutt",
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock",
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_KnockBack"
+    ],
+    "mEffectAmount": [
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       700,
+       700,
+       700,
+       700,
+       700,
+       700,
+       700
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "KnockBackDistance",
+      "values": [
+       700,
+       700,
+       700,
+       700,
+       700,
+       700,
+       700
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Damage",
+      "values": [
+       0,
+       55,
+       110,
+       165,
+       220,
+       275,
+       330
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StunDuration",
+      "values": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockUpDuration",
+      "values": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "URF": {
+      "SpellDataValues": [
+       {
+        "name": "StunDuration",
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       18,
+       17,
+       16,
+       15,
+       14,
+       13,
+       12
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mDataValue": "Damage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.5056,
+    "spellTotalTime": 0.9,
+    "cooldownTime": [
+     15,
+     14,
+     13,
+     12,
+     11,
+     10,
+     10
+    ],
+    "Cooldown": {
+     "values": [
+      15,
+      14,
+      13,
+      12,
+      11,
+      10,
+      10
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "cantCastWhileRooted": true,
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 23.005,
+    "missileSpeed": 0,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "mana": [
+     50,
+     55,
+     60,
+     65,
+     70,
+     75
+    ],
+    "selectionPriority": 1,
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Alistar_Headbutt_OnCast"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Headbutt",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mMultiplier": {
+      "mSpellCalculationKey": "TotalDamage",
+      "__type": "{f3cbe7b2}"
+     },
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4194304,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "KnockbackDistance",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 256,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AlistarCritAttack": {
+   "ObjectName": "AlistarCritAttack",
+   "objectPath": "Characters/Alistar/Spells/AlistarCritAttack",
+   "mScriptName": "AlistarCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 8143,
+    "spellCastTime": 0.3439,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10,
+    "missileSpeed": 0,
+    "mHitEffectKey": "Alistar_BA_tar_crit_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Alistar_AlistarCritAttack_OnCast",
+     "13": "Play_sfx_Alistar_AlistarCritAttack_OnHit"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AlistarEAttack": {
+   "ObjectName": "AlistarEAttack",
+   "objectPath": "Characters/Alistar/Spells/AlistarEAttack",
+   "mScriptName": "AlistarEAttack",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_AlistarEAttack",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/Colossal_Strength": {
+   "ObjectName": "Colossal_Strength",
+   "objectPath": "Characters/Alistar/Spells/Colossal_Strength",
+   "mScriptName": "Colossal_Strength",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Colossal_Strength",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AlistarBasicAttack": {
+   "ObjectName": "AlistarBasicAttack",
+   "objectPath": "Characters/Alistar/Spells/AlistarBasicAttack",
+   "mScriptName": "AlistarBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 8143,
+    "mAlternateName": "AlistarBasicAttack",
+    "spellCastTime": 0.3439,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10,
+    "missileSpeed": 0,
+    "mHitEffectKey": "Alistar_BA_tar_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Alistar_AlistarBasicAttack_OnCast",
+     "13": "Play_sfx_Alistar_AlistarBasicAttack_OnHit"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AlistarBasicAttack2": {
+   "ObjectName": "AlistarBasicAttack2",
+   "objectPath": "Characters/Alistar/Spells/AlistarBasicAttack2",
+   "mScriptName": "AlistarBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 8143,
+    "mAlternateName": "AlistarBasicAttack2",
+    "spellCastTime": 0.3439,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10,
+    "missileSpeed": 0,
+    "mHitEffectKey": "Alistar_BA_tar_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "SpellEventToAudioEventSuffix": {
+     "12": "Play_sfx_Alistar_AlistarBasicAttack2_OnCast",
+     "13": "Play_sfx_Alistar_AlistarBasicAttack2_OnHit"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/PulverizeAbility/Pulverize",
+  "Spells/HeadbuttAbility/Headbutt",
+  "Spells/AlistarEAbility/AlistarE",
+  "Spells/FerociousHowlAbility/FerociousHowl"
+ ],
+ "passiva_ref": "Characters/Alistar/Spells/AlistarPassiveAbility",
+ "passiva_chaves": [
+  "Spells/AlistarPassiveAbility/AlistarPassiveStacks",
+  "Spells/AlistarPassiveAbility/AlistarPassive",
+  "Spells/AlistarPassiveAbility/AlistarPassiveHealMis",
+  "Spells/AlistarPassiveAbility/AlistarPassiveHeal"
+ ]
+}

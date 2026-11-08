@@ -1,0 +1,2639 @@
+{
+ "id": "Volibear",
+ "key": 106,
+ "nome": "Volibear",
+ "titulo": "a Tempestade Implacável",
+ "funcoes": [
+  "Fighter",
+  "Tank"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 7,
+  "defense": 7,
+  "magic": 4,
+  "difficulty": 3
+ },
+ "stats_ddragon": {
+  "hp": 650,
+  "hpperlevel": 104,
+  "mp": 350,
+  "mpperlevel": 70,
+  "movespeed": 340,
+  "armor": 35,
+  "armorperlevel": 5.2,
+  "spellblock": 32,
+  "spellblockperlevel": 2.05,
+  "attackrange": 150,
+  "hpregen": 9,
+  "hpregenperlevel": 0.75,
+  "mpregen": 6.25,
+  "mpregenperlevel": 0.5,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 65,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2,
+  "attackspeed": 0.625
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "A Tempestade Implacável",
+  "descricao": "Os Ataques e habilidades de Volibear concedem Velocidade de Ataque e, às vezes, fazem com que seus Ataques causem Dano Mágico adicional a inimigos próximos."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "VolibearQ",
+   "nome": "Esmagamento Trovejante",
+   "descricao": "Volibear ganha velocidade ao correr na direção dos inimigos, <status>Atordoando</status> e causando dano ao primeiro que Atacar.",
+   "tooltip": "Volibear recebe <speed>{{ minspeedcalc }} de Velocidade de Movimento</speed>, dobrada para <speed>{{ maxspeedcalc }}</speed> pelos próximos {{ duration }}s quando ele estiver indo em direção a Campeões inimigos. Enquanto a Habilidade estiver ativa, os próximos Ataques de Volibear causam <physicalDamage>{{ calculateddamage }} de Dano Físico</physicalDamage> e <status>Atordoam</status> o alvo por {{ stunduration }}s.<br /><br />Volibear ficará enfurecido se for <status>Imobilizado</status> por um inimigo antes de <status>Atordoar</status> um alvo, encerrando a Habilidade e redefinindo o Tempo de Recarga dela.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    12,
+    11.5,
+    11,
+    10.5,
+    10
+   ],
+   "custo": [
+    50,
+    50,
+    50,
+    50,
+    50
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    300,
+    300,
+    300,
+    300,
+    300
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "VolibearW",
+   "nome": "Fúria Selvagem",
+   "descricao": "Volibear causa dano a um inimigo, marcando-o e aplicando efeitos ao contato.  Conjurar a habilidade novamente no mesmo alvo causa dano adicional e cura Volibear.",
+   "tooltip": "Volibear estraçalha um inimigo, causando <physicalDamage>{{ totaldamage }} de Dano Físico</physicalDamage> e marcando-o por {{ markduration }}s.<br /><br />Caso a Habilidade seja usada em um alvo marcado, o dano aumenta para <physicalDamage>{{ empowereddamage }}</physicalDamage> e Volibear recupera <healing>{{ baseheal }} mais {{ percentmissinghealthhealingratio }} da Vida perdida</healing>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    5,
+    5,
+    5,
+    5,
+    5
+   ],
+   "custo": [
+    20,
+    25,
+    30,
+    35,
+    40
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    325,
+    325,
+    325,
+    325,
+    325
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "VolibearE",
+   "nome": "Divisor de Céus",
+   "descricao": "Volibear invoca um relâmpago em um local, causando dano e Lentidão aos inimigos. Ele também ganhará um Escudo se estiver no raio da explosão.",
+   "tooltip": "Volibear invoca uma nuvem carregada para disparar um relâmpago, causando <magicDamage>{{ totaldamagetooltip }} mais {{ percentdamage*100 }}% da Vida máxima como Dano Mágico</magicDamage> e {{ slowamount*100 }}% de <status>Lentidão</status> por {{ slowduration }}s.<br /><br />Se estiver dentro da zona de explosão, Volibear receberá um <shield>Escudo de {{ shieldapratiotooltip }} mais {{ shieldamount*100 }}% da Vida máxima</shield> por {{ shieldduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    16,
+    16,
+    16,
+    16,
+    16
+   ],
+   "custo": [
+    50,
+    50,
+    50,
+    50,
+    50
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1200,
+    1200,
+    1200,
+    1200,
+    1200
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "VolibearR",
+   "nome": "Emissário da Tempestade",
+   "descricao": "Volibear salta até um local-alvo, causando dano e Lentidão aos inimigos sob ele, além de receber Vida adicional.  Torres inimigas próximas ao local de pouso são temporariamente Desabilitadas.",
+   "tooltip": "Volibear se transforma e salta, recebendo <healing>{{ healthamount }} de Vida</healing> e {{ bonusattackrange }} de Alcance de Ataque pelos próximos {{ transformduration }}s.<br /><br />Ao pousar, ele fende a terra, <status>Desabilitando</status> torres inimigas próximas por {{ towerdisableduration }}s e causando <physicalDamage>{{ towerdamagetooltip }} de Dano Físico</physicalDamage> a elas. Inimigos próximos sofrem {{ slowamount*100 }}% de <status>Lentidão</status>, decaindo ao longo de 1s. Inimigos que estiverem abaixo de Volibear sofrem <physicalDamage>{{ sweetspotdamagetooltip }} de Dano Físico</physicalDamage>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    160,
+    135,
+    110
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    550,
+    550,
+    550
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "75/115/155",
+    "9",
+    "12",
+    "8",
+    "0.08",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 650,
+  "vida_nivel": 104,
+  "regen_vida": 1.8,
+  "regen_vida_nivel": 0.15,
+  "dano": 65,
+  "dano_nivel": 3.5,
+  "armadura": 35,
+  "armadura_nivel": 5.2,
+  "rm": 32,
+  "rm_nivel": 2.05,
+  "velocidade_mov": 340,
+  "alcance_ataque": 150,
+  "vel_ataque_base": 0.625,
+  "vel_ataque_razao": 0.7,
+  "vel_ataque_nivel": 2,
+  "dano_critico": 2,
+  "alcance_aquisicao": 400,
+  "raio_selecao": 125,
+  "raio_colisao": 50,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackName": "VolibearBasicAttack",
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackName": "VolibearBasicAttack2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.07000000029802322,
+    "mAttackName": "VolibearCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Volibear/Spells/VolibearQAbility/VolibearQ",
+  "Characters/Volibear/Spells/VolibearWAbility/VolibearW",
+  "Characters/Volibear/Spells/VolibearEAbility/VolibearE",
+  "Characters/Volibear/Spells/VolibearRAbility/VolibearR"
+ ],
+ "abilities_ref": [
+  "Characters/Volibear/Spells/VolibearQAbility",
+  "Characters/Volibear/Spells/VolibearWAbility",
+  "Characters/Volibear/Spells/VolibearEAbility",
+  "Characters/Volibear/Spells/VolibearRAbility",
+  "Characters/Volibear/Spells/VolibearPAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/VolibearRAbility/VolibearR": {
+   "ObjectName": "VolibearR",
+   "objectPath": "Characters/Volibear/Spells/VolibearRAbility/VolibearR",
+   "mScriptName": "VolibearR",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "VolibearR",
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_PlayerSelectedDashDirection",
+     "Trait_DamageAbility",
+     "Trait_Melee_BigWindup",
+     "Trait_AoE"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       0,
+       75,
+       115,
+       155,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0,
+       9,
+       9,
+       9,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       12,
+       12,
+       12,
+       12,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       8,
+       8,
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.08,
+       0.08,
+       0.08,
+       0.08,
+       0.08,
+       0.08,
+       0.08
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "SweetSpotDamage",
+      "values": [
+       100,
+       300,
+       500,
+       700,
+       900,
+       1100,
+       1300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DashSpeed",
+      "values": [
+       750,
+       750,
+       750,
+       750,
+       750,
+       750,
+       750
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TransformDuration",
+      "values": [
+       12,
+       12,
+       12,
+       12,
+       12,
+       12,
+       12
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealthAmount",
+      "values": [
+       0,
+       175,
+       350,
+       525,
+       700,
+       875,
+       1050
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TowerDamage",
+      "values": [
+       0,
+       300,
+       500,
+       700,
+       900,
+       1100,
+       1300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmount",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusAttackRange",
+      "values": [
+       50,
+       50,
+       50,
+       50,
+       50,
+       50,
+       50
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TowerDisableDuration",
+      "values": [
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "{f9c2333e}": {
+     "{a110bc47}": {
+      "value": [
+       120,
+       120,
+       100,
+       80,
+       80,
+       80,
+       80
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "ADRatio": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 2.5,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{4402b0fa}": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "SweetSpotDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 2.5,
+        "__type": "StatByCoefficientCalculationPart"
+       },
+       {
+        "mCoefficient": 1.25,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "APRatioTooltip": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TowerDamageTooltip": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "TowerDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 2.5,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "SweetSpotDamageTooltip": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "SweetSpotDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 2.5,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{d9a2963e}": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "HealthAmount",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.4,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     160,
+     160,
+     135,
+     110,
+     110,
+     110,
+     110
+    ],
+    "Cooldown": {
+     "values": [
+      160,
+      160,
+      135,
+      110,
+      110,
+      110,
+      110
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "cantCastWhileRooted": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "mShowChannelBar": false,
+    "bHaveHitEffect": true,
+    "bIsToggleSpell": true,
+    "mTurnSpeedScalar": 3,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     700,
+     700,
+     700,
+     700,
+     700,
+     700,
+     700
+    ],
+    "castRangeDisplayOverride": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castRadius": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10,
+    "missileSpeed": 0,
+    "mHitEffectKey": "Volibear_BasicAttack_Hit_Right",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_LAYOUT_LOC",
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "LocationClamped"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Spell_VolibearR_Name",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 128,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VolibearBasicAttack": {
+   "ObjectName": "VolibearBasicAttack",
+   "objectPath": "Characters/Volibear/Spells/VolibearBasicAttack",
+   "mScriptName": "VolibearBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 4234,
+    "mAlternateName": "VolibearBasicAttack",
+    "spellCastTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     125,
+     125,
+     125,
+     125,
+     125,
+     125,
+     125
+    ],
+    "castRadius": [
+     125,
+     125,
+     125,
+     125,
+     125,
+     125,
+     125
+    ],
+    "castConeDistance": 100,
+    "castFrame": 11,
+    "missileSpeed": 467,
+    "mHitEffectKey": "Volibear_BasicAttack_Hit_Right",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_Buffbone_Glb_Chest_Loc",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VolibearPStackTracker": {
+   "ObjectName": "VolibearPStackTracker",
+   "objectPath": "Characters/Volibear/Spells/VolibearPStackTracker",
+   "mScriptName": "VolibearPStackTracker",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Spell_VolibearP_Name",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VolibearQPostAttack": {
+   "ObjectName": "VolibearQPostAttack",
+   "objectPath": "Characters/Volibear/Spells/VolibearQPostAttack",
+   "mScriptName": "VolibearQPostAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "mAlternateName": "VolibearQPostAttack",
+    "spellCastTime": 0.41305,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 11,
+    "missileSpeed": 0,
+    "mHitEffectKey": "Volibear_BasicAttack_Hit_Right",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VolibearQAbility/VolibearQAttack": {
+   "ObjectName": "VolibearQAttack",
+   "objectPath": "Characters/Volibear/Spells/VolibearQAbility/VolibearQAttack",
+   "mScriptName": "VolibearQAttack",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 15016,
+    "mAlternateName": "VolibearQ",
+    "mSpellTags": [
+     "Trait_AttackReset",
+     "Trait_ImmobilizingCCSpell"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       0,
+       20,
+       40,
+       60,
+       80,
+       100,
+       120
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       20,
+       20,
+       30,
+       40,
+       50,
+       60,
+       70
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       10,
+       10,
+       15,
+       20,
+       25,
+       30,
+       35
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       400,
+       400,
+       400,
+       400,
+       400,
+       400,
+       400
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "MinSpeed",
+      "values": [
+       5,
+       10,
+       15,
+       20,
+       25,
+       30,
+       35
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       0,
+       20,
+       40,
+       60,
+       80,
+       100,
+       120
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BurstSpeed",
+      "values": [
+       12.5,
+       20,
+       27.5,
+       35,
+       42.5,
+       50,
+       57.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxSpeed",
+      "values": [
+       10,
+       20,
+       30,
+       40,
+       50,
+       60,
+       70
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mCoefficient": 1,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     12,
+     12,
+     12,
+     12,
+     12,
+     12,
+     12
+    ],
+    "Cooldown": {
+     "values": [
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12
+     ],
+     "{0a3e0478}": 12,
+     "__type": "{0a0eddc9}"
+    },
+    "mPreCastLockoutDeltaTime": 0.25,
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "mCantCancelWhileChanneling": true,
+    "mApplyAttackDamage": true,
+    "mOverrideAttackTime": {
+     "mTotalAttackTimeSecs": {
+      "mFormulaParts": [
+       {
+        "mNumber": 0.4,
+        "__type": "NumberCalculationPart"
+       },
+       {
+        "mStat": 4,
+        "mStatFormula": 2,
+        "mCoefficient": -0.1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "__type": "OverrideAttackTimeData"
+    },
+    "mConsideredAsAutoAttack": true,
+    "castRange": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9,
+    "missileSpeed": 0,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Spell_VolibearQ_Name",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VolibearQAbility/VolibearQ": {
+   "ObjectName": "VolibearQ",
+   "objectPath": "Characters/Volibear/Spells/VolibearQAbility/VolibearQ",
+   "mScriptName": "VolibearQ",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 14984,
+    "mAlternateName": "VolibearQ",
+    "mSpellTags": [
+     "Trait_AttackReset",
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_Strike"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       0,
+       10,
+       20,
+       30,
+       40,
+       50,
+       60
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinSpeed",
+      "values": [
+       0.085,
+       0.12,
+       0.155,
+       0.19,
+       0.225,
+       0.26,
+       0.295
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxSpeed",
+      "values": [
+       0.17,
+       0.24,
+       0.31,
+       0.38,
+       0.45,
+       0.52,
+       0.59
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Duration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StunDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CDReset",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusADRatio",
+      "values": [
+       1.6,
+       1.6,
+       1.6,
+       1.6,
+       1.6,
+       1.6,
+       1.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusRange",
+      "values": [
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "BonusADRatio",
+        "values": [
+         1,
+         1,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       16,
+       16,
+       15,
+       14,
+       13,
+       12,
+       11
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "CalculatedDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "BonusADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "ADRatioTooltip": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "BonusADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MinSpeedCalc": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mDataValue": "MinSpeed",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "MaxSpeedCalc": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mDataValue": "MaxSpeed",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "{10404951}": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "BonusADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 1,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     14,
+     13,
+     12,
+     11,
+     10,
+     10
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      12,
+      11.5,
+      11,
+      10.5,
+      10,
+      10
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mPreCastLockoutDeltaTime": 0.25,
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 5.3,
+    "missileSpeed": 0,
+    "mMissileEffectKey": "Volibear_BasicAttack_Hit_Right",
+    "mHitEffectKey": "Volibear_BasicAttack_Hit_Right",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_LAYOUT_LOC",
+    "mana": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Spell_VolibearQ_Name",
+    "mBuffAttributeFlag": 32,
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 512,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 128,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VolibearEShield": {
+   "ObjectName": "VolibearEShield",
+   "objectPath": "Characters/Volibear/Spells/VolibearEShield",
+   "mScriptName": "VolibearEShield",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Spell_VolibearE_Name",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VolibearRTowerDisable": {
+   "ObjectName": "VolibearRTowerDisable",
+   "objectPath": "Characters/Volibear/Spells/VolibearRTowerDisable",
+   "mScriptName": "VolibearRTowerDisable",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Buff_VolibearR_TowerDisable_Name",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VolibearPAbility/VolibearP": {
+   "ObjectName": "VolibearP",
+   "objectPath": "Characters/Volibear/Spells/VolibearPAbility/VolibearP",
+   "mScriptName": "VolibearP",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "PDamageRatio",
+      "values": [
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BounceCounterMax",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.45,
+       0.45,
+       0.45,
+       0.45,
+       0.45,
+       0.45,
+       0.45
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BuffDuration",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PAttackSpeed",
+      "values": [
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "APRatio",
+        "values": [
+         0.35,
+         0.35,
+         0.35,
+         0.35,
+         0.35,
+         0.35,
+         0.35
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "ChainLightningDamage": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 11,
+        "mInitialBonusPerLevel": 1,
+        "mBreakpoints": [
+         {
+          "mLevel": 4,
+          "mBonusPerLevelAtAndAfter": 2,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 7,
+          "mBonusPerLevelAtAndAfter": 3,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 14,
+          "mBonusPerLevelAtAndAfter": 4,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 0.2,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "AttackSpeedCalc": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mDataValue": "PAttackSpeed",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.0004,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     }
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Spell_VolibearP_Name",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VolibearBasicAttackTower": {
+   "ObjectName": "VolibearBasicAttackTower",
+   "objectPath": "Characters/Volibear/Spells/VolibearBasicAttackTower",
+   "mScriptName": "VolibearBasicAttackTower",
+   "mSpell": {
+    "mAffectsTypeFlags": 4234,
+    "mAlternateName": "VolibearBasicAttack",
+    "spellCastTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     125,
+     125,
+     125,
+     125,
+     125,
+     125,
+     125
+    ],
+    "castRadius": [
+     125,
+     125,
+     125,
+     125,
+     125,
+     125,
+     125
+    ],
+    "castConeDistance": 100,
+    "castFrame": 11,
+    "missileSpeed": 467,
+    "mHitEffectKey": "Volibear_BasicAttack_Hit_Tower",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_Buffbone_Glb_Chest_Loc",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VolibearBasicAttack3": {
+   "ObjectName": "VolibearBasicAttack3",
+   "objectPath": "Characters/Volibear/Spells/VolibearBasicAttack3",
+   "mScriptName": "VolibearBasicAttack3",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "mAlternateName": "VolibearBasicAttack3",
+    "spellCastTime": 0.41305,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 11,
+    "missileSpeed": 0,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VolibearBasicAttack2": {
+   "ObjectName": "VolibearBasicAttack2",
+   "objectPath": "Characters/Volibear/Spells/VolibearBasicAttack2",
+   "mScriptName": "VolibearBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "mAlternateName": "VolibearBasicAttack2",
+    "spellCastTime": 0.41305,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 11,
+    "missileSpeed": 0,
+    "mHitEffectKey": "Volibear_BasicAttack_Hit_Right",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_LAYOUT_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VolibearRImpactSlow": {
+   "ObjectName": "VolibearRImpactSlow",
+   "objectPath": "Characters/Volibear/Spells/VolibearRImpactSlow",
+   "mScriptName": "VolibearRImpactSlow",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Spell_VolibearR_Name",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VolibearWAbility/VolibearW": {
+   "ObjectName": "VolibearW",
+   "objectPath": "Characters/Volibear/Spells/VolibearWAbility/VolibearW",
+   "mScriptName": "VolibearW",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "VolibearW",
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_ActiveHeal",
+     "Trait_Strike",
+     "Trait_SignatureSpell"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       -20,
+       5,
+       30,
+       55,
+       80,
+       105,
+       130
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealPercent",
+      "values": [
+       0.05,
+       0.08,
+       0.11,
+       0.14,
+       0.17,
+       0.2,
+       0.23
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusHealthRatio",
+      "values": [
+       0.06,
+       0.06,
+       0.06,
+       0.06,
+       0.06,
+       0.06,
+       0.06
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MarkDuration",
+      "values": [
+       8,
+       8,
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "W2DamageMultiplier",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseHeal",
+      "values": [
+       5,
+       20,
+       35,
+       50,
+       65,
+       80,
+       95
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinionAndMonsterMod",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "W2BonusADDamageMultiplier",
+      "values": [
+       0.0025,
+       0.0025,
+       0.0025,
+       0.0025,
+       0.0025,
+       0.0025,
+       0.0025
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mCoefficient": 1.1,
+        "__type": "StatByCoefficientCalculationPart"
+       },
+       {
+        "mStat": 12,
+        "mStatFormula": 2,
+        "mDataValue": "BonusHealthRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "EmpoweredDamage": {
+      "mMultiplier": {
+       "mSubparts": [
+        {
+         "mDataValue": "W2DamageMultiplier",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        {
+         "mStat": 2,
+         "mStatFormula": 2,
+         "mDataValue": "W2BonusADDamageMultiplier",
+         "__type": "StatByNamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "SumOfSubPartsCalculationPart"
+      },
+      "mModifiedGameCalculation": "TotalDamage",
+      "__type": "GameCalculationModified"
+     },
+     "PercentMissingHealthHealingRatio": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "HealPercent",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 1,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0.25,
+    "cooldownTime": [
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5
+    ],
+    "Cooldown": {
+     "values": [
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5
+     ],
+     "{0a3e0478}": 5,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "bHaveHitEffect": true,
+    "mPingableWhileDisabled": true,
+    "castRange": [
+     325,
+     325,
+     325,
+     325,
+     325,
+     325,
+     325
+    ],
+    "castRadius": [
+     325,
+     325,
+     325,
+     325,
+     325,
+     325,
+     325
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1450,
+    "mHitEffectKey": "Volibear_BasicAttack_Hit_Right",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_LAYOUT_LOC",
+    "mana": [
+     20,
+     25,
+     30,
+     35,
+     40,
+     40
+    ],
+    "selectionPriority": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Spell_VolibearW_Name",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 32,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSpellCalculationKey": "PercentMissingHealthHealingRatio",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VolibearRTowerAttack2": {
+   "ObjectName": "VolibearRTowerAttack2",
+   "objectPath": "Characters/Volibear/Spells/VolibearRTowerAttack2",
+   "mScriptName": "VolibearRTowerAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 4234,
+    "mAlternateName": "VolibearBasicAttack",
+    "spellCastTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     125,
+     125,
+     125,
+     125,
+     125,
+     125,
+     125
+    ],
+    "castRadius": [
+     125,
+     125,
+     125,
+     125,
+     125,
+     125,
+     125
+    ],
+    "castConeDistance": 100,
+    "castFrame": 11,
+    "missileSpeed": 467,
+    "mHitEffectKey": "Volibear_BasicAttack_Hit_Tower",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_LAYOUT_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VolibearRTowerAttack1": {
+   "ObjectName": "VolibearRTowerAttack1",
+   "objectPath": "Characters/Volibear/Spells/VolibearRTowerAttack1",
+   "mScriptName": "VolibearRTowerAttack1",
+   "mSpell": {
+    "mAffectsTypeFlags": 4234,
+    "mAlternateName": "VolibearBasicAttack",
+    "spellCastTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     125,
+     125,
+     125,
+     125,
+     125,
+     125,
+     125
+    ],
+    "castRadius": [
+     125,
+     125,
+     125,
+     125,
+     125,
+     125,
+     125
+    ],
+    "castConeDistance": 100,
+    "castFrame": 11,
+    "missileSpeed": 467,
+    "mHitEffectKey": "Volibear_BasicAttack_Hit_Tower",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_LAYOUT_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VolibearCritAttack": {
+   "ObjectName": "VolibearCritAttack",
+   "objectPath": "Characters/Volibear/Spells/VolibearCritAttack",
+   "mScriptName": "VolibearCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "mAlternateName": "VolibearCritAttack",
+    "spellCastTime": 0.41305,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 11,
+    "missileSpeed": 0,
+    "mHitEffectKey": "Volibear_hitFlash_Crit",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VolibearQMoveSpeed": {
+   "ObjectName": "VolibearQMoveSpeed",
+   "objectPath": "Characters/Volibear/Spells/VolibearQMoveSpeed",
+   "mScriptName": "VolibearQMoveSpeed",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VolibearRTransitionAttack": {
+   "ObjectName": "VolibearRTransitionAttack",
+   "objectPath": "Characters/Volibear/Spells/VolibearRTransitionAttack",
+   "mScriptName": "VolibearRTransitionAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 4234,
+    "mAlternateName": "VolibearBasicAttack",
+    "spellCastTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     125,
+     125,
+     125,
+     125,
+     125,
+     125,
+     125
+    ],
+    "castRadius": [
+     125,
+     125,
+     125,
+     125,
+     125,
+     125,
+     125
+    ],
+    "castConeDistance": 100,
+    "castFrame": 11,
+    "missileSpeed": 467,
+    "mHitEffectKey": "Volibear_BasicAttack_Hit_Right",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_LAYOUT_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VolibearEAbility/VolibearE": {
+   "ObjectName": "VolibearE",
+   "objectPath": "Characters/Volibear/Spells/VolibearEAbility/VolibearE",
+   "mScriptName": "VolibearE",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_Shield",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "SlowAmount",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PercentDamage",
+      "values": [
+       0.1,
+       0.11,
+       0.12,
+       0.13,
+       0.14,
+       0.15,
+       0.16
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldAmount",
+      "values": [
+       0.14,
+       0.14,
+       0.14,
+       0.14,
+       0.14,
+       0.14,
+       0.14
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MonsterDamageCapBase",
+      "values": [
+       35,
+       150,
+       265,
+       380,
+       495,
+       610,
+       725
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldDuration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldAPRatio",
+      "values": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "ShieldAmount",
+        "values": [
+         0.11,
+         0.11,
+         0.11,
+         0.11,
+         0.11,
+         0.11,
+         0.11
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "ShieldValue": {
+      "mFormulaParts": [
+       {
+        "mStat": 12,
+        "mSubpart": {
+         "mDataValue": "ShieldAmount",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        "__type": "StatBySubPartCalculationPart"
+       },
+       {
+        "mDataValue": "ShieldAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "CalculatedDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "APRatioTooltip": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "ShieldAPRatioTooltip": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "ShieldAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalDamageTooltip": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MonsterDamageCap": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "MonsterDamageCapBase",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0.25,
+    "cooldownTime": [
+     16,
+     16,
+     16,
+     16,
+     16,
+     16,
+     16
+    ],
+    "Cooldown": {
+     "values": [
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16
+     ],
+     "{0a3e0478}": 16,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "mChannelIsInterruptedByAttacking": false,
+    "mCanMoveWhileChanneling": true,
+    "mShowChannelBar": false,
+    "bHaveHitEffect": true,
+    "mDoNotNeedToFaceTarget": true,
+    "mTurnSpeedScalar": 100,
+    "castRange": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castRangeDisplayOverride": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castRadius": [
+     325,
+     325,
+     325,
+     325,
+     325,
+     325,
+     325
+    ],
+    "castConeDistance": 100,
+    "castFrame": 25,
+    "mLineWidth": 200,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Volibear_BasicAttack_Hit_Right",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_LAYOUT_LOC",
+    "mana": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mDimensionBehavior": 2,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamageTooltip",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "SlowDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 524288,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "ShieldAmount",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VolibearESlow": {
+   "ObjectName": "VolibearESlow",
+   "objectPath": "Characters/Volibear/Spells/VolibearESlow",
+   "mScriptName": "VolibearESlow",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Spell_VolibearE_Name",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/VolibearQAbility/VolibearQ",
+  "Spells/VolibearWAbility/VolibearW",
+  "Spells/VolibearEAbility/VolibearE",
+  "Spells/VolibearRAbility/VolibearR"
+ ],
+ "passiva_ref": "Characters/Volibear/Spells/VolibearPAbility",
+ "passiva_chaves": [
+  "Spells/VolibearPAbility/VolibearP"
+ ]
+}

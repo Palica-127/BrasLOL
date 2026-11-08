@@ -1,0 +1,5643 @@
+{
+ "id": "Aphelios",
+ "key": 523,
+ "nome": "Aphelios",
+ "titulo": "a Arma dos Devotos",
+ "funcoes": [
+  "Marksman"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 6,
+  "defense": 2,
+  "magic": 1,
+  "difficulty": 10
+ },
+ "stats_ddragon": {
+  "hp": 600,
+  "hpperlevel": 102,
+  "mp": 348,
+  "mpperlevel": 42,
+  "movespeed": 325,
+  "armor": 26,
+  "armorperlevel": 4.2,
+  "spellblock": 33,
+  "spellblockperlevel": 1.1,
+  "attackrange": 550,
+  "hpregen": 3.25,
+  "hpregenperlevel": 0.55,
+  "mpregen": 6.5,
+  "mpregenperlevel": 0.4,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 55,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2.1,
+  "attackspeed": 0.665
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "O Assassino e a Profetisa",
+  "descricao": "Aphelios empunha 5 Armas Lunari criadas por sua irmã, Alune. Ele tem acesso a duas ao mesmo tempo: uma principal e uma secundária. Cada arma tem um ataque básico e uma Habilidade únicos. Ataques e habilidades consomem uma munição da arma. Quando fica sem munição, Aphelios descarta a arma e Alune invoca a próxima. "
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "ApheliosQ_ClientTooltipWrapper",
+   "nome": "Habilidades da arma",
+   "descricao": "Aphelios tem 5 habilidades diferentes que são ativadas com base em sua arma principal:<br><br>Calibrum (Rifle): Tiro de longo alcance que marca seu alvo para um disparo de longo alcance subsequente.<br>Severum (Pistola-Foice): Corre rapidamente enquanto ataca inimigos próximos com ambas as armas.<br>Gravitum (Canhão): Enraíza todos os inimigos afetados pela redução de velocidade desta arma.<br>Infernum (Lança-chamas): Explode inimigos em área de cone e os ataca com sua arma secundária.<br>Crescendum (Chakram): Posiciona uma atalaia que dispara com sua arma secundária.<br>",
+   "tooltip": "{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    9,
+    9,
+    9,
+    9,
+    9,
+    9
+   ],
+   "custo": [
+    60,
+    60,
+    60,
+    60,
+    60,
+    60
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1450,
+    1450,
+    1450,
+    1450,
+    1450,
+    1450
+   ],
+   "nivel_max": 6,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "ApheliosW",
+   "nome": "Fase",
+   "descricao": "Aphelios troca a arma principal por sua arma secundária, substituindo seu ataque básico e a habilidade ativada.",
+   "tooltip": "Alterne entre a arma principal e a secundária, equipando <b><i><span class=\"colora64dff\">Gravitum</span></i></b>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    0.8,
+    0.8,
+    0.8,
+    0.8,
+    0.8,
+    0.8
+   ],
+   "custo": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "tipo_custo": "Sem custo",
+   "alcance": [
+    250,
+    250,
+    250,
+    250,
+    250,
+    250
+   ],
+   "nivel_max": 6,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "ApheliosE_ClientTooltipWrapper",
+   "nome": "Sistema de Ordenação de Armas",
+   "descricao": "Aphelios não tem uma terceira habilidade. Este espaço mostra a próxima arma que Alune concederá a ele. A ordem das armas é fixa, mas pode variar ao longo da partida. Quando uma arma estiver sem munição, ela volta para o fim da sequência.",
+   "tooltip": "{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "custo": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1000,
+    1000,
+    1000,
+    1000,
+    1000,
+    1000
+   ],
+   "nivel_max": 6,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "ApheliosR",
+   "nome": "Vigília do Plenilúnio",
+   "descricao": "Dispara uma rajada concentrada de luar que explode ao atingir Campeões inimigos. Aplica o efeito único da arma principal de Aphelios.",
+   "tooltip": "Aphelios dispara uma rajada concentrada de luar que explode ao atingir um Campeão, causando <physicalDamage>{{ maxdamage }} de Dano Físico</physicalDamage> a inimigos ao redor.<br /><br />Depois, com a arma principal, Aphelios Ataca todos os Campeões atingidos. {{ Spell_ApheliosR_WeaponMod_{{ f1 }} }}{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    120,
+    110,
+    100
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1300,
+    1300,
+    1300
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 600,
+  "vida_nivel": 102,
+  "regen_vida": 0.65,
+  "regen_vida_nivel": 0.11,
+  "dano": 55,
+  "dano_nivel": 2.3,
+  "armadura": 26,
+  "armadura_nivel": 4.2,
+  "rm": 33,
+  "rm_nivel": 1.1,
+  "velocidade_mov": 325,
+  "alcance_ataque": 550,
+  "vel_ataque_base": 0.665,
+  "vel_ataque_razao": 0.658,
+  "vel_ataque_nivel": 2.1,
+  "dano_critico": 2,
+  "raio_selecao": 110,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackTotalTime": 1.5,
+   "mAttackCastTime": 0.23000000417232513,
+   "mAttackProbability": 1,
+   "mAttackName": "ApheliosBasicAttack",
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackTotalTime": 1.5,
+    "mAttackCastTime": 0.1599999964237213,
+    "mAttackProbability": 0,
+    "mAttackName": "ApheliosCrescendumAttack",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackTotalTime": 1.5,
+    "mAttackCastTime": 0.23000000417232513,
+    "mAttackProbability": 1,
+    "mAttackName": "ApheliosBasicAttack",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackTotalTime": 1.5,
+    "mAttackCastTime": 0.10000000149011612,
+    "mAttackProbability": 0,
+    "mAttackName": "ApheliosCrescendumAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Aphelios/Spells/ApheliosQ_ClientTooltipWrapper",
+  "Characters/Aphelios/Spells/ApheliosWAbility/ApheliosW",
+  "Characters/Aphelios/Spells/ApheliosE_ClientTooltipWrapper",
+  "Characters/Aphelios/Spells/ApheliosRAbility/ApheliosR"
+ ],
+ "abilities_ref": [
+  "Characters/Aphelios/Spells/ApheliosWAbility",
+  "Characters/Aphelios/Spells/ApheliosEAbility",
+  "Characters/Aphelios/Spells/ApheliosRAbility",
+  "Characters/Aphelios/Spells/ApheliosPAbility",
+  "Characters/Aphelios/Spells/ApheliosCalibrumQAbility",
+  "Characters/Aphelios/Spells/ApheliosCrescendumQAbility",
+  "Characters/Aphelios/Spells/ApheliosGravitumQAbility",
+  "Characters/Aphelios/Spells/ApheliosInfernumQAbility",
+  "Characters/Aphelios/Spells/ApheliosSeverumQAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/ApheliosPAbility/ApheliosOffHandBuffSeverum": {
+   "ObjectName": "ApheliosOffHandBuffSeverum",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosOffHandBuffSeverum",
+   "mScriptName": "ApheliosOffHandBuffSeverum",
+   "mBuff": {
+    "mDescription": "buff_desc_ApheliosOffHandBuffSeverum",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosPAbility/ApheliosOffHandBuffGravitum": {
+   "ObjectName": "ApheliosOffHandBuffGravitum",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosOffHandBuffGravitum",
+   "mScriptName": "ApheliosOffHandBuffGravitum",
+   "mBuff": {
+    "mDescription": "buff_desc_ApheliosOffHandBuffGravitum",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosPAbility/ApheliosPReload": {
+   "ObjectName": "ApheliosPReload",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosPReload",
+   "mScriptName": "ApheliosPReload",
+   "mBuff": {
+    "mDescription": "buff_desc_ApheliosPReload",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosPAbility/ApheliosP": {
+   "ObjectName": "ApheliosP",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosP",
+   "mScriptName": "ApheliosP",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "MaxRanksPerStat",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ADPerRank",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ASPerRank",
+      "values": [
+       0.09,
+       0.09,
+       0.09,
+       0.09,
+       0.09,
+       0.09,
+       0.09
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APPerRank",
+      "values": [
+       4.5,
+       4.5,
+       4.5,
+       4.5,
+       4.5,
+       4.5,
+       4.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "AttackSpeed": {
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mBuffName": "{f6907f1b}",
+        "mDataValue": "ASPerRank",
+        "__type": "BuffCounterByNamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "AttackSpeedMax": {
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mPart1": {
+         "mDataValue": "MaxRanksPerStat",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        "mPart2": {
+         "mDataValue": "ASPerRank",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        "__type": "ProductOfSubPartsCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "AttackDamage": {
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mBuffName": "{eb906dca}",
+        "mDataValue": "ADPerRank",
+        "__type": "BuffCounterByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "AttackDamageMax": {
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mPart1": {
+         "mDataValue": "MaxRanksPerStat",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        "mPart2": {
+         "mDataValue": "ADPerRank",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        "__type": "ProductOfSubPartsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "ArPenBonus": {
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mBuffName": "{f79080ae}",
+        "mDataValue": "APPerRank",
+        "__type": "BuffCounterByNamedDataValueCalculationPart"
+       }
+      ],
+      "mPrecision": -1,
+      "__type": "GameCalculation"
+     },
+     "ArPenBonusMax": {
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mPart1": {
+         "mDataValue": "MaxRanksPerStat",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        "mPart2": {
+         "mDataValue": "APPerRank",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        "__type": "ProductOfSubPartsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 1,
+    "cooldownTime": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "Cooldown": {
+     "values": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+     ],
+     "{0a3e0478}": 2,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castRadius": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 0,
+    "mana": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosPAbility/ApheliosPBuffAS": {
+   "ObjectName": "ApheliosPBuffAS",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosPBuffAS",
+   "mScriptName": "ApheliosPBuffAS",
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosPAbility/ApheliosPBuffAP": {
+   "ObjectName": "ApheliosPBuffAP",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosPBuffAP",
+   "mScriptName": "ApheliosPBuffAP",
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosPAbility/ApheliosPBuffAD": {
+   "ObjectName": "ApheliosPBuffAD",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosPBuffAD",
+   "mScriptName": "ApheliosPBuffAD",
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosPAbility/ApheliosOffHandBuffCalibrum": {
+   "ObjectName": "ApheliosOffHandBuffCalibrum",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosOffHandBuffCalibrum",
+   "mScriptName": "ApheliosOffHandBuffCalibrum",
+   "mBuff": {
+    "mDescription": "buff_desc_ApheliosOffHandBuffCalibrum",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosPAbility/ApheliosOffHandBuffCrescendum": {
+   "ObjectName": "ApheliosOffHandBuffCrescendum",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosOffHandBuffCrescendum",
+   "mScriptName": "ApheliosOffHandBuffCrescendum",
+   "mBuff": {
+    "mDescription": "buff_desc_ApheliosOffHandBuffCrescendum",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosPAbility/ApheliosOffHandOrbitMissile": {
+   "ObjectName": "ApheliosOffHandOrbitMissile",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosOffHandOrbitMissile",
+   "mScriptName": "ApheliosOffHandOrbitMissile",
+   "mSpell": {
+    "flags": 4194308,
+    "mAffectsTypeFlags": 14346,
+    "mAffectsStatusFlags": 32,
+    "cannotBeSuppressed": true,
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "mChannelIsInterruptedByAttacking": false,
+    "mCanMoveWhileChanneling": true,
+    "mDisableCastBar": true,
+    "mNoWinddownIfCancelled": true,
+    "mIgnoreAnimContinueUntilCastFrame": true,
+    "castRange": [
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500
+    ],
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 50,
+     "movementComponent": {
+      "mVisualsTrackHiddenTargets": true,
+      "mOffsetInitialTargetHeight": 50,
+      "mStartBoneName": "",
+      "mAngularVelocity": 2,
+      "__type": "SyncCircleMovement"
+     },
+     "visibilityComponent": {
+      "mTargetControlsVisibility": true,
+      "mMissileClientWaitForTargetUpdateBeforeMissileShow": true,
+      "__type": "EnterFOWVisibility"
+     },
+     "heightSolver": {
+      "mHeightOffset": 50,
+      "__type": "FollowTerrainHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 7,
+    "mTargetingTypeData": {
+     "__type": "TargetOrLocation"
+    },
+    "mDimensionBehavior": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosPAbility/ApheliosOffHandBuffInfernum": {
+   "ObjectName": "ApheliosOffHandBuffInfernum",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosOffHandBuffInfernum",
+   "mScriptName": "ApheliosOffHandBuffInfernum",
+   "mBuff": {
+    "mDescription": "buff_desc_ApheliosOffHandBuffInfernum",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosPAbility/ApheliosPDefinitions": {
+   "ObjectName": "ApheliosPDefinitions",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosPDefinitions",
+   "mScriptName": "ApheliosPDefinitions",
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCrescendumOrbitManager": {
+   "ObjectName": "ApheliosCrescendumOrbitManager",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCrescendumOrbitManager",
+   "mScriptName": "ApheliosCrescendumOrbitManager",
+   "mBuff": {
+    "mDescription": "buff_desc_ApheliosCrescendumOrbitManager",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosGravitumQAbility/ApheliosGravitumDebuff": {
+   "ObjectName": "ApheliosGravitumDebuff",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosGravitumQAbility/ApheliosGravitumDebuff",
+   "mScriptName": "ApheliosGravitumDebuff",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_ApheliosGravitumDebuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosGravitumQAbility/ApheliosGravitumRoot": {
+   "ObjectName": "ApheliosGravitumRoot",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosGravitumQAbility/ApheliosGravitumRoot",
+   "mScriptName": "ApheliosGravitumRoot",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_ApheliosGravitumRoot",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosGravitumQAbility/ApheliosGravitumQ": {
+   "ObjectName": "ApheliosGravitumQ",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosGravitumQAbility/ApheliosGravitumQ",
+   "mScriptName": "ApheliosGravitumQ",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mCastRequirementsCaster": [
+     {
+      "mUnitsRequirements": [
+       {
+        "mAffectsTypeFlags": 6154,
+        "__type": "HasTypeAndStatusFlags"
+       },
+       {
+        "mSuccessesRequired": 1,
+        "mSubRequirements": [
+         {
+          "mBuffName": "{f1142b3d}",
+          "mFromAnyone": true,
+          "__type": "HasBuffCastRequirement"
+         },
+         {
+          "mBuffName": "{c4735f78}",
+          "mFromAnyone": true,
+          "__type": "HasBuffCastRequirement"
+         }
+        ],
+        "__type": "HasAtleastNSubRequirementsCastRequirement"
+       }
+      ],
+      "mUnitsRequired": 1,
+      "mRange": 30000,
+      "__type": "HasNNearbyUnitsRequirement"
+     }
+    ],
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_ImmobilizingCCSpell"
+    ],
+    "DataValues": [
+     {
+      "name": "SlowDuration",
+      "values": [
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RootDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "SlowAmountInitial": {
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mNumber": 0.3,
+        "__type": "NumberCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "{dec81e53}": {
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mNumber": 0.15,
+        "__type": "NumberCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "AttackDamage": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "Damage": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 50,
+        "mBreakpoints": [
+         {
+          "mLevel": 3,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 5,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 7,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 9,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 11,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 13,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mSubpart": {
+         "mLevel1Value": 0.32,
+         "mBreakpoints": [
+          {
+           "mLevel": 3,
+           "mAdditionalBonusAtThisLevel": 0.03,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 5,
+           "mAdditionalBonusAtThisLevel": 0.03,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 7,
+           "mAdditionalBonusAtThisLevel": 0.03,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 9,
+           "mAdditionalBonusAtThisLevel": 0.03,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 11,
+           "mAdditionalBonusAtThisLevel": 0.03,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 13,
+           "mAdditionalBonusAtThisLevel": 0.03,
+           "__type": "Breakpoint"
+          }
+         ],
+         "__type": "ByCharLevelBreakpointsCalculationPart"
+        },
+        "__type": "StatBySubPartCalculationPart"
+       },
+       {
+        "mCoefficient": 0.7,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "GravitumQCD": {
+      "mMultiplier": {
+       "__type": "CooldownMultiplierCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 12,
+        "mBreakpoints": [
+         {
+          "mLevel": 3,
+          "mAdditionalBonusAtThisLevel": -0.333,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 5,
+          "mAdditionalBonusAtThisLevel": -0.333,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 7,
+          "mAdditionalBonusAtThisLevel": -0.333,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 9,
+          "mAdditionalBonusAtThisLevel": -0.333,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 11,
+          "mAdditionalBonusAtThisLevel": -0.333,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 13,
+          "mAdditionalBonusAtThisLevel": -0.333,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "mPrecision": 2,
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "mAmmoUsed": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "mAmmoNotAffectedByCDR": true,
+    "mAmmoCountHiddenInUI": true,
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "mTurnSpeedScalar": 5,
+    "mIgnoreRangeCheck": true,
+    "mPingableWhileDisabled": true,
+    "mDoesNotConsumeCooldown": true,
+    "castRange": [
+     30000,
+     30000,
+     30000,
+     30000,
+     30000,
+     30000,
+     30000
+    ],
+    "castRadius": [
+     175,
+     175,
+     175,
+     175,
+     175,
+     175,
+     175
+    ],
+    "castRadiusSecondary": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "missileSpeed": 1850,
+    "mLineWidth": 65,
+    "mana": [
+     60,
+     60,
+     60,
+     60,
+     60,
+     60
+    ],
+    "mTargetingTypeData": {
+     "__type": "SelfAoe"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosGravitumQAbility/ApheliosGravitumManager": {
+   "ObjectName": "ApheliosGravitumManager",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosGravitumQAbility/ApheliosGravitumManager",
+   "mScriptName": "ApheliosGravitumManager",
+   "mBuff": {
+    "mDescription": "buff_desc_ApheliosGravitumManager",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCrescendumQAbility/ApheliosCrescendumManager": {
+   "ObjectName": "ApheliosCrescendumManager",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCrescendumQAbility/ApheliosCrescendumManager",
+   "mScriptName": "ApheliosCrescendumManager",
+   "mBuff": {
+    "mDescription": "buff_desc_ApheliosCrescendumManager",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCrescendumQAbility/ApheliosCrescendumTurretMis": {
+   "ObjectName": "ApheliosCrescendumTurretMis",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCrescendumQAbility/ApheliosCrescendumTurretMis",
+   "mScriptName": "ApheliosCrescendumTurretMis",
+   "mSpell": {
+    "flags": 132,
+    "mAffectsTypeFlags": 6282,
+    "mAlternateName": "ApheliosDefaultGun",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mPreCastLockoutDeltaTime": 0.4,
+    "canCastWhileDisabled": true,
+    "mApplyMaterialOnHitSound": true,
+    "mIsDisabledWhileDead": false,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 90,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "root",
+      "mTargetBoneName": "root",
+      "mTravelTime": 1,
+      "__type": "FixedTimeMovement"
+     },
+     "visibilityComponent": {
+      "__type": "EnterFOWVisibility"
+     },
+     "heightSolver": {
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 6,
+    "missileSpeed": 700,
+    "mLineWidth": 60,
+    "mHitEffectOrientType": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCrescendumQAbility/ApheliosCrescendumTurretHelper": {
+   "ObjectName": "ApheliosCrescendumTurretHelper",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCrescendumQAbility/ApheliosCrescendumTurretHelper",
+   "mScriptName": "ApheliosCrescendumTurretHelper",
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCrescendumQAbility/ApheliosCrescendumTurretActive": {
+   "ObjectName": "ApheliosCrescendumTurretActive",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCrescendumQAbility/ApheliosCrescendumTurretActive",
+   "mScriptName": "ApheliosCrescendumTurretActive",
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCrescendumQAbility/ApheliosCrescendumQ": {
+   "ObjectName": "ApheliosCrescendumQ",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCrescendumQAbility/ApheliosCrescendumQ",
+   "mScriptName": "ApheliosCrescendumQ",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "ApheliosCrescendumQ",
+    "DataValues": [
+     {
+      "name": "MiniBuffDuration",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MiniBuffResetDuration",
+      "values": [
+       3.5,
+       3.5,
+       3.5,
+       3.5,
+       3.5,
+       3.5,
+       3.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "UnitsPerPercentAttackSpeedPerSecond",
+      "values": [
+       750,
+       750,
+       750,
+       750,
+       750,
+       750,
+       750
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TurretDurationIdle",
+      "values": [
+       20,
+       20,
+       20,
+       20,
+       20,
+       20,
+       20
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TurretDurationActive",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AttackRange",
+      "values": [
+       500,
+       500,
+       500,
+       500,
+       500,
+       500,
+       500
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AggroRange",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MiniDamageRatioMax",
+      "values": [
+       0.16,
+       0.16,
+       0.16,
+       0.16,
+       0.16,
+       0.16,
+       0.16
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MiniDamageRatioMin",
+      "values": [
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MiniBaseDamage",
+      "values": [
+       15,
+       25,
+       35,
+       45,
+       55,
+       65,
+       75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TurretAPRatio",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MiniDamageRatioDecPer",
+      "values": [
+       0.015,
+       0.015,
+       0.015,
+       0.015,
+       0.015,
+       0.015,
+       0.015
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "{c61fdd37}": {
+      "mSimpleTooltipCalculationDisplay": 0,
+      "mFormulaParts": [
+       {
+        "mNumber": 600,
+        "__type": "NumberCalculationPart"
+       },
+       {
+        "mStat": 4,
+        "mStatFormula": 2,
+        "mDataValue": "UnitsPerPercentAttackSpeedPerSecond",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MiniDamageMin": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mDataValue": "MiniDamageRatioMin",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MiniDamageMax": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mDataValue": "MiniDamageRatioMax",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TurretDamage": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 35,
+        "mBreakpoints": [
+         {
+          "mLevel": 3,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 5,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 7,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 9,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 11,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 13,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mSubpart": {
+         "mLevel1Value": 0.34,
+         "mBreakpoints": [
+          {
+           "mLevel": 3,
+           "mAdditionalBonusAtThisLevel": 0.03,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 5,
+           "mAdditionalBonusAtThisLevel": 0.03,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 7,
+           "mAdditionalBonusAtThisLevel": 0.03,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 9,
+           "mAdditionalBonusAtThisLevel": 0.03,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 11,
+           "mAdditionalBonusAtThisLevel": 0.03,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 13,
+           "mAdditionalBonusAtThisLevel": 0.03,
+           "__type": "Breakpoint"
+          }
+         ],
+         "__type": "ByCharLevelBreakpointsCalculationPart"
+        },
+        "__type": "StatBySubPartCalculationPart"
+       },
+       {
+        "mDataValue": "TurretAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "AttackDamage": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "CrescendumQCD": {
+      "mMultiplier": {
+       "__type": "CooldownMultiplierCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 9,
+        "mBreakpoints": [
+         {
+          "mLevel": 3,
+          "mAdditionalBonusAtThisLevel": -0.5,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 5,
+          "mAdditionalBonusAtThisLevel": -0.5,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 7,
+          "mAdditionalBonusAtThisLevel": -0.5,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 9,
+          "mAdditionalBonusAtThisLevel": -0.5,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 11,
+          "mAdditionalBonusAtThisLevel": -0.5,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 13,
+          "mAdditionalBonusAtThisLevel": -0.5,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "mPrecision": 2,
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.25,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "mAmmoUsed": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "mAmmoNotAffectedByCDR": true,
+    "mAmmoCountHiddenInUI": true,
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "useAnimatorFramerate": true,
+    "mDoesNotConsumeCooldown": true,
+    "castRange": [
+     475,
+     475,
+     475,
+     475,
+     475,
+     475,
+     475
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.5,
+    "missileSpeed": 1500,
+    "mLineWidth": 110,
+    "mana": [
+     60,
+     60,
+     60,
+     60,
+     60,
+     60
+    ],
+    "mTargetingTypeData": {
+     "__type": "LocationClamped"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Buff_ApheliosCrescendumQ_TurretMaster",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosQ_ClientTooltipWrapper": {
+   "ObjectName": "ApheliosQ_ClientTooltipWrapper",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosQ_ClientTooltipWrapper",
+   "mScriptName": "ApheliosQ_ClientTooltipWrapper",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_SwapsIntoImmobilizingCCAbility"
+    ],
+    "mCastTime": 0.35,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     9,
+     9,
+     9,
+     9,
+     9,
+     9,
+     9
+    ],
+    "Cooldown": {
+     "values": [
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9
+     ],
+     "{0a3e0478}": 9,
+     "__type": "{0a0eddc9}"
+    },
+    "mCasterPositionEndOfCastUpdate": 1,
+    "mAmmoUsed": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "mAmmoNotAffectedByCDR": true,
+    "mAmmoCountHiddenInUI": true,
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "mTurnSpeedScalar": 5,
+    "mIgnoreRangeCheck": true,
+    "mUpdateRotationWhenCasting": true,
+    "mPingableWhileDisabled": true,
+    "mDoesNotConsumeCooldown": true,
+    "castRange": [
+     1450,
+     1450,
+     1450,
+     1450,
+     1450,
+     1450,
+     1450
+    ],
+    "castRadius": [
+     175,
+     175,
+     175,
+     175,
+     175,
+     175,
+     175
+    ],
+    "castRadiusSecondary": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "mCastType": 3,
+    "castFrame": 7,
+    "missileSpeed": 1850,
+    "mLineWidth": 60,
+    "mHitEffectKey": "Aphelios_Q_calibrum_hit",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_buffbone_glb_center_loc",
+    "mana": [
+     60,
+     60,
+     60,
+     60,
+     60,
+     60
+    ],
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosAttackMisMini2": {
+   "ObjectName": "ApheliosAttackMisMini2",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosAttackMisMini2",
+   "mScriptName": "ApheliosAttackMisMini2",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 7919,
+    "mAffectsStatusFlags": 32,
+    "mAlternateName": "ApheliosCalibrumAttack",
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mApplyAttackDamage": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mOffsetInitialTargetHeight": 50,
+      "mStartBoneName": "Calibrum_Orb",
+      "mTargetBoneName": "C_Buffbone_Glb_Chest_Loc",
+      "mSplineInfo": {
+       "mStartPositionOffset": [
+        -35.88797,
+        0,
+        -220.19109
+       ],
+       "mControlPoint1": [
+        -1.2049,
+        0,
+        1.32352
+       ],
+       "mControlPoint2": [
+        0.02002,
+        0,
+        1.33786
+       ],
+       "__type": "HermiteSplineInfo"
+      },
+      "mSpeed": 2400,
+      "__type": "FixedSpeedSplineMovement"
+     },
+     "heightSolver": {
+      "mGravity": 4000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.32107,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Aphelios_BA_calibrum_mis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCalibrumAttackMisMini": {
+   "ObjectName": "ApheliosCalibrumAttackMisMini",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCalibrumAttackMisMini",
+   "mScriptName": "ApheliosCalibrumAttackMisMini",
+   "mSpell": {
+    "mAffectsTypeFlags": 7919,
+    "mAffectsStatusFlags": 32,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mPreCastLockoutDeltaTime": 0.06,
+    "mCasterPositionEndOfCastUpdate": 1,
+    "canCastWhileDisabled": true,
+    "mApplyAttackDamage": true,
+    "alwaysSnapFacing": true,
+    "bHaveHitEffect": true,
+    "mTurnSpeedScalar": 5,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mOffsetInitialTargetHeight": 50,
+      "mStartBoneName": "Calibrum_Orb",
+      "mTargetBoneName": "C_Buffbone_Glb_Chest_Loc",
+      "mSplineInfo": {
+       "mStartPositionOffset": [
+        -5.61661,
+        0,
+        -112.0881
+       ],
+       "mControlPoint1": [
+        -0.51641,
+        0,
+        1.01975
+       ],
+       "mControlPoint2": [
+        0.02002,
+        0,
+        1.33786
+       ],
+       "__type": "HermiteSplineInfo"
+      },
+      "mSpeed": 2400,
+      "__type": "FixedSpeedSplineMovement"
+     },
+     "heightSolver": {
+      "mGravity": 4000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.32107,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Aphelios_BA_calibrum_mis",
+    "mHitEffectKey": "Aphelios_BA_calibrum_hit",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosInfernumAttack": {
+   "ObjectName": "ApheliosInfernumAttack",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosInfernumAttack",
+   "mScriptName": "ApheliosInfernumAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7871,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mPreCastLockoutDeltaTime": 0.6,
+    "canCastWhileDisabled": true,
+    "mApplyAttackDamage": true,
+    "mApplyAttackEffect": true,
+    "alwaysSnapFacing": true,
+    "mTurnSpeedScalar": 5,
+    "mIgnoreRangeCheck": true,
+    "mRollForCriticalHit": true,
+    "castRange": [
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 80,
+     "movementComponent": {
+      "mTargetHeightAugment": 190,
+      "mOffsetInitialTargetHeight": 100,
+      "mTargetBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+      "mSpeed": 1700,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.32107,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Aphelios_BA_infernum_mis",
+    "mHitEffectKey": "Aphelios_BA_Infernum_hit_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCalibrumAttackMisMini2": {
+   "ObjectName": "ApheliosCalibrumAttackMisMini2",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCalibrumAttackMisMini2",
+   "mScriptName": "ApheliosCalibrumAttackMisMini2",
+   "mSpell": {
+    "mAffectsTypeFlags": 7919,
+    "mAffectsStatusFlags": 32,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mPreCastLockoutDeltaTime": 0.06,
+    "mCasterPositionEndOfCastUpdate": 1,
+    "canCastWhileDisabled": true,
+    "mApplyAttackDamage": true,
+    "alwaysSnapFacing": true,
+    "bHaveHitEffect": true,
+    "mTurnSpeedScalar": 5,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mOffsetInitialTargetHeight": 50,
+      "mStartBoneName": "Calibrum_Orb",
+      "mTargetBoneName": "C_Buffbone_Glb_Chest_Loc",
+      "mSplineInfo": {
+       "mStartPositionOffset": [
+        5.61661,
+        0,
+        -112.0881
+       ],
+       "mControlPoint1": [
+        0.51641,
+        0,
+        1.01975
+       ],
+       "mControlPoint2": [
+        -0.02002,
+        0,
+        1.33786
+       ],
+       "__type": "HermiteSplineInfo"
+      },
+      "mSpeed": 2400,
+      "__type": "FixedSpeedSplineMovement"
+     },
+     "heightSolver": {
+      "mGravity": 4000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.32107,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Aphelios_BA_calibrum_mis",
+    "mHitEffectKey": "Aphelios_BA_calibrum_hit",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosEAbility/ApheliosE": {
+   "ObjectName": "ApheliosE",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosEAbility/ApheliosE",
+   "mScriptName": "ApheliosE",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 8192,
+    "mCoefficient": 1,
+    "mCastTime": 0.5,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castRadius": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 0,
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_DravenFury",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCalibrumAttackMis": {
+   "ObjectName": "ApheliosCalibrumAttackMis",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCalibrumAttackMis",
+   "mScriptName": "ApheliosCalibrumAttackMis",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 7919,
+    "mAffectsStatusFlags": 32,
+    "mAlternateName": "ApheliosCalibrumAttack",
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mApplyAttackDamage": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Calibrum_Orb",
+      "mTargetBoneName": "C_Buffbone_Glb_Chest_Loc",
+      "mSpeed": 3000,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mHeightOffset": 100,
+      "__type": "FollowTerrainHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.32107,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Aphelios_BA_calibrum_mis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosInfernumQAbility/ApheliosInfernumManager": {
+   "ObjectName": "ApheliosInfernumManager",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosInfernumQAbility/ApheliosInfernumManager",
+   "mScriptName": "ApheliosInfernumManager",
+   "mBuff": {
+    "mDescription": "buff_desc_ApheliosInfernumManager",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosInfernumQAbility/ApheliosInfernumSplashMis": {
+   "ObjectName": "ApheliosInfernumSplashMis",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosInfernumQAbility/ApheliosInfernumSplashMis",
+   "mScriptName": "ApheliosInfernumSplashMis",
+   "mSpell": {
+    "mAffectsTypeFlags": 6794,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "canCastOrQueueWhileCasting": true,
+    "mApplyAttackDamage": true,
+    "mIsDisabledWhileDead": false,
+    "mSpellRevealsChampion": false,
+    "mCanMoveWhileChanneling": true,
+    "mDoNotNeedToFaceTarget": true,
+    "mTurnSpeedScalar": 5,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     900,
+     900,
+     900,
+     900,
+     900,
+     900,
+     900
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "mMissileSpec": {
+     "mMissileWidth": 40,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mTargetHeightAugment": 100,
+      "mStartBoneName": "",
+      "mUseGroundHeightAtTarget": false,
+      "mAcceleration": -17000,
+      "mMinSpeed": 700,
+      "mMaxSpeed": 20000,
+      "mInitialSpeed": 4000,
+      "__type": "AcceleratingMovement"
+     },
+     "heightSolver": {
+      "__type": "GravityHeightSolver"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "missileSpeed": 0,
+    "mMissileEffectKey": "{1abade44}",
+    "mHitEffectOrientType": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosInfernumQAbility/ApheliosInfernumQMis": {
+   "ObjectName": "ApheliosInfernumQMis",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosInfernumQAbility/ApheliosInfernumQMis",
+   "mScriptName": "ApheliosInfernumQMis",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mCastTime": 0.1,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mPreCastLockoutDeltaTime": 0.6,
+    "canCastWhileDisabled": true,
+    "canCastOrQueueWhileCasting": true,
+    "mApplyAttackDamage": true,
+    "mIsDisabledWhileDead": false,
+    "mCanMoveWhileChanneling": true,
+    "bHaveHitEffect": true,
+    "mDoNotNeedToFaceTarget": true,
+    "castRange": [
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 40,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTargetHeightAugment": 100,
+      "mUseGroundHeightAtTarget": false,
+      "mAcceleration": -4000,
+      "mMinSpeed": 1200,
+      "mMaxSpeed": 20000,
+      "mInitialSpeed": 3400,
+      "__type": "AcceleratingMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "behaviors": [
+      {
+       "__type": "DestroyOnMovementComplete"
+      },
+      {
+       "__type": "CastOnHit"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 5,
+    "missileSpeed": 1500,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Aphelios_BA_Infernum_hit_tar",
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosInfernumQAbility/ApheliosInfernumQ": {
+   "ObjectName": "ApheliosInfernumQ",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosInfernumQAbility/ApheliosInfernumQ",
+   "mScriptName": "ApheliosInfernumQ",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "InfernumDamageMultiplier",
+      "values": [
+       1.1,
+       1.1,
+       1.1,
+       1.1,
+       1.1,
+       1.1,
+       1.1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinionPenaltyBase",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "InfernumQCD": {
+      "mMultiplier": {
+       "__type": "CooldownMultiplierCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 8,
+        "mBreakpoints": [
+         {
+          "mLevel": 3,
+          "mAdditionalBonusAtThisLevel": -0.5,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 5,
+          "mAdditionalBonusAtThisLevel": -0.5,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 7,
+          "mAdditionalBonusAtThisLevel": -0.5,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 9,
+          "mAdditionalBonusAtThisLevel": -0.5,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 11,
+          "mAdditionalBonusAtThisLevel": -0.5,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 13,
+          "mAdditionalBonusAtThisLevel": -0.5,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "QWaveDamage": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 20,
+        "mBreakpoints": [
+         {
+          "mLevel": 3,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 5,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 7,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 9,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 11,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 13,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mSubpart": {
+         "mLevel1Value": 0.15,
+         "mBreakpoints": [
+          {
+           "mLevel": 3,
+           "mAdditionalBonusAtThisLevel": 0.01,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 5,
+           "mAdditionalBonusAtThisLevel": 0.01,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 7,
+           "mAdditionalBonusAtThisLevel": 0.01,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 9,
+           "mAdditionalBonusAtThisLevel": 0.01,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 11,
+           "mAdditionalBonusAtThisLevel": 0.01,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 13,
+           "mAdditionalBonusAtThisLevel": 0.01,
+           "__type": "Breakpoint"
+          }
+         ],
+         "__type": "ByCharLevelBreakpointsCalculationPart"
+        },
+        "__type": "StatBySubPartCalculationPart"
+       },
+       {
+        "mCoefficient": 0.7,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "AttackDamage": {
+      "mMultiplier": {
+       "mDataValue": "InfernumDamageMultiplier",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "SecondaryTargetPenalty": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 0.75,
+        "mBreakpoints": [
+         {
+          "mLevel": 9,
+          "mAdditionalBonusAtThisLevel": 0.25,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "MinionPenalty": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "MinionPenaltyBase",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "SecondaryMinionPenalty": {
+      "mMultiplier": {
+       "mDataValue": "MinionPenaltyBase",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mSimpleTooltipCalculationDisplay": 5,
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mModifiedGameCalculation": "SecondaryTargetPenalty",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "mCastTime": 0.4,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     9,
+     9,
+     9,
+     9,
+     9,
+     9,
+     9
+    ],
+    "Cooldown": {
+     "values": [
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9
+     ],
+     "{0a3e0478}": 9,
+     "__type": "{0a0eddc9}"
+    },
+    "mAmmoUsed": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "mAmmoNotAffectedByCDR": true,
+    "mAmmoCountHiddenInUI": true,
+    "mCantCancelWhileWindingUp": true,
+    "mIgnoreRangeCheck": true,
+    "mPingableWhileDisabled": true,
+    "mDoesNotConsumeCooldown": true,
+    "castRange": [
+     850,
+     850,
+     850,
+     850,
+     850,
+     850,
+     850
+    ],
+    "castRadius": [
+     375,
+     375,
+     375,
+     375,
+     375,
+     375,
+     375
+    ],
+    "castRadiusSecondary": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castFrame": 16,
+    "missileSpeed": 1850,
+    "mLineWidth": 65,
+    "mana": [
+     60,
+     60,
+     60,
+     60,
+     60,
+     60
+    ],
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosSeverumAttackMis": {
+   "ObjectName": "ApheliosSeverumAttackMis",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosSeverumAttackMis",
+   "mScriptName": "ApheliosSeverumAttackMis",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 7919,
+    "mAffectsStatusFlags": 32,
+    "mAlternateName": "ApheliosCalibrumAttack",
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mApplyAttackDamage": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 50,
+      "mOffsetInitialTargetHeight": 100,
+      "mSpeed": 92400,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mHeightOffset": 100,
+      "__type": "FollowTerrainHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.32107,
+    "missileSpeed": 1500,
+    "mHitEffectOrientType": 2,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosE_ClientTooltipWrapper": {
+   "ObjectName": "ApheliosE_ClientTooltipWrapper",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosE_ClientTooltipWrapper",
+   "mScriptName": "ApheliosE_ClientTooltipWrapper",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 8192,
+    "mCoefficient": 1,
+    "mCastTime": 0.5,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castRadius": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 0,
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_DravenFury",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosSeverumLineAttack": {
+   "ObjectName": "ApheliosSeverumLineAttack",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosSeverumLineAttack",
+   "mScriptName": "ApheliosSeverumLineAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7871,
+    "mCastTime": 0.1,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mPreCastLockoutDeltaTime": 0.4,
+    "canCastWhileDisabled": true,
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "mSpellRevealsChampion": false,
+    "mCanMoveWhileChanneling": true,
+    "mDisableCastBar": true,
+    "mShowChannelBar": false,
+    "mDoNotNeedToFaceTarget": true,
+    "mIgnoreRangeCheck": true,
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 80,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTargetHeightAugment": 50,
+      "mTargetBoneName": "C_buffbone_Glb_Center_Loc",
+      "mInferDirectionFromFacingIfNeeded": false,
+      "mUseGroundHeightAtTarget": false,
+      "mTravelTime": 0.01,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "DestroyOnMovementComplete"
+      },
+      {
+       "__type": "CastOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.5,
+    "missileSpeed": 1500,
+    "mHitEffectOrientType": 2,
+    "mTargetingTypeData": {
+     "__type": "TargetOrLocation"
+    },
+    "mDimensionBehavior": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosRAbility/ApheliosRMis": {
+   "ObjectName": "ApheliosRMis",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosRAbility/ApheliosRMis",
+   "mScriptName": "ApheliosRMis",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 2,
+    "mCoefficient": 0.45,
+    "mCastTime": 0.25,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3
+    ],
+    "Cooldown": {
+     "values": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+     ],
+     "{0a3e0478}": 3,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "mSpellRevealsChampion": false,
+    "useAnimatorFramerate": true,
+    "bIsToggleSpell": true,
+    "mDoNotNeedToFaceTarget": true,
+    "castRange": [
+     1300,
+     1300,
+     1300,
+     1300,
+     1300,
+     1300,
+     1300
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 125,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mStartBoneName": "",
+      "mSpeed": 2050,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "DestroyOnMovementComplete"
+      },
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "mDelayTime": 0.5,
+       "__type": "DelayStart"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 1,
+    "missileSpeed": 6000,
+    "mLineWidth": 125,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosRAbility/ApheliosR": {
+   "ObjectName": "ApheliosR",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosRAbility/ApheliosR",
+   "mScriptName": "ApheliosR",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "ApheliosRv5",
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_DamageAbility"
+    ],
+    "DataValues": [
+     {
+      "name": "RBaseDamage",
+      "values": [
+       75,
+       125,
+       175,
+       225,
+       275,
+       325,
+       375
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SeverumRHealBonus",
+      "values": [
+       150,
+       250,
+       350,
+       450,
+       550,
+       650,
+       750
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CalibrumRMarkBonusDamage",
+      "values": [
+       20,
+       50,
+       80,
+       110,
+       140,
+       170,
+       200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CrescendumRBonusMinis",
+      "values": [
+       0,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "InfernumRBonusDamageBase",
+      "values": [
+       0,
+       50,
+       100,
+       150,
+       200,
+       250,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "GravitumRBonusSlowBase",
+      "values": [
+       0.99,
+       0.99,
+       0.99,
+       0.99,
+       0.99,
+       0.99,
+       0.99
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CritDamageMod",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "GravitumRRootDuration",
+      "values": [
+       1.35,
+       1.35,
+       1.35,
+       1.35,
+       1.35,
+       1.35,
+       1.35
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "MaxDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "RBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 0.2,
+        "__type": "StatByCoefficientCalculationPart"
+       },
+       {
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "InfernumRBonusDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "InfernumRBonusDamageBase",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 0.25,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "GravitumRBonusSlow": {
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mDataValue": "GravitumRBonusSlowBase",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "CritDamageModCalc": {
+      "mSimpleTooltipCalculationDisplay": 5,
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mNumber": 1,
+        "__type": "NumberCalculationPart"
+       },
+       {
+        "mPart1": {
+         "mDataValue": "CritDamageMod",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        "mPart2": {
+         "mPart1": {
+          "mStat": 8,
+          "mCoefficient": 1,
+          "__type": "StatByCoefficientCalculationPart"
+         },
+         "mPart2": {
+          "mSubparts": [
+           {
+            "mStat": 9,
+            "mCoefficient": 1,
+            "__type": "StatByCoefficientCalculationPart"
+           },
+           {
+            "mNumber": -1,
+            "__type": "NumberCalculationPart"
+           }
+          ],
+          "__type": "SumOfSubPartsCalculationPart"
+         },
+         "__type": "ProductOfSubPartsCalculationPart"
+        },
+        "__type": "ProductOfSubPartsCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "InfernumRPenalty": {
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mNumber": 0.9,
+        "__type": "NumberCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "{36ebd3cf}": {
+      "mFormulaParts": [
+       {
+        "mStat": 9,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.45,
+    "mCastTime": 0.5,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     120,
+     120,
+     110,
+     100,
+     100,
+     100,
+     100
+    ],
+    "Cooldown": {
+     "values": [
+      120,
+      120,
+      110,
+      100,
+      100,
+      100,
+      100
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mAmmoUsed": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "bIsToggleSpell": true,
+    "mDoNotNeedToFaceTarget": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     1300,
+     1300,
+     1300,
+     1300,
+     1300,
+     1300,
+     1300
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 15,
+    "missileSpeed": 1000,
+    "mLineWidth": 110,
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCrescendumLineAttack": {
+   "ObjectName": "ApheliosCrescendumLineAttack",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCrescendumLineAttack",
+   "mScriptName": "ApheliosCrescendumLineAttack",
+   "mSpell": {
+    "flags": 128,
+    "mAffectsTypeFlags": 7871,
+    "mAlternateName": "ApheliosDefaultGun",
+    "mCastTime": 0.1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mPreCastLockoutDeltaTime": 0.4,
+    "mCasterPositionEndOfCastUpdate": 1,
+    "canCastWhileDisabled": true,
+    "canCastOrQueueWhileCasting": true,
+    "mApplyMaterialOnHitSound": true,
+    "mIsDisabledWhileDead": false,
+    "mSpellRevealsChampion": false,
+    "mCanMoveWhileChanneling": true,
+    "mDisableCastBar": true,
+    "mDoNotNeedToFaceTarget": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 90,
+     "movementComponent": {
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "C_Buffbone_Glb_Chest_Loc",
+      "mTargetBoneName": "C_Buffbone_Glb_Chest_Loc",
+      "mSpeed": 1300,
+      "__type": "FixedSpeedMovement"
+     },
+     "visibilityComponent": {
+      "__type": "EnterFOWVisibility"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.5,
+    "missileSpeed": 200,
+    "mMissileEffectKey": "Aphelios_BA_crescendum_mis",
+    "mLineWidth": 60,
+    "mHitEffectOrientType": 2,
+    "mTargetingTypeData": {
+     "__type": "TargetOrLocation"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCalibrumAttack": {
+   "ObjectName": "ApheliosCalibrumAttack",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCalibrumAttack",
+   "mScriptName": "ApheliosCalibrumAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7919,
+    "mAffectsStatusFlags": 32,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mPreCastLockoutDeltaTime": 0.06,
+    "mCasterPositionEndOfCastUpdate": 1,
+    "canCastWhileDisabled": true,
+    "mApplyAttackDamage": true,
+    "alwaysSnapFacing": true,
+    "bHaveHitEffect": true,
+    "mTurnSpeedScalar": 5,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mOffsetInitialTargetHeight": 70,
+      "mStartBoneName": "Calibrum_Orb",
+      "mTargetBoneName": "C_Buffbone_Glb_Chest_Loc",
+      "mSpeed": 3000,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mHeightOffset": 100,
+      "__type": "FollowTerrainHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.32107,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Aphelios_BA_calibrum_mis",
+    "mHitEffectKey": "Aphelios_BA_calibrum_hit",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCalibrumQAbility/ApheliosCalibrumBonusRangeBuff": {
+   "ObjectName": "ApheliosCalibrumBonusRangeBuff",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCalibrumQAbility/ApheliosCalibrumBonusRangeBuff",
+   "mScriptName": "ApheliosCalibrumBonusRangeBuff",
+   "mBuff": {
+    "mDescription": "buff_desc_ApheliosCalibrumBonusRangeBuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCalibrumQAbility/ApheliosCalibrumBonusRangeDebuff": {
+   "ObjectName": "ApheliosCalibrumBonusRangeDebuff",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCalibrumQAbility/ApheliosCalibrumBonusRangeDebuff",
+   "mScriptName": "ApheliosCalibrumBonusRangeDebuff",
+   "mBuff": {
+    "mDescription": "buff_desc_ApheliosCalibrumBonusRangeDebuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCalibrumQAbility/ApheliosCalibrumQ": {
+   "ObjectName": "ApheliosCalibrumQ",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCalibrumQAbility/ApheliosCalibrumQ",
+   "mScriptName": "ApheliosCalibrumQ",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_Ranged_StopsFirstHit"
+    ],
+    "DataValues": [
+     {
+      "name": "MarkDuration",
+      "values": [
+       4.5,
+       4.5,
+       4.5,
+       4.5,
+       4.5,
+       4.5,
+       4.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusRange",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MoonlightCost",
+      "values": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusAS",
+      "values": [
+       0.05,
+       0.09,
+       0.13,
+       0.17,
+       0.21,
+       0.25,
+       0.29
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusASMax",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxMarkRange",
+      "values": [
+       1800,
+       1800,
+       1800,
+       1800,
+       1800,
+       1800,
+       1800
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "BonusDamagePerMark": {
+      "mFormulaParts": [
+       {
+        "mNumber": 15,
+        "__type": "NumberCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 0.15,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "SpellDamage": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 80,
+        "mBreakpoints": [
+         {
+          "mLevel": 3,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 5,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 7,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 9,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 11,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 13,
+          "mAdditionalBonusAtThisLevel": 15,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mSubpart": {
+         "mLevel1Value": 0.42,
+         "mBreakpoints": [
+          {
+           "mLevel": 3,
+           "mAdditionalBonusAtThisLevel": 0.03,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 5,
+           "mAdditionalBonusAtThisLevel": 0.03,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 7,
+           "mAdditionalBonusAtThisLevel": 0.03,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 9,
+           "mAdditionalBonusAtThisLevel": 0.03,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 11,
+           "mAdditionalBonusAtThisLevel": 0.03,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 13,
+           "mAdditionalBonusAtThisLevel": 0.03,
+           "__type": "Breakpoint"
+          }
+         ],
+         "__type": "ByCharLevelBreakpointsCalculationPart"
+        },
+        "__type": "StatBySubPartCalculationPart"
+       },
+       {
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "AttackDamage": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "CalibrumQCD": {
+      "mMultiplier": {
+       "__type": "CooldownMultiplierCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 10,
+        "mBreakpoints": [
+         {
+          "mLevel": 3,
+          "mAdditionalBonusAtThisLevel": -0.333,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 5,
+          "mAdditionalBonusAtThisLevel": -0.333,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 7,
+          "mAdditionalBonusAtThisLevel": -0.333,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 9,
+          "mAdditionalBonusAtThisLevel": -0.333,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 11,
+          "mAdditionalBonusAtThisLevel": -0.333,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 13,
+          "mAdditionalBonusAtThisLevel": -0.333,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "mPrecision": 2,
+      "__type": "GameCalculation"
+     },
+     "{ee06b7fb}": {
+      "mMultiplier": {
+       "mNumber": 0.4,
+       "__type": "NumberCalculationPart"
+      },
+      "mModifiedGameCalculation": "BonusDamagePerMark",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "mCastTime": 0.35,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "mCasterPositionEndOfCastUpdate": 1,
+    "mAmmoUsed": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "mAmmoNotAffectedByCDR": true,
+    "mAmmoCountHiddenInUI": true,
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "mTurnSpeedScalar": 5,
+    "mIgnoreRangeCheck": true,
+    "mUpdateRotationWhenCasting": true,
+    "mPingableWhileDisabled": true,
+    "mDoesNotConsumeCooldown": true,
+    "castRange": [
+     1450,
+     1450,
+     1450,
+     1450,
+     1450,
+     1450,
+     1450
+    ],
+    "castRadius": [
+     175,
+     175,
+     175,
+     175,
+     175,
+     175,
+     175
+    ],
+    "castRadiusSecondary": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "mMissileSpec": {
+     "mMissileWidth": 60,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mStartBoneName": "",
+      "mTargetBoneName": "C_buffbone_glb_center_loc",
+      "mProjectTargetToCastRange": true,
+      "mUseGroundHeightAtTarget": false,
+      "mSpeed": 1800,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "CurveTheDifferenceHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7,
+    "missileSpeed": 1850,
+    "mMissileEffectKey": "Aphelios_Q_calibrum_mis",
+    "mLineWidth": 60,
+    "mHitEffectKey": "Aphelios_Q_calibrum_hit",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_buffbone_glb_center_loc",
+    "mana": [
+     60,
+     60,
+     60,
+     60,
+     60,
+     60
+    ],
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCalibrumQAbility/ApheliosCalibrumSpotlightMis": {
+   "ObjectName": "ApheliosCalibrumSpotlightMis",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCalibrumQAbility/ApheliosCalibrumSpotlightMis",
+   "mScriptName": "ApheliosCalibrumSpotlightMis",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 7919,
+    "mAffectsStatusFlags": 32,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mApplyAttackDamage": true,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mOffsetInitialTargetHeight": 100,
+      "mTravelTime": 0.3,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "mHeightOffset": 100,
+      "__type": "FollowTerrainHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.32107,
+    "missileSpeed": 1500,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCalibrumQAbility/ApheliosCalibrumManager": {
+   "ObjectName": "ApheliosCalibrumManager",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCalibrumQAbility/ApheliosCalibrumManager",
+   "mScriptName": "ApheliosCalibrumManager",
+   "mBuff": {
+    "mDescription": "buff_desc_ApheliosCalibrumManager",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosSeverumQAbility/ApheliosSeverumCountUp": {
+   "ObjectName": "ApheliosSeverumCountUp",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosSeverumQAbility/ApheliosSeverumCountUp",
+   "mScriptName": "ApheliosSeverumCountUp",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Buff_ApheliosSeverumCountUp_Tooltip",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosSeverumQAbility/ApheliosSeverumQ": {
+   "ObjectName": "ApheliosSeverumQ",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosSeverumQAbility/ApheliosSeverumQ",
+   "mScriptName": "ApheliosSeverumQ",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_ActiveHeal",
+     "Trait_Shield"
+    ],
+    "DataValues": [
+     {
+      "name": "Duration",
+      "values": [
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DecayTakes",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ASCoeff",
+      "values": [
+       0.33334,
+       0.33334,
+       0.33334,
+       0.33334,
+       0.33334,
+       0.33334,
+       0.33334
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StartingAttacks",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "NumAttacks": {
+      "mMultiplier": {
+       "mDataValue": "StartingAttacks",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mExpandedTooltipCalculationDisplay": 0,
+      "mFormulaParts": [
+       {
+        "mNumber": 1,
+        "__type": "NumberCalculationPart"
+       },
+       {
+        "mStat": 4,
+        "mStatFormula": 2,
+        "mDataValue": "ASCoeff",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{9480e64f}": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mSubpart": {
+         "mLevel1Value": 0.2,
+         "mBreakpoints": [
+          {
+           "mLevel": 3,
+           "mAdditionalBonusAtThisLevel": 0.035,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 5,
+           "mAdditionalBonusAtThisLevel": 0.035,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 7,
+           "mAdditionalBonusAtThisLevel": 0.035,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 9,
+           "mAdditionalBonusAtThisLevel": 0.035,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 11,
+           "mAdditionalBonusAtThisLevel": 0.035,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 13,
+           "mAdditionalBonusAtThisLevel": 0.035,
+           "__type": "Breakpoint"
+          }
+         ],
+         "__type": "ByCharLevelBreakpointsCalculationPart"
+        },
+        "__type": "StatBySubPartCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalDamage": {
+      "mMultiplier": {
+       "mStat": 2,
+       "mSubpart": {
+        "mLevel1Value": 0.19,
+        "mBreakpoints": [
+         {
+          "mLevel": 3,
+          "mAdditionalBonusAtThisLevel": 0.035,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 5,
+          "mAdditionalBonusAtThisLevel": 0.035,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 7,
+          "mAdditionalBonusAtThisLevel": 0.035,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 9,
+          "mAdditionalBonusAtThisLevel": 0.035,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 11,
+          "mAdditionalBonusAtThisLevel": 0.035,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 13,
+          "mAdditionalBonusAtThisLevel": 0.035,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       },
+       "__type": "StatBySubPartCalculationPart"
+      },
+      "mExpandedTooltipCalculationDisplay": 0,
+      "mModifiedGameCalculation": "NumAttacks",
+      "__type": "GameCalculationModified"
+     },
+     "Haste": {
+      "mFormulaParts": [
+       {
+        "mNumber": 0.25,
+        "__type": "NumberCalculationPart"
+       },
+       {
+        "mCoefficient": 0.001,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "HealAmount": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 0.02,
+        "mEndValue": 0.08,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": 1,
+      "__type": "GameCalculation"
+     },
+     "AttackDamage": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MaxShield": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 10,
+        "mBreakpoints": [
+         {
+          "mLevel": 6,
+          "mBonusPerLevelAtAndAfter": 10,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       },
+       {
+        "mStat": 12,
+        "mCoefficient": 0.06,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "SeverumQCD": {
+      "mMultiplier": {
+       "__type": "CooldownMultiplierCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 10,
+        "mBreakpoints": [
+         {
+          "mLevel": 3,
+          "mAdditionalBonusAtThisLevel": -0.333,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 5,
+          "mAdditionalBonusAtThisLevel": -0.333,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 7,
+          "mAdditionalBonusAtThisLevel": -0.333,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 9,
+          "mAdditionalBonusAtThisLevel": -0.333,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 11,
+          "mAdditionalBonusAtThisLevel": -0.333,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 13,
+          "mAdditionalBonusAtThisLevel": -0.333,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{3f4c2ea7}": {
+      "mSimpleTooltipCalculationDisplay": 5,
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mNumber": 25,
+        "__type": "NumberCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalDecayDurationForTooltip": {
+      "mSimpleTooltipCalculationDisplay": 5,
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 25,
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       },
+       {
+        "mDataValue": "DecayTakes",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{31c5a522}": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 35,
+        "mEndValue": 100,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "OnHitDamageReduction": {
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mNumber": 0.25,
+        "__type": "NumberCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "HealAmountSpell": {
+      "mMultiplier": {
+       "mNumber": 2.5,
+       "__type": "NumberCalculationPart"
+      },
+      "mModifiedGameCalculation": "HealAmount",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "mAmmoUsed": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "mAmmoNotAffectedByCDR": true,
+    "mAmmoCountHiddenInUI": true,
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCanMoveWhileChanneling": true,
+    "useAnimatorFramerate": true,
+    "mDoNotNeedToFaceTarget": true,
+    "mIgnoreRangeCheck": true,
+    "mPingableWhileDisabled": true,
+    "mDoesNotConsumeCooldown": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     620,
+     620,
+     620,
+     620,
+     620,
+     620,
+     620
+    ],
+    "castRadius": [
+     175,
+     175,
+     175,
+     175,
+     175,
+     175,
+     175
+    ],
+    "castRadiusSecondary": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "missileSpeed": 1850,
+    "mLineWidth": 65,
+    "mana": [
+     60,
+     60,
+     60,
+     60,
+     60,
+     60
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "mDimensionBehavior": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_ApheliosSeverumQ",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosSeverumQAbility/ApheliosSeverumManager": {
+   "ObjectName": "ApheliosSeverumManager",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosSeverumQAbility/ApheliosSeverumManager",
+   "mScriptName": "ApheliosSeverumManager",
+   "mBuff": {
+    "mDescription": "buff_desc_ApheliosSeverumManager",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosGravitumAttack": {
+   "ObjectName": "ApheliosGravitumAttack",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosGravitumAttack",
+   "mScriptName": "ApheliosGravitumAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7935,
+    "mAffectsStatusFlags": 32,
+    "mAlternateName": "ApheliosGravitumAttack",
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mApplyAttackDamage": true,
+    "alwaysSnapFacing": true,
+    "bHaveHitEffect": true,
+    "mIgnoreRangeCheck": true,
+    "mUseAutoattackCastTimeData": {
+     "__type": "UseAutoattackCastTimeData"
+    },
+    "mRollForCriticalHit": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 190,
+      "mStartBoneName": "Gravitum_RingFront",
+      "mTargetBoneName": "C_Buffbone_Glb_Center_Loc",
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 5,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.321,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Aphelios_BA_gravitum_mis",
+    "mHitEffectKey": "Aphelios_BA_gravitum_hit",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCalibrumAttackMisChain": {
+   "ObjectName": "ApheliosCalibrumAttackMisChain",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCalibrumAttackMisChain",
+   "mScriptName": "ApheliosCalibrumAttackMisChain",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 7919,
+    "mAffectsStatusFlags": 32,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Calibrum",
+      "mTargetBoneName": "C_Buffbone_Glb_Layout_Loc",
+      "mSpeed": 2400,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      },
+      {
+       "__type": "CastOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "missileSpeed": 0,
+    "mMissileEffectKey": "{24ff9430}",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCrescendumAttack": {
+   "ObjectName": "ApheliosCrescendumAttack",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCrescendumAttack",
+   "mScriptName": "ApheliosCrescendumAttack",
+   "mSpell": {
+    "flags": 128,
+    "mAffectsTypeFlags": 6826,
+    "mAffectsStatusFlags": 32,
+    "mAlternateName": "ApheliosCrescendumAttack",
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mApplyMaterialOnHitSound": true,
+    "alwaysSnapFacing": true,
+    "mTurnSpeedScalar": 5,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 10,
+    "mLineWidth": 60,
+    "mHitEffectOrientType": 2,
+    "mDimensionBehavior": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCalibrumAttackOverride": {
+   "ObjectName": "ApheliosCalibrumAttackOverride",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCalibrumAttackOverride",
+   "mScriptName": "ApheliosCalibrumAttackOverride",
+   "mSpell": {
+    "mAffectsTypeFlags": 7919,
+    "mAffectsStatusFlags": 32,
+    "mCastTime": 0.3,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "alwaysSnapFacing": true,
+    "useAnimatorFramerate": true,
+    "mConsideredAsAutoAttack": true,
+    "mRollForCriticalHit": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "missileSpeed": 1500,
+    "selectionPriority": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosInfernumLineAttack": {
+   "ObjectName": "ApheliosInfernumLineAttack",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosInfernumLineAttack",
+   "mScriptName": "ApheliosInfernumLineAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7871,
+    "mCastTime": 0.1,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mPreCastLockoutDeltaTime": 0.6,
+    "mCasterPositionEndOfCastUpdate": 1,
+    "canCastWhileDisabled": true,
+    "canCastOrQueueWhileCasting": true,
+    "mApplyAttackDamage": true,
+    "mIsDisabledWhileDead": false,
+    "mSpellRevealsChampion": false,
+    "mCanMoveWhileChanneling": true,
+    "mDisableCastBar": true,
+    "bHaveHitEffect": true,
+    "mDoNotNeedToFaceTarget": true,
+    "castRange": [
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 100,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTargetHeightAugment": 100,
+      "mInferDirectionFromFacingIfNeeded": false,
+      "mUseGroundHeightAtTarget": false,
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "behaviors": [
+      {
+       "__type": "DestroyOnMovementComplete"
+      },
+      {
+       "__type": "CastOnHit"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 5,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Aphelios_BA_infernum_mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Aphelios_BA_Infernum_hit_tar",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCrescendumAttackMisIn": {
+   "ObjectName": "ApheliosCrescendumAttackMisIn",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCrescendumAttackMisIn",
+   "mScriptName": "ApheliosCrescendumAttackMisIn",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1093,
+    "mAffectsStatusFlags": 32,
+    "spellCastTime": 0.381,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mChannelIsInterruptedByAttacking": false,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 40,
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "",
+      "mTargetBoneName": "C_Buffbone_Glb_Chest_Loc",
+      "mSpeed": 600,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.32107,
+    "missileSpeed": 1000,
+    "mMissileEffectKey": "Aphelios_BA_crescendum_mis_return",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "mDimensionBehavior": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCrescendumAttackMisOut": {
+   "ObjectName": "ApheliosCrescendumAttackMisOut",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCrescendumAttackMisOut",
+   "mScriptName": "ApheliosCrescendumAttackMisOut",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6826,
+    "mAffectsStatusFlags": 32,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "canCastOrQueueWhileCasting": true,
+    "mApplyAttackDamage": true,
+    "mIgnoreRangeCheck": true,
+    "mConsideredAsAutoAttack": true,
+    "mRollForCriticalHit": true,
+    "castRange": [
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 40,
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "",
+      "mTargetBoneName": "C_Buffbone_Glb_Chest_Loc",
+      "mAcceleration": -6000,
+      "mMinSpeed": 1700,
+      "mMaxSpeed": 5000,
+      "mInitialSpeed": 5000,
+      "__type": "AcceleratingMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 4,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Aphelios_BA_crescendum_mis",
+    "mHitEffectOrientType": 2,
+    "mDimensionBehavior": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosSeverumAttack": {
+   "ObjectName": "ApheliosSeverumAttack",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosSeverumAttack",
+   "mScriptName": "ApheliosSeverumAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7919,
+    "mAffectsStatusFlags": 32,
+    "mAlternateName": "ApheliosCalibrumAttack",
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "alwaysSnapFacing": true,
+    "mTurnSpeedScalar": 3,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 8,
+    "missileSpeed": 1500,
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCrescendumAttackMiniLauncher": {
+   "ObjectName": "ApheliosCrescendumAttackMiniLauncher",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCrescendumAttackMiniLauncher",
+   "mScriptName": "ApheliosCrescendumAttackMiniLauncher",
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCalibrumLineAttack": {
+   "ObjectName": "ApheliosCalibrumLineAttack",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCalibrumLineAttack",
+   "mScriptName": "ApheliosCalibrumLineAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7871,
+    "mCastTime": 0.1,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCasterPositionEndOfCastUpdate": 1,
+    "canCastWhileDisabled": true,
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mApplyAttackDamage": true,
+    "mIsDisabledWhileDead": false,
+    "mSpellRevealsChampion": false,
+    "mCanMoveWhileChanneling": true,
+    "mDisableCastBar": true,
+    "bHaveHitEffect": true,
+    "mDoNotNeedToFaceTarget": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 80,
+    "mMissileSpec": {
+     "mMissileWidth": 80,
+     "movementComponent": {
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "C_buffbone_Glb_Center_Loc",
+      "mTargetBoneName": "C_buffbone_Glb_Center_Loc",
+      "mInferDirectionFromFacingIfNeeded": false,
+      "mUseGroundHeightAtTarget": false,
+      "mSpeed": 1300,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.5,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Aphelios_BA_calibrum_mis_line",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Aphelios_BA_calibrum_hit",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_buffbone_Glb_Center_Loc",
+    "mTargetingTypeData": {
+     "__type": "TargetOrLocation"
+    },
+    "mDimensionBehavior": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCrescendumAttackMisOutMini": {
+   "ObjectName": "ApheliosCrescendumAttackMisOutMini",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCrescendumAttackMisOutMini",
+   "mScriptName": "ApheliosCrescendumAttackMisOutMini",
+   "mSpell": {
+    "flags": 12,
+    "mAffectsTypeFlags": 7854,
+    "mAffectsStatusFlags": 40,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "canCastOrQueueWhileCasting": true,
+    "mChannelIsInterruptedByAttacking": false,
+    "mCanMoveWhileChanneling": true,
+    "mShowChannelBar": false,
+    "mDoNotNeedToFaceTarget": true,
+    "mIgnoreRangeCheck": true,
+    "mRollForCriticalHit": true,
+    "castRange": [
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 40,
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "",
+      "mTargetBoneName": "C_Buffbone_Glb_Chest_Loc",
+      "mAcceleration": -6000,
+      "mMinSpeed": 1700,
+      "mMaxSpeed": 5000,
+      "mInitialSpeed": 5000,
+      "__type": "AcceleratingMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 4,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Aphelios_BA_crescendum_mis_mini",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Aphelios_BA_crescendum_hit_tar_mini",
+    "mDimensionBehavior": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosCrescendumAttackMisInMini": {
+   "ObjectName": "ApheliosCrescendumAttackMisInMini",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosCrescendumAttackMisInMini",
+   "mScriptName": "ApheliosCrescendumAttackMisInMini",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1093,
+    "mAffectsStatusFlags": 32,
+    "spellCastTime": 0.381,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mChannelIsInterruptedByAttacking": false,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 40,
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "",
+      "mTargetBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+      "mSpeed": 600,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.32107,
+    "missileSpeed": 1000,
+    "mMissileEffectKey": "Aphelios_BA_crescendum_mis_mini_return",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "mDimensionBehavior": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosWAbility/ApheliosW": {
+   "ObjectName": "ApheliosW",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosWAbility/ApheliosW",
+   "mScriptName": "ApheliosW",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1024,
+    "mAffectsStatusFlags": 96,
+    "mCastRequirementsTarget": [
+     {
+      "mBuffName": "{b5dfcd16}",
+      "mFromAnyone": true,
+      "__type": "HasBuffCastRequirement"
+     }
+    ],
+    "mSpellTags": [
+     "Trait_Toggle"
+    ],
+    "DataValues": [
+     {
+      "name": "Test",
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mCoefficient": 1,
+    "spellTotalTime": 1.36,
+    "cooldownTime": [
+     0.8,
+     0.8,
+     0.8,
+     0.8,
+     0.8,
+     0.8,
+     0.8
+    ],
+    "Cooldown": {
+     "values": [
+      0.8,
+      0.8,
+      0.8,
+      0.8,
+      0.8,
+      0.8,
+      0.8
+     ],
+     "{0a3e0478}": 0.8,
+     "__type": "{0a0eddc9}"
+    },
+    "mPreCastLockoutDeltaTime": 0.2,
+    "mCooldownNotAffectedByCDR": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     250,
+     250,
+     250,
+     250,
+     250,
+     250,
+     250
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 0,
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ApheliosGravitumLineAttack": {
+   "ObjectName": "ApheliosGravitumLineAttack",
+   "objectPath": "Characters/Aphelios/Spells/ApheliosGravitumLineAttack",
+   "mScriptName": "ApheliosGravitumLineAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7871,
+    "mAlternateName": "ApheliosW",
+    "mEffectAmount": [
+     {
+      "value": [
+       75,
+       250,
+       425,
+       600,
+       0,
+       0,
+       175
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1,
+    "mCastTime": 0.1,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCasterPositionEndOfCastUpdate": 1,
+    "canCastWhileDisabled": true,
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "mSpellRevealsChampion": false,
+    "mCanMoveWhileChanneling": true,
+    "mDisableCastBar": true,
+    "mDoNotNeedToFaceTarget": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     8000,
+     8000,
+     8000,
+     8000,
+     8000,
+     8000,
+     8000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 170,
+    "mMissileSpec": {
+     "mMissileWidth": 80,
+     "movementComponent": {
+      "mStartBoneName": "",
+      "mUseGroundHeightAtTarget": false,
+      "mSpeed": 1300,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.5,
+    "missileSpeed": 1400,
+    "mMissileEffectKey": "Aphelios_BA_gravitum_mis",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "TargetOrLocation"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/ApheliosQ_ClientTooltipWrapper",
+  "Spells/ApheliosWAbility/ApheliosW",
+  "Spells/ApheliosE_ClientTooltipWrapper",
+  "Spells/ApheliosRAbility/ApheliosR"
+ ],
+ "passiva_ref": "Characters/Aphelios/Spells/ApheliosEAbility",
+ "passiva_chaves": [
+  "Spells/ApheliosEAbility/ApheliosE"
+ ]
+}

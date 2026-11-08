@@ -1,0 +1,5136 @@
+{
+ "id": "Syndra",
+ "key": 134,
+ "nome": "Syndra",
+ "titulo": "a Soberana Sombria",
+ "funcoes": [
+  "Mage"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 2,
+  "defense": 3,
+  "magic": 9,
+  "difficulty": 8
+ },
+ "stats_ddragon": {
+  "hp": 583,
+  "hpperlevel": 100,
+  "mp": 480,
+  "mpperlevel": 40,
+  "movespeed": 330,
+  "armor": 25,
+  "armorperlevel": 4,
+  "spellblock": 30,
+  "spellblockperlevel": 1.3,
+  "attackrange": 550,
+  "hpregen": 6.5,
+  "hpregenperlevel": 0.6,
+  "mpregen": 8,
+  "mpregenperlevel": 0.8,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 54,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2,
+  "attackspeed": 0.658
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Transcender",
+  "descricao": "Syndra coleta Farpas de Ira ao subir de nível ou causar dano a inimigos, aprimorando as próprias habilidades.<br><br><font color='#FF9900'>Esfera Negra</font>: Syndra pode segurar uma carga adicional.<br><font color='#FF9900'>Força de Vontade</font>: Dano Verdadeiro adicional.<br><font color='#FF9900'>Dispersar os Fracos</font>: largura aumentada e causa Lentidão a todos os alvos.<br><font color='#FF9900'>Poder Irrestrito</font>: executa alvos com a Vida baixa."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "SyndraQ",
+   "nome": "Esfera Negra",
+   "descricao": "Syndra conjura uma Esfera Negra, causando Dano Mágico. A esfera permanece em seu lugar e pode ser manipulada por seus outros poderes.",
+   "tooltip": "Syndra conjura uma <keywordMajor>Esfera Negra</keywordMajor>, causando <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage>. A <keywordMajor>Esfera Negra</keywordMajor> dura {{ sphereduration }}s e pode ser manipulada por outras Habilidades de Syndra.<br /><br /><evolve>{{ spell.syndrapassive:q1upgradethreshold }} Farpas de Ira</evolve>: Syndra pode armazenar até {{ upgrade1maxammo }} cargas de <keywordMajor>Esfera Negra</keywordMajor>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    7,
+    7,
+    7,
+    7,
+    7
+   ],
+   "custo": [
+    40,
+    45,
+    50,
+    55,
+    60
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    800,
+    800,
+    800,
+    800,
+    800
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "SyndraW",
+   "nome": "Força de Vontade",
+   "descricao": "Syndra apanha e arremessa uma Esfera Negra ou tropa inimiga, causando Dano Mágico e reduzindo a Velocidade de Movimento de inimigos.",
+   "tooltip": "Syndra apanha uma <keywordMajor>Esfera Negra</keywordMajor>, tropa inimiga ou monstro não épico. Ela arrasta consigo o alvo apanhado e pode <recast>Reconjurar</recast> em até 5s.<br /><br /><recast>Reconjuração</recast>: Syndra arremessa o alvo apanhado, causando <magicDamage>{{ throwdamage }} de Dano Mágico</magicDamage> e {{ totalslowamount }}% de <status>Lentidão</status> por {{ f2 }}s.<br /><br /><evolve>{{ spell.syndrapassive:wupgradethreshold }} Farpas de Ira</evolve>: a Habilidade causa <trueDamage>{{ tooltiponlypassivebonuspercent }} de Dano Verdadeiro adicional</trueDamage>.<br />{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    13,
+    12,
+    11,
+    10,
+    9
+   ],
+   "custo": [
+    60,
+    70,
+    80,
+    90,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    925,
+    925,
+    925,
+    925,
+    925
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "SyndraE",
+   "nome": "Dispersar os Fracos",
+   "descricao": "Syndra afasta inimigos e Esferas Negras, causando Dano Mágico. Inimigos atingidos pelas Esferas Negras ficam atordoados.",
+   "tooltip": "Syndra projeta uma onda de força, <status>Empurrando</status> inimigos e <keywordMajor>Esferas Negras</keywordMajor> e causando <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage>.<br /><br /><keywordMajor>Esferas Negras</keywordMajor> impelidas <status>Atordoam</status> inimigos por {{ stunduration }}s e causam <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage>.<br /><br /><evolve>{{ spell.syndrapassive:eupgradethreshold }} Farpas de Ira</evolve>: a Habilidade ganha largura aumentada e causa <status>{{ upgradedslowamount*100 }}%</status> de <status>Lentidão</status> a inimigos por {{ upgradedslowduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    15,
+    15,
+    15,
+    15,
+    15
+   ],
+   "custo": [
+    50,
+    50,
+    50,
+    50,
+    50
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    650,
+    650,
+    650,
+    650,
+    650
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "SyndraR",
+   "nome": "Poder Irrestrito",
+   "descricao": "Syndra bombardeia um Campeão inimigo com todas as suas Esferas Negras.",
+   "tooltip": "<spellPassive>Passivo</spellPassive>: <spellName>Esfera Negra</spellName> recebe {{ qhasteperrank }} de Aceleração de Habilidade adicional por cada ranque de <spellName>Poder Irrestrito</spellName>.<br /><br />Syndra libera todo o seu poder cataclísmico, arremessando em um Campeão inimigo as 3 <keywordMajor>Esferas Negras</keywordMajor> que a orbitam e até outras 4 que estejam próximas. Cada <keywordMajor>Esfera Negra</keywordMajor> causa <magicDamage>{{ damagecalc }} de Dano Mágico</magicDamage> (máximo de <magicDamage>{{ maxdamagecalc }} de Dano Mágico</magicDamage>).<br /><br /><evolve>{{ spell.syndrapassive:rupgradethreshold }} Farpas de Ira</evolve>: a Habilidade <danger>executa</danger> inimigos com menos de {{ upgradeexecutethreshold*100 }}% de Vida.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    120,
+    100,
+    80
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    675,
+    675,
+    675
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 583,
+  "vida_nivel": 100,
+  "regen_vida": 1.3,
+  "regen_vida_nivel": 0.12,
+  "dano": 54,
+  "dano_nivel": 2.9,
+  "armadura": 25,
+  "armadura_nivel": 4,
+  "rm": 30,
+  "rm_nivel": 1.3,
+  "velocidade_mov": 330,
+  "alcance_ataque": 550,
+  "vel_ataque_base": 0.658,
+  "vel_ataque_razao": 0.625,
+  "vel_ataque_nivel": 2,
+  "dano_critico": 2,
+  "alcance_aquisicao": 575,
+  "raio_selecao": 125,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.11249999701976776,
+   "mAttackProbability": 0.5,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.5,
+    "mAttackName": "SyndraBasicAttack2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackName": "SyndraCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Syndra/Spells/SyndraQAbility/SyndraQ",
+  "Characters/Syndra/Spells/SyndraWAbility/SyndraW",
+  "Characters/Syndra/Spells/SyndraEAbility/SyndraE",
+  "Characters/Syndra/Spells/SyndraRAbility/SyndraR"
+ ],
+ "abilities_ref": [
+  "Characters/Syndra/Spells/SyndraQAbility",
+  "Characters/Syndra/Spells/SyndraWAbility",
+  "Characters/Syndra/Spells/SyndraEAbility",
+  "Characters/Syndra/Spells/SyndraRAbility",
+  "Characters/Syndra/Spells/SyndraPassiveAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/SyndraEAbility/SyndraEStun": {
+   "ObjectName": "SyndraEStun",
+   "objectPath": "Characters/Syndra/Spells/SyndraEAbility/SyndraEStun",
+   "mScriptName": "SyndraEStun",
+   "mBuff": {
+    "mDescription": "Buff_SyndraEAbility_Stun_Tooltip",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraEAbility/SyndraE5Sound": {
+   "ObjectName": "SyndraE5Sound",
+   "objectPath": "Characters/Syndra/Spells/SyndraEAbility/SyndraE5Sound",
+   "mScriptName": "SyndraE5Sound",
+   "mSpell": {
+    "mAffectsTypeFlags": 7183,
+    "mAlternateName": "SyndraE",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRadius": [
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 60,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "spine",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 15.075,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Syndra_E_Lv5_mis_sound",
+    "mLineWidth": 60,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraEAbility/SyndraESound": {
+   "ObjectName": "SyndraESound",
+   "objectPath": "Characters/Syndra/Spells/SyndraEAbility/SyndraESound",
+   "mScriptName": "SyndraESound",
+   "mSpell": {
+    "mAffectsTypeFlags": 7183,
+    "mAlternateName": "SyndraE",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRadius": [
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 300,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "spine",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 15.075,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Syndra_E_mis_sound",
+    "mLineWidth": 60,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraEAbility/SyndraEMissile3": {
+   "ObjectName": "SyndraEMissile3",
+   "objectPath": "Characters/Syndra/Spells/SyndraEAbility/SyndraEMissile3",
+   "mScriptName": "SyndraEMissile3",
+   "mSpell": {
+    "mAffectsTypeFlags": 1028,
+    "mAffectsStatusFlags": 32,
+    "mAlternateName": "SyndraE",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     700,
+     700,
+     700,
+     700,
+     700,
+     700,
+     700
+    ],
+    "castRadius": [
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 60,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "spine",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1100,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 15.075,
+    "missileSpeed": 1100,
+    "mMissileEffectName": "DATA/Particles/Empty.troy",
+    "mLineWidth": 60,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraEAbility/SyndraEMissile2": {
+   "ObjectName": "SyndraEMissile2",
+   "objectPath": "Characters/Syndra/Spells/SyndraEAbility/SyndraEMissile2",
+   "mScriptName": "SyndraEMissile2",
+   "mSpell": {
+    "mAffectsTypeFlags": 1028,
+    "mAffectsStatusFlags": 32,
+    "mAlternateName": "SyndraE",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     700,
+     700,
+     700,
+     700,
+     700,
+     700,
+     700
+    ],
+    "castRadius": [
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 60,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "spine",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1600,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 15.075,
+    "missileSpeed": 1600,
+    "mMissileEffectName": "DATA/Particles/Empty.troy",
+    "mLineWidth": 60,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraEAbility/SyndraEDebuff": {
+   "ObjectName": "SyndraEDebuff",
+   "objectPath": "Characters/Syndra/Spells/SyndraEAbility/SyndraEDebuff",
+   "mScriptName": "SyndraEDebuff",
+   "mSpell": {
+    "mAffectsTypeFlags": 7183,
+    "mAlternateName": "SyndraE",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRadius": [
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 60,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "spine",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 15.075,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Syndra_E_mis",
+    "mLineWidth": 60,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraEAbility/SyndraEMissile": {
+   "ObjectName": "SyndraEMissile",
+   "objectPath": "Characters/Syndra/Spells/SyndraEAbility/SyndraEMissile",
+   "mScriptName": "SyndraEMissile",
+   "mSpell": {
+    "mAffectsTypeFlags": 7183,
+    "mAffectsStatusFlags": 32,
+    "mAlternateName": "SyndraE",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     700,
+     700,
+     700,
+     700,
+     700,
+     700,
+     700
+    ],
+    "castRadius": [
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 60,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "spine",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 2500,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 15.075,
+    "missileSpeed": 2500,
+    "mMissileEffectKey": "Syndra_E_mis",
+    "mLineWidth": 60,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraEAbility/SyndraE": {
+   "ObjectName": "SyndraE",
+   "objectPath": "Characters/Syndra/Spells/SyndraEAbility/SyndraE",
+   "mScriptName": "SyndraE",
+   "mSpell": {
+    "mAffectsTypeFlags": 23759,
+    "mAlternateName": "SyndraE",
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_KnockBack",
+     "Trait_Ranged_Piercing",
+     "Trait_Low_Damage",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "ConeAngle",
+      "values": [
+       56,
+       56,
+       56,
+       56,
+       56,
+       56,
+       56
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StunDuration",
+      "values": [
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "UpgradedSlowDuration",
+      "values": [
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "UpgradedSlowAmount",
+      "values": [
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "UpgradedConeAngle",
+      "values": [
+       84,
+       84,
+       84,
+       84,
+       84,
+       84,
+       84
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       25,
+       60,
+       95,
+       130,
+       165,
+       200,
+       235
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     15,
+     15,
+     15,
+     15,
+     15,
+     15,
+     15
+    ],
+    "Cooldown": {
+     "values": [
+      15,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15
+     ],
+     "{0a3e0478}": 15,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeAngle": 30,
+    "castConeDistance": 675,
+    "castFrame": 7.5,
+    "missileSpeed": 902,
+    "mana": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ],
+    "mTargetingTypeData": {
+     "__type": "Cone"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 4194304,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 64,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 128,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraEAbility/SyndraESphereMissile": {
+   "ObjectName": "SyndraESphereMissile",
+   "objectPath": "Characters/Syndra/Spells/SyndraEAbility/SyndraESphereMissile",
+   "mScriptName": "SyndraESphereMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "SyndraE",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mIsDisabledWhileDead": false,
+    "mProjectTargetToCastRange": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000
+    ],
+    "castRadius": [
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 100,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "spine",
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 15.075,
+    "missileSpeed": 0,
+    "mMissileEffectName": "DATA/Particles/Empty.troy",
+    "mLineWidth": 100,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraEAbility/SyndraE5": {
+   "ObjectName": "SyndraE5",
+   "objectPath": "Characters/Syndra/Spells/SyndraEAbility/SyndraE5",
+   "mScriptName": "SyndraE5",
+   "mSpell": {
+    "mAffectsTypeFlags": 23759,
+    "mAlternateName": "SyndraE",
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell"
+    ],
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     15,
+     15,
+     15,
+     15,
+     15,
+     15,
+     15
+    ],
+    "Cooldown": {
+     "values": [
+      15,
+      15,
+      15,
+      15,
+      15,
+      15,
+      15
+     ],
+     "{0a3e0478}": 15,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 675,
+    "castFrame": 7.5,
+    "missileSpeed": 902,
+    "mana": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ],
+    "mTargetingTypeData": {
+     "__type": "Cone"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{ec17e271}": [
+     {
+      "EffectTag": 4194304,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 64,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 128,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraPassiveAbility/SyndraPassive": {
+   "ObjectName": "SyndraPassive",
+   "objectPath": "Characters/Syndra/Spells/SyndraPassiveAbility/SyndraPassive",
+   "mScriptName": "SyndraPassive",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "MarkDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Q1UpgradeThreshold",
+      "values": [
+       40,
+       40,
+       40,
+       40,
+       40,
+       40,
+       40
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "WUpgradeThreshold",
+      "values": [
+       60,
+       60,
+       60,
+       60,
+       60,
+       60,
+       60
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EUpgradeThreshold",
+      "values": [
+       80,
+       80,
+       80,
+       80,
+       80,
+       80,
+       80
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RUpgradeThreshold",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CapstoneAPPerc",
+      "values": [
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxStackAmount",
+      "values": [
+       120,
+       120,
+       120,
+       120,
+       120,
+       120,
+       120
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StackPerSiege",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PassiveMarkCooldown",
+      "values": [
+       8,
+       8,
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PassiveStacksPerLevel",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "StacksPerProc": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 1,
+        "mBreakpoints": [
+         {
+          "mLevel": 11,
+          "mAdditionalBonusAtThisLevel": 1,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 18,
+          "mAdditionalBonusAtThisLevel": 1,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "ManaPerProc": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 20,
+        "mInitialBonusPerLevel": 4,
+        "mBreakpoints": [
+         {
+          "mLevel": 7,
+          "mBonusPerLevelAtAndAfter": 6,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 11,
+          "mBonusPerLevelAtAndAfter": 15,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 16,
+          "mBonusPerLevelAtAndAfter": 20,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "{66185ec4}": {
+     "ARAM": {
+      "Calculations": {
+       "ManaPerProc": {
+        "mFormulaParts": [
+         {
+          "mInitialBonusPerLevel": 5,
+          "mBreakpoints": [
+           {
+            "mLevel": 6,
+            "mBonusPerLevelAtAndAfter": 5,
+            "__type": "Breakpoint"
+           },
+           {
+            "mLevel": 11,
+            "mBonusPerLevelAtAndAfter": 10,
+            "__type": "Breakpoint"
+           },
+           {
+            "mLevel": 16,
+            "mBonusPerLevelAtAndAfter": 15,
+            "__type": "Breakpoint"
+           }
+          ],
+          "__type": "ByCharLevelBreakpointsCalculationPart"
+         }
+        ],
+        "__type": "GameCalculation"
+       }
+      },
+      "__type": "{4acf67d2}"
+     },
+     "Kiwi": {
+      "Calculations": {
+       "ManaPerProc": {
+        "mFormulaParts": [
+         {
+          "mInitialBonusPerLevel": 5,
+          "mBreakpoints": [
+           {
+            "mLevel": 6,
+            "mBonusPerLevelAtAndAfter": 5,
+            "__type": "Breakpoint"
+           },
+           {
+            "mLevel": 11,
+            "mBonusPerLevelAtAndAfter": 10,
+            "__type": "Breakpoint"
+           },
+           {
+            "mLevel": 16,
+            "mBonusPerLevelAtAndAfter": 15,
+            "__type": "Breakpoint"
+           }
+          ],
+          "__type": "ByCharLevelBreakpointsCalculationPart"
+         }
+        ],
+        "__type": "GameCalculation"
+       }
+      },
+      "__type": "{4acf67d2}"
+     }
+    },
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraPassiveAbility/SyndraPassiveMissile": {
+   "ObjectName": "SyndraPassiveMissile",
+   "objectPath": "Characters/Syndra/Spells/SyndraPassiveAbility/SyndraPassiveMissile",
+   "mScriptName": "SyndraPassiveMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1,
+    "mAffectsStatusFlags": 32,
+    "mCoefficient": 0.6,
+    "spellCastTime": 0.425,
+    "spellTotalTime": 0.8,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mStartBoneName": "C_Buffbone_Glb_Center_Loc",
+      "mTargetBoneName": "C_Buffbone_Glb_Center_Loc",
+      "mTravelTime": 0.6,
+      "__type": "FixedTimeMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "mMissileEffectKey": "Syndra_P_collect_mis",
+    "selectionPriority": 1,
+    "mDimensionBehavior": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraPassiveAbility/SyndraPassiveWUpgrade": {
+   "ObjectName": "SyndraPassiveWUpgrade",
+   "objectPath": "Characters/Syndra/Spells/SyndraPassiveAbility/SyndraPassiveWUpgrade",
+   "mScriptName": "SyndraPassiveWUpgrade",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraPassiveAbility/SyndraPassiveEUpgrade": {
+   "ObjectName": "SyndraPassiveEUpgrade",
+   "objectPath": "Characters/Syndra/Spells/SyndraPassiveAbility/SyndraPassiveEUpgrade",
+   "mScriptName": "SyndraPassiveEUpgrade",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraPassiveAbility/SyndraPassiveRUpgrade": {
+   "ObjectName": "SyndraPassiveRUpgrade",
+   "objectPath": "Characters/Syndra/Spells/SyndraPassiveAbility/SyndraPassiveRUpgrade",
+   "mScriptName": "SyndraPassiveRUpgrade",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraPassiveAbility/SyndraPassiveCapstoneBuff": {
+   "ObjectName": "SyndraPassiveCapstoneBuff",
+   "objectPath": "Characters/Syndra/Spells/SyndraPassiveAbility/SyndraPassiveCapstoneBuff",
+   "mScriptName": "SyndraPassiveCapstoneBuff",
+   "mBuff": {
+    "mBuffAttributeFlag": 8,
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraPassiveAbility/SyndraPassiveQUpgrade1": {
+   "ObjectName": "SyndraPassiveQUpgrade1",
+   "objectPath": "Characters/Syndra/Spells/SyndraPassiveAbility/SyndraPassiveQUpgrade1",
+   "mScriptName": "SyndraPassiveQUpgrade1",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraPassiveAbility/SyndraPassiveMarker": {
+   "ObjectName": "SyndraPassiveMarker",
+   "objectPath": "Characters/Syndra/Spells/SyndraPassiveAbility/SyndraPassiveMarker",
+   "mScriptName": "SyndraPassiveMarker",
+   "mBuff": {
+    "mBuffAttributeFlag": 8,
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraPassiveAbility/SyndraPassiveStacks": {
+   "ObjectName": "SyndraPassiveStacks",
+   "objectPath": "Characters/Syndra/Spells/SyndraPassiveAbility/SyndraPassiveStacks",
+   "mScriptName": "SyndraPassiveStacks",
+   "mBuff": {
+    "mDescription": "buff_desc_SyndraPassiveStacks",
+    "mBuffAttributeFlag": 8,
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraRBounce5": {
+   "ObjectName": "SyndraRBounce5",
+   "objectPath": "Characters/Syndra/Spells/SyndraRBounce5",
+   "mScriptName": "SyndraRBounce5",
+   "mSpell": {
+    "flags": 4194308,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "MaokaiSapling2",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRadius": [
+     225,
+     225,
+     225,
+     225,
+     225,
+     225,
+     225
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mStartBoneName": "root",
+      "mTravelTime": 0.4,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "mGravity": 6000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 200,
+    "mMissileEffectKey": "Syndra_R_Lv3_mis_bounce",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "Root",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraRSpread15": {
+   "ObjectName": "SyndraRSpread15",
+   "objectPath": "Characters/Syndra/Spells/SyndraRSpread15",
+   "mScriptName": "SyndraRSpread15",
+   "mSpell": {
+    "flags": 4194308,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "MaokaiSapling2",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRadius": [
+     225,
+     225,
+     225,
+     225,
+     225,
+     225,
+     225
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mStartBoneName": "Buffbone_CSTM_Orb_1",
+      "mSpeed": 800,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 800,
+    "mMissileEffectKey": "Syndra_R_Lv3_mis_spread",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "Buffbone_CSTM_Orb_1",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraRAbility/SyndraRSpell": {
+   "ObjectName": "SyndraRSpell",
+   "objectPath": "Characters/Syndra/Spells/SyndraRAbility/SyndraRSpell",
+   "mScriptName": "SyndraRSpell",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 7375,
+    "mAffectsStatusFlags": 32,
+    "mAlternateName": "SyndraR",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     4000,
+     4000,
+     4000,
+     4000,
+     4000,
+     4000,
+     4000
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "spine",
+      "mAcceleration": 7500,
+      "mMinSpeed": 1,
+      "mMaxSpeed": 10000,
+      "mInitialSpeed": 1,
+      "__type": "AcceleratingMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 1,
+    "missileSpeed": 1,
+    "mMissileEffectKey": "Syndra_R_mis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraRAbility/SyndraR": {
+   "ObjectName": "SyndraR",
+   "objectPath": "Characters/Syndra/Spells/SyndraRAbility/SyndraR",
+   "mScriptName": "SyndraR",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 4106,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "SyndraR",
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_DamageAbility"
+    ],
+    "DataValues": [
+     {
+      "name": "DamagePerSphere",
+      "values": [
+       40,
+       80,
+       120,
+       160,
+       200,
+       240,
+       280
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxSpheresToUse",
+      "values": [
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "UpgradeExecuteThreshold",
+      "values": [
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "QHastePerRank",
+      "values": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TOOLTIPONLYTotalQHaste",
+      "values": [
+       0,
+       10,
+       20,
+       30,
+       40,
+       50,
+       60
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinSpheresToUse",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "DamageCalc": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "DamagePerSphere",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MinDamageCalc": {
+      "mMultiplier": {
+       "mDataValue": "MinSpheresToUse",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mModifiedGameCalculation": "DamageCalc",
+      "__type": "GameCalculationModified"
+     },
+     "MaxDamageCalc": {
+      "mMultiplier": {
+       "mDataValue": "MaxSpheresToUse",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mModifiedGameCalculation": "DamageCalc",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     120,
+     120,
+     100,
+     80,
+     60,
+     60,
+     60
+    ],
+    "Cooldown": {
+     "values": [
+      120,
+      120,
+      100,
+      80,
+      60,
+      60,
+      60
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Syndra/Spells/SyndraRAbility/SyndraRPassive",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     675,
+     675,
+     675,
+     675,
+     675,
+     675,
+     675
+    ],
+    "castRadius": [
+     1010,
+     1010,
+     1010,
+     1010,
+     1010,
+     1010,
+     1010
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1100,
+    "mHitBoneName": "head",
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "selectionPriority": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "DamageCalc",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraRAbility/SyndraRPassive": {
+   "ObjectName": "SyndraRPassive",
+   "objectPath": "Characters/Syndra/Spells/SyndraRAbility/SyndraRPassive",
+   "mScriptName": "SyndraRPassive",
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraQAbility/SyndraQSpell": {
+   "ObjectName": "SyndraQSpell",
+   "objectPath": "Characters/Syndra/Spells/SyndraQAbility/SyndraQSpell",
+   "mScriptName": "SyndraQSpell",
+   "mSpell": {
+    "flags": 4194312,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "SyndraQ",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "mChannelDuration": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRadius": [
+     225,
+     225,
+     225,
+     225,
+     225,
+     225,
+     225
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 10,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mTravelTime": 0.6,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "mGravity": 5000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1600,
+    "mMissileEffectKey": "Syndra_Q_dummy_controller_01",
+    "mLineWidth": 10,
+    "bHaveHitBone": true,
+    "mHitBoneName": "Root",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraQAbility/SyndraQ": {
+   "ObjectName": "SyndraQ",
+   "objectPath": "Characters/Syndra/Spells/SyndraQAbility/SyndraQ",
+   "mScriptName": "SyndraQ",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "SyndraQ",
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_SignatureSpell",
+     "Trait_Ammo",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "Upgrade1MaxAmmo",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Upgrade2MaxAmmo",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SphereDuration",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       55,
+       90,
+       125,
+       160,
+       195,
+       230,
+       265
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "BaseDamage",
+        "values": [
+         55,
+         100,
+         145,
+         190,
+         235,
+         280,
+         325
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "BaseDamage",
+        "values": [
+         55,
+         100,
+         145,
+         190,
+         235,
+         280,
+         325
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.7,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.375,
+    "spellTotalTime": 1.5,
+    "cooldownTime": [
+     7,
+     7,
+     7,
+     7,
+     7,
+     7,
+     7
+    ],
+    "Cooldown": {
+     "values": [
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7
+     ],
+     "{0a3e0478}": 7,
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Syndra/Spells/SyndraQAbility/SyndraQVisualCounter",
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "mSpellRevealsChampion": false,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     800,
+     800,
+     800,
+     800,
+     800,
+     800,
+     800
+    ],
+    "castRangeDisplayOverride": [
+     800,
+     800,
+     800,
+     800,
+     800,
+     800,
+     800
+    ],
+    "castRadius": [
+     180,
+     180,
+     180,
+     180,
+     180,
+     180,
+     180
+    ],
+    "castConeDistance": 100,
+    "castTargetAdditionalUnitsRadius": 325,
+    "castFrame": 7.5,
+    "missileSpeed": 1750,
+    "mana": [
+     40,
+     45,
+     50,
+     55,
+     60,
+     60
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "AreaClamped"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraQAbility/SyndraQUpgrade": {
+   "ObjectName": "SyndraQUpgrade",
+   "objectPath": "Characters/Syndra/Spells/SyndraQAbility/SyndraQUpgrade",
+   "mScriptName": "SyndraQUpgrade",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "SyndraQ",
+    "DataValues": [
+     {
+      "name": "Upgrade1MaxAmmo",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       55,
+       90,
+       125,
+       160,
+       195,
+       230,
+       265
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.7,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.375,
+    "spellTotalTime": 1.5,
+    "cooldownTime": [
+     1.25,
+     1.25,
+     1.25,
+     1.25,
+     1.25,
+     1.25,
+     1.25
+    ],
+    "Cooldown": {
+     "values": [
+      1.25,
+      1.25,
+      1.25,
+      1.25,
+      1.25,
+      1.25,
+      1.25
+     ],
+     "{0a3e0478}": 1.25,
+     "__type": "{0a0eddc9}"
+    },
+    "mMaxAmmo": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "mAmmoRechargeTime": [
+     7,
+     7,
+     7,
+     7,
+     7,
+     7,
+     7
+    ],
+    "mCooldownNotAffectedByCDR": true,
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "mSpellRevealsChampion": false,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     800,
+     800,
+     800,
+     800,
+     800,
+     800,
+     800
+    ],
+    "castRangeDisplayOverride": [
+     800,
+     800,
+     800,
+     800,
+     800,
+     800,
+     800
+    ],
+    "castRadius": [
+     180,
+     180,
+     180,
+     180,
+     180,
+     180,
+     180
+    ],
+    "castConeDistance": 100,
+    "castTargetAdditionalUnitsRadius": 325,
+    "castFrame": 7.5,
+    "missileSpeed": 1750,
+    "mana": [
+     40,
+     45,
+     50,
+     55,
+     60,
+     60
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "AreaClamped"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraQAbility/SyndraQVisualCounter": {
+   "ObjectName": "SyndraQVisualCounter",
+   "objectPath": "Characters/Syndra/Spells/SyndraQAbility/SyndraQVisualCounter",
+   "mScriptName": "SyndraQVisualCounter",
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraBasicAttack": {
+   "ObjectName": "SyndraBasicAttack",
+   "objectPath": "Characters/Syndra/Spells/SyndraBasicAttack",
+   "mScriptName": "SyndraBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "mAlternateName": "JannaBasicAttack",
+    "mCastTime": 0.335,
+    "spellCastTime": 0.32575,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "r_hand",
+      "mSpeed": 1800,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 10,
+    "missileSpeed": 1800,
+    "mMissileEffectKey": "Syndra_BA_mis",
+    "mHitEffectKey": "Syndra_BA_tar",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraWAbility/SyndraWCDTimer": {
+   "ObjectName": "SyndraWCDTimer",
+   "objectPath": "Characters/Syndra/Spells/SyndraWAbility/SyndraWCDTimer",
+   "mScriptName": "SyndraWCDTimer",
+   "mSpell": {
+    "flags": 4194316,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "SyndraQ",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       8
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRadius": [
+     225,
+     225,
+     225,
+     225,
+     225,
+     225,
+     225
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mSpeed": 100,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 5000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 100,
+    "mMissileEffectKey": "Syndra_Q_dummy_controller_01",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "Root",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraWAbility/SyndraW": {
+   "ObjectName": "SyndraW",
+   "objectPath": "Characters/Syndra/Spells/SyndraWAbility/SyndraW",
+   "mScriptName": "SyndraW",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 7375,
+    "mAlternateName": "SyndraW",
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_RecastOrReplaceSpell",
+     "Trait_Low_Damage",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseSlow",
+      "values": [
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       40,
+       70,
+       100,
+       130,
+       160,
+       190,
+       220
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ExtraSpherePickupRadius",
+      "values": [
+       450,
+       450,
+       450,
+       450,
+       450,
+       450,
+       450
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "{f9c2333e}": {
+     "ARAM": {
+      "value": [
+       12,
+       11,
+       10,
+       9,
+       8,
+       7,
+       6
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     "Kiwi": {
+      "value": [
+       12,
+       11,
+       10,
+       9,
+       8,
+       7,
+       6
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "ThrowDamage": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.65,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "PassiveBonusDamage": {
+      "mMultiplier": {
+       "mSubparts": [
+        {
+         "mNumber": 0.12,
+         "__type": "NumberCalculationPart"
+        },
+        {
+         "mPart1": {
+          "mCoefficient": 0.02,
+          "__type": "StatByCoefficientCalculationPart"
+         },
+         "mPart2": {
+          "mNumber": 0.01,
+          "__type": "NumberCalculationPart"
+         },
+         "__type": "ProductOfSubPartsCalculationPart"
+        }
+       ],
+       "__type": "SumOfSubPartsCalculationPart"
+      },
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mModifiedGameCalculation": "ThrowDamage",
+      "__type": "GameCalculationModified"
+     },
+     "TotalSlowAmount": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseSlow",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TOOLTIPONLYPassiveBonusPercent": {
+      "mMultiplier": {
+       "mNumber": 0.01,
+       "__type": "NumberCalculationPart"
+      },
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mNumber": 12,
+        "__type": "NumberCalculationPart"
+       },
+       {
+        "mCoefficient": 0.02,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": 1,
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     12,
+     12,
+     11,
+     10,
+     9,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      13,
+      13,
+      12,
+      11,
+      10,
+      9,
+      9
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "bIsToggleSpell": true,
+    "mDoesNotConsumeMana": true,
+    "castRange": [
+     925,
+     925,
+     925,
+     925,
+     925,
+     925,
+     925
+    ],
+    "castConeDistance": 100,
+    "castFrame": 14.85,
+    "missileSpeed": 1450,
+    "mana": [
+     60,
+     70,
+     80,
+     90,
+     100,
+     100
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_SyndraW",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "ThrowDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "BaseSlow",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 128,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 64,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraWAbility/SyndraWDebuff": {
+   "ObjectName": "SyndraWDebuff",
+   "objectPath": "Characters/Syndra/Spells/SyndraWAbility/SyndraWDebuff",
+   "mScriptName": "SyndraWDebuff",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 7183,
+    "mAlternateName": "SyndraW",
+    "mEffectAmount": [
+     {
+      "value": [
+       25,
+       70,
+       115,
+       160,
+       205,
+       250,
+       295
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       24,
+       22,
+       20,
+       18,
+       16,
+       14,
+       12
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.8,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     13,
+     12,
+     11,
+     10,
+     9,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      13,
+      12,
+      11,
+      10,
+      9,
+      8,
+      8
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "bIsToggleSpell": true,
+    "castRange": [
+     950,
+     950,
+     950,
+     950,
+     950,
+     950,
+     950
+    ],
+    "castRangeDisplayOverride": [
+     950,
+     950,
+     950,
+     950,
+     950,
+     950,
+     950
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_hand",
+      "mSpeed": 20,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 4.535,
+    "missileSpeed": 20,
+    "mMissileEffectKey": "Syndra_Q_dummy_controller_01",
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraWAbility/SyndraWCast": {
+   "ObjectName": "SyndraWCast",
+   "objectPath": "Characters/Syndra/Spells/SyndraWAbility/SyndraWCast",
+   "mScriptName": "SyndraWCast",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 7183,
+    "mAlternateName": "SyndraW",
+    "mSpellTags": [
+     "Trait_FreeRecast"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       20,
+       25,
+       30,
+       35,
+       40,
+       45,
+       50
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       30,
+       70,
+       110,
+       150,
+       190,
+       230,
+       270
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.7,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     13,
+     12,
+     11,
+     10,
+     9,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      13,
+      12,
+      11,
+      10,
+      9,
+      8,
+      8
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "bIsToggleSpell": true,
+    "castRange": [
+     950,
+     950,
+     950,
+     950,
+     950,
+     950,
+     950
+    ],
+    "castRangeDisplayOverride": [
+     950,
+     950,
+     950,
+     950,
+     950,
+     950,
+     950
+    ],
+    "castRadius": [
+     195,
+     195,
+     195,
+     195,
+     195,
+     195,
+     195
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_hand",
+      "mSpeed": 20,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 4.535,
+    "missileSpeed": 20,
+    "mMissileEffectKey": "Syndra_Q_dummy_controller_01",
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mNumber": 10,
+       "__type": "NumberCalculationPart"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraRTrigger": {
+   "ObjectName": "SyndraRTrigger",
+   "objectPath": "Characters/Syndra/Spells/SyndraRTrigger",
+   "mScriptName": "SyndraRTrigger",
+   "mSpell": {
+    "flags": 4194316,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "SyndraQ",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     11100,
+     11100,
+     11100,
+     11100,
+     11100,
+     11100,
+     11100
+    ],
+    "castRadius": [
+     225,
+     225,
+     225,
+     225,
+     225,
+     225,
+     225
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mTravelTime": 0.15,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "mGravity": 5000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1600,
+    "mMissileEffectKey": "Syndra_Q_dummy_controller_01",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "Root",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraRBounce": {
+   "ObjectName": "SyndraRBounce",
+   "objectPath": "Characters/Syndra/Spells/SyndraRBounce",
+   "mScriptName": "SyndraRBounce",
+   "mSpell": {
+    "flags": 4194308,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "MaokaiSapling2",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRadius": [
+     225,
+     225,
+     225,
+     225,
+     225,
+     225,
+     225
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mStartBoneName": "root",
+      "mTravelTime": 0.4,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "mGravity": 6000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 200,
+    "mMissileEffectKey": "Syndra_R_mis_bounce",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "Root",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraRCastTime": {
+   "ObjectName": "SyndraRCastTime",
+   "objectPath": "Characters/Syndra/Spells/SyndraRCastTime",
+   "mScriptName": "SyndraRCastTime",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "SyndraR",
+    "mEffectAmount": [
+     {
+      "value": [
+       35,
+       60,
+       85,
+       110,
+       135,
+       160,
+       185
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0,
+       2,
+       4,
+       6,
+       8,
+       10,
+       12
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       6.5,
+       6.5,
+       6.5,
+       6.5,
+       6.5,
+       6.5,
+       6.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "mCastTime": 0.25,
+    "cooldownTime": [
+     3.5,
+     3.5,
+     3.5,
+     3.5,
+     3.5,
+     3.5,
+     3.5
+    ],
+    "Cooldown": {
+     "values": [
+      3.5,
+      3.5,
+      3.5,
+      3.5,
+      3.5,
+      3.5,
+      3.5
+     ],
+     "{0a3e0478}": 3.5,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1650,
+     1650,
+     1650,
+     1650,
+     1650,
+     1650,
+     1650
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mSpeed": 1400,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.5,
+    "missileSpeed": 1400,
+    "mMissileEffectName": "DATA/Particles/Empty.troy",
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraRSpread2": {
+   "ObjectName": "SyndraRSpread2",
+   "objectPath": "Characters/Syndra/Spells/SyndraRSpread2",
+   "mScriptName": "SyndraRSpread2",
+   "mSpell": {
+    "flags": 4194308,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "MaokaiSapling2",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRadius": [
+     225,
+     225,
+     225,
+     225,
+     225,
+     225,
+     225
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mStartBoneName": "Buffbone_CSTM_Orb_2",
+      "mSpeed": 800,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 800,
+    "mMissileEffectKey": "Syndra_R_mis_spread",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "Buffbone_CSTM_Orb_2",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraRSpread3": {
+   "ObjectName": "SyndraRSpread3",
+   "objectPath": "Characters/Syndra/Spells/SyndraRSpread3",
+   "mScriptName": "SyndraRSpread3",
+   "mSpell": {
+    "flags": 4194308,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "MaokaiSapling2",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRadius": [
+     225,
+     225,
+     225,
+     225,
+     225,
+     225,
+     225
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mStartBoneName": "Buffbone_CSTM_Orb_3",
+      "mSpeed": 800,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 800,
+    "mMissileEffectKey": "Syndra_R_mis_spread",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "Buffbone_CSTM_Orb_3",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraRSpread1": {
+   "ObjectName": "SyndraRSpread1",
+   "objectPath": "Characters/Syndra/Spells/SyndraRSpread1",
+   "mScriptName": "SyndraRSpread1",
+   "mSpell": {
+    "flags": 4194308,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "MaokaiSapling2",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRadius": [
+     225,
+     225,
+     225,
+     225,
+     225,
+     225,
+     225
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mStartBoneName": "Buffbone_CSTM_Orb_1",
+      "mSpeed": 800,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 800,
+    "mMissileEffectKey": "Syndra_R_mis_spread",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "Buffbone_CSTM_Orb_1",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraRSpread25": {
+   "ObjectName": "SyndraRSpread25",
+   "objectPath": "Characters/Syndra/Spells/SyndraRSpread25",
+   "mScriptName": "SyndraRSpread25",
+   "mSpell": {
+    "flags": 4194308,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "MaokaiSapling2",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRadius": [
+     225,
+     225,
+     225,
+     225,
+     225,
+     225,
+     225
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mStartBoneName": "Buffbone_CSTM_Orb_2",
+      "mSpeed": 800,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 800,
+    "mMissileEffectKey": "Syndra_R_Lv3_mis_spread",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "Buffbone_CSTM_Orb_2",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraRSpread35": {
+   "ObjectName": "SyndraRSpread35",
+   "objectPath": "Characters/Syndra/Spells/SyndraRSpread35",
+   "mScriptName": "SyndraRSpread35",
+   "mSpell": {
+    "flags": 4194308,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "MaokaiSapling2",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRadius": [
+     225,
+     225,
+     225,
+     225,
+     225,
+     225,
+     225
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mStartBoneName": "Buffbone_CSTM_Orb_3",
+      "mSpeed": 800,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 800,
+    "mMissileEffectKey": "Syndra_R_Lv3_mis_spread",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "Buffbone_CSTM_Orb_3",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraRVisual": {
+   "ObjectName": "SyndraRVisual",
+   "objectPath": "Characters/Syndra/Spells/SyndraRVisual",
+   "mScriptName": "SyndraRVisual",
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraBasicAttack2": {
+   "ObjectName": "SyndraBasicAttack2",
+   "objectPath": "Characters/Syndra/Spells/SyndraBasicAttack2",
+   "mScriptName": "SyndraBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "spellCastTime": 0.32575,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "l_hand",
+      "mSpeed": 1800,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 10,
+    "missileSpeed": 1800,
+    "mMissileEffectKey": "Syndra_BA_mis",
+    "mHitEffectKey": "Syndra_BA_tar",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SyndraCritAttack": {
+   "ObjectName": "SyndraCritAttack",
+   "objectPath": "Characters/Syndra/Spells/SyndraCritAttack",
+   "mScriptName": "SyndraCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "spellCastTime": 0.32575,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "r_hand",
+      "mSpeed": 1800,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 10,
+    "missileSpeed": 1800,
+    "mMissileEffectKey": "Syndra_BA_mis",
+    "mHitEffectKey": "Syndra_BA_Crit_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/SyndraQAbility/SyndraQ",
+  "Spells/SyndraWAbility/SyndraW",
+  "Spells/SyndraEAbility/SyndraE",
+  "Spells/SyndraRAbility/SyndraR"
+ ],
+ "passiva_ref": "Characters/Syndra/Spells/SyndraPassiveAbility",
+ "passiva_chaves": [
+  "Spells/SyndraPassiveAbility/SyndraPassive",
+  "Spells/SyndraPassiveAbility/SyndraPassiveMissile",
+  "Spells/SyndraPassiveAbility/SyndraPassiveWUpgrade",
+  "Spells/SyndraPassiveAbility/SyndraPassiveEUpgrade",
+  "Spells/SyndraPassiveAbility/SyndraPassiveRUpgrade",
+  "Spells/SyndraPassiveAbility/SyndraPassiveCapstoneBuff",
+  "Spells/SyndraPassiveAbility/SyndraPassiveQUpgrade1",
+  "Spells/SyndraPassiveAbility/SyndraPassiveMarker",
+  "Spells/SyndraPassiveAbility/SyndraPassiveStacks"
+ ]
+}

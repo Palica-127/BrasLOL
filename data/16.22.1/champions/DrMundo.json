@@ -1,0 +1,2442 @@
+{
+ "id": "DrMundo",
+ "key": 36,
+ "nome": "Dr. Mundo",
+ "titulo": "o Louco de Zaun",
+ "funcoes": [
+  "Tank",
+  "Fighter"
+ ],
+ "recurso": "Nenhum",
+ "info": {
+  "attack": 5,
+  "defense": 7,
+  "magic": 6,
+  "difficulty": 5
+ },
+ "stats_ddragon": {
+  "hp": 640,
+  "hpperlevel": 103,
+  "mp": 0,
+  "mpperlevel": 0,
+  "movespeed": 345,
+  "armor": 32,
+  "armorperlevel": 4.5,
+  "spellblock": 29,
+  "spellblockperlevel": 2.3,
+  "attackrange": 125,
+  "hpregen": 7,
+  "hpregenperlevel": 0.5,
+  "mpregen": 0,
+  "mpregenperlevel": 0,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 61,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 3.3,
+  "attackspeed": 0.67
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Vai Para Onde Quer",
+  "descricao": "Dr. Mundo resiste ao próximo efeito Imobilizador que o atingir, perdendo Vida e derrubando um recipiente químico nas proximidades. Dr. Mundo pode pegar o recipiente ao passar por cima dele, restaurando Vida e reduzindo o Tempo de Recarga da Habilidade.<br><br>Dr. Mundo também tem Regeneração de Vida significativamente mais alta.<br>"
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "DrMundoQ",
+   "nome": "Serra Infectada",
+   "descricao": "Dr. Mundo arremessa uma serra infectada, causando dano ao primeiro inimigo atingido com base na Vida atual do alvo e causando Lentidão a ele.",
+   "tooltip": "Dr. Mundo arremessa sua serra, causando <magicDamage>{{ currenthealthdamage*100 }}% da Vida atual como Dano Mágico</magicDamage> e {{ slowamount*100 }}% de <status>Lentidão</status> por {{ slowduration }}s ao primeiro inimigo que atingir.<br /><br />Se a serra atingir um Campeão ou monstro, Dr. Mundo restaurará <healing>{{ healthrestoreonhitchampionmonster }} de Vida</healing>. Se atingir um não Campeão ou não monstro, Dr. Mundo restaurará <healing>{{ healthrestoreonhitminion }} de Vida</healing>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "custo": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "tipo_custo": " de Vida",
+   "alcance": [
+    975,
+    975,
+    975,
+    975,
+    975
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "DrMundoW",
+   "nome": "Choquinho Cardíaco",
+   "descricao": "Dr. Mundo se eletrocuta, causando dano contínuo aos inimigos próximos e acumulando uma parte do dano sofrido. Ele causa uma explosão de dano aos inimigos próximos ao final da duração ou ao Reconjurar. Se atingir um inimigo, Dr. Mundo se curará em uma porcentagem do dano armazenado.",
+   "tooltip": "Dr. Mundo ativa um desfibrilador, causando <magicDamage>{{ damagepertick*4 }} de Dano Mágico</magicDamage> por segundo a inimigos próximos por até {{ duration }}s. Além disso, Mundo armazena {{ grayhealthstorageinitial }} do dano sofrido nos primeiros {{ grayhealthinitialduration }}s e {{ grayhealthstorage*100 }}% pelo restante da duração como Vida cinza e pode <recast>Reconjurar</recast>.<br /><br /><recast>Reconjuração:</recast> detona o desfibrilador, causando <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage> a inimigos próximos. Se a Habilidade atingir ao menos um Campeão, Dr. Mundo restaura <healing>{{ grayhealthbigmod*100 }}% de Vida cinza</healing>, caso contrário, ele restaura <healing>{{ grayhealthsmallmod*100 }}% da Vida cinza</healing>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    17,
+    16.5,
+    16,
+    15.5,
+    15
+   ],
+   "custo": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "tipo_custo": "% da Vida atual",
+   "alcance": [
+    325,
+    325,
+    325,
+    325,
+    325
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "DrMundoE",
+   "nome": "Traumatismo",
+   "descricao": "Passivo: Dr. Mundo recebe Dano de Ataque adicional (que aumenta com base na própria Vida máxima).<br><br>Ativo: Dr. Mundo golpeia o inimigo com sua maleta ''médica'', causando dano adicional com base na própria Vida perdida. Se o inimigo for abatido, será arremessado, causando dano aos inimigos que atravessar.",
+   "tooltip": "<spellPassive>Passivo:</spellPassive> Dr. Mundo recebe <physicalDamage>{{ passivebonusad }} de Dano de Ataque</physicalDamage>.<br /><br /><spellActive>Ativo:</spellActive> Dr. Mundo golpeia violentamente com a maleta \"médica\", fazendo com que o próximo Ataque cause <physicalDamage>{{ additionaldamage }} de Dano Físico</physicalDamage> adicional, aumentado em até {{ maxdamageamptooltip }} com base na Vida perdida dele. Se o inimigo for abatido, Mundo o arremessa, causando <physicalDamage>{{ additionaldamage }} de Dano Físico</physicalDamage> aos inimigos atravessados.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    9,
+    8.25,
+    7.5,
+    6.75,
+    6
+   ],
+   "custo": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "tipo_custo": " de Vida",
+   "alcance": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "DrMundoR",
+   "nome": "Dosagem Máxima",
+   "descricao": "Dr. Mundo enche-se de produtos químicos, curando instantaneamente uma porcentagem da própria Vida perdida. Depois, ele recebe Velocidade de Movimento e regenera parte da própria Vida máxima ao longo da duração.",
+   "tooltip": "Dr. Mundo enche-se de produtos químicos, recebendo <healing>{{ missinghealthheal*100 }}% da própria Vida perdida como Vida máxima</healing>, <speed>{{ speedboostamount*100 }}% de Velocidade de Movimento</speed> e regenerando <healing>{{ maxhealthhot*100 }}% da Vida máxima</healing> durante {{ duration }}s.<br /><br />No ranque 3, ambos os efeitos de cura são aumentados em {{ bonuspernearbychampion*100 }}% a cada Campeão inimigo próximo.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    120,
+    120,
+    120
+   ],
+   "custo": [
+    0,
+    0,
+    0
+   ],
+   "tipo_custo": "Sem custo",
+   "alcance": [
+    20,
+    20,
+    20
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 640,
+  "vida_nivel": 103,
+  "regen_vida": 1.4,
+  "regen_vida_nivel": 0.1,
+  "dano": 61,
+  "dano_nivel": 2.5,
+  "armadura": 32,
+  "armadura_nivel": 4.5,
+  "rm": 29,
+  "rm_nivel": 2.3,
+  "velocidade_mov": 345,
+  "alcance_ataque": 125,
+  "vel_ataque_base": 0.67,
+  "vel_ataque_razao": 0.625,
+  "vel_ataque_nivel": 3.3,
+  "dano_critico": 2,
+  "alcance_aquisicao": 600,
+  "raio_selecao": 135,
+  "raio_colisao": 50,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.13968749344348907,
+   "mAttackProbability": 0.5,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.33000001311302185,
+    "mAttackName": "DrMundoBasicAttack2",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackProbability": 0.3400000035762787,
+    "mAttackName": "DrMundoBasicAttack3",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.13968749344348907,
+    "mAttackName": "DrMundoCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/DrMundo/Spells/DrMundoQAbility/DrMundoQ",
+  "Characters/DrMundo/Spells/DrMundoWAbility/DrMundoW",
+  "Characters/DrMundo/Spells/DrMundoEAbility/DrMundoE",
+  "Characters/DrMundo/Spells/DrMundoRAbility/DrMundoR"
+ ],
+ "abilities_ref": [
+  "Characters/DrMundo/Spells/DrMundoQAbility",
+  "Characters/DrMundo/Spells/DrMundoWAbility",
+  "Characters/DrMundo/Spells/DrMundoEAbility",
+  "Characters/DrMundo/Spells/DrMundoRAbility",
+  "Characters/DrMundo/Spells/DrMundoPassiveAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/DrMundoBasicAttack": {
+   "ObjectName": "DrMundoBasicAttack",
+   "objectPath": "Characters/DrMundo/Spells/DrMundoBasicAttack",
+   "mScriptName": "DrMundoBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 21711,
+    "mAlternateName": "DrMundoBasicAttack",
+    "spellCastTime": 0.3439,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9.695,
+    "missileSpeed": 0,
+    "mHitEffectKey": "DrMundo_BA_tar_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/DrMundoPassiveAbility/DrMundoP": {
+   "ObjectName": "DrMundoP",
+   "objectPath": "Characters/DrMundo/Spells/DrMundoPassiveAbility/DrMundoP",
+   "mScriptName": "DrMundoP",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "DataValues": [
+     {
+      "name": "CannisterGroundDuration",
+      "values": [
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CannisterPickupRadius",
+      "values": [
+       115,
+       115,
+       115,
+       115,
+       115,
+       115,
+       115
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CannisterDistanceAway",
+      "values": [
+       525,
+       525,
+       525,
+       525,
+       525,
+       525,
+       525
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CannisterMaxAngle",
+      "values": [
+       70,
+       70,
+       70,
+       70,
+       70,
+       70,
+       70
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "VFXLineIndicatorRange",
+      "values": [
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PassiveCooldownRefund",
+      "values": [
+       15,
+       15,
+       15,
+       15,
+       15,
+       15,
+       15
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CurrentHealthLoss",
+      "values": [
+       0.04,
+       0.04,
+       0.04,
+       0.04,
+       0.04,
+       0.04,
+       0.04
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxHealthGain",
+      "values": [
+       0.04,
+       0.04,
+       0.04,
+       0.04,
+       0.04,
+       0.04,
+       0.04
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "PassiveCooldown": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 60,
+        "mBreakpoints": [
+         {
+          "mLevel": 3,
+          "mAdditionalBonusAtThisLevel": -9,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 6,
+          "mAdditionalBonusAtThisLevel": -9,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 9,
+          "mAdditionalBonusAtThisLevel": -9,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 12,
+          "mAdditionalBonusAtThisLevel": -9,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 15,
+          "mAdditionalBonusAtThisLevel": -9,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 21,
+          "mAdditionalBonusAtThisLevel": -9,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MaxHealthRegen": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 0.004,
+        "mInitialBonusPerLevel": 0.0005,
+        "mBreakpoints": [
+         {
+          "mLevel": 7,
+          "mBonusPerLevelAtAndAfter": 0.001,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 13,
+          "mBonusPerLevelAtAndAfter": 0.0015,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 16,
+          "mBonusPerLevelAtAndAfter": 0.002,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": 2,
+      "__type": "GameCalculation"
+     }
+    },
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/DrMundoPassiveAbility/DrMundoPObjectMissile": {
+   "ObjectName": "DrMundoPObjectMissile",
+   "objectPath": "Characters/DrMundo/Spells/DrMundoPassiveAbility/DrMundoPObjectMissile",
+   "mScriptName": "DrMundoPObjectMissile",
+   "mSpell": {
+    "flags": 4,
+    "cooldownTime": [
+     6,
+     6,
+     5.5,
+     5,
+     4.5,
+     4,
+     4
+    ],
+    "Cooldown": {
+     "values": [
+      6,
+      6,
+      5.5,
+      5,
+      4.5,
+      4,
+      4
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTracksTarget": false,
+      "mStartBoneName": "Buffbone_Glb_Ground_Loc",
+      "mSpeed": 400,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "FollowTerrainHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 10,
+    "mMissileEffectKey": "DrMundo_P_Cannister_Missile",
+    "mHitEffectOrientType": 2,
+    "mTargetingTypeData": {
+     "__type": "LocationClamped"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/DrMundoPassiveAbility/DrMundoPCooldown": {
+   "ObjectName": "DrMundoPCooldown",
+   "objectPath": "Characters/DrMundo/Spells/DrMundoPassiveAbility/DrMundoPCooldown",
+   "mScriptName": "DrMundoPCooldown",
+   "__type": "SpellObject"
+  },
+  "Spells/DrMundoPassiveAbility/DrMundoPImmunity": {
+   "ObjectName": "DrMundoPImmunity",
+   "objectPath": "Characters/DrMundo/Spells/DrMundoPassiveAbility/DrMundoPImmunity",
+   "mScriptName": "DrMundoPImmunity",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/DrMundoEAbility/DrMundoE": {
+   "ObjectName": "DrMundoE",
+   "objectPath": "Characters/DrMundo/Spells/DrMundoEAbility/DrMundoE",
+   "mScriptName": "DrMundoE",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_AttackReset",
+     "PositiveEffect_EmpowerAttack",
+     "Trait_DamageAbility",
+     "Trait_Strike",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "AttackOverrideDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FlatHealthCost",
+      "values": [
+       -5,
+       10,
+       25,
+       40,
+       55,
+       70,
+       85
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       -5,
+       5,
+       15,
+       25,
+       35,
+       45,
+       55
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusHealthRatio",
+      "values": [
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxMissingHealthThreshold",
+      "values": [
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxDamageAmp",
+      "values": [
+       1.4,
+       1.4,
+       1.4,
+       1.4,
+       1.4,
+       1.4,
+       1.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinionMod",
+      "values": [
+       1.4,
+       1.4,
+       1.4,
+       1.4,
+       1.4,
+       1.4,
+       1.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MissileDistance",
+      "values": [
+       800,
+       800,
+       800,
+       800,
+       800,
+       800,
+       800
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MonsterMod",
+      "values": [
+       1.4,
+       1.4,
+       1.4,
+       1.4,
+       1.4,
+       1.4,
+       1.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealthToADRatio",
+      "values": [
+       1.7,
+       2,
+       2.3,
+       2.6,
+       2.9,
+       3.2,
+       3.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "BonusHealthRatio",
+        "values": [
+         0.04,
+         0.04,
+         0.04,
+         0.04,
+         0.04,
+         0.04,
+         0.04
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "HealthToADRatio",
+        "values": [
+         1.2,
+         1.5,
+         1.8,
+         2.1,
+         2.4,
+         2.7,
+         3
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "AdditionalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 12,
+        "mStatFormula": 2,
+        "mDataValue": "BonusHealthRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MaxDamageAmpTooltip": {
+      "mExpandedTooltipCalculationDisplay": 5,
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mDataValue": "MaxDamageAmp",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mNumber": -1,
+        "__type": "NumberCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "PassiveBonusAD": {
+      "mMultiplier": {
+       "mNumber": 0.01,
+       "__type": "NumberCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mStat": 12,
+        "mDataValue": "HealthToADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 1,
+    "spellCastTime": 1,
+    "spellTotalTime": 2.9334,
+    "cooldownTime": [
+     9,
+     9,
+     8.25,
+     7.5,
+     6.75,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      9,
+      9,
+      8.25,
+      7.5,
+      6.75,
+      6,
+      6
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/DrMundo/Spells/DrMundoEAbility/DrMundoEPassive",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mCanMoveWhileChanneling": true,
+    "useAnimatorFramerate": true,
+    "mLockedSpellOriginationCastID": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castConeDistance": 100,
+    "castFrame": 1.225,
+    "missileSpeed": 20,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "MaxDamageAmpTooltip",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8192,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 512,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 128,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 32,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/DrMundoEAbility/DrMundoEAttack": {
+   "ObjectName": "DrMundoEAttack",
+   "objectPath": "Characters/DrMundo/Spells/DrMundoEAbility/DrMundoEAttack",
+   "mScriptName": "DrMundoEAttack",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 15567,
+    "cooldownTime": [
+     6,
+     6,
+     5.5,
+     5,
+     4.5,
+     4,
+     4
+    ],
+    "Cooldown": {
+     "values": [
+      6,
+      6,
+      5.5,
+      5,
+      4.5,
+      4,
+      4
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "mCanMoveWhileChanneling": true,
+    "castFrame": 4,
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/DrMundoEAbility/DrMundoEPassive": {
+   "ObjectName": "DrMundoEPassive",
+   "objectPath": "Characters/DrMundo/Spells/DrMundoEAbility/DrMundoEPassive",
+   "mScriptName": "DrMundoEPassive",
+   "mSpell": {
+    "mAffectsTypeFlags": 15567,
+    "mCastTime": 0.75,
+    "cooldownTime": [
+     30,
+     30,
+     28,
+     26,
+     24,
+     22,
+     22
+    ],
+    "Cooldown": {
+     "values": [
+      30,
+      30,
+      28,
+      26,
+      24,
+      22,
+      22
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "alwaysSnapFacing": true,
+    "castRange": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castRadius": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castConeDistance": 100,
+    "castFrame": 1,
+    "missileSpeed": 20,
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Masochism",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/DrMundoBasicAttack3": {
+   "ObjectName": "DrMundoBasicAttack3",
+   "objectPath": "Characters/DrMundo/Spells/DrMundoBasicAttack3",
+   "mScriptName": "DrMundoBasicAttack3",
+   "mSpell": {
+    "mAffectsTypeFlags": 21711,
+    "mAlternateName": "DrMundoBasicAttack2",
+    "spellCastTime": 0.3439,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.83,
+    "missileSpeed": 0,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "DrMundo_BA_tar_02",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/DrMundoBasicAttack2": {
+   "ObjectName": "DrMundoBasicAttack2",
+   "objectPath": "Characters/DrMundo/Spells/DrMundoBasicAttack2",
+   "mScriptName": "DrMundoBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 21711,
+    "mAlternateName": "DrMundoBasicAttack2",
+    "spellCastTime": 0.3439,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 9.83,
+    "missileSpeed": 0,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "DrMundo_BA_tar_02",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/DrMundoWAbility/DrMundoWRecast": {
+   "ObjectName": "DrMundoWRecast",
+   "objectPath": "Characters/DrMundo/Spells/DrMundoWAbility/DrMundoWRecast",
+   "mScriptName": "DrMundoWRecast",
+   "mSpell": {
+    "flags": 36,
+    "mAffectsTypeFlags": 6154,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "DataValues": [
+     {
+      "name": "FlatHeal",
+      "values": [
+       50,
+       60,
+       70,
+       80,
+       90,
+       100,
+       110
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       10,
+       15,
+       20,
+       25,
+       30,
+       35,
+       40
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CastRange",
+      "values": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Duration",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxStacks",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealOverTime",
+      "values": [
+       0.01,
+       0.01,
+       0.01,
+       0.01,
+       0.01,
+       0.01,
+       0.01
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinimumCooldown",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealAmpPerStack",
+      "values": [
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       },
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 12,
+        "mCoefficient": 0.05,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.25,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     6,
+     6,
+     5.5,
+     5,
+     4.5,
+     4,
+     4
+    ],
+    "Cooldown": {
+     "values": [
+      6,
+      6,
+      5.5,
+      5,
+      4.5,
+      4,
+      4
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "mCanMoveWhileChanneling": true,
+    "alwaysSnapFacing": true,
+    "mDoesNotConsumeMana": true,
+    "castRange": [
+     325,
+     325,
+     325,
+     325,
+     325,
+     325,
+     325
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "SelfAoe"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.275,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 8,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mPart1": {
+          "SourceObject": "Characters/DrMundo/Spells/DrMundoWAbility/DrMundoW",
+          "DataValue": "GrayHealthBigMod",
+          "__type": "{9e9e2e5c}"
+         },
+         "mPart2": {
+          "mNumber": 100,
+          "__type": "NumberCalculationPart"
+         },
+         "__type": "ProductOfSubPartsCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/DrMundoWAbility/DrMundoW": {
+   "ObjectName": "DrMundoW",
+   "objectPath": "Characters/DrMundo/Spells/DrMundoWAbility/DrMundoW",
+   "mScriptName": "DrMundoW",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_ActiveHeal",
+     "Trait_RecastOrReplaceSpell",
+     "Trait_DoT",
+     "Trait_AttackBuff_Duration",
+     "Trait_Low_Damage",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "Duration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CurrentHealthCost",
+      "values": [
+       0.08,
+       0.08,
+       0.08,
+       0.08,
+       0.08,
+       0.08,
+       0.08
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "GrayHealthStorage",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "GrayHealthInitialDuration",
+      "values": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "GrayHealthBigMod",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "GrayHealthSmallMod",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SecondCastRange",
+      "values": [
+       325,
+       325,
+       325,
+       325,
+       325,
+       325,
+       325
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SecondCastLockout",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DamagePerTick",
+      "values": [
+       1.25,
+       5,
+       8.75,
+       12.5,
+       16.25,
+       20,
+       23.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RecastBaseDamage",
+      "values": [
+       5,
+       20,
+       35,
+       50,
+       65,
+       80,
+       95
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "RecastBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 12,
+        "mStatFormula": 2,
+        "mCoefficient": 0.07,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "GrayHealthStorageInitial": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 0.8,
+        "mEndValue": 0.95,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     17,
+     17,
+     16.5,
+     16,
+     15.5,
+     15,
+     15
+    ],
+    "Cooldown": {
+     "values": [
+      17,
+      17,
+      16.5,
+      16,
+      15.5,
+      15,
+      15
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "mCanMoveWhileChanneling": true,
+    "mDoNotNeedToFaceTarget": true,
+    "mIgnoreRangeCheck": true,
+    "mDoesNotConsumeMana": true,
+    "castRange": [
+     325,
+     325,
+     325,
+     325,
+     325,
+     325,
+     325
+    ],
+    "mTargetingTypeData": {
+     "__type": "SelfAoe"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.275,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 33554432,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mPart1": {
+          "mNumber": 4,
+          "__type": "NumberCalculationPart"
+         },
+         "mPart2": {
+          "mDataValue": "DamagePerTick",
+          "__type": "NamedDataValueCalculationPart"
+         },
+         "__type": "ProductOfSubPartsCalculationPart"
+        },
+        {
+         "mDataValue": "Duration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/DrMundoRAbility/DrMundoRHeal": {
+   "ObjectName": "DrMundoRHeal",
+   "objectPath": "Characters/DrMundo/Spells/DrMundoRAbility/DrMundoRHeal",
+   "mScriptName": "DrMundoRHeal",
+   "mSpell": {
+    "mAffectsTypeFlags": 15567,
+    "mCastTime": 0.75,
+    "cooldownTime": [
+     30,
+     30,
+     28,
+     26,
+     24,
+     22,
+     22
+    ],
+    "Cooldown": {
+     "values": [
+      30,
+      30,
+      28,
+      26,
+      24,
+      22,
+      22
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "alwaysSnapFacing": true,
+    "castRange": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castRadius": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castConeDistance": 100,
+    "castFrame": 1,
+    "missileSpeed": 20,
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Masochism",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/DrMundoRAbility/DrMundoR": {
+   "ObjectName": "DrMundoR",
+   "objectPath": "Characters/DrMundo/Spells/DrMundoRAbility/DrMundoR",
+   "mScriptName": "DrMundoR",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 15567,
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_ActiveHeal",
+     "Trait_AttackBuff_Duration"
+    ],
+    "DataValues": [
+     {
+      "name": "Duration",
+      "values": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SpeedBoostAmount",
+      "values": [
+       0.05,
+       0.15,
+       0.25,
+       0.35,
+       0.45,
+       0.55,
+       0.65
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MissingHealthHeal",
+      "values": [
+       0.1,
+       0.15,
+       0.2,
+       0.25,
+       0.3,
+       0.35,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxHealthHoT",
+      "values": [
+       0,
+       0.2,
+       0.4,
+       0.6,
+       0.8,
+       1,
+       1.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TakedownDurationExtension",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusPerNearbyChampion",
+      "values": [
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05,
+       0.05
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     120,
+     120,
+     120,
+     120,
+     120,
+     120,
+     120
+    ],
+    "Cooldown": {
+     "values": [
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120
+     ],
+     "{0a3e0478}": 120,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castRadius": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "castConeDistance": 100,
+    "castFrame": 15,
+    "missileSpeed": 828.5,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 2,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "SpeedBoostAmount",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 8,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "MissingHealthHeal",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 32,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mStat": 12,
+         "mSubpart": {
+          "mDataValue": "MaxHealthHoT",
+          "__type": "NamedDataValueCalculationPart"
+         },
+         "__type": "StatBySubPartCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 64,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 128,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/DrMundoQAbility/DrMundoQ": {
+   "ObjectName": "DrMundoQ",
+   "objectPath": "Characters/DrMundo/Spells/DrMundoQAbility/DrMundoQ",
+   "mScriptName": "DrMundoQ",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_ActiveHeal",
+     "Trait_SignatureSpell",
+     "Trait_Ranged_StopsFirstHit"
+    ],
+    "DataValues": [
+     {
+      "name": "SlowDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmount",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CurrentHealthDamage",
+      "values": [
+       0.175,
+       0.2,
+       0.225,
+       0.25,
+       0.275,
+       0.3,
+       0.325
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinimumDamage",
+      "values": [
+       30,
+       80,
+       130,
+       180,
+       230,
+       280,
+       330
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaximumMonsterDamage",
+      "values": [
+       175,
+       250,
+       325,
+       400,
+       475,
+       550,
+       625
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealthCost",
+      "values": [
+       40,
+       50,
+       60,
+       70,
+       80,
+       90,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealthRefundOnHitChampionMonsterPercent",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealthRefundOnHitMinionPercent",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "HealthRestoreOnHitChampionMonster": {
+      "mExpandedTooltipCalculationDisplay": 5,
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mPart1": {
+         "mDataValue": "HealthRefundOnHitChampionMonsterPercent",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        "mPart2": {
+         "mDataValue": "HealthCost",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        "__type": "ProductOfSubPartsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "HealthRestoreOnHitMinion": {
+      "mExpandedTooltipCalculationDisplay": 5,
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mPart1": {
+         "mDataValue": "HealthRefundOnHitMinionPercent",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        "mPart2": {
+         "mDataValue": "HealthCost",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        "__type": "ProductOfSubPartsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4
+    ],
+    "Cooldown": {
+     "values": [
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+     ],
+     "{0a3e0478}": 4,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "mTurnSpeedScalar": 2,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     1050,
+     1050,
+     1050,
+     1050,
+     1050,
+     1050,
+     1050
+    ],
+    "castRangeDisplayOverride": [
+     975,
+     975,
+     975,
+     975,
+     975,
+     975,
+     975
+    ],
+    "castRadius": [
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999,
+     299.29999
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 60,
+     "movementComponent": {
+      "mTracksTarget": false,
+      "mStartBoneName": "L_Buffbone_GLB_Loc",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 10.92,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "DrMundo_Q_mis_01",
+    "mLineWidth": 60,
+    "mHitEffectOrientType": 2,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSubparts": [
+        {
+         "mDataValue": "MinimumDamage",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        {
+         "mPart1": {
+          "mDataValue": "CurrentHealthDamage",
+          "__type": "NamedDataValueCalculationPart"
+         },
+         "mPart2": {
+          "{a8cb9c14}": true,
+          "mStat": 13,
+          "mCoefficient": 1,
+          "__type": "StatByCoefficientCalculationPart"
+         },
+         "__type": "ProductOfSubPartsCalculationPart"
+        }
+       ],
+       "__type": "{8a96ea3c}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "SlowAmount",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 8,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "HealthRefundOnHitChampionMonsterPercent",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 32768,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mNumber": 60,
+         "__type": "NumberCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/DrMundoCritAttack": {
+   "ObjectName": "DrMundoCritAttack",
+   "objectPath": "Characters/DrMundo/Spells/DrMundoCritAttack",
+   "mScriptName": "DrMundoCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 21711,
+    "spellCastTime": 0.3439,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.965,
+    "missileSpeed": 0,
+    "mHitEffectKey": "DrMundo_BA_tar_crit_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/DrMundoBasicAttackTower": {
+   "ObjectName": "DrMundoBasicAttackTower",
+   "objectPath": "Characters/DrMundo/Spells/DrMundoBasicAttackTower",
+   "mScriptName": "DrMundoBasicAttackTower",
+   "mSpell": {
+    "mAffectsTypeFlags": 21711,
+    "spellCastTime": 0.3439,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "mTurnSpeedScalar": 2,
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.83,
+    "missileSpeed": 0,
+    "mHitEffectKey": "DrMundo_BA_tar_01",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/DrMundoQAbility/DrMundoQ",
+  "Spells/DrMundoWAbility/DrMundoW",
+  "Spells/DrMundoEAbility/DrMundoE",
+  "Spells/DrMundoRAbility/DrMundoR"
+ ],
+ "passiva_ref": "Characters/DrMundo/Spells/DrMundoPassiveAbility",
+ "passiva_chaves": [
+  "Spells/DrMundoPassiveAbility/DrMundoP",
+  "Spells/DrMundoPassiveAbility/DrMundoPObjectMissile",
+  "Spells/DrMundoPassiveAbility/DrMundoPCooldown",
+  "Spells/DrMundoPassiveAbility/DrMundoPImmunity"
+ ]
+}

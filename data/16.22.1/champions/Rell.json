@@ -1,0 +1,2538 @@
+{
+ "id": "Rell",
+ "key": 526,
+ "nome": "Rell",
+ "titulo": "a Dama de Ferro",
+ "funcoes": [
+  "Tank",
+  "Support"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 0,
+  "defense": 0,
+  "magic": 0,
+  "difficulty": 0
+ },
+ "stats_ddragon": {
+  "hp": 620,
+  "hpperlevel": 104,
+  "mp": 320,
+  "mpperlevel": 40,
+  "movespeed": 315,
+  "armor": 30,
+  "armorperlevel": 4,
+  "spellblock": 28,
+  "spellblockperlevel": 1.8,
+  "attackrange": 175,
+  "hpregen": 7.5,
+  "hpregenperlevel": 0.85,
+  "mpregen": 7,
+  "mpregenperlevel": 0.7,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 55,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2,
+  "attackspeed": 0.625
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "A Ferro e Fogo",
+  "descricao": "Os Ataques e Habilidades de Rell causam Dano Mágico adicional e roubam Armadura e Resistência Mágica ao contato."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "RellQ",
+   "nome": "Golpe Estilhaçador",
+   "descricao": "Rell causa Dano Mágico às unidades em linha reta, destruindo o Escudo delas e atordoando-as. ",
+   "tooltip": "Rell golpeia com a lança, <status>Atordoando</status> os alvos por {{ stunduration }}s, destruindo todos os <shield>Escudos</shield> e causando <magicDamage>{{ damage }} de Dano Mágico</magicDamage>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    11,
+    10.5,
+    10,
+    9.5,
+    9
+   ],
+   "custo": [
+    50,
+    50,
+    50,
+    50,
+    50
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    600,
+    600,
+    600,
+    600,
+    600
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "RellW_Dismount",
+   "nome": "Ferromante: Queda Esmagadora",
+   "descricao": "Montaria: Rell Desmonta, caindo com a armadura sobre os inimigos, Arremessando-os ao ar e recebendo um grande Escudo. Sem montaria, ela recebe Armadura, Resistência Mágica, Velocidade de Ataque e Alcance de Ataque, mas sofre Lentidão.<br><br>Desmontada: Rell forja a Montaria, recebendo um impulso de velocidade e Arremessando ao ar o próximo inimigo que Atacar.<br><br>",
+   "tooltip": "<spellPassive>Passivo – Espontaneidade Montada:</spellPassive> Rell recebe <speed>{{ spell.rellw_dismount:mountedmovespeed }} de Velocidade de Movimento</speed> enquanto montada.<br /><br /><spellActive>Ativo – Ferromante: Queda Esmagadora:</spellActive> Rell salta da montaria, <status>Arremessando ao ar</status> os inimigos e causando a eles <magicDamage>{{ spell.rellw_dismount:dismountdamage }} de Dano Mágico</magicDamage>. Rell recebe <shield>{{ spell.rellw_dismount:shield }} de Escudo</shield> que dura até ela montar novamente.<br /><br />Rell entra na forma blindada, recebendo mais <scaleArmor>{{ spell.rellw_dismount:resistanceincrease*100 }}% de Armadura</scaleArmor> e <scaleMR>Resistência Mágica</scaleMR>, <attackSpeed>{{ spell.rellw_dismount:dismountedasboost*100 }}% de Velocidade de Ataque</attackSpeed> e {{ spell.rellw_dismount:dismountedrangeboost }} de Alcance de Ataque. Na forma blindada, ela pode usar <spellName>Ferromante: Montaria</spellName>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    10,
+    10,
+    10,
+    10,
+    10
+   ],
+   "custo": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    450,
+    450,
+    450,
+    450,
+    450
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "RellE",
+   "nome": "Investida Absoluta",
+   "descricao": "Passivo: Rell recebe Velocidade de Movimento fora de combate.<br><br>Ativo: Rell e um aliado recebem Velocidade de Movimento crescente, dobrada em direção aos inimigos e entre si. O próximo Ataque dela explode, causando Dano Mágico.<br>",
+   "tooltip": "Rell e um aliado avançam, recebendo <speed>{{ minms*100 }}% de Velocidade de Movimento</speed>, aumentada para <speed>{{ maxms*100 }}%</speed> na direção de Campeões inimigos ou um do outro por {{ duration }}s. O próximo ataque de Rell ou <spellName>Golpe Estilhaçador</spellName> explode em uma área, causando <magicDamage>{{ maxhealthdamagecalc }} da Vida máxima como Dano Mágico</magicDamage>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    14,
+    13,
+    12,
+    11,
+    10
+   ],
+   "custo": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1200,
+    1200,
+    1200,
+    1200,
+    1200
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "RellR",
+   "nome": "Tempestade Magnética",
+   "descricao": "Rell explode em uma fúria magnética, Puxando violentamente os inimigos próximos em sua direção. Ela, então, Arrasta esses inimigos em direção a si por um curto período, causando Dano Mágico ao longo do tempo.",
+   "tooltip": "Rell explode em uma fúria magnética, <status>Arrastando</status> violentamente os inimigos próximos em sua direção. Depois, ela continua <status>Arrastando</status> os inimigos próximos e causa <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage> ao longo dos próximos {{ duration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    120,
+    100,
+    80
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    200,
+    200,
+    200
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 620,
+  "vida_nivel": 104,
+  "regen_vida": 1.5,
+  "regen_vida_nivel": 0.17,
+  "dano": 55,
+  "dano_nivel": 3,
+  "armadura": 30,
+  "armadura_nivel": 4,
+  "rm": 28,
+  "rm_nivel": 1.8,
+  "velocidade_mov": 315,
+  "alcance_ataque": 175,
+  "vel_ataque_base": 0.625,
+  "vel_ataque_razao": 0.625,
+  "vel_ataque_nivel": 2,
+  "dano_critico": 2,
+  "alcance_aquisicao": 400,
+  "raio_selecao": 120,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackTotalTime": 1.600000023841858,
+   "mAttackCastTime": 0.30000001192092896,
+   "mAttackProbability": 1,
+   "mAttackName": "RellBasicAttack",
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackTotalTime": 1.600000023841858,
+    "mAttackCastTime": 0.30000001192092896,
+    "mAttackProbability": 0,
+    "mAttackName": "RellBasicAttack2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackTotalTime": 1.600000023841858,
+    "mAttackCastTime": 0.30000001192092896,
+    "mAttackName": "RellCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Rell/Spells/RellQAbility/RellQ",
+  "Characters/Rell/Spells/RellW_DismountAbility/RellW_Dismount",
+  "Characters/Rell/Spells/RellEAbility/RellE",
+  "Characters/Rell/Spells/RellRAbility/RellR"
+ ],
+ "abilities_ref": [
+  "Characters/Rell/Spells/RellQAbility",
+  "Characters/Rell/Spells/RellW_DismountAbility",
+  "Characters/Rell/Spells/RellEAbility",
+  "Characters/Rell/Spells/RellRAbility",
+  "Characters/Rell/Spells/RellPAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/RellPAbility/RellP_Debuff": {
+   "ObjectName": "RellP_Debuff",
+   "objectPath": "Characters/Rell/Spells/RellPAbility/RellP_Debuff",
+   "mScriptName": "RellP_Debuff",
+   "mBuff": {
+    "mDescription": "buff_desc_RellP_Debuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellPAbility/RellP_Buff": {
+   "ObjectName": "RellP_Buff",
+   "objectPath": "Characters/Rell/Spells/RellPAbility/RellP_Buff",
+   "mScriptName": "RellP_Buff",
+   "mBuff": {
+    "mDescription": "buff_desc_RellP_Buff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellPAbility/RellP": {
+   "ObjectName": "RellP",
+   "objectPath": "Characters/Rell/Spells/RellPAbility/RellP",
+   "mScriptName": "RellP",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "RefreshDuration",
+      "values": [
+       3.5,
+       3.5,
+       3.5,
+       3.5,
+       3.5,
+       3.5,
+       3.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StealPercent",
+      "values": [
+       0.03,
+       0.03,
+       0.03,
+       0.03,
+       0.03,
+       0.03,
+       0.03
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShredDuration",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxStacks",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxPercentTooltipOnly",
+      "values": [
+       15,
+       15,
+       15,
+       15,
+       15,
+       15,
+       15
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "StealPercent",
+        "values": [
+         0.02,
+         0.02,
+         0.02,
+         0.02,
+         0.02,
+         0.02,
+         0.02
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "StealFloor": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 1.5,
+        "mEndValue": 3,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "mPrecision": 1,
+      "__type": "GameCalculation"
+     },
+     "OnHitDamage": {
+      "DamageType": 1,
+      "mFormulaParts": [
+       {
+        "mStat": 1,
+        "mCoefficient": 0.05,
+        "__type": "StatByCoefficientCalculationPart"
+       },
+       {
+        "mStat": 6,
+        "mCoefficient": 0.05,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "LastHitData": [
+     {
+      "{6166b756}": "OnHitDamage",
+      "__type": "LastHitData"
+     }
+    ],
+    "castRange": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellW_DismountAbility/RellW_KnockUp": {
+   "ObjectName": "RellW_KnockUp",
+   "objectPath": "Characters/Rell/Spells/RellW_DismountAbility/RellW_KnockUp",
+   "mScriptName": "RellW_KnockUp",
+   "mBuff": {
+    "mDescription": "buff_desc_RellW_KnockUp",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellW_DismountAbility/RellW_Dismount": {
+   "ObjectName": "RellW_Dismount",
+   "objectPath": "Characters/Rell/Spells/RellW_DismountAbility/RellW_Dismount",
+   "mScriptName": "RellW_Dismount",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 8192,
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "PositiveEffect_MoveBlock",
+     "Trait_PlayerSelectedDashDirection",
+     "Trait_DamageAbility",
+     "Trait_Shield",
+     "Trait_SignatureSpell",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "CrashDownDamage",
+      "values": [
+       30,
+       60,
+       90,
+       120,
+       150,
+       180,
+       210
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CrashDownKnockupDuration",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CrashDownStunDuration",
+      "values": [
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlideDistance",
+      "values": [
+       320,
+       320,
+       320,
+       320,
+       320,
+       320,
+       320
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ResistanceIncrease",
+      "values": [
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldBase",
+      "values": [
+       20,
+       20,
+       40,
+       60,
+       80,
+       100,
+       120
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldHealthRatio",
+      "values": [
+       0.11,
+       0.11,
+       0.11,
+       0.11,
+       0.11,
+       0.11,
+       0.11
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DismountedASBoost",
+      "values": [
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DismountedRangeBoost",
+      "values": [
+       75,
+       75,
+       75,
+       75,
+       75,
+       75,
+       75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MountUpDamage",
+      "values": [
+       10,
+       10,
+       25,
+       40,
+       55,
+       70,
+       85
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MountUpSpeed",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MountUpSpeedDuration",
+      "values": [
+       3.5,
+       3.5,
+       3.5,
+       3.5,
+       3.5,
+       3.5,
+       3.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MountedMoveSpeed",
+      "values": [
+       15,
+       20,
+       25,
+       30,
+       35,
+       40,
+       45
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FlipBaseDamage",
+      "values": [
+       -5,
+       10,
+       25,
+       40,
+       55,
+       70,
+       85
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FlipKnockupDuration",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FlipStunDuration",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "DismountDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "CrashDownDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.6,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "Shield": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "ShieldBase",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 12,
+        "mDataValue": "ShieldHealthRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "FlipDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "MountUpDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.4,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{a71a11d7}": {
+      "mFormulaParts": [
+       {
+        "mCeiling": 1,
+        "mFloor": 0.2,
+        "mSubparts": [
+         {
+          "buffName": "{5a8747c2}",
+          "Coefficient": 2,
+          "__type": "PercentageOfBuffNameElapsed"
+         }
+        ],
+        "__type": "ClampSubPartsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Rell/Spells/RellW_DismountAbility/RellW_MountedBuff",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "cantCastWhileRooted": true,
+    "castRangeDisplayOverride": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "mana": [
+     40,
+     40,
+     40,
+     40,
+     40,
+     40
+    ],
+    "mTargetingTypeData": {
+     "__type": "AreaClamped"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "DismountDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 524288,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSpellCalculationKey": "Shield",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 128,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16777216,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSpellCalculationKey": "FlipDamage",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellW_DismountAbility/RellW_MountedBuff": {
+   "ObjectName": "RellW_MountedBuff",
+   "objectPath": "Characters/Rell/Spells/RellW_DismountAbility/RellW_MountedBuff",
+   "mScriptName": "RellW_MountedBuff",
+   "mBuff": {
+    "mDescription": "buff_desc_RellW_MountedBuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellW_DismountAbility/RellWEmpoweredAttack": {
+   "ObjectName": "RellWEmpoweredAttack",
+   "objectPath": "Characters/Rell/Spells/RellW_DismountAbility/RellWEmpoweredAttack",
+   "mScriptName": "RellWEmpoweredAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 23210,
+    "mAlternateName": "Spell2_Flip",
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "alwaysSnapFacing": true,
+    "bHaveHitEffect": true,
+    "mConsideredAsAutoAttack": true,
+    "mRollForCriticalHit": true,
+    "castRange": [
+     125,
+     125,
+     125,
+     125,
+     125,
+     125,
+     125
+    ],
+    "mHitEffectKey": "globalhit_physical",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_RellWEmpoweredAttack",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellW_DismountAbility/RellW_Shield": {
+   "ObjectName": "RellW_Shield",
+   "objectPath": "Characters/Rell/Spells/RellW_DismountAbility/RellW_Shield",
+   "mScriptName": "RellW_Shield",
+   "mBuff": {
+    "mDescription": "buff_desc_RellW_Shield",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellW_DismountAbility/RellW_MountUp": {
+   "ObjectName": "RellW_MountUp",
+   "objectPath": "Characters/Rell/Spells/RellW_DismountAbility/RellW_MountUp",
+   "mScriptName": "RellW_MountUp",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 8192,
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "Trait_FreeRecast",
+     "Trait_AttackReset",
+     "Trait_DamageAbility"
+    ],
+    "DataValues": [
+     {
+      "name": "CrashDownTooltip",
+      "values": [
+       30,
+       60,
+       90,
+       120,
+       150,
+       180,
+       210
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldBaseTooltip",
+      "values": [
+       20,
+       20,
+       40,
+       60,
+       80,
+       100,
+       120
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FlipAttackTooltip",
+      "values": [
+       -5,
+       10,
+       25,
+       40,
+       55,
+       70,
+       85
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MoveSpeedTooltip",
+      "values": [
+       15,
+       20,
+       25,
+       30,
+       35,
+       40,
+       45
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HasteTooltip",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "{a71a11d7}": {
+      "mFormulaParts": [
+       {
+        "mCeiling": 1,
+        "mFloor": 0.2,
+        "mSubparts": [
+         {
+          "buffName": "{5a8747c2}",
+          "Coefficient": 2,
+          "__type": "PercentageOfBuffNameElapsed"
+         }
+        ],
+        "__type": "ClampSubPartsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Rell/Spells/RellW_DismountAbility/RellW_DismountedBuff",
+      "mRemoveWhenOnCooldown": false,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 2,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "HasteTooltip",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 128,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mNumber": 1,
+         "__type": "NumberCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mNumber": 1,
+         "__type": "NumberCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mNumber": 1,
+         "__type": "NumberCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16777216,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "FlipAttackTooltip",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 524288,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "ShieldBaseTooltip",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellW_DismountAbility/RellW_DismountedBuff": {
+   "ObjectName": "RellW_DismountedBuff",
+   "objectPath": "Characters/Rell/Spells/RellW_DismountAbility/RellW_DismountedBuff",
+   "mScriptName": "RellW_DismountedBuff",
+   "mBuff": {
+    "mDescription": "buff_desc_RellW_DismountedBuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellEAbility/RellE_Passive": {
+   "ObjectName": "RellE_Passive",
+   "objectPath": "Characters/Rell/Spells/RellEAbility/RellE_Passive",
+   "mScriptName": "RellE_Passive",
+   "mSpell": {
+    "cooldownTime": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "Cooldown": {
+     "values": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+     ],
+     "{0a3e0478}": 2,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellEAbility/RellE": {
+   "ObjectName": "RellE",
+   "objectPath": "Characters/Rell/Spells/RellEAbility/RellE",
+   "mScriptName": "RellE",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1,
+    "mSpellTags": [
+     "PositiveEffect_Boon"
+    ],
+    "DataValues": [
+     {
+      "name": "MaxMS",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinMS",
+      "values": [
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Duration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MSModPhase1",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ExplosionRadius",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PercentHealthDamage",
+      "values": [
+       0.045,
+       0.05,
+       0.055,
+       0.06,
+       0.065,
+       0.07,
+       0.075
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PassiveMSCombatPenalty",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EmpowermentBuffer",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Phase2Start",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Phase3Start",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "MaxHealthDamageCalc": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "PercentHealthDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.0003,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": 1,
+      "__type": "GameCalculation"
+     },
+     "PercentHealthDamageCap": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 150,
+        "mEndValue": 300,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     14,
+     14,
+     13,
+     12,
+     11,
+     10,
+     10
+    ],
+    "Cooldown": {
+     "values": [
+      14,
+      14,
+      13,
+      12,
+      11,
+      10,
+      10
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCharacterPassiveBuffs": [
+     {
+      "mParentPassiveBuff": "Characters/Rell/Spells/RellEAbility/RellE_Passive",
+      "__type": "CharacterPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "mUseMinimapTargeting": true,
+    "mDoNotNeedToFaceTarget": true,
+    "castRange": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castFrame": 8,
+    "mana": [
+     40,
+     40,
+     40,
+     40,
+     40,
+     40
+    ],
+    "TargetingForgivenessDefinitions": [
+     {
+      "ForgivenessRange": 200,
+      "TargetForgivenessDefinitions": [
+       {
+        "mInvertResult": true,
+        "mUnit": "Characters/Rell/CharacterRecords/Root",
+        "__type": "IsSpecifiedUnitCastRequirement"
+       }
+      ],
+      "__type": "TargetingForgivenessDefinitions"
+     },
+     {
+      "ForgivenessRange": 200000,
+      "TargetForgivenessDefinitions": [
+       {
+        "mUnit": "Characters/Rell/CharacterRecords/Root",
+        "__type": "IsSpecifiedUnitCastRequirement"
+       }
+      ],
+      "__type": "TargetingForgivenessDefinitions"
+     }
+    ],
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "MaxHealthDamageCalc",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 2,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "MaxMS",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "MaxMS",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellEAbility/RellE_Ready": {
+   "ObjectName": "RellE_Ready",
+   "objectPath": "Characters/Rell/Spells/RellEAbility/RellE_Ready",
+   "mScriptName": "RellE_Ready",
+   "mSpell": {
+    "mAffectsTypeFlags": 16385,
+    "mAffectsStatusFlags": 32,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "mProjectTargetToCastRange": true,
+    "alwaysSnapFacing": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "luaOnMissileUpdateDistanceInterval": 60,
+    "mMissileSpec": {
+     "mMissileWidth": 70,
+     "movementComponent": {
+      "mStartBoneName": "",
+      "mTravelTime": 0.25,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 9,
+    "mMissileEffectKey": "Rell_E_VFX_mis",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_RellE",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellEAbility/RellE_BuffSelf": {
+   "ObjectName": "RellE_BuffSelf",
+   "objectPath": "Characters/Rell/Spells/RellEAbility/RellE_BuffSelf",
+   "mScriptName": "RellE_BuffSelf",
+   "mSpell": {
+    "cooldownTime": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "Cooldown": {
+     "values": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+     ],
+     "{0a3e0478}": 2,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellEAbility/RellE_VFXMis": {
+   "ObjectName": "RellE_VFXMis",
+   "objectPath": "Characters/Rell/Spells/RellEAbility/RellE_VFXMis",
+   "mScriptName": "RellE_VFXMis",
+   "mSpell": {
+    "mAffectsTypeFlags": 16385,
+    "mAffectsStatusFlags": 32,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "mProjectTargetToCastRange": true,
+    "alwaysSnapFacing": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "luaOnMissileUpdateDistanceInterval": 60,
+    "mMissileSpec": {
+     "mMissileWidth": 70,
+     "movementComponent": {
+      "mStartBoneName": "",
+      "mTravelTime": 0.25,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 9,
+    "mMissileEffectKey": "Rell_E_VFX_mis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellEAbility/RellE_EmpowerAlly": {
+   "ObjectName": "RellE_EmpowerAlly",
+   "objectPath": "Characters/Rell/Spells/RellEAbility/RellE_EmpowerAlly",
+   "mScriptName": "RellE_EmpowerAlly",
+   "mSpell": {
+    "cooldownTime": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "Cooldown": {
+     "values": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+     ],
+     "{0a3e0478}": 2,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellEAbility/RellE_VFXMis2": {
+   "ObjectName": "RellE_VFXMis2",
+   "objectPath": "Characters/Rell/Spells/RellEAbility/RellE_VFXMis2",
+   "mScriptName": "RellE_VFXMis2",
+   "mSpell": {
+    "mAffectsTypeFlags": 1,
+    "mAffectsStatusFlags": 32,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "mProjectTargetToCastRange": true,
+    "alwaysSnapFacing": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     4000,
+     4000,
+     4000,
+     4000,
+     4000,
+     4000,
+     4000
+    ],
+    "luaOnMissileUpdateDistanceInterval": 61,
+    "mMissileSpec": {
+     "mMissileWidth": 70,
+     "movementComponent": {
+      "mStartBoneName": "Buffbone_Glb_Ground_Loc",
+      "mSpeed": 3300,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 9,
+    "mMissileEffectKey": "Rell_E_Snap_Mis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellEAbility/RellE_EmpowerSelf": {
+   "ObjectName": "RellE_EmpowerSelf",
+   "objectPath": "Characters/Rell/Spells/RellEAbility/RellE_EmpowerSelf",
+   "mScriptName": "RellE_EmpowerSelf",
+   "mSpell": {
+    "cooldownTime": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "Cooldown": {
+     "values": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+     ],
+     "{0a3e0478}": 2,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellEAbility/RellEStun": {
+   "ObjectName": "RellEStun",
+   "objectPath": "Characters/Rell/Spells/RellEAbility/RellEStun",
+   "mScriptName": "RellEStun",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_RellEStun",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellEAbility/RellE_Target": {
+   "ObjectName": "RellE_Target",
+   "objectPath": "Characters/Rell/Spells/RellEAbility/RellE_Target",
+   "mScriptName": "RellE_Target",
+   "mSpell": {
+    "cooldownTime": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "Cooldown": {
+     "values": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+     ],
+     "{0a3e0478}": 2,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellEAbility/RellE_Target1": {
+   "ObjectName": "RellE_Target1",
+   "objectPath": "Characters/Rell/Spells/RellEAbility/RellE_Target1",
+   "mScriptName": "RellE_Target1",
+   "mSpell": {
+    "mAffectsTypeFlags": 16385,
+    "mAffectsStatusFlags": 32,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "mProjectTargetToCastRange": true,
+    "alwaysSnapFacing": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "luaOnMissileUpdateDistanceInterval": 60,
+    "mMissileSpec": {
+     "mMissileWidth": 70,
+     "movementComponent": {
+      "mStartBoneName": "",
+      "mTravelTime": 0.25,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 9,
+    "mMissileEffectKey": "Rell_E_VFX_mis",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_RellE",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellQAbility/RellQ": {
+   "ObjectName": "RellQ",
+   "objectPath": "Characters/Rell/Spells/RellQAbility/RellQ",
+   "mScriptName": "RellQ",
+   "mSpell": {
+    "flags": 16,
+    "mAffectsTypeFlags": 8192,
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_Target_Directional",
+     "Trait_Melee_SmallWindup",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       20,
+       60,
+       100,
+       140,
+       180,
+       220,
+       260
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StunDuration",
+      "values": [
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "Damage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.6,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.4,
+    "spellCastTime": 0.35,
+    "spellTotalTime": 0.6,
+    "cooldownTime": [
+     11,
+     11,
+     10.5,
+     10,
+     9.5,
+     9,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      11,
+      11,
+      10.5,
+      10,
+      9.5,
+      9,
+      8
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mPostCastLockoutDeltaTime": 0.5,
+    "mCasterPositionEndOfCastUpdate": 1,
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "mProjectTargetToCastRange": true,
+    "alwaysSnapFacing": true,
+    "mDoNotNeedToFaceTarget": true,
+    "castRange": [
+     5000,
+     5000,
+     5000,
+     5000,
+     5000,
+     5000,
+     5000
+    ],
+    "castRangeDisplayOverride": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "castFrame": 12,
+    "mana": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ],
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.25,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "Damage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 128,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellQAbility/RellQ_Stun": {
+   "ObjectName": "RellQ_Stun",
+   "objectPath": "Characters/Rell/Spells/RellQAbility/RellQ_Stun",
+   "mScriptName": "RellQ_Stun",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellRAbility/RellR": {
+   "ObjectName": "RellR",
+   "objectPath": "Characters/Rell/Spells/RellRAbility/RellR",
+   "mScriptName": "RellR",
+   "mSpell": {
+    "mAffectsTypeFlags": 8192,
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_DoT",
+     "Trait_Kinematic",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "Duration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamagePerSecond",
+      "values": [
+       25,
+       75,
+       125,
+       175,
+       225,
+       275,
+       325
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "GravityHorizon",
+      "values": [
+       225,
+       225,
+       225,
+       225,
+       225,
+       225,
+       225
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "GravityRadius",
+      "values": [
+       375,
+       375,
+       375,
+       375,
+       375,
+       375,
+       375
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "GravityForce",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "InitialRadius",
+      "values": [
+       425,
+       425,
+       425,
+       425,
+       425,
+       425,
+       425
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "DamagePerSecond": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamagePerSecond",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.55,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalDamage": {
+      "mMultiplier": {
+       "mDataValue": "Duration",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "tooltipOnly": true,
+      "mModifiedGameCalculation": "DamagePerSecond",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "mCastTime": 0.25,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     120,
+     120,
+     100,
+     80,
+     80,
+     80,
+     80
+    ],
+    "Cooldown": {
+     "values": [
+      120,
+      120,
+      100,
+      80,
+      80,
+      80,
+      80
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCanTriggerChargeSpellWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "alwaysSnapFacing": true,
+    "useAnimatorFramerate": true,
+    "bIsToggleSpell": true,
+    "mDoNotNeedToFaceTarget": true,
+    "mHideRangeIndicatorWhenCasting": true,
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "mTargetingTypeData": {
+     "__type": "SelfAoe"
+    },
+    "mDimensionBehavior": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_RellR",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 65536,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 33554432,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "BaseDamagePerSecond",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellRAbility/RellR_Damage": {
+   "ObjectName": "RellR_Damage",
+   "objectPath": "Characters/Rell/Spells/RellRAbility/RellR_Damage",
+   "mScriptName": "RellR_Damage",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_RellR_Damage",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellRAbility/RellR_StartPull": {
+   "ObjectName": "RellR_StartPull",
+   "objectPath": "Characters/Rell/Spells/RellRAbility/RellR_StartPull",
+   "mScriptName": "RellR_StartPull",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "buff_desc_RellR_StartPull",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellBasicAttack2": {
+   "ObjectName": "RellBasicAttack2",
+   "objectPath": "Characters/Rell/Spells/RellBasicAttack2",
+   "mScriptName": "RellBasicAttack2",
+   "mSpell": {
+    "mAffectsStatusFlags": 8,
+    "mPreCastLockoutDeltaTimeData": {
+     "mSpellLockDeltaTimeCalculation": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 0.15,
+        "mEndValue": 0.1,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "__type": "SpellLockDeltaTimeData"
+    },
+    "mApplyAttackDamage": true,
+    "bHaveHitEffect": true,
+    "mTurnSpeedScalar": 1.5,
+    "castFrame": 8,
+    "mHitEffectKey": "{b23c8936}",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellBasicAttack": {
+   "ObjectName": "RellBasicAttack",
+   "objectPath": "Characters/Rell/Spells/RellBasicAttack",
+   "mScriptName": "RellBasicAttack",
+   "mSpell": {
+    "mAffectsStatusFlags": 8,
+    "mPreCastLockoutDeltaTimeData": {
+     "mSpellLockDeltaTimeCalculation": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 0.15,
+        "mEndValue": 0.1,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "__type": "SpellLockDeltaTimeData"
+    },
+    "mApplyAttackDamage": true,
+    "bHaveHitEffect": true,
+    "mTurnSpeedScalar": 1.5,
+    "castFrame": 8,
+    "mHitEffectKey": "{65ee4617}",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/RellCritAttack": {
+   "ObjectName": "RellCritAttack",
+   "objectPath": "Characters/Rell/Spells/RellCritAttack",
+   "mScriptName": "RellCritAttack",
+   "mSpell": {
+    "mAffectsStatusFlags": 8,
+    "mPreCastLockoutDeltaTimeData": {
+     "mSpellLockDeltaTimeCalculation": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 0.15,
+        "mEndValue": 0.1,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "__type": "SpellLockDeltaTimeData"
+    },
+    "mApplyAttackDamage": true,
+    "alwaysSnapFacing": true,
+    "bHaveHitEffect": true,
+    "castFrame": 8,
+    "mHitEffectKey": "{d7e05705}",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/RellQAbility/RellQ",
+  "Spells/RellW_DismountAbility/RellW_Dismount",
+  "Spells/RellEAbility/RellE",
+  "Spells/RellRAbility/RellR"
+ ],
+ "passiva_ref": "Characters/Rell/Spells/RellPAbility",
+ "passiva_chaves": [
+  "Spells/RellPAbility/RellP_Debuff",
+  "Spells/RellPAbility/RellP_Buff",
+  "Spells/RellPAbility/RellP"
+ ]
+}

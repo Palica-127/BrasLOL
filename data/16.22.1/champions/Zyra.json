@@ -1,0 +1,3029 @@
+{
+ "id": "Zyra",
+ "key": 143,
+ "nome": "Zyra",
+ "titulo": "a Ascensão dos Espinhos",
+ "funcoes": [
+  "Mage",
+  "Support"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 4,
+  "defense": 3,
+  "magic": 8,
+  "difficulty": 7
+ },
+ "stats_ddragon": {
+  "hp": 574,
+  "hpperlevel": 93,
+  "mp": 418,
+  "mpperlevel": 25,
+  "movespeed": 340,
+  "armor": 29,
+  "armorperlevel": 4.2,
+  "spellblock": 30,
+  "spellblockperlevel": 1.3,
+  "attackrange": 575,
+  "hpregen": 5.5,
+  "hpregenperlevel": 0.5,
+  "mpregen": 7,
+  "mpregenperlevel": 0.8,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 53,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2.11,
+  "attackspeed": 0.681
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Jardim de Espinhos",
+  "descricao": "Sementes surgem periodicamente ao redor de Zyra, mais rapidamente dependendo do nível. Zyra pode conjurar Farpas Mortais ou Pântano das Raízes próximo a sementes para fazer surgir plantas que lutarão por ela."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "ZyraQ",
+   "nome": "Farpas Mortais",
+   "descricao": "Vinhas espessas se espalham pelo chão e explodem em farpas, causando Dano Mágico a inimigos dentro da área. Se conjurada perto de uma semente, Farpas Mortais faz surgir uma planta Cospe-Espinhos, que dispara contra inimigos distantes.",
+   "tooltip": "Zyra faz com que vinhas grossas se espalhem e explodam em espinhos, causando <magicDamage>{{ initialdamage }} de Dano Mágico</magicDamage>.<br /><br />Se a Habilidade for conjurada perto de uma <keywordMajor>Semente</keywordMajor>, a <keywordMajor>Semente</keywordMajor> se transformará em um Cospe-Espinhos que causa <magicDamage>{{ spell.zyrap:plantdamage }} de Dano Mágico</magicDamage> e dura {{ spell.zyrap:plantduration }}s. Os Cospe-Espinhos têm 575 de alcance.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    7,
+    6.5,
+    6,
+    5.5,
+    5
+   ],
+   "custo": [
+    55,
+    55,
+    55,
+    55,
+    55
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    800,
+    800,
+    800,
+    800,
+    800
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "60/100/140/180/220",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "ZyraW",
+   "nome": "Crescimento Desenfreado",
+   "descricao": "Zyra planta uma semente com duração de 60s. Conjurar Farpas Mortais e Pântano das Raízes perto das sementes fará surgir plantas que lutam por Zyra. Zyra pode armazenar várias sementes ao mesmo tempo, e abater inimigos reduz o tempo de recarga de Crescimento Desenfreado.",
+   "tooltip": "Zyra planta uma <keywordMajor>Semente</keywordMajor> que dura {{ seedduration }}s. Essas <keywordMajor>Sementes</keywordMajor> concedem <keywordStealth>Visão Mágica</keywordStealth> dos Campeões inimigos que pisam nelas por {{ visiongranted }}s, mas são destruídas.<br /><br />Esta Habilidade tem 2 cargas e {{ ammorechargetime }}s de Tempo de Recarga. Abater um monstro ou tropa inimiga reduz o tempo de recarga em {{ killammorefundminion*100 }}%. Eliminar Campeões reduz o tempo de recarga em {{ killammorefundchamp*100 }}%.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "custo": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "tipo_custo": "1 semente",
+   "alcance": [
+    850,
+    850,
+    850,
+    850,
+    850
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0.35",
+    "1",
+    "2",
+    "0",
+    "0",
+    "60",
+    "0",
+    "10/20/30/40/50",
+    "0.4/0.8/1.2/1.6/2",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "ZyraE",
+   "nome": "Pântano das Raízes",
+   "descricao": "Zyra lança vinhas pelo chão para prenderem seu alvo, causando dano e enraizando inimigos atingidos. Se conjurada próxima a uma semente, Pântano das Raízes faz surgir Vinhas Ásperas com ataques de curta distância que reduzem a Velocidade de Movimento do inimigo.",
+   "tooltip": "Zyra lança vinhas à frente, <status>Enraizando</status> por {{ rootduration }}s e causando <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage>. <br /><br />Se a Habilidade passar perto de uma <keywordMajor>Semente</keywordMajor>, a <keywordMajor>Semente</keywordMajor> se transforma em uma Vinha Áspera que causa <magicDamage>{{ spell.zyrap:plantdamage }} de Dano Mágico</magicDamage> e dura {{ spell.zyrap:plantduration }}s. Vinhas Ásperas têm 400 de alcance e seus Ataques causam {{ slowamountplantattack }}% de <status>Lentidão</status> por {{ slowdurationplantattack }}s. A <status>Lentidão</status> causada por várias Vinhas Ásperas acumula até {{ maxslowstacks }} vezes.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    11,
+    11,
+    11,
+    11,
+    11
+   ],
+   "custo": [
+    70,
+    75,
+    80,
+    85,
+    90
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1100,
+    1100,
+    1100,
+    1100,
+    1100
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "60/95/130/165/200",
+    "30",
+    "2",
+    "4/4/4/0/0",
+    "1/1.25/1.5/1.75/2",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "ZyraR",
+   "nome": "Espinhos Sufocantes",
+   "descricao": "Zyra invoca raízes retorcidas no local-alvo, causando dano a inimigos conforme elas se expandem e arremessando-os ao ar quando se contraem. Plantas ao alcance das raízes ficam enfurecidas.",
+   "tooltip": "Zyra invoca a fúria da natureza e faz surgir uma grande raiz retorcida, causando <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage>. Após 2 segundos, as vinhas rebatem para cima, <status>Arremessando ao Ar</status> por {{ knockupduration }}s.<br /><br />As plantas de Zyra dentro do alcance da raiz ficam enfurecidas, redefinindo suas durações, recebendo <healing>{{ enragedbonushealthpercent*100 }}% de Vida</healing> e causando {{ plantdamagebonus }}% de dano adicional.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    110,
+    100,
+    90
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    700,
+    700,
+    700
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "1",
+    "0.5",
+    "200/300/400",
+    "0",
+    "0",
+    "0",
+    "150",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 574,
+  "vida_nivel": 93,
+  "regen_vida": 1.1,
+  "regen_vida_nivel": 0.1,
+  "dano": 53,
+  "dano_nivel": 3.2,
+  "armadura": 29,
+  "armadura_nivel": 4.2,
+  "rm": 30,
+  "rm_nivel": 1.3,
+  "velocidade_mov": 340,
+  "alcance_ataque": 575,
+  "vel_ataque_base": 0.681,
+  "vel_ataque_razao": 0.625,
+  "vel_ataque_nivel": 2.11,
+  "dano_critico": 2,
+  "alcance_aquisicao": 575,
+  "raio_selecao": 120,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.15416666865348816,
+   "mAttackProbability": 0.5,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.5,
+    "mAttackName": "ZyraBasicAttack2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.15416666865348816,
+    "mAttackName": "ZyraCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Zyra/Spells/ZyraQAbility/ZyraQ",
+  "Characters/Zyra/Spells/ZyraWAbility/ZyraW",
+  "Characters/Zyra/Spells/ZyraEAbility/ZyraE",
+  "Characters/Zyra/Spells/ZyraRAbility/ZyraR"
+ ],
+ "abilities_ref": [
+  "Characters/Zyra/Spells/ZyraQAbility",
+  "Characters/Zyra/Spells/ZyraWAbility",
+  "Characters/Zyra/Spells/ZyraEAbility",
+  "Characters/Zyra/Spells/ZyraRAbility",
+  "Characters/Zyra/Spells/ZyraPAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/ZyraRAbility/ZyraR": {
+   "ObjectName": "ZyraR",
+   "objectPath": "Characters/Zyra/Spells/ZyraRAbility/ZyraR",
+   "mScriptName": "ZyraR",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "ZyraR",
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_Ranged_Zone",
+     "Trait_Target_Area",
+     "Trait_AoE"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       200,
+       200,
+       300,
+       400,
+       400,
+       400,
+       400
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       150,
+       150,
+       150,
+       150,
+       150,
+       150,
+       150
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "PlantDamageBonus",
+      "values": [
+       50,
+       50,
+       50,
+       50,
+       50,
+       50,
+       50
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockupDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EnragedBonusHealthPercent",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       200,
+       200,
+       300,
+       400,
+       400,
+       400,
+       400
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EnragePlantsBonusDamage",
+      "values": [
+       150,
+       150,
+       150,
+       150,
+       150,
+       150,
+       150
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.7,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.7,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     110,
+     110,
+     100,
+     90,
+     90,
+     90,
+     90
+    ],
+    "Cooldown": {
+     "values": [
+      110,
+      110,
+      100,
+      90,
+      90,
+      90,
+      90
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "useAnimatorFramerate": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     700,
+     700,
+     700,
+     700,
+     700,
+     700,
+     700
+    ],
+    "castRadius": [
+     500,
+     500,
+     500,
+     500,
+     500,
+     500,
+     500
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 20,
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "mTargetingTypeData": {
+     "__type": "AreaClamped"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 16777216,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "KnockupDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraRAbility/ZyraRKnockUp": {
+   "ObjectName": "ZyraRKnockUp",
+   "objectPath": "Characters/Zyra/Spells/ZyraRAbility/ZyraRKnockUp",
+   "mScriptName": "ZyraRKnockUp",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_ZyraRKnockUp",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraRAbility/ZyraRSplash": {
+   "ObjectName": "ZyraRSplash",
+   "objectPath": "Characters/Zyra/Spells/ZyraRAbility/ZyraRSplash",
+   "mScriptName": "ZyraRSplash",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "ZyraBrambleZone",
+    "mEffectAmount": [
+     {
+      "value": [
+       15,
+       40,
+       65,
+       90,
+       115,
+       140,
+       165
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.7,
+       1,
+       1.3,
+       1.6,
+       1.9,
+       2.2,
+       2.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.5,
+    "mCastTime": 0.2419,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1170,
+     1170,
+     1170,
+     1170,
+     1170,
+     1170,
+     1170
+    ],
+    "castRangeDisplayOverride": [
+     925,
+     925,
+     925,
+     925,
+     925,
+     925,
+     925
+    ],
+    "castRadius": [
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 145,
+    "mMissileSpec": {
+     "mMissileWidth": 85,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mStartBoneName": "root",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 650,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.5,
+    "missileSpeed": 650,
+    "mMissileEffectKey": "Zyra_Z_Dummy_Controller",
+    "mLineWidth": 85,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraWAbility/ZyraWSeedMis": {
+   "ObjectName": "ZyraWSeedMis",
+   "objectPath": "Characters/Zyra/Spells/ZyraWAbility/ZyraWSeedMis",
+   "mScriptName": "ZyraWSeedMis",
+   "mSpell": {
+    "mAffectsTypeFlags": 1024,
+    "mAffectsStatusFlags": 32,
+    "mAlternateName": "CassiopeaBasicAttack",
+    "spellCastTime": 0.29385,
+    "mApplyMaterialOnHitSound": true,
+    "castRange": [
+     4000,
+     4000,
+     4000,
+     4000,
+     4000,
+     4000,
+     4000
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mStartBoneName": "root",
+      "mSpeed": 5000,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "FollowTerrainHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "missileSpeed": 7500,
+    "mMissileEffectKey": "Zyra_W_SeedSpawn_Mis",
+    "bHaveHitBone": true,
+    "selectionPriority": 2,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraWAbility/ZyraW": {
+   "ObjectName": "ZyraW",
+   "objectPath": "Characters/Zyra/Spells/ZyraWAbility/ZyraW",
+   "mScriptName": "ZyraW",
+   "mSpell": {
+    "flags": 36,
+    "mAffectsTypeFlags": 1028,
+    "mSpellTags": [
+     "Trait_Ammo",
+     "Trait_Target_Area",
+     "Trait_Ranged_Zone"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       60,
+       60,
+       60,
+       60,
+       60,
+       60,
+       60
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0,
+       10,
+       20,
+       30,
+       40,
+       50,
+       60
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0,
+       0.4,
+       0.8,
+       1.2,
+       1.6,
+       2,
+       2.4
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "KillAmmoRefundMinion",
+      "values": [
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KillAmmoRefundChamp",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "VisionGranted",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SeedDuration",
+      "values": [
+       60,
+       60,
+       60,
+       60,
+       60,
+       60,
+       60
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FlurryDamageBonus",
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mCoefficient": 0.25,
+    "mCastTime": 0.2432,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mMaxAmmo": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "mAmmoRechargeTime": [
+     17.5,
+     16,
+     14.5,
+     13,
+     11.5,
+     10,
+     8.5
+    ],
+    "mCostAlwaysShownInUI": true,
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     850,
+     850,
+     850,
+     850,
+     850,
+     850,
+     850
+    ],
+    "castRadius": [
+     45,
+     45,
+     45,
+     45,
+     45,
+     45,
+     45
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.54,
+    "missileSpeed": 2200,
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraWAbility/ZyraSeedTrapVision": {
+   "ObjectName": "ZyraSeedTrapVision",
+   "objectPath": "Characters/Zyra/Spells/ZyraWAbility/ZyraSeedTrapVision",
+   "mScriptName": "ZyraSeedTrapVision",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 7183,
+    "mEffectAmount": [
+     {
+      "value": [
+       25,
+       70,
+       115,
+       160,
+       205,
+       250,
+       295
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       15,
+       30,
+       45,
+       60,
+       75,
+       90,
+       105
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.5,
+    "mCoefficient2": 0.2,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6
+     ],
+     "{0a3e0478}": 6,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     675,
+     675,
+     675,
+     675,
+     675,
+     675,
+     675
+    ],
+    "castRadius": [
+     810,
+     810,
+     810,
+     810,
+     810,
+     810,
+     810
+    ],
+    "castRadiusSecondary": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1800,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "mana": [
+     60,
+     65,
+     70,
+     75,
+     80,
+     85
+    ],
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_ZyraSeedTrapVision",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraQAbility/ZyraQPlantMissileOnSpawn": {
+   "ObjectName": "ZyraQPlantMissileOnSpawn",
+   "objectPath": "Characters/Zyra/Spells/ZyraQAbility/ZyraQPlantMissileOnSpawn",
+   "mScriptName": "ZyraQPlantMissileOnSpawn",
+   "mSpell": {
+    "mAffectsTypeFlags": 6794,
+    "mAlternateName": "ZyraQPlantMissile",
+    "mEffectAmount": [
+     {
+      "value": [
+       40,
+       90,
+       140,
+       190,
+       240,
+       290,
+       340
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.7,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     675,
+     675,
+     675,
+     675,
+     675,
+     675,
+     675
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "",
+      "mSpeed": 1200,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 2,
+    "missileSpeed": 1200,
+    "mMissileEffectKey": "Zyra_Q_Plant_Mis",
+    "mHitEffectKey": "Zyra_Q_Plant_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraQAbility/ZyraQ": {
+   "ObjectName": "ZyraQ",
+   "objectPath": "Characters/Zyra/Spells/ZyraQAbility/ZyraQ",
+   "mScriptName": "ZyraQ",
+   "mSpell": {
+    "mAffectsTypeFlags": 7183,
+    "mAlternateName": "ZyraQ",
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_SignatureSpell",
+     "Trait_AoE"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       60,
+       60,
+       100,
+       140,
+       180,
+       220,
+       260
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       60,
+       60,
+       100,
+       140,
+       180,
+       220,
+       260
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "InitialDamage": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.65,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.65,
+    "mCoefficient2": 0.18,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     7.5,
+     7,
+     6.5,
+     6,
+     5.5,
+     5,
+     5
+    ],
+    "Cooldown": {
+     "values": [
+      7.5,
+      7,
+      6.5,
+      6,
+      5.5,
+      5,
+      5
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     800,
+     800,
+     800,
+     800,
+     800,
+     800,
+     800
+    ],
+    "castRangeDisplayOverride": [
+     800,
+     800,
+     800,
+     800,
+     800,
+     800,
+     800
+    ],
+    "castRadius": [
+     140,
+     140,
+     140,
+     140,
+     140,
+     140,
+     140
+    ],
+    "castRadiusSecondary": [
+     430,
+     430,
+     430,
+     430,
+     430,
+     430,
+     430
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 575,
+    "mMissileSpec": {
+     "mMissileWidth": 85,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mStartBoneName": "root",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1400,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.5,
+    "missileSpeed": 1400,
+    "mMissileEffectKey": "Zyra_Z_Dummy_Controller",
+    "mLineWidth": 85,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "mana": [
+     55,
+     55,
+     55,
+     55,
+     55,
+     55
+    ],
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "InitialDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraQAbility/ZyraQPlantMissile": {
+   "ObjectName": "ZyraQPlantMissile",
+   "objectPath": "Characters/Zyra/Spells/ZyraQAbility/ZyraQPlantMissile",
+   "mScriptName": "ZyraQPlantMissile",
+   "mSpell": {
+    "mAffectsTypeFlags": 6794,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     675,
+     675,
+     675,
+     675,
+     675,
+     675,
+     675
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "",
+      "mSpeed": 1200,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 2,
+    "missileSpeed": 1200,
+    "mMissileEffectKey": "Zyra_Q_Plant_Mis",
+    "mHitEffectKey": "Zyra_Q_Plant_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraQAbility/ZyraQPlant": {
+   "ObjectName": "ZyraQPlant",
+   "objectPath": "Characters/Zyra/Spells/ZyraQAbility/ZyraQPlant",
+   "mScriptName": "ZyraQPlant",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 7183,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castRadius": [
+     810,
+     810,
+     810,
+     810,
+     810,
+     810,
+     810
+    ],
+    "castRadiusSecondary": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1800,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_ZyraQPlant",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraEAbility/ZyraEHold": {
+   "ObjectName": "ZyraEHold",
+   "objectPath": "Characters/Zyra/Spells/ZyraEAbility/ZyraEHold",
+   "mScriptName": "ZyraEHold",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_ZyraEHold",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraEAbility/ZyraEPlantAttack": {
+   "ObjectName": "ZyraEPlantAttack",
+   "objectPath": "Characters/Zyra/Spells/ZyraEAbility/ZyraEPlantAttack",
+   "mScriptName": "ZyraEPlantAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 6794,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     675,
+     675,
+     675,
+     675,
+     675,
+     675,
+     675
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castConeDistance": 100,
+    "missileSpeed": 0,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraEAbility/ZyraEPlant": {
+   "ObjectName": "ZyraEPlant",
+   "objectPath": "Characters/Zyra/Spells/ZyraEAbility/ZyraEPlant",
+   "mScriptName": "ZyraEPlant",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 7183,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castRadius": [
+     810,
+     810,
+     810,
+     810,
+     810,
+     810,
+     810
+    ],
+    "castRadiusSecondary": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1800,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_ZyraEPlant",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraEAbility/ZyraEPlantAttack2": {
+   "ObjectName": "ZyraEPlantAttack2",
+   "objectPath": "Characters/Zyra/Spells/ZyraEAbility/ZyraEPlantAttack2",
+   "mScriptName": "ZyraEPlantAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 6794,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     675,
+     675,
+     675,
+     675,
+     675,
+     675,
+     675
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 0,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraEAbility/ZyraE": {
+   "ObjectName": "ZyraE",
+   "objectPath": "Characters/Zyra/Spells/ZyraEAbility/ZyraE",
+   "mScriptName": "ZyraE",
+   "mSpell": {
+    "mAffectsTypeFlags": 7183,
+    "mAlternateName": "ZyraE",
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_Ranged_Piercing",
+     "Trait_AoE"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       60,
+       60,
+       95,
+       130,
+       165,
+       200,
+       235
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       30,
+       30,
+       30,
+       30,
+       30,
+       30,
+       30
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       4,
+       4,
+       4,
+       4,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1,
+       1,
+       1.25,
+       1.5,
+       1.75,
+       2,
+       2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "MaxSlowStacks",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PheromoneDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RootDuration",
+      "values": [
+       0.75,
+       1,
+       1.25,
+       1.5,
+       1.75,
+       2,
+       2.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       25,
+       60,
+       95,
+       130,
+       165,
+       200,
+       235
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmountPlantAttack",
+      "values": [
+       30,
+       30,
+       30,
+       30,
+       30,
+       30,
+       30
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDurationPlantAttack",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.6,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.6,
+    "mCoefficient2": 0.18,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     11,
+     11,
+     11,
+     11,
+     11,
+     11,
+     11
+    ],
+    "Cooldown": {
+     "values": [
+      11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11
+     ],
+     "{0a3e0478}": 11,
+     "__type": "{0a0eddc9}"
+    },
+    "mCasterPositionEndOfCastUpdate": 1,
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     1150,
+     1150,
+     1150,
+     1150,
+     1150,
+     1150,
+     1150
+    ],
+    "castRangeDisplayOverride": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 70,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mStartBoneName": "root",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1150,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "FollowTerrainHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 4.5,
+    "missileSpeed": 1150,
+    "mMissileEffectKey": "Zyra_Z_Dummy_Controller",
+    "mLineWidth": 70,
+    "mana": [
+     70,
+     75,
+     80,
+     85,
+     90,
+     95
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "{ec17e271}": [
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSpellCalculationKey": "TotalDamage",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraCritAttack": {
+   "ObjectName": "ZyraCritAttack",
+   "objectPath": "Characters/Zyra/Spells/ZyraCritAttack",
+   "mScriptName": "ZyraCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 8143,
+    "mAlternateName": "CassiopeaCritAttack",
+    "spellCastTime": 0.29385,
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 9,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Zyra_AA_mis",
+    "mHitEffectKey": "Zyra_AA_tar_crit",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraPAbility/ZyraP": {
+   "ObjectName": "ZyraP",
+   "objectPath": "Characters/Zyra/Spells/ZyraPAbility/ZyraP",
+   "mScriptName": "ZyraP",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       50,
+       50,
+       50,
+       50,
+       50,
+       50
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "PlantDuration",
+      "values": [
+       8,
+       8,
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PlantBaseDmg",
+      "values": [
+       12,
+       12,
+       12,
+       12,
+       12,
+       12,
+       12
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PlantLvlScaling",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "SWIFTPLAY": {
+      "SpellDataValues": [
+       {
+        "name": "APRatio",
+        "values": [
+         0.15,
+         0.15,
+         0.15,
+         0.15,
+         0.15,
+         0.15,
+         0.15
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "APRatio",
+        "values": [
+         0.15,
+         0.15,
+         0.15,
+         0.15,
+         0.15,
+         0.15,
+         0.15
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "PlantDuration",
+        "values": [
+         6,
+         6,
+         6,
+         6,
+         6,
+         6,
+         6
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "SeedCooldown": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 13.6,
+        "mEndValue": 9.05,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "mPrecision": 1,
+      "__type": "GameCalculation"
+     },
+     "PlantDamage": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 15,
+        "mEndValue": 75,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "monstermod": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 50,
+        "mEndValue": 100,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{c951f1e1}": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 50,
+        "mInitialBonusPerLevel": -1,
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.7,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+     ],
+     "{0a3e0478}": 8,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "castRangeDisplayOverride": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castRadius": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "",
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 10.05,
+    "missileSpeed": 1500,
+    "mana": [
+     70,
+     70,
+     70,
+     70,
+     70,
+     70
+    ],
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraPAbility/ZyraPSeedMis": {
+   "ObjectName": "ZyraPSeedMis",
+   "objectPath": "Characters/Zyra/Spells/ZyraPAbility/ZyraPSeedMis",
+   "mScriptName": "ZyraPSeedMis",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1024,
+    "mAffectsStatusFlags": 32,
+    "mAlternateName": "CassiopeaBasicAttack",
+    "spellCastTime": 0.29385,
+    "mApplyMaterialOnHitSound": true,
+    "castRange": [
+     4000,
+     4000,
+     4000,
+     4000,
+     4000,
+     4000,
+     4000
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mStartBoneName": "root",
+      "mTravelTime": 1,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "__type": "FollowTerrainHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "missileSpeed": 7500,
+    "bHaveHitBone": true,
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraHiddenGoodies": {
+   "ObjectName": "ZyraHiddenGoodies",
+   "objectPath": "Characters/Zyra/Spells/ZyraHiddenGoodies",
+   "mScriptName": "ZyraHiddenGoodies",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraBasicAttack2": {
+   "ObjectName": "ZyraBasicAttack2",
+   "objectPath": "Characters/Zyra/Spells/ZyraBasicAttack2",
+   "mScriptName": "ZyraBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 8143,
+    "mAlternateName": "CassiopeaBasicAttack2",
+    "spellCastTime": 0.29385,
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 150,
+      "mOffsetInitialTargetHeight": 150,
+      "mStartBoneName": "L_Hand",
+      "mSpeed": 1700,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7,
+    "missileSpeed": 1700,
+    "mMissileEffectKey": "Zyra_AA_mis",
+    "mHitEffectKey": "Zyra_AA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraPassiveDeathManager": {
+   "ObjectName": "ZyraPassiveDeathManager",
+   "objectPath": "Characters/Zyra/Spells/ZyraPassiveDeathManager",
+   "mScriptName": "ZyraPassiveDeathManager",
+   "mSpell": {
+    "flags": 4194308,
+    "mAffectsTypeFlags": 1024,
+    "mAffectsStatusFlags": 32,
+    "mEffectAmount": [
+     {
+      "value": [
+       0,
+       20,
+       60,
+       100,
+       140,
+       180,
+       220
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       15,
+       15,
+       15,
+       15,
+       15,
+       15,
+       15
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       40,
+       40,
+       40,
+       40,
+       40,
+       40,
+       40
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1.3,
+    "cooldownTime": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "Cooldown": {
+     "values": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+     ],
+     "{0a3e0478}": 2,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "mSpellRevealsChampion": false,
+    "alwaysSnapFacing": true,
+    "castRange": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castRangeDisplayOverride": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castConeDistance": 100,
+    "missileSpeed": 1900,
+    "mLineWidth": 70,
+    "mHitBoneName": "C_BuffBone_Glb_Center_Loc",
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraPassiveDeathReady": {
+   "ObjectName": "ZyraPassiveDeathReady",
+   "objectPath": "Characters/Zyra/Spells/ZyraPassiveDeathReady",
+   "mScriptName": "ZyraPassiveDeathReady",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Absolute_Zero_Slow",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraPheromone": {
+   "ObjectName": "ZyraPheromone",
+   "objectPath": "Characters/Zyra/Spells/ZyraPheromone",
+   "mScriptName": "ZyraPheromone",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_ZyraSymbiosis",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraPlantEnrage": {
+   "ObjectName": "ZyraPlantEnrage",
+   "objectPath": "Characters/Zyra/Spells/ZyraPlantEnrage",
+   "mScriptName": "ZyraPlantEnrage",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_ZyraPlantEnrage",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraBasicAttack": {
+   "ObjectName": "ZyraBasicAttack",
+   "objectPath": "Characters/Zyra/Spells/ZyraBasicAttack",
+   "mScriptName": "ZyraBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 8143,
+    "mAlternateName": "CassiopeaBasicAttack",
+    "spellCastTime": 0.29385,
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 150,
+      "mOffsetInitialTargetHeight": 150,
+      "mSpeed": 1700,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7,
+    "missileSpeed": 1700,
+    "mMissileEffectKey": "Zyra_AA_mis",
+    "mHitEffectKey": "Zyra_AA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZyraPQueenOfThorns": {
+   "ObjectName": "ZyraPQueenOfThorns",
+   "objectPath": "Characters/Zyra/Spells/ZyraPQueenOfThorns",
+   "mScriptName": "ZyraPQueenOfThorns",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "ZyraPQueenOfThorns",
+    "mEffectAmount": [
+     {
+      "value": [
+       10,
+       60,
+       110,
+       160,
+       210,
+       260,
+       310
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       10,
+       12,
+       14,
+       16,
+       18,
+       20,
+       22
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.7,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+     ],
+     "{0a3e0478}": 8,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "castRadius": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "",
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 10.05,
+    "missileSpeed": 1500,
+    "mana": [
+     70,
+     70,
+     70,
+     70,
+     70,
+     70
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_ZyraPQueenOfThorns",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/ZyraQAbility/ZyraQ",
+  "Spells/ZyraWAbility/ZyraW",
+  "Spells/ZyraEAbility/ZyraE",
+  "Spells/ZyraRAbility/ZyraR"
+ ],
+ "passiva_ref": "Characters/Zyra/Spells/ZyraPAbility",
+ "passiva_chaves": [
+  "Spells/ZyraPAbility/ZyraP",
+  "Spells/ZyraPAbility/ZyraPSeedMis"
+ ]
+}

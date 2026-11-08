@@ -1,0 +1,2495 @@
+{
+ "id": "Gragas",
+ "key": 79,
+ "nome": "Gragas",
+ "titulo": "o Badernista",
+ "funcoes": [
+  "Fighter",
+  "Mage"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 4,
+  "defense": 7,
+  "magic": 6,
+  "difficulty": 5
+ },
+ "stats_ddragon": {
+  "hp": 640,
+  "hpperlevel": 115,
+  "mp": 400,
+  "mpperlevel": 47,
+  "movespeed": 330,
+  "armor": 38,
+  "armorperlevel": 5,
+  "spellblock": 32,
+  "spellblockperlevel": 2.05,
+  "attackrange": 125,
+  "hpregen": 5.5,
+  "hpregenperlevel": 0.5,
+  "mpregen": 6,
+  "mpregenperlevel": 0.8,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 64,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2.05,
+  "attackspeed": 0.675
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Happy Hour",
+  "descricao": "Gragas cura a si mesmo periodicamente após utilizar uma habilidade."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "GragasQ",
+   "nome": "Jogar o Barril",
+   "descricao": "Gragas rola seu barril até um local, podendo ativá-lo novamente para explodir. Caso isso não aconteça, o barril explodirá sozinho após 4s. A potência da explosão aumenta ao longo do tempo. Os inimigos atingidos pela explosão sofrem Lentidão.",
+   "tooltip": "Gragas arremessa um barril que explode após {{ barrelmaxduration }}s, causando <magicDamage>{{ mindamage }}</magicDamage> - <magicDamage>{{ maxdamage }} de Dano Mágico</magicDamage>, além de {{ slowpercent }} - {{ slowpercent*1.5 }}% de <status>Lentidão</status> por {{ slowduration }}s. O dano e a <status>Lentidão</status> aumentam de acordo com o tempo que o barril levou para explodir. <br /><br />Gragas pode <recast>Reconjurar</recast> para detonar o barril antecipadamente.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    10,
+    9,
+    8,
+    7,
+    6
+   ],
+   "custo": [
+    80,
+    80,
+    80,
+    80,
+    80
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    850,
+    850,
+    850,
+    850,
+    850
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "80/120/160/200/240",
+    "40/45/50/55/60",
+    "2",
+    "4",
+    "2",
+    "150",
+    "70",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "GragasW",
+   "nome": "Fúria da Bebedeira",
+   "descricao": "Gragas prova sua mais nova bebida por 1 segundo. Ao terminar, ele fica agitado e briguento, causando Dano Mágico a todos os inimigos próximos em seu próximo ataque básico e reduzindo o dano recebido.",
+   "tooltip": "Gragas prova sua bebida, sofrendo menos {{ damagereduction }} de dano por {{ defenseduration }}s e causando <magicDamage>{{ totaldamage }}</magicDamage> mais <magicDamage>{{ maxhppercentdamage }}% da Vida máxima como Dano Mágico</magicDamage> adicional ao alvo e a inimigos ao redor no próximo Ataque.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    5,
+    5,
+    5,
+    5,
+    5
+   ],
+   "custo": [
+    30,
+    30,
+    30,
+    30,
+    30
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    20,
+    20,
+    20,
+    20,
+    20
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "GragasE",
+   "nome": "Barrigada",
+   "descricao": "Gragas avança em direção a um local e colide com a primeira unidade inimiga que encontrar, causando dano a todas as unidades inimigas próximas e atordoando-as.",
+   "tooltip": "Gragas avança, colidindo com o primeiro inimigo, <status>Arremessando ao ar</status> os inimigos próximos por {{ stunduration }}s e causando <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage> a eles.<br /><br />O Tempo de Recarga da Habilidade é reduzido em {{ cooldownrefund*100 }}% se Gragas colidir com um inimigo.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    14,
+    13.5,
+    13,
+    12.5,
+    12
+   ],
+   "custo": [
+    50,
+    50,
+    50,
+    50,
+    50
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    600,
+    600,
+    600,
+    600,
+    600
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "GragasR",
+   "nome": "Barril Explosivo",
+   "descricao": "Gragas arremessa seu barril em um local, causando dano e afastando os inimigos pegos no raio da explosão.",
+   "tooltip": "Gragas arremessa um barril, causando <magicDamage>{{ damagedone }} de Dano Mágico</magicDamage> e <status>Empurrando</status> inimigos da zona de impacto.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    100,
+    85,
+    70
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1000,
+    1000,
+    1000
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 640,
+  "vida_nivel": 115,
+  "regen_vida": 1.1,
+  "regen_vida_nivel": 0.1,
+  "dano": 64,
+  "dano_nivel": 3.5,
+  "armadura": 38,
+  "armadura_nivel": 5,
+  "rm": 32,
+  "rm_nivel": 2.05,
+  "velocidade_mov": 330,
+  "alcance_ataque": 125,
+  "vel_ataque_base": 0.675,
+  "vel_ataque_razao": 0.625,
+  "vel_ataque_nivel": 2.05,
+  "dano_critico": 2,
+  "alcance_aquisicao": 600,
+  "raio_selecao": 140,
+  "raio_colisao": 50,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.05000000074505806,
+   "mAttackProbability": 0.5,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.5,
+    "mAttackName": "GragasBasicAttack2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.05000000074505806,
+    "mAttackName": "GragasCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Gragas/Spells/GragasQAbility/GragasQ",
+  "Characters/Gragas/Spells/GragasWAbility/GragasW",
+  "Characters/Gragas/Spells/GragasEAbility/GragasE",
+  "Characters/Gragas/Spells/GragasRAbility/GragasR"
+ ],
+ "abilities_ref": [
+  "Characters/Gragas/Spells/GragasQAbility",
+  "Characters/Gragas/Spells/GragasWAbility",
+  "Characters/Gragas/Spells/GragasEAbility",
+  "Characters/Gragas/Spells/GragasRAbility",
+  "Characters/Gragas/Spells/GragasPassiveAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/GragasWAbility/GragasWAttack": {
+   "ObjectName": "GragasWAttack",
+   "objectPath": "Characters/Gragas/Spells/GragasWAbility/GragasWAttack",
+   "mScriptName": "GragasWAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "HungeringStrike",
+    "mEffectAmount": [
+     {
+      "value": [
+       25,
+       75,
+       125,
+       175,
+       225,
+       275,
+       325
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       5,
+       8,
+       11,
+       14,
+       17,
+       20,
+       23
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       80,
+       80,
+       80,
+       80,
+       80,
+       80,
+       80
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 13.6,
+    "missileSpeed": 20,
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GragasWAbility/GragasWSelf": {
+   "ObjectName": "GragasWSelf",
+   "objectPath": "Characters/Gragas/Spells/GragasWAbility/GragasWSelf",
+   "mScriptName": "GragasWSelf",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_GragasWSelf",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GragasWAbility/GragasWAttackBuff": {
+   "ObjectName": "GragasWAttackBuff",
+   "objectPath": "Characters/Gragas/Spells/GragasWAbility/GragasWAttackBuff",
+   "mScriptName": "GragasWAttackBuff",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_GragasWAttack",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GragasWAbility/GragasW": {
+   "ObjectName": "GragasW",
+   "objectPath": "Characters/Gragas/Spells/GragasWAbility/GragasW",
+   "mScriptName": "GragasW",
+   "mSpell": {
+    "flags": 32,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_Parry",
+     "Trait_Strike",
+     "Trait_Low_Damage",
+     "Trait_AoE",
+     "PositiveEffect_EmpowerAttack"
+    ],
+    "DataValues": [
+     {
+      "name": "AttackRangeBuff",
+      "values": [
+       50,
+       50,
+       50,
+       50,
+       50,
+       50,
+       50
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxHPPercentDamage",
+      "values": [
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamageReduction",
+      "values": [
+       6,
+       10,
+       14,
+       18,
+       22,
+       26,
+       30
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DamageReductionAP",
+      "values": [
+       0.04,
+       0.04,
+       0.04,
+       0.04,
+       0.04,
+       0.04,
+       0.04
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       -10,
+       20,
+       50,
+       80,
+       110,
+       140,
+       170
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamageAP",
+      "values": [
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MonsterDamageCap",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DefenseDuration",
+      "values": [
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AttackDuration",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TurretDamageMod",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "MaxHPPercentDamage",
+        "values": [
+         9,
+         9,
+         9,
+         9,
+         9,
+         9,
+         9
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "DamageReduction": {
+      "mMultiplier": {
+       "mNumber": 0.01,
+       "__type": "NumberCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamageReduction",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "DamageReductionAP",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "BaseDamageAP",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mAnimationLoopName": "Spell2_Loop",
+    "mAnimationWinddownName": "Spell2_Winddown",
+    "mCastTime": 0.001,
+    "spellCastTime": 0.43935,
+    "spellTotalTime": 1.15,
+    "mChannelDuration": [
+     0.75,
+     0.75,
+     0.75,
+     0.75,
+     0.75,
+     0.75,
+     0.75
+    ],
+    "cooldownTime": [
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5
+    ],
+    "Cooldown": {
+     "values": [
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5
+     ],
+     "{0a3e0478}": 5,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileChanneling": true,
+    "mSpellRevealsChampion": false,
+    "mCanMoveWhileChanneling": true,
+    "mDoNotNeedToFaceTarget": true,
+    "castRange": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "castFrame": 10.29,
+    "missileSpeed": 828.5,
+    "mana": [
+     30,
+     30,
+     30,
+     30,
+     30,
+     30
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_GragasW",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8192,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 512,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 128,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GragasQAbility/GragasQToggle": {
+   "ObjectName": "GragasQToggle",
+   "objectPath": "Characters/Gragas/Spells/GragasQAbility/GragasQToggle",
+   "mScriptName": "GragasQToggle",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 14346,
+    "mAlternateName": "GragasQ",
+    "mSpellTags": [
+     "Trait_FreeRecast"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       40,
+       80,
+       120,
+       160,
+       200,
+       240,
+       280
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "MinDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.8,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 15,
+    "missileSpeed": 800,
+    "mLineWidth": 110,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "MinDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mMultiplier": {
+        "mNumber": 2,
+        "__type": "NumberCalculationPart"
+       },
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GragasQAbility/GragasQMissile": {
+   "ObjectName": "GragasQMissile",
+   "objectPath": "Characters/Gragas/Spells/GragasQAbility/GragasQMissile",
+   "mScriptName": "GragasQMissile",
+   "mSpell": {
+    "flags": 4194308,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "GragasQ",
+    "mSpellTags": [
+     "Trait_FreeRecast"
+    ],
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     13,
+     12,
+     11,
+     10,
+     9,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      13,
+      12,
+      11,
+      10,
+      9,
+      8,
+      8
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "useAnimatorFramerate": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 110,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "{03046674}": true,
+      "mTracksTarget": false,
+      "mTargetHeightAugment": 60,
+      "mStartBoneName": "R_PARENTING_HAND_LOC",
+      "mSpeed": 1000,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.5,
+    "missileSpeed": 1000,
+    "mMissileEffectKey": "Gragas_Q_Mis",
+    "mLineWidth": 110,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_GragasBarrelRollMissile",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GragasQAbility/GragasQSpellPassive": {
+   "ObjectName": "GragasQSpellPassive",
+   "objectPath": "Characters/Gragas/Spells/GragasQAbility/GragasQSpellPassive",
+   "mScriptName": "GragasQSpellPassive",
+   "mSpell": {
+    "flags": 4194304,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_FreeRecast"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       40,
+       80,
+       120,
+       160,
+       200,
+       240,
+       280
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       35,
+       40,
+       45,
+       50,
+       55,
+       60,
+       65
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       150,
+       150,
+       150,
+       150,
+       150,
+       150,
+       150
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       70,
+       70,
+       70,
+       70,
+       70,
+       70,
+       70
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.7,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     12,
+     11,
+     10,
+     9,
+     8,
+     7,
+     7
+    ],
+    "Cooldown": {
+     "values": [
+      12,
+      11,
+      10,
+      9,
+      8,
+      7,
+      7
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "useAnimatorFramerate": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     850,
+     850,
+     850,
+     850,
+     850,
+     850,
+     850
+    ],
+    "castRangeDisplayOverride": [
+     850,
+     850,
+     850,
+     850,
+     850,
+     850,
+     850
+    ],
+    "castRadius": [
+     250,
+     250,
+     250,
+     250,
+     250,
+     250,
+     250
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1000,
+    "mLineWidth": 110,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "mana": [
+     60,
+     65,
+     70,
+     75,
+     80,
+     85
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_GragasQ",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GragasQAbility/GragasQ": {
+   "ObjectName": "GragasQ",
+   "objectPath": "Characters/Gragas/Spells/GragasQAbility/GragasQ",
+   "mScriptName": "GragasQ",
+   "mSpell": {
+    "flags": 4194304,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_RecastOrReplaceSpell",
+     "Trait_SignatureSpell",
+     "Trait_Target_Area",
+     "Trait_AoE"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       40,
+       80,
+       120,
+       160,
+       200,
+       240,
+       280
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       35,
+       40,
+       45,
+       50,
+       55,
+       60,
+       65
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       150,
+       150,
+       150,
+       150,
+       150,
+       150,
+       150
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       70,
+       70,
+       70,
+       70,
+       70,
+       70,
+       70
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       40,
+       80,
+       120,
+       160,
+       200,
+       240,
+       280
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowPercent",
+      "values": [
+       35,
+       40,
+       45,
+       50,
+       55,
+       60,
+       65
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BarrelMaxDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BarrelCookMaxTime",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BarrelCookMaxAmp",
+      "values": [
+       150,
+       150,
+       150,
+       150,
+       150,
+       150,
+       150
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinionDamageMod",
+      "values": [
+       70,
+       70,
+       70,
+       70,
+       70,
+       70,
+       70
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "MinDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.8,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MaxDamage": {
+      "mMultiplier": {
+       "mNumber": 1.5,
+       "__type": "NumberCalculationPart"
+      },
+      "tooltipOnly": true,
+      "mModifiedGameCalculation": "MinDamage",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "mCoefficient": 0.8,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     11,
+     10,
+     9,
+     8,
+     7,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      11,
+      10,
+      9,
+      8,
+      7,
+      6,
+      6
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Gragas/Spells/GragasQAbility/GragasQSpellPassive",
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "mSpellRevealsChampion": false,
+    "useAnimatorFramerate": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     850,
+     850,
+     850,
+     850,
+     850,
+     850,
+     850
+    ],
+    "castRangeDisplayOverride": [
+     850,
+     850,
+     850,
+     850,
+     850,
+     850,
+     850
+    ],
+    "castRadius": [
+     250,
+     250,
+     250,
+     250,
+     250,
+     250,
+     250
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1000,
+    "mLineWidth": 110,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "mana": [
+     80,
+     80,
+     80,
+     80,
+     80,
+     80
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_GragasQ",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "MinDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "SlowDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GragasEAbility/GragasEStun": {
+   "ObjectName": "GragasEStun",
+   "objectPath": "Characters/Gragas/Spells/GragasEAbility/GragasEStun",
+   "mScriptName": "GragasEStun",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_PowerballStun",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GragasEAbility/GragasE": {
+   "ObjectName": "GragasE",
+   "objectPath": "Characters/Gragas/Spells/GragasEAbility/GragasE",
+   "mScriptName": "GragasE",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock",
+     "Trait_ImmobilizingCCSpell",
+     "Trait_PlayerSelectedDashDirection",
+     "Trait_DamageAbility",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       35,
+       80,
+       125,
+       170,
+       215,
+       260,
+       305
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CooldownRefund",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StunDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DashSpeed",
+      "values": [
+       900,
+       900,
+       900,
+       900,
+       900,
+       900,
+       900
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HitboxArea",
+      "values": [
+       180,
+       180,
+       180,
+       180,
+       180,
+       180,
+       180
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ForwardHitbox",
+      "values": [
+       40,
+       40,
+       40,
+       40,
+       40,
+       40,
+       40
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "CooldownRefund",
+        "values": [
+         0.25,
+         0.25,
+         0.25,
+         0.25,
+         0.25,
+         0.25,
+         0.25
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "URF": {
+      "SpellDataValues": [
+       {
+        "name": "CooldownRefund",
+        "values": [
+         0.25,
+         0.25,
+         0.25,
+         0.25,
+         0.25,
+         0.25,
+         0.25
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       15,
+       15,
+       14.5,
+       14,
+       13.5,
+       13,
+       13
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     14,
+     14,
+     13.5,
+     13,
+     12.5,
+     12,
+     12
+    ],
+    "Cooldown": {
+     "values": [
+      14,
+      14,
+      13.5,
+      13,
+      12.5,
+      12,
+      12
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "castFrame": 9,
+    "mLineWidth": 50,
+    "mana": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ],
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4194304,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 128,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GragasBasicAttack2": {
+   "ObjectName": "GragasBasicAttack2",
+   "objectPath": "Characters/Gragas/Spells/GragasBasicAttack2",
+   "mScriptName": "GragasBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 8143,
+    "mAlternateName": "GragasBasicAttack2",
+    "spellCastTime": 0.3439,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 13.54,
+    "missileSpeed": 0,
+    "mHitEffectKey": "{f54a5b38}",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GragasRAbility/GragasR": {
+   "ObjectName": "GragasR",
+   "objectPath": "Characters/Gragas/Spells/GragasRAbility/GragasR",
+   "mScriptName": "GragasR",
+   "mSpell": {
+    "flags": 4194304,
+    "mAffectsTypeFlags": 7183,
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_KnockBack",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       100,
+       200,
+       300,
+       400,
+       500,
+       600,
+       700
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockbackDistance",
+      "values": [
+       900,
+       900,
+       900,
+       900,
+       900,
+       900,
+       900
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "DamageDone": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.8,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     100,
+     100,
+     85,
+     70,
+     70,
+     70,
+     70
+    ],
+    "Cooldown": {
+     "values": [
+      100,
+      100,
+      85,
+      70,
+      70,
+      70,
+      70
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1050,
+     1050,
+     1050,
+     1050,
+     1050,
+     1050,
+     1050
+    ],
+    "castRangeDisplayOverride": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castRadius": [
+     350,
+     350,
+     350,
+     350,
+     350,
+     350,
+     350
+    ],
+    "castConeDistance": 100,
+    "castTargetAdditionalUnitsRadius": 400,
+    "castFrame": 7.5,
+    "missileSpeed": 200,
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "DamageDone",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 4194304,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GragasRAbility/GragasRBoom": {
+   "ObjectName": "GragasRBoom",
+   "objectPath": "Characters/Gragas/Spells/GragasRAbility/GragasRBoom",
+   "mScriptName": "GragasRBoom",
+   "mSpell": {
+    "flags": 4194308,
+    "mAffectsTypeFlags": 7183,
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     13,
+     12,
+     11,
+     10,
+     9,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      13,
+      12,
+      11,
+      10,
+      9,
+      8,
+      8
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "castRange": [
+     1300,
+     1300,
+     1300,
+     1300,
+     1300,
+     1300,
+     1300
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 30,
+      "mOffsetInitialTargetHeight": 30,
+      "mStartBoneName": "head",
+      "mTravelTime": 0.5,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "mGravity": 7000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 30.6,
+    "missileSpeed": 1800,
+    "mMissileEffectKey": "Gragas_R_Mis",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GragasCritAttack": {
+   "ObjectName": "GragasCritAttack",
+   "objectPath": "Characters/Gragas/Spells/GragasCritAttack",
+   "mScriptName": "GragasCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 8143,
+    "spellCastTime": 0.3439,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 21.7,
+    "missileSpeed": 0,
+    "mHitEffectKey": "{1147d6ed}",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GragasPassiveAbility/GragasPassive": {
+   "ObjectName": "GragasPassive",
+   "objectPath": "Characters/Gragas/Spells/GragasPassiveAbility/GragasPassive",
+   "mScriptName": "GragasPassive",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "HealRatio",
+      "values": [
+       0.055,
+       0.055,
+       0.055,
+       0.055,
+       0.055,
+       0.055,
+       0.055
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Level1Value",
+      "values": [
+       12,
+       12,
+       12,
+       12,
+       12,
+       12,
+       12
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AdditionalBonusAtThisLevel",
+      "values": [
+       -2,
+       -2,
+       -2,
+       -2,
+       -2,
+       -2,
+       -2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusPerLevelAtAndAfter",
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "Level1Value",
+        "values": [
+         8,
+         8,
+         8,
+         8,
+         8,
+         8,
+         8
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "AdditionalBonusAtThisLevel",
+        "values": [
+         -1.5,
+         -1.5,
+         -1.5,
+         -1.5,
+         -1.5,
+         -1.5,
+         -1.5
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "HealAmount": {
+      "mFormulaParts": [
+       {
+        "mStat": 12,
+        "mDataValue": "HealRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "HealCooldown": {
+      "mFormulaParts": [
+       {
+        "{91d404a5}": "Level1Value",
+        "{bbd778a2}": "BonusPerLevelAtAndAfter",
+        "{9823b29a}": [
+         {
+          "level": 6,
+          "{ae9b464d}": "AdditionalBonusAtThisLevel",
+          "{b0d8b2ac}": "BonusPerLevelAtAndAfter",
+          "__type": "{0333530c}"
+         },
+         {
+          "level": 11,
+          "{ae9b464d}": "AdditionalBonusAtThisLevel",
+          "{b0d8b2ac}": "BonusPerLevelAtAndAfter",
+          "__type": "{0333530c}"
+         },
+         {
+          "level": 16,
+          "{ae9b464d}": "AdditionalBonusAtThisLevel",
+          "{b0d8b2ac}": "BonusPerLevelAtAndAfter",
+          "__type": "{0333530c}"
+         }
+        ],
+        "__type": "{4ce08984}"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "cooldownTime": [
+     12,
+     12,
+     12,
+     12,
+     12,
+     12,
+     12
+    ],
+    "Cooldown": {
+     "values": [
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12
+     ],
+     "{0a3e0478}": 12,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_GragasPassive",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GragasBasicAttack": {
+   "ObjectName": "GragasBasicAttack",
+   "objectPath": "Characters/Gragas/Spells/GragasBasicAttack",
+   "mScriptName": "GragasBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 8143,
+    "mAlternateName": "GragasBasicAttack",
+    "spellCastTime": 0.3439,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4,
+     49.4
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 13.54,
+    "missileSpeed": 0,
+    "mHitEffectKey": "{f54a5b38}",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/GragasQAbility/GragasQ",
+  "Spells/GragasWAbility/GragasW",
+  "Spells/GragasEAbility/GragasE",
+  "Spells/GragasRAbility/GragasR"
+ ],
+ "passiva_ref": "Characters/Gragas/Spells/GragasPassiveAbility",
+ "passiva_chaves": [
+  "Spells/GragasPassiveAbility/GragasPassive"
+ ]
+}

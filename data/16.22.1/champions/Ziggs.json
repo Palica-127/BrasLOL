@@ -1,0 +1,4488 @@
+{
+ "id": "Ziggs",
+ "key": 115,
+ "nome": "Ziggs",
+ "titulo": "o Especialista em Hexplosivos",
+ "funcoes": [
+  "Mage"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 2,
+  "defense": 4,
+  "magic": 9,
+  "difficulty": 4
+ },
+ "stats_ddragon": {
+  "hp": 606,
+  "hpperlevel": 106,
+  "mp": 480,
+  "mpperlevel": 23.5,
+  "movespeed": 325,
+  "armor": 21,
+  "armorperlevel": 4.7,
+  "spellblock": 30,
+  "spellblockperlevel": 1.3,
+  "attackrange": 550,
+  "hpregen": 6.5,
+  "hpregenperlevel": 0.6,
+  "mpregen": 8,
+  "mpregenperlevel": 0.8,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 55,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2,
+  "attackspeed": 0.656
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Pavio Curto",
+  "descricao": "Periodicamente, o próximo ataque básico de Ziggs causa Dano Mágico adicional. Esse Tempo de Recarga é reduzido sempre que Ziggs usa uma habilidade."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "ZiggsQ",
+   "nome": "Bomba Saltitante",
+   "descricao": "Ziggs arremessa uma bomba que causa Dano Mágico.",
+   "tooltip": "Ziggs arremessa uma bomba saltitante que causa <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    6,
+    5.5,
+    5,
+    4.5,
+    4
+   ],
+   "custo": [
+    50,
+    55,
+    60,
+    65,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    850,
+    850,
+    850,
+    850,
+    850
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "850",
+    "325",
+    "225",
+    "180",
+    "240",
+    "70",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "ZiggsW",
+   "nome": "Carga Concentrada",
+   "descricao": "Ziggs arremessa uma carga explosiva que detona depois de um intervalo ou quando a Habilidade é ativada novamente. A explosão causa Dano Mágico a inimigos, arremessando-os para longe. Ziggs também é empurrado, mas não sofre dano. <br><br> Ziggs pode também usar Carga para Hexplodir torres inimigas vulneráveis.",
+   "tooltip": "Ziggs arremessa uma carga explosiva que detona depois de {{ bombduration }}s ou quando a Habilidade for <recast>Reconjurada</recast>. Ela causa <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage> a inimigos e os <status>Empurra</status>. Ziggs também é lançado para longe, mas não sofre dano.<br /><br />Carga Concentrada destruirá torres com menos de {{ turretdestroypercent*100 }}% de Vida automaticamente.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    20,
+    18,
+    16,
+    14,
+    12
+   ],
+   "custo": [
+    80,
+    80,
+    80,
+    80,
+    80
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1000,
+    1000,
+    1000,
+    1000,
+    1000
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "70/105/140/175/210",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "ZiggsE",
+   "nome": "Campo Minado de Hexplosivos",
+   "descricao": "Ziggs espalha minas de proximidade que detonam ao contato com inimigos, causando Dano Mágico e redução de velocidade. Várias detonações de minas no mesmo alvo causam dano reduzido.",
+   "tooltip": "Ziggs espalha minas de proximidade que detonam ao contato com inimigos, causando <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage> e {{ slow*-100 }}% de <status>Lentidão</status> por {{ slowduration }}s. As minas duram {{ mineduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    16,
+    16,
+    16,
+    16,
+    16
+   ],
+   "custo": [
+    70,
+    80,
+    90,
+    100,
+    110
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    900,
+    900,
+    900,
+    900,
+    900
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "10",
+    "1.5",
+    "0.4",
+    "0",
+    "135",
+    "150",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "ZiggsR",
+   "nome": "Bomba Megainfernal",
+   "descricao": "Ziggs põe para funcionar sua maior criação, a Bomba Megainfernal, arremessando-a de uma enorme distância. Inimigos no centro da detonação recebem mais dano do que aqueles mais distantes.",
+   "tooltip": "Ziggs arremessa sua criação suprema, causando <magicDamage>{{ empowereddamage }} de Dano Mágico</magicDamage> no centro do raio da explosão ou <magicDamage>{{ blastdamage }} de Dano Mágico</magicDamage> na borda.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    120,
+    95,
+    70
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    5000,
+    5000,
+    5000
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 606,
+  "vida_nivel": 106,
+  "regen_vida": 1.3,
+  "regen_vida_nivel": 0.12,
+  "dano": 55,
+  "dano_nivel": 3.1,
+  "armadura": 21,
+  "armadura_nivel": 4.7,
+  "rm": 30,
+  "rm_nivel": 1.3,
+  "velocidade_mov": 325,
+  "alcance_ataque": 550,
+  "vel_ataque_base": 0.656,
+  "vel_ataque_razao": 0.656,
+  "vel_ataque_nivel": 2,
+  "dano_critico": 2,
+  "alcance_aquisicao": 800,
+  "raio_selecao": 100,
+  "raio_colisao": 30,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+   "mAttackProbability": 0.5,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.5,
+    "mAttackName": "ZiggsBasicAttack2",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "ZiggsBasicAttack",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "ZiggsPassiveAttack",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+    "mAttackName": "ZiggsCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Ziggs/Spells/ZiggsQAbility/ZiggsQ",
+  "Characters/Ziggs/Spells/ZiggsWAbility/ZiggsW",
+  "Characters/Ziggs/Spells/ZiggsEAbility/ZiggsE",
+  "Characters/Ziggs/Spells/ZiggsRAbility/ZiggsR"
+ ],
+ "abilities_ref": [
+  "Characters/Ziggs/Spells/ZiggsQAbility",
+  "Characters/Ziggs/Spells/ZiggsWAbility",
+  "Characters/Ziggs/Spells/ZiggsEAbility",
+  "Characters/Ziggs/Spells/ZiggsRAbility",
+  "Characters/Ziggs/Spells/ZiggsPassiveBuffAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/ZiggsQAbility/ZiggsQSpell": {
+   "ObjectName": "ZiggsQSpell",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsQAbility/ZiggsQSpell",
+   "mScriptName": "ZiggsQSpell",
+   "mSpell": {
+    "flags": 4194316,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "MaokaiSapling2",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     1625,
+     1625,
+     1625,
+     1625,
+     1625,
+     1625,
+     1625
+    ],
+    "castRadius": [
+     225,
+     225,
+     225,
+     225,
+     225,
+     225,
+     225
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mSpeed": 1700,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 7000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1700,
+    "mMissileEffectKey": "Ziggs_Q_mis_01",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZiggsQAbility/ZiggsQ": {
+   "ObjectName": "ZiggsQ",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsQAbility/ZiggsQ",
+   "mScriptName": "ZiggsQ",
+   "mSpell": {
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "ZiggsQ",
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_SignatureSpell",
+     "Trait_Ranged_StopsFirstHit",
+     "Trait_AoE"
+    ],
+    "mEffectAmount": [
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       850,
+       850,
+       850,
+       850,
+       850,
+       850,
+       850
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       325,
+       325,
+       325,
+       325,
+       325,
+       325,
+       325
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       225,
+       225,
+       225,
+       225,
+       225,
+       225,
+       225
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       180,
+       180,
+       180,
+       180,
+       180,
+       180,
+       180
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       240,
+       240,
+       240,
+       240,
+       240,
+       240,
+       240
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       70,
+       70,
+       70,
+       70,
+       70,
+       70,
+       70
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       30,
+       80,
+       130,
+       180,
+       230,
+       280,
+       330
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.55,
+       0.6,
+       0.65,
+       0.7,
+       0.75,
+       0.8,
+       0.85
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxRange",
+      "values": [
+       850,
+       850,
+       850,
+       850,
+       850,
+       850,
+       850
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxRangeFirstBounce",
+      "values": [
+       325,
+       325,
+       325,
+       325,
+       325,
+       325,
+       325
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxRangeSecondBounce",
+      "values": [
+       225,
+       225,
+       225,
+       225,
+       225,
+       225,
+       225
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BombTriggerRange",
+      "values": [
+       180,
+       180,
+       180,
+       180,
+       180,
+       180,
+       180
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ExplosionRadius",
+      "values": [
+       240,
+       240,
+       240,
+       240,
+       240,
+       240,
+       240
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BoundingBoxTrigger",
+      "values": [
+       70,
+       70,
+       70,
+       70,
+       70,
+       70,
+       70
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "BaseDamage",
+        "values": [
+         55,
+         105,
+         155,
+         205,
+         255,
+         305,
+         355
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "APRatio",
+        "values": [
+         0.7,
+         0.7,
+         0.7,
+         0.7,
+         0.7,
+         0.7,
+         0.7
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "SWIFTPLAY": {
+      "SpellDataValues": [
+       {
+        "name": "APRatio",
+        "values": [
+         0.75,
+         0.75,
+         0.75,
+         0.75,
+         0.75,
+         0.75,
+         0.75
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "APRatio",
+        "values": [
+         0.575,
+         0.6,
+         0.625,
+         0.65,
+         0.675,
+         0.7,
+         0.725
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "APRatio",
+        "values": [
+         0.575,
+         0.6,
+         0.625,
+         0.65,
+         0.675,
+         0.7,
+         0.725
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.65,
+    "mCoefficient2": 0.6,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.375,
+    "spellTotalTime": 1.5,
+    "cooldownTime": [
+     6.5,
+     6,
+     5.5,
+     5,
+     4.5,
+     4,
+     4
+    ],
+    "Cooldown": {
+     "values": [
+      6.5,
+      6,
+      5.5,
+      5,
+      4.5,
+      4,
+      4
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "mSpellRevealsChampion": false,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRangeDisplayOverride": [
+     850,
+     850,
+     850,
+     850,
+     850,
+     850,
+     850
+    ],
+    "castRadius": [
+     125,
+     125,
+     125,
+     125,
+     125,
+     125,
+     125
+    ],
+    "castConeDistance": 100,
+    "castTargetAdditionalUnitsRadius": 325,
+    "castFrame": 7.5,
+    "missileSpeed": 1750,
+    "mHitEffectOrientType": 2,
+    "mana": [
+     50,
+     55,
+     60,
+     65,
+     70,
+     75
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 32768,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mNumber": 125,
+         "__type": "NumberCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZiggsQAbility/ZiggsQSpell2": {
+   "ObjectName": "ZiggsQSpell2",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsQAbility/ZiggsQSpell2",
+   "mScriptName": "ZiggsQSpell2",
+   "mSpell": {
+    "flags": 4194316,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "MaokaiSapling2",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRadius": [
+     225,
+     225,
+     225,
+     225,
+     225,
+     225,
+     225
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mTravelTime": 0.48,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "mGravity": 5000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1600,
+    "mMissileEffectKey": "Ziggs_Q_mis_02",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZiggsQAbility/ZiggsQSpell3": {
+   "ObjectName": "ZiggsQSpell3",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsQAbility/ZiggsQSpell3",
+   "mScriptName": "ZiggsQSpell3",
+   "mSpell": {
+    "flags": 4194316,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "MaokaiSapling2",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRadius": [
+     225,
+     225,
+     225,
+     225,
+     225,
+     225,
+     225
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mTravelTime": 0.48,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "mGravity": 3000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1600,
+    "mMissileEffectKey": "Ziggs_Q_mis_03",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZiggsRAbility/ZiggsRBoomExtraLong": {
+   "ObjectName": "ZiggsRBoomExtraLong",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsRAbility/ZiggsRBoomExtraLong",
+   "mScriptName": "ZiggsRBoomExtraLong",
+   "mSpell": {
+    "flags": 4194304,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "MaokaiSapling2",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "mMinimapIconName": "assets/characters/ziggs/hud/icons2d/ziggsrcircle.tex",
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mMinimapIconRotation": true,
+    "castRange": [
+     5775,
+     5775,
+     5775,
+     5775,
+     5775,
+     5775,
+     5775
+    ],
+    "castRadius": [
+     225,
+     225,
+     225,
+     225,
+     225,
+     225,
+     225
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mSpeed": 2250,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 650,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1550,
+    "mMissileEffectKey": "Ziggs_R_mis",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZiggsRAbility/ZiggsRBoomMedium": {
+   "ObjectName": "ZiggsRBoomMedium",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsRAbility/ZiggsRBoomMedium",
+   "mScriptName": "ZiggsRBoomMedium",
+   "mSpell": {
+    "flags": 4194304,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "MaokaiSapling2",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "mMinimapIconName": "assets/characters/ziggs/hud/icons2d/ziggsrcircle.tex",
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mMinimapIconRotation": true,
+    "castRange": [
+     5775,
+     5775,
+     5775,
+     5775,
+     5775,
+     5775,
+     5775
+    ],
+    "castRadius": [
+     225,
+     225,
+     225,
+     225,
+     225,
+     225,
+     225
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mSpeed": 2250,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 2500,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1550,
+    "mMissileEffectKey": "Ziggs_R_mis",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZiggsRAbility/ZiggsR": {
+   "ObjectName": "ZiggsR",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsRAbility/ZiggsR",
+   "mScriptName": "ZiggsR",
+   "mSpell": {
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "ZiggsR",
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_DamageAbility",
+     "Trait_Target_Area",
+     "Trait_AoE",
+     "Trait_Melee_BigWindup"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       100,
+       300,
+       500,
+       700,
+       900,
+       1100,
+       1300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "OuterRingModifier",
+      "values": [
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65,
+       0.65
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaximumRadius",
+      "values": [
+       525,
+       525,
+       525,
+       525,
+       525,
+       525,
+       525
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EmpoweredRadius",
+      "values": [
+       250,
+       250,
+       250,
+       250,
+       250,
+       250,
+       250
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "BaseDamage",
+        "values": [
+         150,
+         375,
+         600,
+         825,
+         1050,
+         1275,
+         1500
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "APRatio",
+        "values": [
+         1.275,
+         1.275,
+         1.275,
+         1.275,
+         1.275,
+         1.275,
+         1.275
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       70,
+       70,
+       60,
+       50,
+       50,
+       50,
+       50
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "EmpoweredDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "BlastDamage": {
+      "mMultiplier": {
+       "mDataValue": "OuterRingModifier",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mModifiedGameCalculation": "EmpoweredDamage",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "spellCastTime": 0.375,
+    "spellTotalTime": 1.5,
+    "cooldownTime": [
+     120,
+     120,
+     95,
+     70,
+     70,
+     70,
+     70
+    ],
+    "Cooldown": {
+     "values": [
+      120,
+      120,
+      95,
+      70,
+      70,
+      70,
+      70
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "mSpellRevealsChampion": false,
+    "mUseMinimapTargeting": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     5000,
+     5000,
+     5000,
+     5000,
+     5000,
+     5000,
+     5000
+    ],
+    "castRadius": [
+     250,
+     250,
+     250,
+     250,
+     250,
+     250,
+     250
+    ],
+    "castRadiusSecondary": [
+     500,
+     500,
+     500,
+     500,
+     500,
+     500,
+     500
+    ],
+    "castConeDistance": 100,
+    "castTargetAdditionalUnitsRadius": 325,
+    "castFrame": 7.5,
+    "missileSpeed": 1750,
+    "mHitEffectOrientType": 2,
+    "mana": [
+     100,
+     100,
+     100,
+     0,
+     0,
+     0
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "BlastDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZiggsRAbility/ZiggsRBoom": {
+   "ObjectName": "ZiggsRBoom",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsRAbility/ZiggsRBoom",
+   "mScriptName": "ZiggsRBoom",
+   "mSpell": {
+    "flags": 4194304,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "MaokaiSapling2",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "mMinimapIconName": "assets/characters/ziggs/hud/icons2d/ziggsrcircle.tex",
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mMinimapIconRotation": true,
+    "castRange": [
+     2775,
+     2775,
+     2775,
+     2775,
+     2775,
+     2775,
+     2775
+    ],
+    "castRadius": [
+     225,
+     225,
+     225,
+     225,
+     225,
+     225,
+     225
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mTravelTime": 1.2,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "mGravity": 4000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Ziggs_R_mis",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZiggsRAbility/ZiggsRTimer": {
+   "ObjectName": "ZiggsRTimer",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsRAbility/ZiggsRTimer",
+   "mScriptName": "ZiggsRTimer",
+   "mSpell": {
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "ZiggsR",
+    "mEffectAmount": [
+     {
+      "value": [
+       200,
+       400,
+       600,
+       800,
+       0,
+       0,
+       200
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.75,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     135,
+     120,
+     105,
+     90,
+     18,
+     18,
+     18
+    ],
+    "Cooldown": {
+     "values": [
+      135,
+      120,
+      105,
+      90,
+      18,
+      18,
+      18
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     950,
+     950,
+     950,
+     950,
+     950,
+     950,
+     950
+    ],
+    "castRadius": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castConeDistance": 100,
+    "castTargetAdditionalUnitsRadius": 250,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mStartBoneName": "root",
+      "mTravelTime": 0.65,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.5,
+    "missileSpeed": 1200,
+    "mMissileEffectName": "DATA/Particles/ZiggsR.troy",
+    "mana": [
+     80,
+     85,
+     90,
+     95,
+     100,
+     105
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZiggsRAbility/ZiggsRBoomLong": {
+   "ObjectName": "ZiggsRBoomLong",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsRAbility/ZiggsRBoomLong",
+   "mScriptName": "ZiggsRBoomLong",
+   "mSpell": {
+    "flags": 4194304,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "MaokaiSapling2",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "mMinimapIconName": "assets/characters/ziggs/hud/icons2d/ziggsrcircle.tex",
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mMinimapIconRotation": true,
+    "castRange": [
+     5775,
+     5775,
+     5775,
+     5775,
+     5775,
+     5775,
+     5775
+    ],
+    "castRadius": [
+     225,
+     225,
+     225,
+     225,
+     225,
+     225,
+     225
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mSpeed": 2250,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 1300,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1550,
+    "mMissileEffectKey": "Ziggs_R_mis",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZiggsEAbility/ZiggsE": {
+   "ObjectName": "ZiggsE",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsEAbility/ZiggsE",
+   "mScriptName": "ZiggsE",
+   "mSpell": {
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "ZiggsE",
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_Target_Area",
+     "Trait_Low_Damage",
+     "Trait_AoE"
+    ],
+    "mEffectAmount": [
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       135,
+       135,
+       135,
+       135,
+       135,
+       135,
+       135
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       150,
+       150,
+       150,
+       150,
+       150,
+       150,
+       150
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "APRatioPerMine",
+      "values": [
+       0.2,
+       0.25,
+       0.3,
+       0.35,
+       0.4,
+       0.45,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Slow",
+      "values": [
+       0,
+       -0.1,
+       -0.2,
+       -0.3,
+       -0.4,
+       -0.5,
+       -0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DamagePerMine",
+      "values": [
+       -10,
+       30,
+       70,
+       110,
+       150,
+       190,
+       230
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MineDuration",
+      "values": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SubsequentMineDamageMod",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TriggerRange",
+      "values": [
+       135,
+       135,
+       135,
+       135,
+       135,
+       135,
+       135
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinePerceptionBubbleSize",
+      "values": [
+       150,
+       150,
+       150,
+       150,
+       150,
+       150,
+       150
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "APRatioPerMine",
+        "values": [
+         0.3,
+         0.3,
+         0.3,
+         0.3,
+         0.3,
+         0.3,
+         0.3
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "Slow",
+        "values": [
+         -0.2,
+         -0.3,
+         -0.4,
+         -0.5,
+         -0.6,
+         -0.7,
+         -0.8
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "MineDuration",
+        "values": [
+         7,
+         7,
+         7,
+         7,
+         7,
+         7,
+         7
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "APRatioPerMine",
+        "values": [
+         0.225,
+         0.25,
+         0.275,
+         0.3,
+         0.325,
+         0.35,
+         0.375
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "MineDuration",
+        "values": [
+         7,
+         7,
+         7,
+         7,
+         7,
+         7,
+         7
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "APRatioPerMine",
+        "values": [
+         0.225,
+         0.25,
+         0.275,
+         0.3,
+         0.325,
+         0.35,
+         0.375
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "MineDuration",
+        "values": [
+         7,
+         7,
+         7,
+         7,
+         7,
+         7,
+         7
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mDataValue": "DamagePerMine",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatioPerMine",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "ReducedDamage": {
+      "mMultiplier": {
+       "mDataValue": "SubsequentMineDamageMod",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mSimpleTooltipCalculationDisplay": 6,
+      "tooltipOnly": true,
+      "mModifiedGameCalculation": "TotalDamage",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "mCoefficient": 0.3,
+    "mCoefficient2": 0.6,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.375,
+    "spellTotalTime": 1.5,
+    "cooldownTime": [
+     16,
+     16,
+     16,
+     16,
+     16,
+     16,
+     16
+    ],
+    "Cooldown": {
+     "values": [
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16
+     ],
+     "{0a3e0478}": 16,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "mSpellRevealsChampion": false,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     900,
+     900,
+     900,
+     900,
+     900,
+     900,
+     900
+    ],
+    "castRadius": [
+     235,
+     235,
+     235,
+     235,
+     235,
+     235,
+     235
+    ],
+    "castConeDistance": 100,
+    "castTargetAdditionalUnitsRadius": 250,
+    "castFrame": 7.5,
+    "missileSpeed": 1750,
+    "mana": [
+     70,
+     80,
+     90,
+     100,
+     110,
+     120
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "Slow",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZiggsEAbility/ZiggsESlow": {
+   "ObjectName": "ZiggsESlow",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsEAbility/ZiggsESlow",
+   "mScriptName": "ZiggsESlow",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 4106,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mEffectAmount": [
+     {
+      "value": [
+       35,
+       80,
+       125,
+       170,
+       215,
+       260,
+       305
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.6,
+    "spellCastTime": 0.425,
+    "spellTotalTime": 0.8,
+    "cooldownTime": [
+     60,
+     60,
+     60,
+     60,
+     60,
+     60,
+     60
+    ],
+    "Cooldown": {
+     "values": [
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60
+     ],
+     "{0a3e0478}": 60,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "canOnlyCastWhileDead": true,
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castConeDistance": 100,
+    "castFrame": 13.34,
+    "missileSpeed": 1600,
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_ZiggsESlow",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZiggsEAbility/ZiggsE2": {
+   "ObjectName": "ZiggsE2",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsEAbility/ZiggsE2",
+   "mScriptName": "ZiggsE2",
+   "mSpell": {
+    "flags": 4194304,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "ZiggsE",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     1675,
+     1675,
+     1675,
+     1675,
+     1675,
+     1675,
+     1675
+    ],
+    "castRadius": [
+     225,
+     225,
+     225,
+     225,
+     225,
+     225,
+     225
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mSpeed": 1550,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 4000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1550,
+    "mMissileEffectKey": "Ziggs_E_Mis_Cluster",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZiggsEAbility/ZiggsE3": {
+   "ObjectName": "ZiggsE3",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsEAbility/ZiggsE3",
+   "mScriptName": "ZiggsE3",
+   "mSpell": {
+    "flags": 4194308,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "ZiggsE",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mIsDisabledWhileDead": false,
+    "castRange": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRadius": [
+     225,
+     225,
+     225,
+     225,
+     225,
+     225,
+     225
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mStartBoneName": "root",
+      "mTravelTime": 0.3,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "mGravity": 3000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Ziggs_E_mis_small",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZiggsEAbility/ZiggsEMine": {
+   "ObjectName": "ZiggsEMine",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsEAbility/ZiggsEMine",
+   "mScriptName": "ZiggsEMine",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 13327,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "LuxLightBinding",
+    "mEffectAmount": [
+     {
+      "value": [
+       80,
+       120,
+       160,
+       200,
+       200,
+       200,
+       240
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       75,
+       150,
+       225,
+       300,
+       200,
+       200,
+       275
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       35,
+       35,
+       35,
+       35,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0,
+       0,
+       0,
+       0,
+       200,
+       200,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.5,
+    "mCoefficient2": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     2,
+     2
+    ],
+    "Cooldown": {
+     "values": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      2
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     500,
+     500,
+     500,
+     500,
+     500,
+     500,
+     500
+    ],
+    "castRangeDisplayOverride": [
+     475,
+     475,
+     475,
+     475,
+     475,
+     475,
+     475
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 1.92,
+    "missileSpeed": 1200,
+    "mLineWidth": 90,
+    "mLineDragLength": 500,
+    "bHaveHitBone": true,
+    "mHitBoneName": "head",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "DragDirection"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZiggsWAbility/ZiggsWToggle": {
+   "ObjectName": "ZiggsWToggle",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsWAbility/ZiggsWToggle",
+   "mScriptName": "ZiggsWToggle",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "ZiggsW",
+    "mEffectAmount": [
+     {
+      "value": [
+       35,
+       70,
+       105,
+       140,
+       175,
+       210,
+       245
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.225,
+       0.25,
+       0.275,
+       0.3,
+       0.325,
+       0.35,
+       0.375
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.5,
+    "spellCastTime": 0.425,
+    "spellTotalTime": 0.8,
+    "cooldownTime": [
+     20,
+     20,
+     18,
+     16,
+     14,
+     12,
+     12
+    ],
+    "Cooldown": {
+     "values": [
+      20,
+      20,
+      18,
+      16,
+      14,
+      12,
+      12
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castRadius": [
+     250,
+     250,
+     250,
+     250,
+     250,
+     250,
+     250
+    ],
+    "castConeDistance": 100,
+    "castTargetAdditionalUnitsRadius": 250,
+    "castFrame": 10.005,
+    "missileSpeed": 1400,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZiggsWAbility/ZiggsW": {
+   "ObjectName": "ZiggsW",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsWAbility/ZiggsW",
+   "mScriptName": "ZiggsW",
+   "mSpell": {
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "ZiggsW",
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_KnockBack",
+     "Trait_RecastOrReplaceSpell",
+     "Trait_Target_Area",
+     "Trait_AoE"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       0,
+       70,
+       105,
+       140,
+       175,
+       210,
+       245
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       35,
+       70,
+       105,
+       140,
+       175,
+       210,
+       245
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BombDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TurretDestroyPercent",
+      "values": [
+       0.225,
+       0.25,
+       0.275,
+       0.3,
+       0.325,
+       0.35,
+       0.375
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockbackSpeed",
+      "values": [
+       600,
+       600,
+       600,
+       600,
+       600,
+       600,
+       600
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockbackGravity",
+      "values": [
+       50,
+       50,
+       50,
+       50,
+       50,
+       50,
+       50
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockbackDistance",
+      "values": [
+       500,
+       500,
+       500,
+       500,
+       500,
+       500,
+       500
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ExplosionRadius",
+      "values": [
+       325,
+       325,
+       325,
+       325,
+       325,
+       325,
+       325
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockbackDistanceAlly",
+      "values": [
+       775,
+       775,
+       775,
+       775,
+       775,
+       775,
+       775
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PerceptionBubbleRadius",
+      "values": [
+       400,
+       400,
+       400,
+       400,
+       400,
+       400,
+       400
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PerceptionBubbleDuration",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CherryBonusHaste",
+      "values": [
+       30,
+       30,
+       30,
+       30,
+       30,
+       30,
+       30
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "TurretDestroyPercent",
+        "values": [
+         0.1,
+         0.125,
+         0.15,
+         0.175,
+         0.2,
+         0.225,
+         0.25
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "TurretDestroyPercent",
+        "values": [
+         0.1,
+         0.125,
+         0.15,
+         0.175,
+         0.2,
+         0.225,
+         0.25
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       10,
+       10,
+       9.5,
+       9,
+       8.5,
+       8,
+       8
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     "SWIFTPLAY": {
+      "value": [
+       18,
+       18,
+       16,
+       14,
+       12,
+       10,
+       10
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.5,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.5,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     20,
+     20,
+     18,
+     16,
+     14,
+     12,
+     12
+    ],
+    "Cooldown": {
+     "values": [
+      20,
+      20,
+      18,
+      16,
+      14,
+      12,
+      12
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castRadius": [
+     275,
+     275,
+     275,
+     275,
+     275,
+     275,
+     275
+    ],
+    "castConeDistance": 100,
+    "castTargetAdditionalUnitsRadius": 250,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTracksTarget": false,
+      "mStartBoneName": "root",
+      "mSpeed": 1750,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 5000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.5,
+    "missileSpeed": 1750,
+    "mMissileEffectKey": "Ziggs_W_mis",
+    "mana": [
+     80,
+     80,
+     80,
+     80,
+     80,
+     80
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_ZiggsW",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 4194304,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "KnockbackDistance",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 128,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZiggsWAbility/ZiggsMoveAwayCollision": {
+   "ObjectName": "ZiggsMoveAwayCollision",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsWAbility/ZiggsMoveAwayCollision",
+   "mScriptName": "ZiggsMoveAwayCollision",
+   "__type": "SpellObject"
+  },
+  "Spells/ZiggsCritAttack": {
+   "ObjectName": "ZiggsCritAttack",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsCritAttack",
+   "mScriptName": "ZiggsCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "TristanaCritAttack",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     575.09998,
+     575.09998,
+     575.09998,
+     575.09998,
+     575.09998,
+     575.09998,
+     575.09998
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "",
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 5000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 10,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Ziggs_BA_mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Ziggs_BA_crit_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZiggsPassiveBuffAbility/ZiggsPassiveBuff": {
+   "ObjectName": "ZiggsPassiveBuff",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsPassiveBuffAbility/ZiggsPassiveBuff",
+   "mScriptName": "ZiggsPassiveBuff",
+   "mSpell": {
+    "mEffectAmount": [
+     {
+      "value": [
+       35,
+       80,
+       125,
+       170,
+       215,
+       260,
+       305
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "APRatio",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StructureDamageRatio",
+      "values": [
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "APRatio",
+        "values": [
+         0.75,
+         0.75,
+         0.75,
+         0.75,
+         0.75,
+         0.75,
+         0.75
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "StructureDamageRatio",
+        "values": [
+         1.5,
+         1.5,
+         1.5,
+         1.5,
+         1.5,
+         1.5,
+         1.5
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "StructureDamageRatio",
+        "values": [
+         1.5,
+         1.5,
+         1.5,
+         1.5,
+         1.5,
+         1.5,
+         1.5
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 20,
+        "mInitialBonusPerLevel": 4,
+        "mBreakpoints": [
+         {
+          "mLevel": 7,
+          "mBonusPerLevelAtAndAfter": 8,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 13,
+          "mBonusPerLevelAtAndAfter": 12,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "SpellCdr": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 4,
+        "mBreakpoints": [
+         {
+          "mLevel": 7,
+          "mAdditionalBonusAtThisLevel": 1,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 13,
+          "mAdditionalBonusAtThisLevel": 1,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "StructureDamage": {
+      "mMultiplier": {
+       "mDataValue": "StructureDamageRatio",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mSimpleTooltipCalculationDisplay": 6,
+      "mModifiedGameCalculation": "TotalDamage",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "cooldownTime": [
+     12,
+     12,
+     12,
+     12,
+     12,
+     12,
+     12
+    ],
+    "Cooldown": {
+     "values": [
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12
+     ],
+     "{0a3e0478}": 12,
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Ziggs/Spells/ZiggsPassiveBuffAbility/ZiggsPassiveBuff",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castFrame": 13.34,
+    "missileSpeed": 0,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_ZiggsPassiveBuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZiggsPassiveBuffAbility/ZiggsPassiveAttack": {
+   "ObjectName": "ZiggsPassiveAttack",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsPassiveBuffAbility/ZiggsPassiveAttack",
+   "mScriptName": "ZiggsPassiveAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     575.09998,
+     575.09998,
+     575.09998,
+     575.09998,
+     575.09998,
+     575.09998,
+     575.09998
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "",
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 5000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 10,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Ziggs_P_mis",
+    "mHitEffectKey": "Ziggs_P_tar",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZiggsPassiveBuffAbility/ZiggsShortFuse": {
+   "ObjectName": "ZiggsShortFuse",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsPassiveBuffAbility/ZiggsShortFuse",
+   "mScriptName": "ZiggsShortFuse",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 13519,
+    "mEffectAmount": [
+     {
+      "value": [
+       15,
+       55,
+       95,
+       135,
+       175,
+       215,
+       255
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       50,
+       60,
+       70,
+       80,
+       90,
+       100,
+       110
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       8,
+       8,
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1,
+    "spellCastTime": 0.485,
+    "cooldownTime": [
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18
+    ],
+    "Cooldown": {
+     "values": [
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18
+     ],
+     "{0a3e0478}": 18,
+     "__type": "{0a0eddc9}"
+    },
+    "bIsToggleSpell": true,
+    "castRange": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 22.605,
+    "missileSpeed": 2000,
+    "mana": [
+     80,
+     80,
+     80,
+     80,
+     80,
+     80
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_ZiggsShortFuse",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZiggsBasicAttack": {
+   "ObjectName": "ZiggsBasicAttack",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsBasicAttack",
+   "mScriptName": "ZiggsBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "TristanaBasicAttack",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     575.09998,
+     575.09998,
+     575.09998,
+     575.09998,
+     575.09998,
+     575.09998,
+     575.09998
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "",
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 5000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 10,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Ziggs_BA_mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Ziggs_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/ZiggsBasicAttack2": {
+   "ObjectName": "ZiggsBasicAttack2",
+   "objectPath": "Characters/Ziggs/Spells/ZiggsBasicAttack2",
+   "mScriptName": "ZiggsBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "TristanaBasicAttack",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     575.09998,
+     575.09998,
+     575.09998,
+     575.09998,
+     575.09998,
+     575.09998,
+     575.09998
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "",
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "mGravity": 5000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 10,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Ziggs_BA_mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Ziggs_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/ZiggsQAbility/ZiggsQ",
+  "Spells/ZiggsWAbility/ZiggsW",
+  "Spells/ZiggsEAbility/ZiggsE",
+  "Spells/ZiggsRAbility/ZiggsR"
+ ],
+ "passiva_ref": "Characters/Ziggs/Spells/ZiggsPassiveBuffAbility",
+ "passiva_chaves": [
+  "Spells/ZiggsPassiveBuffAbility/ZiggsPassiveBuff",
+  "Spells/ZiggsPassiveBuffAbility/ZiggsPassiveAttack",
+  "Spells/ZiggsPassiveBuffAbility/ZiggsShortFuse"
+ ]
+}

@@ -1,0 +1,2756 @@
+{
+ "id": "Sona",
+ "key": 37,
+ "nome": "Sona",
+ "titulo": "a Mestra das Cordas",
+ "funcoes": [
+  "Support",
+  "Mage"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 5,
+  "defense": 2,
+  "magic": 8,
+  "difficulty": 4
+ },
+ "stats_ddragon": {
+  "hp": 550,
+  "hpperlevel": 91,
+  "mp": 340,
+  "mpperlevel": 45,
+  "movespeed": 325,
+  "armor": 26,
+  "armorperlevel": 4.2,
+  "spellblock": 30,
+  "spellblockperlevel": 1.3,
+  "attackrange": 550,
+  "hpregen": 5.5,
+  "hpregenperlevel": 0.55,
+  "mpregen": 11.5,
+  "mpregenperlevel": 0.4,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 49,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2.3,
+  "attackspeed": 0.644
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Power Chord",
+  "descricao": "<passive>Accelerando</passive>: Sona recebe Aceleração permanentemente para as Habilidades básicas (exceto a ultimate), caso use-as corretamente, até um limite. Depois disso, o uso bem-sucedido reduz o Tempo de Recarga restante da ultimate.<br><br><passive>Power Chord</passive>: depois de algumas Habilidades conjuradas, o próximo Ataque de Sona causará Dano Mágico adicional e um efeito extra com base na última Habilidade básica ativada por ela."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "SonaQ",
+   "nome": "Hino do Valor",
+   "descricao": "Sona toca o Hino do Valor, conjurando rajadas de som, causando Dano Mágico a dois inimigos próximos, priorizando Campeões e monstros. Sona recebe uma aura temporária que concede dano adicional no próximo ataque de aliados próximos contra inimigos.",
+   "tooltip": "Sona causa <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage> aos dois inimigos mais próximos, priorizando Campeões. Então, ela começa uma nova <keywordMajor>Melodia</keywordMajor>. Ganha um acúmulo de <keywordMajor>Accelerando</keywordMajor> para cada Campeão a quem causar dano com esta Habilidade.<br /><br /><keywordMajor>Melodia:</keywordMajor> Sona recebe uma aura por {{ auraduration }}s que concede <magicDamage>{{ totalonhitdamage }} de Dano Mágico</magicDamage> %i:OnHit% adicional ao próximo Ataque de Campeões aliados dentro de {{ onhitduration }}s.<br /><br /><keywordMajor>Power Chord – Staccato:</keywordMajor> dano adicional de Power Chord equivalente a <magicDamage>{{ totalstaccatodamage }} de Dano Mágico</magicDamage> total.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "custo": [
+    50,
+    55,
+    60,
+    65,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    825,
+    825,
+    825,
+    825,
+    825
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "SonaW",
+   "nome": "Ária da Perseverança",
+   "descricao": "Sona toca a Ária da Perseverança, conjurando melodias protetoras, curando a si mesma e a um aliado ferido próximo. Sona recebe uma aura temporária que concede um escudo momentâneo a aliados marcados pela área.",
+   "tooltip": "<spellPassive>Ativo:</spellPassive> Sona restaura <healing>{{ totalheal }} de Vida</healing> para si e para um Campeão aliado próximo, priorizando o mais ferido. Então, ela começa uma nova <keywordMajor>Melodia</keywordMajor>.<br /><br /><keywordMajor>Melodia:</keywordMajor> por {{ auraduration }}s, Sona recebe uma aura que concede <shield>{{ totalshield }} de Escudo</shield> aos Campeões aliados por {{ shieldduration }}s.<br /><br />Você recebe um acúmulo de <keywordMajor>Accelerando</keywordMajor> sempre que curar outro aliado ferido e sempre que proteger outro aliado de pelo menos {{ accelerandoshieldbreakpoint }} de dano com esse Escudo.<br /><br /><keywordMajor>Power Chord – Diminuendo:</keywordMajor> Power Chord também reduz {{ totaldiminuendoweakenpercent }} do Dano Físico e Mágico causado pelo alvo por {{ diminuendoduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    10,
+    10,
+    10,
+    10,
+    10
+   ],
+   "custo": [
+    80,
+    85,
+    90,
+    95,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1000,
+    1000,
+    1000,
+    1000,
+    1000
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "SonaE",
+   "nome": "Canção da Celeridade",
+   "descricao": "Sona toca a Canção da Celeridade, concedendo Velocidade de Movimento adicional a aliados próximos. Sona recebe uma aura temporária que concede Velocidade de Movimento adicional a Campeões aliados marcados pela área.",
+   "tooltip": "<spellPassive>Ativo:</spellPassive> ela começa uma nova <keywordMajor>Melodia</keywordMajor> e concede <speed>{{ totalselfmovementspeed }} de Velocidade de Movimento</speed> a si mesma por {{ selfmovementspeeddurationmin }}s, que estende-se em até {{ selfmovementspeeddurationmax }}s caso não sofra dano. <br /><br /><keywordMajor>Melodia:</keywordMajor> por {{ auraduration }}s, Sona recebe uma aura que concede <speed>{{ totalallymovementspeed }} de Velocidade de Movimento</speed> aos Campeões aliados por {{ allymovementspeedduration }}s.<br /><br /><keywordMajor>Power Chord – Tempo:</keywordMajor> Power Chord também causa {{ totaltempomovespeedslow }} de <status>Lentidão</status> ao alvo por {{ tempoduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    14,
+    14,
+    14,
+    14,
+    14
+   ],
+   "custo": [
+    65,
+    65,
+    65,
+    65,
+    65
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    430,
+    430,
+    430,
+    430,
+    430
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "SonaR",
+   "nome": "Crescendo",
+   "descricao": "Sona toca o seu melhor acorde, causando Dano Mágico, atordoando Campeões inimigos e forçando-os a dançar.",
+   "tooltip": "Sona toca um acorde irresistível, <status>Atordoando</status> os Campeões inimigos por {{ stunduration }}s e causando <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    140,
+    120,
+    100
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    900,
+    900,
+    900
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 550,
+  "vida_nivel": 91,
+  "regen_vida": 1.1,
+  "regen_vida_nivel": 0.11,
+  "dano": 49,
+  "dano_nivel": 3,
+  "armadura": 26,
+  "armadura_nivel": 4.2,
+  "rm": 30,
+  "rm_nivel": 1.3,
+  "velocidade_mov": 325,
+  "alcance_ataque": 550,
+  "vel_ataque_base": 0.644,
+  "vel_ataque_razao": 0.644,
+  "vel_ataque_nivel": 2.3,
+  "dano_critico": 2,
+  "alcance_aquisicao": 800,
+  "raio_selecao": 110,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.1281787008047104,
+   "mAttackProbability": 0.5,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.5,
+    "mAttackName": "SonaBasicAttack2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.1281787008047104,
+    "mAttackName": "SonaCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Sona/Spells/SonaQAbility/SonaQ",
+  "Characters/Sona/Spells/SonaWAbility/SonaW",
+  "Characters/Sona/Spells/SonaEAbility/SonaE",
+  "Characters/Sona/Spells/SonaRAbility/SonaR"
+ ],
+ "abilities_ref": [
+  "Characters/Sona/Spells/SonaQAbility",
+  "Characters/Sona/Spells/SonaWAbility",
+  "Characters/Sona/Spells/SonaEAbility",
+  "Characters/Sona/Spells/SonaPassiveAbility",
+  "Characters/Sona/Spells/SonaRAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/SonaWAbility/SonaWPassiveAttack": {
+   "ObjectName": "SonaWPassiveAttack",
+   "objectPath": "Characters/Sona/Spells/SonaWAbility/SonaWPassiveAttack",
+   "mScriptName": "SonaWPassiveAttack",
+   "mSpell": {
+    "flags": 128,
+    "mAffectsTypeFlags": 8191,
+    "spellCastTime": 0.4236,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 11,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Sona_W_PowerChord_Mis",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaWAbility/SonaWPassiveDebuff": {
+   "ObjectName": "SonaWPassiveDebuff",
+   "objectPath": "Characters/Sona/Spells/SonaWAbility/SonaWPassiveDebuff",
+   "mScriptName": "SonaWPassiveDebuff",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaWAbility/SonaWMissile": {
+   "ObjectName": "SonaWMissile",
+   "objectPath": "Characters/Sona/Spells/SonaWAbility/SonaWMissile",
+   "mScriptName": "SonaWMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 17413,
+    "spellCastTime": 0.425,
+    "spellTotalTime": 0.8,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "WEAPON",
+      "mSpeed": 1300,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "missileSpeed": 1300,
+    "mMissileEffectKey": "Sona_W_Mis",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaWAbility/SonaWShield": {
+   "ObjectName": "SonaWShield",
+   "objectPath": "Characters/Sona/Spells/SonaWAbility/SonaWShield",
+   "mScriptName": "SonaWShield",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaWAbility/SonaW": {
+   "ObjectName": "SonaW",
+   "objectPath": "Characters/Sona/Spells/SonaWAbility/SonaW",
+   "mScriptName": "SonaW",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 8193,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "PositiveEffect_Boon",
+     "Trait_ActiveHeal",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseHeal",
+      "values": [
+       15,
+       30,
+       45,
+       60,
+       75,
+       90,
+       105
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseShield",
+      "values": [
+       5,
+       25,
+       45,
+       65,
+       85,
+       105,
+       125
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AuraDuration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AuraRange",
+      "values": [
+       400,
+       400,
+       400,
+       400,
+       400,
+       400,
+       400
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseGlobalCD",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DiminuendoDuration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealRange",
+      "values": [
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000,
+       1000
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldDuration",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AccelerandoShieldBreakpoint",
+      "values": [
+       5,
+       25,
+       45,
+       65,
+       85,
+       105,
+       125
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "HealRatio",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldRatio",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "BaseShield",
+        "values": [
+         55,
+         65,
+         75,
+         85,
+         95,
+         105,
+         115
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "HealRatio",
+        "values": [
+         0.2,
+         0.2,
+         0.2,
+         0.2,
+         0.2,
+         0.2,
+         0.2
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "ARAM": {
+      "value": [
+       13,
+       13,
+       13,
+       13,
+       13,
+       13,
+       13
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     "Kiwi": {
+      "value": [
+       13,
+       13,
+       13,
+       13,
+       13,
+       13,
+       13
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     "cherry": {
+      "value": [
+       13,
+       13,
+       13,
+       13,
+       13,
+       13,
+       13
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalHeal": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseHeal",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "HealRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalShield": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseShield",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "ShieldRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalDiminuendoWeakenPercent": {
+      "mFormulaParts": [
+       {
+        "mNumber": 0.25,
+        "__type": "NumberCalculationPart"
+       },
+       {
+        "mCoefficient": 0.0004,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castRadius": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castConeDistance": 100,
+    "castFrame": 8.5,
+    "missileSpeed": 1500,
+    "mana": [
+     80,
+     85,
+     90,
+     95,
+     100,
+     105
+    ],
+    "mTargetingTypeData": {
+     "__type": "SelfAoe"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{ec17e271}": [
+     {
+      "EffectTag": 8,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSpellCalculationKey": "TotalHeal",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSpellCalculationKey": "TotalHeal",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 262144,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSpellCalculationKey": "TotalShield",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 524288,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSpellCalculationKey": "TotalShield",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaEAbility/SonaESelfHaste": {
+   "ObjectName": "SonaESelfHaste",
+   "objectPath": "Characters/Sona/Spells/SonaEAbility/SonaESelfHaste",
+   "mScriptName": "SonaESelfHaste",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaEAbility/SonaEHaste": {
+   "ObjectName": "SonaEHaste",
+   "objectPath": "Characters/Sona/Spells/SonaEAbility/SonaEHaste",
+   "mScriptName": "SonaEHaste",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_SonaEHaste",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaEAbility/SonaE": {
+   "ObjectName": "SonaE",
+   "objectPath": "Characters/Sona/Spells/SonaEAbility/SonaE",
+   "mScriptName": "SonaE",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "PositiveEffect_Boon",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "SelfBaseMovementSpeed",
+      "values": [
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AllyBaseMovementSpeed",
+      "values": [
+       0.08,
+       0.1,
+       0.12,
+       0.14,
+       0.16,
+       0.18,
+       0.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SelfMovementSpeedDurationMin",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SelfMovementSpeedDurationMax",
+      "values": [
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AllyMovementSpeedDuration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AuraRange",
+      "values": [
+       400,
+       400,
+       400,
+       400,
+       400,
+       400,
+       400
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AuraDuration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseGlobalCD",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TempoDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalSelfMovementSpeed": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "SelfBaseMovementSpeed",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.0002,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "TotalAllyMovementSpeed": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "AllyBaseMovementSpeed",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.0002,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "TotalTempoMoveSpeedSlow": {
+      "mFormulaParts": [
+       {
+        "mNumber": 0.5,
+        "__type": "NumberCalculationPart"
+       },
+       {
+        "mCoefficient": 0.0004,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     14,
+     14,
+     14,
+     14,
+     14,
+     14,
+     14
+    ],
+    "Cooldown": {
+     "values": [
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14
+     ],
+     "{0a3e0478}": 14,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "bHaveHitEffect": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castRangeDisplayOverride": [
+     430,
+     430,
+     430,
+     430,
+     430,
+     430,
+     430
+    ],
+    "castRadius": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castConeDistance": 100,
+    "castFrame": 8.5,
+    "missileSpeed": 1500,
+    "mHitEffectKey": "Sona_Z_tar_blue",
+    "mana": [
+     65,
+     65,
+     65,
+     65,
+     65,
+     65
+    ],
+    "mTargetingTypeData": {
+     "__type": "SelfAoe"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "{ec17e271}": [
+     {
+      "EffectTag": 2,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSpellCalculationKey": "TotalSelfMovementSpeed",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSpellCalculationKey": "TotalAllyMovementSpeed",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaEAbility/SonaEPassiveDebuff": {
+   "ObjectName": "SonaEPassiveDebuff",
+   "objectPath": "Characters/Sona/Spells/SonaEAbility/SonaEPassiveDebuff",
+   "mScriptName": "SonaEPassiveDebuff",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaEAbility/SonaEPassiveAttack": {
+   "ObjectName": "SonaEPassiveAttack",
+   "objectPath": "Characters/Sona/Spells/SonaEAbility/SonaEPassiveAttack",
+   "mScriptName": "SonaEPassiveAttack",
+   "mSpell": {
+    "flags": 128,
+    "mAffectsTypeFlags": 8191,
+    "spellCastTime": 0.4236,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 11,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Sona_E_PowerChord_Mis",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaBasicAttack": {
+   "ObjectName": "SonaBasicAttack",
+   "objectPath": "Characters/Sona/Spells/SonaBasicAttack",
+   "mScriptName": "SonaBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 512,
+    "mAlternateName": "SonaBasicAttack",
+    "spellCastTime": 0.4236,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     622.70001,
+     622.70001,
+     622.70001,
+     622.70001,
+     622.70001,
+     622.70001,
+     622.70001
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 11,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Sona_BA_Mis",
+    "mHitEffectKey": "Sona_BA_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaQAbility/SonaQPassiveAttack": {
+   "ObjectName": "SonaQPassiveAttack",
+   "objectPath": "Characters/Sona/Spells/SonaQAbility/SonaQPassiveAttack",
+   "mScriptName": "SonaQPassiveAttack",
+   "mSpell": {
+    "flags": 128,
+    "mAffectsTypeFlags": 8127,
+    "spellCastTime": 0.4236,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 11,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Sona_Q_PowerChord_Mis",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaQAbility/SonaQ": {
+   "ObjectName": "SonaQ",
+   "objectPath": "Characters/Sona/Spells/SonaQAbility/SonaQ",
+   "mScriptName": "SonaQ",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "PositiveEffect_Boon",
+     "Trait_DamageAbility",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       15,
+       50,
+       85,
+       120,
+       155,
+       190,
+       225
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseOnHitDamage",
+      "values": [
+       5,
+       10,
+       15,
+       20,
+       25,
+       30,
+       35
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AuraRange",
+      "values": [
+       400,
+       400,
+       400,
+       400,
+       400,
+       400,
+       400
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "OnHitDuration",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EnemiesToHit",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AuraDuration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseGlobalCD",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "OnHitProcs",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "OnHitRatio",
+      "values": [
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "{f9c2333e}": {
+     "ARAM": {
+      "value": [
+       10,
+       10,
+       10,
+       10,
+       10,
+       10,
+       10
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.4,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalOnHitDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseOnHitDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "OnHitRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalStaccatoDamage": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 30,
+        "mInitialBonusPerLevel": 15,
+        "mBreakpoints": [
+         {
+          "mLevel": 9,
+          "mBonusPerLevelAtAndAfter": 22.5,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       },
+       {
+        "mCoefficient": 0.3,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+     ],
+     "{0a3e0478}": 8,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     825,
+     825,
+     825,
+     825,
+     825,
+     825,
+     825
+    ],
+    "castRadius": [
+     850,
+     850,
+     850,
+     850,
+     850,
+     850,
+     850
+    ],
+    "castConeDistance": 100,
+    "castFrame": 8.5,
+    "missileSpeed": 1500,
+    "mHitEffectKey": "Sona_Z_tar_blue",
+    "mAfterEffectKey": "Sona_Z_blood_slash",
+    "mana": [
+     50,
+     55,
+     60,
+     65,
+     70,
+     75
+    ],
+    "mTargetingTypeData": {
+     "__type": "SelfAoe"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaQAbility/SonaQMissile": {
+   "ObjectName": "SonaQMissile",
+   "objectPath": "Characters/Sona/Spells/SonaQAbility/SonaQMissile",
+   "mScriptName": "SonaQMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "spellCastTime": 0.425,
+    "spellTotalTime": 0.8,
+    "cooldownTime": [
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4
+    ],
+    "Cooldown": {
+     "values": [
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+     ],
+     "{0a3e0478}": 4,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "WEAPON",
+      "mSpeed": 1300,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "missileSpeed": 1300,
+    "mMissileEffectKey": "Sona_Q_Mis",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaQAbility/SonaQOnHit": {
+   "ObjectName": "SonaQOnHit",
+   "objectPath": "Characters/Sona/Spells/SonaQAbility/SonaQOnHit",
+   "mScriptName": "SonaQOnHit",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaBasicAttack2": {
+   "ObjectName": "SonaBasicAttack2",
+   "objectPath": "Characters/Sona/Spells/SonaBasicAttack2",
+   "mScriptName": "SonaBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 512,
+    "mAlternateName": "SonaBasicAttack2",
+    "spellCastTime": 0.4236,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     622.70001,
+     622.70001,
+     622.70001,
+     622.70001,
+     622.70001,
+     622.70001,
+     622.70001
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "L_Hand",
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 11,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Sona_BA_Mis",
+    "mHitEffectKey": "Sona_BA_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaPassiveAbility/SonaPMissile2": {
+   "ObjectName": "SonaPMissile2",
+   "objectPath": "Characters/Sona/Spells/SonaPassiveAbility/SonaPMissile2",
+   "mScriptName": "SonaPMissile2",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 8193,
+    "spellCastTime": 0.425,
+    "spellTotalTime": 0.8,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+      "mTargetBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+      "mSpeed": 1280,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "missileSpeed": 1300,
+    "mMissileEffectKey": "Sona_P_Accelerando_Mis2",
+    "selectionPriority": 2,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaPassiveAbility/SonaPMissile3": {
+   "ObjectName": "SonaPMissile3",
+   "objectPath": "Characters/Sona/Spells/SonaPassiveAbility/SonaPMissile3",
+   "mScriptName": "SonaPMissile3",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 8193,
+    "spellCastTime": 0.425,
+    "spellTotalTime": 0.8,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+      "mTargetBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+      "mSpeed": 1280,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "missileSpeed": 1300,
+    "mMissileEffectKey": "Sona_P_Accelerando_Mis3",
+    "selectionPriority": 2,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaPassiveAbility/SonaPassiveAccelerandoCount": {
+   "ObjectName": "SonaPassiveAccelerandoCount",
+   "objectPath": "Characters/Sona/Spells/SonaPassiveAbility/SonaPassiveAccelerandoCount",
+   "mScriptName": "SonaPassiveAccelerandoCount",
+   "mBuff": {
+    "mBuffAttributeFlag": 8,
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaPassiveAbility/SonaPMissile": {
+   "ObjectName": "SonaPMissile",
+   "objectPath": "Characters/Sona/Spells/SonaPassiveAbility/SonaPMissile",
+   "mScriptName": "SonaPMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 8193,
+    "spellCastTime": 0.425,
+    "spellTotalTime": 0.8,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+      "mTargetBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+      "mSpeed": 1280,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "missileSpeed": 1300,
+    "mMissileEffectKey": "Sona_P_Accelerando_Mis",
+    "selectionPriority": 2,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaPassiveAbility/SonaPassive": {
+   "ObjectName": "SonaPassive",
+   "objectPath": "Characters/Sona/Spells/SonaPassiveAbility/SonaPassive",
+   "mScriptName": "SonaPassive",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "TempoDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PowerChordPassiveCountMax",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AccelerandoAHPerStack",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AccelerandoCap",
+      "values": [
+       60,
+       60,
+       60,
+       60,
+       60,
+       60,
+       60
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AccelerandoUltCDR",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "AccelerandoCap",
+        "values": [
+         30,
+         30,
+         30,
+         30,
+         30,
+         30,
+         30
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "AccelerandoUltCDR",
+        "values": [
+         1,
+         1,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "AccelerandoCap",
+        "values": [
+         30,
+         30,
+         30,
+         30,
+         30,
+         30,
+         30
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "AccelerandoUltCDR",
+        "values": [
+         1,
+         1,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "PowerChordDamage": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 20,
+        "mInitialBonusPerLevel": 10,
+        "mBreakpoints": [
+         {
+          "mLevel": 9,
+          "mBonusPerLevelAtAndAfter": 15,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       },
+       {
+        "mCoefficient": 0.2,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "AccelerandoAHCurrent": {
+      "mFormulaParts": [
+       {
+        "mBuffName": "{1705b20f}",
+        "mDataValue": "AccelerandoAHPerStack",
+        "__type": "BuffCounterByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Sona/Spells/SonaPassiveAbility/SonaPassiveAccelerandoCount",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_SonaPassive",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaPassiveAbility/SonaPassiveAttack": {
+   "ObjectName": "SonaPassiveAttack",
+   "objectPath": "Characters/Sona/Spells/SonaPassiveAbility/SonaPassiveAttack",
+   "mScriptName": "SonaPassiveAttack",
+   "mSpell": {
+    "flags": 128,
+    "mAffectsTypeFlags": 8191,
+    "spellCastTime": 0.4236,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "castRange": [
+     550,
+     550,
+     550,
+     550,
+     550,
+     550,
+     550
+    ],
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 11,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Sona_BA_Mis",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaDJTransition": {
+   "ObjectName": "SonaDJTransition",
+   "objectPath": "Characters/Sona/Spells/SonaDJTransition",
+   "mScriptName": "SonaDJTransition",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 9221,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mCastTime": 0.5,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRadius": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "castConeDistance": 100,
+    "castFrame": 13,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_OlafRagnarok",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaRAbility/SonaR": {
+   "ObjectName": "SonaR",
+   "objectPath": "Characters/Sona/Spells/SonaRAbility/SonaR",
+   "mScriptName": "SonaR",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_Ranged_Piercing",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       50,
+       150,
+       250,
+       350,
+       450,
+       550,
+       650
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StunDuration",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.5,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     140,
+     140,
+     120,
+     100,
+     100,
+     100,
+     100
+    ],
+    "Cooldown": {
+     "values": [
+      140,
+      140,
+      120,
+      100,
+      100,
+      100,
+      100
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000,
+     1000
+    ],
+    "castRangeDisplayOverride": [
+     900,
+     900,
+     900,
+     900,
+     900,
+     900,
+     900
+    ],
+    "castRadius": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 140,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mTargetHeightAugment": -50,
+      "mOffsetInitialTargetHeight": -50,
+      "mStartBoneName": "WEAPON",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 2400,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 8.5,
+    "missileSpeed": 2400,
+    "mMissileEffectKey": "Sona_R_Missile",
+    "mLineWidth": 140,
+    "mHitEffectKey": "Sona_R_tar_flash",
+    "bHaveHitBone": true,
+    "mHitBoneName": "head",
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_SonaR",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/SonaDJManager": {
+   "ObjectName": "SonaDJManager",
+   "objectPath": "Characters/Sona/Spells/SonaDJManager",
+   "mScriptName": "SonaDJManager",
+   "__type": "SpellObject"
+  },
+  "Spells/SonaCritAttack": {
+   "ObjectName": "SonaCritAttack",
+   "objectPath": "Characters/Sona/Spells/SonaCritAttack",
+   "mScriptName": "SonaCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 512,
+    "spellCastTime": 0.4236,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     622.70001,
+     622.70001,
+     622.70001,
+     622.70001,
+     622.70001,
+     622.70001,
+     622.70001
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "WEAPON",
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Sona_CritAttack_Cas",
+    "mHitEffectKey": "Sona_BA_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/SonaQAbility/SonaQ",
+  "Spells/SonaWAbility/SonaW",
+  "Spells/SonaEAbility/SonaE",
+  "Spells/SonaRAbility/SonaR"
+ ],
+ "passiva_ref": "Characters/Sona/Spells/SonaPassiveAbility",
+ "passiva_chaves": [
+  "Spells/SonaPassiveAbility/SonaPMissile2",
+  "Spells/SonaPassiveAbility/SonaPMissile3",
+  "Spells/SonaPassiveAbility/SonaPassiveAccelerandoCount",
+  "Spells/SonaPassiveAbility/SonaPMissile",
+  "Spells/SonaPassiveAbility/SonaPassive",
+  "Spells/SonaPassiveAbility/SonaPassiveAttack"
+ ]
+}

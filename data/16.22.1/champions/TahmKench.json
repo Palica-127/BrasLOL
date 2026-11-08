@@ -1,0 +1,1646 @@
+{
+ "id": "TahmKench",
+ "key": 223,
+ "nome": "Tahm Kench",
+ "titulo": "o Rei do Rio",
+ "funcoes": [
+  "Tank",
+  "Support"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 3,
+  "defense": 9,
+  "magic": 6,
+  "difficulty": 5
+ },
+ "stats_ddragon": {
+  "hp": 640,
+  "hpperlevel": 103,
+  "mp": 325,
+  "mpperlevel": 50,
+  "movespeed": 335,
+  "armor": 39,
+  "armorperlevel": 4.7,
+  "spellblock": 32,
+  "spellblockperlevel": 2.05,
+  "attackrange": 175,
+  "hpregen": 6.5,
+  "hpregenperlevel": 0.55,
+  "mpregen": 8,
+  "mpregenperlevel": 1,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 56,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2.5,
+  "attackspeed": 0.658
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Um Gosto Adquirido",
+  "descricao": "Tahm Kench usa o próprio corpo para impulsionar os Ataques, causando dano adicional com base na Vida total dele. Causar dano a Campeões inimigos aumenta os acúmulos de <spellName>Um Gosto Adquirido</spellName>. Com três acúmulos, ele pode usar <spellName>Devorar</spellName> em um Campeão inimigo."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "TahmKenchQ",
+   "nome": "Língua-chicote",
+   "descricao": "Tahm Kench ataca com a língua, causando dano e Lentidão à primeira unidade atingida, além de se curar se a unidade for um Campeão inimigo.<br><br>Aplica um acúmulo de <spellName>Um Gosto Adquirido</spellName> a Campeões inimigos. Se o Campeão já tiver 3 acúmulos de <spellName>Um Gosto Adquirido</spellName>, ele será Atordoado e os acúmulos serão consumidos.",
+   "tooltip": "Causa <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage> e {{ slowamount*100 }}% de <status>Lentidão</status> ao primeiro inimigo atingido por {{ slowduration }}s. <br /><br />Ao acertar um Campeão, cura Tahm Kench em <healing>{{ baseheal }} + {{ percenthealthhealing*100 }}% da própria Vida perdida</healing> e aplica um acúmulo de <spellName>Um Gosto Adquirido</spellName>, causando <magicDamage>{{ spell.tahmkenchpassive:totaldamage }} de Dano Mágico adicional</magicDamage>. Se o Campeão já tiver 3 acúmulos de <spellName>Um Gosto Adquirido</spellName>, ele será <status>Atordoado</status> por {{ stunduration }}s e os acúmulos serão consumidos.<br /><br />Ative <span class=\"color0bf7de\">Devorar</span> enquanto a língua estiver no meio do trajeto para devorar Campeões inimigos que já tiverem 3 acúmulos de <spellName>Um Gosto Adquirido</spellName> ao atingi-los.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    7,
+    6.5,
+    6,
+    5.5,
+    5
+   ],
+   "custo": [
+    50,
+    46,
+    42,
+    38,
+    34
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    900,
+    900,
+    900,
+    900,
+    900
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "TahmKenchW",
+   "nome": "Mergulho Abissal",
+   "descricao": "Mergulha e reaparece no local-alvo, causando dano e Arremessando ao ar todos os inimigos em uma área.",
+   "tooltip": "Mergulha e reaparece no local-alvo, causando <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage> e <status>Arremessando ao ar</status> todos os inimigos em uma área por {{ knockupduration }}s. Atingir ao menos um Campeão inimigo restaura {{ champrefund*100 }}% do Tempo de Recarga e do Custo de <scaleMana>Mana</scaleMana>. <br /><br />Aliados <span class=\"color0bf7de\">Devorados</span> podem ser carregados na viagem (mas podem sair antecipadamente).{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    21,
+    20,
+    19,
+    18,
+    17
+   ],
+   "custo": [
+    60,
+    75,
+    90,
+    105,
+    120
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1000,
+    1050,
+    1100,
+    1150,
+    1200
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "TahmKenchE",
+   "nome": "Pele Grossa",
+   "descricao": "<passive>Passivo:</passive> Tahm Kench armazena uma porcentagem do dano sofrido e se cura com base nela quando fora de combate.<br><br><active>Ativo:</active> converte todo o dano armazenado em um Escudo temporário.",
+   "tooltip": "<passive>Passivo:</passive> {{ greyhealthratio*100 }}% do dano sofrido por Tahm Kench é armazenado por <spellName>Pele Grossa</spellName>, aumentado para {{ greyhealthratioenhanced*100 }}% se houver pelo menos {{ enhancedthreshold }} Campeões inimigos próximos. Se ele não tiver sofrido dano por {{ ooctimer }}s, <spellName>Pele Grossa</spellName> será consumida rapidamente para curá-lo em {{ greyhealthhealingratio }} do valor dela.<br /><br /><active>Ativo:</active> converte todo o dano armazenado por <spellName>Pele Grossa</spellName> em um <shield>Escudo</shield> que dura {{ shieldduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    3,
+    3,
+    3,
+    3,
+    3
+   ],
+   "custo": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    2400,
+    2400,
+    2400,
+    2400,
+    2400
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "TahmKenchRWrapper",
+   "nome": "Devorar",
+   "descricao": "Tahm Kench devora um Campeão por alguns segundos, causando Dano Mágico se for um inimigo ou concedendo Escudo se for um aliado.",
+   "tooltip": "Tahm Kench devora um Campeão por alguns segundos. Ele pode <recast>Reconjurar</recast> para cuspi-lo.<br /><br /><specialRules>Campeões inimigos:</specialRules> requerem 3 acúmulos de <spellName>Um Gosto Adquirido</spellName>. São devorados por até {{ enemyduration }}s e sofrem <magicDamage>{{ basedamage }} +{{ percenthpdamage }} da Vida máxima como Dano Mágico</magicDamage>. Tahm Kench sofre {{ slowamount*100 }}% de <status>Lentidão</status> e permanece <keywordName>Preso ao chão</keywordName> durante o efeito.<br /><br /><specialRules>Campeões aliados:</specialRules> são devorados por até {{ allyduration }}s e recebem <shield>{{ totalshield }} de Escudo</shield>, que decai gradualmente após serem cuspidos. Os aliados podem se libertar antecipadamente. Tahm Kench fica <status>Preso ao chão</status> durante este efeito, mas pode conjurar <keywordName>Mergulho Abissal</keywordName> e receber <speed>{{ allyspeedamount*100 }}% de Velocidade de Movimento</speed> por {{ allyduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    0,
+    0,
+    0
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de Mana",
+   "alcance": [
+    25000,
+    25000,
+    25000
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 640,
+  "vida_nivel": 103,
+  "regen_vida": 1.3,
+  "regen_vida_nivel": 0.11,
+  "dano": 56,
+  "dano_nivel": 3.2,
+  "armadura": 39,
+  "armadura_nivel": 4.7,
+  "rm": 32,
+  "rm_nivel": 2.05,
+  "velocidade_mov": 335,
+  "alcance_ataque": 175,
+  "vel_ataque_base": 0.658,
+  "vel_ataque_razao": 0.658,
+  "vel_ataque_nivel": 2.5,
+  "dano_critico": 2,
+  "alcance_aquisicao": 600,
+  "raio_selecao": 125,
+  "raio_colisao": 50,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackTotalTime": 1.5190000534057617,
+   "mAttackCastTime": 0.3799999952316284,
+   "mAttackProbability": 0.5,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.5,
+    "mAttackName": "TahmKenchBasicAttack2",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "TahmKenchBasicAttack3",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackName": "TahmKenchCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/TahmKench/Spells/TahmKenchQAbility/TahmKenchQ",
+  "Characters/TahmKench/Spells/TahmKenchWAbility/TahmKenchW",
+  "Characters/TahmKench/Spells/TahmKenchEAbility/TahmKenchE",
+  "Characters/TahmKench/Spells/TahmKenchRWrapperAbility/TahmKenchRWrapper"
+ ],
+ "abilities_ref": [
+  "Characters/TahmKench/Spells/TahmKenchRWrapperAbility",
+  "Characters/TahmKench/Spells/TahmKenchEAbility",
+  "Characters/TahmKench/Spells/TahmKenchQAbility",
+  "Characters/TahmKench/Spells/TahmKenchWAbility",
+  "Characters/TahmKench/Spells/TahmKenchPassiveAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/TahmKenchQAbility/TahmKenchQ": {
+   "ObjectName": "TahmKenchQ",
+   "objectPath": "Characters/TahmKench/Spells/TahmKenchQAbility/TahmKenchQ",
+   "mScriptName": "TahmKenchQ",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_ActiveHeal",
+     "Trait_SignatureSpell"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       30,
+       75,
+       120,
+       165,
+       210,
+       255,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmount",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StunDuration",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PercentHealthHealing",
+      "values": [
+       0.045,
+       0.05,
+       0.055,
+       0.06,
+       0.065,
+       0.07,
+       0.075
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseHeal",
+      "values": [
+       0,
+       10,
+       20,
+       30,
+       40,
+       50,
+       60
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "{f9c2333e}": {
+     "URF": {
+      "value": [
+       15,
+       14,
+       13,
+       12,
+       11,
+       10,
+       9
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.25,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     7.5,
+     7,
+     6.5,
+     6,
+     5.5,
+     5,
+     4.5
+    ],
+    "Cooldown": {
+     "values": [
+      7.5,
+      7,
+      6.5,
+      6,
+      5.5,
+      5,
+      4.5
+     ],
+     "{0a3e0478}": 7.5,
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/TahmKench/Spells/TahmKenchQAbility/TahmKenchQSkinSizePassive",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "alwaysSnapFacing": true,
+    "castRange": [
+     900,
+     900,
+     900,
+     900,
+     900,
+     900,
+     900
+    ],
+    "castRangeDisplayOverride": [
+     900,
+     900,
+     900,
+     900,
+     900,
+     900,
+     900
+    ],
+    "mMissileSpec": {
+     "mMissileWidth": 70,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Antenna1",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 2800,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnHit"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.5,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "TahmKench_Q_Mis",
+    "mLineWidth": 70,
+    "mLookAtPolicy": 1,
+    "mHitEffectOrientType": 2,
+    "mana": [
+     50,
+     46,
+     42,
+     38,
+     34,
+     30
+    ],
+    "mTargetingTypeData": {
+     "__type": "LocationClamped"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TahmKenchQAbility/TahmKenchQStun": {
+   "ObjectName": "TahmKenchQStun",
+   "objectPath": "Characters/TahmKench/Spells/TahmKenchQAbility/TahmKenchQStun",
+   "mScriptName": "TahmKenchQStun",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TahmKenchQAbility/TahmKenchQSkinSizePassive": {
+   "ObjectName": "TahmKenchQSkinSizePassive",
+   "objectPath": "Characters/TahmKench/Spells/TahmKenchQAbility/TahmKenchQSkinSizePassive",
+   "mScriptName": "TahmKenchQSkinSizePassive",
+   "__type": "SpellObject"
+  },
+  "Spells/TahmKenchQAbility/TahmKenchQSlow": {
+   "ObjectName": "TahmKenchQSlow",
+   "objectPath": "Characters/TahmKench/Spells/TahmKenchQAbility/TahmKenchQSlow",
+   "mScriptName": "TahmKenchQSlow",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TahmKenchWAbility/TahmKenchW": {
+   "ObjectName": "TahmKenchW",
+   "objectPath": "Characters/TahmKench/Spells/TahmKenchWAbility/TahmKenchW",
+   "mScriptName": "TahmKenchW",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock",
+     "Trait_ImmobilizingCCSpell",
+     "Trait_PlayerSelectedDashDirection",
+     "Trait_DamageAbility",
+     "Trait_Target_Area",
+     "Trait_Ranged_StopsFirstHit"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       65,
+       100,
+       135,
+       170,
+       205,
+       240,
+       275
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "KnockUpDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AoEDelayFromChannelStart",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TotalTime",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ChannelTime",
+      "values": [
+       1.35,
+       1.35,
+       1.35,
+       1.35,
+       1.35,
+       1.35,
+       1.35
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EnemyWarningDelayFromChannelStart",
+      "values": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ChampRefund",
+      "values": [
+       0.375,
+       0.4,
+       0.425,
+       0.45,
+       0.475,
+       0.5,
+       0.525
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       16,
+       16,
+       15,
+       14,
+       13,
+       12,
+       11
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 1.5,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0,
+    "mChannelDuration": [
+     1.35,
+     1.35,
+     1.35,
+     1.35,
+     1.35,
+     1.35,
+     1.35
+    ],
+    "cooldownTime": [
+     22,
+     21,
+     20,
+     19,
+     18,
+     17,
+     16
+    ],
+    "Cooldown": {
+     "values": [
+      22,
+      21,
+      20,
+      19,
+      18,
+      17,
+      16
+     ],
+     "{0a3e0478}": 22,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileChanneling": true,
+    "cantCastWhileRooted": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     900,
+     1000,
+     1050,
+     1100,
+     1150,
+     1200,
+     1250
+    ],
+    "castRadius": [
+     250,
+     250,
+     250,
+     250,
+     250,
+     250,
+     250
+    ],
+    "mana": [
+     60,
+     75,
+     90,
+     105,
+     120,
+     135
+    ],
+    "mTargetingTypeData": {
+     "__type": "LocationClamped"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TahmKenchWAbility/TahmKenchWKnockUp": {
+   "ObjectName": "TahmKenchWKnockUp",
+   "objectPath": "Characters/TahmKench/Spells/TahmKenchWAbility/TahmKenchWKnockUp",
+   "mScriptName": "TahmKenchWKnockUp",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TahmKenchPassiveAbility/TahmKenchPassive": {
+   "ObjectName": "TahmKenchPassive",
+   "objectPath": "Characters/TahmKench/Spells/TahmKenchPassiveAbility/TahmKenchPassive",
+   "mScriptName": "TahmKenchPassive",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "Duration",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxStacks",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PerStackDecayTimer",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatioPer100BonusHP",
+      "values": [
+       0.0125,
+       0.0125,
+       0.0125,
+       0.0125,
+       0.0125,
+       0.0125,
+       0.0125
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mSimpleTooltipCalculationDisplay": 6,
+      "DamageType": 1,
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 5,
+        "mInitialBonusPerLevel": 5,
+        "mBreakpoints": [
+         {
+          "mLevel": 12,
+          "mAdditionalBonusAtThisLevel": 5,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       },
+       {
+        "mStat": 12,
+        "mStatFormula": 2,
+        "mCoefficient": 0.04,
+        "__type": "StatByCoefficientCalculationPart"
+       },
+       {
+        "mSubpart": {
+         "mPart1": {
+          "mStat": 12,
+          "mStatFormula": 2,
+          "mDataValue": "APRatioPer100BonusHP",
+          "__type": "StatByNamedDataValueCalculationPart"
+         },
+         "mPart2": {
+          "mNumber": 0.01,
+          "__type": "NumberCalculationPart"
+         },
+         "__type": "ProductOfSubPartsCalculationPart"
+        },
+        "__type": "StatBySubPartCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "LastHitData": [
+     {
+      "{6166b756}": "TotalDamage",
+      "__type": "LastHitData"
+     }
+    ],
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TahmKenchRWrapperAbility/TahmKenchR2": {
+   "ObjectName": "TahmKenchR2",
+   "objectPath": "Characters/TahmKench/Spells/TahmKenchRWrapperAbility/TahmKenchR2",
+   "mScriptName": "TahmKenchR2",
+   "mSpell": {
+    "flags": 36,
+    "mAffectsTypeFlags": 8192,
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_FreeRecast"
+    ],
+    "spellCastTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCooldownNotAffectedByCDR": true,
+    "mCantCancelWhileWindingUp": true,
+    "mPingableWhileDisabled": true,
+    "castRange": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castFrame": 7.5,
+    "mTargetingTypeData": {
+     "__type": "LocationClamped"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TahmKenchRWrapperAbility/TahmKenchRTargetAlly": {
+   "ObjectName": "TahmKenchRTargetAlly",
+   "objectPath": "Characters/TahmKench/Spells/TahmKenchRWrapperAbility/TahmKenchRTargetAlly",
+   "mScriptName": "TahmKenchRTargetAlly",
+   "mSpell": {
+    "flags": 4,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TahmKenchRWrapperAbility/TahmKenchRShield": {
+   "ObjectName": "TahmKenchRShield",
+   "objectPath": "Characters/TahmKench/Spells/TahmKenchRWrapperAbility/TahmKenchRShield",
+   "mScriptName": "TahmKenchRShield",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TahmKenchRWrapperAbility/TahmKenchR": {
+   "ObjectName": "TahmKenchR",
+   "objectPath": "Characters/TahmKench/Spells/TahmKenchRWrapperAbility/TahmKenchR",
+   "mScriptName": "TahmKenchR",
+   "mSpell": {
+    "flags": 4194336,
+    "mAffectsTypeFlags": 16387,
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_ImmobilizingCCSpell"
+    ],
+    "spellCastTime": 0.25,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRangeUseBoundingBoxes": true,
+    "alwaysSnapFacing": true,
+    "mPingableWhileDisabled": true,
+    "castRange": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castFrame": 8,
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TahmKenchRWrapperAbility/TahmKenchRSpeed": {
+   "ObjectName": "TahmKenchRSpeed",
+   "objectPath": "Characters/TahmKench/Spells/TahmKenchRWrapperAbility/TahmKenchRSpeed",
+   "mScriptName": "TahmKenchRSpeed",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TahmKenchRWrapperAbility/TahmKenchRTargetEnemy": {
+   "ObjectName": "TahmKenchRTargetEnemy",
+   "objectPath": "Characters/TahmKench/Spells/TahmKenchRWrapperAbility/TahmKenchRTargetEnemy",
+   "mScriptName": "TahmKenchRTargetEnemy",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TahmKenchRWrapperAbility/TahmKenchR2TargetSpit": {
+   "ObjectName": "TahmKenchR2TargetSpit",
+   "objectPath": "Characters/TahmKench/Spells/TahmKenchRWrapperAbility/TahmKenchR2TargetSpit",
+   "mScriptName": "TahmKenchR2TargetSpit",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TahmKenchRWrapperAbility/TahmKenchRWrapper": {
+   "ObjectName": "TahmKenchRWrapper",
+   "objectPath": "Characters/TahmKench/Spells/TahmKenchRWrapperAbility/TahmKenchRWrapper",
+   "mScriptName": "TahmKenchRWrapper",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 16387,
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_Shield"
+    ],
+    "DataValues": [
+     {
+      "name": "EnemyDuration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       -50,
+       100,
+       250,
+       400,
+       550,
+       700,
+       850
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AllyDuration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseShield",
+      "values": [
+       500,
+       650,
+       800,
+       950,
+       1100,
+       1250,
+       1400
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmount",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BasePercentHPDamage",
+      "values": [
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DataCooldown",
+      "values": [
+       140,
+       120,
+       100,
+       80,
+       60,
+       40,
+       20
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DataManaCost",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SpitOutRangeAlly",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SpitOutRangeEnemy",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CastTime",
+      "values": [
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25,
+       0.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinimumAllyDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AllySpeedAmount",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShieldDecayPerSecond",
+      "values": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "PercentHPDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BasePercentHPDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.0007,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "TotalShield": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseShield",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "CDCalc": {
+      "mSimpleTooltipCalculationDisplay": 5,
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mPart1": {
+         "mDataValue": "DataCooldown",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        "mPart2": {
+         "__type": "CooldownMultiplierCalculationPart"
+        },
+        "__type": "ProductOfSubPartsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/TahmKench/Spells/TahmKenchRWrapperAbility/TahmKenchRWrapper",
+      "mRemoveWhenOnCooldown": false,
+      "mRemoveWithSpell": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "alwaysSnapFacing": true,
+    "mPingableWhileDisabled": true,
+    "mDoesNotConsumeMana": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castFrame": 7.5,
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "manaUiOverride": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "mTargetingTypeData": {
+     "__type": "TargetOrLocation"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TahmKenchEAbility/TahmKenchEShield": {
+   "ObjectName": "TahmKenchEShield",
+   "objectPath": "Characters/TahmKench/Spells/TahmKenchEAbility/TahmKenchEShield",
+   "mScriptName": "TahmKenchEShield",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TahmKenchEAbility/TahmKenchE": {
+   "ObjectName": "TahmKenchE",
+   "objectPath": "Characters/TahmKench/Spells/TahmKenchEAbility/TahmKenchE",
+   "mScriptName": "TahmKenchE",
+   "mSpell": {
+    "flags": 32,
+    "mAffectsTypeFlags": 8192,
+    "mSpellTags": [
+     "PositiveEffect_Boon",
+     "Trait_Shield"
+    ],
+    "DataValues": [
+     {
+      "name": "ShieldDuration",
+      "values": [
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "OOCTimer",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "GreyHealthRatio",
+      "values": [
+       0.07,
+       0.15,
+       0.23,
+       0.31,
+       0.39,
+       0.47,
+       0.55
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxHPHealRatio",
+      "values": [
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "GreyHealthRatioEnhanced",
+      "values": [
+       0.4,
+       0.42,
+       0.44,
+       0.46,
+       0.48,
+       0.5,
+       0.52
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EnhancedThreshold",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ThresholdRadius",
+      "values": [
+       2400,
+       2400,
+       2400,
+       2400,
+       2400,
+       2400,
+       2400
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "GreyHealthRatio",
+        "values": [
+         0.17,
+         0.23,
+         0.29,
+         0.35,
+         0.41,
+         0.47,
+         0.53
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "OOCTimer",
+        "values": [
+         2,
+         2,
+         2,
+         2,
+         2,
+         2,
+         2
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "GreyHealthHealingRatio": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 0.6,
+        "mEndValue": 1,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "GreyHealthMaximum": {
+      "mFormulaParts": [
+       {
+        "mStat": 12,
+        "mCoefficient": 3,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.25,
+    "cooldownTime": [
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3
+    ],
+    "Cooldown": {
+     "values": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+     ],
+     "{0a3e0478}": 3,
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/TahmKench/Spells/TahmKenchEAbility/TahmKenchE",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mDoNotNeedToFaceTarget": true,
+    "mPingableWhileDisabled": true,
+    "mDoesNotConsumeCooldown": true,
+    "castRange": [
+     2400,
+     2400,
+     2400,
+     2400,
+     2400,
+     2400,
+     2400
+    ],
+    "castFrame": 7.5,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TahmKenchBasicAttack3": {
+   "ObjectName": "TahmKenchBasicAttack3",
+   "objectPath": "Characters/TahmKench/Spells/TahmKenchBasicAttack3",
+   "mScriptName": "TahmKenchBasicAttack3",
+   "mSpell": {
+    "castFrame": 10,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TahmKenchBasicAttack2": {
+   "ObjectName": "TahmKenchBasicAttack2",
+   "objectPath": "Characters/TahmKench/Spells/TahmKenchBasicAttack2",
+   "mScriptName": "TahmKenchBasicAttack2",
+   "mSpell": {
+    "castFrame": 10,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TahmKenchNautical": {
+   "ObjectName": "TahmKenchNautical",
+   "objectPath": "Characters/TahmKench/Spells/TahmKenchNautical",
+   "mScriptName": "TahmKenchNautical",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TahmKenchCritAttack": {
+   "ObjectName": "TahmKenchCritAttack",
+   "objectPath": "Characters/TahmKench/Spells/TahmKenchCritAttack",
+   "mScriptName": "TahmKenchCritAttack",
+   "mSpell": {
+    "castFrame": 10,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/TahmKenchBasicAttack": {
+   "ObjectName": "TahmKenchBasicAttack",
+   "objectPath": "Characters/TahmKench/Spells/TahmKenchBasicAttack",
+   "mScriptName": "TahmKenchBasicAttack",
+   "mSpell": {
+    "castFrame": 10,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/TahmKenchQAbility/TahmKenchQ",
+  "Spells/TahmKenchWAbility/TahmKenchW",
+  "Spells/TahmKenchEAbility/TahmKenchE",
+  "Spells/TahmKenchRWrapperAbility/TahmKenchRWrapper"
+ ],
+ "passiva_ref": "Characters/TahmKench/Spells/TahmKenchPassiveAbility",
+ "passiva_chaves": [
+  "Spells/TahmKenchPassiveAbility/TahmKenchPassive"
+ ]
+}

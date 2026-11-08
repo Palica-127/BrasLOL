@@ -1,0 +1,3223 @@
+{
+ "id": "Urgot",
+ "key": 6,
+ "nome": "Urgot",
+ "titulo": "o Encouraçado",
+ "funcoes": [
+  "Fighter",
+  "Tank"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 8,
+  "defense": 5,
+  "magic": 3,
+  "difficulty": 8
+ },
+ "stats_ddragon": {
+  "hp": 655,
+  "hpperlevel": 102,
+  "mp": 340,
+  "mpperlevel": 45,
+  "movespeed": 330,
+  "armor": 36,
+  "armorperlevel": 5,
+  "spellblock": 32,
+  "spellblockperlevel": 2.05,
+  "attackrange": 350,
+  "hpregen": 7.5,
+  "hpregenperlevel": 0.7,
+  "mpregen": 7.25,
+  "mpregenperlevel": 0.8,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 63,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 3.75,
+  "attackspeed": 0.625
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Chamas Ecoantes",
+  "descricao": "Os ataques básicos de Urgot e Expurgar disparam periodicamente explosões de chamas de suas pernas, causando Dano Físico."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "UrgotQ",
+   "nome": "Carga Corrosiva",
+   "descricao": "Detona uma carga explosiva no local-alvo, causando Dano Físico e reduzindo a velocidade dos inimigos atingidos pela explosão.",
+   "tooltip": "Urgot detona uma carga explosiva, causando <physicalDamage>{{ totaldamage }} de Dano Físico</physicalDamage> e {{ slowamount*100 }}% de <status>Lentidão</status> por {{ slowduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    10,
+    9.5,
+    9,
+    8.5,
+    8
+   ],
+   "custo": [
+    70,
+    70,
+    70,
+    70,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    800,
+    800,
+    800,
+    800,
+    800
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "UrgotW",
+   "nome": "Expurgar",
+   "descricao": "Urgot reduz sua velocidade enquanto descarrega sua arma contra inimigos próximos. Prioriza Campeões inimigos que tenha atingido recentemente com outras habilidades e aciona Chamas Ecoantes.",
+   "tooltip": "<spellPassive>Passivo:</spellPassive> as outras Habilidades de Urgot marcam o último Campeão atingido por 5s.<br /><br /><spellActive>Ativo:</spellActive> Urgot dispara seu canhão automático no inimigo mais próximo, priorizando os marcados. Ele os Ataca {{ wattackspersecond }} vezes por segundo, causando <physicalDamage>{{ damagepershot }} de Dano Físico</physicalDamage> por disparo. Urgot pode se mover enquanto dispara e tem {{ slowresistance }}% de resistência a <status>Lentidão</status>, mas perde <speed>{{ movespeedmod }} de Velocidade de Movimento</speed>.<br /><br />No ranque máximo, a Habilidade dura por um período indeterminado e pode ser <toggle>Alternada</toggle> entre ativada e desativada.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    12,
+    9,
+    6,
+    3,
+    0
+   ],
+   "custo": [
+    40,
+    30,
+    20,
+    10,
+    0
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    490,
+    490,
+    490,
+    490,
+    490
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "30/60/90/120/150",
+    "40",
+    "4/4/4/4/25000",
+    "0",
+    "125",
+    "0.5",
+    "20/23.5/27/30.5/34",
+    "3",
+    "12",
+    "50"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "UrgotE",
+   "nome": "Desdém",
+   "descricao": "Urgot avança em uma direção, protegendo-se com um escudo e pisoteando inimigos não Campeões. Se atingir um Campeão inimigo, ele para e o arremessa para fora de seu caminho.",
+   "tooltip": "Urgot avança, recebendo <shield>{{ etotalshieldhealth }} de Escudo</shield> por {{ eshieldduration }}s. O primeiro Campeão atingido é <status>Atordoado</status> por {{ stunduration }}s e jogado para trás de Urgot. Todos os inimigos com quem Urgot colidir sofrerão <physicalDamage>{{ edamage }} de Dano Físico</physicalDamage>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    16,
+    15.5,
+    15,
+    14.5,
+    14
+   ],
+   "custo": [
+    60,
+    70,
+    80,
+    90,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    475,
+    475,
+    475,
+    475,
+    475
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "UrgotR",
+   "nome": "Pior que a Morte",
+   "descricao": "Urgot dispara uma broca química que perfura o primeiro Campeão inimigo atingido. Se esse Campeão ficar abaixo de um limite mínimo de Vida, Urgot o julgará fraco e o executará.",
+   "tooltip": "Urgot dispara uma broca química que perfura o primeiro Campeão inimigo atingido, causando <physicalDamage>{{ rcalculateddamage }} de Dano Físico</physicalDamage> e <status>Lentidão</status> de 1% para cada 1% de Vida perdida por {{ rslowduration }}s, até um máximo de {{ rmovespeedmod }}%.<br /><br />Se a vítima perfurada ficar com menos de {{ rhealththreshold }}% de Vida, Urgot pode <recast>Reconjurar</recast> a Habilidade, <status>Suprimindo</status> o alvo e puxando-o em sua direção. Ao chegar na posição de Urgot, a vítima será abatida e os inimigos próximos sofrerão <status>Temor</status> por {{ rfearduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    100,
+    85,
+    70
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    2500,
+    2500,
+    2500
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 655,
+  "vida_nivel": 102,
+  "regen_vida": 1.5,
+  "regen_vida_nivel": 0.14,
+  "dano": 63,
+  "dano_nivel": 4,
+  "armadura": 36,
+  "armadura_nivel": 5,
+  "rm": 32,
+  "rm_nivel": 2.05,
+  "velocidade_mov": 330,
+  "alcance_ataque": 350,
+  "vel_ataque_base": 0.625,
+  "vel_ataque_razao": 0.625,
+  "vel_ataque_nivel": 3.75,
+  "dano_critico": 2,
+  "alcance_aquisicao": 550,
+  "raio_selecao": 136.11109924316406,
+  "raio_colisao": 50,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+   "mAttackProbability": 0.5,
+   "mAttackName": "UrgotBasicAttack",
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.5,
+    "mAttackName": "UrgotBasicAttack2",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackProbability": 0,
+    "mAttackName": "UrgotBasicAttack3",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+    "mAttackName": "UrgotCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Urgot/Spells/UrgotQAbility/UrgotQ",
+  "Characters/Urgot/Spells/UrgotWAbility/UrgotW",
+  "Characters/Urgot/Spells/UrgotEAbility/UrgotE",
+  "Characters/Urgot/Spells/UrgotRAbility/UrgotR"
+ ],
+ "abilities_ref": [
+  "Characters/Urgot/Spells/UrgotRAbility",
+  "Characters/Urgot/Spells/UrgotWAbility",
+  "Characters/Urgot/Spells/UrgotEAbility",
+  "Characters/Urgot/Spells/UrgotQAbility",
+  "Characters/Urgot/Spells/UrgotPassiveAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/UrgotPassiveZone3Inactive": {
+   "ObjectName": "UrgotPassiveZone3Inactive",
+   "objectPath": "Characters/Urgot/Spells/UrgotPassiveZone3Inactive",
+   "mScriptName": "UrgotPassiveZone3Inactive",
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotPassiveZone4Inactive": {
+   "ObjectName": "UrgotPassiveZone4Inactive",
+   "objectPath": "Characters/Urgot/Spells/UrgotPassiveZone4Inactive",
+   "mScriptName": "UrgotPassiveZone4Inactive",
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotWAbility/UrgotW": {
+   "ObjectName": "UrgotW",
+   "objectPath": "Characters/Urgot/Spells/UrgotWAbility/UrgotW",
+   "mScriptName": "UrgotW",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 8192,
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_SignatureSpell",
+     "Trait_AoE",
+     "Trait_RecastOrReplaceSpell"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       30,
+       30,
+       60,
+       90,
+       120,
+       150,
+       180
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       40,
+       40,
+       40,
+       40,
+       40,
+       40,
+       40
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       25000,
+       25000
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       125,
+       125,
+       125,
+       125,
+       125,
+       125,
+       125
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       20,
+       20,
+       23.5,
+       27,
+       30.5,
+       34,
+       37.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       12,
+       12,
+       12,
+       12,
+       12,
+       12,
+       12
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       50,
+       50,
+       50,
+       50,
+       50,
+       50,
+       50
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "ADRatioTT",
+      "values": [
+       0.165,
+       0.2,
+       0.235,
+       0.27,
+       0.305,
+       0.34,
+       0.375
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "OnHitDamageReduction",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "WAttacksPerSecond",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       12,
+       12,
+       12,
+       12,
+       12,
+       12,
+       12
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinionMinimumDamage",
+      "values": [
+       50,
+       50,
+       50,
+       50,
+       50,
+       50,
+       50
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowResistance",
+      "values": [
+       40,
+       40,
+       40,
+       40,
+       40,
+       40,
+       40
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Duration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       25000,
+       25000
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MoveSpeedMod",
+      "values": [
+       125,
+       125,
+       125,
+       125,
+       125,
+       125,
+       125
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MoveSpeedDuration",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "BaseDamage",
+        "values": [
+         17,
+         17,
+         17,
+         17,
+         17,
+         17,
+         17
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "OnHitDamageReduction",
+        "values": [
+         0.75,
+         0.75,
+         0.75,
+         0.75,
+         0.75,
+         0.75,
+         0.75
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "DamagePerShot": {
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mDataValue": "ADRatioTT",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "RangeCheck": {
+      "mFormulaParts": [
+       {
+        "mNumber": 450,
+        "__type": "NumberCalculationPart"
+       },
+       {
+        "mStat": 31,
+        "mStatFormula": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.15,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     12,
+     12,
+     9,
+     6,
+     3,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      12,
+      12,
+      9,
+      6,
+      3,
+      0,
+      0
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mChargeUpdateInterval": 0.25,
+    "mCancelChargeOnRecastTime": 1.5,
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Urgot/Spells/UrgotWOnHitManager",
+      "mRemoveWhenOnCooldown": false,
+      "mRemoveWithSpell": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mDoesntBreakChannels": true,
+    "mSpellRevealsChampion": false,
+    "mCanMoveWhileChanneling": true,
+    "mShowChannelBar": false,
+    "bIsToggleSpell": true,
+    "mDoNotNeedToFaceTarget": true,
+    "castRange": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "castRangeDisplayOverride": [
+     490,
+     490,
+     490,
+     490,
+     490,
+     490,
+     490
+    ],
+    "castRadius": [
+     325,
+     325,
+     325,
+     325,
+     325,
+     325,
+     325
+    ],
+    "castRadiusSecondary": [
+     250,
+     250,
+     250,
+     250,
+     250,
+     250,
+     250
+    ],
+    "castConeDistance": 100,
+    "castFrame": 8.5,
+    "missileSpeed": 1600,
+    "mLineWidth": 40,
+    "mLookAtPolicy": 0,
+    "mana": [
+     40,
+     30,
+     20,
+     10,
+     0,
+     0
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_UrgotW",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mPart1": {
+        "mSpellCalculationKey": "DamagePerShot",
+        "__type": "{f3cbe7b2}"
+       },
+       "mPart2": {
+        "mPart1": {
+         "__type": "NumberCalculationPart"
+        },
+        "mPart2": {
+         "mDataValue": "WAttacksPerSecond",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        "__type": "ProductOfSubPartsCalculationPart"
+       },
+       "__type": "ProductOfSubPartsCalculationPart"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotWAbility/UrgotWMissileExtra": {
+   "ObjectName": "UrgotWMissileExtra",
+   "objectPath": "Characters/Urgot/Spells/UrgotWAbility/UrgotWMissileExtra",
+   "mScriptName": "UrgotWMissileExtra",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 8191,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "canCastOrQueueWhileCasting": true,
+    "mDoesntBreakChannels": true,
+    "mSpellRevealsChampion": false,
+    "mUseMinimapTargeting": true,
+    "useAnimatorFramerate": true,
+    "mDoNotNeedToFaceTarget": true,
+    "mIgnoreAnimContinueUntilCastFrame": true,
+    "mHideRangeIndicatorWhenCasting": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRangeDisplayOverride": [
+     1250,
+     1250,
+     1250,
+     1250,
+     1250,
+     1250,
+     1250
+    ],
+    "castRadius": [
+     500,
+     500,
+     500,
+     500,
+     500,
+     500,
+     500
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 150,
+      "mOffsetInitialTargetHeight": 150,
+      "mStartBoneName": "UpperBarrel",
+      "mTargetBoneName": "C_BUFFBONE_GLB_CENTER_LOC",
+      "mSpeed": 2500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.5,
+    "missileSpeed": 2500,
+    "mMissileEffectKey": "Urgot_W_mis",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotWAbility/UrgotWMissile": {
+   "ObjectName": "UrgotWMissile",
+   "objectPath": "Characters/Urgot/Spells/UrgotWAbility/UrgotWMissile",
+   "mScriptName": "UrgotWMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 8191,
+    "spellCastTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 150,
+      "mOffsetInitialTargetHeight": 150,
+      "mStartBoneName": "UpperBarrel",
+      "mTargetBoneName": "C_BUFFBONE_GLB_CENTER_LOC",
+      "mSpeed": 2500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.5,
+    "missileSpeed": 2500,
+    "mMissileEffectKey": "Urgot_W_mis",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotWAbility/UrgotWCancel": {
+   "ObjectName": "UrgotWCancel",
+   "objectPath": "Characters/Urgot/Spells/UrgotWAbility/UrgotWCancel",
+   "mScriptName": "UrgotWCancel",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 8192,
+    "mSpellTags": [
+     "Trait_FreeRecast"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       40,
+       40,
+       60,
+       80,
+       100,
+       120,
+       120
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       550,
+       550,
+       550,
+       550,
+       550,
+       550,
+       550
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       30,
+       30,
+       30,
+       30,
+       30,
+       30,
+       30
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       120,
+       120,
+       140,
+       160,
+       180,
+       200,
+       200
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mChargeUpdateInterval": 0.25,
+    "mCancelChargeOnRecastTime": 1.5,
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "mShowChannelBar": false,
+    "bIsToggleSpell": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castRadius": [
+     325,
+     325,
+     325,
+     325,
+     325,
+     325,
+     325
+    ],
+    "castRadiusSecondary": [
+     250,
+     250,
+     250,
+     250,
+     250,
+     250,
+     250
+    ],
+    "castConeDistance": 100,
+    "castFrame": 8.5,
+    "missileSpeed": 1600,
+    "mLineWidth": 40,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotCritAttack": {
+   "ObjectName": "UrgotCritAttack",
+   "objectPath": "Characters/Urgot/Spells/UrgotCritAttack",
+   "mScriptName": "UrgotCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "bHaveHitEffect": true,
+    "castRange": [
+     425,
+     425,
+     425,
+     425,
+     425,
+     425,
+     425
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 150,
+      "mOffsetInitialTargetHeight": 150,
+      "mStartBoneName": "UpperBarrel",
+      "mSpeed": 2500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 2500,
+    "mMissileEffectKey": "Urgot_BA_mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "globalhit_physical_crit_BV2",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotPassiveZone3Activating": {
+   "ObjectName": "UrgotPassiveZone3Activating",
+   "objectPath": "Characters/Urgot/Spells/UrgotPassiveZone3Activating",
+   "mScriptName": "UrgotPassiveZone3Activating",
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotPassiveZone3Active": {
+   "ObjectName": "UrgotPassiveZone3Active",
+   "objectPath": "Characters/Urgot/Spells/UrgotPassiveZone3Active",
+   "mScriptName": "UrgotPassiveZone3Active",
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotEAbility/UrgotEToss": {
+   "ObjectName": "UrgotEToss",
+   "objectPath": "Characters/Urgot/Spells/UrgotEAbility/UrgotEToss",
+   "mScriptName": "UrgotEToss",
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotEAbility/UrgotEStun": {
+   "ObjectName": "UrgotEStun",
+   "objectPath": "Characters/Urgot/Spells/UrgotEAbility/UrgotEStun",
+   "mScriptName": "UrgotEStun",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_UrgotEStun",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotEAbility/UrgotE": {
+   "ObjectName": "UrgotE",
+   "objectPath": "Characters/Urgot/Spells/UrgotEAbility/UrgotE",
+   "mScriptName": "UrgotE",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock",
+     "Trait_ImmobilizingCCSpell",
+     "Trait_PlayerSelectedDashDirection",
+     "Trait_DamageAbility",
+     "Trait_KnockBack",
+     "Trait_Shield",
+     "Trait_Low_Damage"
+    ],
+    "DataValues": [
+     {
+      "name": "EShieldDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EShieldBaseHealth",
+      "values": [
+       35,
+       55,
+       75,
+       95,
+       115,
+       135,
+       155
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EShieldbADRatio",
+      "values": [
+       1.5,
+       1.35,
+       1.35,
+       1.35,
+       1.35,
+       1.35,
+       1.35
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EBaseDamage",
+      "values": [
+       60,
+       90,
+       120,
+       150,
+       180,
+       210,
+       240
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EShieldBonusHealthRatio",
+      "values": [
+       0,
+       0.135,
+       0.135,
+       0.135,
+       0.135,
+       0.135,
+       0.135
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StunDuration",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDashSpeed",
+      "values": [
+       1200,
+       1200,
+       1200,
+       1200,
+       1200,
+       1200,
+       1200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinimumDashRange",
+      "values": [
+       450,
+       450,
+       450,
+       450,
+       450,
+       450,
+       450
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ThrowDistance",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "WHalterDuration",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "EShieldBonusHealthRatio",
+        "values": [
+         0,
+         0.15,
+         0.15,
+         0.15,
+         0.15,
+         0.15,
+         0.15
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "ETotalShieldHealth": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "EShieldBaseHealth",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "EShieldbADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 12,
+        "mStatFormula": 2,
+        "mDataValue": "EShieldBonusHealthRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "EDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "EBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.5,
+    "mCastTime": 0.45,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     16,
+     16,
+     15.5,
+     15,
+     14.5,
+     14,
+     13.5
+    ],
+    "Cooldown": {
+     "values": [
+      16,
+      16,
+      15.5,
+      15,
+      14.5,
+      14,
+      13.5
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "mSpellRevealsChampion": false,
+    "alwaysSnapFacing": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     475,
+     475,
+     475,
+     475,
+     475,
+     475,
+     475
+    ],
+    "castRadius": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1500,
+    "mLineWidth": 100,
+    "mana": [
+     60,
+     70,
+     80,
+     90,
+     100,
+     110
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "EDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 128,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "MinimumDashRange",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4194304,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "ThrowDistance",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotEAbility/UrgotEDash": {
+   "ObjectName": "UrgotEDash",
+   "objectPath": "Characters/Urgot/Spells/UrgotEAbility/UrgotEDash",
+   "mScriptName": "UrgotEDash",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock"
+    ],
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "alwaysSnapFacing": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "castRangeDisplayOverride": [
+     475,
+     475,
+     475,
+     475,
+     475,
+     475,
+     475
+    ],
+    "castRadius": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1500,
+    "mLineWidth": 100,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "LocationClamped"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotWOnHitManager": {
+   "ObjectName": "UrgotWOnHitManager",
+   "objectPath": "Characters/Urgot/Spells/UrgotWOnHitManager",
+   "mScriptName": "UrgotWOnHitManager",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotRAbility/UrgotR": {
+   "ObjectName": "UrgotR",
+   "objectPath": "Characters/Urgot/Spells/UrgotRAbility/UrgotR",
+   "mScriptName": "UrgotR",
+   "mSpell": {
+    "mAffectsTypeFlags": 2,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_ImmobilizingCCAbility",
+     "Trait_DamageAbility",
+     "Trait_RecastOrReplaceSpell",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "RBaseDamage",
+      "values": [
+       100,
+       100,
+       225,
+       350,
+       475,
+       600,
+       725
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RBonusADRatio",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RMoveSpeedMod",
+      "values": [
+       75,
+       75,
+       75,
+       75,
+       75,
+       75,
+       75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RSlowDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RSlowMultiplier",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RFearDuration",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RHealthThreshold",
+      "values": [
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RChannelTimeReel",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RFearRadius",
+      "values": [
+       600,
+       600,
+       600,
+       600,
+       600,
+       600,
+       600
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "RCalculatedDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "RBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "RBonusADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCastTime": 0.5,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     100,
+     100,
+     85,
+     70,
+     70,
+     70,
+     70
+    ],
+    "Cooldown": {
+     "values": [
+      100,
+      100,
+      85,
+      70,
+      70,
+      70,
+      70
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Urgot/Spells/UrgotRSpellPassive",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "mShowChannelBar": false,
+    "alwaysSnapFacing": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500
+    ],
+    "castRangeDisplayOverride": [
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": -8,
+    "mMissileSpec": {
+     "mMissileWidth": 80,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mStartBoneName": "Root_Body",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 3200,
+      "__type": "FixedSpeedMovement"
+     },
+     "visibilityComponent": {
+      "__type": "EnterFOWVisibility"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 8.5,
+    "missileSpeed": 3200,
+    "mMissileEffectKey": "Urgot_R_Tracker_mis",
+    "mLineWidth": 80,
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "mTargetingTypeData": {
+     "__type": "LocationClamped"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_UrgotR",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "RCalculatedDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "RSlowDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 32768,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mNumber": 80,
+         "__type": "NumberCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotRAbility/UrgotRRecast": {
+   "ObjectName": "UrgotRRecast",
+   "objectPath": "Characters/Urgot/Spells/UrgotRAbility/UrgotRRecast",
+   "mScriptName": "UrgotRRecast",
+   "mSpell": {
+    "flags": 4,
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "Trait_FreeRecast"
+    ],
+    "cooldownTime": [
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5
+    ],
+    "Cooldown": {
+     "values": [
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5
+     ],
+     "{0a3e0478}": 5,
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Urgot/Spells/UrgotRSpellPassive",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "canCastOrQueueWhileCasting": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mDoesntBreakChannels": true,
+    "mShowChannelBar": false,
+    "bIsToggleSpell": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     700,
+     700,
+     700,
+     700,
+     700,
+     700,
+     700
+    ],
+    "mLookAtPolicy": 0,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 2,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "{a8cb9c14}": true,
+       "mStat": 12,
+       "mSubpart": {
+        "mNumber": 0.25,
+        "__type": "NumberCalculationPart"
+       },
+       "__type": "StatBySubPartCalculationPart"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 65536,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "SourceObject": "Characters/Urgot/Spells/UrgotEAbility/UrgotE",
+         "DataValue": "ThrowDistance",
+         "__type": "{9e9e2e5c}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "SourceObject": "Characters/Urgot/Spells/UrgotEAbility/UrgotE",
+         "DataValue": "StunDuration",
+         "__type": "{9e9e2e5c}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "SourceObject": "Characters/Urgot/Spells/UrgotEAbility/UrgotE",
+         "DataValue": "StunDuration",
+         "__type": "{9e9e2e5c}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotRAbility/UrgotREscapedVO": {
+   "ObjectName": "UrgotREscapedVO",
+   "objectPath": "Characters/Urgot/Spells/UrgotRAbility/UrgotREscapedVO",
+   "mScriptName": "UrgotREscapedVO",
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotBasicAttack": {
+   "ObjectName": "UrgotBasicAttack",
+   "objectPath": "Characters/Urgot/Spells/UrgotBasicAttack",
+   "mScriptName": "UrgotBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "castRangeUseBoundingBoxes": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     425,
+     425,
+     425,
+     425,
+     425,
+     425,
+     425
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 150,
+      "mOffsetInitialTargetHeight": 150,
+      "mStartBoneName": "UpperBarrel",
+      "mTargetBoneName": "C_BUFFBONE_GLB_CENTER_LOC",
+      "mSpeed": 2500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 2500,
+    "mMissileEffectKey": "Urgot_BA_mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Urgot_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CENTER_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotPassiveZone4Activating": {
+   "ObjectName": "UrgotPassiveZone4Activating",
+   "objectPath": "Characters/Urgot/Spells/UrgotPassiveZone4Activating",
+   "mScriptName": "UrgotPassiveZone4Activating",
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotPassiveZone6Active": {
+   "ObjectName": "UrgotPassiveZone6Active",
+   "objectPath": "Characters/Urgot/Spells/UrgotPassiveZone6Active",
+   "mScriptName": "UrgotPassiveZone6Active",
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotRSpellPassive": {
+   "ObjectName": "UrgotRSpellPassive",
+   "objectPath": "Characters/Urgot/Spells/UrgotRSpellPassive",
+   "mScriptName": "UrgotRSpellPassive",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_UrgotRFear",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotWTarget": {
+   "ObjectName": "UrgotWTarget",
+   "objectPath": "Characters/Urgot/Spells/UrgotWTarget",
+   "mScriptName": "UrgotWTarget",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_UrgotWTarget",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotQAbility/UrgotQ": {
+   "ObjectName": "UrgotQ",
+   "objectPath": "Characters/Urgot/Spells/UrgotQAbility/UrgotQ",
+   "mScriptName": "UrgotQ",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_Target_Area",
+     "Trait_Low_Damage",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "SlowDuration",
+      "values": [
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmount",
+      "values": [
+       0.4,
+       0.45,
+       0.5,
+       0.55,
+       0.6,
+       0.65,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       -20,
+       25,
+       70,
+       115,
+       160,
+       205,
+       250
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ExplosionDelayPostMissile",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DelayOnMissileLaunch",
+      "values": [
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "WHalterDuration",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AoERadius",
+      "values": [
+       210,
+       210,
+       210,
+       210,
+       210,
+       210,
+       210
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "SWIFTPLAY": {
+      "SpellDataValues": [
+       {
+        "name": "BaseDamage",
+        "values": [
+         -15,
+         25,
+         65,
+         105,
+         145,
+         185,
+         225
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mCoefficient": 0.7,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.7,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     10,
+     10,
+     9.5,
+     9,
+     8.5,
+     8,
+     7.5
+    ],
+    "Cooldown": {
+     "values": [
+      10,
+      10,
+      9.5,
+      9,
+      8.5,
+      8,
+      7.5
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "mOrientRadiusTextureFromPlayer": true,
+    "castRange": [
+     800,
+     800,
+     800,
+     800,
+     800,
+     800,
+     800
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castRadiusSecondary": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 30,
+    "missileSpeed": 0,
+    "mana": [
+     70,
+     70,
+     70,
+     70,
+     70,
+     70
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "SlowDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotQAbility/UrgotQMissile": {
+   "ObjectName": "UrgotQMissile",
+   "objectPath": "Characters/Urgot/Spells/UrgotQAbility/UrgotQMissile",
+   "mScriptName": "UrgotQMissile",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 8192,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mOrientRadiusTextureFromPlayer": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "mMissileSpec": {
+     "movementComponent": {
+      "mStartBoneName": "LowerBarrel",
+      "mTravelTime": 0.2,
+      "__type": "FixedTimeMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "mMissileEffectKey": "Urgot_Q_mis",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotRRecastChannel": {
+   "ObjectName": "UrgotRRecastChannel",
+   "objectPath": "Characters/Urgot/Spells/UrgotRRecastChannel",
+   "mScriptName": "UrgotRRecastChannel",
+   "mSpell": {
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotPassiveZone5Inactive": {
+   "ObjectName": "UrgotPassiveZone5Inactive",
+   "objectPath": "Characters/Urgot/Spells/UrgotPassiveZone5Inactive",
+   "mScriptName": "UrgotPassiveZone5Inactive",
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotPassiveZone2Activating": {
+   "ObjectName": "UrgotPassiveZone2Activating",
+   "objectPath": "Characters/Urgot/Spells/UrgotPassiveZone2Activating",
+   "mScriptName": "UrgotPassiveZone2Activating",
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotRFacing": {
+   "ObjectName": "UrgotRFacing",
+   "objectPath": "Characters/Urgot/Spells/UrgotRFacing",
+   "mScriptName": "UrgotRFacing",
+   "mSpell": {
+    "flags": 4194304,
+    "mAffectsTypeFlags": 4106,
+    "mAffectsStatusFlags": 32,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mCastTime": 1.5,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCanMoveWhileChanneling": true,
+    "alwaysSnapFacing": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castConeDistance": 100,
+    "castFrame": 8.5,
+    "mLookAtPolicy": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotPassiveZone5Active": {
+   "ObjectName": "UrgotPassiveZone5Active",
+   "objectPath": "Characters/Urgot/Spells/UrgotPassiveZone5Active",
+   "mScriptName": "UrgotPassiveZone5Active",
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotEShield": {
+   "ObjectName": "UrgotEShield",
+   "objectPath": "Characters/Urgot/Spells/UrgotEShield",
+   "mScriptName": "UrgotEShield",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_UrgotEShield",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotRRecastMissileLongDistance": {
+   "ObjectName": "UrgotRRecastMissileLongDistance",
+   "objectPath": "Characters/Urgot/Spells/UrgotRRecastMissileLongDistance",
+   "mScriptName": "UrgotRRecastMissileLongDistance",
+   "mSpell": {
+    "flags": 4194468,
+    "mAffectsTypeFlags": 4106,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mDoesntBreakChannels": true,
+    "mShowChannelBar": false,
+    "alwaysSnapFacing": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 80,
+     "movementComponent": {
+      "mStartBoneName": "Root_Body",
+      "mTargetBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+      "mTravelTime": 0.375,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "__type": "FollowTerrainHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8.5,
+    "mMissileEffectKey": "Urgot_R_mis",
+    "mLineWidth": 80,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotRSuppress": {
+   "ObjectName": "UrgotRSuppress",
+   "objectPath": "Characters/Urgot/Spells/UrgotRSuppress",
+   "mScriptName": "UrgotRSuppress",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_UrgotRSuppress",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotPassiveZone1Active": {
+   "ObjectName": "UrgotPassiveZone1Active",
+   "objectPath": "Characters/Urgot/Spells/UrgotPassiveZone1Active",
+   "mScriptName": "UrgotPassiveZone1Active",
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotPassiveZone5Activating": {
+   "ObjectName": "UrgotPassiveZone5Activating",
+   "objectPath": "Characters/Urgot/Spells/UrgotPassiveZone5Activating",
+   "mScriptName": "UrgotPassiveZone5Activating",
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotPassiveZone1Activating": {
+   "ObjectName": "UrgotPassiveZone1Activating",
+   "objectPath": "Characters/Urgot/Spells/UrgotPassiveZone1Activating",
+   "mScriptName": "UrgotPassiveZone1Activating",
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotPassiveZone6Activating": {
+   "ObjectName": "UrgotPassiveZone6Activating",
+   "objectPath": "Characters/Urgot/Spells/UrgotPassiveZone6Activating",
+   "mScriptName": "UrgotPassiveZone6Activating",
+   "__type": "SpellObject"
+  },
+  "Spells/urgotwlockon": {
+   "ObjectName": "urgotwlockon",
+   "objectPath": "Characters/Urgot/Spells/urgotwlockon",
+   "mScriptName": "urgotwlockon",
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotPassiveZone2Inactive": {
+   "ObjectName": "UrgotPassiveZone2Inactive",
+   "objectPath": "Characters/Urgot/Spells/UrgotPassiveZone2Inactive",
+   "mScriptName": "UrgotPassiveZone2Inactive",
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotRRecastMissile": {
+   "ObjectName": "UrgotRRecastMissile",
+   "objectPath": "Characters/Urgot/Spells/UrgotRRecastMissile",
+   "mScriptName": "UrgotRRecastMissile",
+   "mSpell": {
+    "flags": 4194468,
+    "mAffectsTypeFlags": 4106,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "mDoesntBreakChannels": true,
+    "mShowChannelBar": false,
+    "alwaysSnapFacing": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 80,
+     "movementComponent": {
+      "mStartBoneName": "Root_Body",
+      "mTargetBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+      "mAcceleration": 3000,
+      "mMinSpeed": 3000,
+      "mMaxSpeed": 3000,
+      "mInitialSpeed": 3000,
+      "__type": "AcceleratingMovement"
+     },
+     "heightSolver": {
+      "__type": "FollowTerrainHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8.5,
+    "missileSpeed": 3000,
+    "mMissileEffectKey": "Urgot_R_mis",
+    "mLineWidth": 80,
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotPassiveZone4Active": {
+   "ObjectName": "UrgotPassiveZone4Active",
+   "objectPath": "Characters/Urgot/Spells/UrgotPassiveZone4Active",
+   "mScriptName": "UrgotPassiveZone4Active",
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotRFear": {
+   "ObjectName": "UrgotRFear",
+   "objectPath": "Characters/Urgot/Spells/UrgotRFear",
+   "mScriptName": "UrgotRFear",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_UrgotRFear",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotPassiveAbility/UrgotPassive": {
+   "ObjectName": "UrgotPassive",
+   "objectPath": "Characters/Urgot/Spells/UrgotPassiveAbility/UrgotPassive",
+   "mScriptName": "UrgotPassive",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "LegWarningTime",
+      "values": [
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5,
+       2.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "PerLegCD": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 30,
+        "mBreakpoints": [
+         {
+          "mLevel": 6,
+          "mAdditionalBonusAtThisLevel": -10,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 9,
+          "mAdditionalBonusAtThisLevel": -10,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 11,
+          "mAdditionalBonusAtThisLevel": -5,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 13,
+          "mAdditionalBonusAtThisLevel": -2.5,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "mPrecision": 1,
+      "__type": "GameCalculation"
+     },
+     "ADDamage": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mSubpart": {
+         "mLevel1Value": 0.4,
+         "mBreakpoints": [
+          {
+           "mLevel": 6,
+           "mAdditionalBonusAtThisLevel": 0.12,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 9,
+           "mAdditionalBonusAtThisLevel": 0.12,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 11,
+           "mAdditionalBonusAtThisLevel": 0.12,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 13,
+           "mAdditionalBonusAtThisLevel": 0.12,
+           "__type": "Breakpoint"
+          },
+          {
+           "mLevel": 15,
+           "mAdditionalBonusAtThisLevel": 0.12,
+           "__type": "Breakpoint"
+          }
+         ],
+         "__type": "ByCharLevelBreakpointsCalculationPart"
+        },
+        "__type": "StatBySubPartCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "PercentHPRatio": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 0.02,
+        "mBreakpoints": [
+         {
+          "mLevel": 6,
+          "mAdditionalBonusAtThisLevel": 0.01,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 9,
+          "mAdditionalBonusAtThisLevel": 0.01,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 11,
+          "mAdditionalBonusAtThisLevel": 0.01,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 13,
+          "mAdditionalBonusAtThisLevel": 0.01,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "MonsterCap": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 100,
+        "mEndValue": 360,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TriggerRange": {
+      "mFormulaParts": [
+       {
+        "mNumber": 650,
+        "__type": "NumberCalculationPart"
+       },
+       {
+        "mStat": 31,
+        "mStatFormula": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "CastRange": {
+      "mFormulaParts": [
+       {
+        "mNumber": 700,
+        "__type": "NumberCalculationPart"
+       },
+       {
+        "mStat": 31,
+        "mStatFormula": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_UrgotPassive",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotBasicAttack3": {
+   "ObjectName": "UrgotBasicAttack3",
+   "objectPath": "Characters/Urgot/Spells/UrgotBasicAttack3",
+   "mScriptName": "UrgotBasicAttack3",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "castRangeUseBoundingBoxes": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     425,
+     425,
+     425,
+     425,
+     425,
+     425,
+     425
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 150,
+      "mOffsetInitialTargetHeight": 150,
+      "mStartBoneName": "L_Middle1",
+      "mTargetBoneName": "C_BUFFBONE_GLB_CENTER_LOC",
+      "mSpeed": 2500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 2500,
+    "mMissileEffectKey": "Urgot_BA_mis",
+    "mHitEffectKey": "Urgot_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CENTER_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotBasicAttack2": {
+   "ObjectName": "UrgotBasicAttack2",
+   "objectPath": "Characters/Urgot/Spells/UrgotBasicAttack2",
+   "mScriptName": "UrgotBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "castRangeUseBoundingBoxes": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     425,
+     425,
+     425,
+     425,
+     425,
+     425,
+     425
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 150,
+      "mOffsetInitialTargetHeight": 150,
+      "mStartBoneName": "UpperBarrel",
+      "mTargetBoneName": "C_BUFFBONE_GLB_CENTER_LOC",
+      "mSpeed": 2500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 2500,
+    "mMissileEffectKey": "Urgot_BA_mis",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Urgot_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CENTER_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotPassiveZone1Inactive": {
+   "ObjectName": "UrgotPassiveZone1Inactive",
+   "objectPath": "Characters/Urgot/Spells/UrgotPassiveZone1Inactive",
+   "mScriptName": "UrgotPassiveZone1Inactive",
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotRReel": {
+   "ObjectName": "UrgotRReel",
+   "objectPath": "Characters/Urgot/Spells/UrgotRReel",
+   "mScriptName": "UrgotRReel",
+   "mSpell": {
+    "flags": 4194304,
+    "mAffectsTypeFlags": 4106,
+    "mAffectsStatusFlags": 32,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mCastTime": 1.5,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCanMoveWhileChanneling": true,
+    "alwaysSnapFacing": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castConeDistance": 100,
+    "castFrame": 8.5,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotPassiveZone6Inactive": {
+   "ObjectName": "UrgotPassiveZone6Inactive",
+   "objectPath": "Characters/Urgot/Spells/UrgotPassiveZone6Inactive",
+   "mScriptName": "UrgotPassiveZone6Inactive",
+   "__type": "SpellObject"
+  },
+  "Spells/UrgotPassiveZone2Active": {
+   "ObjectName": "UrgotPassiveZone2Active",
+   "objectPath": "Characters/Urgot/Spells/UrgotPassiveZone2Active",
+   "mScriptName": "UrgotPassiveZone2Active",
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/UrgotQAbility/UrgotQ",
+  "Spells/UrgotWAbility/UrgotW",
+  "Spells/UrgotEAbility/UrgotE",
+  "Spells/UrgotRAbility/UrgotR"
+ ],
+ "passiva_ref": "Characters/Urgot/Spells/UrgotPassiveAbility",
+ "passiva_chaves": [
+  "Spells/UrgotPassiveAbility/UrgotPassive"
+ ]
+}

@@ -1,0 +1,3464 @@
+{
+ "id": "Gnar",
+ "key": 150,
+ "nome": "Gnar",
+ "titulo": "o Yordle Pré-Histórico",
+ "funcoes": [
+  "Fighter",
+  "Tank"
+ ],
+ "recurso": "Fúria",
+ "info": {
+  "attack": 6,
+  "defense": 5,
+  "magic": 5,
+  "difficulty": 8
+ },
+ "stats_ddragon": {
+  "hp": 540,
+  "hpperlevel": 79,
+  "mp": 100,
+  "mpperlevel": 0,
+  "movespeed": 335,
+  "armor": 32,
+  "armorperlevel": 3.7,
+  "spellblock": 30,
+  "spellblockperlevel": 1.3,
+  "attackrange": 175,
+  "hpregen": 4.5,
+  "hpregenperlevel": 1.25,
+  "mpregen": 0,
+  "mpregenperlevel": 0,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 60,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 6,
+  "attackspeed": 0.625
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Fúria Genética",
+  "descricao": "Enquanto está em combate, Gnar gera Fúria. Quando atinge o máximo de Fúria, sua próxima habilidade o transformará em Mega-Gnar, concedendo mais condições de sobrevivência e acesso a novas habilidades."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "GnarQ",
+   "nome": "Bumerangue / Pedregulho",
+   "descricao": "Gnar lança um bumerangue que causa dano e Lentidão a inimigos que atinge antes de retornar a ele. Caso apanhe o bumerangue, seu Tempo de Recarga é reduzido.<br><br>Mega Gnar arremessa um pedregulho que para na primeira unidade atingida, causando dano e Lentidão a tudo o que estiver próximo. Em seguida, ele pode ser apanhado para reduzir o Tempo de Recarga.",
+   "tooltip": "<keywordMajor>Mini-Gnar:</keywordMajor> Gnar arremessa um bumerangue que causa <physicalDamage>{{ spell.gnarq:minitotaldamage }} de Dano Físico</physicalDamage> e {{ spell.gnarq:slowamount*100 }}% de <status>Lentidão</status> aos inimigos por {{ spell.gnarq:slowduration }}s. O bumerangue volta depois de atingir um inimigo, causando dano reduzido a alvos subsequentes. Cada inimigo pode ser atingido somente uma vez. Apanhar o bumerangue reduz o Tempo de Recarga em {{ spell.gnarq:minicdrefund*100 }}%.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    16,
+    14.5,
+    13,
+    11.5,
+    10
+   ],
+   "custo": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "tipo_custo": "Sem custo",
+   "alcance": [
+    1100,
+    1100,
+    1100,
+    1100,
+    1100
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "GnarW",
+   "nome": "Hiperativo / Safanão",
+   "descricao": "Os ataques e habilidades de Gnar o animam, causando dano adicional e concedendo Velocidade de Movimento.<br><br>Mega Gnar fica enfurecido demais para ficar hiperativo. Em vez disso, ele pode subir em duas patas e atingir a área à sua frente, atordoando inimigos em área.",
+   "tooltip": "<keywordMajor>Mini-Gnar – Passivo:</keywordMajor> cada terceiro Ataque ou Habilidade contra o mesmo inimigo causa <magicDamage>{{ spell.gnarw:minitotaldamage }} mais {{ spell.gnarw:minipercenthpdamage*100 }}% da Vida máxima como Dano Mágico</magicDamage> e concede <speed>{{ spell.gnarr:rhypermovementspeedpercent }}% de Velocidade de Movimento</speed> que decai ao longo de {{ spell.gnarw:minihasteduration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    7,
+    7,
+    7,
+    7,
+    7
+   ],
+   "custo": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "tipo_custo": "Sem custo",
+   "alcance": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "GnarE",
+   "nome": "Pirueta / Encontrão",
+   "descricao": "Gnar salta em um local e atinge a cabeça de qualquer unidade em que aterrissar, deslocando-se ainda mais.<br><br>Mega Gnar é grande demais para saltar e, em vez disso, aterrissa com força para quebrar o chão, causando dano em área ao seu redor.",
+   "tooltip": "<keywordMajor>Mini-Gnar:</keywordMajor> Gnar dá uma pirueta, recebendo <attackSpeed>{{ spell.gnare:minibas*100 }}% de Velocidade de Ataque</attackSpeed> por {{ spell.gnare:miniasduration }}s. Se Gnar aterrissar em uma unidade, ele dá outra pirueta, indo mais longe. Pular em um inimigo causa <physicalDamage>{{ spell.gnare:minitotaldamage }} de Dano Físico</physicalDamage> e {{ spell.gnare:movespeedmod*-100 }}% de <status>Lentidão</status> por um breve período.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    22,
+    19.5,
+    17,
+    14.5,
+    12
+   ],
+   "custo": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "tipo_custo": "Sem custo",
+   "alcance": [
+    475,
+    475,
+    475,
+    475,
+    475
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "GnarR",
+   "nome": "GNAR!",
+   "descricao": "Mega Gnar joga tudo o que estiver próximo de si em uma direção escolhida, causando dano e Lentidão. Qualquer inimigo que atingir uma parede fica atordoado e recebe dano adicional.",
+   "tooltip": "<keywordMajor>Mini-Gnar – Passivo:</keywordMajor> aumenta a <speed>Velocidade de Movimento</speed> de <spellName>Hiperativo</spellName>.<br /><br /><keywordMajor>Mega-Gnar:</keywordMajor> Gnar arremessa inimigos próximos, <status>Empurrando-os</status> e causando a eles <physicalDamage>{{ damage }} de Dano Físico</physicalDamage> e {{ rslowpercent }}% de <status>Lentidão</status> por {{ rccduration }}s. Inimigos que atingirem um terreno sofrerão <physicalDamage>{{ walldamage }} de Dano Físico</physicalDamage> e serão <status>Atordoados</status>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    90,
+    60,
+    30
+   ],
+   "custo": [
+    0,
+    0,
+    0
+   ],
+   "tipo_custo": "Sem custo",
+   "alcance": [
+    590,
+    590,
+    590
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 540,
+  "vida_nivel": 79,
+  "regen_vida": 0.9,
+  "regen_vida_nivel": 0.25,
+  "dano": 60,
+  "dano_nivel": 3.2,
+  "armadura": 32,
+  "armadura_nivel": 3.7,
+  "rm": 30,
+  "rm_nivel": 1.3,
+  "velocidade_mov": 335,
+  "alcance_ataque": 175,
+  "vel_ataque_base": 0.625,
+  "vel_ataque_razao": 0.625,
+  "vel_ataque_nivel": 6,
+  "dano_critico": 2,
+  "alcance_aquisicao": 600,
+  "raio_selecao": 100,
+  "raio_colisao": 30,
+  "recurso_tipo": 8,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.15399999916553497,
+   "mAttackProbability": 1,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackName": "GnarBasicAttack2",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "GnarBasicAttack3",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.15399999916553497,
+    "mAttackName": "GnarCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Gnar/Spells/GnarQAbility/GnarQ",
+  "Characters/Gnar/Spells/GnarWAbility/GnarW",
+  "Characters/Gnar/Spells/GnarEAbility/GnarE",
+  "Characters/Gnar/Spells/GnarRAbility/GnarR"
+ ],
+ "abilities_ref": [
+  "Characters/Gnar/Spells/GnarQAbility",
+  "Characters/Gnar/Spells/GnarWAbility",
+  "Characters/Gnar/Spells/GnarBigQAbility",
+  "Characters/Gnar/Spells/GnarBigWAbility",
+  "Characters/Gnar/Spells/GnarBigEAbility",
+  "Characters/Gnar/Spells/GnarEAbility",
+  "Characters/Gnar/Spells/GnarRAbility",
+  "Characters/Gnar/Spells/GnarPassiveAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/GnarWAbility/GnarW": {
+   "ObjectName": "GnarW",
+   "objectPath": "Characters/Gnar/Spells/GnarWAbility/GnarW",
+   "mScriptName": "GnarW",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 14346,
+    "mSpellTags": [
+     "Trait_SwapsIntoImmobilizingCCAbility",
+     "Trait_DamageAbility",
+     "Trait_PassiveSlot",
+     "Trait_RecastOrReplaceSpell"
+    ],
+    "DataValues": [
+     {
+      "name": "MiniBaseDamage",
+      "values": [
+       0,
+       0,
+       10,
+       20,
+       30,
+       40,
+       50
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MiniPercentHPDamage",
+      "values": [
+       0.04,
+       0.06,
+       0.08,
+       0.1,
+       0.12,
+       0.14,
+       0.16
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MiniHasteDuration",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MiniMarkDuration",
+      "values": [
+       3.5,
+       3.5,
+       3.5,
+       3.5,
+       3.5,
+       3.5,
+       3.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MiniMonsterCap",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MegaBaseDamage",
+      "values": [
+       15,
+       45,
+       75,
+       105,
+       135,
+       165,
+       195
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MegaStunDuration",
+      "values": [
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MegaLength",
+      "values": [
+       550,
+       550,
+       550,
+       550,
+       550,
+       550,
+       550
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MegaWidth",
+      "values": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MiniMaxStacks",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "MiniHasteDuration",
+        "values": [
+         2,
+         2,
+         2,
+         2,
+         2,
+         2,
+         2
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "MiniBaseDamage",
+        "values": [
+         0,
+         20,
+         30,
+         40,
+         50,
+         60,
+         70
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "MiniPercentHPDamage",
+        "values": [
+         0.08,
+         0.1,
+         0.12,
+         0.14,
+         0.16,
+         0.18,
+         0.2
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "MiniTotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "MiniBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MegaTotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "MegaBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     7,
+     7,
+     7,
+     7,
+     7,
+     7,
+     7
+    ],
+    "Cooldown": {
+     "values": [
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7
+     ],
+     "{0a3e0478}": 7,
+     "__type": "{0a0eddc9}"
+    },
+    "mCharacterPassiveBuffs": [
+     {
+      "mParentPassiveBuff": "Characters/Gnar/Spells/GnarWAbility/GnarW",
+      "__type": "CharacterPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castRadius": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 0,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "SelfAoe"
+    },
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "MiniTotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 2,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "MiniHasteDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarWAbility/GnarWHit": {
+   "ObjectName": "GnarWHit",
+   "objectPath": "Characters/Gnar/Spells/GnarWAbility/GnarWHit",
+   "mScriptName": "GnarWHit",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_GnarWHit",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarWAbility/GnarWProc": {
+   "ObjectName": "GnarWProc",
+   "objectPath": "Characters/Gnar/Spells/GnarWAbility/GnarWProc",
+   "mScriptName": "GnarWProc",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_GnarWProc",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarWAbility/GnarWBuff": {
+   "ObjectName": "GnarWBuff",
+   "objectPath": "Characters/Gnar/Spells/GnarWAbility/GnarWBuff",
+   "mScriptName": "GnarWBuff",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_GnarWBuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarRAbility/GnarR": {
+   "ObjectName": "GnarR",
+   "objectPath": "Characters/Gnar/Spells/GnarRAbility/GnarR",
+   "mScriptName": "GnarR",
+   "mSpell": {
+    "mAffectsTypeFlags": 13327,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_KnockBack",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "RBaseDamage",
+      "values": [
+       100,
+       200,
+       300,
+       400,
+       500,
+       600,
+       700
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RHyperMovementSpeedPercent",
+      "values": [
+       20,
+       40,
+       60,
+       80,
+       100,
+       120,
+       140
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RCCDuration",
+      "values": [
+       1,
+       1.25,
+       1.5,
+       1.75,
+       2,
+       2.25,
+       2.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RAoESize",
+      "values": [
+       475,
+       475,
+       475,
+       475,
+       475,
+       475,
+       475
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RKnockbackDistance",
+      "values": [
+       500,
+       500,
+       500,
+       500,
+       500,
+       500,
+       500
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RSlowPercent",
+      "values": [
+       45,
+       45,
+       45,
+       45,
+       45,
+       45,
+       45
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RWallHitDamageMultiplier",
+      "values": [
+       150,
+       150,
+       150,
+       150,
+       150,
+       150,
+       150
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "RHyperMovementSpeedPercent",
+        "values": [
+         40,
+         80,
+         120,
+         160,
+         200,
+         240,
+         280
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       0,
+       70,
+       50,
+       30,
+       0,
+       0,
+       0
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "Damage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "RBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mCoefficient": 0.5,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "WallDamage": {
+      "mMultiplier": {
+       "mPart1": {
+        "mDataValue": "RWallHitDamageMultiplier",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       "mPart2": {
+        "mNumber": 0.01,
+        "__type": "NumberCalculationPart"
+       },
+       "__type": "ProductOfSubPartsCalculationPart"
+      },
+      "tooltipOnly": true,
+      "mModifiedGameCalculation": "Damage",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "{66185ec4}": {
+     "cherry": {
+      "Calculations": {
+       "Damage": {
+        "mFormulaParts": [
+         {
+          "mCoefficient": 1.5,
+          "__type": "StatByCoefficientCalculationPart"
+         },
+         {
+          "mStat": 2,
+          "mStatFormula": 2,
+          "mCoefficient": 0.5,
+          "__type": "StatByCoefficientCalculationPart"
+         },
+         {
+          "mDataValue": "RBaseDamage",
+          "__type": "NamedDataValueCalculationPart"
+         }
+        ],
+        "__type": "GameCalculation"
+       }
+      },
+      "__type": "{4acf67d2}"
+     }
+    },
+    "mCoefficient": 0.2,
+    "mCoefficient2": 0.5,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     90,
+     60,
+     30,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      90,
+      60,
+      30,
+      0,
+      0,
+      0
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "mPingableWhileDisabled": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRangeDisplayOverride": [
+     590,
+     590,
+     590,
+     590,
+     590,
+     590,
+     590
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 1.98,
+    "missileSpeed": 1200,
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "WallDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "RCCDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "RCCDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "RCCDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "RCCDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4194304,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "RCCDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarRAbility/GnarRKnockback": {
+   "ObjectName": "GnarRKnockback",
+   "objectPath": "Characters/Gnar/Spells/GnarRAbility/GnarRKnockback",
+   "mScriptName": "GnarRKnockback",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_GnarRKnockback",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarRAbility/GnarRKnockbackCC": {
+   "ObjectName": "GnarRKnockbackCC",
+   "objectPath": "Characters/Gnar/Spells/GnarRAbility/GnarRKnockbackCC",
+   "mScriptName": "GnarRKnockbackCC",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_GnarRKnockback",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarQAbility/GnarQ": {
+   "ObjectName": "GnarQ",
+   "objectPath": "Characters/Gnar/Spells/GnarQAbility/GnarQ",
+   "mScriptName": "GnarQ",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 13327,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_RecastOrReplaceSpell",
+     "Trait_SignatureSpell",
+     "Trait_Ranged_Piercing",
+     "Trait_Low_Damage",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "MiniBaseDamage",
+      "values": [
+       5,
+       5,
+       45,
+       85,
+       125,
+       165,
+       205
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowAmount",
+      "values": [
+       0.1,
+       0.15,
+       0.2,
+       0.25,
+       0.3,
+       0.35,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MiniSubsequentMult",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MiniCDRefund",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MiniReturnRange",
+      "values": [
+       3000,
+       3000,
+       3000,
+       3000,
+       3000,
+       3000,
+       3000
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MegaBaseDamage",
+      "values": [
+       45,
+       45,
+       90,
+       135,
+       180,
+       225,
+       270
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MegaPickupAndLolipopRadius",
+      "values": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MegaBoulderLifetime",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MegaCDRefund",
+      "values": [
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MegaAoERadius",
+      "values": [
+       280,
+       280,
+       280,
+       280,
+       280,
+       280,
+       280
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MegaSlowAmount",
+      "values": [
+       0.25,
+       0.3,
+       0.35,
+       0.4,
+       0.45,
+       0.5,
+       0.55
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MegaSlowDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "MiniBaseDamage",
+        "values": [
+         -25,
+         20,
+         65,
+         110,
+         155,
+         200,
+         245
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "SlowAmount",
+        "values": [
+         0.2,
+         0.25,
+         0.3,
+         0.35,
+         0.4,
+         0.45,
+         0.5
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "MegaSlowAmount",
+        "values": [
+         0.35,
+         0.4,
+         0.45,
+         0.5,
+         0.55,
+         0.6,
+         0.65
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       18,
+       14,
+       12.5,
+       11,
+       9.5,
+       8,
+       10
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "MiniTotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "MiniBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mCoefficient": 1.25,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{4b371c72}": {
+      "mMultiplier": {
+       "mDataValue": "MiniSubsequentMult",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mModifiedGameCalculation": "MiniTotalDamage",
+      "__type": "GameCalculationModified"
+     },
+     "MegaTotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "MegaBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mCoefficient": 1.4,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     17.5,
+     16,
+     14.5,
+     13,
+     11.5,
+     10,
+     10
+    ],
+    "Cooldown": {
+     "values": [
+      17.5,
+      16,
+      14.5,
+      13,
+      11.5,
+      10,
+      10
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRangeDisplayOverride": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 1.98,
+    "missileSpeed": 1200,
+    "mMissileEffectKey": "Gnar_Q_Mis_db",
+    "mLineWidth": 55,
+    "mHitBoneName": "C_BUFFBONE_GLB_HEAD_LOC",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "MiniTotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "SlowDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarQAbility/GnarQMissile": {
+   "ObjectName": "GnarQMissile",
+   "objectPath": "Characters/Gnar/Spells/GnarQAbility/GnarQMissile",
+   "mScriptName": "GnarQMissile",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "GnarQ",
+    "mEffectAmount": [
+     {
+      "value": [
+       30,
+       90,
+       150,
+       245,
+       315,
+       440,
+       565
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2.25,
+       2.5,
+       2.75,
+       3,
+       3.25,
+       3.5,
+       3.75
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1.2,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1125,
+     1125,
+     1125,
+     1125,
+     1125,
+     1125,
+     1125
+    ],
+    "castRangeDisplayOverride": [
+     1125,
+     1125,
+     1125,
+     1125,
+     1125,
+     1125,
+     1125
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 300,
+    "mMissileSpec": {
+     "mMissileWidth": 55,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_hand",
+      "mProjectTargetToCastRange": true,
+      "mAcceleration": -3000,
+      "mMinSpeed": 1400,
+      "mMaxSpeed": 2500,
+      "mInitialSpeed": 2500,
+      "__type": "AcceleratingMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 15,
+    "missileSpeed": 2500,
+    "mMissileEffectKey": "Gnar_Q_mis",
+    "mLineWidth": 55,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarQAbility/GnarQSlow": {
+   "ObjectName": "GnarQSlow",
+   "objectPath": "Characters/Gnar/Spells/GnarQAbility/GnarQSlow",
+   "mScriptName": "GnarQSlow",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_GnarQSlow",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarQAbility/GnarQMissileReturn": {
+   "ObjectName": "GnarQMissileReturn",
+   "objectPath": "Characters/Gnar/Spells/GnarQAbility/GnarQMissileReturn",
+   "mScriptName": "GnarQMissileReturn",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 14346,
+    "mAlternateName": "GnarQ",
+    "mEffectAmount": [
+     {
+      "value": [
+       35,
+       55,
+       75,
+       95,
+       115,
+       135,
+       155
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.6,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     11,
+     11,
+     11,
+     11,
+     11,
+     11,
+     11
+    ],
+    "Cooldown": {
+     "values": [
+      11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11
+     ],
+     "{0a3e0478}": 11,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "mProjectTargetToCastRange": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     275,
+     275,
+     275,
+     275,
+     275,
+     275,
+     275
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 75,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mStartBoneName": "root",
+      "mAcceleration": 800,
+      "mMinSpeed": 60,
+      "mMaxSpeed": 2600,
+      "mInitialSpeed": 60,
+      "__type": "AcceleratingMovement"
+     },
+     "visibilityComponent": {
+      "__type": "EnterFOWVisibility"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.5,
+    "missileSpeed": 60,
+    "mMissileEffectKey": "Gnar_Q_mis",
+    "mLineWidth": 75,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarFuryGeneration": {
+   "ObjectName": "GnarFuryGeneration",
+   "objectPath": "Characters/Gnar/Spells/GnarFuryGeneration",
+   "mScriptName": "GnarFuryGeneration",
+   "mBuff": {
+    "mShowDuration": false,
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarPassiveAbility/GnarPassive": {
+   "ObjectName": "GnarPassive",
+   "objectPath": "Characters/Gnar/Spells/GnarPassiveAbility/GnarPassive",
+   "mScriptName": "GnarPassive",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "MegaHealthStartingValue",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MegaHealthEndingValue",
+      "values": [
+       831,
+       831,
+       831,
+       831,
+       831,
+       831,
+       831
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TiredDuration",
+      "values": [
+       15,
+       15,
+       15,
+       15,
+       15,
+       15,
+       15
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "TiredDuration",
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalAttackRange": {
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mEndValue": 100,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalMS": {
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mInitialBonusPerLevel": 1,
+        "mBreakpoints": [
+         {
+          "mLevel": 16,
+          "mBonusPerLevelAtAndAfter": 2,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalAS": {
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mStartValue": 0.055,
+        "mEndValue": 0.99,
+        "mScaleByStatProgressionMultiplier": true,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": 1,
+      "__type": "GameCalculation"
+     },
+     "TotalMegaGnarHealth": {
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "StartDataValue": "MegaHealthStartingValue",
+        "EndDataValue": "MegaHealthEndingValue",
+        "__type": "{ee18a47b}"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalMegaGnarArmor": {
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mStartValue": 3.5,
+        "mEndValue": 54.5,
+        "mScaleByStatProgressionMultiplier": true,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalMegaGnarMR": {
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mStartValue": 3.5,
+        "mEndValue": 63,
+        "mScaleByStatProgressionMultiplier": true,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalMegaGnarAD": {
+      "tooltipOnly": true,
+      "mFormulaParts": [
+       {
+        "mStartValue": 6,
+        "mEndValue": 48.5,
+        "mScaleByStatProgressionMultiplier": true,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_GnarPassive",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarPassiveAbility/GnarTransformSoon": {
+   "ObjectName": "GnarTransformSoon",
+   "objectPath": "Characters/Gnar/Spells/GnarPassiveAbility/GnarTransformSoon",
+   "mScriptName": "GnarTransformSoon",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_GnarTransformSoon",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarPassiveAbility/GnarTransformTired": {
+   "ObjectName": "GnarTransformTired",
+   "objectPath": "Characters/Gnar/Spells/GnarPassiveAbility/GnarTransformTired",
+   "mScriptName": "GnarTransformTired",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_GnarTransformTired",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarPassiveAbility/GnarTransform": {
+   "ObjectName": "GnarTransform",
+   "objectPath": "Characters/Gnar/Spells/GnarPassiveAbility/GnarTransform",
+   "mScriptName": "GnarTransform",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_GnarTransform",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarBigWAbility/GnarBigW": {
+   "ObjectName": "GnarBigW",
+   "objectPath": "Characters/Gnar/Spells/GnarBigWAbility/GnarBigW",
+   "mScriptName": "GnarBigW",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_Target_Directional",
+     "Trait_AoE"
+    ],
+    "mCoefficient": 1,
+    "mCoefficient2": 1,
+    "mCastTime": 0.6,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     7,
+     7,
+     7,
+     7,
+     7,
+     7,
+     7
+    ],
+    "Cooldown": {
+     "values": [
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7
+     ],
+     "{0a3e0478}": 7,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "bIsToggleSpell": true,
+    "mDoNotNeedToFaceTarget": true,
+    "castRange": [
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500,
+     2500
+    ],
+    "castRangeDisplayOverride": [
+     525,
+     525,
+     525,
+     525,
+     525,
+     525,
+     525
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "castFrame": 17,
+    "missileSpeed": 0,
+    "mLineWidth": 80,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.5,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_ZacQ",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "SourceObject": "Characters/Gnar/Spells/GnarWAbility/GnarW",
+       "{3de6ce2d}": "MegaTotalDamage",
+       "__type": "{ba007871}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "SourceObject": "Characters/Gnar/Spells/GnarWAbility/GnarW",
+         "DataValue": "MegaStunDuration",
+         "__type": "{9e9e2e5c}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "SourceObject": "Characters/Gnar/Spells/GnarWAbility/GnarW",
+         "DataValue": "MegaStunDuration",
+         "__type": "{9e9e2e5c}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "SourceObject": "Characters/Gnar/Spells/GnarWAbility/GnarW",
+         "DataValue": "MegaStunDuration",
+         "__type": "{9e9e2e5c}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarRunCycleManager": {
+   "ObjectName": "GnarRunCycleManager",
+   "objectPath": "Characters/Gnar/Spells/GnarRunCycleManager",
+   "mScriptName": "GnarRunCycleManager",
+   "mBuff": {
+    "mShowDuration": false,
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarBasicAttack2": {
+   "ObjectName": "GnarBasicAttack2",
+   "objectPath": "Characters/Gnar/Spells/GnarBasicAttack2",
+   "mScriptName": "GnarBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 24527,
+    "spellCastTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     387.5,
+     387.5,
+     387.5,
+     387.5,
+     387.5,
+     387.5,
+     387.5
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_BUFFBONE_GLB_HAND_LOC",
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Gnar_BA_mis",
+    "mHitEffectKey": "Gnar_BA_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarBasicAttack": {
+   "ObjectName": "GnarBasicAttack",
+   "objectPath": "Characters/Gnar/Spells/GnarBasicAttack",
+   "mScriptName": "GnarBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 24527,
+    "spellCastTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     387.5,
+     387.5,
+     387.5,
+     387.5,
+     387.5,
+     387.5,
+     387.5
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "L_BUFFBONE_GLB_HAND_LOC",
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Gnar_BA_mis",
+    "mHitEffectKey": "Gnar_BA_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarBigQAbility/GnarBigQMissile": {
+   "ObjectName": "GnarBigQMissile",
+   "objectPath": "Characters/Gnar/Spells/GnarBigQAbility/GnarBigQMissile",
+   "mScriptName": "GnarBigQMissile",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mCoefficient": 1.2,
+    "mCastTime": 0.5,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mIsDisabledWhileDead": false,
+    "mProjectTargetToCastRange": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1150,
+     1150,
+     1150,
+     1150,
+     1150,
+     1150,
+     1150
+    ],
+    "castRangeDisplayOverride": [
+     1125,
+     1125,
+     1125,
+     1125,
+     1125,
+     1125,
+     1125
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 55,
+    "mMissileSpec": {
+     "mMissileWidth": 90,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mTargetHeightAugment": -125,
+      "mStartBoneName": "Rock",
+      "mSpeed": 2100,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 10,
+    "missileSpeed": 2100,
+    "mMissileEffectKey": "GnarBig_Q_Rock",
+    "mLineWidth": 90,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarBigQAbility/GnarBigQ": {
+   "ObjectName": "GnarBigQ",
+   "objectPath": "Characters/Gnar/Spells/GnarBigQAbility/GnarBigQ",
+   "mScriptName": "GnarBigQ",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 13327,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_SignatureSpell",
+     "Trait_Ranged_StopsFirstHit",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "MegaBaseDamage",
+      "values": [
+       0,
+       45,
+       90,
+       135,
+       180,
+       225,
+       270
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MegaPickupAndLolipopRadius",
+      "values": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MegaBoulderLifetime",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MegaCDRefund",
+      "values": [
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MegaAoERadius",
+      "values": [
+       280,
+       280,
+       280,
+       280,
+       280,
+       280,
+       280
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MegaSlowAmount",
+      "values": [
+       0.25,
+       0.3,
+       0.35,
+       0.4,
+       0.45,
+       0.5,
+       0.55
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "MegaTotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "MegaBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mCoefficient": 1.4,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     17.5,
+     16,
+     14.5,
+     13,
+     11.5,
+     10,
+     10
+    ],
+    "Cooldown": {
+     "values": [
+      17.5,
+      16,
+      14.5,
+      13,
+      11.5,
+      10,
+      10
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRangeDisplayOverride": [
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100,
+     1100
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 1.98,
+    "missileSpeed": 1200,
+    "mMissileEffectKey": "Gnar_Q_Mis_db",
+    "mLineWidth": 80,
+    "mHitBoneName": "C_BUFFBONE_GLB_HEAD_LOC",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "MegaTotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "SlowDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarStun": {
+   "ObjectName": "GnarStun",
+   "objectPath": "Characters/Gnar/Spells/GnarStun",
+   "mScriptName": "GnarStun",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Stun",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarBigEAbility/GnarBigE": {
+   "ObjectName": "GnarBigE",
+   "objectPath": "Characters/Gnar/Spells/GnarBigEAbility/GnarBigE",
+   "mScriptName": "GnarBigE",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock",
+     "Trait_PlayerSelectedDashDirection",
+     "Trait_DamageAbility",
+     "Trait_Low_Damage",
+     "Trait_AoE"
+    ],
+    "mCoefficient": 6,
+    "mCoefficient2": 6,
+    "mCastTime": 0.25,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     24.5,
+     22,
+     19.5,
+     17,
+     14.5,
+     12,
+     12
+    ],
+    "Cooldown": {
+     "values": [
+      24.5,
+      22,
+      19.5,
+      17,
+      14.5,
+      12,
+      12
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     675,
+     675,
+     675,
+     675,
+     675,
+     675,
+     675
+    ],
+    "castRadius": [
+     350,
+     350,
+     350,
+     350,
+     350,
+     350,
+     350
+    ],
+    "castRadiusSecondary": [
+     175,
+     175,
+     175,
+     175,
+     175,
+     175,
+     175
+    ],
+    "castConeDistance": 100,
+    "castFrame": 20.85,
+    "missileSpeed": 0,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "SourceObject": "Characters/Gnar/Spells/GnarEAbility/GnarE",
+       "{3de6ce2d}": "MegaTotalDamage",
+       "__type": "{ba007871}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "SourceObject": "Characters/Gnar/Spells/GnarEAbility/GnarE",
+         "DataValue": "SlowDuration",
+         "__type": "{9e9e2e5c}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 128,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarCritAttack2": {
+   "ObjectName": "GnarCritAttack2",
+   "objectPath": "Characters/Gnar/Spells/GnarCritAttack2",
+   "mScriptName": "GnarCritAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 24527,
+    "spellCastTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     387.5,
+     387.5,
+     387.5,
+     387.5,
+     387.5,
+     387.5,
+     387.5
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_BUFFBONE_GLB_HAND_LOC",
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Gnar_BA_mis",
+    "mHitEffectKey": "Gnar_BA_Tar",
+    "mAfterEffectKey": "Gnar_Crit_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarEAbility/GnarE": {
+   "ObjectName": "GnarE",
+   "objectPath": "Characters/Gnar/Spells/GnarEAbility/GnarE",
+   "mScriptName": "GnarE",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 23615,
+    "mAffectsStatusFlags": 16,
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock",
+     "Trait_PlayerSelectedDashDirection",
+     "Trait_DamageAbility",
+     "Trait_RecastOrReplaceSpell",
+     "Trait_Low_Damage"
+    ],
+    "DataValues": [
+     {
+      "name": "MinibAS",
+      "values": [
+       0.35,
+       0.4,
+       0.45,
+       0.5,
+       0.55,
+       0.6,
+       0.65
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MiniASDuration",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MiniDamage",
+      "values": [
+       15,
+       50,
+       85,
+       120,
+       155,
+       190,
+       225
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MiniRange",
+      "values": [
+       475,
+       475,
+       475,
+       475,
+       475,
+       475,
+       475
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MiniBounceRange",
+      "values": [
+       525,
+       525,
+       525,
+       525,
+       525,
+       525,
+       525
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MoveSpeedMod",
+      "values": [
+       -0.8,
+       -0.8,
+       -0.8,
+       -0.8,
+       -0.8,
+       -0.8,
+       -0.8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowDuration",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MegaDamage",
+      "values": [
+       45,
+       80,
+       115,
+       150,
+       185,
+       220,
+       255
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MegaRange",
+      "values": [
+       675,
+       675,
+       675,
+       675,
+       675,
+       675,
+       675
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MegaSlowAoE",
+      "values": [
+       200,
+       200,
+       200,
+       200,
+       200,
+       200,
+       200
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MegaDamageAoE",
+      "values": [
+       375,
+       375,
+       375,
+       375,
+       375,
+       375,
+       375
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TravelTime",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MiniTotalDamageHPRatio",
+      "values": [
+       0.06,
+       0.06,
+       0.06,
+       0.06,
+       0.06,
+       0.06,
+       0.06
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MegaTotalDamageHPRatio",
+      "values": [
+       0.06,
+       0.06,
+       0.06,
+       0.06,
+       0.06,
+       0.06,
+       0.06
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "MiniTotalDamageHPRatio",
+        "values": [
+         0.08,
+         0.08,
+         0.08,
+         0.08,
+         0.08,
+         0.08,
+         0.08
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "MegaTotalDamageHPRatio",
+        "values": [
+         0.08,
+         0.08,
+         0.08,
+         0.08,
+         0.08,
+         0.08,
+         0.08
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "MinibAS",
+        "values": [
+         0.45,
+         0.5,
+         0.55,
+         0.6,
+         0.65,
+         0.7,
+         0.75
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       8
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "MiniTotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "MiniDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 12,
+        "mDataValue": "MiniTotalDamageHPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MegaTotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "MegaDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 12,
+        "mDataValue": "MegaTotalDamageHPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 6,
+    "mCoefficient2": 6,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     24.5,
+     22,
+     19.5,
+     17,
+     14.5,
+     12,
+     12
+    ],
+    "Cooldown": {
+     "values": [
+      24.5,
+      22,
+      19.5,
+      17,
+      14.5,
+      12,
+      12
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     475,
+     475,
+     475,
+     475,
+     475,
+     475,
+     475
+    ],
+    "castRadius": [
+     150,
+     150,
+     150,
+     150,
+     150,
+     150,
+     150
+    ],
+    "castConeDistance": 100,
+    "castFrame": 20.85,
+    "missileSpeed": 0,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "MiniTotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 128,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 16,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 16,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 32,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 32,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarEAbility/GnarEAttackSpeed": {
+   "ObjectName": "GnarEAttackSpeed",
+   "objectPath": "Characters/Gnar/Spells/GnarEAbility/GnarEAttackSpeed",
+   "mScriptName": "GnarEAttackSpeed",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_GnarEAttackSpeed",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarRedVfx": {
+   "ObjectName": "GnarRedVfx",
+   "objectPath": "Characters/Gnar/Spells/GnarRedVfx",
+   "mScriptName": "GnarRedVfx",
+   "mBuff": {
+    "mShowDuration": false,
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarBigAttackTower": {
+   "ObjectName": "GnarBigAttackTower",
+   "objectPath": "Characters/Gnar/Spells/GnarBigAttackTower",
+   "mScriptName": "GnarBigAttackTower",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.3161,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     200,
+     200,
+     200,
+     200,
+     200,
+     200,
+     200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "castFrame": 11,
+    "missileSpeed": 347.79999,
+    "mLookAtPolicy": 0,
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "GnarBig_BA_Tower",
+    "bHaveHitBone": true,
+    "mHitBoneName": "Root",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarCritAttack": {
+   "ObjectName": "GnarCritAttack",
+   "objectPath": "Characters/Gnar/Spells/GnarCritAttack",
+   "mScriptName": "GnarCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 24527,
+    "spellCastTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     387.5,
+     387.5,
+     387.5,
+     387.5,
+     387.5,
+     387.5,
+     387.5
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "R_BUFFBONE_GLB_HAND_LOC",
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Gnar_BA_mis",
+    "mHitEffectKey": "Gnar_BA_Tar",
+    "mAfterEffectKey": "Gnar_Crit_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/GnarFuryHigh": {
+   "ObjectName": "GnarFuryHigh",
+   "objectPath": "Characters/Gnar/Spells/GnarFuryHigh",
+   "mScriptName": "GnarFuryHigh",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_GnarFuryHigh",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/GnarQAbility/GnarQ",
+  "Spells/GnarWAbility/GnarW",
+  "Spells/GnarEAbility/GnarE",
+  "Spells/GnarRAbility/GnarR"
+ ],
+ "passiva_ref": "Characters/Gnar/Spells/GnarBigQAbility",
+ "passiva_chaves": [
+  "Spells/GnarBigQAbility/GnarBigQMissile",
+  "Spells/GnarBigQAbility/GnarBigQ"
+ ]
+}

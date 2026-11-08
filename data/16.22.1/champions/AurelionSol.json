@@ -1,0 +1,3889 @@
+{
+ "id": "AurelionSol",
+ "key": 136,
+ "nome": "Aurelion Sol",
+ "titulo": "o Forjador de Estrelas",
+ "funcoes": [
+  "Mage"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 2,
+  "defense": 3,
+  "magic": 8,
+  "difficulty": 7
+ },
+ "stats_ddragon": {
+  "hp": 600,
+  "hpperlevel": 90,
+  "mp": 530,
+  "mpperlevel": 40,
+  "movespeed": 340,
+  "armor": 22,
+  "armorperlevel": 4,
+  "spellblock": 30,
+  "spellblockperlevel": 1.3,
+  "attackrange": 550,
+  "hpregen": 5.5,
+  "hpregenperlevel": 0.55,
+  "mpregen": 8,
+  "mpregenperlevel": 0.75,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 58,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 1.5,
+  "attackspeed": 0.625
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Criador Cósmico",
+  "descricao": "As Habilidades de dano de Aurelion Sol reduzem inimigos a acúmulos de <font color='#3458eb'>Poeira Estelar</font>, melhorando permanentemente cada uma das Habilidades dele. "
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "AurelionSolQ",
+   "nome": "Sopro de Luz",
+   "descricao": "Aurelion Sol canaliza seu hálito de dragão por alguns segundos, causando dano ao primeiro inimigo atingido e espalhando dano reduzido a inimigos próximos. O hálito causará dano adicional para cada segundo que for canalizado diretamente em um inimigo, ficando mais forte à medida que coleta mais Poeira Estelar. Essa habilidade coleta Poeira Estelar se o alvo for um Campeão.",
+   "tooltip": "Aurelion Sol dispara fogo estelar por até {{ maxchannelduration }}s, causando <magicDamage>{{ damagepersecond }} de Dano Mágico</magicDamage> por segundo ao primeiro inimigo atingido e {{ aoemodifier*100 }}% do dano aos inimigos próximos.<br /><br />Cada segundo completo do disparo que atingir o mesmo inimigo causará uma explosão de <magicDamage>{{ burstdamage }} de Dano Mágico</magicDamage> mais <magicDamage>{{ burstbonustruedamagetochamps }} da Vida máxima como Dano Mágico</magicDamage>, além de absorver <span class=\"color3458eb\">{{ qmassstolen }} de Poeira Estelar</span> se for um Campeão.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    3,
+    3,
+    3,
+    3,
+    3
+   ],
+   "custo": [
+    30,
+    35,
+    40,
+    45,
+    50
+   ],
+   "tipo_custo": " de Mana por segundo",
+   "alcance": [
+    750,
+    750,
+    750,
+    750,
+    750
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "AurelionSolW",
+   "nome": "Voo Astral",
+   "descricao": "Aurelion Sol voa sobre terrenos na direção-alvo. Enquanto estiver nesse estado, ele pode conjurar outras habilidades. Sopro de Luz não tem mais Tempo de Recarga ou duração máxima de canalização e causa dano aumentado durante o voo.<br><br>O Tempo de Recarga restante de Voo Astral é reduzido sempre que um Campeão inimigo que sofreu dano recente de Aurelion Sol morre.<br><br>Poeira Estelar aumenta o alcance máximo de Voo Astral.",
+   "tooltip": "Aurelion Sol voa em uma direção. Durante o voo, <spellName>Sopro de Luz</spellName> não tem Tempo de Recarga nem duração máxima de canalização, e o dano fixo é aumentado em {{ truedamagebonus*100 }}%.<br /><br />Eliminações de Campeões em até {{ resetwindow }}s após causar dano a eles restituem {{ tooltiptakedowncooldownmultiplier }}% do Tempo de Recarga desta Habilidade.<br /><br /><recast>Reconjuração:</recast> encerra o voo antecipadamente.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    22,
+    20,
+    18,
+    16,
+    14
+   ],
+   "custo": [
+    50,
+    55,
+    60,
+    65,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1500,
+    1500,
+    1500,
+    1500,
+    1500
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "AurelionSolE",
+   "nome": "Singularidade",
+   "descricao": "Aurelion Sol invoca um buraco negro, causando dano aos inimigos e puxando-os lentamente para o centro. A Habilidade concede Poeira Estelar sempre que um inimigo morre dentro do buraco negro e a cada segundo que um Campeão inimigo passar preso dentro dele. O centro do buraco negro executa inimigos que estiverem com a Vida abaixo de uma determinada porcentagem da Vida máxima. Poeira Estelar aumenta a área e o limiar de execução de Singularidade.",
+   "tooltip": "Aurelion Sol invoca um buraco negro, causando <magicDamage>{{ damagepersecond }} de Dano Mágico</magicDamage> por segundo e <status>Arrastando</status> inimigos em direção ao centro por {{ duration }}s. Inimigos no centro e com menos de <scaleHealth>{{ currentexecutionthreshold }}% de Vida máxima</scaleHealth> morrem instantaneamente.<br /><br />O buraco negro absorve <span class=\"color3458eb\">Poeira Estelar</span> quando inimigos morrem dentro dele e a cada segundo em que há Campeões inimigos dentro da área.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    12,
+    12,
+    12,
+    12,
+    12
+   ],
+   "custo": [
+    90,
+    90,
+    90,
+    90,
+    90
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    750,
+    750,
+    750,
+    750,
+    750
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "AurelionSolR",
+   "nome": "Estrela Cadente/Os Céus Caem",
+   "descricao": "Estrela Cadente: Aurelion Sol faz uma estrela cair na terra. O impacto causa Dano Mágico e atordoa inimigos, além de conceder Poeira Estelar a cada Campeão inimigo atingido. Coletar Poeira Estelar o suficiente faz a próxima Estrela Cadente de Aurelion Sol se tornar Os Céus Caem.<br><br>Os Céus Caem: Aurelion Sol faz cair uma estrela gigante dos céus com zona de impacto e dano aumentados, além de arremessar ao ar os inimigos em vez de atordoá-los. Depois, uma onda de choque se espalha a partir do limite da zona de impacto, causando dano e Lentidão aos inimigos atingidos. Poeira Estelar aumenta a área de impacto tanto de Estrela Cadente quanto de Os Céus Caem.",
+   "tooltip": "Aurelion Sol arranca uma estrela dos céus e a arremessa na Terra, causando <magicDamage>{{ maxdamagetooltip }} de Dano Mágico</magicDamage>, <status>Atordoando</status> inimigos por {{ stunduration }}s e absorvendo <span class=\"color3458eb\">{{ massstolen }} de Poeira Estelar</span> para cada Campeão atingido.<br /><br />Obter <span class=\"color3458eb\">{{ calamitystacks }} de Poeira Estelar</span> transforma a próxima instância de <spellName>Estrela Cadente</spellName> em <spellName>Os Céus Caem</spellName>.<br /><br /><spellName>Os Céus Caem</spellName>: Aurelion Sol arrasta a fúria de uma constelação inteira do cosmo, causando <magicDamage>{{ r2damage }} de Dano Mágico</magicDamage> a uma área maior, <status>Arremessando ao ar</status> inimigos atingidos por {{ stunduration }}s e emitindo uma onda de choque gigantesca que causa <magicDamage>{{ shockwavedamage }} de Dano Mágico</magicDamage> a Campeões e monstros épicos, além de causar <status>Lentidão</status> a todos os inimigos atingidos em {{ shockwaveslow*100 }}% por 1s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    120,
+    110,
+    100
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1250,
+    1250,
+    1250
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 600,
+  "vida_nivel": 90,
+  "regen_vida": 1.1,
+  "regen_vida_nivel": 0.11,
+  "dano": 58,
+  "dano_nivel": 3.2,
+  "armadura": 22,
+  "armadura_nivel": 4,
+  "rm": 30,
+  "rm_nivel": 1.3,
+  "velocidade_mov": 340,
+  "alcance_ataque": 550,
+  "vel_ataque_base": 0.625,
+  "vel_ataque_razao": 0.625,
+  "vel_ataque_nivel": 1.5,
+  "dano_critico": 2,
+  "alcance_aquisicao": 400,
+  "raio_selecao": 150,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackTotalTime": 1.5,
+   "mAttackCastTime": 0.23000000417232513,
+   "mAttackProbability": 1,
+   "__type": "AttackSlotData"
+  },
+  "ataques_criticos": [
+   {
+    "mAttackTotalTime": 1.5,
+    "mAttackCastTime": 0.23000000417232513,
+    "mAttackName": "AurelionSolCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/AurelionSol/Spells/AurelionSolQAbility/AurelionSolQ",
+  "Characters/AurelionSol/Spells/AurelionSolWAbility/AurelionSolW",
+  "Characters/AurelionSol/Spells/AurelionSolEAbility/AurelionSolE",
+  "Characters/AurelionSol/Spells/AurelionSolRAbility/AurelionSolR"
+ ],
+ "abilities_ref": [
+  "Characters/AurelionSol/Spells/AurelionSolQAbility",
+  "Characters/AurelionSol/Spells/AurelionSolWAbility",
+  "Characters/AurelionSol/Spells/AurelionSolEAbility",
+  "Characters/AurelionSol/Spells/AurelionSolRAbility",
+  "Characters/AurelionSol/Spells/AurelionSolPassiveAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/AurelionSolQAbility/AurelionSolQDebuff": {
+   "ObjectName": "AurelionSolQDebuff",
+   "objectPath": "Characters/AurelionSol/Spells/AurelionSolQAbility/AurelionSolQDebuff",
+   "mScriptName": "AurelionSolQDebuff",
+   "mSpell": {
+    "ImgIconPath": "assets/characters/aurelionsol/hud/icons2d/aurelionsolq.dds",
+    "{8958fee2}": {
+     "__type": "{8958fee2}"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_AurelionSolQDebuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AurelionSolQAbility/AurelionSolQ": {
+   "ObjectName": "AurelionSolQ",
+   "objectPath": "Characters/AurelionSol/Spells/AurelionSolQAbility/AurelionSolQ",
+   "mScriptName": "AurelionSolQ",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_ChannelSpell",
+     "Trait_DamageAbility",
+     "Trait_SignatureSpell",
+     "Trait_DoT",
+     "Trait_Ranged_StopsFirstHit",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "AngularDegreesPerSec",
+      "values": [
+       180,
+       180,
+       180,
+       180,
+       180,
+       180,
+       180
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BeamWidth",
+      "values": [
+       140,
+       140,
+       140,
+       140,
+       140,
+       140,
+       140
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxChannelDuration",
+      "values": [
+       3.25,
+       3.25,
+       3.25,
+       3.25,
+       3.25,
+       9999,
+       9999
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BurstAfter",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ManaCostPerSecond",
+      "values": [
+       25,
+       30,
+       35,
+       40,
+       45,
+       50,
+       55
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RankDamagePerSecond",
+      "values": [
+       30,
+       45,
+       60,
+       75,
+       90,
+       105,
+       120
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APPerSecond",
+      "values": [
+       0.55,
+       0.55,
+       0.55,
+       0.55,
+       0.55,
+       0.55,
+       0.55
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RankBurstDamage",
+      "values": [
+       50,
+       60,
+       70,
+       80,
+       90,
+       100,
+       110
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BurstAPRatio",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BeamSegments",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "WProcCooldown",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "QMassStolen",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DistancePerMass",
+      "values": [
+       0.375,
+       0.375,
+       0.375,
+       0.375,
+       0.375,
+       0.375,
+       0.375
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "QMaxHealthTrueDamagePerStack",
+      "values": [
+       0.00031,
+       0.00031,
+       0.00031,
+       0.00031,
+       0.00031,
+       0.00031,
+       0.00031
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MonsterDamageCap",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AOEModifier",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "QMassStolen",
+        "values": [
+         4,
+         4,
+         4,
+         4,
+         4,
+         4,
+         4
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "APPerSecond",
+        "values": [
+         0.6,
+         0.6,
+         0.6,
+         0.6,
+         0.6,
+         0.6,
+         0.6
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "{a110bc47}": {
+      "SpellDataValues": [
+       {
+        "name": "QMassStolen",
+        "values": [
+         4,
+         4,
+         4,
+         4,
+         4,
+         4,
+         4
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "DamagePerSecond": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "RankDamagePerSecond",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APPerSecond",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "BurstDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "RankBurstDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "BurstAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "BurstBonusTrueDamageToChamps": {
+      "mFormulaParts": [
+       {
+        "mBuffName": "{c9372c6b}",
+        "mIconKey": "%i:asolStackIcon%",
+        "mDataValue": "QMaxHealthTrueDamagePerStack",
+        "__type": "BuffCounterByNamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": 1,
+      "__type": "GameCalculation"
+     },
+     "LevelBasedRangeScaling": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 750,
+        "mInitialBonusPerLevel": 10,
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 1.25,
+    "mAnimationLoopName": "Spell1",
+    "spellCastTime": 0.01,
+    "spellTotalTime": 0,
+    "mChannelDuration": [
+     3.25,
+     3.25,
+     3.25,
+     3.25,
+     3.25,
+     3.25,
+     3.25
+    ],
+    "cooldownTime": [
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3
+    ],
+    "Cooldown": {
+     "values": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+     ],
+     "{0a3e0478}": 3,
+     "__type": "{0a0eddc9}"
+    },
+    "mChargeUpdateInterval": 0.1,
+    "mCantCancelWhileWindingUp": true,
+    "mUseChargeChanneling": true,
+    "mDisableCastBar": true,
+    "ShowChannelBarPerSpellLevelOverride": [
+     true,
+     true,
+     true,
+     true,
+     true,
+     false,
+     false
+    ],
+    "mDoNotNeedToFaceTarget": true,
+    "mHideRangeIndicatorWhenCasting": true,
+    "mDoesNotConsumeMana": true,
+    "mDoesNotConsumeCooldown": true,
+    "ShouldReceiveInputEvents": true,
+    "castRange": [
+     750,
+     750,
+     750,
+     750,
+     750,
+     750,
+     750
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "castFrame": 5,
+    "missileSpeed": 1500,
+    "mana": [
+     35,
+     40,
+     45,
+     50,
+     55,
+     60
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "{8958fee2}": {
+     "{ffcbd9e2}": 0.125,
+     "{79a2e7aa}": 0.25,
+     "__type": "{8958fee2}"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.25,
+    "mDimensionBehavior": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_AurelionSolQ",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSubparts": [
+        {
+         "mPart1": {
+          "mSpellCalculationKey": "DamagePerSecond",
+          "__type": "{f3cbe7b2}"
+         },
+         "mPart2": {
+          "mNumber": 1,
+          "__type": "NumberCalculationPart"
+         },
+         "__type": "ProductOfSubPartsCalculationPart"
+        },
+        {
+         "mSpellCalculationKey": "BurstDamage",
+         "__type": "{f3cbe7b2}"
+        },
+        {
+         "mSpellCalculationKey": "BurstBonusTrueDamageToChamps",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "SumOfSubPartsCalculationPart"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AurelionSolRAbility/AurelionSolRPassive": {
+   "ObjectName": "AurelionSolRPassive",
+   "objectPath": "Characters/AurelionSol/Spells/AurelionSolRAbility/AurelionSolRPassive",
+   "mScriptName": "AurelionSolRPassive",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AurelionSolRAbility/AurelionSolR2Shockwave": {
+   "ObjectName": "AurelionSolR2Shockwave",
+   "objectPath": "Characters/AurelionSol/Spells/AurelionSolRAbility/AurelionSolR2Shockwave",
+   "mScriptName": "AurelionSolR2Shockwave",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 4098,
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mDoesntBreakChannels": true,
+    "mIsDisabledWhileDead": false,
+    "mCanMoveWhileChanneling": true,
+    "mIgnoreRangeCheck": true,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AurelionSolRAbility/AurelionSolRMissile": {
+   "ObjectName": "AurelionSolRMissile",
+   "objectPath": "Characters/AurelionSol/Spells/AurelionSolRAbility/AurelionSolRMissile",
+   "mScriptName": "AurelionSolRMissile",
+   "mSpell": {
+    "mAffectsTypeFlags": 6826,
+    "spellTotalTime": 1,
+    "mSpellRevealsChampion": false,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     400000,
+     400000,
+     400000,
+     400000,
+     400000,
+     400000,
+     400000
+    ],
+    "castRadius": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTracksTarget": false,
+      "mTargetHeightAugment": 100,
+      "mStartBoneName": "",
+      "mUseGroundHeightAtTarget": false,
+      "mTravelTime": 1.25,
+      "__type": "FixedTimeMovement"
+     },
+     "visibilityComponent": {
+      "TrailTimeToConsiderForVisibility": 1.25,
+      "__type": "Defaultvisibility"
+     },
+     "heightSolver": {
+      "mGravity": 400,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.96,
+    "mMissileEffectKey": "AurelionSol_R_Mis",
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AurelionSolRAbility/AurelionSolR2": {
+   "ObjectName": "AurelionSolR2",
+   "objectPath": "Characters/AurelionSol/Spells/AurelionSolRAbility/AurelionSolR2",
+   "mScriptName": "AurelionSolR2",
+   "mSpell": {
+    "mAffectsTypeFlags": 16384,
+    "mSpellTags": [
+     "Trait_Ultimate"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       125,
+       200,
+       275,
+       350,
+       425,
+       500,
+       575
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamageCenter",
+      "values": [
+       100,
+       300,
+       500,
+       700,
+       900,
+       1100,
+       1300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatioCenter",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinDamageAtEdge",
+      "values": [
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35,
+       0.35
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinStunAtEdge",
+      "values": [
+       0.33333,
+       0.33333,
+       0.33333,
+       0.33333,
+       0.33333,
+       0.33333,
+       0.33333
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CalamityBaseDamage",
+      "values": [
+       150,
+       250,
+       350,
+       450,
+       550,
+       650,
+       750
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CalamityAPRatio",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CalamityStacks",
+      "values": [
+       50,
+       50,
+       50,
+       50,
+       50,
+       50,
+       50
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StartingRadius",
+      "values": [
+       275,
+       275,
+       275,
+       275,
+       275,
+       275,
+       275
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AreaPerPassiveStacks",
+      "values": [
+       1500,
+       1500,
+       1500,
+       1500,
+       1500,
+       1500,
+       1500
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PI",
+      "values": [
+       3.14159,
+       3.14159,
+       3.14159,
+       3.14159,
+       3.14159,
+       3.14159,
+       3.14159
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "InversePI",
+      "values": [
+       0.31831,
+       0.31831,
+       0.31831,
+       0.31831,
+       0.31831,
+       0.31831,
+       0.31831
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "MaxDamageTooltip": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamageCenter",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatioCenter",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MinDamageTooltip": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{047a61eb}": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "CalamityBaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "CalamityAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{06c03ad2}": {
+      "ResultModifier": 1,
+      "mMultiplier": {
+       "mDataValue": "InversePI",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mPart1": {
+         "mDataValue": "StartingRadius",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        "mPart2": {
+         "mPart1": {
+          "mDataValue": "StartingRadius",
+          "__type": "NamedDataValueCalculationPart"
+         },
+         "mPart2": {
+          "mPart1": {
+           "mNumber": 2,
+           "__type": "NumberCalculationPart"
+          },
+          "mPart2": {
+           "mDataValue": "PI",
+           "__type": "NamedDataValueCalculationPart"
+          },
+          "__type": "ProductOfSubPartsCalculationPart"
+         },
+         "__type": "ProductOfSubPartsCalculationPart"
+        },
+        "__type": "ProductOfSubPartsCalculationPart"
+       },
+       {
+        "mBuffName": "{c9372c6b}",
+        "mIconKey": "%i:asolStackIcon%",
+        "mDataValue": "AreaPerPassiveStacks",
+        "__type": "BuffCounterByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.75,
+    "mCoefficient2": 1.5,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     120,
+     120,
+     110,
+     100,
+     100,
+     100,
+     100
+    ],
+    "Cooldown": {
+     "values": [
+      120,
+      120,
+      110,
+      100,
+      100,
+      100,
+      100
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/AurelionSol/Spells/AurelionSolRAbility/AurelionSolRManager",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     },
+     {
+      "mBuff": "Characters/AurelionSol/Spells/AurelionSolRAbility/AurelionSolRPassive",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "mRemoveWithSpell": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mUseMinimapTargeting": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1250,
+     1250,
+     1250,
+     1250,
+     1250,
+     1250,
+     1250
+    ],
+    "castRadius": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "castRadiusSecondary": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mTargetHeightAugment": 100,
+      "mStartBoneName": "",
+      "mUseGroundHeightAtTarget": false,
+      "mSpeed": 1200,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mHitEffectOrientType": 2,
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.35,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_AurelionSolR2",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "SourceObject": "Characters/AurelionSol/Spells/AurelionSolRAbility/AurelionSolR",
+       "{3de6ce2d}": "R2Damage",
+       "__type": "{ba007871}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "SourceObject": "Characters/AurelionSol/Spells/AurelionSolRAbility/AurelionSolR",
+         "DataValue": "StunDuration",
+         "__type": "{9e9e2e5c}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "SourceObject": "Characters/AurelionSol/Spells/AurelionSolRAbility/AurelionSolR",
+         "DataValue": "StunDuration",
+         "__type": "{9e9e2e5c}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "SourceObject": "Characters/AurelionSol/Spells/AurelionSolRAbility/AurelionSolR",
+         "DataValue": "StunDuration",
+         "__type": "{9e9e2e5c}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mNumber": 1,
+         "__type": "NumberCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AurelionSolRAbility/AurelionSolR2KnockupDebuff": {
+   "ObjectName": "AurelionSolR2KnockupDebuff",
+   "objectPath": "Characters/AurelionSol/Spells/AurelionSolRAbility/AurelionSolR2KnockupDebuff",
+   "mScriptName": "AurelionSolR2KnockupDebuff",
+   "mSpell": {
+    "ImgIconPath": "assets/characters/aurelionsol/hud/icons2d/aurelionsolr2.dds",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_AurelionSolR2Debuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AurelionSolRAbility/AurelionSolRManager": {
+   "ObjectName": "AurelionSolRManager",
+   "objectPath": "Characters/AurelionSol/Spells/AurelionSolRAbility/AurelionSolRManager",
+   "mScriptName": "AurelionSolRManager",
+   "__type": "SpellObject"
+  },
+  "Spells/AurelionSolRAbility/AurelionSolRVacuumBlast": {
+   "ObjectName": "AurelionSolRVacuumBlast",
+   "objectPath": "Characters/AurelionSol/Spells/AurelionSolRAbility/AurelionSolRVacuumBlast",
+   "mScriptName": "AurelionSolRVacuumBlast",
+   "mSpell": {
+    "ImgIconPath": "assets/characters/aurelionsol/hud/icons2d/aurelionsolr1.dds",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_AurelionSolR1Debuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AurelionSolRAbility/AurelionSolR2Missile": {
+   "ObjectName": "AurelionSolR2Missile",
+   "objectPath": "Characters/AurelionSol/Spells/AurelionSolRAbility/AurelionSolR2Missile",
+   "mScriptName": "AurelionSolR2Missile",
+   "mSpell": {
+    "mAffectsTypeFlags": 6826,
+    "spellTotalTime": 1,
+    "mSpellRevealsChampion": false,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     400000,
+     400000,
+     400000,
+     400000,
+     400000,
+     400000,
+     400000
+    ],
+    "castRadius": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTracksTarget": false,
+      "mTargetHeightAugment": 100,
+      "mStartBoneName": "",
+      "mUseGroundHeightAtTarget": false,
+      "mTravelTime": 2,
+      "__type": "FixedTimeMovement"
+     },
+     "visibilityComponent": {
+      "TrailTimeToConsiderForVisibility": 1,
+      "__type": "Defaultvisibility"
+     },
+     "heightSolver": {
+      "mGravity": 400,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.96,
+    "mMissileEffectKey": "AurelionSol_R_Calamity_Mis",
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AurelionSolRAbility/AurelionSolR2ShockwavePush": {
+   "ObjectName": "AurelionSolR2ShockwavePush",
+   "objectPath": "Characters/AurelionSol/Spells/AurelionSolRAbility/AurelionSolR2ShockwavePush",
+   "mScriptName": "AurelionSolR2ShockwavePush",
+   "mSpell": {
+    "ImgIconPath": "assets/characters/aurelionsol/hud/icons2d/aurelionsolr2.dds",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_AurelionSolR2ShockwaveDebuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AurelionSolRAbility/AurelionSolR2SFXMissile": {
+   "ObjectName": "AurelionSolR2SFXMissile",
+   "objectPath": "Characters/AurelionSol/Spells/AurelionSolRAbility/AurelionSolR2SFXMissile",
+   "mScriptName": "AurelionSolR2SFXMissile",
+   "mSpell": {
+    "mAffectsTypeFlags": 6826,
+    "spellTotalTime": 1,
+    "mSpellRevealsChampion": false,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     400000,
+     400000,
+     400000,
+     400000,
+     400000,
+     400000,
+     400000
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTracksTarget": false,
+      "mInferDirectionFromFacingIfNeeded": false,
+      "mUseGroundHeightAtTarget": false,
+      "mTravelTime": 3,
+      "__type": "FixedTimeMovement"
+     },
+     "visibilityComponent": {
+      "TrailTimeToConsiderForVisibility": 1,
+      "__type": "Defaultvisibility"
+     },
+     "behaviors": [
+      {
+       "RenderParticlesAfterDestroy": false,
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "mMissileEffectKey": "AurelionSol_R_Calamity_BlankMis_SFX",
+    "mLookAtPolicy": 0,
+    "mHitEffectOrientType": 0,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AurelionSolRAbility/AurelionSolRAnnouncement": {
+   "ObjectName": "AurelionSolRAnnouncement",
+   "objectPath": "Characters/AurelionSol/Spells/AurelionSolRAbility/AurelionSolRAnnouncement",
+   "mScriptName": "AurelionSolRAnnouncement",
+   "__type": "SpellObject"
+  },
+  "Spells/AurelionSolRAbility/AurelionSolR": {
+   "ObjectName": "AurelionSolR",
+   "objectPath": "Characters/AurelionSol/Spells/AurelionSolRAbility/AurelionSolR",
+   "mScriptName": "AurelionSolR",
+   "mSpell": {
+    "mAffectsTypeFlags": 16384,
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_DamageAbility",
+     "Trait_Target_Area",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "CalamityStacks",
+      "values": [
+       75,
+       75,
+       75,
+       75,
+       75,
+       75,
+       75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StartingRadius",
+      "values": [
+       275,
+       275,
+       275,
+       275,
+       275,
+       275,
+       275
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SkiesDescendStartingRadius",
+      "values": [
+       550,
+       550,
+       550,
+       550,
+       550,
+       550,
+       550
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CalamitySizeBonus",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MassStolen",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       50,
+       150,
+       250,
+       350,
+       450,
+       550,
+       650
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StunDuration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "R2DamageRatio",
+      "values": [
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25,
+       1.25
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShockwaveDamageRatio",
+      "values": [
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ShockwaveSlow",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AreaPerPassiveStack",
+      "values": [
+       900,
+       900,
+       900,
+       900,
+       900,
+       900,
+       900
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PI",
+      "values": [
+       3.14159,
+       3.14159,
+       3.14159,
+       3.14159,
+       3.14159,
+       3.14159,
+       3.14159
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "InversePI",
+      "values": [
+       0.31831,
+       0.31831,
+       0.31831,
+       0.31831,
+       0.31831,
+       0.31831,
+       0.31831
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "{a110bc47}": {
+      "SpellDataValues": [
+       {
+        "name": "MassStolen",
+        "values": [
+         10,
+         10,
+         10,
+         10,
+         10,
+         10,
+         10
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "MaxDamageTooltip": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "R2Damage": {
+      "mMultiplier": {
+       "mDataValue": "R2DamageRatio",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mModifiedGameCalculation": "MaxDamageTooltip",
+      "__type": "GameCalculationModified"
+     },
+     "ShockwaveDamage": {
+      "mMultiplier": {
+       "mDataValue": "ShockwaveDamageRatio",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mModifiedGameCalculation": "MaxDamageTooltip",
+      "__type": "GameCalculationModified"
+     },
+     "{1d7ce9ef}": {
+      "ResultModifier": 1,
+      "mMultiplier": {
+       "mDataValue": "InversePI",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mPart1": {
+         "mDataValue": "StartingRadius",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        "mPart2": {
+         "mPart1": {
+          "mDataValue": "StartingRadius",
+          "__type": "NamedDataValueCalculationPart"
+         },
+         "mPart2": {
+          "mDataValue": "PI",
+          "__type": "NamedDataValueCalculationPart"
+         },
+         "__type": "ProductOfSubPartsCalculationPart"
+        },
+        "__type": "ProductOfSubPartsCalculationPart"
+       },
+       {
+        "mBuffName": "{c9372c6b}",
+        "mIconKey": "%i:asolStackIcon%",
+        "mDataValue": "AreaPerPassiveStack",
+        "__type": "BuffCounterByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.75,
+    "mCoefficient2": 1.5,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     120,
+     120,
+     110,
+     100,
+     100,
+     100,
+     100
+    ],
+    "Cooldown": {
+     "values": [
+      120,
+      120,
+      110,
+      100,
+      100,
+      100,
+      100
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/AurelionSol/Spells/AurelionSolRAbility/AurelionSolRManager",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     },
+     {
+      "mBuff": "Characters/AurelionSol/Spells/AurelionSolRAbility/AurelionSolRPassive",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "mRemoveWithSpell": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mUseMinimapTargeting": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1250,
+     1250,
+     1250,
+     1250,
+     1250,
+     1250,
+     1250
+    ],
+    "castRadius": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "castRadiusSecondary": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mTargetHeightAugment": 100,
+      "mStartBoneName": "",
+      "mUseGroundHeightAtTarget": false,
+      "mSpeed": 1200,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "castFrame": 15,
+    "mHitEffectOrientType": 2,
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.35,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_AurelionSolR1",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "MaxDamageTooltip",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 2048,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 16384,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "StunDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AurelionSolEAbility/AurelionSolEPassive": {
+   "ObjectName": "AurelionSolEPassive",
+   "objectPath": "Characters/AurelionSol/Spells/AurelionSolEAbility/AurelionSolEPassive",
+   "mScriptName": "AurelionSolEPassive",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AurelionSolEAbility/AurelionSolE": {
+   "ObjectName": "AurelionSolE",
+   "objectPath": "Characters/AurelionSol/Spells/AurelionSolEAbility/AurelionSolE",
+   "mScriptName": "AurelionSolE",
+   "mSpell": {
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_DoT",
+     "Trait_Kinematic",
+     "Trait_Target_Area",
+     "Trait_Low_Damage",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "ChampionMassPerSecond",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinionMassDeath",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "LargeMinionCountBonus",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "LargeMonsterCountBonus",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ChampionCountBonus",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "EpicMonsterCountBonus",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StartingRadius",
+      "values": [
+       275,
+       275,
+       275,
+       275,
+       275,
+       275,
+       275
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StartingInnerRadius",
+      "values": [
+       120,
+       120,
+       120,
+       120,
+       120,
+       120,
+       120
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "GrowthBreakPoint",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "StartingGravity",
+      "values": [
+       150,
+       150,
+       150,
+       150,
+       150,
+       150,
+       150
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "NonChampGravity",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "GravityIncPerBreakpoint",
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Duration",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamagePerSecond",
+      "values": [
+       4,
+       10,
+       16,
+       22,
+       28,
+       34,
+       40
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DamageperSecondAPRatio",
+      "values": [
+       0.11,
+       0.12,
+       0.13,
+       0.14,
+       0.15,
+       0.16,
+       0.17
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseExecutionThreshold",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ExecutionGrowthPerBreakpoint",
+      "values": [
+       0.026,
+       0.026,
+       0.026,
+       0.026,
+       0.026,
+       0.026,
+       0.026
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "OuterRadiusAreaPerStack",
+      "values": [
+       900,
+       900,
+       900,
+       900,
+       900,
+       900,
+       900
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "InnerRadiusAreaPerStack",
+      "values": [
+       180,
+       180,
+       180,
+       180,
+       180,
+       180,
+       180
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PI",
+      "values": [
+       3.14159,
+       3.14159,
+       3.14159,
+       3.14159,
+       3.14159,
+       3.14159,
+       3.14159
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "InversePI",
+      "values": [
+       0.31831,
+       0.31831,
+       0.31831,
+       0.31831,
+       0.31831,
+       0.31831,
+       0.31831
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DamageAPRatioTT",
+      "values": [
+       0.55,
+       0.6,
+       0.65,
+       0.7,
+       0.75,
+       0.8,
+       0.85
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "{a110bc47}": {
+      "SpellDataValues": [
+       {
+        "name": "ChampionMassPerSecond",
+        "values": [
+         2,
+         2,
+         2,
+         2,
+         2,
+         2,
+         2
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "MinionMassDeath",
+        "values": [
+         2,
+         2,
+         2,
+         2,
+         2,
+         2,
+         2
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "LargeMinionCountBonus",
+        "values": [
+         4,
+         4,
+         4,
+         4,
+         4,
+         4,
+         4
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "LargeMonsterCountBonus",
+        "values": [
+         4,
+         4,
+         4,
+         4,
+         4,
+         4,
+         4
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "ChampionCountBonus",
+        "values": [
+         4,
+         4,
+         4,
+         4,
+         4,
+         4,
+         4
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "ARAM": {
+      "value": [
+       14,
+       14,
+       14,
+       14,
+       14,
+       14,
+       14
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     "Kiwi": {
+      "value": [
+       14,
+       14,
+       14,
+       14,
+       14,
+       14,
+       14
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "DamagePerSecond": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamagePerSecond",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "DamageperSecondAPRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{b0a79c98}": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "StartingRadius",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mBuffName": "{c9372c6b}",
+        "mCoefficient": 1,
+        "__type": "BuffCounterByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "CurrentExecutionThreshold": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseExecutionThreshold",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mBuffName": "{c9372c6b}",
+        "mIconKey": "%i:asolStackIcon%",
+        "mDataValue": "ExecutionGrowthPerBreakpoint",
+        "__type": "BuffCounterByNamedDataValueCalculationPart"
+       }
+      ],
+      "mPrecision": 1,
+      "__type": "GameCalculation"
+     },
+     "{57c521f0}": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "StartingGravity",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mBuffName": "{c9372c6b}",
+        "mDataValue": "GravityIncPerBreakpoint",
+        "__type": "BuffCounterByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{7741d788}": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 120,
+        "mBreakpoints": [
+         {
+          "mLevel": 6,
+          "mAdditionalBonusAtThisLevel": 10,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 7,
+          "mAdditionalBonusAtThisLevel": 10,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 8,
+          "mAdditionalBonusAtThisLevel": 10,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "LevelBasedRangeScaling": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 750,
+        "mInitialBonusPerLevel": 10,
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{5dfac189}": {
+      "ResultModifier": 1,
+      "mMultiplier": {
+       "mDataValue": "InversePI",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mFormulaParts": [
+       {
+        "mPart1": {
+         "mDataValue": "StartingRadius",
+         "__type": "NamedDataValueCalculationPart"
+        },
+        "mPart2": {
+         "mPart1": {
+          "mDataValue": "StartingRadius",
+          "__type": "NamedDataValueCalculationPart"
+         },
+         "mPart2": {
+          "mDataValue": "PI",
+          "__type": "NamedDataValueCalculationPart"
+         },
+         "__type": "ProductOfSubPartsCalculationPart"
+        },
+        "__type": "ProductOfSubPartsCalculationPart"
+       },
+       {
+        "mBuffName": "{c9372c6b}",
+        "mIconKey": "%i:asolStackIcon%",
+        "mDataValue": "OuterRadiusAreaPerStack",
+        "__type": "BuffCounterByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{94f76880}": {
+      "mMultiplier": {
+       "mNumber": 0.2,
+       "__type": "NumberCalculationPart"
+      },
+      "mModifiedGameCalculation": "{5dfac189}",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "mCastTime": 0.2,
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     12,
+     12,
+     12,
+     12,
+     12,
+     12,
+     12
+    ],
+    "Cooldown": {
+     "values": [
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12
+     ],
+     "{0a3e0478}": 12,
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/AurelionSol/Spells/AurelionSolEAbility/AurelionSolEPassive",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "mRemoveWithSpell": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mChannelIsInterruptedByDisables": false,
+    "mChannelIsInterruptedByAttacking": false,
+    "mDoesntBreakChannels": true,
+    "mProjectTargetToCastRange": true,
+    "castRange": [
+     750,
+     750,
+     750,
+     750,
+     750,
+     750,
+     750
+    ],
+    "castRangeDisplayOverride": [
+     750,
+     750,
+     750,
+     750,
+     750,
+     750,
+     750
+    ],
+    "castRadius": [
+     295,
+     295,
+     295,
+     295,
+     295,
+     295,
+     295
+    ],
+    "castConeDistance": 100,
+    "castTargetAdditionalUnitsRadius": 250,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mSpeed": 2500000,
+      "__type": "FixedSpeedMovement"
+     },
+     "visibilityComponent": {
+      "mPerceptionBubbleRadius": 750,
+      "__type": "Defaultvisibility"
+     },
+     "heightSolver": {
+      "mGravity": 3000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "DestroyOnMovementComplete"
+      },
+      {
+       "mDelayTime": 0.3,
+       "__type": "DelayStart"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.5,
+    "missileSpeed": 1300,
+    "mana": [
+     90,
+     90,
+     90,
+     90,
+     90,
+     90
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.35,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_AurelionSolE",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mPart1": {
+        "mSpellCalculationKey": "DamagePerSecond",
+        "__type": "{f3cbe7b2}"
+       },
+       "mPart2": {
+        "mNumber": 2,
+        "__type": "NumberCalculationPart"
+       },
+       "__type": "ProductOfSubPartsCalculationPart"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "Duration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 1073741824,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSpellCalculationKey": "CurrentExecutionThreshold",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AurelionSolEAbility/AurelionSolEDebuff": {
+   "ObjectName": "AurelionSolEDebuff",
+   "objectPath": "Characters/AurelionSol/Spells/AurelionSolEAbility/AurelionSolEDebuff",
+   "mScriptName": "AurelionSolEDebuff",
+   "mSpell": {
+    "ImgIconPath": "assets/characters/aurelionsol/hud/icons2d/aurelionsole.dds",
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_AurelionSolEDebuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AurelionSolEAbility/AurelionSolEToggle": {
+   "ObjectName": "AurelionSolEToggle",
+   "objectPath": "Characters/AurelionSol/Spells/AurelionSolEAbility/AurelionSolEToggle",
+   "mScriptName": "AurelionSolEToggle",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "AurelionSolE1",
+    "mEffectAmount": [
+     {
+      "value": [
+       20,
+       25,
+       30,
+       35,
+       40,
+       45,
+       50
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       15,
+       60,
+       105,
+       150,
+       195,
+       240,
+       285
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.6,
+    "spellCastTime": 0.425,
+    "spellTotalTime": 0.8,
+    "cooldownTime": [
+     10,
+     10,
+     9.5,
+     9,
+     8.5,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      10,
+      10,
+      9.5,
+      9,
+      8.5,
+      8,
+      8
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "mSpellRevealsChampion": false,
+    "bIsToggleSpell": true,
+    "castRange": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castRadius": [
+     250,
+     250,
+     250,
+     250,
+     250,
+     250,
+     250
+    ],
+    "castConeDistance": 100,
+    "castTargetAdditionalUnitsRadius": 250,
+    "castFrame": 10.005,
+    "missileSpeed": 1400,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AurelionSolPassiveAbility/AurelionSolPassive": {
+   "ObjectName": "AurelionSolPassive",
+   "objectPath": "Characters/AurelionSol/Spells/AurelionSolPassiveAbility/AurelionSolPassive",
+   "mScriptName": "AurelionSolPassive",
+   "mSpell": {
+    "DataValues": [
+     {
+      "name": "QMaxHealthTrueDamagePerStack",
+      "values": [
+       0.00031,
+       0.00031,
+       0.00031,
+       0.00031,
+       0.00031,
+       0.00031,
+       0.00031
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseExecutionThreshold",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ExecutionGrowthPerBreakpoint",
+      "values": [
+       0.026,
+       0.026,
+       0.026,
+       0.026,
+       0.026,
+       0.026,
+       0.026
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "QPassiveScaling": {
+      "mFormulaParts": [
+       {
+        "mBuffName": "{c9372c6b}",
+        "mIconKey": "%i:asolStackIcon%",
+        "mDataValue": "QMaxHealthTrueDamagePerStack",
+        "__type": "BuffCounterByNamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": 1,
+      "__type": "GameCalculation"
+     },
+     "EPassiveScalingExecute": {
+      "mFormulaParts": [
+       {
+        "mBuffName": "{c9372c6b}",
+        "mIconKey": "%i:asolStackIcon%",
+        "mDataValue": "ExecutionGrowthPerBreakpoint",
+        "__type": "BuffCounterByNamedDataValueCalculationPart"
+       }
+      ],
+      "mPrecision": 1,
+      "__type": "GameCalculation"
+     },
+     "ExecuteHealthThreshold": {
+      "mFormulaParts": [
+       {
+        "{a8cb9c14}": true,
+        "mStat": 12,
+        "mSubpart": {
+         "mSubparts": [
+          {
+           "mPart1": {
+            "mDataValue": "BaseExecutionThreshold",
+            "__type": "NamedDataValueCalculationPart"
+           },
+           "mPart2": {
+            "mNumber": 0.01,
+            "__type": "NumberCalculationPart"
+           },
+           "__type": "ProductOfSubPartsCalculationPart"
+          },
+          {
+           "mPart1": {
+            "mSpellCalculationKey": "EPassiveScalingExecute",
+            "__type": "{f3cbe7b2}"
+           },
+           "mPart2": {
+            "mNumber": 0.01,
+            "__type": "NumberCalculationPart"
+           },
+           "__type": "ProductOfSubPartsCalculationPart"
+          }
+         ],
+         "__type": "SumOfSubPartsCalculationPart"
+        },
+        "__type": "StatBySubPartCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/AurelionSol/Spells/AurelionSolPassiveAbility/AurelionSolPassive",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_AurelionSolPassive",
+    "mBuffAttributeFlag": 8,
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AurelionSolWAbility/AurelionSolW": {
+   "ObjectName": "AurelionSolW",
+   "objectPath": "Characters/AurelionSol/Spells/AurelionSolWAbility/AurelionSolW",
+   "mScriptName": "AurelionSolW",
+   "mSpell": {
+    "mAffectsTypeFlags": 7183,
+    "mSpellTags": [
+     "PositiveEffect_MoveBlock",
+     "Trait_PlayerSelectedDashDirection",
+     "Trait_RecastOrReplaceSpell"
+    ],
+    "DataValues": [
+     {
+      "name": "TrueDamageBonus",
+      "values": [
+       0.07,
+       0.08,
+       0.09,
+       0.1,
+       0.11,
+       0.12,
+       0.13
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseMS",
+      "values": [
+       340,
+       340,
+       340,
+       340,
+       340,
+       340,
+       340
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseCruiseMS",
+      "values": [
+       340,
+       340,
+       340,
+       340,
+       340,
+       340,
+       340
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DistancePerMass",
+      "values": [
+       7.5,
+       7.5,
+       7.5,
+       7.5,
+       7.5,
+       7.5,
+       7.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ResetWindow",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TakedownCooldownMultiplier",
+      "values": [
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TooltipTakedownCooldownMultiplier",
+      "values": [
+       90,
+       90,
+       90,
+       90,
+       90,
+       90,
+       90
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FakeCastTime",
+      "values": [
+       0.375,
+       0.375,
+       0.375,
+       0.375,
+       0.375,
+       0.375,
+       0.375
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "OverrideECastRange",
+      "values": [
+       1100,
+       1100,
+       1100,
+       1100,
+       1100,
+       1100,
+       1100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CD",
+      "values": [
+       22,
+       22,
+       20.5,
+       19,
+       17.5,
+       16,
+       16
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "CD",
+        "values": [
+         11,
+         10,
+         9,
+         8,
+         7,
+         6,
+         5
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "DashSpeed": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseMS",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 7,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{70212d39}": {
+      "mMultiplier": {
+       "mNumber": 0.5,
+       "__type": "NumberCalculationPart"
+      },
+      "mModifiedGameCalculation": "{ffd78035}",
+      "__type": "GameCalculationModified"
+     },
+     "{ffd78035}": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseMS",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 7,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{e3ddb2ca}": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 0.8,
+        "mEndValue": 1.2,
+        "mScalePastDefaultMaxLevel": false,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 0.5,
+    "mCoefficient2": 1.5,
+    "spellCastTime": 0.375,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     23.5,
+     22,
+     20.5,
+     19,
+     17.5,
+     16,
+     14.5
+    ],
+    "Cooldown": {
+     "values": [
+      24,
+      22,
+      20,
+      18,
+      16,
+      14,
+      12
+     ],
+     "{0a3e0478}": 24,
+     "__type": "{0a0eddc9}"
+    },
+    "mAmmoUsed": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "mUseMinimapTargeting": true,
+    "mShowChannelBar": false,
+    "castRange": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castRadius": [
+     350,
+     350,
+     350,
+     350,
+     350,
+     350,
+     350
+    ],
+    "castConeDistance": 100,
+    "castFrame": 0.375,
+    "missileSpeed": 828.5,
+    "mana": [
+     50,
+     55,
+     60,
+     65,
+     70,
+     70
+    ],
+    "mTargetingTypeData": {
+     "__type": "LocationClamped"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.35,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_AurelionSolW",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 128,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8192,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AurelionSolWAbility/AurelionSolWToggle": {
+   "ObjectName": "AurelionSolWToggle",
+   "objectPath": "Characters/AurelionSol/Spells/AurelionSolWAbility/AurelionSolWToggle",
+   "mScriptName": "AurelionSolWToggle",
+   "mSpell": {
+    "flags": 36,
+    "mAffectsTypeFlags": 8192,
+    "DataValues": [
+     {
+      "name": "TrueDamageBonus",
+      "values": [
+       0.07,
+       0.08,
+       0.09,
+       0.1,
+       0.11,
+       0.12,
+       0.13
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseMS",
+      "values": [
+       340,
+       340,
+       340,
+       340,
+       340,
+       340,
+       340
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseCruiseMS",
+      "values": [
+       340,
+       340,
+       340,
+       340,
+       340,
+       340,
+       340
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DistancePerMass",
+      "values": [
+       7.5,
+       7.5,
+       7.5,
+       7.5,
+       7.5,
+       7.5,
+       7.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ResetWindow",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TakedownCooldownMultiplier",
+      "values": [
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TooltipTakedownCooldownMultiplier",
+      "values": [
+       90,
+       90,
+       90,
+       90,
+       90,
+       90,
+       90
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FakeCastTime",
+      "values": [
+       0.375,
+       0.375,
+       0.375,
+       0.375,
+       0.375,
+       0.375,
+       0.375
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "OverrideECastRange",
+      "values": [
+       1100,
+       1100,
+       1100,
+       1100,
+       1100,
+       1100,
+       1100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CD",
+      "values": [
+       22,
+       22,
+       20.5,
+       19,
+       17.5,
+       16,
+       16
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "CD",
+        "values": [
+         11,
+         10,
+         9,
+         8,
+         7,
+         6,
+         5
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "DashSpeed": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseMS",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 7,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{70212d39}": {
+      "mMultiplier": {
+       "mNumber": 0.5,
+       "__type": "NumberCalculationPart"
+      },
+      "mModifiedGameCalculation": "{ffd78035}",
+      "__type": "GameCalculationModified"
+     },
+     "{ffd78035}": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseMS",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 7,
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "{e3ddb2ca}": {
+      "mFormulaParts": [
+       {
+        "mStartValue": 0.8,
+        "mEndValue": 1.2,
+        "mScalePastDefaultMaxLevel": false,
+        "__type": "ByCharLevelInterpolationCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.375,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mAmmoUsed": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "canCastOrQueueWhileCasting": true,
+    "mCantCancelWhileWindingUp": true,
+    "cantCastWhileRooted": true,
+    "mShowChannelBar": false,
+    "mDoesNotConsumeMana": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castRadius": [
+     350,
+     350,
+     350,
+     350,
+     350,
+     350,
+     350
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "missileSpeed": 828.5,
+    "mLookAtPolicy": 0,
+    "mHitEffectOrientType": 0,
+    "mTargetingTypeData": {
+     "__type": "LocationClamped"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.35,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_AurelionSolW",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 128,
+      "EffectCalculation": {
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8192,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AurelionSolBasicAttack": {
+   "ObjectName": "AurelionSolBasicAttack",
+   "objectPath": "Characters/AurelionSol/Spells/AurelionSolBasicAttack",
+   "mScriptName": "AurelionSolBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "mAlternateName": "KarmaBasicAttack",
+    "spellCastTime": 0.32575,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "C_Buffbone_Glb_Head_Loc",
+      "mAcceleration": -15000,
+      "mMinSpeed": 1500,
+      "mMaxSpeed": 4000,
+      "mInitialSpeed": 4000,
+      "__type": "AcceleratingMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.75,
+    "missileSpeed": 4000,
+    "mMissileEffectKey": "AurelionSol_BA_Mis",
+    "mHitEffectKey": "AurelionSol_BA_tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/AurelionSolCritAttack": {
+   "ObjectName": "AurelionSolCritAttack",
+   "objectPath": "Characters/AurelionSol/Spells/AurelionSolCritAttack",
+   "mScriptName": "AurelionSolCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 7375,
+    "mAlternateName": "KarmaBasicAttack",
+    "spellCastTime": 0.32575,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "castRange": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "C_Buffbone_Glb_Head_Loc",
+      "mAcceleration": -15000,
+      "mMinSpeed": 1500,
+      "mMaxSpeed": 4000,
+      "mInitialSpeed": 4000,
+      "__type": "AcceleratingMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.75,
+    "missileSpeed": 4000,
+    "mMissileEffectKey": "AurelionSol_BA_Mis",
+    "mHitEffectKey": "AurelionSol_BA_Crit_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/AurelionSolQAbility/AurelionSolQ",
+  "Spells/AurelionSolWAbility/AurelionSolW",
+  "Spells/AurelionSolEAbility/AurelionSolE",
+  "Spells/AurelionSolRAbility/AurelionSolR"
+ ],
+ "passiva_ref": "Characters/AurelionSol/Spells/AurelionSolPassiveAbility",
+ "passiva_chaves": [
+  "Spells/AurelionSolPassiveAbility/AurelionSolPassive"
+ ]
+}

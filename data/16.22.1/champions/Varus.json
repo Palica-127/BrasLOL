@@ -1,0 +1,5609 @@
+{
+ "id": "Varus",
+ "key": 110,
+ "nome": "Varus",
+ "titulo": "a Flecha da Vingança",
+ "funcoes": [
+  "Marksman",
+  "Mage"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 7,
+  "defense": 3,
+  "magic": 4,
+  "difficulty": 2
+ },
+ "stats_ddragon": {
+  "hp": 600,
+  "hpperlevel": 105,
+  "mp": 320,
+  "mpperlevel": 40,
+  "movespeed": 330,
+  "armor": 24,
+  "armorperlevel": 4,
+  "spellblock": 33,
+  "spellblockperlevel": 1.1,
+  "attackrange": 575,
+  "hpregen": 3.5,
+  "hpregenperlevel": 0.55,
+  "mpregen": 8,
+  "mpregenperlevel": 0.8,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 59,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 3.5,
+  "attackspeed": 0.658
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Vingança Viva",
+  "descricao": "Ao conseguir um abate ou assistência, Varus recebe Dano de Ataque e Poder de Habilidade temporariamente. O efeito é maior se o inimigo for um Campeão."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "VarusQ",
+   "nome": "Flecha Perfurante",
+   "descricao": "Varus prepara um poderoso disparo, que ganha alcance e dano extra quanto mais demorar para ser lançado.",
+   "tooltip": "<attention>Início do carregamento:</attention> Varus prepara o próximo disparo, sofrendo {{ movespeedmod*-100 }}% de <status>Lentidão</status>. Após {{ maxchannelduration }}s, se não realizar o disparo, Varus cancelará a Habilidade e restituirá {{ manarefund*100 }}% do Custo de Mana dela.<br /><br /><attention>Soltar:</attention> Varus dispara a flecha, causando <physicalDamage>{{ totaldamagemin }} de Dano Físico</physicalDamage>, que diminui em {{ falloffpercent*100 }}% por inimigo atingido (mínimo de {{ mindamagepercent*100 }}%). O dano e os efeitos de detonação de <keywordMajor>Arruinar</keywordMajor> aumentam em até {{ maxchannelamp*100 }}% dependendo do tempo de carregamento (até <physicalDamage>{{ totaldamagemax }} de Dano Físico</physicalDamage>).{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    16,
+    15,
+    14,
+    13,
+    12
+   ],
+   "custo": [
+    50,
+    55,
+    60,
+    65,
+    70
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    925,
+    925,
+    925,
+    925,
+    925
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "VarusW",
+   "nome": "Aljava da Ruína",
+   "descricao": "Passivo: Os ataques básicos de Varus causam Dano Mágico adicional e aplicam Arruinar. As outras habilidades de Varus detonam os acúmulos de Arruinar, causando Dano Mágico com base na Vida máxima do alvo. Ativo: Varus fortalece sua próxima Flecha Perfurante.",
+   "tooltip": "<spellPassive>Passivo: </spellPassive>os Ataques de Varus causam <magicDamage>{{ onhitdamage }} de Dano Mágico adicional</magicDamage> e aplicam um acúmulo de <keywordMajor>Arruinar</keywordMajor> por {{ debuffduration }}s (máx. de {{ maxstacks }} acúmulos).<br /><br />As outras Habilidades de Varus detonam os acúmulos de <keywordMajor>Arruinar</keywordMajor>, causando <magicDamage>{{ percenthpperstack }} da Vida máxima como Dano Mágico</magicDamage> por acúmulo (máximo de <magicDamage>{{ maxpercenthpperstack }} de dano com base na Vida máxima</magicDamage>). Detonar <keywordMajor>Arruinar</keywordMajor> em Campeões e monstros épicos também reduz os Tempos de Recarga das Habilidades básicas em {{ cdrperblightstack*100 }}% do Máximo a cada acúmulo.<br /><br /><spellActive>Ativo:</spellActive> a próxima <spellName>Flecha Perfurante</spellName> de Varus causa <magicDamage>{{ qempowerpercenthp }} da Vida perdida como Dano Mágico</magicDamage> adicional, podendo aumentar até <magicDamage>{{ maxqempowerpercenthp }} de dano com base na Vida perdida</magicDamage> dependendo do tempo de carregamento.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ],
+   "custo": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "tipo_custo": "Sem custo",
+   "alcance": [
+    750,
+    750,
+    750,
+    750,
+    750
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "VarusE",
+   "nome": "Chuva de Flechas",
+   "descricao": "Varus dispara uma chuva de flechas que causa Dano Físico e profana o terreno. Terrenos profanados reduzem a Velocidade de Movimento, autocura e regeneração dos inimigos.",
+   "tooltip": "Varus dispara uma chuva de flechas que causa <physicalDamage>{{ totaldamage }} de Dano Físico</physicalDamage> e profana o terreno por {{ groundduration }}s, causando {{ slowpercent*-100 }}% de <status>Lentidão</status> e aplicando {{ grievousamount*100 }}% de Feridas Dolorosas.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    18,
+    16,
+    14,
+    12,
+    10
+   ],
+   "custo": [
+    90,
+    90,
+    90,
+    90,
+    90
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    925,
+    925,
+    925,
+    925,
+    925
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "4",
+    "0",
+    "300",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "VarusR",
+   "nome": "Corrente da Corrupção",
+   "descricao": "Varus lança um tentáculo de corrupção que causa dano e imobiliza o primeiro Campeão inimigo atingido, espalhando-se ainda para os Campeões inimigos próximos que ainda não estiverem infectados, imobilizando-os ao contato.",
+   "tooltip": "Varus lança um tentáculo de corrupção, <status>Enraizando</status> o primeiro Campeão atingido por {{ rootduration }}s e causando a ele <magicDamage>{{ totaldamage }} de Dano Mágico</magicDamage>. Inimigos <status>Enraizados</status> recebem {{ passivestacks }} acúmulos de <keywordMajor>Arruinar</keywordMajor> ao longo da duração.<br /><br />A corrupção se espalha do alvo original para Campeões inimigos não infectados. Caso os alcance, eles sofrem o mesmo dano e são <status>Enraizados</status>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    100,
+    80,
+    60
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    1300,
+    1300,
+    1300
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "150/250/350",
+    "2",
+    "650",
+    "3",
+    "0.5",
+    "600",
+    "1.75",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 600,
+  "vida_nivel": 105,
+  "regen_vida": 0.7,
+  "regen_vida_nivel": 0.11,
+  "dano": 59,
+  "dano_nivel": 3.4,
+  "armadura": 24,
+  "armadura_nivel": 4,
+  "rm": 33,
+  "rm_nivel": 1.1,
+  "velocidade_mov": 330,
+  "alcance_ataque": 575,
+  "vel_ataque_base": 0.658,
+  "vel_ataque_razao": 0.658,
+  "vel_ataque_nivel": 3.5,
+  "dano_critico": 2,
+  "alcance_aquisicao": 600,
+  "raio_selecao": 120,
+  "raio_colisao": 35,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackDelayCastOffsetPercent": -0.12456140667200089,
+   "mAttackProbability": 0.5,
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackProbability": 0.5,
+    "mAttackName": "VarusBasicAttack2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackDelayCastOffsetPercent": -0.12456140667200089,
+    "mAttackName": "VarusCritAttack",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Varus/Spells/VarusQAbility/VarusQ",
+  "Characters/Varus/Spells/VarusWAbility/VarusW",
+  "Characters/Varus/Spells/VarusEAbility/VarusE",
+  "Characters/Varus/Spells/VarusRAbility/VarusR"
+ ],
+ "abilities_ref": [
+  "Characters/Varus/Spells/VarusQAbility",
+  "Characters/Varus/Spells/VarusWAbility",
+  "Characters/Varus/Spells/VarusEAbility",
+  "Characters/Varus/Spells/VarusRAbility",
+  "Characters/Varus/Spells/VarusPassiveAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/VarusEAbility/VarusE": {
+   "ObjectName": "VarusE",
+   "objectPath": "Characters/Varus/Spells/VarusEAbility/VarusE",
+   "mScriptName": "VarusE",
+   "mSpell": {
+    "mAffectsTypeFlags": 1029,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "VarusE",
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_AoE"
+    ],
+    "mEffectAmount": [
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "GrievousAmount",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "GrievousDuration",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BonusADRatio",
+      "values": [
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9,
+       0.9
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BaseDamage",
+      "values": [
+       30,
+       60,
+       90,
+       120,
+       150,
+       180,
+       210
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "SlowPercent",
+      "values": [
+       -0.25,
+       -0.3,
+       -0.35,
+       -0.4,
+       -0.45,
+       -0.5,
+       -0.55
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AoERange",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DebuffDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "GroundDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "BonusADRatio",
+        "values": [
+         1.1,
+         1.1,
+         1.1,
+         1.1,
+         1.1,
+         1.1,
+         1.1
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       14,
+       14,
+       12,
+       10,
+       8,
+       6,
+       6
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "BonusADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "{66185ec4}": {
+     "cherry": {
+      "Calculations": {
+       "TotalDamage": {
+        "mFormulaParts": [
+         {
+          "mDataValue": "BaseDamage",
+          "__type": "NamedDataValueCalculationPart"
+         },
+         {
+          "mStat": 2,
+          "mStatFormula": 2,
+          "mDataValue": "BonusADRatio",
+          "__type": "StatByNamedDataValueCalculationPart"
+         },
+         {
+          "mCoefficient": 0.5,
+          "__type": "StatByCoefficientCalculationPart"
+         }
+        ],
+        "__type": "GameCalculation"
+       }
+      },
+      "__type": "{4acf67d2}"
+     }
+    },
+    "mCastTime": 0.2419,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     18,
+     18,
+     16,
+     14,
+     12,
+     10,
+     10
+    ],
+    "Cooldown": {
+     "values": [
+      18,
+      18,
+      16,
+      14,
+      12,
+      10,
+      10
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "mSpellRevealsChampion": false,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     925,
+     925,
+     925,
+     925,
+     925,
+     925,
+     925
+    ],
+    "castRadius": [
+     270,
+     270,
+     270,
+     270,
+     270,
+     270,
+     270
+    ],
+    "castConeDistance": 100,
+    "castTargetAdditionalUnitsRadius": 225,
+    "castFrame": 7.5,
+    "missileSpeed": 1750,
+    "mMissileEffectKey": "Varus_E_mis_DW_01",
+    "mana": [
+     90,
+     90,
+     90,
+     90,
+     90,
+     90
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "AreaClamped"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusEAbility/VarusEMissileDummyMedium": {
+   "ObjectName": "VarusEMissileDummyMedium",
+   "objectPath": "Characters/Varus/Spells/VarusEAbility/VarusEMissileDummyMedium",
+   "mScriptName": "VarusEMissileDummyMedium",
+   "mSpell": {
+    "flags": 4194304,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "UrgotPlasmaGrenadeBoom",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mStartBoneName": "Root",
+      "mTravelTime": 0.65,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "mGravity": 7000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1500,
+    "mMissileEffectName": "doesnotexist.troy",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusEAbility/VarusESlow": {
+   "ObjectName": "VarusESlow",
+   "objectPath": "Characters/Varus/Spells/VarusEAbility/VarusESlow",
+   "mScriptName": "VarusESlow",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_Slow",
+    "mShowDuration": false,
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusEAbility/VarusEMissileDummy": {
+   "ObjectName": "VarusEMissileDummy",
+   "objectPath": "Characters/Varus/Spells/VarusEAbility/VarusEMissileDummy",
+   "mScriptName": "VarusEMissileDummy",
+   "mSpell": {
+    "flags": 4194304,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "UrgotPlasmaGrenadeBoom",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mStartBoneName": "Root",
+      "mTravelTime": 0.65,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "mGravity": 8000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1500,
+    "mMissileEffectName": "doesnotexist.troy",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusRRoot": {
+   "ObjectName": "VarusRRoot",
+   "objectPath": "Characters/Varus/Spells/VarusRRoot",
+   "mScriptName": "VarusRRoot",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_VarusRRoot",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusRunSpeed": {
+   "ObjectName": "VarusRunSpeed",
+   "objectPath": "Characters/Varus/Spells/VarusRunSpeed",
+   "mScriptName": "VarusRunSpeed",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusPassiveTracker": {
+   "ObjectName": "VarusPassiveTracker",
+   "objectPath": "Characters/Varus/Spells/VarusPassiveTracker",
+   "mScriptName": "VarusPassiveTracker",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusPassiveBuffDisplay": {
+   "ObjectName": "VarusPassiveBuffDisplay",
+   "objectPath": "Characters/Varus/Spells/VarusPassiveBuffDisplay",
+   "mScriptName": "VarusPassiveBuffDisplay",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 4106,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mEffectAmount": [
+     {
+      "value": [
+       35,
+       80,
+       125,
+       170,
+       215,
+       260,
+       305
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.6,
+    "spellCastTime": 0.425,
+    "spellTotalTime": 0.8,
+    "cooldownTime": [
+     60,
+     60,
+     60,
+     60,
+     60,
+     60,
+     60
+    ],
+    "Cooldown": {
+     "values": [
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60
+     ],
+     "{0a3e0478}": 60,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "canOnlyCastWhileDead": true,
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castConeDistance": 100,
+    "castFrame": 13.34,
+    "missileSpeed": 1600,
+    "mMissileEffectKey": "Varus_P_mis_DFG_01",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_VarusPassiveBuffDisplay",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusQLaunch": {
+   "ObjectName": "VarusQLaunch",
+   "objectPath": "Characters/Varus/Spells/VarusQLaunch",
+   "mScriptName": "VarusQLaunch",
+   "mSpell": {
+    "flags": 36,
+    "mAffectsTypeFlags": 13327,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "VarusQ",
+    "mEffectAmount": [
+     {
+      "value": [
+       10,
+       60,
+       110,
+       160,
+       210,
+       260,
+       310
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       50,
+       50,
+       50,
+       50,
+       50,
+       50,
+       50
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       55,
+       60,
+       65,
+       70,
+       75,
+       80,
+       85
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     13,
+     12,
+     11,
+     10,
+     9,
+     8,
+     8
+    ],
+    "Cooldown": {
+     "values": [
+      13,
+      12,
+      11,
+      10,
+      9,
+      8,
+      8
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRangeDisplayOverride": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1200,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 1.98,
+    "missileSpeed": 1200,
+    "mLineWidth": 120,
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusQMissile": {
+   "ObjectName": "VarusQMissile",
+   "objectPath": "Characters/Varus/Spells/VarusQMissile",
+   "mScriptName": "VarusQMissile",
+   "mSpell": {
+    "flags": 32,
+    "mAffectsTypeFlags": 6154,
+    "mAlternateName": "VarusQ",
+    "mEffectAmount": [
+     {
+      "value": [
+       75,
+       250,
+       425,
+       600,
+       0,
+       0,
+       175
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 125,
+    "mMissileSpec": {
+     "mMissileWidth": 70,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "root",
+      "mSpeed": 1900,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 15,
+    "missileSpeed": 1900,
+    "mLineWidth": 70,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusBasicAttack2": {
+   "ObjectName": "VarusBasicAttack2",
+   "objectPath": "Characters/Varus/Spells/VarusBasicAttack2",
+   "mScriptName": "VarusBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "VayneBasicAttack",
+    "spellCastTime": 0.485,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "r_finger",
+      "mStartBoneSkinOverrides": {
+       "53": "L_Thumb1"
+      },
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Varus_BA_mis",
+    "mHitEffectKey": "Varus_BA_hit",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusWAbility/VarusW": {
+   "ObjectName": "VarusW",
+   "objectPath": "Characters/Varus/Spells/VarusWAbility/VarusW",
+   "mScriptName": "VarusW",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 13327,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "VarusW",
+    "DataValues": [
+     {
+      "name": "VarusWDebuffDuration",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "VarusWMaxStacks",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxMonsterDamage",
+      "values": [
+       120,
+       120,
+       120,
+       120,
+       120,
+       120,
+       120
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "BasePercentHPPerStack",
+      "values": [
+       0.02,
+       0.025,
+       0.03,
+       0.035,
+       0.04,
+       0.045,
+       0.05
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "QEmpowerMonsterCap",
+      "values": [
+       360,
+       360,
+       360,
+       360,
+       360,
+       360,
+       360
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "VarusWOnHitDamage",
+      "values": [
+       -2,
+       4,
+       10,
+       16,
+       22,
+       28,
+       34
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CDRPerBlightStack",
+      "values": [
+       0.11,
+       0.11,
+       0.11,
+       0.11,
+       0.11,
+       0.11,
+       0.11
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "VarusWMaxChargeHPDamage",
+      "values": [
+       1.7,
+       1.7,
+       1.7,
+       1.7,
+       1.7,
+       1.7,
+       1.7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "OnHitRatio",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "OnHitADRatio",
+      "values": [
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "WQHealthDamage",
+      "values": [
+       0.05,
+       0.06,
+       0.07,
+       0.08,
+       0.09,
+       0.1,
+       0.11
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DebuffDuration",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxStacks",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       20,
+       20,
+       20,
+       20,
+       20,
+       20,
+       20
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "PercentHPPerStack": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BasePercentHPPerStack",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mSubpart": {
+         "mPart1": {
+          "mNumber": 0.01,
+          "__type": "NumberCalculationPart"
+         },
+         "mPart2": {
+          "mNumber": 0.014,
+          "__type": "NumberCalculationPart"
+         },
+         "__type": "ProductOfSubPartsCalculationPart"
+        },
+        "__type": "StatBySubPartCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": 1,
+      "__type": "GameCalculation"
+     },
+     "QEmpowerPercentHP": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "WQHealthDamage",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "OnHitDamage": {
+      "DamageType": 1,
+      "mFormulaParts": [
+       {
+        "mDataValue": "VarusWOnHitDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "OnHitRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "OnHitADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MaxPercentHPPerStack": {
+      "mMultiplier": {
+       "mNumber": 3,
+       "__type": "NumberCalculationPart"
+      },
+      "tooltipOnly": true,
+      "mModifiedGameCalculation": "PercentHPPerStack",
+      "__type": "GameCalculationModified"
+     },
+     "MaxQEmpowerPercentHP": {
+      "mMultiplier": {
+       "mDataValue": "VarusWMaxChargeHPDamage",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mModifiedGameCalculation": "QEmpowerPercentHP",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "LastHitData": [
+     {
+      "{6166b756}": "OnHitDamage",
+      "Requirements": [
+       {
+        "level": 1,
+        "__type": "SpellSlotEqualOrGreaterThanLevelRequirement"
+       }
+      ],
+      "__type": "LastHitData"
+     }
+    ],
+    "mKeywordWhenAcquired": "VarusW",
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     40,
+     40,
+     40,
+     40,
+     40,
+     40,
+     40
+    ],
+    "Cooldown": {
+     "values": [
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40
+     ],
+     "{0a3e0478}": 40,
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Varus/Spells/VarusWAbility/VarusW",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mDoesntBreakChannels": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRangeDisplayOverride": [
+     750,
+     750,
+     750,
+     750,
+     750,
+     750,
+     750
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 1.98,
+    "missileSpeed": 1200,
+    "mLineWidth": 50,
+    "mHitBoneName": "head",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_VarusW",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mDataValue": "MaxMonsterDamage",
+       "__type": "NamedDataValueCalculationPart"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusRMissile": {
+   "ObjectName": "VarusRMissile",
+   "objectPath": "Characters/Varus/Spells/VarusRMissile",
+   "mScriptName": "VarusRMissile",
+   "mSpell": {
+    "mAffectsTypeFlags": 4106,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "VarusR",
+    "mCastTime": 0.251,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1250,
+     1250,
+     1250,
+     1250,
+     1250,
+     1250,
+     1250
+    ],
+    "castRangeDisplayOverride": [
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200,
+     1200
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Buffbone_glb_channel_loc",
+      "mStartBoneSkinOverrides": {
+       "53": "C_BUFFBONE_GLB_HEAD_LOC"
+      },
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 1500,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.53,
+    "missileSpeed": 1950,
+    "mMissileEffectKey": "Varus_R_Mis",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusRTooltip": {
+   "ObjectName": "VarusRTooltip",
+   "objectPath": "Characters/Varus/Spells/VarusRTooltip",
+   "mScriptName": "VarusRTooltip",
+   "mSpell": {
+    "mAffectsTypeFlags": 4106,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mEffectAmount": [
+     {
+      "value": [
+       100,
+       175,
+       250,
+       325,
+       0,
+       0,
+       75
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.5,
+       1,
+       1.5,
+       2,
+       0,
+       0,
+       0.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       50,
+       100,
+       150,
+       200,
+       0,
+       0,
+       50
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.7,
+    "spellCastTime": 0.35,
+    "spellTotalTime": 1.4,
+    "cooldownTime": [
+     130,
+     120,
+     110,
+     100,
+     90,
+     90,
+     90
+    ],
+    "Cooldown": {
+     "values": [
+      130,
+      120,
+      110,
+      100,
+      90,
+      90,
+      90
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     625,
+     625,
+     625,
+     625,
+     625,
+     625,
+     625
+    ],
+    "castRadius": [
+     625,
+     625,
+     625,
+     625,
+     625,
+     625,
+     625
+    ],
+    "castConeDistance": 100,
+    "castFrame": 20.995,
+    "missileSpeed": 20,
+    "bHaveHitBone": true,
+    "mHitBoneName": "head",
+    "mana": [
+     100,
+     150,
+     200,
+     80,
+     80,
+     130
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "SelfAoe"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusBasicAttack": {
+   "ObjectName": "VarusBasicAttack",
+   "objectPath": "Characters/Varus/Spells/VarusBasicAttack",
+   "mScriptName": "VarusBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "VayneBasicAttack",
+    "spellCastTime": 0.485,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "r_finger",
+      "mStartBoneSkinOverrides": {
+       "53": "L_Thumb1"
+      },
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Varus_BA_mis",
+    "mHitEffectKey": "Varus_BA_hit",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusRShackles": {
+   "ObjectName": "VarusRShackles",
+   "objectPath": "Characters/Varus/Spells/VarusRShackles",
+   "mScriptName": "VarusRShackles",
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_VarusRShackles",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusPassiveBuffDisplayMinion": {
+   "ObjectName": "VarusPassiveBuffDisplayMinion",
+   "objectPath": "Characters/Varus/Spells/VarusPassiveBuffDisplayMinion",
+   "mScriptName": "VarusPassiveBuffDisplayMinion",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 4106,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mEffectAmount": [
+     {
+      "value": [
+       35,
+       80,
+       125,
+       170,
+       215,
+       260,
+       305
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.6,
+    "spellCastTime": 0.425,
+    "spellTotalTime": 0.8,
+    "cooldownTime": [
+     60,
+     60,
+     60,
+     60,
+     60,
+     60,
+     60
+    ],
+    "Cooldown": {
+     "values": [
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60
+     ],
+     "{0a3e0478}": 60,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "canOnlyCastWhileDead": true,
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castConeDistance": 100,
+    "castFrame": 13.34,
+    "missileSpeed": 1600,
+    "mMissileEffectKey": "Varus_P_mis_DFG_01",
+    "selectionPriority": 1,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Spell_VarusPassiveBuff_Name",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusPassiveAbility/VarusPassive": {
+   "ObjectName": "VarusPassive",
+   "objectPath": "Characters/Varus/Spells/VarusPassiveAbility/VarusPassive",
+   "mScriptName": "VarusPassive",
+   "mSpell": {
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "DataValues": [
+     {
+      "name": "PassiveAS",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PassiveASMinion",
+      "values": [
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1,
+       0.1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PassiveASRatio",
+      "values": [
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4,
+       0.4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PassiveASRatioMinion",
+      "values": [
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2,
+       0.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AStoADMinion",
+      "values": [
+       14,
+       14,
+       14,
+       14,
+       14,
+       14,
+       14
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AStoAPMinion",
+      "values": [
+       14,
+       14,
+       14,
+       14,
+       14,
+       14,
+       14
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AStoADChampion",
+      "values": [
+       42,
+       42,
+       42,
+       42,
+       42,
+       42,
+       42
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "AStoAPChampion",
+      "values": [
+       42,
+       42,
+       42,
+       42,
+       42,
+       42,
+       42
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "NewASCap",
+      "values": [
+       3.33,
+       3.33,
+       3.33,
+       3.33,
+       3.33,
+       3.33,
+       3.33
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "NewASCap",
+        "values": [
+         10,
+         10,
+         10,
+         10,
+         10,
+         10,
+         10
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "AStoADMinion",
+        "values": [
+         15,
+         15,
+         15,
+         15,
+         15,
+         15,
+         15
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "AStoAPMinion",
+        "values": [
+         15,
+         15,
+         15,
+         15,
+         15,
+         15,
+         15
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "AStoADChampion",
+        "values": [
+         30,
+         30,
+         30,
+         30,
+         30,
+         30,
+         30
+        ],
+        "__type": "SpellDataValue"
+       },
+       {
+        "name": "AStoAPChampion",
+        "values": [
+         30,
+         30,
+         30,
+         30,
+         30,
+         30,
+         30
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "NewASCap",
+        "values": [
+         5,
+         5,
+         5,
+         5,
+         5,
+         5,
+         5
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "MinionAS": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 0.1,
+        "mBreakpoints": [
+         {
+          "mLevel": 7,
+          "mAdditionalBonusAtThisLevel": 0.05,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 13,
+          "mAdditionalBonusAtThisLevel": 0.05,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "ChampionAS": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "PassiveAS",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "ASDuration": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 5,
+        "mBreakpoints": [
+         {
+          "mLevel": 6,
+          "mAdditionalBonusAtThisLevel": 2,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 11,
+          "mAdditionalBonusAtThisLevel": 2,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 16,
+          "mAdditionalBonusAtThisLevel": 2,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 21,
+          "mAdditionalBonusAtThisLevel": 2,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 26,
+          "mAdditionalBonusAtThisLevel": 2,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MinionAD": {
+      "mFormulaParts": [
+       {
+        "mStat": 4,
+        "mStatFormula": 2,
+        "mDataValue": "AStoADMinion",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "MinionAP": {
+      "mFormulaParts": [
+       {
+        "mStat": 4,
+        "mStatFormula": 2,
+        "mDataValue": "AStoAPMinion",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "ChampionAD": {
+      "mFormulaParts": [
+       {
+        "mStat": 4,
+        "mStatFormula": 2,
+        "mDataValue": "AStoADChampion",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "ChampionAP": {
+      "mFormulaParts": [
+       {
+        "mStat": 4,
+        "mStatFormula": 2,
+        "mDataValue": "AStoAPChampion",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0.425,
+    "spellTotalTime": 0.8,
+    "castRange": [
+     650,
+     650,
+     650,
+     650,
+     650,
+     650,
+     650
+    ],
+    "castRadius": [
+     710,
+     710,
+     710,
+     710,
+     710,
+     710,
+     710
+    ],
+    "castConeDistance": 100,
+    "castFrame": 13.34,
+    "missileSpeed": 1600,
+    "mMissileEffectKey": "Varus_P_mis_DFG_01",
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_VarusPassiveBuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusWDetonate": {
+   "ObjectName": "VarusWDetonate",
+   "objectPath": "Characters/Varus/Spells/VarusWDetonate",
+   "mScriptName": "VarusWDetonate",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 13327,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "VarusW",
+    "mEffectAmount": [
+     {
+      "value": [
+       5,
+       10,
+       15,
+       20,
+       25,
+       30,
+       35
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1.25,
+       2,
+       2.75,
+       3.5,
+       4.25,
+       5,
+       5.75
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1.5,
+       2,
+       2.5,
+       3,
+       3.5,
+       4,
+       4.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.2,
+    "mCoefficient2": 0.01,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6
+     ],
+     "{0a3e0478}": 6,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRangeDisplayOverride": [
+     750,
+     750,
+     750,
+     750,
+     750,
+     750,
+     750
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 1.98,
+    "missileSpeed": 1200,
+    "mLineWidth": 50,
+    "mHitBoneName": "head",
+    "mana": [
+     55,
+     60,
+     65,
+     70,
+     75,
+     80
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusQAbility/VarusQ": {
+   "ObjectName": "VarusQ",
+   "objectPath": "Characters/Varus/Spells/VarusQAbility/VarusQ",
+   "mScriptName": "VarusQ",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mSpellTags": [
+     "Trait_ChannelSpell",
+     "Trait_DamageAbility",
+     "Trait_RecastOrReplaceSpell",
+     "Trait_SignatureSpell",
+     "Trait_Ranged_Piercing",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamageMin",
+      "values": [
+       0,
+       50,
+       100,
+       150,
+       200,
+       250,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "tADRatioMin",
+      "values": [
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxChannelAmp",
+      "values": [
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "FalloffPercent",
+      "values": [
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15,
+       0.15
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ManaRefund",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MaxChannelDuration",
+      "values": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "CDRefund",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MoveSpeedMod",
+      "values": [
+       -0.2,
+       -0.2,
+       -0.2,
+       -0.2,
+       -0.2,
+       -0.2,
+       -0.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "MinDamagePercent",
+      "values": [
+       0.33,
+       0.33,
+       0.33,
+       0.33,
+       0.33,
+       0.33,
+       0.33
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "cherry": {
+      "SpellDataValues": [
+       {
+        "name": "tADRatioMin",
+        "values": [
+         0.9,
+         0.9,
+         0.9,
+         0.9,
+         0.9,
+         0.9,
+         0.9
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     },
+     "Kiwi": {
+      "SpellDataValues": [
+       {
+        "name": "tADRatioMin",
+        "values": [
+         0.9,
+         0.9,
+         0.9,
+         0.9,
+         0.9,
+         0.9,
+         0.9
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "{f9c2333e}": {
+     "cherry": {
+      "value": [
+       14,
+       13,
+       12,
+       11,
+       10,
+       9,
+       8
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "{b3ef3984}": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamageMin",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "tADRatioMin",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "TotalDamageMax": {
+      "mMultiplier": {
+       "mSubparts": [
+        {
+         "mNumber": 1,
+         "__type": "NumberCalculationPart"
+        },
+        {
+         "mDataValue": "MaxChannelAmp",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "SumOfSubPartsCalculationPart"
+      },
+      "mModifiedGameCalculation": "{b3ef3984}",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "mAnimationWinddownName": "Spell1_Fire",
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "mChannelDuration": [
+     1.25,
+     1.25,
+     1.25,
+     1.25,
+     1.25,
+     1.25,
+     1.25
+    ],
+    "cooldownTime": [
+     17,
+     16,
+     15,
+     14,
+     13,
+     12,
+     11
+    ],
+    "Cooldown": {
+     "values": [
+      17,
+      16,
+      15,
+      14,
+      13,
+      12,
+      11
+     ],
+     "{0a3e0478}": 17,
+     "__type": "{0a0eddc9}"
+    },
+    "mCastRangeGrowthMax": [
+     1600,
+     1600,
+     1600,
+     1600,
+     1600,
+     1600,
+     1600
+    ],
+    "mCastRangeGrowthDuration": [
+     1.3,
+     1.3,
+     1.3,
+     1.3,
+     1.3,
+     1.3,
+     1.3
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mUseChargeChanneling": true,
+    "mCanMoveWhileChanneling": true,
+    "mDisableCastBar": true,
+    "useAnimatorFramerate": true,
+    "mDoNotNeedToFaceTarget": true,
+    "castRange": [
+     925,
+     925,
+     925,
+     925,
+     925,
+     925,
+     925
+    ],
+    "castRadius": [
+     500,
+     500,
+     500,
+     500,
+     500,
+     500,
+     500
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1500,
+    "mLineWidth": 75,
+    "mana": [
+     50,
+     55,
+     60,
+     65,
+     70,
+     75
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Direction"
+    },
+    "{8958fee2}": {
+     "__type": "{8958fee2}"
+    },
+    "mDimensionBehavior": 1,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Buff_VarusQ_Tooltip",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 0,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "{b3ef3984}",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusRPassive": {
+   "ObjectName": "VarusRPassive",
+   "objectPath": "Characters/Varus/Spells/VarusRPassive",
+   "mScriptName": "VarusRPassive",
+   "mBuff": {
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusWBasicAttack": {
+   "ObjectName": "VarusWBasicAttack",
+   "objectPath": "Characters/Varus/Spells/VarusWBasicAttack",
+   "mScriptName": "VarusWBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.485,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "r_finger",
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Varus_BA_W_Mis",
+    "mHitEffectKey": "Varus_BA_hit",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusRSecondary": {
+   "ObjectName": "VarusRSecondary",
+   "objectPath": "Characters/Varus/Spells/VarusRSecondary",
+   "mScriptName": "VarusRSecondary",
+   "mSpell": {
+    "mAffectsTypeFlags": 4106,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mEffectAmount": [
+     {
+      "value": [
+       100,
+       175,
+       250,
+       325,
+       0,
+       0,
+       75
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.5,
+       1,
+       1.5,
+       2,
+       0,
+       0,
+       0.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       50,
+       100,
+       150,
+       200,
+       0,
+       0,
+       50
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.7,
+    "spellCastTime": 0.35,
+    "spellTotalTime": 1.4,
+    "cooldownTime": [
+     130,
+     120,
+     110,
+     100,
+     90,
+     90,
+     90
+    ],
+    "Cooldown": {
+     "values": [
+      130,
+      120,
+      110,
+      100,
+      90,
+      90,
+      90
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "castRange": [
+     625,
+     625,
+     625,
+     625,
+     625,
+     625,
+     625
+    ],
+    "castRadius": [
+     625,
+     625,
+     625,
+     625,
+     625,
+     625,
+     625
+    ],
+    "castConeDistance": 100,
+    "castFrame": 20.995,
+    "missileSpeed": 20,
+    "bHaveHitBone": true,
+    "mHitBoneName": "head",
+    "mana": [
+     100,
+     150,
+     200,
+     80,
+     80,
+     130
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "SelfAoe"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusEMissileDummy1": {
+   "ObjectName": "VarusEMissileDummy1",
+   "objectPath": "Characters/Varus/Spells/VarusEMissileDummy1",
+   "mScriptName": "VarusEMissileDummy1",
+   "mSpell": {
+    "flags": 4194304,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "UrgotPlasmaGrenadeBoom",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mStartBoneName": "Buffbone_glb_channel_loc",
+      "mStartBoneSkinOverrides": {
+       "53": "Weapon_Master"
+      },
+      "mTravelTime": 0.52,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "mGravity": 9000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Varus_E_Mis_Long",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusEMissileDummy2": {
+   "ObjectName": "VarusEMissileDummy2",
+   "objectPath": "Characters/Varus/Spells/VarusEMissileDummy2",
+   "mScriptName": "VarusEMissileDummy2",
+   "mSpell": {
+    "flags": 4194304,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "UrgotPlasmaGrenadeBoom",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mStartBoneName": "Buffbone_glb_channel_loc",
+      "mStartBoneSkinOverrides": {
+       "53": "Weapon_Master"
+      },
+      "mTravelTime": 0.68,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "mGravity": 9000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Varus_E_Mis_Long",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusWBasicAttack2": {
+   "ObjectName": "VarusWBasicAttack2",
+   "objectPath": "Characters/Varus/Spells/VarusWBasicAttack2",
+   "mScriptName": "VarusWBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "spellCastTime": 0.485,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "r_finger",
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Varus_critAttack_mis_BV2",
+    "mHitEffectKey": "Varus_critAttack_hit_BV2",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusEMissileDummy3": {
+   "ObjectName": "VarusEMissileDummy3",
+   "objectPath": "Characters/Varus/Spells/VarusEMissileDummy3",
+   "mScriptName": "VarusEMissileDummy3",
+   "mSpell": {
+    "flags": 4194304,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "UrgotPlasmaGrenadeBoom",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mStartBoneName": "Buffbone_glb_channel_loc",
+      "mStartBoneSkinOverrides": {
+       "53": "Weapon_Master"
+      },
+      "mTravelTime": 0.62,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "mGravity": 9000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Varus_E_Mis_Long",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusEMissile": {
+   "ObjectName": "VarusEMissile",
+   "objectPath": "Characters/Varus/Spells/VarusEMissile",
+   "mScriptName": "VarusEMissile",
+   "mSpell": {
+    "flags": 4194304,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "UrgotPlasmaGrenadeBoom",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "Buffbone_glb_channel_loc",
+      "mStartBoneSkinOverrides": {
+       "53": "Weapon_Master"
+      },
+      "mTravelTime": 0.5,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "mGravity": 9000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Varus_E_Mis_Long",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusEMissileDummy4": {
+   "ObjectName": "VarusEMissileDummy4",
+   "objectPath": "Characters/Varus/Spells/VarusEMissileDummy4",
+   "mScriptName": "VarusEMissileDummy4",
+   "mSpell": {
+    "flags": 4194304,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "UrgotPlasmaGrenadeBoom",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mStartBoneName": "Buffbone_glb_channel_loc",
+      "mStartBoneSkinOverrides": {
+       "53": "Weapon_Master"
+      },
+      "mTravelTime": 0.54,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "mGravity": 9000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Varus_E_Mis_Long",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusEMissileDummy5": {
+   "ObjectName": "VarusEMissileDummy5",
+   "objectPath": "Characters/Varus/Spells/VarusEMissileDummy5",
+   "mScriptName": "VarusEMissileDummy5",
+   "mSpell": {
+    "flags": 4194304,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "UrgotPlasmaGrenadeBoom",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mStartBoneName": "Buffbone_glb_channel_loc",
+      "mStartBoneSkinOverrides": {
+       "53": "Weapon_Master"
+      },
+      "mTravelTime": 0.72,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "mGravity": 9000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Varus_E_Mis_Long",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusEMissileDummy6": {
+   "ObjectName": "VarusEMissileDummy6",
+   "objectPath": "Characters/Varus/Spells/VarusEMissileDummy6",
+   "mScriptName": "VarusEMissileDummy6",
+   "mSpell": {
+    "flags": 4194304,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "UrgotPlasmaGrenadeBoom",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mStartBoneName": "Buffbone_glb_channel_loc",
+      "mStartBoneSkinOverrides": {
+       "53": "Weapon_Master"
+      },
+      "mTravelTime": 0.64,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "mGravity": 9000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Varus_E_Mis_Long",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusEMissileDummy7": {
+   "ObjectName": "VarusEMissileDummy7",
+   "objectPath": "Characters/Varus/Spells/VarusEMissileDummy7",
+   "mScriptName": "VarusEMissileDummy7",
+   "mSpell": {
+    "flags": 4194304,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "UrgotPlasmaGrenadeBoom",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mStartBoneName": "Buffbone_glb_channel_loc",
+      "mStartBoneSkinOverrides": {
+       "53": "Weapon_Master"
+      },
+      "mTravelTime": 0.56,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "mGravity": 9000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Varus_E_Mis_Long",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusEMissileDummy8": {
+   "ObjectName": "VarusEMissileDummy8",
+   "objectPath": "Characters/Varus/Spells/VarusEMissileDummy8",
+   "mScriptName": "VarusEMissileDummy8",
+   "mSpell": {
+    "flags": 4194304,
+    "mAffectsTypeFlags": 23567,
+    "mAlternateName": "UrgotPlasmaGrenadeBoom",
+    "mEffectAmount": [
+     {
+      "value": [
+       50,
+       80,
+       110,
+       140,
+       170,
+       200,
+       230
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       13,
+       12,
+       11,
+       10,
+       9,
+       8,
+       7
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.4,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "canCastWhileDisabled": true,
+    "mSpellRevealsChampion": false,
+    "castRange": [
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500,
+     1500
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 120,
+     "movementComponent": {
+      "mTargetHeightAugment": 60,
+      "mOffsetInitialTargetHeight": 60,
+      "mStartBoneName": "Buffbone_glb_channel_loc",
+      "mStartBoneSkinOverrides": {
+       "53": "Weapon_Master"
+      },
+      "mTravelTime": 0.66,
+      "__type": "FixedTimeMovement"
+     },
+     "heightSolver": {
+      "mGravity": 9000,
+      "__type": "GravityHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "{c195fba6}": true,
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 7.975,
+    "missileSpeed": 1500,
+    "mMissileEffectKey": "Varus_E_Mis_Long",
+    "mLineWidth": 120,
+    "bHaveHitBone": true,
+    "mHitBoneName": "pelvis",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusWDebuff": {
+   "ObjectName": "VarusWDebuff",
+   "objectPath": "Characters/Varus/Spells/VarusWDebuff",
+   "mScriptName": "VarusWDebuff",
+   "mSpell": {
+    "flags": 4,
+    "mAffectsTypeFlags": 13327,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "VayneSilveredDebuff",
+    "mEffectAmount": [
+     {
+      "value": [
+       4,
+       6,
+       8,
+       10,
+       12,
+       14,
+       16
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       10,
+       20,
+       30,
+       40,
+       50,
+       60,
+       70
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 0.01,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6
+    ],
+    "Cooldown": {
+     "values": [
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6
+     ],
+     "{0a3e0478}": 6,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "bIsToggleSpell": true,
+    "castRange": [
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000,
+     10000
+    ],
+    "castRangeDisplayOverride": [
+     750,
+     750,
+     750,
+     750,
+     750,
+     750,
+     750
+    ],
+    "castRadius": [
+     210,
+     210,
+     210,
+     210,
+     210,
+     210,
+     210
+    ],
+    "castConeDistance": 100,
+    "castFrame": 1.98,
+    "missileSpeed": 1200,
+    "mLineWidth": 50,
+    "mHitBoneName": "head",
+    "mana": [
+     55,
+     60,
+     65,
+     70,
+     75,
+     80
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_VarusWDebuff",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusRMissileEnd": {
+   "ObjectName": "VarusRMissileEnd",
+   "objectPath": "Characters/Varus/Spells/VarusRMissileEnd",
+   "mScriptName": "VarusRMissileEnd",
+   "mSpell": {
+    "mAffectsTypeFlags": 4106,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "VarusR",
+    "mEffectAmount": [
+     {
+      "value": [
+       30,
+       90,
+       150,
+       245,
+       315,
+       440,
+       565
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2.25,
+       2.5,
+       2.75,
+       3,
+       3.25,
+       3.5,
+       3.75
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "mCoefficient": 1.2,
+    "mCastTime": 0.251,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCantCancelWhileWindingUp": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     1250,
+     1250,
+     1250,
+     1250,
+     1250,
+     1250,
+     1250
+    ],
+    "castRangeDisplayOverride": [
+     1175,
+     1175,
+     1175,
+     1175,
+     1175,
+     1175,
+     1175
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "mMissileWidth": 80,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "L_hand",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnHit"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 7.53,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Varus_R_Mis",
+    "mLineWidth": 80,
+    "bHaveHitBone": true,
+    "mHitBoneName": "root",
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusCritAttack": {
+   "ObjectName": "VarusCritAttack",
+   "objectPath": "Characters/Varus/Spells/VarusCritAttack",
+   "mScriptName": "VarusCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 5327,
+    "mAlternateName": "VayneBasicAttack",
+    "spellCastTime": 0.485,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyMaterialOnHitSound": true,
+    "bHaveHitEffect": true,
+    "castRange": [
+     600,
+     600,
+     600,
+     600,
+     600,
+     600,
+     600
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "r_finger",
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Varus_critAttack_mis_BV2",
+    "mHitEffectKey": "Varus_critAttack_hit_BV2",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/VarusRAbility/VarusR": {
+   "ObjectName": "VarusR",
+   "objectPath": "Characters/Varus/Spells/VarusRAbility/VarusR",
+   "mScriptName": "VarusR",
+   "mSpell": {
+    "mAffectsTypeFlags": 13327,
+    "mRequiredUnitTags": {
+     "mObjectTagList": [
+      "{ea595ca6}"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mAlternateName": "VarusR",
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_ImmobilizingCCSpell",
+     "Trait_DamageAbility",
+     "Trait_AoE"
+    ],
+    "mEffectAmount": [
+     {
+      "value": [
+       150,
+       150,
+       250,
+       350,
+       350,
+       350,
+       350
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       650,
+       650,
+       650,
+       650,
+       650,
+       650,
+       650
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       600,
+       600,
+       600,
+       600,
+       600,
+       600,
+       600
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "value": [
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75
+      ],
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     },
+     {
+      "__type": "SpellEffectAmount"
+     }
+    ],
+    "DataValues": [
+     {
+      "name": "BaseDamage",
+      "values": [
+       50,
+       150,
+       250,
+       350,
+       450,
+       550,
+       650
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RootDuration",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "VarusRTargetAcquisitionRange",
+      "values": [
+       650,
+       650,
+       650,
+       650,
+       650,
+       650,
+       650
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PassiveStacksAdded",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "TimeBetweenStackAddition",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "VarusRTargetLeashRange",
+      "values": [
+       600,
+       600,
+       600,
+       600,
+       600,
+       600,
+       600
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "VarusRLeashTimer",
+      "values": [
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75,
+       1.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "VarusWDebuffDuration",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "VarusWMaxStacks",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "PassiveStacks",
+      "values": [
+       3,
+       3,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "TotalDamage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "BaseDamage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 1,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     }
+    },
+    "mCoefficient": 1,
+    "mCastTime": 0.2419,
+    "spellCastTime": 0.25,
+    "spellTotalTime": 1,
+    "cooldownTime": [
+     100,
+     100,
+     80,
+     60,
+     60,
+     60,
+     60
+    ],
+    "Cooldown": {
+     "values": [
+      100,
+      100,
+      80,
+      60,
+      60,
+      60,
+      60
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Varus/Spells/VarusRPassive",
+      "mWhenToAddSpell": 0,
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "alwaysSnapFacing": true,
+    "useAnimatorFramerate": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRangeDisplayOverride": [
+     1300,
+     1300,
+     1300,
+     1300,
+     1300,
+     1300,
+     1300
+    ],
+    "castConeDistance": 100,
+    "castFrame": 7.5,
+    "missileSpeed": 1200,
+    "mLineWidth": 450,
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "selectionPriority": 2,
+    "mTargetingTypeData": {
+     "__type": "Area"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "game_buff_tooltip_VarusR",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "TotalDamage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 4096,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "RootDuration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 1,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 1024,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "{0717e686}": false,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/VarusQAbility/VarusQ",
+  "Spells/VarusWAbility/VarusW",
+  "Spells/VarusEAbility/VarusE",
+  "Spells/VarusRAbility/VarusR"
+ ],
+ "passiva_ref": "Characters/Varus/Spells/VarusPassiveAbility",
+ "passiva_chaves": [
+  "Spells/VarusPassiveAbility/VarusPassive"
+ ]
+}

@@ -1,0 +1,2619 @@
+{
+ "id": "Yunara",
+ "key": 804,
+ "nome": "Yunara",
+ "titulo": "a Fé Inabalável",
+ "funcoes": [
+  "Marksman"
+ ],
+ "recurso": "Mana",
+ "info": {
+  "attack": 9,
+  "defense": 2,
+  "magic": 0,
+  "difficulty": 4
+ },
+ "stats_ddragon": {
+  "hp": 590,
+  "hpperlevel": 110,
+  "mp": 275,
+  "mpperlevel": 45,
+  "movespeed": 325,
+  "armor": 25,
+  "armorperlevel": 4.4,
+  "spellblock": 33,
+  "spellblockperlevel": 1.1,
+  "attackrange": 575,
+  "hpregen": 4,
+  "hpregenperlevel": 0.55,
+  "mpregen": 7.5,
+  "mpregenperlevel": 0.75,
+  "crit": 0,
+  "critperlevel": 0,
+  "attackdamage": 55,
+  "attackdamageperlevel": 0,
+  "attackspeedperlevel": 2,
+  "attackspeed": 0.65
+ },
+ "src_stats": "riot-ddragon",
+ "passiva_texto": {
+  "nome": "Voto às Primeiras Terras",
+  "descricao": "Os Acertos Críticos de Yunara causam Dano Mágico adicional."
+ },
+ "habilidades_texto": [
+  {
+   "slot": "Q",
+   "id": "YunaraQ",
+   "nome": "Cultivação do Espírito",
+   "descricao": "Yunara recebe Velocidade de Ataque, dano adicional ao contato, e os ataques dela atingem inimigos próximos.",
+   "tooltip": "<spellPassive>Passivo:</spellPassive> Yunara causa <magicDamage>{{ calc_passive_damage }} de Dano Mágico</magicDamage> <OnHit>%i:OnHit% ao contato</OnHit> e ataques concedem <evolve>{{ resource_nonchampion }} de Liberação</evolve> (<evolve>{{ resource_champion }} de Liberação</evolve> ao atacar Campeões).<br /><br /><spellPassive>Ativo</spellPassive>: Yunara consome <evolve>{{ resource_max }} de Liberação</evolve> e recebe <attackSpeed>{{ calc_attack_speed }} de Velocidade de Ataque</attackSpeed> por {{ buff_duration }}s, além de causar <magicDamage>{{ calc_damage }} de Dano Mágico</magicDamage> adicional <OnHit>%i:OnHit% ao contato</OnHit>. Durante este período, os ataques atingem inimigos próximos, causando <physicalDamage>{{ calc_damage_spread }} de Dano Físico</physicalDamage>.<br /><br /><keywordMajor>Estado de Transcendência</keywordMajor>: esta Habilidade é ativada instantaneamente por {{ spell.yunarar:buff_duration }}s.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "custo": [
+    30,
+    30,
+    30,
+    30,
+    30
+   ],
+   "tipo_custo": " de Mana",
+   "alcance": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "W",
+   "id": "YunaraW",
+   "nome": "Arco do Julgamento | Arco da Ruína",
+   "descricao": "Yunara lança uma conta de oração rodopiante que causa dano e Lentidão a inimigos. Se estiver no Estado de Transcendência, Yunara dispara um laser que causa dano e Lentidão a inimigos.",
+   "tooltip": "Yunara lança uma conta de oração que causa <magicDamage>{{ calc_damage_initial }} de Dano Mágico</magicDamage> e <status>{{ calc_slow }} de Lentidão que decai ao longo de {{ slow_duration }}s</status>. Causa <magicDamage>{{ calc_damage_per_second }} de Dano Mágico</magicDamage> adicional por segundo.<br /><br /><keywordMajor>Estado de Transcendência – Arco da Ruína</keywordMajor>: Yunara dispara um laser que causa <magicDamage>{{ spell.yunarar:calc_rw_damage }} de Dano Mágico</magicDamage> e <status>{{ spell.yunarar:calc_rw_slow_amount }} de Lentidão que decai ao longo de {{ spell.yunarar:rw_slow_duration }}s</status>.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    10,
+    10,
+    10,
+    10,
+    10
+   ],
+   "custo": [
+    60,
+    60,
+    60,
+    60,
+    60
+   ],
+   "tipo_custo": " de Mana",
+   "alcance": [
+    1150,
+    1150,
+    1150,
+    1150,
+    1150
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "E",
+   "id": "YunaraE",
+   "nome": "Passos de Kanmei | Sombra Intocável",
+   "descricao": "Yunara recebe Velocidade de Movimento e efeito Fantasma. Se estiver no Estado de Transcendência, Yunara avançará em uma direção.",
+   "tooltip": "Yunara recebe <speed>{{ calc_move_speed }} de Velocidade de Movimento</speed>, que aumenta para <speed>{{ calc_move_speed_enhanced }} de Velocidade de Movimento</speed> ao se mover em direção a um Campeão inimigo por {{ buff_duration }}s.<br /><br /><keywordMajor>Estado de Transcendência – Sombra Intocável</keywordMajor>: Yunara avança em uma direção.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    9,
+    9,
+    9,
+    9,
+    9
+   ],
+   "custo": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ],
+   "tipo_custo": " de Mana",
+   "alcance": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "nivel_max": 5,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "slot": "R",
+   "id": "YunaraR",
+   "nome": "Transcendência do Eu",
+   "descricao": "Yunara entra em um Estado de Transcendência que aprimora suas habilidades básicas.",
+   "tooltip": "Yunara entra em um <keywordMajor>Estado de Transcendência</keywordMajor> por {{ buff_duration }}s, aprimorando suas habilidades básicas durante este período.{{ spellmodifierdescriptionappend }}",
+   "recarga": [
+    100,
+    90,
+    80
+   ],
+   "custo": [
+    100,
+    100,
+    100
+   ],
+   "tipo_custo": " de {{ abilityresourcename }}",
+   "alcance": [
+    0,
+    0,
+    0
+   ],
+   "nivel_max": 3,
+   "efeito": [
+    null,
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  }
+ ],
+ "src_texto": "riot-ddragon",
+ "stats_cdragon": {
+  "vida": 590,
+  "vida_nivel": 110,
+  "regen_vida": 0.8,
+  "regen_vida_nivel": 0.11,
+  "dano": 55,
+  "dano_nivel": 3,
+  "armadura": 25,
+  "armadura_nivel": 4.4,
+  "rm": 33,
+  "rm_nivel": 1.1,
+  "velocidade_mov": 325,
+  "alcance_ataque": 575,
+  "vel_ataque_base": 0.65,
+  "vel_ataque_razao": 0.65,
+  "vel_ataque_nivel": 2,
+  "dano_critico": 2,
+  "alcance_aquisicao": 800,
+  "raio_selecao": 100,
+  "raio_colisao": 30,
+  "recurso_tipo": 0,
+  "ataque_basico": {
+   "mAttackTotalTime": 1.5379999876022339,
+   "mAttackCastTime": 0.25,
+   "mAttackName": "YunaraBasicAttack",
+   "__type": "AttackSlotData"
+  },
+  "ataques_extras": [
+   {
+    "mAttackName": "YunaraBasicAttack2",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "YunaraQAttack",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "YunaraQAttack2",
+    "__type": "AttackSlotData"
+   }
+  ],
+  "ataques_criticos": [
+   {
+    "mAttackName": "YunaraCritAttack",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "YunaraCritAttack2",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "YunaraQCrit",
+    "__type": "AttackSlotData"
+   },
+   {
+    "mAttackName": "YunaraQCrit2",
+    "__type": "AttackSlotData"
+   }
+  ]
+ },
+ "src_stats_cdragon": "riot-cdragon",
+ "spells_ref": [
+  "Characters/Yunara/Spells/YunaraQAbility/YunaraQ",
+  "Characters/Yunara/Spells/YunaraWAbility/YunaraW",
+  "Characters/Yunara/Spells/YunaraEAbility/YunaraE",
+  "Characters/Yunara/Spells/YunaraRAbility/YunaraR"
+ ],
+ "abilities_ref": [
+  "Characters/Yunara/Spells/YunaraQAbility",
+  "Characters/Yunara/Spells/YunaraWAbility",
+  "Characters/Yunara/Spells/YunaraEAbility",
+  "Characters/Yunara/Spells/YunaraRAbility",
+  "Characters/Yunara/Spells/YunaraPassiveAbility"
+ ],
+ "objetos_habilidade": {
+  "Spells/Attacks/YunaraBasicAttack": {
+   "ObjectName": "YunaraBasicAttack",
+   "objectPath": "Characters/Yunara/Spells/Attacks/YunaraBasicAttack",
+   "mScriptName": "YunaraBasicAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 6826,
+    "mAlternateName": "YunaraBasicAttack",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyAttackDamage": true,
+    "bHaveHitEffect": true,
+    "mTurnSpeedScalar": 5,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mTargetBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+      "mSpeed": 2500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Yunara_BA_Missile",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Yunara_BA_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_Buffbone_GlB_Center_Loc",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/Attacks/YunaraCritAttack2": {
+   "ObjectName": "YunaraCritAttack2",
+   "objectPath": "Characters/Yunara/Spells/Attacks/YunaraCritAttack2",
+   "mScriptName": "YunaraCritAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 6826,
+    "mAlternateName": "YunaraCritAttack",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "mTurnSpeedScalar": 10,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "L_Hand",
+      "mTargetBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+      "mSpeed": 2500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Yunara_P_BA_Crit_missile",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Yunara_P_BA_Crit_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_Buffbone_GlB_Center_Loc",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/Attacks/YunaraCritAttack": {
+   "ObjectName": "YunaraCritAttack",
+   "objectPath": "Characters/Yunara/Spells/Attacks/YunaraCritAttack",
+   "mScriptName": "YunaraCritAttack",
+   "mSpell": {
+    "mAffectsTypeFlags": 6826,
+    "mAlternateName": "YunaraCritAttack",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "bHaveHitEffect": true,
+    "mTurnSpeedScalar": 10,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mTargetBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+      "mSpeed": 2500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Yunara_P_BA_Crit_missile",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Yunara_P_BA_Crit_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_Buffbone_GlB_Center_Loc",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/Attacks/YunaraBasicAttack2": {
+   "ObjectName": "YunaraBasicAttack2",
+   "objectPath": "Characters/Yunara/Spells/Attacks/YunaraBasicAttack2",
+   "mScriptName": "YunaraBasicAttack2",
+   "mSpell": {
+    "mAffectsTypeFlags": 6826,
+    "mAlternateName": "YunaraBasicAttack",
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mApplyAttackDamage": true,
+    "bHaveHitEffect": true,
+    "mTurnSpeedScalar": 5,
+    "mUseAutoattackCastTimeData": {
+     "__type": "UseAutoattackCastTimeData"
+    },
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mTargetHeightAugment": 100,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "L_Hand",
+      "mTargetBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+      "mSpeed": 2500,
+      "__type": "FixedSpeedMovement"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 1,
+    "castFrame": 8,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Yunara_BA_Missile",
+    "mHitEffectOrientType": 2,
+    "mHitEffectKey": "Yunara_BA_Tar",
+    "bHaveHitBone": true,
+    "mHitBoneName": "C_Buffbone_GlB_Center_Loc",
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/YunaraQAbility/YunaraQ": {
+   "ObjectName": "YunaraQ",
+   "objectPath": "Characters/Yunara/Spells/YunaraQAbility/YunaraQ",
+   "mScriptName": "YunaraQ",
+   "mSpell": {
+    "flags": 36,
+    "mCastRequirementsCaster": [
+     {
+      "slot": 1,
+      "{c073c624}": 1,
+      "__type": "{e2ef74d0}"
+     },
+     {
+      "mInvertResult": true,
+      "BuffLink": "Characters/Yunara/Spells/YunaraQAbility/YunaraQ",
+      "{7b66f15d}": false,
+      "__type": "HasBuffCastRequirement"
+     }
+    ],
+    "mSpellTags": [
+     "PositiveEffect_EmpowerAttack",
+     "PositiveEffect_Boon",
+     "Trait_DamageAbility",
+     "Trait_AttackBuff_Duration",
+     "Trait_NoCooldown",
+     "Trait_SignatureSpell",
+     "Trait_AoE",
+     "Trait_AttackReset"
+    ],
+    "DataValues": [
+     {
+      "name": "Resource_Max",
+      "values": [
+       8,
+       8,
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Resource_Champion",
+      "values": [
+       2,
+       2,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Resource_Nonchampion",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Resource_Loss",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Resource_Loss_Interval",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Resource_Duration",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Buff_Duration",
+      "values": [
+       5,
+       5,
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Spread_Radius",
+      "values": [
+       300,
+       300,
+       300,
+       300,
+       300,
+       300,
+       300
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Spread_AD_Ratio",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Spread_Lifesteal_Efficacy",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Spread_Onhit_Efficacy",
+      "values": [
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3,
+       0.3
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Attack_Speed",
+      "values": [
+       0.1,
+       0.2,
+       0.3,
+       0.4,
+       0.5,
+       0.6,
+       0.7
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Damage",
+      "values": [
+       0,
+       3,
+       8,
+       13,
+       18,
+       23,
+       28
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Damage_Passive",
+      "values": [
+       0,
+       3,
+       8,
+       13,
+       18,
+       23,
+       28
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "Calc_Passive_Damage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "Damage_Passive",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.2,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "Calc_Attack_Speed": {
+      "mSimpleTooltipCalculationDisplay": 5,
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mDataValue": "Attack_Speed",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "Calc_Damage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "Damage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mCoefficient": 0.2,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "Calc_Damage_Spread": {
+      "mFormulaParts": [
+       {
+        "mStat": 2,
+        "mDataValue": "Spread_AD_Ratio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "Calc_Minion_Execute_Threshold": {
+      "mSimpleTooltipCalculationDisplay": 5,
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mNumber": 0.3,
+        "__type": "NumberCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "Calc_Minion_Execute_Amp": {
+      "mSimpleTooltipCalculationDisplay": 5,
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mNumber": 2.5,
+        "__type": "NumberCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mCasterPositionEndOfCastUpdate": 1,
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Yunara/Spells/YunaraQAbility/YunaraQPassive",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "mSpellRevealsChampion": false,
+    "mCanMoveWhileChanneling": true,
+    "mShowChannelBar": false,
+    "alwaysSnapFacing": true,
+    "useAnimatorFramerate": true,
+    "mTurnSpeedScalar": 10,
+    "mIgnoreRangeCheck": true,
+    "mUseAutoattackCastTimeData": {
+     "__type": "UseAutoattackCastTimeData"
+    },
+    "mRollForCriticalHit": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castRadius": [
+     300,
+     300,
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "missileSpeed": 2000,
+    "mHitEffectOrientType": 2,
+    "mana": [
+     30,
+     30,
+     30,
+     30,
+     30,
+     30
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.05,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Spell_BuffTooltip_YunaraQ",
+    "mBuffAttributeFlag": 32,
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "Calc_Damage",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 128,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 512,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/YunaraQAbility/YunaraQPassive": {
+   "ObjectName": "YunaraQPassive",
+   "objectPath": "Characters/Yunara/Spells/YunaraQAbility/YunaraQPassive",
+   "mScriptName": "YunaraQPassive",
+   "__type": "SpellObject"
+  },
+  "Spells/YunaraQAbility/YunaraQBounceCritMissile": {
+   "ObjectName": "YunaraQBounceCritMissile",
+   "objectPath": "Characters/Yunara/Spells/YunaraQAbility/YunaraQBounceCritMissile",
+   "mScriptName": "YunaraQBounceCritMissile",
+   "mSpell": {
+    "flags": 4194452,
+    "mAffectsTypeFlags": 6794,
+    "mAffectsStatusFlags": 40,
+    "mAlternateName": "YunaraQ",
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "mConsideredAsAutoAttack": true,
+    "mRollForCriticalHit": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mStartBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+      "mTargetBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+      "mUseGroundHeightAtTarget": false,
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "RollForCriticalHitResult": true,
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Yunara_Q_AA_Crit_Bounce_Missile",
+    "mHitEffectOrientType": 2,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/YunaraQAbility/YunaraQBounceMissile": {
+   "ObjectName": "YunaraQBounceMissile",
+   "objectPath": "Characters/Yunara/Spells/YunaraQAbility/YunaraQBounceMissile",
+   "mScriptName": "YunaraQBounceMissile",
+   "mSpell": {
+    "flags": 4194452,
+    "mAffectsTypeFlags": 6794,
+    "mAlternateName": "YunaraQ",
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "cannotBeSuppressed": true,
+    "canCastWhileDisabled": true,
+    "mCantCancelWhileWindingUp": true,
+    "mCantCancelWhileWindingUpTargetingChampion": true,
+    "mConsideredAsAutoAttack": true,
+    "mRollForCriticalHit": true,
+    "castRange": [
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000,
+     25000
+    ],
+    "castRadius": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "movementComponent": {
+      "mStartBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+      "mTargetBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+      "mUseGroundHeightAtTarget": false,
+      "mSpeed": 2000,
+      "__type": "FixedSpeedMovement"
+     },
+     "heightSolver": {
+      "__type": "BlendedLinearHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VeritcalFacingMatchVelocity"
+     },
+     "behaviors": [
+      {
+       "RollForCriticalHitResult": true,
+       "__type": "CastOnMovementComplete"
+      },
+      {
+       "__type": "DestroyOnMovementComplete"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "missileSpeed": 2000,
+    "mMissileEffectKey": "Yunara_Q_AA_Bounce_Missile",
+    "mHitEffectOrientType": 2,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/YunaraPassiveAbility/YunaraPassive": {
+   "ObjectName": "YunaraPassive",
+   "objectPath": "Characters/Yunara/Spells/YunaraPassiveAbility/YunaraPassive",
+   "mScriptName": "YunaraPassive",
+   "mSpell": {
+    "mSpellCalculations": {
+     "Calc_Damage_Amp": {
+      "mFormulaParts": [
+       {
+        "mNumber": 0.1,
+        "__type": "NumberCalculationPart"
+       },
+       {
+        "mCoefficient": 0.001,
+        "__type": "StatByCoefficientCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "mPrecision": 1,
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "mRollForCriticalHit": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "__type": "SpellDataResource"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/YunaraPassiveAbility/YunaraCombatTracker": {
+   "ObjectName": "YunaraCombatTracker",
+   "objectPath": "Characters/Yunara/Spells/YunaraPassiveAbility/YunaraCombatTracker",
+   "mScriptName": "YunaraCombatTracker",
+   "__type": "SpellObject"
+  },
+  "Spells/YunaraEAbility/YunaraEPassive": {
+   "ObjectName": "YunaraEPassive",
+   "objectPath": "Characters/Yunara/Spells/YunaraEAbility/YunaraEPassive",
+   "mScriptName": "YunaraEPassive",
+   "__type": "SpellObject"
+  },
+  "Spells/YunaraEAbility/YunaraE": {
+   "ObjectName": "YunaraE",
+   "objectPath": "Characters/Yunara/Spells/YunaraEAbility/YunaraE",
+   "mScriptName": "YunaraE",
+   "mSpell": {
+    "flags": 36,
+    "mSpellTags": [
+     "PositiveEffect_Boon"
+    ],
+    "DataValues": [
+     {
+      "name": "Buff_Duration",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Move_Speed",
+      "values": [
+       0.25,
+       0.3,
+       0.35,
+       0.4,
+       0.45,
+       0.5,
+       0.55
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Move_Speed_Modifier",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "DataValuesModeOverride": {
+     "ARAM": {
+      "SpellDataValues": [
+       {
+        "name": "Move_Speed",
+        "values": [
+         0.35,
+         0.4,
+         0.45,
+         0.5,
+         0.55,
+         0.6,
+         0.65
+        ],
+        "__type": "SpellDataValue"
+       }
+      ],
+      "__type": "SpellDataValueVector"
+     }
+    },
+    "mSpellCalculations": {
+     "Calc_Move_Speed": {
+      "mSimpleTooltipCalculationDisplay": 5,
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mDataValue": "Move_Speed",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "Calc_Move_Speed_Enhanced": {
+      "mMultiplier": {
+       "mDataValue": "Move_Speed_Modifier",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mSimpleTooltipCalculationDisplay": 5,
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mModifiedGameCalculation": "Calc_Move_Speed",
+      "__type": "GameCalculationModified"
+     }
+    },
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     9,
+     9,
+     9,
+     9,
+     9,
+     9,
+     9
+    ],
+    "Cooldown": {
+     "values": [
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9
+     ],
+     "{0a3e0478}": 9,
+     "__type": "{0a0eddc9}"
+    },
+    "mCasterPositionEndOfCastUpdate": 1,
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Yunara/Spells/YunaraEAbility/YunaraEPassive",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mProjectTargetToCastRange": true,
+    "mSpellRevealsChampion": false,
+    "mUseMinimapTargeting": true,
+    "mCanMoveWhileChanneling": true,
+    "mShowChannelBar": false,
+    "alwaysSnapFacing": true,
+    "useAnimatorFramerate": true,
+    "mIgnoreRangeCheck": true,
+    "mRollForCriticalHit": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "missileSpeed": 0,
+    "mLineWidth": 200,
+    "mHitEffectOrientType": 2,
+    "mana": [
+     40,
+     40,
+     40,
+     40,
+     40,
+     40
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.05,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Spell_BuffTooltip_YunaraE",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 2,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "Buff_Duration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8192,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/YunaraEAbility/YunaraE2": {
+   "ObjectName": "YunaraE2",
+   "objectPath": "Characters/Yunara/Spells/YunaraEAbility/YunaraE2",
+   "mScriptName": "YunaraE2",
+   "mSpell": {
+    "flags": 4,
+    "mAlternateName": "YunaraE",
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "PositiveEffect_MoveBlock",
+     "Trait_PlayerSelectedDashDirection",
+     "Trait_AttackReset"
+    ],
+    "spellCastTime": 0.25,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     9,
+     9,
+     9,
+     9,
+     9,
+     9,
+     9
+    ],
+    "Cooldown": {
+     "values": [
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9
+     ],
+     "{0a3e0478}": 9,
+     "__type": "{0a0eddc9}"
+    },
+    "mCasterPositionEndOfCastUpdate": 1,
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Yunara/Spells/YunaraEAbility/YunaraEPassive",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "cantCastWhileRooted": true,
+    "mProjectTargetToCastRange": true,
+    "mSpellRevealsChampion": false,
+    "mCanMoveWhileChanneling": true,
+    "mShowChannelBar": false,
+    "alwaysSnapFacing": true,
+    "mIgnoreRangeCheck": true,
+    "mDoesNotConsumeCooldown": true,
+    "mRollForCriticalHit": true,
+    "mMinimapIconDisplayFlag": 0,
+    "castRange": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "missileSpeed": 0,
+    "mLineWidth": 200,
+    "mHitEffectOrientType": 2,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mSpellCooldownOrSealedQueueThreshold": 0.05,
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Spell_BuffTooltip_YunaraRE",
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 128,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "SourceObject": "Characters/Yunara/Spells/YunaraRAbility/YunaraR",
+         "DataValue": "RE_Dash_Speed",
+         "__type": "{9e9e2e5c}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8192,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/YunaraWAbility/YunaraWSlow": {
+   "ObjectName": "YunaraWSlow",
+   "objectPath": "Characters/Yunara/Spells/YunaraWAbility/YunaraWSlow",
+   "mScriptName": "YunaraWSlow",
+   "mSpell": {
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Spell_BuffTooltip_YunaraW",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/YunaraWAbility/YunaraW2Slow": {
+   "ObjectName": "YunaraW2Slow",
+   "objectPath": "Characters/Yunara/Spells/YunaraWAbility/YunaraW2Slow",
+   "mScriptName": "YunaraW2Slow",
+   "mSpell": {
+    "cooldownTime": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "Cooldown": {
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "{0a3e0478}": 0,
+     "__type": "{0a0eddc9}"
+    },
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Spell_BuffTooltip_YunaraRW",
+    "__type": "BuffData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/YunaraWAbility/YunaraWPassive": {
+   "ObjectName": "YunaraWPassive",
+   "objectPath": "Characters/Yunara/Spells/YunaraWAbility/YunaraWPassive",
+   "mScriptName": "YunaraWPassive",
+   "__type": "SpellObject"
+  },
+  "Spells/YunaraWAbility/YunaraW": {
+   "ObjectName": "YunaraW",
+   "objectPath": "Characters/Yunara/Spells/YunaraWAbility/YunaraW",
+   "mScriptName": "YunaraW",
+   "mSpell": {
+    "mAffectsTypeFlags": 6154,
+    "mExcludedUnitTags": {
+     "mObjectTagList": [
+      "structure",
+      "Ward",
+      "Plant"
+     ],
+     "__type": "ObjectTags"
+    },
+    "mSpellTags": [
+     "Trait_DamageAbility",
+     "Trait_DoT",
+     "Trait_Ranged_Piercing",
+     "Trait_AoE"
+    ],
+    "DataValues": [
+     {
+      "name": "Cast_Time_Base",
+      "values": [
+       0.45,
+       0.45,
+       0.45,
+       0.45,
+       0.45,
+       0.45,
+       0.45
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Cast_Time_Min",
+      "values": [
+       0.225,
+       0.225,
+       0.225,
+       0.225,
+       0.225,
+       0.225,
+       0.225
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Cast_Time_Attack_Speed_Cap",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Cast_Time_Base_Empowered",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Cast_Time_Min_Empowered",
+      "values": [
+       0.45,
+       0.45,
+       0.45,
+       0.45,
+       0.45,
+       0.45,
+       0.45
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Cast_Time_Attack_Speed_Cap_Empowered",
+      "values": [
+       100,
+       100,
+       100,
+       100,
+       100,
+       100,
+       100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Linger_Duration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Damage",
+      "values": [
+       15,
+       55,
+       95,
+       135,
+       175,
+       215,
+       255
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "ADRatio",
+      "values": [
+       0.85,
+       0.85,
+       0.85,
+       0.85,
+       0.85,
+       0.85,
+       0.85
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "APRatio",
+      "values": [
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5,
+       0.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "DPS_Modifier",
+      "values": [
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6,
+       0.6
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Slow_Duration",
+      "values": [
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5,
+       1.5
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Slow_Amount",
+      "values": [
+       0.99,
+       0.99,
+       0.99,
+       0.99,
+       0.99,
+       0.99,
+       0.99
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "Minion_Execute_Tick_Count",
+      "values": [
+       6,
+       6,
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "mSpellCalculations": {
+     "Calc_Damage_Initial": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "Damage",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "ADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "Calc_Damage_Per_Second": {
+      "mMultiplier": {
+       "mDataValue": "DPS_Modifier",
+       "__type": "NamedDataValueCalculationPart"
+      },
+      "mModifiedGameCalculation": "Calc_Damage_Initial",
+      "__type": "GameCalculationModified"
+     },
+     "{669adf33}": {
+      "mMultiplier": {
+       "mSpellCalculationKey": "Calc_Minion_Damage_Mod",
+       "__type": "{f3cbe7b2}"
+      },
+      "mModifiedGameCalculation": "Calc_Damage_Initial",
+      "__type": "GameCalculationModified"
+     },
+     "Calc_Slow": {
+      "mSimpleTooltipCalculationDisplay": 5,
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mDataValue": "Slow_Amount",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "Calc_Minion_Damage_Mod": {
+      "mFormulaParts": [
+       {
+        "mLevel1Value": 0.5,
+        "mBreakpoints": [
+         {
+          "mLevel": 9,
+          "mAdditionalBonusAtThisLevel": 0.25,
+          "__type": "Breakpoint"
+         },
+         {
+          "mLevel": 13,
+          "mAdditionalBonusAtThisLevel": 0.25,
+          "__type": "Breakpoint"
+         }
+        ],
+        "__type": "ByCharLevelBreakpointsCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     }
+    },
+    "spellTotalTime": 0,
+    "mCasterPositionEndOfCastUpdate": 2,
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Yunara/Spells/YunaraWAbility/YunaraWPassive",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "alwaysSnapFacing": true,
+    "mIgnoreRangeCheck": true,
+    "castRange": [
+     1150,
+     1150,
+     1150,
+     1150,
+     1150,
+     1150,
+     1150
+    ],
+    "castRadius": [
+     150,
+     150,
+     150,
+     150,
+     150,
+     150,
+     150
+    ],
+    "castConeDistance": 100,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "mMissileSpec": {
+     "mMissileWidth": 60,
+     "movementComponent": {
+      "mUseHeightOffsetAtEnd": true,
+      "mTracksTarget": false,
+      "mOffsetInitialTargetHeight": 100,
+      "mStartBoneName": "L_Hand",
+      "mProjectTargetToCastRange": true,
+      "mSpeed": 2150,
+      "__type": "FixedSpeedMovement"
+     },
+     "visibilityComponent": {
+      "mPerceptionBubbleRadius": 120,
+      "TrailTimeToConsiderForVisibility": 0.25,
+      "__type": "Defaultvisibility"
+     },
+     "heightSolver": {
+      "__type": "FollowTerrainHeightSolver"
+     },
+     "verticalFacing": {
+      "__type": "VerticalFacingFaceTarget"
+     },
+     "behaviors": [
+      {
+       "__type": "DestroyOnMovementComplete"
+      },
+      {
+       "mActions": [
+        {
+         "mSpeedChangeType": 1,
+         "mSpeedValue": 150,
+         "TriggerOnlyOnce": false,
+         "__type": "ChangeMissileSpeed"
+        }
+       ],
+       "mTriggerName": "Yunara_W_Slow_Down",
+       "mDelay": 0,
+       "__type": "TriggerFromScript"
+      },
+      {
+       "mActions": [
+        {
+         "mSpeedChangeType": 1,
+         "mSpeedValue": 2150,
+         "TriggerOnlyOnce": false,
+         "__type": "ChangeMissileSpeed"
+        }
+       ],
+       "mTriggerName": "Yunara_W_Speed_Up",
+       "mDelay": 0,
+       "__type": "TriggerFromScript"
+      }
+     ],
+     "__type": "MissileSpecification"
+    },
+    "mCastType": 3,
+    "castFrame": 15,
+    "missileSpeed": 2150,
+    "mMissileEffectKey": "Yunara_W_Missile",
+    "mMissileEffectEnemyKey": "Yunara_W_Missile_Enemy_POV",
+    "mLineWidth": 60,
+    "mana": [
+     60,
+     60,
+     60,
+     60,
+     60,
+     60
+    ],
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSpellCalculationKey": "Calc_Damage_Initial",
+       "__type": "{f3cbe7b2}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 32768,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mNumber": 60,
+         "__type": "NumberCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "Slow_Duration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     },
+     {
+      "EffectTag": 33554432,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mSpellCalculationKey": "Calc_Damage_Per_Second",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/YunaraWAbility/YunaraW2": {
+   "ObjectName": "YunaraW2",
+   "objectPath": "Characters/Yunara/Spells/YunaraWAbility/YunaraW2",
+   "mScriptName": "YunaraW2",
+   "mSpell": {
+    "mAlternateName": "YunaraW",
+    "mSpellTags": [
+     "Trait_Ultimate"
+    ],
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Yunara/Spells/YunaraWAbility/YunaraWPassive",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mProjectTargetToCastRange": true,
+    "alwaysSnapFacing": true,
+    "mIgnoreRangeCheck": true,
+    "mDoesNotConsumeCooldown": true,
+    "castRange": [
+     1150,
+     1150,
+     1150,
+     1150,
+     1150,
+     1150,
+     1150
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "castFrame": 18,
+    "missileSpeed": 0,
+    "mLineWidth": 90,
+    "selectionPriority": 1,
+    "mTargetingTypeData": {
+     "__type": "Location"
+    },
+    "mCastingBreaksStealth": true,
+    "__type": "SpellDataResource"
+   },
+   "BotData": {
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "SourceObject": "Characters/Yunara/Spells/YunaraRAbility/YunaraR",
+       "{3de6ce2d}": "Calc_RW_Damage",
+       "__type": "{ba007871}"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 1,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "SourceObject": "Characters/Yunara/Spells/YunaraRAbility/YunaraR",
+         "DataValue": "RW_Slow_Duration",
+         "__type": "{9e9e2e5c}"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2048,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 4096,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/YunaraRAbility/YunaraR": {
+   "ObjectName": "YunaraR",
+   "objectPath": "Characters/Yunara/Spells/YunaraRAbility/YunaraR",
+   "mScriptName": "YunaraR",
+   "mSpell": {
+    "flags": 36,
+    "mCastRequirementsCaster": [
+     {
+      "mInvertResult": true,
+      "BuffLink": "Characters/Yunara/Spells/YunaraRAbility/YunaraR",
+      "{7b66f15d}": false,
+      "__type": "HasBuffCastRequirement"
+     }
+    ],
+    "mSpellTags": [
+     "Trait_Ultimate",
+     "Trait_SylasSpecialAttackOverride",
+     "Trait_AttackBuff_Duration",
+     "Trait_AttackReset"
+    ],
+    "DataValues": [
+     {
+      "name": "Buff_Duration",
+      "values": [
+       15,
+       15,
+       15,
+       15,
+       15,
+       15,
+       15
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RW_Damage_Base",
+      "values": [
+       160,
+       160,
+       320,
+       480,
+       640,
+       800,
+       960
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RW_ADRatio",
+      "values": [
+       1.2,
+       1.2,
+       1.2,
+       1.2,
+       1.2,
+       1.2,
+       1.2
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RW_APRatio",
+      "values": [
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75,
+       0.75
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RW_Slow_Duration",
+      "values": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RW_Slow_Amount",
+      "values": [
+       0.99,
+       0.99,
+       0.99,
+       0.99,
+       0.99,
+       0.99,
+       0.99
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RE_Dash_Speed",
+      "values": [
+       1200,
+       1350,
+       1500,
+       1650,
+       1800,
+       1950,
+       2100
+      ],
+      "__type": "SpellDataValue"
+     },
+     {
+      "name": "RW_CDR",
+      "values": [
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8,
+       0.8
+      ],
+      "__type": "SpellDataValue"
+     }
+    ],
+    "{f9c2333e}": {
+     "ARAM": {
+      "value": [
+       80,
+       80,
+       70,
+       60,
+       60,
+       60,
+       60
+      ],
+      "__type": "SpellEffectAmount"
+     }
+    },
+    "mSpellCalculations": {
+     "Calc_RW_Damage": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "RW_Damage_Base",
+        "__type": "NamedDataValueCalculationPart"
+       },
+       {
+        "mStat": 2,
+        "mStatFormula": 2,
+        "mDataValue": "RW_ADRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       },
+       {
+        "mDataValue": "RW_APRatio",
+        "__type": "StatByNamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "Calc_RW_Slow_Amount": {
+      "mSimpleTooltipCalculationDisplay": 5,
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mDataValue": "RW_Slow_Amount",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     },
+     "{42964db5}": {
+      "mFormulaParts": [
+       {
+        "mDataValue": "RE_Dash_Speed",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "__type": "GameCalculation"
+     },
+     "Calc_RW_Cooldown_Reduction": {
+      "mSimpleTooltipCalculationDisplay": 5,
+      "mExpandedTooltipCalculationDisplay": 5,
+      "mFormulaParts": [
+       {
+        "mDataValue": "RW_CDR",
+        "__type": "NamedDataValueCalculationPart"
+       }
+      ],
+      "mDisplayAsPercent": true,
+      "__type": "GameCalculation"
+     }
+    },
+    "spellCastTime": 0,
+    "spellTotalTime": 0,
+    "cooldownTime": [
+     100,
+     100,
+     90,
+     80,
+     70,
+     60,
+     50
+    ],
+    "Cooldown": {
+     "values": [
+      100,
+      100,
+      90,
+      80,
+      70,
+      60,
+      50
+     ],
+     "__type": "{0a0eddc9}"
+    },
+    "mSpellPassives": [
+     {
+      "mBuff": "Characters/Yunara/Spells/YunaraRAbility/YunaraRPassive",
+      "mRemoveWhenOnCooldown": false,
+      "mDisplayFlags": 0,
+      "__type": "SpellPassiveData"
+     }
+    ],
+    "mAmmoUsed": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "mCantCancelWhileWindingUp": true,
+    "mSpellRevealsChampion": false,
+    "mCanMoveWhileChanneling": true,
+    "castRange": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "castRadius": [
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400
+    ],
+    "castRadiusSecondary": [
+     150,
+     150,
+     150,
+     150,
+     150,
+     150,
+     150
+    ],
+    "castConeAngle": 0,
+    "castConeDistance": 0,
+    "luaOnMissileUpdateDistanceInterval": 51,
+    "missileSpeed": 2000,
+    "mLineWidth": 100,
+    "mana": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "mTargetingTypeData": {
+     "__type": "Self"
+    },
+    "__type": "SpellDataResource"
+   },
+   "mBuff": {
+    "mDescription": "Spell_BuffTooltip_YunaraR",
+    "mBuffAttributeFlag": 32,
+    "__type": "BuffData"
+   },
+   "BotData": {
+    "DamageTag": 1,
+    "{6d548702}": {
+     "mFormulaParts": [
+      {
+       "mSubparts": [
+        {
+         "SourceObject": "Characters/Yunara/Spells/YunaraQAbility/YunaraQ",
+         "{3de6ce2d}": "Calc_Damage",
+         "__type": "{ba007871}"
+        },
+        {
+         "mSpellCalculationKey": "Calc_RW_Damage",
+         "__type": "{f3cbe7b2}"
+        }
+       ],
+       "__type": "SumOfSubPartsCalculationPart"
+      }
+     ],
+     "__type": "GameCalculation"
+    },
+    "{ec17e271}": [
+     {
+      "EffectTag": 2,
+      "EffectCalculation": {
+       "mFormulaParts": [
+        {
+         "mDataValue": "Buff_Duration",
+         "__type": "NamedDataValueCalculationPart"
+        }
+       ],
+       "__type": "GameCalculation"
+      },
+      "__type": "{b09016f6}"
+     }
+    ],
+    "{38382c53}": [
+     {
+      "{e38f54f7}": 8192,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 8192,
+      "__type": "{150d1b92}"
+     },
+     {
+      "{e38f54f7}": 2,
+      "__type": "{150d1b92}"
+     }
+    ],
+    "__type": "BotsSpellData"
+   },
+   "__type": "SpellObject"
+  },
+  "Spells/YunaraRAbility/YunaraRPassive": {
+   "ObjectName": "YunaraRPassive",
+   "objectPath": "Characters/Yunara/Spells/YunaraRAbility/YunaraRPassive",
+   "mScriptName": "YunaraRPassive",
+   "__type": "SpellObject"
+  }
+ },
+ "src_habilidades": "riot-cdragon",
+ "objetos_buff": {},
+ "habilidades_chaves": [
+  "Spells/YunaraQAbility/YunaraQ",
+  "Spells/YunaraWAbility/YunaraW",
+  "Spells/YunaraEAbility/YunaraE",
+  "Spells/YunaraRAbility/YunaraR"
+ ],
+ "passiva_ref": "Characters/Yunara/Spells/YunaraPassiveAbility",
+ "passiva_chaves": [
+  "Spells/YunaraPassiveAbility/YunaraPassive",
+  "Spells/YunaraPassiveAbility/YunaraCombatTracker"
+ ]
+}
