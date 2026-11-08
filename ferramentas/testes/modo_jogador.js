@@ -17,7 +17,7 @@ for(let k=0;k<3000&&run(ctx,`LV&&LV.state!=='done'`);k++){
   const st=run(ctx,'LV.state');
   if(st==='run')run(ctx,'lvTick(5)');
   else if(st==='ckpt')run(ctx,"lvPosture('sf')");
-  else if(st==='between'){run(ctx,'lvNext()');if(run(ctx,'!!DV')){chk('vDraft()');run(ctx,`var g2=0;while(DV.i<SEQ.length&&g2++<60){var t=SEQ[DV.i];if(t[1]===DV.us){if(t[0]==='ban'){var c=CH[0].find(function(x){return !dvTaken(x[0])})[0];DV.bans[DV.us].push(c);DV.i++}else{var cc=CH[DV.prole].find(function(x){return !dvTaken(x[0])&&!dvLk(x[0],DV.us)})[0];DV.pk[DV.us][DV.prole]=cc;DV.i++}}else{dvAI()}}DV.done=true;var lvc=DV.lv;dvGo();if(lvc)lvResume();`)}}
+  else if(st==='between'){run(ctx,"if(sdNeed(LV.m,LV.gi,LV.ia))act('lvSide','b');lvNext()");if(run(ctx,'!!DV')){chk('vDraft()');run(ctx,`var g2=0;while(DV.i<SEQ.length&&g2++<60){var t=SEQ[DV.i];if(t[1]===DV.us){if(t[0]==='ban'){var c=CH[0].find(function(x){return !dvTaken(x[0])})[0];DV.bans[DV.us].push(c);DV.i++}else{var cc=CH[DV.prole].find(function(x){return !dvTaken(x[0])&&!dvLk(x[0],DV.us)})[0];DV.pk[DV.us][DV.prole]=cc;DV.i++}}else{dvAI()}}DV.done=true;var lvc=DV.lv;dvGo();if(lvc)lvResume();`)}}
   else if(st==='pick')run(ctx,'lvPick(pcAuto())');
 }
 console.log(run(ctx,`JSON.stringify({state:LV.state,gi:LV.gi,fl:__M.fl?__M.fl.g.length:0,locksA:__M.fl&&__M.fl.a.length})`));

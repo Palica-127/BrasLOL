@@ -13,7 +13,7 @@ console.log(run(ctx,`(function(){
    else if(LV.state==='run'){var q=0;while(LV.state==='run'&&q++<20000)lvTick(5)}
    else if(LV.state==='between'){
      var gi=LV.gi,me=LV.me,op=LV.op;
-     lvNext();/* clique em "Draft do próximo mapa" */
+     if(sdNeed(LV.m,LV.gi,LV.ia))act('lvSide','b');lvNext();/* clique em "Draft do próximo mapa" */
      if(!DV){ok(false,'draft nao abriu');return null}
      draftOpened++;
      if(!DV.lv)ok(false,'draft sem flag lv');
@@ -25,7 +25,7 @@ console.log(run(ctx,`(function(){
   }
   var r=[LV.me,LV.op,draftOpened,LV.gi,LV.res.length];
   /* série encerrada: nao pode abrir outro mapa */
-  var st=LV.state;lvNext();var after=LV.state;DV=null;
+  var st=LV.state;if(sdNeed(LV.m,LV.gi,LV.ia))act('lvSide','b');lvNext();var after=LV.state;DV=null;
   lvDone();
   return {r:r,st:st,after:after};
  }

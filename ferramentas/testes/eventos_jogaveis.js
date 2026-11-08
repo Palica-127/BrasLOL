@@ -5,6 +5,8 @@ console.log(run(ctx,`(function(){
  var o=[],ok=function(c,t){o.push((c?'OK  ':'FALHA ')+t)};
  S.opt=S.opt||{};S.opt.draft=1;S.opt.live=1;
  S.mgr={tid:3,dr:null,bench:[],acad:[],cash:50,sat:50,log:[],mor:60,rep:50,pool:{}};
+ /* o draft do primeiro mapa agora é do jogador: o teste o conclui sozinho */
+ var __cps=cevPlayStart;cevPlayStart=function(){var r=__cps.apply(null,arguments);if(r&&DV){dvAll();act("dvGo")}return r};
  var t=mgrT();S.season.cev=null;S.phase=0;S.day=5;
  /* scrim de pré-temporada */
  var e=cevById('pre');e.cfg={foc:'comp',int:1,lu:1,ps:[],tr:''};cevGo('pre');

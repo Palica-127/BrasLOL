@@ -9,6 +9,6 @@ run(ctx,`dvGo();lvOpen();lvTacApply('auto');for(var i=0;i<400;i++)lvTick(5);`);
 chk('vLive()');chk('lvStatsHTML()');run(ctx,'LV.jgOpen=true');chk('lvStatsHTML()');
 run(ctx,`while(LV.state==='run')lvTick(5);`);chk('vLive()');
 console.log(run(ctx,`LV.state+' '+LV.gi+' '+flPanel(LV.m).replace(/<[^>]+>/g,' ').slice(0,200)`));
-run(ctx,`lvNext();`);chk('vDraft()');chk('flDraftBar()');
+run(ctx,`if(sdNeed(LV.m,LV.gi,LV.ia))act('lvSide','b');lvNext();`);chk('vDraft()');chk('flDraftBar()');
 run(ctx,`S.day=4;S.phase=0;`);chk('cevHTML(S.mgr)');chk('inicioHTML(mgrT(),S.mgr)');chk('calHTML(PHASES[0])');chk('calGrid()');
 console.log(run(ctx,`cevHTML(S.mgr).replace(/<[^>]+>/g,' ').replace(/ +/g,' ').slice(0,420)`));

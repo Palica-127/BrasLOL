@@ -88,7 +88,7 @@ function snapshot(S) {
   const players = [0, 1].map(ti => S.champs[ti].map((u, r) => {
     const p = lvPos(u.pos), deadIn = u.dead ? Math.max(0, (u.respawnAt || w.t) - w.t) : 0;
     return { r, ch: S.names[ti][r], x: p[0], y: p[1], hp: clamp(u.hp / Math.max(1, u.hpMax), 0, 1), mana: u.manaMax ? clamp(u.mana / u.manaMax, 0, 1) : 0, lv: u.level, gold: Math.round((u.stat.goldEarned || 0) + 500),
-      cs: u.stat.cs || 0, k: u.stat.kills || 0, d: u.stat.deaths || 0, a: u.stat.assists || 0, dead: u.dead, deadIn, dmg: Math.round(u.stat.dmgDealt || 0), items: (u.items || []).length };
+      cs: u.stat.cs || 0, k: u.stat.kills || 0, d: u.stat.deaths || 0, a: u.stat.assists || 0, dead: u.dead, deadIn, dmg: Math.round(u.stat.dmgDealt || 0), items: (u.items || []).slice(0, 6), mn: u.manaMax ? clamp(u.mana / u.manaMax, 0, 1) : null };
   }));
   const str = [0, 1].map(ti => {
     const L = sx.lanes[ti], o = {};
