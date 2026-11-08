@@ -268,6 +268,10 @@ function launch(w, u, { slot, rank, aim }) {
     case 'dash': {
       const e = r.effects.find(x => x.t === 'dash');
       if (u.name === 'Ahri') { const d = val(w, e.dist), sp = val(w, e.speed) || 1200, to = aimPoint(u, aim, d); startDash(w, u, { to, speed: sp, onEnd: () => ahriRBolts(w, u, r) }); }
+      else if (u.kit.auto) {                                              /* kit gerado: avanca a distancia/velocidade dos dados e acerta quem estiver perto ao chegar */
+        const d = e.dist ? val(w, e.dist) : (rng || 450), sp = (e.speed && val(w, e.speed)) || (g.missile && g.missile.speed) || 1200, to = aimPoint(u, aim, d || 450);
+        startDash(w, u, { to, speed: sp, onEnd: () => { const list = inCircle(w, u, u.pos, g.radius || 300); hitAll(list, {}); list.forEach(t => afterAbilityHit(w, u, t, r)); } });
+      }
       else if (u.name === 'Malphite') { const to = aimPoint(u, aim, rng), sp = (g.missile && g.missile.speed) || 1000; startDash(w, u, { to, speed: sp, cancelable: false, onEnd: () => { const list = inCircle(w, u, u.pos, g.radius); hitAll(list, {}); } }); }
       break;
     }

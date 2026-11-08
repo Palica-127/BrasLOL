@@ -84,6 +84,7 @@ for (const id of Object.keys(KITS)) {
     for (let rank = 1; rank <= def.maxRank; rank++) for (const level of [1, 9, 18]) {
       const S = computeStats(ch, level, { flat: { ap: 80, ad: 40 } });
       const r = resolveSlot(defs, kit, slot, { rank, level, S });
+      if (!r) continue;                                    /* kit gerado: habilidade sem ação declarada em gaps */
       JSON.stringify(r, (k, v) => { nKitEffects++; if (v && v.unsupported) { nUnsupported++; pend.push(v.calc + ' (' + slot + '): ' + v.unsupported); } return v; });
       if (!Number.isFinite(r.cooldown) || r.cooldown <= 0) pend.push(slot + ' recarga invalida');
     }

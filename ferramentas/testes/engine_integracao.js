@@ -10,19 +10,19 @@ const ok = (c, m) => { if (c) { pass++; console.log('ok   ' + m); } else { fail+
 /* ---------- 1. bundle ---------- */
 const { build } = require('../build_motor.js');
 const code = build(); fs.writeFileSync(path.join(ROOT, 'motor.js'), code);
-ok(code.length > 1e6 && code.length < 8e6, 'motor.js gerado (' + (code.length / 1024).toFixed(0) + ' KB)');
+ok(code.length > 1e6 && code.length < 12e6, 'motor.js gerado (' + (code.length / 1024).toFixed(0) + ' KB)');
 ok(!/Math\.random/.test(code.split('\nDEF[')[0] + code.split('\nDEF[').slice(1).join('\nDEF[').replace(/"[^"\n]*Math\.random[^"\n]*"/g, '')) || true, 'bundle carregavel');
 const box = vm.createContext({ console, JSON, Date }); box.window = box;
 vm.runInContext(code, box, { filename: 'motor.js' });
 const E = box.BrasEngine;
-ok(E && E.Adapter && E.kits.length === 8 && E.patch === '16.22.1', 'BrasEngine exporta Adapter, 8 kits e o patch');
+ok(E && E.Adapter && E.kits.length === 173 && E.patch === '16.22.1', 'BrasEngine exporta Adapter, 173 kits (8 manuais + rascunhos) e o patch');
 ok(!/Math\.random/.test(fs.readFileSync(path.join(ROOT, 'src/engine/integracao/adapter.js'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '')), 'adaptador sem Math.random');
 
 /* ---------- 2. adaptador ---------- */
 const A = E.Adapter;
 const pl = n => ['T', 'J', 'M', 'A', 'S'].map(r => ({ name: n + r, champ: null, attrs: { lane: 70, mec: 70, macro: 70, team: 70, mental: 70 } }));
 const mkTeams = () => [{ name: 'AAA', style: 'eq', players: pl('a') }, { name: 'BBB', style: 'ag', players: pl('b') }];
-ok(A.supported([null, 'Ahri', 'Garen']) && !A.supported(['Ahri', 'Yasuo']) && A.supported([]), 'supported(): kits aceitos, campeao sem kit recusado, null usa o padrao');
+ok(A.supported([null, 'Ahri', 'Garen']) && !A.supported(['Ahri', 'NaoExiste']) && A.supported([]), 'supported(): kits aceitos, campeao sem kit recusado, null usa o padrao');
 const play = (seed, cap) => { const S = A.create({ seed, teams: mkTeams(), cap }); let g = 0; while (!A.advance(S, 10) && g++ < 400); return S; };
 const S1 = play(11), S2 = play(11), S3 = play(12);
 ok(S1.w.hash() === S2.w.hash() && S1.w.t === S2.w.t, 'mesma semente = mesma partida (hash do log identico)');
@@ -102,7 +102,7 @@ console.log('  tempo por serie (ms):', durs.join(' '));
 /* 3e. campeoes sem kit (draft normal) caem no motor classico, serie termina */
 {
   const ctx = game(true, true);
-  run(ctx, `S.opt.draft=1`);
+  run(ctx, `S.opt.draft=1;BrasEngine.Adapter.supported=function(){return false}`);   /* todos os 173 campeoes tem kit: a ausencia e simulada */
   let fall = 0, n = 6;
   for (let k = 0; k < n; k++) {
     const o = JSON.parse(run(ctx, `(function(){__M={a:3,b:40,n:3,res:null};S.mgr.dr=null;dvOpen();dvAll();dvGo();lvOpen();var e=false;var g=0;while(LV&&LV.state!=='done'&&g++<6000){if(LV.state==='ckpt')lvTacApply('auto');else if(LV.state==='between')lvNext(true);else lvTick(5);if(LV.eng)e=true}return JSON.stringify({e:e,s:LV.state,fx:!!__M.fx})})()`));

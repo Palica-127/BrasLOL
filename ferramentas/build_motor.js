@@ -11,7 +11,7 @@ function build() {
   const visit = file => {
     const key = path.relative(ROOT, file).replace(/\\/g, '/');
     if (mods[key]) return key;
-    let code = fs.readFileSync(file, 'utf8'); mods[key] = { code, deps: {} }; order.push(key);
+    let code = fs.readFileSync(file, 'utf8'); if (file.endsWith('.json')) code = 'module.exports=' + code.trim() + ';'; mods[key] = { code, deps: {} }; order.push(key);
     const re = /require\(\s*'([^']+)'\s*\)/g; let m;
     while ((m = re.exec(code))) {
       const r = m[1]; if (!r.startsWith('.')) continue;

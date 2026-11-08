@@ -107,7 +107,9 @@ class Brain {
       if (E.drake && E.drake.some(m => !m.dead)) { const m = E.drake.find(x => !x.dead); objs.push({ k: m.name === 'sru_dragon_elder' ? 'e' : 'd', mons: [m], pit: 'd' }); }
       if (E.baron && E.baron.some(m => !m.dead)) objs.push({ k: 'b', mons: E.baron.filter(m => !m.dead), pit: 'b' });
     }
+    this.objCd = this.objCd || {};
     objs.forEach(ob => {
+      if ((this.objCd[ob.k] || 0) > t) return;                      /* Bloco 10: tentativa recente falhou: volta a farmar antes de tentar de novo */
       const pos = ob.mons[0].pos, mem = me.map(u => this.players.find(p => p.u === u)).filter(p => p && this.eligible(p, 'obj', { topOk: ob.pit === 'b' })), need = OBJ_NEED[ob.k];
       if (mem.length < 2) return;
       const nF = mem.length >= need ? 1 : 0.25 + (mem.length / need) * 0.35, hpF = 0.6 + 0.4 * (mem.reduce((s, p) => s + p.u.hp / p.u.hpMax, 0) / mem.length);
@@ -143,6 +145,7 @@ class Brain {
     if (!this.goal || !this.goalValid(this.goal) || (t - this.goal.since >= 8 && best !== undefined && !this.sameGoal(this.goal, best) && best.sc > this.goal.sc + 0.05) || t - this.goal.since > 150) {
       const thr = best.kind === 'lane' ? 0 : 0.34;
       const g = best.sc >= thr ? best : C[0];
+      if (this.goal && this.goal.kind === 'obj' && !this.sameGoal(this.goal, g) && this.goal.mons.some(m => !m.dead)) this.objCd[this.goal.k] = t + 90;
       if (!this.goal || !this.sameGoal(this.goal, g)) { this.goal = { ...g, since: t }; this.stats.goals[g.kind] = (this.stats.goals[g.kind] || 0) + 1; if (g.kind === 'obj') this.stats.objStarts++; if (g.kind === 'siege') this.stats.sieges++; if (g.kind === 'defend') this.stats.defends++; w.emit('goal', { team: this.team, gk: g.kind, obj: g.k, lane: g.lane }); }
     } else {
       const cur = C.find(c => c.kind === this.goal.kind && this.sameGoal(this.goal, c)); if (cur) { this.goal.sc = cur.sc; this.goal.T = cur.T || this.goal.T; this.goal.mons = cur.mons || this.goal.mons; this.goal.pos = cur.pos || this.goal.pos; }
@@ -164,7 +167,7 @@ class Brain {
     const S = this.w.structures, mine = S.byTeam[this.team].filter(s => !s.dead && !s.invuln);
     mine.forEach(s => {
       const en = op.filter(u => dist(u.pos, s.pos) < 1300).length, em = this.w.units.filter(x => x.kind === 'minion' && !x.dead && x.team !== this.team && dist(x.pos, s.pos) < 1000).length;
-      if (!en && em < 5) return;
+      if (!en) return;                                         /* Bloco 10: so inimigo campeao perto puxa o time; onda empurrando a torre e da conta o laner (antes o time inteiro largava a rota) */
       const fr = this.alive().filter(u => dist(u.pos, s.pos) < 1300).length;
       const sc = (0.3 + 0.2 * Math.min(en, 3) + 0.03 * em) * (1 + st.def) * (s.sub === 'nexus' ? 1.5 : 1) * (fr >= en + 1 ? 0.6 : 1);
       if (!C.some(c => c.kind === 'defend' && c.where === s.lane)) C.push({ kind: 'defend', where: s.lane || 'nx', pos: s.pos, sc });

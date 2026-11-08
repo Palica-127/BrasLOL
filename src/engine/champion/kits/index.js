@@ -7,10 +7,16 @@ const wave1 = require('./wave1');
 
 const KITS = {};
 wave1.forEach(k => { KITS[k.id] = k; });
+/* rascunhos gerados por ferramentas/dados/gerar_kits_auto.js: nunca substituem um kit escrito à mão */
+try { const auto = require('./auto.json'); Object.keys(auto).forEach(id => { if (!KITS[id]) KITS[id] = auto[id]; }); } catch (e) { /* sem rascunhos */ }
 
-const isRef = x => x && typeof x === 'object' && ('dv' in x || 'calc' in x);
+const isRef = x => x && typeof x === 'object' && ('dv' in x || 'calc' in x || 'dmg' in x);
 function resolveValue(def, x, ctx) {
   if ('dv' in x) return dv(def, x.dv, ctx.rank);
+  if ('dmg' in x) {                                   /* dano/escudo sem cálculo oficial: base + razões dos DataValues do patch (declarado em gaps) */
+    const o = x.dmg, S = ctx.S || {}, t = k => (S[k] && S[k].total) || 0;
+    return dv(def, o.base, ctx.rank) + (o.ap ? dv(def, o.ap, ctx.rank) * t('ap') : 0) + (o.ad ? dv(def, o.ad, ctx.rank) * t('ad') : 0) + (o.bad ? dv(def, o.bad, ctx.rank) * ((S.ad && S.ad.bonus) || 0) : 0);
+  }
   try { return calc(def, x.calc.calc || x.calc, ctx); } catch (e) { if (e instanceof Unsupported) return { unsupported: e.message, calc: x.calc.calc || x.calc }; throw e; }
 }
 function walk(def, x, ctx) {
@@ -39,7 +45,10 @@ function refsOf(kit) {
   const w = (x, slot) => {
     if (Array.isArray(x)) return x.forEach(v => w(v, slot));
     if (x && typeof x === 'object') {
-      if (isRef(x) && Object.keys(x).length === 1) { out.push({ slot, ...('dv' in x ? { dv: x.dv } : { calc: x.calc.calc || x.calc }) }); return; }
+      if (isRef(x) && Object.keys(x).length === 1) {
+        if ('dmg' in x) { Object.values(x.dmg).forEach(n => out.push({ slot, dv: n })); return; }
+        out.push({ slot, ...('dv' in x ? { dv: x.dv } : { calc: x.calc.calc || x.calc }) }); return;
+      }
       Object.values(x).forEach(v => w(v, slot));
     }
   };
