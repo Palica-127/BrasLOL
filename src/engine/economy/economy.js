@@ -1,0 +1,82 @@
+'use strict';
+/* Economia (Bloco 5): ondas de minions, CS, ouro, experiência e níveis.
+   DADOS: XP necessário por nível e XP de abate de campeão (rules.json, do cliente), XP/ouro/atributos base dos minions (minions.json), intervalos de ondas.
+   WIKI (referência, não existem nos dados extraídos): ouro passivo 20,4 a cada 10 s a partir de 1:50; recompensa base de abate 300; primeiro abate +100.
+   ESTIMADO (declarado): divisão do XP entre campeões próximos (âncoras da Wiki: 1 campeão = 100%, 5 campeões = 21,7% cada; intermediários interpolados),
+   ouro de assistência (metade da recompensa dividida entre assistentes). PENDENTE: bônus por sequência/encerrar sequência, multiplicador de XP por diferença de nível,
+   tempo de morte/renascimento (Bloco 7/9), minions super (precisam de inibidores, Bloco 7), empurrão de minions, ouro de torre/placas. */
+const { xpToReach } = require('../champion/stats');
+const M = require('./minions');
+const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+
+const WIKI = { passiveStart: 110, passivePer10s: 20.4, championBounty: 300, firstBlood: 100, assistShare: 0.5, xpShareTotalPerExtra: 0.02125 };
+const xpShare = n => (n <= 0 ? 0 : (1 + WIKI.xpShareTotalPerExtra * (n - 1)) / n);        /* n=1 -> 1; n=5 -> 0,217 */
+
+class Economy {
+  constructor(w, { lanes } = {}) {
+    this.w = w; this.rules = w.rules; this.lanes = lanes || [{ a: { x: 400, y: 3000 }, b: { x: w.arena.w - 400, y: 3000 } }];
+    this.waveN = 0; this.firstBlood = false; this.cs = {}; this.timeline = [];
+    this.waveTimes = this.computeWaveTimes(3600);
+    this.waveTimes.forEach((t, i) => w.schedule(t, () => this.spawnWave(i, t)));
+  }
+  computeWaveTimes(end) {
+    const R = this.rules.ondas_de_minions, out = []; let t = R.primeira_onda_s;
+    while (t <= end) { out.push(t); const iv = R.intervalos.find(x => t >= x.de_s && (x.ate_s === null || t < x.ate_s)); t += iv.intervalo_s; }
+    return out;
+  }
+  /* composição de uma onda: 3 melee + 3 caster; siege a partir de 1:30 (a cada 3 ondas até 14:00, a cada 2 até 25:00, depois toda onda) */
+  composition(i, t) {
+    let siege = false;
+    if (t >= 90) { if (t < 840) siege = (i - 2) % 3 === 0; else if (t < 1500) siege = (i % 2 === 0) || false; else siege = true; }
+    const c = { melee: 3, ranged: 3, siege: siege ? 1 : 0 };
+    if (siege && t >= 840) c.melee = 2;                                              /* Wiki: 1 melee a menos quando o siege nasce depois de 14:00 */
+    if (siege && t >= 1800) c.ranged = 2;                                            /* Wiki: 1 caster a menos depois de 30:00 */
+    return c;
+  }
+  spawnWave(i, t) {
+    const w = this.w, c = this.composition(i, t), order = [];
+    for (let k = 0; k < c.melee; k++) order.push('melee'); for (let k = 0; k < c.siege; k++) order.push('siege'); for (let k = 0; k < c.ranged; k++) order.push('ranged');
+    this.waveN++; w.emit('wave', { n: i + 1, comp: c });
+    this.lanes.forEach(lane => [0, 1].forEach(team => order.forEach((type, k) => w.schedule(w.t + k * this.rules.ondas_de_minions.intervalo_entre_minions_s, () => M.create(w, team, type, lane)))));
+  }
+
+  /* ---------- XP e níveis ---------- */
+  grantXp(u, xp, why) {
+    if (!(xp > 0) || u.dead && why !== 'kill') return;
+    u.xp += xp; u.stat.xp = (u.stat.xp || 0) + xp;
+    while (u.level < 18 && u.xp >= xpToReach(this.rules, u.level + 1) - 1e-9) this.levelUp(u);
+  }
+  levelUp(u) {
+    const w = this.w; u.level++; u.abil.points++;
+    if (u.autoRank) w.autoRank(u);
+    w.refresh(u); w.emit('levelup', { id: u.id, level: u.level });
+  }
+  giveGold(u, g, why) { if (!(g > 0)) return; u.gold += g; u.stat.goldEarned = (u.stat.goldEarned || 0) + g; this.w.emit('gold', { id: u.id, amount: +g.toFixed(2), why }); }
+
+  /* ---------- morte de minion / campeão ---------- */
+  onMinionDeath(m, killer) {
+    const w = this.w, sp = m.spec, foeTeam = 1 - m.team;
+    const near = w.units.filter(x => x.kind !== 'minion' && !x.dead && x.team === foeTeam && dist(x.pos, m.pos) <= sp.xpRadius);
+    near.forEach(x => this.grantXp(x, sp.xp * xpShare(near.length), 'minion'));
+    if (killer && killer.kind !== 'minion' && killer.team === foeTeam) {
+      this.giveGold(killer, sp.gold, 'cs'); killer.stat.cs = (killer.stat.cs || 0) + 1; w.emit('cs', { id: killer.id, mtype: sp.type });
+    } else w.emit('minion-lost', { id: m.id, mtype: sp.type });
+  }
+  onChampionKill(dst, killer) {
+    const w = this.w; if (!killer || killer.kind === 'minion') return;
+    const assisters = Object.keys(dst.assisters || {}).map(Number).map(id => w.byId(id)).filter(x => x && x !== killer && x.kind !== 'minion' && x.team === killer.team && w.t - dst.assisters[x.id] < 10);
+    let bounty = WIKI.championBounty; if (!this.firstBlood) { this.firstBlood = true; bounty += WIKI.firstBlood; w.emit('first-blood', { id: killer.id }); }
+    this.giveGold(killer, bounty, 'kill');
+    if (assisters.length) assisters.forEach(a => this.giveGold(a, WIKI.championBounty * WIKI.assistShare / assisters.length, 'assist'));
+    const xp = this.rules.experiencia.xp_ao_matar_campeao_por_nivel[Math.min(dst.level, 18) - 1], group = [killer, ...assisters];
+    group.forEach(x => this.grantXp(x, xp / group.length, 'kill'));
+  }
+  update() {
+    const w = this.w;
+    if (w.t >= WIKI.passiveStart) w.units.forEach(u => { if (u.kind !== 'minion' && !u.dead) this.giveGoldQuiet(u, WIKI.passivePer10s / 10 * w.dt); });
+    if (w.tickN % Math.round(60 / w.dt) === 0) this.timeline.push({ t: Math.round(w.t), champs: w.units.filter(u => u.kind !== 'minion').map(u => ({ id: u.id, lvl: u.level, xp: Math.round(u.xp), gold: Math.round(u.stat.goldEarned || 0), cs: u.stat.cs || 0 })) });
+  }
+  giveGoldQuiet(u, g) { u.gold += g; u.stat.goldEarned = (u.stat.goldEarned || 0) + g; u.stat.passiveGold = (u.stat.passiveGold || 0) + g; }
+}
+function enable(w, opts) { w.econ = new Economy(w, opts); return w.econ; }
+module.exports = { enable, Economy, WIKI, xpShare };

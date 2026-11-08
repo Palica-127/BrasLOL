@@ -38,7 +38,7 @@ module.exports = [
 
   { id: 'Ahri',
     P: { effects: [{ t: 'passive', name: 'Roubo de Essência', healAfterMinionKills: dv('MaxStacks'), takedownWindow: dv('TakedownWindow') }] },
-    Q: { shape: 'skillshot', effects: [{ t: 'damage', calc: calc('TotalDamage'), type: 'magic', leg: 'out' }, { t: 'damage', calc: calc('TotalDamage'), type: 'true', leg: 'return' }] },
+    Q: { shape: 'skillshot', proj: { pierce: true, returns: true }, effects: [{ t: 'damage', calc: calc('TotalDamage'), type: 'magic', leg: 'out' }, { t: 'damage', calc: calc('TotalDamage'), type: 'true', leg: 'return' }] },
     W: { shape: 'self', effects: [
       { t: 'ms', amount: dv('MovementSpeed'), dur: dv('MovementSpeedDuration') },
       { t: 'homingMissiles', count: 3, damage: { calc: calc('SingleFireDamage'), type: 'magic' }, extraHitFactor: dv('RepeatDamageMod'), life: dv('FlameDuration') }] },
@@ -64,14 +64,14 @@ module.exports = [
       { t: 'buff', stat: 'armor', amount: calc('BonusArmorTooltip'), dur: dv('ArmorMRDuration') }, { t: 'buff', stat: 'mr', amount: calc('BonusMRTooltip'), dur: dv('ArmorMRDuration') },
       { t: 'damageReduction', flat: dv('FlatDamageReduction'), maxPct: dv('FlatDamageReductionMax') },
       { t: 'damage', calc: calc('TotalDamageTooltip'), type: 'magic', when: 'end', ifEnemiesNear: true, extendsDuration: true }] },
-    E: { shape: 'skillshot', effects: [{ t: 'damage', calc: calc('TotalDamageTooltip'), type: 'magic' }, { t: 'dash', toLastChampionHit: true }, { t: 'cc', kind: 'root', dur: dv('RootDuration'), lastHit: true }] },
+    E: { shape: 'skillshot', proj: { dashToHit: true }, effects: [{ t: 'damage', calc: calc('TotalDamageTooltip'), type: 'magic' }, { t: 'dash', toLastChampionHit: true }, { t: 'cc', kind: 'root', dur: dv('RootDuration'), lastHit: true }] },
     R: { shape: 'area', effects: [
       { t: 'damage', calc: calc('ExplosionCalculatedDamage'), type: 'magic' }, { t: 'cc', kind: 'stun', dur: dv('CCDuration'), zone: 'center' },
       { t: 'cc', kind: 'slow', amount: dv('SlowPercent'), dur: dv('CCDuration'), zone: 'edge' }] } },
 
   { id: 'Amumu',
     P: { effects: [{ t: 'curse', onAttack: true, dur: dv('DebuffDuration'), magicToTrueFraction: dv('DamageAmp') }] },
-    Q: { shape: 'skillshot', effects: [{ t: 'damage', calc: calc('TotalDamage'), type: 'magic' }, { t: 'dash', speed: dv('DashSpeed'), toHit: true }, { t: 'cc', kind: 'stun', dur: dv('StunDuration') }] },
+    Q: { shape: 'skillshot', proj: { dashToHit: true }, effects: [{ t: 'damage', calc: calc('TotalDamage'), type: 'magic' }, { t: 'dash', speed: dv('DashSpeed'), toHit: true }, { t: 'cc', kind: 'stun', dur: dv('StunDuration') }] },
     W: { shape: 'toggleAura', effects: [{ t: 'aura', tickEvery: 1, damage: { calc: calc('TotalHealthDamage'), type: 'magic' } }] },
     E: { shape: 'selfAoe', textTypeIgnore: ['physical'] /* o texto oficial cita Dano Físico só na redução recebida */, effects: [
       { t: 'damageReduction', physicalFlat: calc('DamageReduction'), passive: true }, { t: 'damage', calc: calc('TantrumDamage'), type: 'magic' },
