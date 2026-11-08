@@ -1,0 +1,21 @@
+/* Menu inicial: e' a primeira tela; Novo jogo/Continuar/Opcoes levam ao jogo; a aba Menu saiu da barra. */
+const { load, run } = require('./harness.js');
+const ctx = load(require('path').join(__dirname, '..', '..', 'index.html'));
+let ok = true; const T = (c, m) => { console.log((c ? 'ok   ' : 'FALHA') + ' ' + m); if (!c) ok = false; };
+const R = c => run(ctx, c);
+T(R('TITLE') === 'main', 'abre no menu inicial');
+T(R('ttlUsed().length') === 0, 'sem saves: Continuar desabilitado');
+T(/disabled>Continuar/.test(R('titleHTML()')), 'botao Continuar vem desabilitado');
+['new', 'opt', 'main'].forEach(v => { R(`act('ttlGo','${v}')`); T(R('TITLE') === v && R('titleHTML()').length > 500, 'tela ' + v + ' renderiza'); });
+T(!/data-v="menu"/.test(R('nav()')), 'a aba Menu nao esta na barra');
+R("act('ttlGo','new')"); R("act('ttlNew','1')");
+T(R('TITLE') === null && R('tab') === 'menu' && R('SLOT') === 1 && R('STARTED[1]') === true, 'Novo jogo no slot 2 entra no jogo na escolha de modo');
+R("act('ttlOpen')");
+T(R('TITLE') === 'main' && R('ttlUsed()').join() === '1', 'voltar ao menu inicial: slot 2 aparece como salvo');
+R("act('ttlCont')");
+T(R('TITLE') === null && R('tab') === 'season' && R('SLOT') === 1, 'Continuar carrega o slot e abre o jogo');
+R("act('ttlOpen')"); R("act('ttlGo','new')"); R("act('ttlAskNew','1')");
+T(/Confirmar: apagar o slot 2/.test(R('titleHTML()')), 'sobrescrever pede confirmacao');
+R("act('ttlOpen')"); R("act('ttlGo','opt')"); R("act('snd','0')");
+T(R('sndOn()') === false, 'opcao Sons desligada pelo menu inicial');
+process.exit(ok ? 0 : 1);

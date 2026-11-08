@@ -1206,6 +1206,46 @@ h1,h2,h3,.hn,.mhero h2,.cdate>div:first-child b,.play,.pill,.mc2 h3{font-style:n
 .sqc span{min-width:0}.sqc b{display:block;font:600 13px var(--b);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sqc small{font-size:11px;color:var(--muted)}
 .tbd{display:grid;place-items:center;width:66px;height:66px;border:2px dashed rgba(255,255,255,.3);border-radius:50%;font:800 26px var(--d);color:rgba(255,255,255,.5)}
 @media (max-width:420px){.sqask{grid-template-columns:1fr}.sqr{grid-template-columns:auto minmax(0,1fr)}.sqr .ghost{grid-row:2}}
+
+/* ---------- menu inicial (tela de abertura) ---------- */
+body.ttlon{padding:0;overflow:hidden;background:none}html:has(body.ttlon){background:#03070d}
+.ttl{position:fixed;inset:0;display:grid;place-items:center;overflow:auto;padding:28px 16px;isolation:isolate}
+.tbg{position:fixed;inset:-20%;display:flex;gap:12px;justify-content:center;z-index:-3;opacity:.42;transform:rotate(-9deg);pointer-events:none}
+.tcol{display:flex;flex-direction:column;gap:12px;flex:0 0 clamp(72px,13vw,124px);animation:tscroll var(--dur,60s) linear infinite}
+.tcol:nth-child(even){animation-direction:reverse}
+.tcol img{width:100%;aspect-ratio:1;object-fit:cover;border:1px solid rgba(217,179,95,.28);border-radius:12px;filter:saturate(.85) brightness(.9)}
+@keyframes tscroll{to{transform:translateY(-50%)}}
+.ttl::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 70% 55% at 50% 42%,rgba(5,12,21,.15),rgba(3,7,13,.88) 75%),linear-gradient(180deg,rgba(3,7,13,.78),rgba(3,7,13,.15) 32%,rgba(3,7,13,.92))}
+.ttl::after{content:"";position:fixed;left:50%;top:-10%;width:900px;height:520px;margin-left:-450px;z-index:-1;background:radial-gradient(closest-side,rgba(217,179,95,.22),transparent);pointer-events:none;animation:tglow 7s ease-in-out infinite alternate}
+@keyframes tglow{from{opacity:.55;transform:scale(.94)}to{opacity:1;transform:scale(1.06)}}
+.tbox{width:min(100%,420px);text-align:center;animation:tup .7s cubic-bezier(.2,.8,.2,1) both}
+@keyframes tup{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.tmark{width:92px;height:92px;margin:0 auto 22px;display:grid;place-items:center;transform:rotate(45deg);border:2px solid var(--gold);background:linear-gradient(135deg,rgba(217,179,95,.2),rgba(12,26,42,.85));box-shadow:0 0 0 6px rgba(217,179,95,.08),0 0 40px rgba(217,179,95,.35)}
+.tmark svg{width:44px;height:44px;transform:rotate(-45deg);color:var(--gold-hi)}
+.tey{font:600 12px var(--b);letter-spacing:.42em;text-transform:uppercase;color:var(--teal);margin:0 0 6px;padding-left:.42em}
+.tname{margin:0;font:800 clamp(64px,19vw,104px)/.88 var(--d);text-transform:uppercase;letter-spacing:.01em;background:linear-gradient(180deg,#fff6d6,var(--gold) 52%,var(--gold-lo));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 22px rgba(217,179,95,.38))}
+.tname span{background:linear-gradient(180deg,#d9fbff,var(--teal) 60%,#1f8e99);-webkit-background-clip:text;background-clip:text}
+.tsub{margin:12px auto 30px;max-width:340px;font-size:14px;color:var(--silver)}
+.tmenu{display:grid;gap:12px}
+.tbtn{position:relative;display:block;width:100%;padding:15px 18px 14px;text-align:center;cursor:pointer;color:var(--ink);background:rgba(12,26,42,.72);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:1px solid rgba(217,179,95,.38);clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);font:700 21px var(--d);letter-spacing:.16em;text-transform:uppercase;transition:transform .18s,border-color .18s,background .18s,box-shadow .18s;animation:tup .6s cubic-bezier(.2,.8,.2,1) both}
+.tbtn:nth-child(2){animation-delay:.08s}.tbtn:nth-child(3){animation-delay:.16s}.tbtn:nth-child(4){animation-delay:.24s}
+.tbtn small{display:block;margin-top:3px;font:500 12px var(--b);letter-spacing:.02em;text-transform:none;color:var(--muted)}
+.tbtn:hover:not([disabled]),.tbtn:focus-visible{transform:translateX(6px);border-color:var(--gold-hi);background:rgba(20,40,62,.88);box-shadow:inset 3px 0 0 var(--gold)}
+.tbtn.pri{color:var(--on-gold);border-color:var(--gold-hi);background:linear-gradient(180deg,var(--gold-hi),var(--gold) 55%,var(--gold-lo))}
+.tbtn.pri small{color:rgba(27,20,5,.72)}
+.tbtn.pri:hover:not([disabled]),.tbtn.pri:focus-visible{background:linear-gradient(180deg,#fff0c4,var(--gold-hi) 55%,var(--gold));box-shadow:0 0 28px rgba(217,179,95,.45)}
+.tbtn[disabled]{opacity:.38;cursor:not-allowed}
+.tbtn.dng{border-color:var(--bad);color:var(--bad)}
+.ttitle{margin:0 0 4px;font:700 30px var(--d);letter-spacing:.14em;text-transform:uppercase;color:var(--gold-hi)}
+.tnote{margin:0 0 18px;font-size:13px;color:var(--muted)}
+.tslot{display:grid;gap:8px}
+.topt{text-align:left;display:grid;gap:12px;margin:14px 0 18px}
+.topt .os{padding:12px 14px;background:rgba(12,26,42,.78);border:1px solid var(--line);border-left:3px solid var(--gold)}
+.topt h3{margin:0 0 3px;font:700 17px var(--d);letter-spacing:.1em;text-transform:uppercase;color:var(--gold-hi)}
+.topt p{margin:0 0 9px;font-size:12px;color:var(--muted)}
+.tfoot{margin-top:26px;font-size:11px;color:#5d7288}
+@media (prefers-reduced-motion:reduce){.tcol,.ttl::after,.tbox,.tbtn{animation:none}}
+@media (max-height:640px){.tmark{width:64px;height:64px;margin-bottom:12px}.tmark svg{width:30px;height:30px}.tsub{margin-bottom:16px}}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -1413,6 +1453,10 @@ function newState(){
 function load(){try{const j=localStorage.getItem(KEY);return j?JSON.parse(j):null}catch(e){return null}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 let S=load();
+/* slots já iniciados pelo menu inicial; na primeira execução desta versão, saves antigos contam como iniciados */
+let STARTED=null;try{STARTED=JSON.parse(localStorage.getItem('lol-started'))}catch(e){}
+if(!Array.isArray(STARTED)){STARTED=[0,1,2].map(i=>{try{return !!localStorage.getItem(SLOTK[i])}catch(e){return false}});try{localStorage.setItem('lol-started',JSON.stringify(STARTED))}catch(e){}}
+const startMark=i=>{STARTED[i]=true;try{localStorage.setItem('lol-started',JSON.stringify(STARTED))}catch(e){}};
 let cele=null,mgrQ='',mgrView='inicio',mgrRole=0,mgrPick=0,askEnd=false,animNext=true,tab='season',selYear=null,selLg='LCK',msg='',askReset=false,dHof=null,dBackup='',lastPlayed=null,detOpen=false,detT='',brkO={};
 let tvw='el';
 let prof=null,pstack=[],prevTab='season',hofView='rank',pf='all',qStr='';
@@ -4739,6 +4783,47 @@ function pcCheck(){
 /* ---------- menu principal e telas do modo jogador ---------- */
 let menuV='home',menuAsk=null,pcF={name:'',role:2,arch:'eq',nat:'',team:''},pcQ='',setOpen={};
 const NATL=['KOR','CHN','USA','CAN','FRA','GER','ESP','DEN','SWE','POL','GRE','TUR','CZE','UKR','BRA','VIE','TWN','JPN','AUS','ARG','CHI','MEX'];
+/* ---------- menu inicial: primeira tela do jogo (Continuar, Novo jogo, Opções) ---------- */
+let TITLE='main',ttlAsk=-1;
+const ttlUsed=()=>[0,1,2].filter(i=>STARTED[i]&&slotInfo(i));
+function ttlBg(){
+  const names=Object.keys(CHIMG).sort((a,b)=>hs(a)-hs(b));
+  return `<div class="tbg" aria-hidden="true">${[0,1,2,3,4,5,6].map(c=>{const l=names.filter((_,i)=>i%7===c).slice(0,9);return `<div class="tcol" style="--dur:${52+c*7}s">${l.concat(l).map(n=>`<img src="${CHIMG[n]}" alt="" decoding="async" draggable="false">`).join('')}</div>`}).join('')}</div>`;
+}
+function ttlInfo(i){const f=slotInfo(i);return f?`${f.y} · ${f.h} temporada${f.h===1?'':'s'} fechada${f.h===1?'':'s'}${f.t?' · treinador do '+esc(f.t):''}`:'vazio'}
+function titleHTML(){
+  const used=ttlUsed(),back=`<button class="tbtn" data-act="ttlGo" data-v="main">Voltar</button>`;
+  const pl=(a,cur,o)=>`<div class="pills" style="margin:0">${o.map(([k,l])=>`<button class="pill" aria-pressed="${String(cur)===String(k)}" data-act="${a}" data-v="${k}">${l}</button>`).join('')}</div>`;
+  let body;
+  if(TITLE==='cont'){
+    body=`<h2 class="ttitle">Continuar</h2><p class="tnote">Escolha a carreira que quer retomar.</p><div class="tslot">${used.map(i=>`<button class="tbtn" data-act="ttlLoad" data-v="${i}">Slot ${i+1}<small>${ttlInfo(i)}</small></button>`).join('')}${back}</div>`;
+  }else if(TITLE==='new'){
+    body=`<h2 class="ttitle">Novo jogo</h2><p class="tnote">Escolha onde salvar. Depois você define o seu modo: simulador, treinador ou jogador.</p><div class="tslot">${[0,1,2].map(i=>{const u=used.includes(i);return ttlAsk===i?`<button class="tbtn dng" data-act="ttlNew" data-v="${i}">Confirmar: apagar o slot ${i+1}<small>${ttlInfo(i)}</small></button>`:`<button class="tbtn" data-act="${u?'ttlAskNew':'ttlNew'}" data-v="${i}">Slot ${i+1}${u?' · sobrescrever':''}<small>${ttlInfo(i)}</small></button>`}).join('')}${back}</div>`;
+  }else if(TITLE==='opt'){
+    const o=S.opt||{};
+    body=`<h2 class="ttitle">Opções</h2><div class="topt">
+    <div class="os"><h3>Sons</h3><p>Efeitos curtos ao jogar, vencer e conquistar títulos.</p>${pl('snd',sndOn()?1:0,[[1,'Ligados'],[0,'Desligados']])}</div>
+    <div class="os"><h3>Bandeiras</h3><p>Em alguns aparelhos (como Windows) a bandeira aparece só como letras.</p>${pl('flags',flagOn()?'1':'0',[['1','Ligadas'],['0','Desligadas']])}</div>
+    <div class="os"><h3>Jogo ao vivo</h3><p>Partida minuto a minuto no mapa (modo treinador).</p>${pl('liveOpt',liveOn()?1:0,[[1,'Ligado'],[0,'Desligado']])}</div>
+    <div class="os"><h3>Draft de campeões</h3><p>Bans e picks no dia do jogo.</p>${pl('draftOpt',draftOn()?1:0,[[1,'Ligado'],[0,'Desligado']])}</div>
+    <div class="os"><h3>Aleatoriedade</h3><p>Quanto o favorito se impõe.</p>${pl('rnd',o.rnd||'normal',[['baixa','Menor'],['normal','Normal'],['alta','Maior']])}</div>
+    <div class="os"><h3>Dificuldade do treinador</h3><p>Receita, mercado e paciência da diretoria.</p>${pl('dif',o.dif||'normal',[['facil','Fácil'],['normal','Normal'],['dificil','Difícil']])}</div></div>
+    <div class="tslot">${back}</div>`;
+  }else{
+    const last=used.includes(SLOT)?SLOT:used[0];
+    body=`<div class="tmark">${ico('trophy')}</div><p class="tey">LoL · Carreira pro</p><h1 class="tname">Bras<span>LOL</span></h1><p class="tsub">Treinador ou jogador, do Split ao Mundial: construa a sua lenda no simulador de League of Legends.</p>
+    <div class="tmenu"><button class="tbtn pri" data-act="ttlCont" ${used.length?'':'disabled'}>Continuar<small>${used.length?(used.length>1?used.length+' carreiras salvas':'Slot '+(last+1)+' · '+ttlInfo(last)):'nenhuma carreira salva ainda'}</small></button>
+    <button class="tbtn" data-act="ttlGo" data-v="new">Novo jogo</button><button class="tbtn" data-act="ttlGo" data-v="opt">Opções</button></div>
+    <p class="tfoot">Simulador independente, sem vínculo com a Riot Games.</p>`;
+  }
+  return `${ttlBg()}<main class="ttl"><div class="tbox">${body}</div></main>`;
+}
+function ttlEnter(i,t){startMark(i);TITLE=null;ttlAsk=-1;tab=t||'season';menuV='home';menuAsk=null;prof=null;pstack=[];askReset=false;askEnd=false;cele=null;lastPlayed=null;mgrView='inicio';dHof=null;selYear=null;msg=''}
+function ttlNewGame(i){
+  const o=S&&S.opt;save();SLOT=i;KEY=SLOTK[i];try{localStorage.setItem('lol-slot',String(i))}catch(e){}
+  freshGame();if(o)S.opt=o;ensureD2();fixNat();
+  ttlEnter(i,'menu');save();
+}
 function modeNow(){return S.mgr?'mgr':pcAct()?'pc':'sim'}
 function modeCard(tt,desc,on,icon,feats,btns){
   return `<article class="mc2${on?' on':''}"><div class="mc2-top"><span class="mc2-ic">${ico(icon)}</span><h3>${tt}</h3>${on?'<span class="tag">Ativo</span>':''}</div><p>${desc}</p><ul class="mc2-f">${feats.map(x=>`<li>${x}</li>`).join('')}</ul><div class="mc2-act">${btns}</div></article>`;
@@ -5816,7 +5901,7 @@ function header(){
 }
 function nav(){
   const cur=tab==='prof'?prevTab:tab;
-  const L=[['menu','Menu','home'],['season','Jogar','play'],['meta','Meta','eye'],['bola','Prêmio','trophy'],['hof','Lendas','star'],['teams','Elencos','users'],['set','Ajustes','gear']];
+  const L=[['season','Jogar','play'],['meta','Meta','eye'],['bola','Prêmio','trophy'],['hof','Lendas','star'],['teams','Elencos','users'],['set','Ajustes','gear']];
   if(S.mgr)L.splice(5,0,['mgr','Gestão','brief']);
   else if(pcAct())L.splice(5,0,['pc','Jogador','user']);
   return `<nav class="nav" role="tablist" style="grid-template-columns:repeat(${L.length},1fr)">${L.map(([k,l,i])=>`<button class="nb" role="tab" aria-selected="${cur===k}" data-act="tab" data-v="${k}">${ico(i)}<span>${l}</span></button>`).join('')}</nav>`;
@@ -6651,7 +6736,7 @@ function vSet(){
   const mt=mgrT();
   return `${msg?`<div class="msg">${esc(msg)}</div>`:''}
   ${slotsHTML()}
-  <section class="pn"><h2>Modo atual</h2><p class="note" style="margin:0 0 10px">${modeNow()==='mgr'?'Treinador'+(mgrT()?' · '+esc(mgrT().name):''):modeNow()==='pc'?'Jogador · '+esc(S.pc.n):'Simulador'}. Troque de modo no Menu.</p><div class="row" style="margin:0"><button class="ghost" data-act="tab" data-v="menu">Abrir Menu</button></div></section>
+  <section class="pn"><h2>Modo atual</h2><p class="note" style="margin:0 0 10px">${modeNow()==='mgr'?'Treinador'+(mgrT()?' · '+esc(mgrT().name):''):modeNow()==='pc'?'Jogador · '+esc(S.pc.n):'Simulador'}. Troque de modo ou volte ao menu inicial.</p><div class="row" style="margin:0"><button class="ghost" data-act="tab" data-v="menu">Trocar de modo</button><button class="ghost" data-act="ttlOpen">Menu inicial</button></div></section>
   <section class="pn"><button class="sgb" data-act="setg" data-v="jog" aria-expanded="${!!setOpen.jog}">Jogabilidade<span>▾</span></button>${setOpen.jog?`<div class="sset"><h3>Draft de campeões</h3><p class="note" style="margin:0 0 10px">No dia do jogo, o draft (2 bans por time e 5 picks) é feito automaticamente. No modo jogador, seu campeão do primeiro mapa também é automático e, a partir do segundo mapa, você escolhe o seu. O domínio de cada jogador e a força do campeão no ano mudam as chances (até 7% por mapa). Desligado, o jogo começa direto e vale o plano de jogo simples.</p><div class="pills" style="margin:0">${[[1,'Ligado'],[0,'Desligado']].map(([k,l])=>`<button class="pill" aria-pressed="${(draftOn()?1:0)===k}" data-act="draftOpt" data-v="${k}">${l}</button>`).join('')}</div></div>
   <div class="sset"><h3>Jogo ao vivo</h3><p class="note" style="margin:0 0 10px">Só no modo treinador. Depois do draft, a partida roda minuto a minuto: você passa instruções no início, no meio e no fim do mapa e pode fazer uma substituição por mapa. Desligado, o jogo é simulado direto.</p><div class="pills" style="margin:0">${[[1,'Ligado'],[0,'Desligado']].map(([k,l])=>`<button class="pill" aria-pressed="${(liveOn()?1:0)===k}" data-act="liveOpt" data-v="${k}">${l}</button>`).join('')}</div></div>
   <div class="sset"><h3>Folha salarial</h3><p class="note" style="margin:0 0 10px">Só no modo treinador. Ligada, os salários dos titulares e reservas saem do caixa a cada temporada e o clube tem custos fixos menores. Desligada, só há os custos fixos e a economia fica mais folgada.</p><div class="pills" style="margin:0">${[[1,'Ligada'],[0,'Desligada']].map(([k,l])=>`<button class="pill" aria-pressed="${(payOn()?1:0)===k}" data-act="payOpt" data-v="${k}">${l}</button>`).join('')}</div></div>
@@ -6673,6 +6758,8 @@ function vSet(){
 
 function render(){
   fixNat();
+  try{document.body.classList.toggle('ttlon',!!TITLE)}catch(e){}
+  if(TITLE){const a=document.querySelector('#app');a.className='';a.innerHTML=DEFS+titleHTML();return}
   const v={season:vSeason,bola:vBola,hof:vHof,teams:vTeams,set:vSet,prof:vProf,mgr:vMgr,menu:vMenu,pc:vPc,meta:vMeta}[tab]();
   const ap=document.querySelector('#app');ap.className='wrap'+(animNext?' enter':'');animNext=false;
   ap.innerHTML=DEFS+header()+v+nav()+(msg&&tab!=='mgr'&&tab!=='set'?`<div class="toast" role="status">${esc(msg)}</div>`:'')+(DV?vDraft():'')+(LV&&!(DV&&DV.lv)?vLive():'');
@@ -6797,6 +6884,12 @@ function act(a,v){
   else if(a==='slotAsk'){askSlot=+v}
   else if(a==='slotDel'){try{localStorage.removeItem(SLOTK[+v])}catch(e){}askSlot=-1;msg='Slot '+(+v+1)+' apagado.'}
   else if(a==='snd'){S.opt=S.opt||{};S.opt.snd=+v;save();if(+v)snd('win')}
+  else if(a==='ttlGo'){TITLE=v;ttlAsk=-1}
+  else if(a==='ttlCont'){const u=ttlUsed();if(u.length>1)TITLE='cont';else if(u.length){slotGo(u[0]);ttlEnter(u[0])}}
+  else if(a==='ttlLoad'){slotGo(+v);ttlEnter(+v)}
+  else if(a==='ttlAskNew'){ttlAsk=+v}
+  else if(a==='ttlNew'){ttlNewGame(+v)}
+  else if(a==='ttlOpen'){save();TITLE='main';ttlAsk=-1}
   else if(a==='resetNo'){askReset=false}
   else if(a==='resetOk'){freshGame();save();askReset=false;dHof=null;selYear=null;msg='Simulador reiniciado.'}
   render();
