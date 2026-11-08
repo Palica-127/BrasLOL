@@ -8,7 +8,7 @@ const ROSTERS = {
 };
 function createGame({ seed = 1, teams, loader, cap = 3600 } = {}) {
   const w = new World({ seed, loader, arena: { w: LAY.W, h: LAY.H } });
-  ECO.enable(w, { lanes: LAY.lanes() }); JG.enable(w); STR.enable(w); w.respawn = true;
+  ECO.enable(w, { lanes: LAY.lanes() }); JG.enable(w); STR.enable(w); w.respawn = true; w.supplies = true;
   const brains = createMatch(w, teams || [{ roster: ROSTERS.A }, { roster: ROSTERS.B }]);
   w.cap = cap; return { w, brains };
 }

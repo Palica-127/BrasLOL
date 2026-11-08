@@ -18,7 +18,16 @@ function quote(u, id, cat = catalog()) {
   const it = cat[id]; if (!it) return { ok: false, reason: 'item-inexistente' };
   const used = plan(u, id, cat), cost = it.price - used.reduce((s, c) => s + cat[c].price, 0);
   const slots = u.items.length - used.length + 1;
-  if (it.cls === 'trinket' || it.cls === 'consumable') return { ok: false, reason: 'nao-suportado-aqui' };
+  if (it.cls === 'trinket') return { ok: false, reason: 'use-setTrinket' };
+  if (it.cls === 'consumable') {                                                     /* poções e Sentinela de Controle: pilha num espaço; só os vendidos na loja */
+    if (!it.raw.na_loja || !it.price) return { ok: false, reason: 'nao-vendido' };
+    const have = u.items.includes(id), st = (u.stk && u.stk[id]) || 0;
+    if (id === 2031 && have) return { ok: false, reason: 'duplicado' };
+    if (have && id !== 2031 && st >= it.maxStack) return { ok: false, reason: 'pilha-cheia' };
+    if (!have && u.items.length + 1 > MAX_SLOTS) return { ok: false, reason: 'inventario-cheio' };
+    if (u.gold < it.price) return { ok: false, reason: 'ouro', cost: it.price };
+    return { ok: true, cost: it.price, used: [], stack: true };
+  }
   if (slots > MAX_SLOTS) return { ok: false, reason: 'inventario-cheio' };
   if (it.cls === 'boots' && u.items.some(i => cat[i].cls === 'boots' && !used.includes(i))) return { ok: false, reason: 'botas-unicas' };
   if (u.items.includes(id) && it.maxStack <= 1 && !(it.cls === 'component')) return { ok: false, reason: 'duplicado' };
@@ -28,7 +37,9 @@ function quote(u, id, cat = catalog()) {
 function buy(w, u, id) {
   const cat = catalog(), q = quote(u, id, cat); if (!q.ok) return q;
   q.used.forEach(c => u.items.splice(u.items.indexOf(c), 1));
-  u.items.push(id); u.gold -= q.cost; u.spent += q.cost;
+  if (!(q.stack && u.items.includes(id))) u.items.push(id);
+  if (q.stack) require('./supplies').onBuy(u, id);
+  u.gold -= q.cost; u.spent += q.cost;
   if (w) { w.refresh(u); w.emit('buy', { id: u.id, item: id, cost: q.cost }); }
   return q;
 }

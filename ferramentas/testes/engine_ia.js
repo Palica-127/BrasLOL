@@ -63,8 +63,8 @@ const mkGame = (seed = 1, teams) => M.createGame({ seed, teams });
 { const run = (seed, lane) => { const rosters = A_ => M.ROSTERS.A.map(r => ({ ...r, attrs: { lane: A_, mec: 60, macro: 60, team: 60, mental: 60 } }));
     const g = mkGame(seed, [{ roster: rosters(lane) }, { roster: M.ROSTERS.B }]); g.brains.forEach(b => { b.plan = function () { this.goal = { kind: 'lane', sc: 1, mem: new Set() }; }; }); g.w.run(480);
     return g.brains[0].players.filter(p => ['top', 'mid', 'adc'].includes(p.role)).reduce((s, p) => s + (p.u.stat.cs || 0), 0); };
-  const hi = [1, 2, 3, 4, 5, 6, 7, 8].map(s => run(s, 95)), lo = [1, 2, 3, 4, 5, 6, 7, 8].map(s => run(s, 15)), sum = a => a.reduce((x, y) => x + y, 0);
-  T(sum(hi) > sum(lo), 'Lane alto faz mais CS que Lane baixo (' + sum(hi) + ' vs ' + sum(lo) + ' CS em 8 sementes, 8 min)'); }
+  const hi = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].map(s => run(s, 95)), lo = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].map(s => run(s, 15)), sum = a => a.reduce((x, y) => x + y, 0);
+  T(sum(hi) > sum(lo), 'Lane alto faz mais CS que Lane baixo (' + sum(hi) + ' vs ' + sum(lo) + ' CS em 16 sementes, 8 min)'); }
 
 /* ---------- decisão de luta ---------- */
 { const g = mkGame(1); const w = g.w, b = g.brains[0], p = b.players[2], u = p.u; w.winner = () => null;

@@ -232,6 +232,7 @@ class World {
     if (this.jungle) this.jungle.update();
     if (this.structures) this.structures.update();
     if (this.respawn) LIFE.update(this);
+    if (this.supplies) require('../items/supplies').tick(this, this.dt);
     for (const b of this.brains) b.update();
     while (this.sched.length && this.sched[0].at <= this.t + 1e-9) this.sched.shift().fn();
     let dirty = false;

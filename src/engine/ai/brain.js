@@ -6,7 +6,7 @@
    ESTIMADO (calibrar no Bloco 10): pesos de pontuação, raios de decisão, limiares de recall/retirada, função de poder, nomes de rota por papel.
    Simplificação declarada: IA onisciente (sem névoa de guerra; visão/sentinelas ficam pendentes) e sem feitiços de invocador. */
 const LAY = require('../map/layout'), AI = require('../sim/ai'), SHOP = require('../items/shop'), B = require('../items/builds'), A = require('./attributes');
-const { TURRET } = require('../map/structures');
+const { TURRET } = require('../map/structures'), SUPAI = require('./supply_ai'), SUP = require('../items/supplies');
 const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
 
@@ -65,6 +65,7 @@ class Brain {
     u.ai = { ...u.ai, enabled: false, brain: true, farm: false, aim: par.aim, dodge: par.dodge, react: par.react, lastHit: par.lastHit, next: 0 };
     if (r.role === 'jungle') u.ai.jungle = { route: r.route || ['blue', 'gromp', 'wolves', 'raptors', 'red', 'krugs'] };
     const p = { u, role: r.role, lane: LANE_OF[r.role], par, attrs: { ...A.DEFAULT, ...(r.attrs || {}) }, next: 0, mode: 'start', build: null, gankUntil: 0, gankCd: 0, back: false };
+    if (w.supplies) SUP.init(w, u, r.role);
     this.players.push(p); return p;
   }
   /* builds dependem do time inimigo */
@@ -197,6 +198,7 @@ class Brain {
   fountain() { return this.w.structures.fountain[this.team]; }
   shopping(p) {
     const u = p.u, w = this.w; let g = 0;
+    SUPAI.shop(this, p);
     while (p.build && g++ < 10) {
       let n = B.nextPurchase(u, p.build.items); if (!n) n = this.cheapestStep(u, p.build.items);
       if (!n || !SHOP.buy(w, u, n.id).ok) break;
@@ -235,6 +237,7 @@ class Brain {
       if (lowHp && danger) { this.retreat(p, near); return; }
     }
     if (p.back && !u.recall) { /* recall falhou/cancelado: tenta de novo fora de perigo; senão volta andando */ if (!danger && w.t - u.lastDamageAt > 2.5 && u.hp < u.hpMax * 0.9 && dist(u.pos, F) > 1500 && w.life.startRecall(w, u)) { p.mode = 'recall'; return; } if (u.hp < u.hpMax * 0.7 || wantShop) { this.go(u, F, 200); return; } p.back = false; }
+    if (SUPAI.act(this, p, danger)) return;
     /* luta */
     if (this.fight(p, near, allies)) return;
     /* objetivo de equipe */

@@ -14,7 +14,7 @@ const ROSTERS = {
 };
 function createGame({ seed = 1, teams, loader, cap = 3600 } = {}) {
   const w = new World({ seed, loader, arena: { w: LAY.W, h: LAY.H } });
-  ECO.enable(w, { lanes: LAY.lanes() }); JG.enable(w); STR.enable(w); w.respawn = true;
+  ECO.enable(w, { lanes: LAY.lanes() }); JG.enable(w); STR.enable(w); w.respawn = true; w.supplies = true;
   const brains = createMatch(w, teams || [{ roster: ROSTERS.A }, { roster: ROSTERS.B }]);
   w.cap = cap; return { w, brains };
 }
@@ -26,7 +26,7 @@ function play(g, { until = 3600, tick } = {}) {
 module.exports = { createGame, play, ROSTERS };
 
 }};
-DEF["src/engine/sim/world.js"]={deps:{"../core/rng":"src/engine/core/rng.js","../data/loader":"src/engine/data/loader.js","../champion/stats":"src/engine/champion/stats.js","../champion/spells":"src/engine/champion/spells.js","../champion/kits":"src/engine/champion/kits/index.js","../combat/damage":"src/engine/combat/damage.js","../economy/minions":"src/engine/economy/minions.js","../jungle/monsters":"src/engine/jungle/monsters.js","../jungle/buffs":"src/engine/jungle/buffs.js","../items/shop":"src/engine/items/shop.js","../items/effects":"src/engine/items/effects.js","./lifecycle":"src/engine/sim/lifecycle.js","./exec":"src/engine/sim/exec.js","./ai":"src/engine/sim/ai.js"},fn:function(module,exports,require,__dirname){'use strict';
+DEF["src/engine/sim/world.js"]={deps:{"../core/rng":"src/engine/core/rng.js","../data/loader":"src/engine/data/loader.js","../champion/stats":"src/engine/champion/stats.js","../champion/spells":"src/engine/champion/spells.js","../champion/kits":"src/engine/champion/kits/index.js","../combat/damage":"src/engine/combat/damage.js","../economy/minions":"src/engine/economy/minions.js","../jungle/monsters":"src/engine/jungle/monsters.js","../jungle/buffs":"src/engine/jungle/buffs.js","../items/shop":"src/engine/items/shop.js","../items/effects":"src/engine/items/effects.js","./lifecycle":"src/engine/sim/lifecycle.js","./exec":"src/engine/sim/exec.js","./ai":"src/engine/sim/ai.js","../items/supplies":"src/engine/items/supplies.js"},fn:function(module,exports,require,__dirname){'use strict';
 /* Mundo de simulação do combate (Bloco 3). Tick fixo (padrão 50 ms = 20 Hz), determinístico por semente.
    Estado: unidades, projéteis, zonas, eventos agendados, log de eventos estruturado. Sem DOM, sem Math.random.
    Simplificações declaradas: arena plana sem paredes nem colisão entre unidades (mapa e terreno chegam no Bloco 7);
@@ -260,6 +260,7 @@ class World {
     if (this.jungle) this.jungle.update();
     if (this.structures) this.structures.update();
     if (this.respawn) LIFE.update(this);
+    if (this.supplies) require('../items/supplies').tick(this, this.dt);
     for (const b of this.brains) b.update();
     while (this.sched.length && this.sched[0].at <= this.t + 1e-9) this.sched.shift().fn();
     let dirty = false;
@@ -1118,7 +1119,7 @@ function extraReductions(w, src, dst) {
 module.exports = { grantCrest, postStats, onDealDamage, tick, onCast, onDeath, extraReductions, K, tier };
 
 }};
-DEF["src/engine/items/shop.js"]={deps:{"./catalog":"src/engine/items/catalog.js"},fn:function(module,exports,require,__dirname){'use strict';
+DEF["src/engine/items/shop.js"]={deps:{"./catalog":"src/engine/items/catalog.js","./supplies":"src/engine/items/supplies.js"},fn:function(module,exports,require,__dirname){'use strict';
 /* Loja e inventário (regras da Summoner's Rift): 6 espaços (+ amuleto fora da conta), receita consome componentes já possuídos
    e abate o preço, botas únicas, venda por `vendavel` (valor do cliente), ouro por unidade. */
 const { catalog, sumMods } = require('./catalog');
@@ -1138,7 +1139,16 @@ function quote(u, id, cat = catalog()) {
   const it = cat[id]; if (!it) return { ok: false, reason: 'item-inexistente' };
   const used = plan(u, id, cat), cost = it.price - used.reduce((s, c) => s + cat[c].price, 0);
   const slots = u.items.length - used.length + 1;
-  if (it.cls === 'trinket' || it.cls === 'consumable') return { ok: false, reason: 'nao-suportado-aqui' };
+  if (it.cls === 'trinket') return { ok: false, reason: 'use-setTrinket' };
+  if (it.cls === 'consumable') {                                                     /* poções e Sentinela de Controle: pilha num espaço; só os vendidos na loja */
+    if (!it.raw.na_loja || !it.price) return { ok: false, reason: 'nao-vendido' };
+    const have = u.items.includes(id), st = (u.stk && u.stk[id]) || 0;
+    if (id === 2031 && have) return { ok: false, reason: 'duplicado' };
+    if (have && id !== 2031 && st >= it.maxStack) return { ok: false, reason: 'pilha-cheia' };
+    if (!have && u.items.length + 1 > MAX_SLOTS) return { ok: false, reason: 'inventario-cheio' };
+    if (u.gold < it.price) return { ok: false, reason: 'ouro', cost: it.price };
+    return { ok: true, cost: it.price, used: [], stack: true };
+  }
   if (slots > MAX_SLOTS) return { ok: false, reason: 'inventario-cheio' };
   if (it.cls === 'boots' && u.items.some(i => cat[i].cls === 'boots' && !used.includes(i))) return { ok: false, reason: 'botas-unicas' };
   if (u.items.includes(id) && it.maxStack <= 1 && !(it.cls === 'component')) return { ok: false, reason: 'duplicado' };
@@ -1148,7 +1158,9 @@ function quote(u, id, cat = catalog()) {
 function buy(w, u, id) {
   const cat = catalog(), q = quote(u, id, cat); if (!q.ok) return q;
   q.used.forEach(c => u.items.splice(u.items.indexOf(c), 1));
-  u.items.push(id); u.gold -= q.cost; u.spent += q.cost;
+  if (!(q.stack && u.items.includes(id))) u.items.push(id);
+  if (q.stack) require('./supplies').onBuy(u, id);
+  u.gold -= q.cost; u.spent += q.cost;
   if (w) { w.refresh(u); w.emit('buy', { id: u.id, item: id, cost: q.cost }); }
   return q;
 }
@@ -1224,6 +1236,123 @@ function sumMods(cat, ids) {
   return r;
 }
 module.exports = { catalog, classify, components, sumMods, byName, STAT_MAP };
+
+}};
+DEF["src/engine/items/supplies.js"]={deps:{"./catalog":"src/engine/items/catalog.js"},fn:function(module,exports,require,__dirname){'use strict';
+/* Suprimentos e visão (Bloco 9+): itens iniciais, poções, sentinelas (trinket e Sentinela de Controle) e a regra de compra que os jogadores reais seguem.
+   DADOS: preços, curas, durações, cargas e recargas vêm do patch (items.json: 2003, 2031, 2055, 3340, 3364, 1054/1055/1056/1086/1120, 3865, 1101-1103).
+   COMPORTAMENTO (leagueofgraphs.com, patch 16.22, partidas reais): quase todos começam com Sentinela Invisível + Poção de Vida; magos no mid levam
+   Anel de Doran + 2 poções; atiradores, Arco de Doran + 2 poções; lutadores, Lâmina (ou Escudo) de Doran + 1 poção; tanques, Escudo de Doran;
+   suportes, Atlas Mundial + 2 poções; selvas, o filhote de selva + poção. Botas e itens seguem a build do Bloco 4.
+   ESTIMADO (sem fonte): cadência de compra de Sentinela de Controle/poções por viagem à base, onde cada jogador coloca sentinelas, vida das sentinelas
+   e tempo de limpeza. NÃO há névoa de guerra: a visão só entra como bônus leve na leitura de objetivos da IA e nas estatísticas (pontuação de visão). */
+const { catalog } = require('./catalog');
+const ID = { HP: 2003, REFILL: 2031, PINK: 2055, WARD: 3340, ORACLE: 3364, ATLAS: 3865, DB: 1055, DS: 1054, DR: 1056, DBOW: 1086, DH: 1120, PUP_FIRE: 1101, PUP_WIND: 1102, PUP_MOSS: 1103 };
+const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+const WARD = { stealthLife: [90, 120], stealthMaxPlaced: 3, pinkMax: 3, radius: 900, clearRadius: 450, clearStealth: 1.5, clearPink: 4, oracleRadius: [600, 750], oracleDur: 8 };
+const lerp = (a, b, k) => a + (b - a) * Math.max(0, Math.min(1, k));
+
+/* kit inicial por papel/arquétipo: ouro inicial 500 */
+function startKit(role, arch, champ) {
+  if (role === 'support') return { items: [ID.ATLAS], pots: 2 };
+  if (role === 'jungle') return { items: [arch === 'tanque' || arch === 'lutador' ? ID.PUP_MOSS : (arch === 'mago' || arch === 'mago-tanque') ? ID.PUP_FIRE : ID.PUP_WIND], pots: 1 };
+  if (role === 'adc') return { items: [ID.DBOW], pots: 2 };
+  if (role === 'mid') return { items: [arch === 'assassino' || arch === 'lutador' ? ID.DB : ID.DR], pots: arch === 'assassino' || arch === 'lutador' ? 1 : 2 };
+  /* top */ return { items: [arch === 'tanque' || arch === 'mago-tanque' ? ID.DS : ID.DB], pots: 1 };
+}
+
+function init(w, u, role) {
+  u.stk = {}; u.hots = []; u.role = role;
+  u.trk = { id: ID.WARD, ammo: 1, next: null, last: -999 };
+  u.sup = { placed: 0, pinks: 0, wardsKilled: 0, potions: 0, vision: 0 };
+}
+const maxAmmo = id => (id === ID.ORACLE ? 2 : 2);
+/* recarga da carga do trinket: interpola entre o valor inicial e o final conforme o tempo de jogo (dados: GameTimeThreshold = 14 min) */
+function chargeTime(id, t) { const k = t / (14 * 60); return id === ID.ORACLE ? lerp(160, 100, k) : lerp(210, 90, k); }
+function setTrinket(w, u, id) {
+  if (u.trk.id === id) return false;
+  if (id === ID.ORACLE && u.level < 9) return false;
+  u.trk = { id, ammo: Math.min(u.trk.ammo, maxAmmo(id)), next: null, last: u.trk.last }; w.emit('trinket', { id: u.id, item: id }); return true;
+}
+
+/* ---- consumíveis ---- */
+const count = (u, id) => (u.stk && u.stk[id]) || 0;
+const potionsLeft = u => count(u, ID.HP) + (u.refill ? u.refill.charges : 0);
+function usePotion(w, u) {
+  if (u.dead || !u.hots) return false;
+  const cat = catalog();
+  const act = id => u.hots.some(h => h.id === id);
+  if (u.refill && u.refill.charges > 0 && !act(ID.REFILL) && u.items.includes(ID.REFILL)) {
+    u.refill.charges--; u.hots.push({ id: ID.REFILL, per: 100 / 12, until: w.t + 12 }); u.sup.potions++; w.emit('potion', { id: u.id, item: ID.REFILL }); return true;
+  }
+  if (count(u, ID.HP) > 0 && !act(ID.HP)) {
+    u.stk[ID.HP]--; if (u.stk[ID.HP] <= 0) { delete u.stk[ID.HP]; const k = u.items.indexOf(ID.HP); if (k >= 0) u.items.splice(k, 1); }
+    u.hots.push({ id: ID.HP, per: 120 / 15, until: w.t + 15 }); u.sup.potions++; w.emit('potion', { id: u.id, item: ID.HP }); void cat; return true;
+  }
+  return false;
+}
+function refillAtBase(u) { if (u.refill && u.items.includes(ID.REFILL)) u.refill.charges = 2; }
+function onBuy(u, id) {
+  u.stk = u.stk || {};
+  if (id === ID.REFILL) u.refill = { charges: 2 };
+  else u.stk[id] = (u.stk[id] || 0) + 1;
+}
+/* o item consumível some do inventário quando acaba a pilha (control ward usada) */
+function dropIfEmpty(u, id) { if (!(u.stk[id] > 0)) { delete u.stk[id]; const k = u.items.indexOf(id); if (k >= 0) u.items.splice(k, 1); } }
+
+/* ---- sentinelas ---- */
+function wardsOf(w, u) { return (w.wards || []).filter(x => x.owner === u.id); }
+function placeWard(w, u, kind, pos) {
+  if (u.dead) return false;
+  w.wards = w.wards || [];
+  if (kind === 'control') {
+    if (count(u, ID.PINK) < 1 || wardsOf(w, u).filter(x => x.kind === 'control').length >= WARD.pinkMax) return false;
+    u.stk[ID.PINK]--; dropIfEmpty(u, ID.PINK); u.sup.pinks++;
+    w.wards.push({ id: w.nextId++, kind, team: u.team, owner: u.id, pos: { x: pos.x, y: pos.y }, born: w.t, until: Infinity, reveal: 0, clear: 0 });
+  } else {
+    if (u.trk.id !== ID.WARD || u.trk.ammo < 1 || wardsOf(w, u).filter(x => x.kind === 'stealth').length >= WARD.stealthMaxPlaced) return false;
+    u.trk.ammo--; if (u.trk.next === null) u.trk.next = w.t + chargeTime(ID.WARD, w.t); u.trk.last = w.t;
+    const life = lerp(WARD.stealthLife[0], WARD.stealthLife[1], (u.level - 1) / 17);
+    w.wards.push({ id: w.nextId++, kind, team: u.team, owner: u.id, pos: { x: pos.x, y: pos.y }, born: w.t, until: w.t + life, reveal: 0, clear: 0 });
+  }
+  u.sup.placed++; w.emit('ward', { id: u.id, kind, at: [Math.round(pos.x), Math.round(pos.y)] }); return true;
+}
+function useOracle(w, u) {
+  if (u.dead || u.trk.id !== ID.ORACLE || u.trk.ammo < 1) return false;
+  u.trk.ammo--; if (u.trk.next === null) u.trk.next = w.t + chargeTime(ID.ORACLE, w.t); u.trk.sweepUntil = w.t + WARD.oracleDur;
+  w.emit('oracle', { id: u.id }); return true;
+}
+const wardNear = (w, team, pos, r) => (w.wards || []).some(x => x.team === team && dist(x.pos, pos) <= r);
+
+/* ---- passo da simulação (cada tick) ---- */
+function tick(w, dt) {
+  /* cura ao longo do tempo */
+  for (const u of w.units) {
+    if (!u.hots || !u.hots.length || u.dead) { if (u.hots && u.dead) u.hots.length = 0; continue; }
+    for (const h of u.hots) u.hp = Math.min(u.hpMax, u.hp + h.per * dt);
+    u.hots = u.hots.filter(h => h.until > w.t);
+  }
+  /* recarga do trinket */
+  for (const u of w.units) {
+    if (!u.trk || u.dead) continue;
+    const t = u.trk;
+    if (t.ammo < maxAmmo(t.id) && t.next === null) t.next = w.t + chargeTime(t.id, w.t);
+    if (t.next !== null && w.t >= t.next) { t.ammo = Math.min(maxAmmo(t.id), t.ammo + 1); t.next = t.ammo < maxAmmo(t.id) ? w.t + chargeTime(t.id, w.t) : null; }
+    u.sup.vision = Math.round(((u.sup.vision || 0)) * 1000) / 1000;
+  }
+  if (!w.wards || !w.wards.length) return;
+  /* varredura do Oráculo revela; campeão inimigo perto de uma sentinela revelada a destrói */
+  for (const x of w.wards) {
+    const foes = w.units.filter(c => !c.dead && c.team !== x.team && c.trk);
+    for (const f of foes) { if (f.trk.sweepUntil > w.t && dist(f.pos, x.pos) <= lerp(WARD.oracleRadius[0], WARD.oracleRadius[1], (w.t) / (14 * 60))) x.reveal = Math.max(x.reveal, w.t + 2); }
+    const clr = foes.find(f => dist(f.pos, x.pos) <= WARD.clearRadius);
+    if (x.reveal > w.t && clr) { x.clear += dt; if (x.clear >= (x.kind === 'control' ? WARD.clearPink : WARD.clearStealth)) { x.dead = true; clr.sup.wardsKilled++; w.emit('ward-killed', { id: clr.id, kind: x.kind }); } } else x.clear = Math.max(0, x.clear - dt);
+    if (!x.dead && w.t >= x.until) x.dead = true;
+    if (!x.dead) { const o = w.units.find(c => c.id === x.owner); if (o && o.sup) o.sup.vision += dt * (x.kind === 'control' ? 1 / 30 : 1 / 60); }
+  }
+  w.wards = w.wards.filter(x => !x.dead);
+}
+module.exports = { ID, WARD, startKit, init, setTrinket, usePotion, refillAtBase, onBuy, dropIfEmpty, placeWard, useOracle, wardNear, wardsOf, potionsLeft, count, tick, chargeTime, maxAmmo };
 
 }};
 DEF["src/engine/items/effects.js"]={deps:{"./catalog":"src/engine/items/catalog.js","../champion/calc":"src/engine/champion/calc.js"},fn:function(module,exports,require,__dirname){'use strict';
@@ -2339,7 +2468,7 @@ function lanes() {
 module.exports = { W, H, mirror, ORDER, ORDER_PATH, structurePositions, lanes };
 
 }};
-DEF["src/engine/ai/brain.js"]={deps:{"../map/layout":"src/engine/map/layout.js","../sim/ai":"src/engine/sim/ai.js","../items/shop":"src/engine/items/shop.js","../items/builds":"src/engine/items/builds.js","./attributes":"src/engine/ai/attributes.js","../map/structures":"src/engine/map/structures.js","../items/catalog":"src/engine/items/catalog.js"},fn:function(module,exports,require,__dirname){'use strict';
+DEF["src/engine/ai/brain.js"]={deps:{"../map/layout":"src/engine/map/layout.js","../sim/ai":"src/engine/sim/ai.js","../items/shop":"src/engine/items/shop.js","../items/builds":"src/engine/items/builds.js","./attributes":"src/engine/ai/attributes.js","../map/structures":"src/engine/map/structures.js","./supply_ai":"src/engine/ai/supply_ai.js","../items/supplies":"src/engine/items/supplies.js","../items/catalog":"src/engine/items/catalog.js"},fn:function(module,exports,require,__dirname){'use strict';
 /* IA de macro (Bloco 8): decide o que cada jogador faz e executa sobre o estado REAL do mundo (campeões, minions, torres, objetivos).
    Estrutura portada do motor legado (lvAssess / lvRisk / lvPlan / lvGankScore / estilos LVSTY), agora com: caminhos de rota, último golpe real,
    torres que atiram, recall e compras, objetivos com HP real. Cada jogador tem 5 atributos (Lane, Mecânica, Macro, Equipe, Mental) que
@@ -2347,7 +2476,7 @@ DEF["src/engine/ai/brain.js"]={deps:{"../map/layout":"src/engine/map/layout.js",
    ESTIMADO (calibrar no Bloco 10): pesos de pontuação, raios de decisão, limiares de recall/retirada, função de poder, nomes de rota por papel.
    Simplificação declarada: IA onisciente (sem névoa de guerra; visão/sentinelas ficam pendentes) e sem feitiços de invocador. */
 const LAY = require('../map/layout'), AI = require('../sim/ai'), SHOP = require('../items/shop'), B = require('../items/builds'), A = require('./attributes');
-const { TURRET } = require('../map/structures');
+const { TURRET } = require('../map/structures'), SUPAI = require('./supply_ai'), SUP = require('../items/supplies');
 const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
 
@@ -2406,6 +2535,7 @@ class Brain {
     u.ai = { ...u.ai, enabled: false, brain: true, farm: false, aim: par.aim, dodge: par.dodge, react: par.react, lastHit: par.lastHit, next: 0 };
     if (r.role === 'jungle') u.ai.jungle = { route: r.route || ['blue', 'gromp', 'wolves', 'raptors', 'red', 'krugs'] };
     const p = { u, role: r.role, lane: LANE_OF[r.role], par, attrs: { ...A.DEFAULT, ...(r.attrs || {}) }, next: 0, mode: 'start', build: null, gankUntil: 0, gankCd: 0, back: false };
+    if (w.supplies) SUP.init(w, u, r.role);
     this.players.push(p); return p;
   }
   /* builds dependem do time inimigo */
@@ -2538,6 +2668,7 @@ class Brain {
   fountain() { return this.w.structures.fountain[this.team]; }
   shopping(p) {
     const u = p.u, w = this.w; let g = 0;
+    SUPAI.shop(this, p);
     while (p.build && g++ < 10) {
       let n = B.nextPurchase(u, p.build.items); if (!n) n = this.cheapestStep(u, p.build.items);
       if (!n || !SHOP.buy(w, u, n.id).ok) break;
@@ -2576,6 +2707,7 @@ class Brain {
       if (lowHp && danger) { this.retreat(p, near); return; }
     }
     if (p.back && !u.recall) { /* recall falhou/cancelado: tenta de novo fora de perigo; senão volta andando */ if (!danger && w.t - u.lastDamageAt > 2.5 && u.hp < u.hpMax * 0.9 && dist(u.pos, F) > 1500 && w.life.startRecall(w, u)) { p.mode = 'recall'; return; } if (u.hp < u.hpMax * 0.7 || wantShop) { this.go(u, F, 200); return; } p.back = false; }
+    if (SUPAI.act(this, p, danger)) return;
     /* luta */
     if (this.fight(p, near, allies)) return;
     /* objetivo de equipe */
@@ -2859,6 +2991,65 @@ const DEFAULT = { lane: 60, mec: 60, macro: 60, team: 60, mental: 60 };
 module.exports = { fromAttributes, DEFAULT };
 
 }};
+DEF["src/engine/ai/supply_ai.js"]={deps:{"../items/supplies":"src/engine/items/supplies.js","../items/shop":"src/engine/items/shop.js","../map/layout":"src/engine/map/layout.js"},fn:function(module,exports,require,__dirname){'use strict';
+/* Comportamento da IA com suprimentos (poções, sentinelas, Sentinela de Controle, Lente do Oráculo) e compra inicial. Ver items/supplies.js para dados e fontes.
+   ESTIMADO: pontos de colocação de sentinelas (coordenadas de comunidade, como o mapa do Bloco 7), frequência de viagens de visão e limiares de poção. */
+const SUP = require('../items/supplies'), SHOP = require('../items/shop'), LAY = require('../map/layout');
+const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y), { ID } = SUP;
+
+/* pontos do time 0 (Order); o time 1 usa a rotação de 180 graus. Rio, tri-brushes e entradas de selva (ESTIMADO) */
+const SPOTS0 = {
+  pit: [{ x: 9300, y: 5300 }, { x: 4700, y: 9700 }],            /* perto do poço do Dragão e do Barão (lado do rio) */
+  river: [{ x: 3500, y: 7900 }, { x: 6400, y: 8400 }, { x: 8500, y: 6500 }, { x: 11400, y: 3200 }],
+  entry: [{ x: 8200, y: 9400 }, { x: 6700, y: 5600 }, { x: 2600, y: 9800 }, { x: 11600, y: 2500 }]
+};
+const spots = (team, kind) => SPOTS0[kind].map(p => (team === 0 ? p : LAY.mirror(p)));
+
+/* compra: kit inicial, poções, Sentinela de Controle, Poção com Refil, trocar para a Lente do Oráculo */
+function shop(brain, p) {
+  const u = p.u, w = brain.w; if (!w.supplies || !u.sup) return;
+  const arch = p.build ? p.build.arch : 'lutador';
+  if (!p.kitDone && w.t < 30) {
+    p.kitDone = true; const k = SUP.startKit(p.role, arch);
+    k.items.forEach(id => SHOP.buy(w, u, id)); for (let i = 0; i < k.pots; i++) SHOP.buy(w, u, ID.HP);
+    return;
+  }
+  const t = w.t / 60;
+  if (u.level >= 9 && (p.role === 'support' || p.role === 'jungle')) SUP.setTrinket(w, u, ID.ORACLE);
+  SUP.refillAtBase(u);
+  const pinks = SUP.count(u, ID.PINK), want = p.role === 'support' ? (t > 4 ? 2 : 0) : p.role === 'jungle' ? (t > 4 ? 1 : 0) : (t > 8 ? 1 : 0);
+  if (pinks < want && u.gold >= 75 + (p.role === 'support' ? 0 : 250)) SHOP.buy(w, u, ID.PINK);
+  if (t < 12 && SUP.potionsLeft(u) < 1 && u.gold >= 120 && !u.items.includes(ID.REFILL)) SHOP.buy(w, u, ID.HP);
+  if (!u.items.includes(ID.REFILL) && t >= 3 && t < 25 && u.gold >= 1000 && u.items.length <= 4) SHOP.buy(w, u, ID.REFILL);
+}
+
+/* uso em campo. `danger`: há inimigo perto. Devolve true se gastou a ação (viagem de visão) */
+function act(brain, p, danger) {
+  const u = p.u, w = brain.w; if (!w.supplies || !u.sup || u.dead) return false;
+  if (u.hp < u.hpMax * 0.55 || (u.hp < u.hpMax * 0.72 && w.t - u.lastDamageAt < 4 && p.mode !== 'fight')) SUP.usePotion(w, u);
+  if (u.trk.id === ID.ORACLE && u.trk.ammo >= 1 && !danger && w.t - (p.oracleAt || -999) > 25) {
+    const near = [...spots(1 - u.team, 'pit'), ...spots(1 - u.team, 'river'), ...spots(1 - u.team, 'entry')].some(s => dist(s, u.pos) < 650);
+    if (near && SUP.useOracle(w, u)) p.oracleAt = w.t;
+  }
+  const wantPink = SUP.count(u, ID.PINK) > 0 && SUP.wardsOf(w, u).filter(x => x.kind === 'control').length < 3;
+  const wantWard = u.trk.id === ID.WARD && u.trk.ammo >= 1;
+  if (!wantPink && !wantWard) return false;
+  const mine = (w.wards || []).filter(x => x.team === u.team);
+  const pool = wantPink ? [...spots(u.team, 'pit'), ...spots(u.team, 'entry')] : [...spots(u.team, 'river'), ...spots(u.team, 'entry'), ...spots(u.team, 'pit')];
+  const free = pool.filter(s => !mine.some(x => dist(x.pos, s) < 1100));
+  if (!free.length) return false;
+  const near = free.reduce((b, s) => (dist(s, u.pos) < b.d ? { s, d: dist(s, u.pos) } : b), { s: null, d: 1e9 });
+  if (near.d <= 280) { if (!danger) { const kind = wantPink && (p.role !== 'top' || w.t > 900) ? 'control' : 'stealth'; if (kind === 'control' ? SUP.placeWard(w, u, 'control', near.s) : SUP.placeWard(w, u, 'stealth', near.s)) return false; } return false; }
+  /* viagem de visão: suporte e selva vão até o ponto; os demais só colocam quando passam por perto */
+  if ((p.role === 'support' || p.role === 'jungle') && !danger && u.hp > u.hpMax * 0.65 && near.d < 3200 && w.t >= (p.wardTripAt || 0) && (p.role === 'support' ? brain.laneSafe ? brain.laneSafe(p) : true : true)) {
+    p.wardTripAt = w.t + 40; p.wardGo = { s: near.s, until: w.t + 14 };
+  }
+  if (p.wardGo && w.t < p.wardGo.until && !danger) { if (dist(p.wardGo.s, u.pos) > 260) { brain.go(u, p.wardGo.s, 100); return true; } p.wardGo = null; }
+  return false;
+}
+module.exports = { shop, act, spots, SPOTS0 };
+
+}};
 DEF["src/engine/integracao/adapter.js"]={deps:{"../ai/match":"src/engine/ai/match.js","../map/layout":"src/engine/map/layout.js","../champion/kits/index":"src/engine/champion/kits/index.js"},fn:function(module,exports,require,__dirname){'use strict';
 /* Adaptador motor realista <-> contrato `LV` do jogo (Bloco 9). SEM DOM e sem Math.random: roda em Node (testes) e no navegador (motor.js).
    O adaptador NAO escreve em `LV`: ele conduz uma partida do motor e devolve "snapshots" no formato que o jogo ja le (posicoes em %, vida 0..1,
@@ -2957,11 +3148,17 @@ function snapshot(S) {
     o.inhib = { top: alive(L.top.inhibitor) ? 1 : 0, mid: alive(L.mid.inhibitor) ? 1 : 0, bot: alive(L.bot.inhibitor) ? 1 : 0 };
     o.nx = sx.nexusTurrets[ti].map(s => (alive(s) ? 1 : 0)); o.nex = alive(sx.nexus[ti]) ? 1 : 0; return o;
   });
+  /* vida (0..1) das estruturas e dos monstros: o jogo mostra a barra so da torre da frente de cada rota e dos monstros vivos */
+  const fr = s => clamp(s.hp / Math.max(1, s.hpMax), 0, 1);
+  const hpS = [0, 1].map(ti => { const L = sx.lanes[ti], o = {}; ['top', 'mid', 'bot'].forEach(id => { o[id] = [alive(L[id].outer) ? fr(L[id].outer) : 0, alive(L[id].inner) ? fr(L[id].inner) : 0, alive(L[id].inhibTurret) ? fr(L[id].inhibTurret) : 0]; }); o.nx = sx.nexusTurrets[ti].map(s => (alive(s) ? fr(s) : 0)); return o; });
+  const mons = []; { const seen = new Set();
+    (w.jungle.camps || []).forEach(c => { const m = (c.members || []).filter(x => !x.dead); if (!m.length) return; const p = lvPos(c.pos); mons.push({ k: c.key, x: p[0], y: p[1], hp: clamp(m.reduce((a, x) => a + x.hp, 0) / Math.max(1, m.reduce((a, x) => a + x.hpMax, 0)), 0, 1), n: m.length }); m.forEach(x => seen.add(x.id)); });
+    w.units.forEach(x => { if (x.kind === 'monster' && !x.dead && !seen.has(x.id)) { const p = lvPos(x.pos); mons.push({ k: x.name, x: p[0], y: p[1], hp: clamp(x.hp / Math.max(1, x.hpMax), 0, 1), n: 1, epic: true }); } }); }
   const jg = w.jungle, drakes = [0, 1].map(ti => { const c = {}; (jg.stacks[ti] || []).forEach(k => { const d = DRAKE[k]; if (d) c[d] = (c[d] || 0) + 1; }); return c; });
   const cnt = (type, ti) => S.cnt[type + ti] || 0;
   const obj = [0, 1].map(ti => ({ drakes: drakes[ti], grubs: (jg.stacks[ti] && jg.stacks[ti].grubs) || 0, herald: cnt('herald-kill', ti), baron: cnt('baron-kill', ti), elder: cnt('elder-kill', ti), soul: jg.soul[ti] ? 1 : 0 }));
   const team = ti => { const pl = players[ti]; return { k: pl.reduce((a, p) => a + p.k, 0), d: pl.reduce((a, p) => a + p.d, 0), gold: pl.reduce((a, p) => a + p.gold, 0), towers: 11 - (str[ti].top.concat(str[ti].mid, str[ti].bot, str[ti].nx).reduce((a, b) => a + b, 0)) }; };
-  return { t: w.t, winner: S.over ? S.over.winner : null, players, str, obj, teams: [team(0), team(1)], drakeSpawned: !!jg.epics.drake, baronUp: !!(jg.epics.baron && jg.epics.baron.some(m => !m.dead)) };
+  return { t: w.t, winner: S.over ? S.over.winner : null, players, str, hpS, mons, obj, teams: [team(0), team(1)], drakeSpawned: !!jg.epics.drake, baronUp: !!(jg.epics.baron && jg.epics.baron.some(m => !m.dead)) };
 }
 
 module.exports = { create, advance, snapshot, setStyle, drainLog, supported, hasKit, lvPos, ROLES, DEFAULT_CHAMP, DRAKE };

@@ -96,11 +96,17 @@ function snapshot(S) {
     o.inhib = { top: alive(L.top.inhibitor) ? 1 : 0, mid: alive(L.mid.inhibitor) ? 1 : 0, bot: alive(L.bot.inhibitor) ? 1 : 0 };
     o.nx = sx.nexusTurrets[ti].map(s => (alive(s) ? 1 : 0)); o.nex = alive(sx.nexus[ti]) ? 1 : 0; return o;
   });
+  /* vida (0..1) das estruturas e dos monstros: o jogo mostra a barra so da torre da frente de cada rota e dos monstros vivos */
+  const fr = s => clamp(s.hp / Math.max(1, s.hpMax), 0, 1);
+  const hpS = [0, 1].map(ti => { const L = sx.lanes[ti], o = {}; ['top', 'mid', 'bot'].forEach(id => { o[id] = [alive(L[id].outer) ? fr(L[id].outer) : 0, alive(L[id].inner) ? fr(L[id].inner) : 0, alive(L[id].inhibTurret) ? fr(L[id].inhibTurret) : 0]; }); o.nx = sx.nexusTurrets[ti].map(s => (alive(s) ? fr(s) : 0)); return o; });
+  const mons = []; { const seen = new Set();
+    (w.jungle.camps || []).forEach(c => { const m = (c.members || []).filter(x => !x.dead); if (!m.length) return; const p = lvPos(c.pos); mons.push({ k: c.key, x: p[0], y: p[1], hp: clamp(m.reduce((a, x) => a + x.hp, 0) / Math.max(1, m.reduce((a, x) => a + x.hpMax, 0)), 0, 1), n: m.length }); m.forEach(x => seen.add(x.id)); });
+    w.units.forEach(x => { if (x.kind === 'monster' && !x.dead && !seen.has(x.id)) { const p = lvPos(x.pos); mons.push({ k: x.name, x: p[0], y: p[1], hp: clamp(x.hp / Math.max(1, x.hpMax), 0, 1), n: 1, epic: true }); } }); }
   const jg = w.jungle, drakes = [0, 1].map(ti => { const c = {}; (jg.stacks[ti] || []).forEach(k => { const d = DRAKE[k]; if (d) c[d] = (c[d] || 0) + 1; }); return c; });
   const cnt = (type, ti) => S.cnt[type + ti] || 0;
   const obj = [0, 1].map(ti => ({ drakes: drakes[ti], grubs: (jg.stacks[ti] && jg.stacks[ti].grubs) || 0, herald: cnt('herald-kill', ti), baron: cnt('baron-kill', ti), elder: cnt('elder-kill', ti), soul: jg.soul[ti] ? 1 : 0 }));
   const team = ti => { const pl = players[ti]; return { k: pl.reduce((a, p) => a + p.k, 0), d: pl.reduce((a, p) => a + p.d, 0), gold: pl.reduce((a, p) => a + p.gold, 0), towers: 11 - (str[ti].top.concat(str[ti].mid, str[ti].bot, str[ti].nx).reduce((a, b) => a + b, 0)) }; };
-  return { t: w.t, winner: S.over ? S.over.winner : null, players, str, obj, teams: [team(0), team(1)], drakeSpawned: !!jg.epics.drake, baronUp: !!(jg.epics.baron && jg.epics.baron.some(m => !m.dead)) };
+  return { t: w.t, winner: S.over ? S.over.winner : null, players, str, hpS, mons, obj, teams: [team(0), team(1)], drakeSpawned: !!jg.epics.drake, baronUp: !!(jg.epics.baron && jg.epics.baron.some(m => !m.dead)) };
 }
 
 module.exports = { create, advance, snapshot, setStyle, drainLog, supported, hasKit, lvPos, ROLES, DEFAULT_CHAMP, DRAKE };
