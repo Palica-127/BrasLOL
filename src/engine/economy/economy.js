@@ -13,11 +13,11 @@ const WIKI = { passiveStart: 110, passivePer10s: 20.4, championBounty: 300, firs
 const xpShare = n => (n <= 0 ? 0 : (1 + WIKI.xpShareTotalPerExtra * (n - 1)) / n);        /* n=1 -> 1; n=5 -> 0,217 */
 
 class Economy {
-  constructor(w, { lanes } = {}) {
+  constructor(w, { lanes, waves = true } = {}) {
     this.w = w; this.rules = w.rules; this.lanes = lanes || [{ a: { x: 400, y: 3000 }, b: { x: w.arena.w - 400, y: 3000 } }];
     this.waveN = 0; this.firstBlood = false; this.cs = {}; this.timeline = [];
     this.waveTimes = this.computeWaveTimes(3600);
-    this.waveTimes.forEach((t, i) => w.schedule(t, () => this.spawnWave(i, t)));
+    if (waves) this.waveTimes.forEach((t, i) => w.schedule(t, () => this.spawnWave(i, t)));
   }
   computeWaveTimes(end) {
     const R = this.rules.ondas_de_minions, out = []; let t = R.primeira_onda_s;
@@ -34,10 +34,13 @@ class Economy {
     return c;
   }
   spawnWave(i, t) {
-    const w = this.w, c = this.composition(i, t), order = [];
-    for (let k = 0; k < c.melee; k++) order.push('melee'); for (let k = 0; k < c.siege; k++) order.push('siege'); for (let k = 0; k < c.ranged; k++) order.push('ranged');
+    const w = this.w, c = this.composition(i, t), gap = this.rules.ondas_de_minions.intervalo_entre_minions_s;
     this.waveN++; w.emit('wave', { n: i + 1, comp: c });
-    this.lanes.forEach(lane => [0, 1].forEach(team => order.forEach((type, k) => w.schedule(w.t + k * this.rules.ondas_de_minions.intervalo_entre_minions_s, () => M.create(w, team, type, lane)))));
+    this.lanes.forEach(lane => [0, 1].forEach(team => {
+      const sup = w.structures && lane.id ? w.structures.consumeSuper(team, lane.id) : 0, order = [];     /* inibidor inimigo caido: super minion no lugar do siege (nunca junto) */
+      for (let k = 0; k < c.melee; k++) order.push('melee'); const nSiege = sup ? 0 : c.siege; for (let k = 0; k < nSiege; k++) order.push('siege'); for (let k = 0; k < sup; k++) order.push('super'); for (let k = 0; k < c.ranged; k++) order.push('ranged');
+      order.forEach((type, k) => w.schedule(w.t + k * gap, () => M.create(w, team, type, lane)));
+    }));
   }
 
   /* ---------- XP e níveis ---------- */
@@ -63,7 +66,7 @@ class Economy {
     } else w.emit('minion-lost', { id: m.id, mtype: sp.type });
   }
   onChampionKill(dst, killer) {
-    const w = this.w; if (!killer || killer.kind === 'minion') return;
+    const w = this.w; if (!killer || killer.kind === 'minion' || killer.kind === 'monster') return;
     const assisters = Object.keys(dst.assisters || {}).map(Number).map(id => w.byId(id)).filter(x => x && x !== killer && x.kind !== 'minion' && x.team === killer.team && w.t - dst.assisters[x.id] < 10);
     let bounty = WIKI.championBounty; if (!this.firstBlood) { this.firstBlood = true; bounty += WIKI.firstBlood; w.emit('first-blood', { id: killer.id }); }
     this.giveGold(killer, bounty, 'kill');

@@ -244,6 +244,8 @@ function launch(w, u, { slot, rank, aim }) {
       if (u.name === 'Amumu' && slot === 'W') { toggleAura(w, u, r); break; }
       if (u.name === 'Amumu' && slot === 'E') { hitAll(list, {}); u.abil.readyAt.E = u.abil.readyAt.E; break; }
       if (u.name === 'Morgana' && slot === 'R') { morganaR(w, u, r, list); break; }
+      const au = r.effects.find(x => x.t === 'aura' && x.tickDamage);
+      if (au) { const n = val(w, au.ticks) || 1, over = val(w, au.over) || 1, a = val(w, au.tickDamage.calc); w.zones.push({ owner: u, slot, follow: true, radius: g.radius, every: over / n, next: w.t + over / n, until: w.t + over + 1e-6, min: a, max: a, amp: 0, dieWithOwner: true, type: au.tickDamage.type || 'magic' }); w.emit('zone', { src: u.id, slot, radius: g.radius }); break; }
       hitAll(list, {}); applySelfFx(w, u, r, {});
       break;
     }
@@ -317,7 +319,7 @@ function updateZones(w) {
     const c = z.follow ? z.owner.pos : z.c;
     inCircle(w, z.owner, c, z.radius).forEach(t => {
       let a = z.min; if (z.amp) a = Math.min(z.max, a * (1 + z.amp * (1 - t.hp / t.hpMax)));
-      w.dealDamage(z.owner, t, a, 'magic', { ability: z.slot, tick: true });
+      w.dealDamage(z.owner, t, a, z.type || 'magic', { ability: z.slot, tick: true });
     });
   }
 }

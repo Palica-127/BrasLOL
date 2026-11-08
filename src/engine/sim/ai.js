@@ -9,7 +9,7 @@ const FX = require('../items/effects');
 const enabled = u => u.ai.enabled !== false;
 
 function pickTarget(w, u) {
-  const foes = w.foes(u); if (!foes.length) return null;
+  const foes = w.foes(u).filter(x => x.kind !== 'monster'); if (!foes.length) return null;
   return foes.reduce((b, x) => (dist(x.pos, u.pos) < dist(b.pos, u.pos) ? x : b));
 }
 /* mira com antecipação (predição linear) e erro angular que diminui com a precisão */
@@ -63,11 +63,30 @@ function farmDecide(w, u) {
   if (!u.attack.windup) u.order = null;                                           /* espera o minion enfraquecer */
   return true;
 }
+/* Modo selva (Bloco 6): limpa acampamentos na ordem da rota (u.ai.jungle.route) ou luta contra um alvo fixo (u.ai.goal); usa Golpear nos monstros certos */
+const BIG = new Set(['sru_blue', 'sru_red']);
+function jungleTarget(w, u) {
+  const J = w.jungle; if (!J) return null;
+  if (u.ai.goal && !u.ai.goal.dead) return u.ai.goal;
+  const route = (u.ai.jungle && u.ai.jungle.route) || ['blue', 'gromp', 'wolves', 'raptors', 'red', 'krugs'];
+  for (const k of route) {
+    const c = J.camps.find(x => x.side === u.team && x.key === k); if (!c) continue;
+    const alive = c.members.filter(m => !m.dead); if (!alive.length) continue;
+    return alive.sort((a, b) => dist(a.pos, u.pos) - dist(b.pos, u.pos))[0];
+  }
+  return null;
+}
 function decide(w, u) {
   if (!w.canAct(u) || u.dash || u.cast) return;
   if (u.ai.dodgeUntil > w.t && u.ai.dodgeDir) return;
   if (u.ai.farm && farmDecide(w, u)) return;
-  const tg = pickTarget(w, u); if (!tg) return;
+  const tg = u.ai.focus ? (u.ai.focus.dead ? null : u.ai.focus) : (u.ai.jungle || u.ai.goal ? jungleTarget(w, u) : pickTarget(w, u)); if (!tg) return;
+  if (tg.kind === 'structure') { if (!(u.order && u.order.type === 'attack' && u.order.target === tg)) w.orderAttack(u, tg); return; }
+  if (tg.kind === 'monster') {
+    if (u.smite && tg.spec.smitable && (BIG.has(tg.name) || tg.spec.epic) && tg.hp <= 600 + 1 && dist(u.pos, tg.pos) <= 560 + tg.radius && w.jungle.smite(u, tg)) return;
+    if (u.smite && tg.spec.smitable && /^sru_(blue|red|gromp|murkwolf|razorbeak|krug)$/.test(tg.name) && u.hp < u.hpMax * 0.55 && w.jungle.smite(u, tg)) return;   /* golpear para encurtar a luta quando a vida cai */
+    if (dist(u.pos, tg.pos) > 700 && !u.attack.windup) { if (!(u.order && u.order.type === 'move')) w.orderMove(u, tg.pos.x, tg.pos.y); else { u.order.x = tg.pos.x; u.order.y = tg.pos.y; } return; }
+  }
   if (u.ai.dodge > 0 && !u.attack.windup && dodge(w, u) && u.ai.dodgeDir) return;
   const d = dist(u.pos, tg.pos);
   if (u.items && u.items.includes(FX.ID.ZHONYA) && u.hp < u.hpMax * 0.3 && d < 700 && w.t - u.lastDamageAt < 2) { FX.use(w, u, FX.ID.ZHONYA); return; }
@@ -92,4 +111,4 @@ function decide(w, u) {
   }
   if (!u.attack.windup && !(u.order && u.order.type === 'attack' && u.order.target === tg)) w.orderAttack(u, tg);
 }
-module.exports = { enabled, decide, pickTarget, aimAt };
+module.exports = { enabled, decide, pickTarget, aimAt, jungleTarget };

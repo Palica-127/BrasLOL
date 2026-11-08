@@ -32,8 +32,9 @@ function spec(loader, team, type, t) {
 
 function create(w, team, type, lane) {
   const sp = spec(w.loader, team, type, w.t), a = lane.a, b = lane.b, from = team === 0 ? a : b, to = team === 0 ? b : a;
+  const path = lane.path ? (team === 0 ? lane.path.concat(lane.end0 ? [lane.end0] : []) : lane.path.slice().reverse().concat(lane.end1 ? [lane.end1] : [])).map(p => ({ x: p.x, y: p.y })) : null;
   const u = {
-    id: w.nextId++, kind: 'minion', name: type, team, level: 1, lane, goal: { x: to.x, y: to.y }, spec: sp,
+    id: w.nextId++, kind: 'minion', name: type, team, level: 1, lane, goal: { x: to.x, y: to.y }, path, wp: path ? 1 : 0, spec: sp,
     pos: { x: from.x, y: from.y }, vel: { x: 0, y: 0 }, face: 0, radius: sp.radius, hp: sp.hp, hpMax: sp.hp, mana: 0, manaMax: 0,
     stats: { hp: { base: sp.hp, bonus: 0, total: sp.hp }, ad: { base: sp.ad, bonus: 0, total: sp.ad }, ap: { total: 0, bonus: 0, base: 0 }, armor: { base: sp.armor, bonus: 0, total: sp.armor }, mr: { base: 0, bonus: 0, total: 0 },
       as: { total: sp.as }, ms: { base: sp.ms, bonus: 0, total: sp.ms }, range: sp.range, crit: 0, critDamage: 2, abilityHaste: 0, lethality: 0, hpRegen5: { base: 0, bonus: 0, total: 0 }, manaRegen5: { base: 0, bonus: 0, total: 0 } },
@@ -47,15 +48,14 @@ function create(w, team, type, lane) {
 
 /* alvo: minion inimigo mais próximo; se não houver, campeão inimigo no alcance (Wiki: minions priorizam minions) */
 function pickTarget(w, u) {
-  const R = u.spec.acquire || 600; let best = null, bd = 1e9;
-  for (const x of w.units) {
-    if (x.dead || x.team === u.team || x.kind !== 'minion') continue;
-    const d = dist(u.pos, x.pos); if (d < bd && d <= R) { best = x; bd = d; }
-  }
+  const R = u.spec.acquire || 600, R2 = R * R, ux = u.pos.x, uy = u.pos.y, foe = 1 - u.team; let best = null, bd = 1e18;
+  for (const x of w.idx.minions[foe]) { if (x.dead) continue; const dx = x.pos.x - ux, dy = x.pos.y - uy, d = dx * dx + dy * dy; if (d < bd && d <= R2) { best = x; bd = d; } }
   if (best) return best;
-  for (const x of w.units) {
-    if (x.dead || x.team === u.team || x.kind === 'minion') continue;
-    const d = dist(u.pos, x.pos); if (d <= u.stats.range + x.radius + 15 && d < bd) { best = x; bd = d; }
+  for (const x of w.idx.champs[foe]) { if (x.dead) continue; const r = u.stats.range + x.radius + 15, dx = x.pos.x - ux, dy = x.pos.y - uy, d = dx * dx + dy * dy; if (d <= r * r && d < bd) { best = x; bd = d; } }
+  if (best) return best;
+  for (const x of w.structs) {                                   /* estruturas inimigas vulneraveis ao alcance (ordem entre campeoes e estruturas: ESTIMADA) */
+    if (x.dead || x.invuln || x.team === u.team) continue;
+    const r = u.stats.range + x.radius + 15, dx = x.pos.x - ux, dy = x.pos.y - uy, d = dx * dx + dy * dy; if (d <= r * r && d < bd) { best = x; bd = d; }
   }
   return best;
 }
@@ -79,7 +79,8 @@ function update(w, u) {
     }
     u.vel = { x: 0, y: 0 }; return;
   }
-  const to = tg ? tg.pos : u.goal, d = dist(u.pos, to);
+  if (!tg && u.path && u.wp < u.path.length - 1 && dist(u.pos, u.path[u.wp]) < 120) u.wp++;
+  const to = tg ? tg.pos : (u.path ? u.path[u.wp] : u.goal), d = dist(u.pos, to);
   if (d < 10) { u.vel = { x: 0, y: 0 }; return; }
   if (w.has(u, 'root')) return;
   const step = Math.min(d, w.msOf(u) * w.dt); w.moveBy(u, (to.x - u.pos.x) / d, (to.y - u.pos.y) / d, step);
