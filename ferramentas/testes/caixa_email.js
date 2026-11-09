@@ -24,7 +24,7 @@ T(/\d\d\/\d\d\/\d{4}/.test(h)&&/de 365/.test(h),'data dd/mm/aaaa e dia X de 365 
 T(!/Virada de ano<\/h2>/.test(run(ctx,`S.off=['x'];vSeason()`)),'painel "Virada de ano" removido');
 // resumo no e-mail
 run(ctx,`S.year++;S.recap={y:S.year-1,L:[['🏆','Mundial','Teste']]};S.phase=0;S.season.sp=null;MAILO=true;S.rcSeen=0`);
-T(/Resumo de /.test(run(ctx,`mailHTML()`))&&!/class="pn recap"/.test(run(ctx,`vSeason()`)),'resumo do ano dentro do e-mail, não solto na tela');
+T(!/Resumo de /.test(run(ctx,`mailHTML()`))&&/class="pn recap"/.test(run(ctx,`vSeason()`)),'resumo do ano fica na tela, abaixo dos blocos, e não no e-mail');
 // auto
 T(run(ctx,`typeof autoToggle`)==='function','autoToggle existe');
 process.exit(bad?1:0);

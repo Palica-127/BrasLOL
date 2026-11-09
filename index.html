@@ -6884,23 +6884,23 @@ function mailInv(){
 function mailFA(){const m=S.mgr;if(!m||!mgrT()||!winOpen()||!m.fa||!m.fm)return [];return m.fm.map(n=>m.fa.find(p=>p.n===n)).filter(Boolean)}
 /* resumo do ano que acabou: chega como uma mensagem na caixa de e-mail */
 function mailRecap(){return S.phase===0&&!S.season.sp&&S.recap&&S.recap.y===S.year-1?S.recap:null}
+function mailOf(){const m=S.mgr;if(!m||!mgrT()||!m.offers)return [];return m.offers.map((o,i)=>({o,i,f:mFind(o.n)})).filter(x=>x.f)}
 function mailN(){
   let n=0;
-  if(mgrT()){const q=sqS();n+=q.rq.length+q.rp.length+mailInv().length+mailFA().length}
+  if(mgrT()){const q=sqS();n+=q.rq.length+q.rp.length+mailInv().length+mailFA().length+mailOf().length}
   if(pcAct()&&pc.offers)n+=pc.offers.length;
-  if(mailRecap()&&S.rcSeen!==S.recap.y)n++;
   return n;
 }
 function mailHTML(){
-  const rc=mailRecap();
-  if(!mgrT()&&!pcAct()&&!rc)return '';
+  if(!mgrT()&&!pcAct())return '';
   let h=`<section class="pn mail"><div class="rowc"><h2 style="margin:0">Caixa de entrada</h2><button class="ghost" data-act="mail">Fechar</button></div>`;
-  if(rc)h+=`<small class="k sqk">Resumo de ${rc.y}</small><div class="mrc">${rc.L.map(([i,k,t])=>`<div class="rc"><span>${i}</span><div><small>${esc(k)}</small><b>${esc(t)}</b></div></div>`).join('')}</div>`;
   if(mgrT()){
     const inv=mailInv(),fa=mailFA();
     h+=`<small class="k sqk">Torneios</small>`;
     h+=inv.length?inv.map(e=>{const c=CEVT[e.id];return `<div class="sqr"><span><b>${esc(c.n)}</b><small>${dTxt(c.d0)} a ${dTxt(c.d1)}${c.pz?' · prêmio '+fmtM(c.pz):''}</small></span>${c.k==='ex'?`<button class="ghost" data-act="cevPlay" data-v="ex|${e.id}|0">Participar</button>`:`<button class="ghost" data-act="tab" data-v="mgr">Abrir convite</button>`}${e.pl?'':`<button class="ghost" data-act="cevSkip" data-v="${e.id}">Recusar</button>`}</div>`}).join(''):`<p class="note" style="margin:0">Nenhum convite no momento.</p>`;
-    h+=`<small class="k sqk">Jogadores</small>`;
+    const of=mailOf();
+    if(of.length)h+=`<small class="k sqk">Propostas por seus jogadores</small>`+of.map(({o,i,f})=>`<div class="sqr"><span><b>${lk(f.p.n)}</b><small>${esc(S.teams[o.to].name)} oferece ${fmtM(o.price)} · OVR ${f.p.r}${f.k==='pl'?(bestRep(f.p.role)?' · reserva assume a vaga':' · sem reserva'):f.k==='acad'?' · da base':' · das reservas'}</small></span><button class="ghost" data-act="mgrOffer" data-v="${i}|y" ${mOpen()&&(f.k!=='pl'||!!bestRep(f.p.role))?'':'disabled'}>${mOpen()?'Aceitar':'Janela fechada'}</button><button class="ghost" data-act="mgrOffer" data-v="${i}|n">Recusar</button></div>`).join('');
+    h+=`<small class="k sqk">Jogadores livres</small>`;
     h+=fa.length?fa.map(f=>`<div class="sqr"><span><b>${lk(f.n)}</b><small>${RN[f.role]} · OVR ${f.r} · pot. ${Math.round(f.pot)} · agente livre</small></span><button class="ghost" data-act="mgrSign" data-v="${esc(f.n)}">Contratar</button></div>`).join(''):`<p class="note" style="margin:0">${winOpen()?'Nenhum jogador livre se ofereceu.':'Janela fechada: propostas voltam antes do próximo split.'}</p>`;
   }
   if(pcAct()&&pc.offers&&pc.offers.length){
@@ -6930,7 +6930,7 @@ function hubHTML(cur,sideH,underH){
   const m=heroMatch();
   const rec=PHASES[S.phase]&&PHASES[S.phase].k==='sw'&&S.season.wc&&S.season.wc.rec;
   const side=t=>`<div class="tm"><span class="crw">${crest(t,'lg')}${stdPos(t)}</span><b>${esc(t.name)}</b>${t.fm?`<span class="fm">${[...t.fm].map(c=>`<i class="${c==='V'?'w':'l'}"></i>`).join('')}</span>`:''}<small>${stdRec(t)?stdRec(t)+' · ':''}OVR ${Math.round(baseOvr(t))}</small></div>`;
-  let h=`<div class="hub"><div class="hh"><div><small class="k">${dWk(td)} · temporada ${S.year}</small><b class="num">${x.d} ${MESF[x.m]}</b><small class="k hdt">${dFull(td)} · dia ${td} de 365</small></div><div class="hact">${cur?`<button class="ghost" data-act="all">${cur.g===5?'Simular o resto da Copa':'Pular para o Melhor Jogador do Ano'}</button>`:''}${(mgrT()||pcAct()||mailRecap())?`<div class="mailw"><button class="ghost mailb" data-act="mail" aria-expanded="${MAILO}">✉ E-mail${mailN()?` <span class="mbd">${mailN()}</span>`:''}</button>${MAILO?mailHTML():''}</div>`:''}</div></div>`;
+  let h=`<div class="hub"><div class="hh"><div><small class="k">${dWk(td)} · temporada ${S.year}</small><b class="num">${x.d} ${MESF[x.m]}</b><small class="k hdt">${dFull(td)} · dia ${td} de 365</small></div><div class="hact">${cur?`<button class="ghost" data-act="all">${cur.g===5?'Simular o resto da Copa':'Pular para o Melhor Jogador do Ano'}</button>`:''}${(mgrT()||pcAct())?`<div class="mailw"><button class="ghost mailb" data-act="mail" aria-expanded="${MAILO}">✉ E-mail${mailN()?` <span class="mbd">${mailN()}</span>`:''}</button>${MAILO?mailHTML():''}</div>`:''}</div></div>`;
   const evx=evNow();
   if(evx)h+='<div class="hcol">'+evHeroHTML(evx,side);else{
   h+=`<div class="hcol"><section class="hero2"><small class="k">${left<=0?'Hoje':'Próximo'} · ${esc(nm)}</small>`;
@@ -6954,7 +6954,9 @@ function hubHTML(cur,sideH,underH){
     t3=`<section class="tile"><small class="k">Em alta</small><ul>${top.map((x,i)=>`<li><b class="num">${i+1}</b> ${lk(x.p.n)} <span class="num">${x.p.r}</span></li>`).join('')}</ul></section>`}
   const hl=(S.hl||[]).slice(0,2);
   const t4=`<section class="tile"><small class="k">Manchetes</small>${hl.length?hl.map(x=>`<p>${esc(x.t)}</p>`).join(''):'<p>Sem novidades.</p>'}</section>`;
-  h+=`${underH||''}<div class="tiles">${tc}${ts}${t3}${t4}</div></div>`;
+  const rc=mailRecap();
+  const recH=rc?`<section class="pn recap"><h2>Resumo de ${rc.y}</h2>${rc.L.map(([i,k,t],n)=>`<div class="rc" style="--i:${n}"><span>${i}</span><div><small>${esc(k)}</small><b>${esc(t)}</b></div></div>`).join('')}</section>`:'';
+  h+=`${underH||''}<div class="tiles">${tc}${ts}${t3}${t4}</div>${recH}</div>`;
   h+=`<div class="bar2">${evx?`<button class="play" data-act="cevPlay" data-v="ex|${evx.id}|0">Jogar ${evx.pl&&evx.pl.st==='fin'?'final':'semifinal'}</button>`:`<button class="play" data-act="${left<=0?'step':'auto'}">${left<=0?playLbl:autoLbl()}</button>`}</div>${sideH||''}</div>`;
   return h;
 }
@@ -7601,7 +7603,7 @@ function act(a,v){
   else if(a==='spRR'){while(S.season.sp&&S.season.sp.stage==='rr')spStep();save();top=true}
   else if(a==='spAll'){const ph=S.phase;let g2=0;CUPSIM=1;try{while(S.phase===ph&&g2++<400)step()}finally{CUPSIM=0}save();top=true}
   else if(a==='mgrView'){mgrView=v}
-  else if(a==='mail'){MAILO=!MAILO;const rc=mailRecap();if(MAILO&&rc){S.rcSeen=rc.y;save()}}
+  else if(a==='mail'){MAILO=!MAILO;}
   else if(a==='tOpen'){const id=+v;if(OPENT.has(id))OPENT.delete(id);else OPENT.add(id)}
   else if(a==='tAll'){const ids=pmSort(S.teams.filter(t=>t.lg===v)).map(x=>x.t.id);if(ids.every(i=>OPENT.has(i)))ids.forEach(i=>OPENT.delete(i));else ids.forEach(i=>OPENT.add(i))}
   else if(a==='focus'){if(S.mgr){S.mgr.focus=v;save()}}
