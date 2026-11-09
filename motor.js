@@ -1998,6 +1998,9 @@ const M = require('./minions');
 const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
 
 const WIKI = { passiveStart: 110, passivePer10s: 20.4, championBounty: 300, firstBlood: 100, assistShare: 0.5, xpShareTotalPerExtra: 0.02125 };
+/* Recompensas por campeão (regra do projeto): base 300 (cai até 100 em mortes seguidas sem abate); bounty = sequência de abates [0,0,150,300,400,500,600,700]
+   + 50 a cada 150 de ouro de farm acima da média do time rival; paga no máximo 700 por abate e o excedente fica para a próxima morte. Ouro de farm ~ 21 por CS. */
+const BTY = [0, 0, 150, 300, 400, 500, 600, 700];
 const xpShare = n => (n <= 0 ? 0 : (1 + WIKI.xpShareTotalPerExtra * (n - 1)) / n);        /* n=1 -> 1; n=5 -> 0,217 */
 
 class Economy {
@@ -2055,11 +2058,20 @@ class Economy {
       this.giveGold(killer, sp.gold * this.laneMul(killer), 'cs'); killer.stat.cs = (killer.stat.cs || 0) + 1; w.emit('cs', { id: killer.id, mtype: sp.type });
     } else w.emit('minion-lost', { id: m.id, mtype: sp.type });
   }
+  bountyOf(u) {
+    const foes = this.w.units.filter(x => x.kind !== 'minion' && x.kind !== 'monster' && x.team !== u.team), farm = x => (x.stat.cs || 0) * 21;
+    const avg = foes.reduce((a, x) => a + farm(x), 0) / Math.max(1, foes.length), fb = Math.floor(Math.max(0, farm(u) - avg) / 150) * 50;
+    const tot = BTY[Math.min(7, u.streak || 0)] + fb + (u.cbty || 0);
+    return { base: Math.max(100, 300 - 50 * (u.dsr || 0)), tot, pay: Math.min(700, tot) };
+  }
   onChampionKill(dst, killer) {
     const w = this.w; if (!killer || killer.kind === 'minion' || killer.kind === 'monster') return;
     if (killer.smite) killer.jgStacks = (killer.jgStacks || 0) + 1;
     const assisters = Object.keys(dst.assisters || {}).map(Number).map(id => w.byId(id)).filter(x => x && x !== killer && x.kind !== 'minion' && x.team === killer.team && w.t - dst.assisters[x.id] < 10);
-    let bounty = WIKI.championBounty; if (!this.firstBlood) { this.firstBlood = true; bounty += WIKI.firstBlood; w.emit('first-blood', { id: killer.id }); }
+    const bt = this.bountyOf(dst); let bounty = bt.base + bt.pay; dst.cbty = bt.tot - bt.pay; dst.streak = 0; dst.dsr = (dst.dsr || 0) + 1; killer.streak = (killer.streak || 0) + 1; killer.dsr = 0;
+    assisters.forEach(a => { a.dsr = Math.max(0, (a.dsr || 0) - 1); });
+    if (bt.pay > 0) w.emit('bounty', { id: killer.id, victim: dst.id, amount: bt.pay });
+    if (!this.firstBlood) { this.firstBlood = true; bounty += WIKI.firstBlood; w.emit('first-blood', { id: killer.id }); }
     this.giveGold(killer, bounty, 'kill');
     if (assisters.length) assisters.forEach(a => this.giveGold(a, WIKI.championBounty * WIKI.assistShare / assisters.length, 'assist'));
     const xp = this.rules.experiencia.xp_ao_matar_campeao_por_nivel[Math.min(dst.level, 18) - 1], group = [killer, ...assisters];
@@ -3371,7 +3383,7 @@ function snapshot(S) {
   const players = [0, 1].map(ti => S.champs[ti].map((u, r) => {
     const p = lvPos(u.pos), deadIn = u.dead ? Math.max(0, (u.respawnAt || w.t) - w.t) : 0;
     return { r, ch: S.names[ti][r], x: p[0], y: p[1], hp: clamp(u.hp / Math.max(1, u.hpMax), 0, 1), mana: u.manaMax ? clamp(u.mana / u.manaMax, 0, 1) : 0, lv: u.level, gold: Math.round((u.stat.goldEarned || 0) + 500),
-      cs: u.stat.cs || 0, k: u.stat.kills || 0, d: u.stat.deaths || 0, a: u.stat.assists || 0, dead: u.dead, deadIn, dmg: Math.round(u.stat.dmgDealt || 0), items: (u.items || []).slice(0, 6), mn: u.manaMax ? clamp(u.mana / u.manaMax, 0, 1) : null };
+      cs: u.stat.cs || 0, sk: u.streak || 0, dth: u.dsr || 0, cb: u.cbty || 0, k: u.stat.kills || 0, d: u.stat.deaths || 0, a: u.stat.assists || 0, dead: u.dead, deadIn, dmg: Math.round(u.stat.dmgDealt || 0), items: (u.items || []).slice(0, 6), mn: u.manaMax ? clamp(u.mana / u.manaMax, 0, 1) : null };
   }));
   const str = [0, 1].map(ti => {
     const L = sx.lanes[ti], o = {};

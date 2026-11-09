@@ -75,6 +75,16 @@ const L = createLoader(), rules = L.rules();
   T(near(k.xp - xpToReach(rules, 5), xpTab / 2, 1e-6) && near(as.xp - xpToReach(rules, 5), xpTab / 2, 1e-6), 'XP de abate vem da tabela do cliente (nível 6 = ' + xpTab + '), dividido com o assistente');
   w.dealDamage(k, v2, 1e6, 'true', {}); T(near(k.stat.goldEarned, 700), 'segundo abate: 300 (sem primeiro sangue)', k.stat.goldEarned); }
 
+/* ---------- recompensas por campeão (bounty) ---------- */
+{ const w = new World({ seed: 2 }), eco = ECO.enable(w), k = w.addChampion({ name: 'Garen', team: 0, level: 9 }), v = w.addChampion({ name: 'Garen', team: 1, level: 6 }); [k, v].forEach(u => { u.ai.enabled = false; });
+  k.stat.goldEarned = 0; const kill = n => { v.dead = false; v.hp = v.hpMax; v.streak = n; v.dsr = 0; v.cbty = 0; const g0 = k.stat.goldEarned || 0; w.dealDamage(k, v, 1e6, 'true', {}); return Math.round((k.stat.goldEarned || 0) - g0); };
+  kill(0); const g = [1, 2, 3, 4, 5, 6, 7, 9].map(n => kill(n));
+  T(g[0] === 300 && g[1] === 450 && g[2] === 600 && g[3] === 700 && g[4] === 800 && g[5] === 900 && g[6] === 1000 && g[7] === 1000, 'bounty por sequência da vítima: 1 abate 300, 2 abates 450, 3 abates 600 ... teto de 1000 por abate (300 + 700)', g.join(','));
+  const k2 = w.addChampion({ name: 'Garen', team: 0, level: 5 }); k2.ai.enabled = false; v.dead = false; v.hp = v.hpMax; const f = eco.bountyOf(v); T(f.base === 100 || f.base === 300 - 50 * (v.dsr || 0) || f.base >= 100, 'valor base nunca cai abaixo de 100');
+  const w2 = new World({ seed: 3 }), e2 = ECO.enable(w2), a = w2.addChampion({ name: 'Garen', team: 0 }), b = w2.addChampion({ name: 'Garen', team: 1 }); a.dsr = 9; T(e2.bountyOf(a).base === 100, 'feeder: depois de várias mortes seguidas o abate vale no mínimo 100');
+  a.stat.cs = 100; b.stat.cs = 0; T(e2.bountyOf(a).tot === Math.floor(2100 / 150) * 50, 'farm: +50 de bounty a cada 150 de ouro de farm acima da média rival', e2.bountyOf(a).tot);
+  a.streak = 7; a.cbty = 400; T(e2.bountyOf(a).pay === 700 && e2.bountyOf(a).tot > 700, 'pagamento limitado a 700 e o excedente fica acumulado'); }
+
 /* ---------- laboratório de rota ---------- */
 const lane = (seed, s0, s1, secs, champs = ['Ezreal', 'Ezreal']) => {
   const w = new World({ seed }); ECO.enable(w);
