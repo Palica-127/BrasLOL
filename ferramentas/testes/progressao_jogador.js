@@ -15,7 +15,7 @@ ok(J('pcFind().bn')===true,'começa como reserva');
 /* ---- XP e níveis ---- */
 run(ctx,`var pts0=S.pc.pts||0;pcGain(pcNeed(1));`);
 ok(J('S.pc.lv')===2&&J('S.pc.pts')===J('pts0')+1,'XP suficiente sobe o nível 1->2 e dá 1 ponto de status');
-run(ctx,`pcGain(100000);`);
+run(ctx,`pcGain(10000000);`);
 ok(J('S.pc.lv')===60,'nível máximo 60');
 run(ctx,`S.pc.lv=4;S.pc.xl=0;S.pc.pts=0;pcGain(pcNeed(4));`);
 ok(J('S.pc.lv')===5&&J('S.pc.pts')===2,'nível 5 dá 2 pontos');

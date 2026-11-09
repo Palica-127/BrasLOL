@@ -5314,7 +5314,7 @@ function pcPts(n,why){const pc=S.pc;pc.pts=(pc.pts||0)+n;pcLog(`+${n} ponto${n>1
 /* ---------- nível, árvore de habilidades, treino semanal, confiança do técnico e testes (modo jogador) ----------
    XP (partidas, treino semanal, scrims, torneios, eventos) sobe o nível; cada nível dá pontos para gastar em status (+1 atributo) e
    características (3 ramos de 3). A vaga de titular não é pedida: o técnico decide pela confiança (desempenho em jogos, treinos e testes). */
-const PCLV=60,pcNeed=lv=>80+26*lv;
+const PCLV=60,pcNeed=lv=>220+70*lv;
 const pcAbs=()=>S.year*365+(S.day||1);
 const pcPerk=id=>!!(S.pc&&S.pc.perks&&S.pc.perks[id]);
 const PBR={c:['Competidor','Decide jogos'],e:['Estudioso','Evolui mais rápido'],p:['Profissional','Vida de atleta']};
@@ -5367,7 +5367,7 @@ function pcPerkSt(x){
   if(pc.lv<x.lv||(x.pa.length&&got<(x.need||1)))return'lock';
   return (pc.tp||0)>=x.c?'can':'cost';
 }
-const PTRN={l:{n:'Leve',d:'Poupa energia; XP baixo.',xp:46,en:10,fx:9,tr:.4},n:{n:'Normal',d:'Equilíbrio entre XP e desgaste.',xp:82,en:22,fx:16,tr:1.1},i:{n:'Intenso',d:'Muito XP e a melhor impressão no técnico, mas cansa.',xp:132,en:38,fx:30,tr:1.8},p:{n:'Pool',d:'Treina 5 campeões aleatórios da sua função que ainda não estão em 100% (+3% cada, mais com a árvore). XP baixo.',xp:35,en:20,fx:0,tr:.7},d:{n:'Folga',d:'Recupera bastante energia; quase sem XP.',xp:12,en:-25,fx:0,tr:0}};
+const PTRN={l:{n:'Leve',d:'Poupa energia; XP baixo.',xp:32,en:10,fx:9,tr:.4},n:{n:'Normal',d:'Equilíbrio entre XP e desgaste.',xp:57,en:22,fx:16,tr:1.1},i:{n:'Intenso',d:'Muito XP e a melhor impressão no técnico, mas cansa.',xp:92,en:38,fx:30,tr:1.8},p:{n:'Pool',d:'Treina 5 campeões aleatórios da sua função que ainda não estão em 100% (+3% cada, mais com a árvore). XP baixo.',xp:25,en:20,fx:0,tr:.7},d:{n:'Folga',d:'Recupera bastante energia; quase sem XP.',xp:9,en:-25,fx:0,tr:0}};
 function pcEnsure(){
   const pc=S.pc;if(!pc)return;
   const f=(pc.lv==null||pc.tr==null)?pcFind():null;
@@ -5528,7 +5528,7 @@ function ptFmEnd(){
   if(avg==null){const op=opp.pl[f.p.role];avg=clamp(r1(6+(f.p.r-op.r)*.07+(won?.7:-.4)+g()*.7),3,10)}
   ptSwapOut();
   const tn=te&&te.k==='t',mul=tn?1.6:1,nt=String(avg).replace('.',',');
-  pcGain((30+(won?15:0)+Math.max(0,avg-6)*12)*mul,1+pcFx('xpm'));
+  pcGain((20+(won?10:0)+Math.max(0,avg-6)*8)*mul,1+pcFx('xpm'));
   pcTrust(((avg-6.5)*2.4+(won?1:-.8))*(tn?1.4:1),`${tn?'torneio':'scrim'}: nota ${nt}`);
   let t=`${tn?(te.r?'Final':'Semifinal'):'Scrim'} contra ${opp.name}: ${won?'vitória':'derrota'} por ${sc}, sua nota ${nt}.`;
   if(!tn){pc.test=null;pc.tcd=2}
@@ -5586,7 +5586,7 @@ function pcYear(){
   pc.mr=[];
   const trophies=(a.lg||[]).length+(a.msi==='C'?1:0)+(a.wc==='C'?2:0);
   pc.fame=clamp(Math.round(pc.fame+(rating!=null?(rating-6)*3:-1)+trophies*4+(ix>=0?5:0)),0,100);
-  if(rating!=null&&rating>=7)pcGain(rating>=8.5?250:rating>=8?180:110);
+  if(rating!=null&&rating>=7)pcGain(rating>=8.5?160:rating>=8?120:70);
   pc.cash=r1(pc.cash+pc.sal);pc.ctr--;
   pcSync();pc.r0=p.r;pc.cap=Math.max(pc.cap,p.pot+2);
   pc.hist.push({y:S.year,team:t.name,div:t.d===2?2:1,role:p.role,ovr:p.r,age:p.age,rating,bn:f.bn,titles:trophies,top:ix>=0?ix+1:0});
@@ -5917,7 +5917,7 @@ function pcMatchEnd(){
   if(test){pc.tAvg=avg;return}
   pc.mr=(pc.mr||[]).concat(avg).slice(-60);
   if(avg>=8.5)pcFame(1);
-  pcGain(45+(won?35:0)+Math.max(0,avg-6)*18,1+pcFx('xpm'));
+  pcGain(30+(won?24:0)+Math.max(0,avg-6)*12,1+pcFx('xpm'));
   if(!cup)pcTrust(clamp((avg-6.5)*3+(won?1.5:-1),-8,8),`série ${won?'vencida':'perdida'}, nota ${nt}`);
   const best=LV.gr.slice().sort((a,b)=>b.rt-a.rt)[0];
   pcLog(`série ${won?'vencida':'perdida'} ${LV.me}–${LV.op}, nota ${nt}; destaque: ${best.c} (${best.k}/${best.d}/${best.a}).`);
