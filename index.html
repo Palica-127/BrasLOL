@@ -489,6 +489,7 @@ h1{letter-spacing:.02em}
 .fut .fa{position:absolute;right:16px;top:20px;width:72px;height:84px;opacity:.9}
 .fut .fa svg{width:100%;height:100%;fill:currentColor;opacity:.28}
 .fut .fa.ph{opacity:1;filter:drop-shadow(0 2px 3px rgba(0,0,0,.35))}.fut .fa.ph{left:57%;right:auto;top:7%;width:66%;height:58%;transform:translateX(-50%);z-index:1}.fut .fo,.fut .fr,.fut .fn{text-shadow:0 0 3px rgba(255,255,255,.55)}.fut .fo,.fut .fr,.fut .fn,.fut .fs,.fut .ff{z-index:2}.fut .fnm,.fut .fst{z-index:2}.fut .fa.ph img{object-position:50% 100%}
+.fut.ret .fa.ph{transform:translateX(-50%) scale(1.14);transform-origin:50% 100%}
 .fut .fa img{display:block;width:100%;height:100%;object-fit:contain;object-position:50% 100%;pointer-events:none}
 .fut .fnm{position:absolute;left:8px;right:8px;top:112px;font:800 17px/1 var(--d);text-transform:uppercase;letter-spacing:.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-bottom:1px solid var(--fm);padding-bottom:3px}
 .fut .fst{position:absolute;left:12px;right:12px;top:138px;display:grid;grid-template-columns:repeat(5,1fr);gap:0;font:700 14px/1 var(--d)}
@@ -6944,7 +6945,7 @@ const yrsTxt=a=>a.length<=3?a[0]+a.slice(1).map(y=>'·'+String(y).slice(2)).join
 const legR=n=>{const h=S.hof&&S.hof[n];return h?Math.round(clamp(84+sc(h)/6,84,97)):80};
 function fut(o,cls=''){
   const t=tier(o.r),st=futStats(o.n,o.r,o.role),c=natC(o.n),tm=o.team;
-  const bw=bwYears(o.n),ly=legendYear(o.n),ret=!!(S.pdb&&S.pdb[o.n]&&S.pdb[o.n].ret);
+  const bw=bwYears(o.n),ly=legendYear(o.n),ret=!tm||!!(S.pdb&&S.pdb[o.n]&&S.pdb[o.n].ret);
   const inner=`<span class="fo num">${o.r}</span><span class="fr">${RN[o.role]||''}</span>${c?`<span class="fn">${natTxt(c)}</span>`:''}${tm?`<span class="fs">${crest(tm,'')}</span>`:''}
   <span class="fa${phHas(o.n)?' ph':''}">${phHas(o.n)?phImg(o.n):AVA}</span><span class="fnm">${esc(o.n)}</span>
   <span class="fst">${st.map((v,i)=>`<span class="num">${v}<small>${FSTAT[i]}</small></span>`).join('')}</span>
