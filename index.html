@@ -1197,6 +1197,8 @@ h1,h2,h3,.hn,.mhero h2,.cdate>div:first-child b,.play,.pill,.mc2 h3{font-style:n
   .dfpl{height:96px}.dfpl b{font-size:11px}.dfpl span{padding:16px 4px 6px}.dfr{font-size:14px;top:24%}.dfpl em{display:none}
 }
 /* ---------- meta ---------- */
+.pcTop{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;align-items:start}.pcTop>.pn{margin-bottom:8px}.pcSide .pn:last-child{margin-bottom:8px}
+@media (max-width:560px){.pcTop{grid-template-columns:1fr}}
 .cmp .pn,.mgr .pn{padding:10px 12px 8px;margin-bottom:8px}
 .cmp h2,.mgr h2{font-size:16px;margin-bottom:8px}
 .cmp .note,.mgr .note{font-size:12px;line-height:1.35}
@@ -5746,11 +5748,11 @@ function vPc0(){
     return h+`<section class="pn"><h2>Carreira encerrada</h2><p class="note" style="margin:0 0 10px">${esc(pc.n)} se aposentou em ${pc.ended||S.year}. Fama final: ${pc.fame}. Patrimônio: ${fmtM(pc.cash)}.</p><div class="row" style="margin:0"><button class="ghost" data-act="tab" data-v="menu">Voltar ao Menu</button></div></section>`+pcHistHTML(pc)+pcLogHTML(pc);
   }
   const p=f.p,t=f.t;
-  h+=`<section class="pn"><div class="ph phf">${fut({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f,team:t},'big')}<div><h3>${esc(p.n)}</h3><small>${RN[p.role]} · ${p.age} anos · ${esc(t.name)}${t.d===2?' (D2)':''}</small><small>${f.bn?'<b style="color:#FF9AA8">Reserva</b>':'<b style="color:#00F5A0">Titular</b>'} · contrato ${pc.ctr} ano${pc.ctr===1?'':'s'} · ${fmtM(pc.sal)}/ano</small></div></div>
-  <div class="cab"><div><b class="num">${pc.lv}</b><small>Nível</small></div><div><b class="num">${pc.fame}</b><small>Fama</small></div><div><b class="num" style="font-size:22px">${fmtM(pc.cash).replace('US$ ','')}</b><small>Patrimônio (US$)</small></div><div><b class="num" style="font-size:20px">${p.pot>=92?"Lendário":p.pot>=88?"Elite":p.pot>=84?"Alto":"Médio"}</b><small>Olheiros: potencial</small></div></div></section>`;
+  h+=`<div class="pcTop"><section class="pn"><div class="ph phf">${fut({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f,team:t},'big')}<div><h3>${esc(p.n)}</h3><small>${RN[p.role]} · ${p.age} anos · ${esc(t.name)}${t.d===2?' (D2)':''}</small><small>${f.bn?'<b style="color:#FF9AA8">Reserva</b>':'<b style="color:#00F5A0">Titular</b>'} · contrato ${pc.ctr} ano${pc.ctr===1?'':'s'} · ${fmtM(pc.sal)}/ano</small></div></div>
+  <div class="cab"><div><b class="num">${pc.fame}</b><small>Fama</small></div><div><b class="num" style="font-size:22px">${fmtM(pc.cash).replace('US$ ','')}</b><small>Patrimônio (US$)</small></div><div><b class="num" style="font-size:20px">${p.pot>=92?"Lendário":p.pot>=88?"Elite":p.pot>=84?"Alto":"Médio"}</b><small>Olheiros: potencial</small></div></div></section><div class="pcSide">${pcLvHTML()}${pcTrustHTML(f)}</div></div>`;
   /* evento */
   if(pc.ev){const e=PEV[pc.ev];h+=`<section class="pn"><h2>Evento</h2><p class="note" style="margin:0 0 10px">${esc(e.t)}</p><div class="row" style="margin:0">${e.o.map(([l,k])=>`<button class="ghost" data-act="pcEv" data-v="${k}">${l}</button>`).join('')}</div></section>`}
-  h+=pcLvHTML()+pcTrustHTML(f)+ptHTML()+pcTrainHTML(f)+pcStatusHTML(f)+pcTreeBtnHTML()+(pcTreeOpen?pcTreeHTML(f):'');
+  h+=ptHTML()+pcTrainHTML(f)+pcStatusHTML(f)+pcTreeBtnHTML()+(pcTreeOpen?pcTreeHTML(f):'');
   /* pool */
   const pl=CH[p.role].map(([c,a])=>({c,a,v:Math.round(mastOf(pc.n,c)*100),m:metaOf(c)}));
   h+=`<details class="pn det"><summary>Pool de campeões</summary><p class="note" style="margin:0 0 8px">Todos os 8 campeões da função aparecem aqui. Cada treino de pool gasta ${pcPerk('e2')?20:30} de energia e dá +${pcPerk('e2')?6:4}% de domínio em um campeão. Quanto melhor sua pool no meta atual (${esc(metaName())}), mais forma você carrega.</p>${pl.map(x=>`<div class="pool"><span class="ct sm" style="--h:${hs(x.c)%360}"><b>${esc(chIni(x.c))}</b></span><span class="who"><b>${esc(x.c)}</b><small>${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}</small></span><b class="num">${x.v}</b><button class="ghost" data-act="pcPool" data-v="${esc(x.c)}"${pc.en<(pcPerk('e2')?20:30)||x.v>=100?' disabled':''}>${x.v>=100?'máx':'+'+(pcPerk('e2')?6:4)+'%'}</button></div>`).join('')}</details>`;
@@ -5758,7 +5760,7 @@ function vPc0(){
   if(pc.offers&&pc.offers.length){h+=`<section class="pn"><h2>Propostas</h2><p class="note" style="margin:0 0 8px">${pcPlayOk()?'Janela aberta: dá para assinar agora.':'Janela fechada: as propostas voltam a valer antes do próximo split.'}</p>${pc.offers.map((o,i)=>{const nt=ALLT().find(x=>x.name===o.tn);return `<div class="mrow" style="grid-template-columns:minmax(0,1fr) auto"><span class="who"><b>${o.ren?'Renovar com ':''}${nt?tlk(nt):esc(o.tn)}${nt&&nt.d===2?' <span class="tag">D2</span>':''}</b><small>${o.k==='T'?'Como titular':'Como reserva'} · ${o.yrs} ano${o.yrs>1?'s':''} · ${fmtM(o.sal)}/ano</small></span><button class="ghost" data-act="pcOffer" data-v="${i}"${pcPlayOk()?'':' disabled'}>${o.ren?'Renovar':'Assinar'}</button></div>`}).join('')}</section>`}
   /* metas */
   h+=`<details class="pn det"><summary>Metas de carreira (${Object.keys(pc.goals).length}/${PGOALS.length})</summary>${PGOALS.map(([id,l,d])=>`<div class="mrow" style="grid-template-columns:28px minmax(0,1fr)"><span class="num" style="font-size:20px">${pc.goals[id]?'✓':'·'}</span><span class="who"><b${pc.goals[id]?' style="color:#00F5A0"':''}>${l}</b><small>${d}${pc.goals[id]?' · '+pc.goals[id]:''}</small></span></div>`).join('')}</details>`;
-  return h+pcHistHTML(pc)+pcLogHTML(pc)+`<section class="pn"><div class="row" style="margin:0"><button class="ghost" data-act="player" data-v="${esc(p.n)}">Ver ficha pública</button></div></section>`;
+  return h+pcHistHTML(pc)+`<section class="pn"><div class="row" style="margin:0"><button class="ghost" data-act="player" data-v="${esc(p.n)}">Ver ficha pública</button></div></section>`;
 }
 function pcHistHTML(pc){
   if(!pc.hist.length)return'';
@@ -7701,7 +7703,8 @@ function poolHTML(n,role,tm){
   if(role==null||!CH[role])return'';
   const ms=S.mgr&&tm&&S.mgr.tid===tm.id,tr=ms&&S.mgr.tr&&S.mgr.tr[n]==='pool';
   const l=CH[role].map(([c,a])=>({c,a,v:Math.round(mastOf(n,c)*100),m:metaOf(c)})).sort((x,y)=>y.v-x.v);
-  return `<section class="pn"><h2>Pool de campeões</h2><p class="note" style="margin:0 0 8px">Domínio de ${esc(n)} nos campeões de ${RN[role]}. Vale no draft; a tag mostra se o campeão está forte ou fraco no meta atual (${esc(metaName())}).${tr?' Em treino de pool.':''}</p>${l.map((x,i)=>`<div class="pool"><span class="ct sm" style="--h:${hs(x.c)%360}"><b>${esc(chIni(x.c))}</b></span><span class="pn2"><b>${esc(x.c)}${i===0?' <em class="sig">assinatura</em>':''}</b><small>${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}</small></span><span class="bar"><i style="width:${x.v}%"></i></span><span class="num pv">${x.v}</span></div>`).join('')}</section>`;
+  const row=(a,o)=>a.map((x,k)=>{const i=k+o;return `<div class="pool"><span class="ct sm" style="--h:${hs(x.c)%360}"><b>${esc(chIni(x.c))}</b></span><span class="pn2"><b>${esc(x.c)}${i===0?' <em class="sig">assinatura</em>':''}</b><small>${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}</small></span><span class="bar"><i style="width:${x.v}%"></i></span><span class="num pv">${x.v}</span></div>`}).join('');
+  return `<section class="pn"><h2>Pool de campeões</h2><p class="note" style="margin:0 0 8px">Domínio de ${esc(n)} nos campeões de ${RN[role]}. Mostra os 5 melhores; vale no draft e a tag indica o meta atual (${esc(metaName())}).${tr?' Em treino de pool.':''}</p>${row(l.slice(0,5),0)}${l.length>5?`<details class="det" style="margin-top:6px"><summary>Mostrar os outros ${l.length-5}</summary>${row(l.slice(5),5)}</details>`:''}</section>`;
 }
 function bnFind(n){for(const t of ALLT()){const p=(t.bn||[]).find(x=>x.n===n);if(p)return{p,t:{name:t.name+' (reserva)',lg:t.lg,d:t.d,yh:[],id:t.id,real:t}}}return null}
 function divTxt(t){if(!t||!t.lg)return'';const r=t.real||t,i=r.yh&&r.yh.length?pmInfo(r):{tag:''};return ` · ${r.d===2?'D2':'D1'} ${r.lg}${i.tag?' ('+i.tag+')':''}`}
