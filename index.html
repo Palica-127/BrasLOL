@@ -1576,21 +1576,6 @@ body::after{opacity:.32;filter:grayscale(.35) brightness(.8)}
 .sqreq{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:10px 0}.sqreq small{display:block;color:#7f8fb8;margin-top:2px}
 @media (max-width:760px){.pn.mail{position:fixed;top:64px;right:16px;left:16px;width:auto}}
 
-/* cartinhas do Hall da Fama */
-.cdg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:10px}
-.card{position:relative;display:block;aspect-ratio:3/4.3;padding:0;border-radius:14px;overflow:hidden;cursor:pointer;text-align:left;color:#fff;border:2px solid #8a7a3a;background:linear-gradient(160deg,#2a2210,#0c0f1c);box-shadow:0 6px 18px rgba(0,0,0,.45);transition:transform .15s,box-shadow .15s}
-.card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.6)}
-.card .cph{position:absolute;inset:0;display:block}.card .cph img{width:100%;height:100%;object-fit:cover;object-position:50% 12%;display:block}.card .cph svg{width:60%;height:60%;margin:14% 20% 0;fill:rgba(255,255,255,.18)}
-.card::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55) 0,transparent 26%,transparent 48%,rgba(5,8,18,.94) 100%);pointer-events:none}
-.card .ctp{position:absolute;left:8px;right:8px;top:7px;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;gap:6px}
-.card .ctp i{font:700 9.5px var(--d);font-style:normal;letter-spacing:.12em;padding:3px 6px;border-radius:4px;background:rgba(0,0,0,.55);color:var(--gold,#e3b23c)}
-.card .ctp b{font:800 22px var(--d);line-height:1;text-shadow:0 2px 6px rgba(0,0,0,.8)}
-.card .cbt{position:absolute;left:9px;right:9px;bottom:8px;z-index:2;display:grid;gap:1px}
-.card .cbt b{font:700 17px var(--d);line-height:1.1;text-shadow:0 2px 6px rgba(0,0,0,.9)}.card .cbt small{font-size:11px;color:#c9d3f2;line-height:1.25}.card .cbt em{font-style:normal;font:700 12px var(--d);color:#ffe27a;letter-spacing:.04em}
-.card.bw{border-color:#e3b23c;background:linear-gradient(160deg,#4a3a10,#0c0f1c)}.card.bw .ctp b{color:#ffe27a;font-size:26px}
-.card.lg{border-color:#9b7bff;background:linear-gradient(160deg,#2a1d5a,#0c0f1c)}.card.lg .ctp i{color:#c9b6ff}.card.lg .ctp b{color:#c9b6ff;font-size:16px;opacity:.85}
-.card.lg.imortal{border-color:#ff7ab8;background:linear-gradient(160deg,#5a1d44,#0c0f1c);box-shadow:0 6px 22px rgba(255,90,160,.28)}.card.lg.imortal .ctp i{color:#ffb3d6}.card.lg.imortal .ctp b{color:#ffb3d6}
-@media (max-width:520px){.cdg{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* carta com conquistas: Melhor do Mundo (dourada) e Lenda (violeta/rosa); medalhas citam o ano */
 .fut.lgd{--fb:linear-gradient(160deg,#D9C7FF,#8466FF 45%,#FF7AB8);--fc:#150A33;--fm:rgba(21,10,51,.6)}
 .fut.bw{--fb:linear-gradient(160deg,#FFF3C4,#E8B93E 38%,#8C6420 72%,#F6D77A);--fc:#2A1D04;--fm:rgba(42,29,4,.6)}
@@ -7498,31 +7483,9 @@ function pwHTML(){
 /* ranking compacto: posição, foto, nome, detalhes e pontos numa linha só */
 const mav=n=>`<span class="mavr">${phHas(n)?phImg(n):AVA}</span>`;
 const rkRow=(i,n,sub,tt,pt,sf)=>`<button class="rkr${i<3?' top'+(i+1):''}" data-act="player" data-v="${esc(n)}"><span class="rk num">${i+1}</span><span class="rav">${phHas(n)?phImg(n):AVA}</span><span class="rnm"><b>${esc(n)}</b><small>${sub}</small></span><span class="rtt">${tt||''}</span><span class="rpt num">${pt}${sf?`<small>${sf}</small>`:''}</span></button>`;
-/* ---------- cartinhas: Melhor do Mundo (um por ano) e Lendas (período de carreira) ---------- */
-function cardYears(n){
-  const d=S.pdb[n],ys=(d&&d.tl||[]).map(x=>x.y).filter(y=>typeof y==='number');
-  if(!ys.length)return null;
-  const a=Math.min(...ys),b=Math.max(...ys),act=!!pmap()[n]&&!(d&&d.ret);
-  return act?`${a}–hoje`:a===b?`${a}`:`${a}–${b}`;
-}
-function cardPhoto(n){return `<span class="cph">${phHas(n)?phImg(n):AVA}</span>`}
-function cardBw(x){
-  const c=natC(x.n);
-  return `<button class="card bw" data-act="player" data-v="${esc(x.n)}" title="${esc(x.n)} · Melhor do Mundo ${x.y}">${cardPhoto(x.n)}<span class="ctp"><i>MELHOR DO MUNDO</i><b class="num">${x.y}</b></span><span class="cbt"><b>${esc(x.n)}</b><small>${esc(x.team||'')}${c?' · '+natTxt(c):''}</small></span></button>`;
-}
-function cardLg(n){
-  const h=S.hof[n],c=natC(n),t=sc(h),tier=t>=80?'imortal':'lenda',role=roleOf(n);
-  const ch=[h.bd?`${h.bd}× Melhor do Ano`:'',h.wc?`${h.wc}× Mundial`:'',h.msi?`${h.msi}× MSI`:''].filter(Boolean).join(' · ');
-  return `<button class="card lg ${tier}" data-act="player" data-v="${esc(n)}" title="${esc(n)} · lenda ${esc(cardYears(n)||'')}">${cardPhoto(n)}<span class="ctp"><i>${tier==='imortal'?'LENDA IMORTAL':'LENDA'}</i><b class="num">${Math.round(t)}</b></span><span class="cbt"><b>${esc(n)}</b><small>${RN[role]||''}${c?' · '+natTxt(c):''}</small><em>${esc(cardYears(n)||'')}</em>${ch?`<small>${esc(ch)}</small>`:''}</span></button>`;
-}
-function cardsHTML(){
-  const bw=[...(S.pre||[]).map(x=>({y:x.y,n:x.top[0].n,team:x.top[0].team})),...S.hist.map(x=>({y:x.y,n:x.top[0].n,team:x.top[0].team}))].reverse();
-  const lg=hofRank().filter(n=>sc(S.hof[n])>=25);
-  return `<section class="pn"><h2>Melhor do Mundo</h2><div class="cdg">${bw.map(cardBw).join('')||'<p class="empty">Ainda sem vencedores.</p>'}</div></section><section class="pn"><h2>Lendas</h2><div class="cdg">${lg.map(cardLg).join('')}</div><p class="note">Lenda: 25 pontos de carreira ou mais; Lenda Imortal: 80 ou mais. O período vai do primeiro ao último ano de títulos e prêmios.</p></section>`;
-}
 function vHof(){
   const PM=pmap();
-  let h=`<div class="pills stk">${[['rank','Ranking'],['cards','Cartas'],['wc','Mundial'],['msi','MSI'],['teams','Times'],['nat','Seleções'],['players','Jogadores']].map(([k,l])=>`<button class="pill" aria-pressed="${hofView===k}" data-act="hv" data-v="${k}">${l}</button>`).join('')}</div>`;
+  let h=`<div class="pills stk">${[['rank','Ranking'],['wc','Mundial'],['msi','MSI'],['teams','Times'],['nat','Seleções'],['players','Jogadores']].map(([k,l])=>`<button class="pill" aria-pressed="${hofView===k}" data-act="hv" data-v="${k}">${l}</button>`).join('')}</div>`;
   if(hofView==='rank'){
     const r=hofRank().slice(0,10);
     const rows=r.map((n,i)=>{
@@ -7535,8 +7498,6 @@ function vHof(){
     h+=`<section class="pn"><h2>Top 10 de todos os tempos</h2><div class="rkt">${rows}</div><p class="note">Pontos = Melhor Jogador do Ano/temporada (${PTS.join(' · ')}) + Mundial 6 + MSI 3 + MVP 1,5 + liga 0,5. Toque em um jogador para abrir a ficha.</p></section>`;
     const bl=[...(S.pre||[]).map(x=>({y:x.y,n:x.top[0].n,team:x.top[0].team})),...S.hist.map(x=>({y:x.y,n:x.top[0].n,team:x.top[0].team}))].reverse();
     h+=`<section class="pn"><h2>Melhor Jogador do Ano</h2><div class="yrl">${bl.map(x=>`<div class="yr"><span class="lg num">${x.y}</span>${mav(x.n)}<span class="grow"><b>${lk(x.n)}</b> <small>${esc(x.team)}</small></span></div>`).join('')}</div></section>`;
-  }else if(hofView==='cards'){
-    h+=cardsHTML();
   }else if(hofView==='wc'||hofView==='msi'){
     h+=cupHistHTML(hofView);
   }else if(hofView==='nat'){
