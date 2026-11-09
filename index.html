@@ -1197,6 +1197,15 @@ h1,h2,h3,.hn,.mhero h2,.cdate>div:first-child b,.play,.pill,.mc2 h3{font-style:n
   .dfpl{height:96px}.dfpl b{font-size:11px}.dfpl span{padding:16px 4px 6px}.dfr{font-size:14px;top:24%}.dfpl em{display:none}
 }
 /* ---------- meta ---------- */
+.cmp .pn,.mgr .pn{padding:10px 12px 8px;margin-bottom:8px}
+.cmp h2,.mgr h2{font-size:16px;margin-bottom:8px}
+.cmp .note,.mgr .note{font-size:12px;line-height:1.35}
+.cmp .mrow,.mgr .mrow{padding:5px 0;gap:8px}
+.cmp .cab,.mgr .cab{gap:6px}.cmp .cab div,.mgr .cab div{padding:6px 4px 5px}.cmp .cab b,.mgr .cab b{font-size:22px}
+.cmp .sub,.mgr .sub{margin-top:8px}.cmp .pills,.mgr .pills{gap:5px}
+.cmp .pill,.mgr .pill{padding:6px 10px;font-size:13px}
+.cmp .det summary,.mgr .det summary{font-size:15px}.cmp .det[open] summary,.mgr .det[open] summary{margin-bottom:6px}
+.cmp .ph,.mgr .ph{margin-bottom:6px}
 .kvr{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-top:1px solid rgba(130,150,255,.14);font-size:14px}.kvr span{color:var(--muted)}
 .mtx{grid-column:1/-1;display:grid;gap:18px;margin-bottom:24px}
 .tS{--tc:#F3D77A}.tA{--tc:#8EE3B0}.tB{--tc:#C6CDE6}.tC{--tc:#FFB084}.tF{--tc:#FF7A93}
@@ -5727,7 +5736,8 @@ function ptHTML(inner){
   <p class="note" style="margin:6px 0 0">${free?'O técnico avalia sua nota na série: vai direto na confiança. Reservas entram no lugar do titular só durante o teste.':'Hoje é dia de jogo oficial ou há outra partida aberta. Avance o calendário.'}</p>`;
   return inner?`<div class="sqp">${body}</div>`:`<section class="pn sqp">${body}</section>`;
 }
-function vPc(){
+function vPc(){return `<div class="cmp">${vPc0()}</div>`}
+function vPc0(){
   const pc=S.pc;pcEnsure();
   if(!pc)return `<p class="empty">Escolha o modo Jogador no Menu.</p>`;
   let h=msg?`<div class="msg">${esc(msg)}</div>`:'';
@@ -5743,18 +5753,18 @@ function vPc(){
   h+=pcLvHTML()+pcTrustHTML(f)+ptHTML()+pcTrainHTML(f)+pcStatusHTML(f)+pcTreeBtnHTML()+(pcTreeOpen?pcTreeHTML(f):'');
   /* pool */
   const pl=CH[p.role].map(([c,a])=>({c,a,v:Math.round(mastOf(pc.n,c)*100),m:metaOf(c)}));
-  h+=`<section class="pn"><h2>Pool de campeões</h2><p class="note" style="margin:0 0 8px">Todos os 8 campeões da função aparecem aqui. Cada treino de pool gasta ${pcPerk('e2')?20:30} de energia e dá +${pcPerk('e2')?6:4}% de domínio em um campeão. Quanto melhor sua pool no meta atual (${esc(metaName())}), mais forma você carrega.</p>${pl.map(x=>`<div class="pool"><span class="ct sm" style="--h:${hs(x.c)%360}"><b>${esc(chIni(x.c))}</b></span><span class="who"><b>${esc(x.c)}</b><small>${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}</small></span><b class="num">${x.v}</b><button class="ghost" data-act="pcPool" data-v="${esc(x.c)}"${pc.en<(pcPerk('e2')?20:30)||x.v>=100?' disabled':''}>${x.v>=100?'máx':'+'+(pcPerk('e2')?6:4)+'%'}</button></div>`).join('')}</section>`;
+  h+=`<details class="pn det"><summary>Pool de campeões</summary><p class="note" style="margin:0 0 8px">Todos os 8 campeões da função aparecem aqui. Cada treino de pool gasta ${pcPerk('e2')?20:30} de energia e dá +${pcPerk('e2')?6:4}% de domínio em um campeão. Quanto melhor sua pool no meta atual (${esc(metaName())}), mais forma você carrega.</p>${pl.map(x=>`<div class="pool"><span class="ct sm" style="--h:${hs(x.c)%360}"><b>${esc(chIni(x.c))}</b></span><span class="who"><b>${esc(x.c)}</b><small>${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}</small></span><b class="num">${x.v}</b><button class="ghost" data-act="pcPool" data-v="${esc(x.c)}"${pc.en<(pcPerk('e2')?20:30)||x.v>=100?' disabled':''}>${x.v>=100?'máx':'+'+(pcPerk('e2')?6:4)+'%'}</button></div>`).join('')}</details>`;
   /* ofertas */
   if(pc.offers&&pc.offers.length){h+=`<section class="pn"><h2>Propostas</h2><p class="note" style="margin:0 0 8px">${pcPlayOk()?'Janela aberta: dá para assinar agora.':'Janela fechada: as propostas voltam a valer antes do próximo split.'}</p>${pc.offers.map((o,i)=>{const nt=ALLT().find(x=>x.name===o.tn);return `<div class="mrow" style="grid-template-columns:minmax(0,1fr) auto"><span class="who"><b>${o.ren?'Renovar com ':''}${nt?tlk(nt):esc(o.tn)}${nt&&nt.d===2?' <span class="tag">D2</span>':''}</b><small>${o.k==='T'?'Como titular':'Como reserva'} · ${o.yrs} ano${o.yrs>1?'s':''} · ${fmtM(o.sal)}/ano</small></span><button class="ghost" data-act="pcOffer" data-v="${i}"${pcPlayOk()?'':' disabled'}>${o.ren?'Renovar':'Assinar'}</button></div>`}).join('')}</section>`}
   /* metas */
-  h+=`<section class="pn"><h2>Metas de carreira</h2>${PGOALS.map(([id,l,d])=>`<div class="mrow" style="grid-template-columns:28px minmax(0,1fr)"><span class="num" style="font-size:20px">${pc.goals[id]?'✓':'·'}</span><span class="who"><b${pc.goals[id]?' style="color:#00F5A0"':''}>${l}</b><small>${d}${pc.goals[id]?' · '+pc.goals[id]:''}</small></span></div>`).join('')}</section>`;
+  h+=`<details class="pn det"><summary>Metas de carreira (${Object.keys(pc.goals).length}/${PGOALS.length})</summary>${PGOALS.map(([id,l,d])=>`<div class="mrow" style="grid-template-columns:28px minmax(0,1fr)"><span class="num" style="font-size:20px">${pc.goals[id]?'✓':'·'}</span><span class="who"><b${pc.goals[id]?' style="color:#00F5A0"':''}>${l}</b><small>${d}${pc.goals[id]?' · '+pc.goals[id]:''}</small></span></div>`).join('')}</details>`;
   return h+pcHistHTML(pc)+pcLogHTML(pc)+`<section class="pn"><div class="row" style="margin:0"><button class="ghost" data-act="player" data-v="${esc(p.n)}">Ver ficha pública</button></div></section>`;
 }
 function pcHistHTML(pc){
   if(!pc.hist.length)return'';
-  return `<section class="pn"><h2>Temporadas</h2>${pc.hist.slice().reverse().map(x=>`<div class="mrow" style="grid-template-columns:44px minmax(0,1fr) auto"><span class="num">${x.y}</span><span class="who"><b>${esc(x.team)}${x.div===2?' (D2)':''}</b><small>${RN[x.role]} · ${x.age} anos · OVR ${x.ovr}${x.titles?' · '+x.titles+' título'+(x.titles>1?'s':''):''}${x.top?' · Prêmio '+x.top+'º':''}</small></span><b class="num">${x.rating!=null?String(x.rating).replace('.',','):'—'}</b></div>`).join('')}<p class="note" style="margin:6px 0 0">A nota (3 a 10) compara seu desempenho com o seu OVR e soma o resultado do time.</p></section>`;
+  return `<details class="pn det"><summary>Temporadas</summary>${pc.hist.slice().reverse().map(x=>`<div class="mrow" style="grid-template-columns:44px minmax(0,1fr) auto"><span class="num">${x.y}</span><span class="who"><b>${esc(x.team)}${x.div===2?' (D2)':''}</b><small>${RN[x.role]} · ${x.age} anos · OVR ${x.ovr}${x.titles?' · '+x.titles+' título'+(x.titles>1?'s':''):''}${x.top?' · Prêmio '+x.top+'º':''}</small></span><b class="num">${x.rating!=null?String(x.rating).replace('.',','):'—'}</b></div>`).join('')}<p class="note" style="margin:6px 0 0">A nota (3 a 10) compara seu desempenho com o seu OVR e soma o resultado do time.</p></details>`;
 }
-function pcLogHTML(pc){return pc.log.length?`<section class="pn"><h2>Diário</h2><ul class="lines">${pc.log.slice(0,10).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section>`:''}
+function pcLogHTML(pc){return pc.log.length?`<details class="pn det"><summary>Diário</summary><ul class="lines">${pc.log.slice(0,10).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details>`:''}
 function pcSummary(){
   const pc=S.pc,f=pcFind();if(!f)return'';pcEnsure();
   const p=f.p,t=f.t;
