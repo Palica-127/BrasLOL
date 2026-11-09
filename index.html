@@ -2375,11 +2375,6 @@ function awards(){
   {const hb=S.hof[top[0].n].bd;news(`${top[0].n} (${top[0].team}) é eleito o Melhor Jogador do Ano ${S.year}${hb>1?`, a ${hb}ª da carreira`:''}.`)}
   S.mv={};
   hofRank().slice(0,10).forEach((n,i)=>{S.mv[n]=oldPos[n]===undefined?'N':oldPos[n]-i});
-  /* entrada/saída do top 10 de todos os tempos (in:0 = já estava lá quando o registro começou) */
-  {const t=S.t10||(S.t10={}),cur=new Set(hofRank().slice(0,10));
-   if(!S.t10i){S.t10i=1;Object.keys(oldPos).forEach(n=>{if(oldPos[n]<10)t[n]={in:0,out:0}})}
-   cur.forEach(n=>{const e=t[n];if(!e||e.out)t[n]={in:S.year,out:0}});
-   Object.keys(t).forEach(n=>{if(!cur.has(n)&&!t[n].out)t[n].out=S.year})}
   const msi=S.season.msi,wc=S.season.wc;
   const code=(tour,id)=>!tour.teams.includes(id)?'-':id===tour.champ?'C':({Final:'F',Semifinais:'SF',Quartas:'QF'})[tour.elim[id]]||'G';
   S.teams.forEach(t=>{
@@ -6919,10 +6914,26 @@ function bwYears(n){
   return [...ys].sort((a,b)=>a-b);
 }
 /* ano em que entrou no rank de lenda: pontos acumulados pelos prêmios do histórico, escalados para bater com o total da carreira */
+const tlW=t=>t==='Mundial'?6:t==='MSI'?3:/^MVP/.test(t)?1.5:t==='Melhor Jogador do Ano'?(PTS[0]||10):/^Top 5/.test(t)?(PTS[Math.max(0,(+(/\((\d)º\)/.exec(t)||[])[1]||5)-1)]||2):t.indexOf('Copa')===0?3:.5;
+/* top 10 de todos os tempos ano a ano (estimado: pontos de carreira distribuídos pelos prêmios do histórico de cada jogador) */
+let T10C=null;
+function t10Hist(){
+  const key=S.year+'|'+S.hist.length+'|'+Object.keys(S.hof).length;
+  if(T10C&&T10C.k===key)return T10C.v;
+  const pl=Object.keys(S.hof).map(n=>{const d=S.pdb&&S.pdb[n],tl=(d&&d.tl||[]).filter(x=>typeof x.y==='number');return{n,tl,tot:tl.reduce((a,x)=>a+tlW(x.t),0),tp:sc(S.hof[n])}}).filter(x=>x.tl.length&&x.tot>0);
+  const ys=pl.flatMap(x=>x.tl.map(t=>t.y)),y0=Math.min(...ys),y1=Math.max(...ys),v={};
+  const seen={};
+  for(let y=y0;y<=y1;y++){
+    const top=pl.map(x=>({n:x.n,c:x.tp*x.tl.filter(t=>t.y<=y).reduce((a,t)=>a+tlW(t.t),0)/x.tot})).filter(x=>x.c>0).sort((a,b)=>b.c-a.c||a.n.localeCompare(b.n)).slice(0,10);
+    top.forEach(x=>{const e=v[x.n]||(v[x.n]={in:y,last:y});e.last=y;seen[x.n]=1});
+  }
+  Object.keys(v).forEach(n=>{const e=v[n];e.cur=e.last===y1;e.out=e.cur?0:e.last+1});
+  T10C={k:key,v};return v;
+}
 function legendYear(n){
   const h=S.hof&&S.hof[n];if(!h||sc(h)<LEGPTS)return 0;
   const d=S.pdb&&S.pdb[n],tl=(d&&d.tl||[]).filter(x=>typeof x.y==='number').sort((a,b)=>a.y-b.y);
-  const w=t=>t==='Mundial'?6:t==='MSI'?3:/^MVP/.test(t)?1.5:t==='Melhor Jogador do Ano'?(PTS[0]||10):/^Top 5/.test(t)?(PTS[Math.max(0,(+(/\((\d)º\)/.exec(t)||[])[1]||5)-1)]||2):t.indexOf('Copa')===0?3:.5;
+  const w=tlW;
   const tot=tl.reduce((a,x)=>a+w(x.t),0);
   if(!tl.length||tot<=0)return d&&d.debut||S.year;
   let c=0;for(const x of tl){c+=w(x.t);if(c/tot*sc(h)>=LEGPTS)return x.y}
@@ -7856,8 +7867,8 @@ function poolHTML(n,role,tm){
 function bnFind(n){for(const t of ALLT()){const p=(t.bn||[]).find(x=>x.n===n);if(p)return{p,t:{name:t.name+' (reserva)',lg:t.lg,d:t.d,yh:[],id:t.id,real:t}}}return null}
 function divTxt(t){if(!t||!t.lg)return'';const r=t.real||t,i=r.yh&&r.yh.length?pmInfo(r):{tag:''};return ` · ${r.d===2?'D2':'D1'} ${r.lg}${i.tag?' ('+i.tag+')':''}`}
 function cmdHTML(n){
-  const ly=legendYear(n),ret=S.pdb&&S.pdb[n]&&S.pdb[n].ret,e=S.t10&&S.t10[n];
-  const t10=e?(e.out?`Saiu do top 10 de todos os tempos em ${e.out}`:e.in?`No top 10 de todos os tempos desde ${e.in}`:''):'';
+  const ly=legendYear(n),ret=S.pdb&&S.pdb[n]&&S.pdb[n].ret,e=t10Hist()[n];
+  const t10=e?(e.cur?`No top 10 de todos os tempos desde ${e.in}`:`Esteve no top 10 de todos os tempos de ${e.in} a ${e.last}; saiu em ${e.out}`):'';
   if(!ly&&!t10)return '';
   return `<div class="cmd">${ly?`<div class="clg"><b>◆ Lenda</b><span>desde ${ly}${ret?' · aposentado em '+ret:''}</span></div>`:''}${t10?`<div class="ct10"><b>▲ Top 10</b><span>${t10}</span></div>`:''}</div>`;
 }
