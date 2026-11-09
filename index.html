@@ -1197,28 +1197,28 @@ h1,h2,h3,.hn,.mhero h2,.cdate>div:first-child b,.play,.pill,.mc2 h3{font-style:n
   .dfpl{height:96px}.dfpl b{font-size:11px}.dfpl span{padding:16px 4px 6px}.dfr{font-size:14px;top:24%}.dfpl em{display:none}
 }
 /* ---------- meta ---------- */
-.tree{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:12px 6px 4px;border-radius:14px;background:radial-gradient(120% 90% at 50% 0%,rgba(255,226,122,.08),transparent 60%),rgba(6,9,34,.55);border:1px solid rgba(130,150,255,.2)}
-.tbr{display:flex;flex-direction:column;align-items:center;min-width:0}
-.tbr h4{margin:0 0 10px;font:800 13px var(--d);letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-align:center}.tbr h4 small{display:block;font:600 10px var(--b);letter-spacing:.04em;text-transform:none;color:var(--muted)}
-.tn{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;width:100%;padding-bottom:26px}
-.tn::after{content:"";position:absolute;left:50%;top:58px;bottom:-4px;width:4px;margin-left:-2px;border-radius:2px;background:rgba(130,150,255,.25)}
-.tn.last::after{display:none}.tn.ln::after{background:linear-gradient(180deg,#FFE27A,#c9a24a);box-shadow:0 0 8px rgba(255,226,122,.6)}
-.tn b{margin-top:6px;font:700 12px/1.15 var(--b);max-width:100%;overflow-wrap:anywhere}.tn small{font:600 10px var(--b);color:var(--muted)}
-.tnb{position:relative;z-index:1;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-size:26px;cursor:pointer;color:inherit;padding:0;border:2px solid rgba(130,150,255,.4);background:radial-gradient(circle at 35% 30%,#2b3a8c,#0c1240);box-shadow:inset 0 0 0 3px rgba(6,9,34,.7)}
-.tnb span{filter:grayscale(.2)}
-.tn.lock .tnb{opacity:.45;filter:grayscale(1)}
-.tn.cost .tnb{border-color:rgba(255,226,122,.45)}
-.tn.can .tnb{border-color:#00F5A0;box-shadow:inset 0 0 0 3px rgba(6,9,34,.7),0 0 14px rgba(0,245,160,.55);animation:tnp 1.8s ease-in-out infinite}
-.tn.own .tnb{border-color:#FFE27A;background:radial-gradient(circle at 35% 30%,#8a6d2a,#2a1d05);box-shadow:inset 0 0 0 3px rgba(6,9,34,.6),0 0 16px rgba(255,226,122,.7)}
+.tdia{position:relative;max-width:680px;margin:0 auto 10px;border-radius:14px;background:radial-gradient(120% 90% at 50% 0%,rgba(255,226,122,.08),transparent 60%),radial-gradient(100% 70% at 50% 100%,rgba(255,226,122,.07),transparent 60%),rgba(6,9,34,.55);border:1px solid rgba(130,150,255,.2)}
+.tdia svg{position:absolute;inset:0;width:100%;height:100%}
+.tdia line{stroke:rgba(130,150,255,.3);stroke-width:3;stroke-linecap:round;vector-effect:non-scaling-stroke}.tdia line.half{stroke:rgba(255,226,122,.55);stroke-dasharray:6 6}.tdia line.on{stroke:#FFE27A;stroke-width:4;filter:drop-shadow(0 0 4px rgba(255,226,122,.8))}
+.tnode{position:absolute;transform:translate(-50%,-26px);width:25%;display:flex;flex-direction:column;align-items:center;text-align:center}
+.tnode b{text-shadow:0 1px 3px #000,0 0 6px #000;margin-top:5px;font:700 11px/1.1 var(--b);max-width:100%;overflow-wrap:anywhere}.tnode small{font:600 10px var(--b);color:var(--muted)}
+.tnb{position:relative;z-index:1;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-size:24px;cursor:pointer;color:inherit;padding:0;border:2px solid rgba(130,150,255,.4);background:radial-gradient(circle at 35% 30%,#2b3a8c,#0c1240);box-shadow:inset 0 0 0 3px rgba(6,9,34,.7)}
+.tnode.cap .tnb{width:68px;height:68px;font-size:32px;border-width:3px}.tnode.cap{transform:translate(-50%,-34px)}
+.tnode.lock .tnb{opacity:.45;filter:grayscale(1)}.tnode.cost .tnb{border-color:rgba(255,226,122,.45)}
+.tnode.can .tnb{border-color:#00F5A0;box-shadow:inset 0 0 0 3px rgba(6,9,34,.7),0 0 14px rgba(0,245,160,.55);animation:tnp 1.8s ease-in-out infinite}
+.tnode.own .tnb{border-color:#FFE27A;background:radial-gradient(circle at 35% 30%,#8a6d2a,#2a1d05);box-shadow:inset 0 0 0 3px rgba(6,9,34,.6),0 0 16px rgba(255,226,122,.7)}
+.tnode.cap:not(.own):not(.lock) .tnb{border-color:#FFE27A;box-shadow:inset 0 0 0 3px rgba(6,9,34,.7),0 0 18px rgba(255,226,122,.5)}
 .tnb.sel{outline:3px solid #fff;outline-offset:3px}
 .tok{position:absolute;right:-4px;bottom:-4px;width:20px;height:20px;border-radius:50%;background:#00F5A0;color:#04130c;font:800 12px/20px var(--b);font-style:normal}
 @keyframes tnp{50%{box-shadow:inset 0 0 0 3px rgba(6,9,34,.7),0 0 6px rgba(0,245,160,.25)}}
-@media (prefers-reduced-motion:reduce){.tn.can .tnb{animation:none}}
+@media (prefers-reduced-motion:reduce){.tnode.can .tnb{animation:none}}
 .tdet{margin-top:12px;padding:12px;border-radius:12px;border:1px solid rgba(130,150,255,.28);background:rgba(6,9,34,.6)}
 .tdet.own{border-color:rgba(255,226,122,.6)}.tdet.can{border-color:rgba(0,245,160,.6)}
 .tdh{display:flex;gap:10px;align-items:center;margin-bottom:6px}.tdi{font-size:30px}.tdh b{display:block;font:800 17px var(--d);letter-spacing:.04em}.tdh small{font:600 11px var(--b);color:var(--muted)}
 .tdet p{margin:0 0 10px;font-size:14px}
-.pcTop{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;align-items:start}.pcTop>.pn{margin-bottom:8px}.pcSide .pn:last-child{margin-bottom:8px}
+.pcTop{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;align-items:stretch;margin-bottom:8px}.pcTop>.pn{margin-bottom:0}
+.pcSide{display:flex;flex-direction:column;gap:8px;min-width:0}.pcSide .pn{margin:0;flex:1 1 0;display:flex;flex-direction:column;justify-content:center}
+.pcSide .pn .ovb{height:12px!important}
 @media (max-width:560px){.pcTop{grid-template-columns:1fr}}
 .cmp .pn,.mgr .pn{padding:10px 12px 8px;margin-bottom:8px}
 .cmp h2,.mgr h2{font-size:16px;margin-bottom:8px}
@@ -3778,7 +3778,7 @@ function lvOpen(){
 function lvGameStart(){
   LV.us=sdBlueA(LV.m,LV.gi)===LV.ia?'a':'b';
   LV.state=LV.pc?'pick':'ckpt';LV.ps=0;LV.ch=null;LV.cp=0;LV.min=0;LV.sec=0;LV.lead=0;LV.adj=0;LV.pp=null;LV.sub=false;LV.bar=false;LV.her=false;
-  LV.q=[];LV.mq=[];LV.pcw=LV.pc&&pcPerk('c3')?{k:1.12,d:.9}:{k:1,d:1};
+  LV.q=[];LV.mq=[];LV.pcw=LV.pc?{k:1+pcFx('pk'),d:Math.max(.5,1-pcFx('pd'))}:{k:1,d:1};
   LV.kd={me:[0,1,2,3,4].map(()=>({k:0,d:0,a:0,dead:0,st:0})),op:[0,1,2,3,4].map(()=>({k:0,d:0,a:0,dead:0,st:0}))};LV.str={me:lvMkStr(),op:lvMkStr()};
   LV.st={me:{k:0,t:0,d:0,b:0,g:0,e:0,h:0,n:0},op:{k:0,t:0,d:0,b:0,g:0,e:0,h:0,n:0}};LV.log=[{m:0,t:`Mapa ${LV.gi+1}: os times entram no Rift.`,k:'sys'}];
   LV.gh=[[0,0]];LV.ghT=0;LV.fp=null;
@@ -3791,7 +3791,7 @@ function lvP(){
   if(!LV.pc){const pdl=draftOn()?draftDelta(m,true):planDelta(m);qa=clamp(qa+pdl.d+prepDelta(m),.2,.8)}
   let pm=LV.ia?qa:1-qa;
   if(LV.pc&&m.dd)pm+=pcDraftD(m);
-  return clamp(pm+LV.adj,.1,.9);
+  return clamp(pm+LV.adj+(LV.pc?pcFx('adj'):0),.1,.9);
 }
 function lvTeam(s){const id=myTid();return T(s==='me'?id:(LV.m.a===id?LV.m.b:LV.m.a))}
 function lvChOf(s,role){
@@ -5313,19 +5313,56 @@ const PCLV=60,pcNeed=lv=>80+26*lv;
 const pcAbs=()=>S.year*365+(S.day||1);
 const pcPerk=id=>!!(S.pc&&S.pc.perks&&S.pc.perks[id]);
 const PBR={c:['Competidor','Decide jogos'],e:['Estudioso','Evolui mais rápido'],p:['Profissional','Vida de atleta']};
-/* [id, ramo, nome, descrição, custo, nível mínimo, pré-requisito] */
+/* Árvore em losango (11 nós por ramo, como um RPG): r = linha (0 topo ... 4 base), x = posição horizontal em %, pa = pré-requisitos (basta um; o nó final exige `need`),
+   c = custo, lv = nível mínimo, at = [atributo, pontos] (aplicado ao aprender), fx = efeitos somados por pcFx().
+   Chaves: bold (acerto de "Buscar o jogo"), rtw (nota nas vitórias), pk/pd (abates/mortes), adj (vitória por mapa), xpw/xpm (XP semanal/de partidas),
+   poolc/poolg/pooln (treino de pool: energia, ganho, campeões extras), en (energia semanal), trp/trn (confiança ganha/perdida), fame (fama), sal (propostas). */
 const PERKS=[
- ['c1','c','Sangue frio','"Buscar o jogo" acerta 10% mais vezes.',1,2,null],
- ['c2','c','Decisivo','+0,3 de nota nos mapas vencidos.',2,6,'c1'],
- ['c3','c','Carregador','Mais abates e menos mortes nos mapas (+12% / −10%).',3,12,'c2'],
- ['e1','e','Dedicado','+20% de XP no treino semanal.',1,2,null],
- ['e2','e','Polivalente','Treino de pool rende +6% (em vez de 4%) e gasta só 20 de energia.',2,6,'e1'],
- ['e3','e','Analista','+25% de XP em partidas, scrims e torneios, e leitura de jogo (+1% de vitória).',3,12,'e2'],
- ['p1','p','Descanso eficiente','Recupera +10 de energia por semana.',1,2,null],
- ['p2','p','Voz de liderança','A confiança do técnico sobe 30% mais e cai 30% menos.',2,6,'p1'],
- ['p3','p','Cara do time','Fama rende 50% mais e as propostas pagam 15% a mais.',3,12,'p2']
+ {id:'c1',br:'c',n:'Sangue frio',d:'"Buscar o jogo" acerta 10% mais vezes.',c:1,lv:2,pa:[],r:0,x:50,fx:{bold:.10}},
+ {id:'c4',br:'c',n:'Duelista',d:'+2 de Lane.',c:1,lv:4,pa:['c1'],r:1,x:30,at:[0,2]},
+ {id:'c5',br:'c',n:'Reflexos afiados',d:'+2 de Mecânica.',c:1,lv:4,pa:['c1'],r:1,x:70,at:[1,2]},
+ {id:'c6',br:'c',n:'Primeiro sangue',d:'+1% de vitória em cada mapa: a lane forte abre o jogo.',c:2,lv:7,pa:['c4'],r:2,x:14,fx:{adj:.01}},
+ {id:'c2',br:'c',n:'Decisivo',d:'+0,3 de nota nos mapas vencidos.',c:2,lv:7,pa:['c4'],r:2,x:38,fx:{rtw:.3}},
+ {id:'c7',br:'c',n:'Outplay',d:'"Buscar o jogo" acerta mais 5%.',c:2,lv:7,pa:['c5'],r:2,x:62,fx:{bold:.05}},
+ {id:'c8',br:'c',n:'Mãos de aço',d:'5% menos mortes nos mapas.',c:2,lv:7,pa:['c5'],r:2,x:86,fx:{pd:.05}},
+ {id:'c9',br:'c',n:'Controle de mapa',d:'+2 de Macro.',c:2,lv:10,pa:['c6','c2'],r:3,x:26,at:[2,2]},
+ {id:'c3',br:'c',n:'Carregador',d:'+12% de abates e −10% de mortes nos mapas.',c:2,lv:10,pa:['c2','c7'],r:3,x:50,fx:{pk:.12,pd:.10}},
+ {id:'c10',br:'c',n:'Cabeça fria',d:'+2 de Mental.',c:2,lv:10,pa:['c7','c8'],r:3,x:74,at:[4,2]},
+ {id:'c11',br:'c',n:'Lenda do Rift',d:'+2% de vitória por mapa e +0,3 de nota nas vitórias. Exige 2 das 3 habilidades ligadas.',c:3,lv:15,pa:['c9','c3','c10'],need:2,r:4,x:50,fx:{adj:.02,rtw:.3}},
+
+ {id:'e1',br:'e',n:'Dedicado',d:'+20% de XP no treino semanal.',c:1,lv:2,pa:[],r:0,x:50,fx:{xpw:.2}},
+ {id:'e4',br:'e',n:'Rato de VOD',d:'+2 de Macro.',c:1,lv:4,pa:['e1'],r:1,x:30,at:[2,2]},
+ {id:'e5',br:'e',n:'Caderno de campeões',d:'Treino de pool gasta 5 a menos de energia.',c:1,lv:4,pa:['e1'],r:1,x:70,fx:{poolc:5}},
+ {id:'e6',br:'e',n:'Leitor de jogo',d:'+1% de vitória em cada mapa.',c:2,lv:7,pa:['e4'],r:2,x:14,fx:{adj:.01}},
+ {id:'e3',br:'e',n:'Analista',d:'+25% de XP em partidas, scrims e torneios.',c:2,lv:7,pa:['e4'],r:2,x:38,fx:{xpm:.25}},
+ {id:'e2',br:'e',n:'Polivalente',d:'Treino de pool rende +2% por campeão e gasta 10 a menos de energia.',c:2,lv:7,pa:['e5'],r:2,x:62,fx:{poolg:.02,poolc:10}},
+ {id:'e7',br:'e',n:'Banco de dados',d:'O programa Pool treina 1 campeão extra por semana.',c:2,lv:7,pa:['e5'],r:2,x:86,fx:{pooln:1}},
+ {id:'e8',br:'e',n:'Estrategista',d:'+2 de Equipe.',c:2,lv:10,pa:['e6','e3'],r:3,x:26,at:[3,2]},
+ {id:'e9',br:'e',n:'Professor',d:'Mais +15% de XP no treino semanal.',c:2,lv:10,pa:['e3','e2'],r:3,x:50,fx:{xpw:.15}},
+ {id:'e10',br:'e',n:'Enciclopédia',d:'Pool: +2% por campeão e +1 campeão extra por semana.',c:2,lv:10,pa:['e2','e7'],r:3,x:74,fx:{poolg:.02,pooln:1}},
+ {id:'e11',br:'e',n:'Mestre do Jogo',d:'+20% de XP em partidas e +1,5% de vitória por mapa. Exige 2 das 3 habilidades ligadas.',c:3,lv:15,pa:['e8','e9','e10'],need:2,r:4,x:50,fx:{xpm:.2,adj:.015}},
+
+ {id:'p1',br:'p',n:'Descanso eficiente',d:'Recupera +10 de energia por semana.',c:1,lv:2,pa:[],r:0,x:50,fx:{en:10}},
+ {id:'p4',br:'p',n:'Disciplina',d:'+2 de Mental.',c:1,lv:4,pa:['p1'],r:1,x:30,at:[4,2]},
+ {id:'p5',br:'p',n:'Rede de contatos',d:'Fama rende 15% mais.',c:1,lv:4,pa:['p1'],r:1,x:70,fx:{fame:.15}},
+ {id:'p6',br:'p',n:'Sono de atleta',d:'Mais +5 de energia por semana.',c:2,lv:7,pa:['p4'],r:2,x:14,fx:{en:5}},
+ {id:'p2',br:'p',n:'Voz de liderança',d:'A confiança do técnico sobe 30% mais e cai 30% menos.',c:2,lv:7,pa:['p4'],r:2,x:38,fx:{trp:.3,trn:.3}},
+ {id:'p7',br:'p',n:'Imagem pública',d:'Fama rende mais 20%.',c:2,lv:7,pa:['p5'],r:2,x:62,fx:{fame:.2}},
+ {id:'p8',br:'p',n:'Negociador',d:'As propostas de contrato pagam 10% a mais.',c:2,lv:7,pa:['p5'],r:2,x:86,fx:{sal:.10}},
+ {id:'p9',br:'p',n:'Comunicação',d:'+2 de Equipe.',c:2,lv:10,pa:['p6','p2'],r:3,x:26,at:[3,2]},
+ {id:'p3',br:'p',n:'Cara do time',d:'Fama rende mais 25% e as propostas pagam 5% a mais.',c:2,lv:10,pa:['p2','p7'],r:3,x:50,fx:{fame:.25,sal:.05}},
+ {id:'p10',br:'p',n:'Agente esperto',d:'As propostas de contrato pagam mais 10%.',c:2,lv:10,pa:['p7','p8'],r:3,x:74,fx:{sal:.10}},
+ {id:'p11',br:'p',n:'Ídolo do Clube',d:'Confiança do técnico sobe 20% mais, fama +25% e propostas +5%. Exige 2 das 3 habilidades ligadas.',c:3,lv:15,pa:['p9','p3','p10'],need:2,r:4,x:50,fx:{trp:.2,fame:.25,sal:.05}}
 ];
-const PTRN={l:{n:'Leve',d:'Poupa energia; XP baixo.',xp:46,en:10,fx:9,tr:.4},n:{n:'Normal',d:'Equilíbrio entre XP e desgaste.',xp:82,en:22,fx:16,tr:1.1},i:{n:'Intenso',d:'Muito XP e a melhor impressão no técnico, mas cansa.',xp:132,en:38,fx:30,tr:1.8},p:{n:'Pool',d:'Treina 5 campeões aleatórios da sua função que ainda não estão em 100% (+3% cada). XP baixo.',xp:35,en:20,fx:0,tr:.7},d:{n:'Folga',d:'Recupera bastante energia; quase sem XP.',xp:12,en:-25,fx:0,tr:0}};
+const pcFx=k=>{const pc=S.pc;if(!pc||!pc.perks)return 0;return PERKS.reduce((a,x)=>a+(pc.perks[x.id]&&x.fx&&x.fx[k]||0),0)};
+/* estado de um nó: own aprendida · lock (nível ou pré-requisito) · can (dá para aprender) · cost (faltam pontos) */
+function pcPerkSt(x){
+  const pc=S.pc;if(pc.perks[x.id])return'own';
+  const got=x.pa.filter(i=>pc.perks[i]).length;
+  if(pc.lv<x.lv||(x.pa.length&&got<(x.need||1)))return'lock';
+  return (pc.tp||0)>=x.c?'can':'cost';
+}
+const PTRN={l:{n:'Leve',d:'Poupa energia; XP baixo.',xp:46,en:10,fx:9,tr:.4},n:{n:'Normal',d:'Equilíbrio entre XP e desgaste.',xp:82,en:22,fx:16,tr:1.1},i:{n:'Intenso',d:'Muito XP e a melhor impressão no técnico, mas cansa.',xp:132,en:38,fx:30,tr:1.8},p:{n:'Pool',d:'Treina 5 campeões aleatórios da sua função que ainda não estão em 100% (+3% cada, mais com a árvore). XP baixo.',xp:35,en:20,fx:0,tr:.7},d:{n:'Folga',d:'Recupera bastante energia; quase sem XP.',xp:12,en:-25,fx:0,tr:0}};
 function pcEnsure(){
   const pc=S.pc;if(!pc)return;
   const f=(pc.lv==null||pc.tr==null)?pcFind():null;
@@ -5333,7 +5370,7 @@ function pcEnsure(){
   if(pc.tr==null)pc.tr=f&&f.bn?35:60;
   if(!pc.plan)pc.plan='n';
   if(!pc.perks)pc.perks={};
-  if(pc.tp==null){let e=0;for(let l=2;l<=pc.lv;l++)e+=l%5===0?2:l%2===0?1:0;PERKS.forEach(x=>{if(pc.perks[x[0]])e-=x[4]});pc.tp=Math.max(0,e)}
+  if(pc.tp==null){let e=0;for(let l=2;l<=pc.lv;l++)e+=l%5===0?2:l%2===0?1:0;PERKS.forEach(x=>{if(pc.perks[x.id])e-=x.c});pc.tp=Math.max(0,e)}
   if(pc.wd==null)pc.wd=pcAbs();
   if(pc.test===undefined)pc.test=null;
   if(pc.tcd==null)pc.tcd=0;
@@ -5347,10 +5384,10 @@ function pcGain(n,mult){
   if(up)pc.lvf=pc.lv;
   return n;
 }
-function pcFame(d){const pc=S.pc;pc.fame=clamp(Math.round(pc.fame+(d>0&&pcPerk('p3')?d*1.5:d)),0,100)}
+function pcFame(d){const pc=S.pc;pc.fame=clamp(Math.round(pc.fame+(d>0?d*(1+pcFx('fame')):d)),0,100)}
 function pcTrust(d,why){
   const pc=S.pc;pcEnsure();
-  if(pcPerk('p2'))d*=d>0?1.3:.7;
+  d*=d>0?1+pcFx('trp'):Math.max(.2,1-pcFx('trn'));
   const old=pc.tr;pc.tr=clamp(r1(pc.tr+d),0,100);
   if(why&&Math.abs(pc.tr-old)>=2)pcLog(`confiança do técnico ${pc.tr>old?'sobe':'cai'} (${why}).`);
 }
@@ -5364,18 +5401,18 @@ function pcWeek(){
   const pc=S.pc,f=pcFind();if(!f)return;
   const P=PTRN[pc.plan]||PTRN.n,age=f.p.age;
   const tired=pc.plan!=='d'&&pc.en<P.en;
-  const fac=(age<=21?1.25:age<=25?1.1:.95)*(f.bn?.92:1)*(pc.en<50?.75:1)*(pcPerk('e1')?1.2:1)*(tired?.5:1);
+  const fac=(age<=21?1.25:age<=25?1.1:.95)*(f.bn?.92:1)*(pc.en<50?.75:1)*(1+pcFx('xpw'))*(tired?.5:1);
   const xp=P.xp*fac*(.9+Math.random()*.2);
   pcGain(xp);
   const fo=pc.focus==null?2:pc.focus;
   if(P.fx&&pc.at[fo]<Math.min(99,pc.cap))pcXp(fo,Math.round(P.fx*fac));
-  pc.en=clamp(pc.en-P.en+28+(pcPerk('p1')?10:0),0,100);pc.rest=0;
+  pc.en=clamp(pc.en-P.en+28+pcFx('en'),0,100);pc.rest=0;
   const ref=pcRef(f),drift=ref?clamp((f.p.r-ref.r)*.1,-.2,.5):.2;
   pcTrust((tired?-1.2:P.tr)+drift);
   let pl=null;
   if(pc.plan==='p'&&!tired){
-    const gain=pcPerk('e2')?.045:.03;
-    pl=shuffle(CH[f.p.role].map(x=>x[0]).filter(c=>mastOf(pc.n,c)<1)).slice(0,5);
+    const gain=.03+pcFx('poolg');
+    pl=shuffle(CH[f.p.role].map(x=>x[0]).filter(c=>mastOf(pc.n,c)<1)).slice(0,5+pcFx('pooln'));
     pl.forEach(c=>{pc.pool[c]=Math.min(1,(pc.pool[c]||0)+gain)});
   }
   pc.wk={xp:Math.round(xp),plan:pc.plan,tired,y:S.year,d:S.day,pl};
@@ -5486,7 +5523,7 @@ function ptFmEnd(){
   if(avg==null){const op=opp.pl[f.p.role];avg=clamp(r1(6+(f.p.r-op.r)*.07+(won?.7:-.4)+g()*.7),3,10)}
   ptSwapOut();
   const tn=te&&te.k==='t',mul=tn?1.6:1,nt=String(avg).replace('.',',');
-  pcGain((30+(won?15:0)+Math.max(0,avg-6)*12)*mul,pcPerk('e3')?1.25:1);
+  pcGain((30+(won?15:0)+Math.max(0,avg-6)*12)*mul,1+pcFx('xpm'));
   pcTrust(((avg-6.5)*2.4+(won?1:-.8))*(tn?1.4:1),`${tn?'torneio':'scrim'}: nota ${nt}`);
   let t=`${tn?(te.r?'Final':'Semifinal'):'Scrim'} contra ${opp.name}: ${won?'vitória':'derrota'} por ${sc}, sua nota ${nt}.`;
   if(!tn){pc.test=null;pc.tcd=2}
@@ -5508,7 +5545,7 @@ function pcSpend(i){
 }
 function pcRest(){const pc=S.pc;if(pc.rest){msg='Você já descansou nesta semana.';return}pc.rest=1;pc.en=Math.min(100,pc.en+25);msg='Você descansou (+25 de energia).'}
 function pcPoolTrain(c){
-  const pc=S.pc,cost=pcPerk('e2')?20:30,gain=pcPerk('e2')?.06:.04;if(pc.en<cost){msg='Energia baixa.';return}
+  const pc=S.pc,cost=Math.max(10,30-pcFx('poolc')),gain=.04+pcFx('poolg');if(pc.en<cost){msg='Energia baixa.';return}
   const v=pc.pool[c]||0;if(mastOf(pc.n,c)>=1){msg='Domínio máximo.';return}
   pc.en-=cost;pc.pool[c]=Math.min(1,v+gain);pcGain(10);msg=`Treino de pool: ${c} +${Math.round(gain*100)}%.`;
 }
@@ -5566,7 +5603,7 @@ function pcOffers(){
     let kind=null;
     if(p.r>=st.r-1)kind='T';else if(tier===1&&p.r>=st.r-8&&p.r>=70)kind='R';
     if(!kind)return;
-    const base=salOf(p)*(tier?1.35:.9)*(1+pc.fame/180)*(kind==='R'?.6:1)*(pcPerk('p3')?1.15:1);
+    const base=salOf(p)*(tier?1.35:.9)*(1+pc.fame/180)*(kind==='R'?.6:1)*(1+pcFx('sal'));
     L.push({tn:t.name,k:kind,sal:Math.max(.2,r1(base)),yrs:1+Math.floor(Math.random()*3),pr:baseOvr(t)});
   });
   L.sort((a,b)=>b.pr-a.pr);
@@ -5684,13 +5721,15 @@ function pcListHTML(){
 }
 function pcBar(v,max){return `<div class="ovb" style="height:7px"><i style="width:${clamp(v/max*100,0,100)}%"></i></div>`}
 function pcLearn(id){
-  const pc=S.pc,d=PERKS.find(x=>x[0]===id);if(!d)return;pcEnsure();
-  const nm=d[2],cost=d[4],lv=d[5],req=d[6];
-  if(pc.perks[id]){msg='Você já tem essa característica.';return}
-  if(pc.lv<lv){msg=`${nm} pede nível ${lv}.`;return}
-  if(req&&!pc.perks[req]){msg=`${nm} pede ${PERKS.find(x=>x[0]===req)[2]} antes.`;return}
-  if((pc.tp||0)<cost){msg=`${nm} custa ${cost} ponto${cost>1?'s':''} de habilidade.`;return}
-  pc.tp-=cost;pc.perks[id]=1;pcLog(`aprende a característica ${nm}.`);msg=`${nm} aprendida.`;
+  const pc=S.pc,d=PERKS.find(x=>x.id===id);if(!d)return;pcEnsure();
+  if(pc.perks[id]){msg='Você já tem essa habilidade.';return}
+  const st=pcPerkSt(d);
+  if(pc.lv<d.lv){msg=`${d.n} pede nível ${d.lv}.`;return}
+  if(st==='lock'){msg=d.need?`${d.n} pede ${d.need} das habilidades ligadas.`:`${d.n} pede uma habilidade ligada antes.`;return}
+  if((pc.tp||0)<d.c){msg=`${d.n} custa ${d.c} ponto${d.c>1?'s':''} de habilidade.`;return}
+  pc.tp-=d.c;pc.perks[id]=1;
+  if(d.at){pc.at[d.at[0]]=Math.min(99,pc.at[d.at[0]]+d.at[1]);pc.cap=Math.max(pc.cap,pc.at[d.at[0]]);pcSync()}
+  pcLog(`aprende a habilidade ${d.n}.`);msg=`${d.n} aprendida.`;
 }
 function pcTrustTxt(f){
   const pc=S.pc,tr=Math.round(pc.tr),ref=pcRef(f);
@@ -5716,7 +5755,7 @@ function pcTrainHTML(f){
   const pc=S.pc,fo=pc.focus==null?2:pc.focus,wk=pc.wk,dl=7-(((pcAbs()-pc.wd)%7)+7)%7;
   return `<section class="pn"><h2>Treino semanal</h2><p class="note" style="margin:0 0 8px">Uma vez por semana do calendário o programa abaixo é executado sozinho: dá XP de nível, um pouco de progresso no atributo em foco e pesa na impressão do técnico. Próximo treino em ${dl} dia${dl>1?'s':''}.</p>
   <div class="sub">Programa</div><div class="pills">${Object.keys(PTRN).map(k=>`<button class="pill" aria-pressed="${pc.plan===k}" data-act="pcPlan" data-v="${k}">${PTRN[k].n}</button>`).join('')}</div>
-  <p class="note" style="margin:6px 0 8px">${PTRN[pc.plan].d} XP base ${PTRN[pc.plan].xp}, energia ${PTRN[pc.plan].en>0?'−':'+'}${Math.abs(PTRN[pc.plan].en)} por semana (recupera +${28+(pcPerk('p1')?10:0)} sozinha).</p>
+  <p class="note" style="margin:6px 0 8px">${PTRN[pc.plan].d} XP base ${PTRN[pc.plan].xp}, energia ${PTRN[pc.plan].en>0?'−':'+'}${Math.abs(PTRN[pc.plan].en)} por semana (recupera +${28+pcFx('en')} sozinha).</p>
   <div class="sub">Foco (atributo)</div><div class="pills">${ATL.map((l,i)=>`<button class="pill" aria-pressed="${fo===i}" data-act="pcFocus" data-v="${i}">${l}</button>`).join('')}</div>
   <div class="sub">Energia ${pc.en}/100</div>${pcBar(pc.en,100)}
   <div class="row" style="margin:10px 0"><button class="ghost" data-act="pcRest"${pc.rest?' disabled':''}>Descansar hoje (+25)</button></div>
@@ -5733,25 +5772,27 @@ function pcTreeBtnHTML(){
   const tp=S.pc.tp||0;
   return `<section class="pn"><div class="row" style="margin:0"><button class="${tp>0?'play':'ghost'}" data-act="pcTree">${pcTreeOpen?'Fechar árvore de habilidades':'Abrir árvore de habilidades'} · ${tp} ponto${tp===1?'':'s'}</button></div></section>`;
 }
-const PERKI={c1:'❄️',c2:'🎯',c3:'🔥',e1:'📘',e2:'🧩',e3:'🔍',p1:'💤',p2:'📣',p3:'⭐'};
-let pcPerkSel=null;
+const PERKI={c1:'❄️',c4:'⚔️',c5:'⚡',c6:'🩸',c2:'🎯',c7:'🌀',c8:'🛡️',c9:'🗺️',c3:'🔥',c10:'🧊',c11:'👑',
+ e1:'📘',e4:'📼',e5:'📓',e6:'👁️',e3:'🔍',e2:'🧩',e7:'🗃️',e8:'♟️',e9:'🎓',e10:'📚',e11:'🧠',
+ p1:'💤',p4:'🧘',p5:'🤝',p6:'🌙',p2:'📣',p7:'📸',p8:'💼',p9:'💬',p3:'⭐',p10:'🕴️',p11:'🏆'};
+let pcPerkSel=null,pcBr='c';
 function pcTreeHTML(f){
-  const pc=S.pc,tp=pc.tp||0;
-  const st=id=>{const d=PERKS.find(x=>x[0]===id),own=!!pc.perks[id],rq=d[6]&&!pc.perks[d[6]],lock=pc.lv<d[5]||rq;return own?'own':lock?'lock':tp>=d[4]?'can':'cost'};
-  const selId=PERKS.some(x=>x[0]===pcPerkSel)?pcPerkSel:(PERKS.find(x=>st(x[0])==='can')||PERKS[0])[0];
-  const d=PERKS.find(x=>x[0]===selId),s0=st(selId);
-  const why=s0==='own'?'Aprendida':pc.lv<d[5]?`Requer nível ${d[5]}`:(d[6]&&!pc.perks[d[6]])?`Requer ${PERKS.find(y=>y[0]===d[6])[2]} antes`:tp<d[4]?`Faltam ${d[4]-tp} ponto${d[4]-tp>1?'s':''}`:'';
-  let h=`<section class="pn"><h2>Árvore de habilidades</h2><div class="cab${tp>0?' ptsb':''}" style="margin:0 0 10px;grid-template-columns:repeat(2,minmax(0,1fr))"><div><b class="num">${tp}</b><small>Pontos de habilidade</small></div><div><b class="num">${Object.keys(pc.perks).length}/${PERKS.length}</b><small>Aprendidas</small></div></div><div class="tree">`;
-  Object.keys(PBR).forEach(br=>{
-    h+=`<div class="tbr b${br}"><h4>${PBR[br][0]}<small>${PBR[br][1]}</small></h4>`;
-    PERKS.filter(x=>x[1]===br).forEach((x,i,arr)=>{
-      const id=x[0],k=st(id),next=arr[i+1];
-      h+=`<div class="tn ${k}${next?(pc.perks[id]?' ln':''):' last'}"><button class="tnb${id===selId?' sel':''}" data-act="pcPerkSel" data-v="${id}" aria-label="${esc(x[2])}"><span>${PERKI[id]||'✦'}</span>${k==='own'?'<i class="tok">✓</i>':''}</button><b>${esc(x[2])}</b><small>${k==='own'?'aprendida':k==='lock'?(pc.lv<x[5]?'nível '+x[5]:'bloqueada'):x[4]+' pt'+(x[4]>1?'s':'')}</small></div>`;
-    });
-    h+='</div>';
-  });
-  h+=`</div><div class="tdet ${s0}"><div class="tdh"><span class="tdi">${PERKI[selId]||'✦'}</span><div><b>${esc(d[2])}</b><small>${PBR[d[1]][0]} · custo ${d[4]} ponto${d[4]>1?'s':''} · nível ${d[5]}</small></div></div><p>${esc(d[3])}</p>${s0==='own'?'<span class="tag">Aprendida</span>':`<button class="${s0==='can'?'play':'ghost'}" data-act="pcLearn" data-v="${selId}"${s0==='can'?'':' disabled'}>${s0==='can'?'Aprender':esc(why)}</button>`}</div></section>`;
-  return h;
+  const pc=S.pc,tp=pc.tp||0,P=PERKS.filter(x=>x.br===pcBr),by=id=>PERKS.find(x=>x.id===id);
+  const selX=by(pcPerkSel);
+  const sel=selX&&selX.br===pcBr?selX:(P.find(x=>pcPerkSt(x)==='can')||P[0]),s0=pcPerkSt(sel);
+  const got=PERKS.filter(x=>pc.perks[x.id]).length,gb=P.filter(x=>pc.perks[x.id]).length;
+  const why=s0==='own'?'Aprendida':pc.lv<sel.lv?`Requer nível ${sel.lv}`:s0==='lock'?(sel.need?`Requer ${sel.need} das ${sel.pa.length} ligadas`:`Requer ${by(sel.pa[0]).n}${sel.pa.length>1?' ou '+by(sel.pa[1]).n:''}`):`Faltam ${sel.c-tp} ponto${sel.c-tp>1?'s':''}`;
+  const H=450,Y=r=>7+r*20.5;
+  let lines='';
+  P.forEach(x=>x.pa.forEach(pid=>{const q=by(pid),lit=pc.perks[pid]&&pc.perks[x.id],half=pc.perks[pid]&&!pc.perks[x.id];lines+=`<line x1="${q.x}" y1="${Y(q.r)}" x2="${x.x}" y2="${Y(x.r)}" class="${lit?'on':half?'half':''}"/>`}));
+  let nodes='';
+  P.forEach(x=>{const k=pcPerkSt(x);nodes+=`<div class="tnode ${k}${x.r===4?' cap':''}" style="left:${x.x}%;top:${Y(x.r)}%"><button class="tnb${x.id===sel.id?' sel':''}" data-act="pcPerkSel" data-v="${x.id}" aria-label="${esc(x.n)}"><span>${PERKI[x.id]||'✦'}</span>${k==='own'?'<i class="tok">✓</i>':''}</button><b>${esc(x.n)}</b><small>${k==='own'?'aprendida':k==='lock'&&pc.lv<x.lv?'nível '+x.lv:k==='lock'?'bloqueada':x.c+' pt'+(x.c>1?'s':'')}</small></div>`});
+  const tabs=Object.keys(PBR).map(b=>{const n=PERKS.filter(x=>x.br===b&&pc.perks[x.id]).length;return `<button class="pill" aria-pressed="${pcBr===b}" data-act="pcBr" data-v="${b}">${PBR[b][0]} <small>${n}/11</small></button>`}).join('');
+  const fxs=Object.keys(PBR).map(()=>'').join('');
+  return `<section class="pn"><h2>Árvore de habilidades</h2><div class="cab${tp>0?' ptsb':''}" style="margin:0 0 10px;grid-template-columns:repeat(2,minmax(0,1fr))"><div><b class="num">${tp}</b><small>Pontos de habilidade</small></div><div><b class="num">${got}/${PERKS.length}</b><small>Aprendidas</small></div></div>
+  <div class="pills" style="margin-bottom:8px">${tabs}</div><p class="note" style="margin:0 0 6px">${PBR[pcBr][0]} · ${PBR[pcBr][1]}. Comece pelo topo e desça: cada habilidade se liga às que têm a ver com ela. A última exige 2 das 3 ligadas.</p>
+  <div class="tdia" style="height:${H}px"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${lines}</svg>${nodes}</div>
+  <div class="tdet ${s0}"><div class="tdh"><span class="tdi">${PERKI[sel.id]||'✦'}</span><div><b>${esc(sel.n)}</b><small>${PBR[sel.br][0]} · custo ${sel.c} ponto${sel.c>1?'s':''} · nível ${sel.lv}${sel.pa.length?' · liga com '+sel.pa.map(i=>by(i).n).join(', '):' · ponto de partida'}</small></div></div><p>${esc(sel.d)}</p>${s0==='own'?'<span class="tag">Aprendida</span>':`<button class="${s0==='can'?'play':'ghost'}" data-act="pcLearn" data-v="${sel.id}"${s0==='can'?'':' disabled'}>${s0==='can'?'Aprender':esc(why)}</button>`}</div></section>`;
 }
 /* convocação do técnico (scrim ou torneio): na tela Jogar, na carreira e na caixa de e-mail */
 function ptHTML(inner){
@@ -5778,10 +5819,10 @@ function vPc0(){
   <div class="cab"><div><b class="num">${pc.fame}</b><small>Fama</small></div><div><b class="num" style="font-size:22px">${fmtM(pc.cash).replace('US$ ','')}</b><small>Patrimônio (US$)</small></div><div><b class="num" style="font-size:20px">${p.pot>=92?"Lendário":p.pot>=88?"Elite":p.pot>=84?"Alto":"Médio"}</b><small>Olheiros: potencial</small></div></div></section><div class="pcSide">${pcLvHTML()}${pcTrustHTML(f)}</div></div>`;
   /* evento */
   if(pc.ev){const e=PEV[pc.ev];h+=`<section class="pn"><h2>Evento</h2><p class="note" style="margin:0 0 10px">${esc(e.t)}</p><div class="row" style="margin:0">${e.o.map(([l,k])=>`<button class="ghost" data-act="pcEv" data-v="${k}">${l}</button>`).join('')}</div></section>`}
-  h+=ptHTML()+pcTrainHTML(f)+pcStatusHTML(f)+pcTreeBtnHTML()+(pcTreeOpen?pcTreeHTML(f):'');
+  h+=ptHTML()+`<div class="pcTop">${pcTrainHTML(f)}${pcStatusHTML(f)}</div>`+pcTreeBtnHTML()+(pcTreeOpen?pcTreeHTML(f):'');
   /* pool */
   const pl=CH[p.role].map(([c,a])=>({c,a,v:Math.round(mastOf(pc.n,c)*100),m:metaOf(c)}));
-  h+=`<details class="pn det"><summary>Pool de campeões</summary><p class="note" style="margin:0 0 8px">Todos os 8 campeões da função aparecem aqui. Cada treino de pool gasta ${pcPerk('e2')?20:30} de energia e dá +${pcPerk('e2')?6:4}% de domínio em um campeão. Quanto melhor sua pool no meta atual (${esc(metaName())}), mais forma você carrega.</p>${pl.map(x=>`<div class="pool"><span class="ct sm" style="--h:${hs(x.c)%360}"><b>${esc(chIni(x.c))}</b></span><span class="who"><b>${esc(x.c)}</b><small>${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}</small></span><b class="num">${x.v}</b><button class="ghost" data-act="pcPool" data-v="${esc(x.c)}"${pc.en<(pcPerk('e2')?20:30)||x.v>=100?' disabled':''}>${x.v>=100?'máx':'+'+(pcPerk('e2')?6:4)+'%'}</button></div>`).join('')}</details>`;
+  h+=`<details class="pn det"><summary>Pool de campeões</summary><p class="note" style="margin:0 0 8px">Todos os 8 campeões da função aparecem aqui. Cada treino de pool gasta ${Math.max(10,30-pcFx('poolc'))} de energia e dá +${Math.round((.04+pcFx('poolg'))*100)}% de domínio em um campeão. Quanto melhor sua pool no meta atual (${esc(metaName())}), mais forma você carrega.</p>${pl.map(x=>`<div class="pool"><span class="ct sm" style="--h:${hs(x.c)%360}"><b>${esc(chIni(x.c))}</b></span><span class="who"><b>${esc(x.c)}</b><small>${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}</small></span><b class="num">${x.v}</b><button class="ghost" data-act="pcPool" data-v="${esc(x.c)}"${pc.en<Math.max(10,30-pcFx('poolc'))||x.v>=100?' disabled':''}>${x.v>=100?'máx':'+'+Math.round((.04+pcFx('poolg'))*100)+'%'}</button></div>`).join('')}</details>`;
   /* ofertas */
   if(pc.offers&&pc.offers.length){h+=`<section class="pn"><h2>Propostas</h2><p class="note" style="margin:0 0 8px">${pcPlayOk()?'Janela aberta: dá para assinar agora.':'Janela fechada: as propostas voltam a valer antes do próximo split.'}</p>${pc.offers.map((o,i)=>{const nt=ALLT().find(x=>x.name===o.tn);return `<div class="mrow" style="grid-template-columns:minmax(0,1fr) auto"><span class="who"><b>${o.ren?'Renovar com ':''}${nt?tlk(nt):esc(o.tn)}${nt&&nt.d===2?' <span class="tag">D2</span>':''}</b><small>${o.k==='T'?'Como titular':'Como reserva'} · ${o.yrs} ano${o.yrs>1?'s':''} · ${fmtM(o.sal)}/ano</small></span><button class="ghost" data-act="pcOffer" data-v="${i}"${pcPlayOk()?'':' disabled'}>${o.ren?'Renovar':'Assinar'}</button></div>`}).join('')}</section>`}
   /* metas */
@@ -5835,7 +5876,7 @@ function lvPick(c){
   if(LV.used.includes(c)||flUsed(LV.m,c)){msg='Fearless: esse campeão já foi usado nesta série (por qualquer time).';return}
   const f=pcFind(),pc=S.pc;
   LV.ch=c;
-  const d=(mastOf(pc.n,c)-.5)*.06+metaOf(c)*.03+(pcPerk('e3')?.01:0);
+  const d=(mastOf(pc.n,c)-.5)*.06+metaOf(c)*.03;
   LV.adj=clamp(LV.adj+d,-.15,.15);
   LV.log.unshift({m:0,t:`Você escolhe ${c} (domínio ${Math.round(mastOf(pc.n,c)*100)}%${metaOf(c)>=.2?', forte no meta':metaOf(c)<=-.2?', fraco no meta':''}).`,k:'sys'});
   LV.state='ckpt';
@@ -5847,7 +5888,7 @@ function lvPosture(k){
   if(k==='sf'){LV.adj+=.005;LV.ps+=.2;LV.pcw.d*=.9;t='Postura segura: você joga pelo básico.'}
   else if(k==='tm'){LV.adj+=.015;LV.ps+=.1;t='Você prioriza o time: visão, rotação e peel.'}
   else{
-    const q=clamp(.5+(p.r-op.r)*.03+(mastOf(pc.n,LV.ch)-.5)*.2+(pc.en-50)*.002+(LV.lead>0?.05:0)+(pcPerk('c1')?.1:0),.15,.85);
+    const q=clamp(.5+(p.r-op.r)*.03+(mastOf(pc.n,LV.ch)-.5)*.2+(pc.en-50)*.002+(LV.lead>0?.05:0)+pcFx('bold'),.15,.85);
     if(Math.random()<q){LV.adj+=.03;LV.ps+=1;LV.pcw.k*=1.35;LV.pcw.d*=.85;t=`Você busca o jogo e acerta: ${p.n} domina ${op.n}.`}
     else{LV.adj-=.02;LV.ps-=.8;LV.pcw.k*=.85;LV.pcw.d*=1.3;t=`Você força demais e paga caro contra ${op.n}.`}
   }
@@ -5859,7 +5900,7 @@ function lvPosture(k){
 function pcGameEnd(win){
   const f=pcFind(),pc=S.pc,p=f.p,role=p.role;
   const sk0=LV.kd&&LV.kd.me[role]?LV.kd.me[role]:{k:0,d:0,a:0},kb=[3.2,3.5,3.8,3.8,3.2][role];
-  const rt=clamp(r1(6+LV.ps+(win?.7+(pcPerk('c2')?.3:0):-.5)+(mastOf(pc.n,LV.ch)-.5)*1.2+g()*.5+clamp(((sk0.k+sk0.a*.45)-sk0.d*1.1-kb)*.1,-1.2,1.2)),3,10);
+  const rt=clamp(r1(6+LV.ps+(win?.7+pcFx('rtw'):-.5)+(mastOf(pc.n,LV.ch)-.5)*1.2+g()*.5+clamp(((sk0.k+sk0.a*.45)-sk0.d*1.1-kb)*.1,-1.2,1.2)),3,10);
   const sk=LV.kd&&LV.kd.me[role]?LV.kd.me[role]:{k:0,d:0,a:0},k=sk.k,d=sk.d,a=sk.a;
   LV.gr.push({c:LV.ch,rt,k,d,a,win});LV.used.push(LV.ch);
   LV.log.unshift({m:LV.sec|0,t:`Sua nota no mapa: ${String(rt).replace('.',',')} (${k}/${d}/${a}) com ${LV.ch}.`,k:'end'});
@@ -5871,7 +5912,7 @@ function pcMatchEnd(){
   if(test){pc.tAvg=avg;return}
   pc.mr=(pc.mr||[]).concat(avg).slice(-60);
   if(avg>=8.5)pcFame(1);
-  pcGain(45+(won?35:0)+Math.max(0,avg-6)*18,pcPerk('e3')?1.25:1);
+  pcGain(45+(won?35:0)+Math.max(0,avg-6)*18,1+pcFx('xpm'));
   if(!cup)pcTrust(clamp((avg-6.5)*3+(won?1.5:-1),-8,8),`série ${won?'vencida':'perdida'}, nota ${nt}`);
   const best=LV.gr.slice().sort((a,b)=>b.rt-a.rt)[0];
   pcLog(`série ${won?'vencida':'perdida'} ${LV.me}–${LV.op}, nota ${nt}; destaque: ${best.c} (${best.k}/${best.d}/${best.a}).`);
@@ -7962,7 +8003,7 @@ function act(a,v){
   else if(a==='pcPick'){if(pcAdopt(v)){menuV='home';tab='pc';msg='Você assumiu a carreira de '+v+'.';save();top=true}}
   else if(a==='pcPlan'){S.pc.plan=v;save()}
   else if(a==='pcTree'){pcTreeOpen=!pcTreeOpen}
-  else if(a==='pcPerkSel'){pcPerkSel=v}
+  else if(a==='pcPerkSel'){pcPerkSel=v}else if(a==='pcBr'){pcBr=v;pcPerkSel=null}
   else if(a==='pcLearn'){pcLearn(v);save()}
   else if(a==='ptPlay'){if(ptStart(false))top=true;save()}
   else if(a==='ptSim'){ptStart(true);save()}

@@ -20,19 +20,39 @@ ok(J('S.pc.lv')===60,'nível máximo 60');
 run(ctx,`S.pc.lv=4;S.pc.xl=0;S.pc.pts=0;pcGain(pcNeed(4));`);
 ok(J('S.pc.lv')===5&&J('S.pc.pts')===2,'nível 5 dá 2 pontos');
 
-/* ---- árvore: requisitos de nível, pré-requisito e custo ---- */
-run(ctx,`S.pc.lv=3;S.pc.tp=5;pcLearn('c2');`);
-ok(J('!S.pc.perks.c2'),'característica de nível 6 bloqueada no nível 3');
+/* ---- árvore em losango: nível mínimo, ligações, custo e efeitos ---- */
+ok(J('PERKS.length')===33&&J('PERKS.every(function(x){return x.pa.every(function(i){return PERKS.some(function(y){return y.id===i})})})'),'33 habilidades (11 por ramo) e todas as ligações apontam para habilidades que existem');
+ok(J('["c","e","p"].every(function(b){return PERKS.filter(function(x){return x.br===b}).map(function(x){return x.r}).sort().join()==="0,1,1,2,2,2,2,3,3,3,4"})'),'cada ramo tem o formato 1-2-4-3-1');
+run(ctx,`S.pc.lv=3;S.pc.tp=9;S.pc.perks={};pcLearn('c4');`);
+ok(J('!S.pc.perks.c4'),'habilidade de nível 4 bloqueada no nível 3 e sem a ligada');
 run(ctx,`pcLearn('c1');`);
-ok(J('S.pc.perks.c1')===1&&J('S.pc.tp')===4,'aprende c1 por 1 ponto');
-run(ctx,`S.pc.lv=6;pcLearn('c3');`);
-ok(J('!S.pc.perks.c3'),'c3 pede c2 antes');
-run(ctx,`pcLearn('c2');`);
-ok(J('S.pc.perks.c2')===1&&J('S.pc.tp')===2,'aprende c2 por 2 pontos');
-run(ctx,`pcLearn('c1');`);
-ok(J('S.pc.tp')===2,'não paga duas vezes pela mesma característica');
+ok(J('S.pc.perks.c1')===1&&J('S.pc.tp')===8,'aprende a raiz c1 por 1 ponto');
+run(ctx,`pcLearn('c4');`);
+ok(J('!S.pc.perks.c4'),'c4 ainda pede nível 4');
+run(ctx,`S.pc.lv=7;var l0=S.pc.at[0];pcLearn('c4');`);
+ok(J('S.pc.perks.c4')===1&&J('S.pc.at[0]')===J('l0')+2,'Duelista dá +2 de Lane ao aprender');
+run(ctx,`pcLearn('c7');`);
+ok(J('!S.pc.perks.c7'),'Outplay pede Reflexos afiados (ligação), não basta ter Duelista');
+run(ctx,`pcLearn('c2');pcLearn('c2');`);
+ok(J('S.pc.perks.c2')===1&&J('S.pc.tp')===5,'Decisivo (ligado a Duelista) custa 2 e não cobra duas vezes');
+run(ctx,`S.pc.lv=15;S.pc.tp=20;pcLearn('c11');`);
+ok(J('!S.pc.perks.c11'),'Lenda do Rift exige 2 das 3 habilidades ligadas');
+run(ctx,`pcLearn('c5');pcLearn('c7');pcLearn('c3');pcLearn('c11');`);
+ok(J('!S.pc.perks.c11')===true||J('S.pc.perks.c3')===1,'Carregador exige Decisivo ou Outplay');
+run(ctx,`S.pc.perks.c9=1;S.pc.perks.c3=1;pcLearn('c11');`);
+ok(J('S.pc.perks.c11')===1,'com 2 ligadas a Lenda do Rift libera');
+ok(J('Math.abs(pcFx("adj")-0.02)<1e-9&&Math.abs(pcFx("bold")-0.15)<1e-9&&Math.abs(pcFx("pk")-0.12)<1e-9'),'efeitos somam (vitória/mapa, buscar o jogo, abates)');
+run(ctx,`S.pc.perks={};S.pc.at[1]=60;S.pc.tp=5;S.pc.lv=7;pcLearn('c1');pcLearn('c5');`);
+ok(J('S.pc.at[1]')===62,'Reflexos afiados +2 de Mecânica e o OVR é recalculado');
+run(ctx,`S.pc.perks={};S.pc.pts=1;`);
 run(ctx,`var a0=S.pc.at[1];S.pc.pts=1;pcSpend(1);`);
 ok(J('S.pc.at[1]')===J('a0')+1,'ponto de status sobe o atributo');
+/* efeitos de treino e confiança */
+run(ctx,`S.pc.perks={e1:1,e9:1,p2:1};`);
+ok(Math.abs(J('pcFx("xpw")')-0.35)<1e-9,'Dedicado + Professor: +35% de XP semanal');
+run(ctx,`S.pc.tr=50;pcTrust(10);var up=S.pc.tr-50;S.pc.tr=50;pcTrust(-10);var dn=50-S.pc.tr;`);
+ok(Math.abs(J('up')-13)<0.2&&Math.abs(J('dn')-7)<0.2,'Voz de liderança: confiança +30% / −30%');
+run(ctx,`S.pc.perks={};`);
 
 /* ---- treino semanal: processa semanas decorridas, dá XP e energia ---- */
 run(ctx,`S.pc.lv=1;S.pc.xl=0;S.pc.en=100;S.pc.plan='i';S.pc.wd=pcAbs()-14;S.pc.tr=40;var xt0=S.pc.xt;pcDaily();`);
@@ -112,7 +132,8 @@ run(ctx,`S.pc.plan='p';S.pc.en=100;S.pc.pool={};var rl=pcFind().p.role;pcWeek();
 ok(J('S.pc.wk.pl.length===5&&S.pc.wk.pl.every(function(c){return (S.pc.pool[c]||0)>0})'),'treino de pool: 5 campeões aleatórios ganham domínio');
 run(ctx,`CH[rl].forEach(function(x){S.pc.pool[x[0]]=1});S.pc.en=100;pcWeek();`);
 ok(J('S.pc.wk.pl.length===0'),'treino de pool ignora campeões já em 100%');
-run(ctx,`pcTreeOpen=true;`);ok(run(ctx,'pcTreeHTML(pcFind())').includes('tdet'),'árvore em nós com detalhe');
+run(ctx,`pcTreeOpen=true;`);ok(run(ctx,'pcTreeHTML(pcFind())').includes('tdia')&&run(ctx,'pcTreeHTML(pcFind())').includes('<line'),'árvore em losango com ligações');
+run(ctx,`pcBr='e';`);ok(run(ctx,'pcTreeHTML(pcFind())').includes('Estudioso'),'troca de ramo');run(ctx,`pcBr='c';`);
 ok(run(ctx,'vPc()').includes('Fechar árvore de habilidades'),'botão abre a árvore');
 
 /* ---- telas ---- */
