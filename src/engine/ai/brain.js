@@ -72,7 +72,7 @@ class Brain {
   setEnemy(brain) {
     this.enemy = brain;
     const prof = brain.players.map(q => B.profile(q.u.ch));
-    this.players.forEach(p => { p.build = B.makeBuild(p.u.ch, prof); });
+    this.players.forEach(p => { const lane = brain.players.findIndex(q => q.role === p.role); p.build = B.makeBuild(p.u.ch, prof, { lane: lane >= 0 ? prof[lane] : null }); });      /* Bloco 4b: rival direto de rota pesa em dobro */
   }
   styleNow() { return STYLES[this.adapt && this.adapt.until > this.w.t ? this.adapt.key : this.style]; }
 
@@ -111,7 +111,7 @@ class Brain {
     objs.forEach(ob => {
       if ((this.objCd[ob.k] || 0) > t) return;                      /* Bloco 10: tentativa recente falhou: volta a farmar antes de tentar de novo */
       const pos = ob.mons[0].pos, mem = me.map(u => this.players.find(p => p.u === u)).filter(p => p && this.eligible(p, 'obj', { topOk: ob.pit === 'b' })), need = OBJ_NEED[ob.k];
-      if (mem.length < 2) return;
+      if (mem.length < Math.min(need, 3) || mem.reduce((a, p) => a + p.u.hp / p.u.hpMax, 0) / mem.length < 0.6) return;      /* Bloco 10b: so tenta objetivo com o time quase completo e com vida */
       const nF = mem.length >= need ? 1 : 0.25 + (mem.length / need) * 0.35, hpF = 0.6 + 0.4 * (mem.reduce((s, p) => s + p.u.hp / p.u.hpMax, 0) / mem.length);
       const near = op.filter(u => dist(u.pos, pos) < 1500), prw = mem.reduce((s, p) => s + power(p.u), 0) / Math.max(1, near.reduce((s, u) => s + power(u), 0) * 0.8 + op.reduce((s, u) => s + power(u), 0) * 0.2);
       const etaMe = mem.reduce((s, p) => s + dist(p.u.pos, pos), 0) / mem.length, etaOp = op.length ? op.reduce((s, u) => s + dist(u.pos, pos), 0) / op.length : 1e5;
@@ -158,7 +158,7 @@ class Brain {
   avgNoise() { return this.players.reduce((s, p) => s + p.par.noise, 0) / Math.max(1, this.players.length); }
   sameGoal(a, b) { return a.kind === b.kind && (a.kind === 'lane' || (a.kind === 'obj' ? a.k === b.k : a.kind === 'siege' ? a.id === b.id : a.where === b.where)); }
   goalValid(g) {
-    if (g.kind === 'obj') return g.mons.some(m => !m.dead && this.w.units.includes(m));
+    if (g.kind === 'obj') { if (!g.mons.some(m => !m.dead && this.w.units.includes(m))) return false; const ms = g.mem ? [...g.mem].filter(q => !q.u.dead) : []; return !(g.go && ms.length && ms.reduce((a, q) => a + q.u.hp / q.u.hpMax, 0) / ms.length < 0.35); }
     if (g.kind === 'siege') return !g.T.dead && !g.T.invuln;
     if (g.kind === 'defend') return this.w.t - g.since < 40 && this.w.units.some(u => !u.dead && u.team !== this.team && isChamp(u) && dist(u.pos, g.pos) < 1900);
     return true;
@@ -169,6 +169,7 @@ class Brain {
       const en = op.filter(u => dist(u.pos, s.pos) < 1300).length, em = this.w.units.filter(x => x.kind === 'minion' && !x.dead && x.team !== this.team && dist(x.pos, s.pos) < 1000).length;
       if (!en) return;                                         /* Bloco 10: so inimigo campeao perto puxa o time; onda empurrando a torre e da conta o laner (antes o time inteiro largava a rota) */
       const fr = this.alive().filter(u => dist(u.pos, s.pos) < 1300).length;
+      if (fr >= en && s.sub !== 'nexus') return;                  /* Bloco 10b: aliados ja la bastam: nao chama o time todo */
       const sc = (0.3 + 0.2 * Math.min(en, 3) + 0.03 * em) * (1 + st.def) * (s.sub === 'nexus' ? 1.5 : 1) * (fr >= en + 1 ? 0.6 : 1);
       if (!C.some(c => c.kind === 'defend' && c.where === s.lane)) C.push({ kind: 'defend', where: s.lane || 'nx', pos: s.pos, sc });
     });
@@ -179,6 +180,7 @@ class Brain {
     this.players.forEach(p => {
       if (!this.eligible(p, g.kind, { topOk: g.kind === 'obj' ? g.pit === 'b' : g.kind === 'siege' ? g.lane === 'top' : true })) return;
       if (p.mode === 'gank' && this.w.t < p.gankUntil) return;
+      if (g.kind === 'defend' && g.where !== 'nx' && dist(p.u.pos, g.pos) > 5500) return;      /* Bloco 10b: defesa so com quem esta perto */
       g.mem.add(p);
     });
   }
@@ -213,7 +215,8 @@ class Brain {
     for (const id of build) {
       if (u.items.includes(id)) continue;
       let best = null; const seen = new Set();
-      (function walk(i) { if (seen.has(i)) return; seen.add(i); if (!u.items.includes(i) || i !== id) { const q = SHOP.quote(u, i, cat); if (q.ok && i !== id && (!best || q.cost > best.cost)) best = { id: i, cost: q.cost }; } cat[i].from.forEach(walk); })(id);
+      (function walk(i) { if (seen.has(i)) return; seen.add(i); if (i !== id && u.items.includes(i)) return;       /* Bloco 4b: não desce em componente que já temos */
+    if (!u.items.includes(i) || i !== id) { const q = SHOP.quote(u, i, cat); if (q.ok && i !== id && (!best || q.cost > best.cost)) best = { id: i, cost: q.cost }; } cat[i].from.forEach(walk); })(id);
       if (best) return best;
     }
     return null;
@@ -229,9 +232,12 @@ class Brain {
       if (threat) { w.life.cancelRecall(w, u, 'ameaca'); } else { p.mode = 'recall'; return; }
     }
     const st = this.styleNow(), foes = w.units.filter(x => !x.dead && x.team !== u.team && isChamp(x)), allies = w.units.filter(x => !x.dead && x.team === u.team && isChamp(x));
-    const near = foes.filter(x => dist(x.pos, u.pos) < 1500), danger = near.length > 0;
+    const near = foes.filter(x => dist(x.pos, u.pos) < 1500);
+    /* Bloco 10b: a maioria das mortes era durante recall/retirada, para torre ou monstro epico (nao havia leitura desses perigos); agora conta como perigo tambem monstro epico por perto e torre inimiga sem cobertura de minions */
+    const monNear = p.role !== 'jungle' && w.units.some(x => x.kind === 'monster' && !x.dead && x.spec && x.spec.epic && dist(x.pos, u.pos) < 1500 && w.t - (x.lastDamageAt || -99) < 6);
+    const underT = this.underEnemyTurret(u.pos) && !this.covered(u.pos), danger = near.length > 0 || monNear || underT;
     /* retirada e recall */
-    const lowHp = u.hp < u.hpMax * (0.33 + 0.12 * p.par.greed * 0);
+    const lowHp = u.hp < u.hpMax * (underT || monNear ? 0.5 : 0.33);
     const nxt = p.build ? B.nextPurchase({ ...u, gold: 1e9 }, p.build.items) : null;
     const gate = nxt ? Math.min(1500, nxt.cost) : 1400, wantShop = u.gold >= Math.max(1100, gate * 0.95) && u.items.length < 6;
     const inGoal = this.goal && this.goal.kind !== 'lane' && this.goal.mem && this.goal.mem.has(p);
@@ -283,22 +289,32 @@ class Brain {
     const am = mins.filter(x => x.team === u.team), em = mins.filter(x => x.team !== u.team);
     const own = S.lane(this.team, p.lane).outer, ownS = P.project(own.pos).s;
     const eFront = em.length ? Math.min(...em.map(m => P.project(m.pos).s)) : null, fight = am.filter(m => eFront === null || P.project(m.pos).s <= eFront + 300);
-    let s = fight.length ? Math.max(...fight.map(m => P.project(m.pos).s)) - 80 - u.stats.range * 0.25 : eFront !== null ? eFront - 700 - u.stats.range : (am.length ? Math.max(...am.map(m => P.project(m.pos).s)) - 80 : ownS + 300);
+    let s = fight.length ? Math.max(...fight.map(m => P.project(m.pos).s)) - 80 - u.stats.range * 0.25 : eFront !== null ? eFront - 120 - u.stats.range * 0.8 : (am.length ? Math.max(...am.map(m => P.project(m.pos).s)) - 80 : ownS + 300);
     s = Math.max(s, ownS - 100);
     const T = this.frontTurret(p.lane); if (T) s = Math.min(s, P.project(T.pos).s - (TURRET.range + T.radius + 110));
     s = Math.max(0, s); const stand = P.at(s); p.mode = 'lane';
     const R = u.stats.range + 15, ens = em.filter(x => dist(x.pos, u.pos) <= 1400).sort((a, b) => dist(a.pos, u.pos) - dist(b.pos, u.pos));
     if (!ens.length) { this.go(u, stand, 80); return; }
-    if (P.project(u.pos).s > s + 150) { this.go(u, stand, 60); return; }                          /* nunca à frente dos próprios minions / sob a torre */
     const sk = u.ai.lastHit, spec = w.attackSpec(u), flight = d => (spec.missile > 0 ? d / spec.missile : 0), mine = d => spec.windupFrac / w.asOf(u) + flight(d);
     const dmg = u.stats.ad.total * 100 / (100 + Math.max(0, ens[0].stats.armor.total));
     const inRange = ens.filter(x => dist(x.pos, u.pos) <= R + x.radius);
     const incoming = x => { const tIm = w.t + mine(dist(u.pos, x.pos)); const raw = w.units.reduce((acc, m) => (m.kind === 'minion' && !m.dead && m.team !== x.team && m.attack.windup && m.attack.windup.target === x && m.attack.windup.until <= tIm + 0.05 ? acc + m.stats.ad.total * (m.spec.missile ? 1 : 1) : acc), 0) + w.projs.reduce((acc, q) => (q.kind === 'homing' && q.target === x && !q.owner.dead && q.owner.kind === 'minion' && w.t + Math.hypot(q.x - x.pos.x, q.y - x.pos.y) / q.speed <= tIm + 0.05 ? acc + q.owner.stats.ad.total : acc), 0);; return raw * 100 / (100 + Math.max(0, x.stats.armor.total)); };
     const rate = x => (x.dmgWin || []).filter(e => w.t - e.t < 1).reduce((a, e) => a + e.a, 0);                    /* dano recebido no último segundo (taxa) */
-    const pick = inRange.find(x => (x.hp - incoming(x) - rate(x) * mine(dist(u.pos, x.pos)) * 0.15) * (1 + this.lhError(u, x) * (1 - sk)) <= dmg * 0.25);
-    if (pick) { if (!(u.order && u.order.type === 'attack' && u.order.target === pick)) w.orderAttack(u, pick); return; }
-    if (!inRange.length) { const t = ens[0], front = am.length ? Math.max(...am.map(m => P.project(m.pos).s)) : s, sx = Math.min(front + 90, Math.max(s, P.project(t.pos).s - u.stats.range * 0.8)); const lim = T ? P.project(T.pos).s - (TURRET.range + T.radius + 110) : 1e9; this.go(u, P.at(Math.min(sx, lim)), 40); return; }
-    if (!u.attack.windup) u.order = null;
+    /* Bloco 10b (ESTIMADO, varredura de 32 partidas): `incoming` superestima o dano que chega (0,7); janela de golpe = vida prevista entre -0,5 e +0,6 do dano; o termo de taxa recente foi zerado (piorava o CS) */
+    const IS = 0.7, KW = 0.6, LO = -0.5, hImp = x => (x.hp - IS * incoming(x)) * (1 + this.lhError(u, x) * (1 - sk));
+    const pick = inRange.map(x => ({ x, h: hImp(x) })).filter(c => c.h > LO * dmg && c.h <= dmg * KW).sort((a, b) => a.h - b.h)[0];
+    if (pick) { if (!(u.order && u.order.type === 'attack' && u.order.target === pick.x)) w.orderAttack(u, pick.x); return; }
+    const reachS = s + 150 + 330;                                  /* Bloco 10b: margem de avanço para alcançar a onda inimiga (antes o laner ficava parado a ~350 do alvo) */
+    if (P.project(u.pos).s > reachS) { this.go(u, stand, 60); return; }                          /* nunca à frente dos próprios minions / sob a torre */
+    /* Bloco 10b: minion quase no ponto de abate fora do alcance (ex.: conjurador atras da onda): avanca ate o alcance, dentro do limite da torre */
+    const soon = ens.find(x => !inRange.includes(x) && (x.hp - incoming(x)) <= dmg * 1.6);
+    if (soon && !(w.units.some(f => isChamp(f) && !f.dead && f.team !== u.team && dist(f.pos, soon.pos) < 900))) { const lim2 = T ? P.project(T.pos).s - (TURRET.range + T.radius + 110) : 1e9; this.go(u, P.at(Math.min(P.project(soon.pos).s - R * 0.9, lim2, s + 380)), 30); return; }
+    if (!inRange.length) {       /* Bloco 10b: aproxima em linha reta do alvo (a onda fica ~330 ao lado do eixo da rota: andar pelo eixo nao chegava) */
+      const t = ens[0], lim = T ? P.project(T.pos).s - (TURRET.range + T.radius + 110) : 1e9, d0 = dist(t.pos, u.pos) || 1, want = Math.max(0, u.stats.range * 0.8 + t.radius * 0.5);
+      let d = { x: t.pos.x + (u.pos.x - t.pos.x) / d0 * want, y: t.pos.y + (u.pos.y - t.pos.y) / d0 * want }; const sd = P.project(d).s, cap = Math.min(reachS - 20, lim);
+      if (sd > cap) d = P.at(cap);
+      this.go(u, d, 40); return;
+    }    if (!u.attack.windup) u.order = null;
   }
   /* erro de estimativa fixo por (jogador, minion): sorteado uma vez, senão o mínimo de vários sorteios faz acertar cedo demais */
   lhError(u, x) { x.lhErr = x.lhErr || {}; if (x.lhErr[u.id] === undefined) x.lhErr[u.id] = this.w.rng.gauss("ia") * 1.0; return x.lhErr[u.id]; }

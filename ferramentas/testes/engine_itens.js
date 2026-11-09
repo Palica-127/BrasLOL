@@ -162,4 +162,22 @@ if (process.argv.includes('--relatorio')) {
   fs.writeFileSync(path.join(ROOT, 'docs', 'ITENS_COBERTURA_16.22.1.md'), md); console.log('relatório escrito: docs/ITENS_COBERTURA_16.22.1.md (' + pend.length + ' passivas pendentes)');
 }
 
+/* ---------- builds curadas por campeão (Bloco 4b) ---------- */
+{ const CUR = E('items/curated.js'), bad = CUR.check(cat);
+  T(bad.length === 0, 'builds curadas só usam itens completos e botas válidas do catálogo', bad.slice(0, 5).join());
+  const pf = n => B.profile(L.champion(n)), nm = (c, foes, o) => B.makeBuild(L.champion(c), foes, o).items.map(i => cat[i].name);
+  const key = c => B.makeBuild(L.champion(c), []).items.join();
+  T(new Set(['Jinx', 'Ezreal', 'Vayne', 'Kayle', 'Kaisa'].map(key)).size === 5, 'atiradores diferentes têm builds diferentes');
+  T(new Set(['Yasuo', 'Zed', 'LeeSin'].map(key)).size === 3, 'Yasuo, Zed e Lee Sin não compartilham build');
+  const sor = B.makeBuild(L.champion('Soraka'), []).items; T(!sor.includes(I('Capuz da Morte de Rabadon')) && sor.includes(I('Turíbulo Ardente')), 'Soraka compra itens de encantadora, não Rabadon');
+  ['Leona', 'Thresh', 'Alistar', 'Braum', 'Nautilus'].forEach(c => T(!B.makeBuild(L.champion(c), []).items.includes(I('Armadura de Warmog')), c + ': suporte engage sem Warmog'));
+  const vsHeal = nm('Jinx', [pf('Soraka'), pf('Aatrox')]); T(vsHeal.includes('Lembrete Mortal'), 'atirador leva Lembrete Mortal contra cura', vsHeal.join());
+  const vsHealMg = nm('Ahri', [pf('Soraka'), pf('Vladimir')]); T(vsHealMg.includes('Morellonomicon'), 'mago leva Morellonomicon contra cura', vsHealMg.join());
+  const ap = nm('Garen', [pf('Ahri'), pf('Lux'), pf('Annie'), pf('Syndra')]), ad = nm('Garen', [pf('Zed'), pf('Jinx'), pf('Darius')]);
+  T(ap.includes('Esmagadores Acorrentados') && ad.includes('Mobilização Blindada'), 'botas defensivas seguem o tipo de dano inimigo', ap[1] + ' / ' + ad[1]);
+  const ad5 = [pf('Garen'), pf('Garen'), pf('Garen'), pf('Garen')];
+  T(nm('Garen', ad5, { lane: pf('Ahri') }).join() !== '' && B.makeBuild(L.champion('Garen'), ad5, { lane: pf('Ahri') }).items.length === 6, 'rival de rota é aceito pela build');
+  T(B.makeBuild(L.champion('Jinx'), []).items.length === 6, 'build curada tem 5 itens + botas');
+  T(B.makeBuild(L.champion('Ambessa'), []).items.length >= 5, 'campeão sem build curada cai no analisador'); }
+
 console.log(ok ? '\nTODOS OS TESTES PASSARAM' : '\nHÁ FALHAS'); process.exit(ok ? 0 : 1);

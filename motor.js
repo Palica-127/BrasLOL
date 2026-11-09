@@ -158,6 +158,7 @@ class World {
     if (info.ability && ['Q', 'W', 'E', 'R'].includes(info.ability) && src.team !== dst.team && FX.blockAbility(this, dst)) return null;
     const split = !info._split && this.exec.preDamage(this, src, dst, amount, type);
     if (split) { let last = null; split.forEach(([am, ty]) => { last = this.dealDamage(src, dst, am, ty, { ...info, _split: true }) || last; }); return last; }
+    if (src.smite && dst.kind === 'monster' && !info.smite) amount *= 3;                      /* item de selva (ESTIMADO, Bloco 10): bonus de dano do cacador contra monstros */
     if (src.kind === 'monster' && dst.smite) amount *= 1 - 0.5;                              /* companheiro de selva: -50% de dano de monstros (ESTIMADO, Bloco 6 pendente) */
     let a = amount, crit = false;
     if (info.canCrit && src.stats.crit > 0 && this.rng.next('combate') < src.stats.crit) { a *= D.critMultiplier(src.stats.critDamage); crit = true; }
@@ -2030,17 +2031,20 @@ class Economy {
   }
   giveGold(u, g, why) { if (!(g > 0)) return; u.gold += g; u.stat.goldEarned = (u.stat.goldEarned || 0) + g; this.w.emit('gold', { id: u.id, amount: +g.toFixed(2), why }); }
 
+  /* penalidade de rota (ESTIMADO): o caçador que abate minions antes de completar o item de selva recebe menos ouro e XP */
+  laneMul(u) { return u && u.smite && (u.jgStacks || 0) < 35 ? 0.5 : 1; }
   /* ---------- morte de minion / campeão ---------- */
   onMinionDeath(m, killer) {
     const w = this.w, sp = m.spec, foeTeam = 1 - m.team;
     const near = w.units.filter(x => x.kind !== 'minion' && !x.dead && x.team === foeTeam && dist(x.pos, m.pos) <= sp.xpRadius);
-    near.forEach(x => this.grantXp(x, sp.xp * xpShare(near.length), 'minion'));
+    near.forEach(x => this.grantXp(x, sp.xp * xpShare(near.length) * this.laneMul(x), 'minion'));
     if (killer && killer.kind !== 'minion' && killer.team === foeTeam) {
-      this.giveGold(killer, sp.gold, 'cs'); killer.stat.cs = (killer.stat.cs || 0) + 1; w.emit('cs', { id: killer.id, mtype: sp.type });
+      this.giveGold(killer, sp.gold * this.laneMul(killer), 'cs'); killer.stat.cs = (killer.stat.cs || 0) + 1; w.emit('cs', { id: killer.id, mtype: sp.type });
     } else w.emit('minion-lost', { id: m.id, mtype: sp.type });
   }
   onChampionKill(dst, killer) {
     const w = this.w; if (!killer || killer.kind === 'minion' || killer.kind === 'monster') return;
+    if (killer.smite) killer.jgStacks = (killer.jgStacks || 0) + 1;
     const assisters = Object.keys(dst.assisters || {}).map(Number).map(id => w.byId(id)).filter(x => x && x !== killer && x.kind !== 'minion' && x.team === killer.team && w.t - dst.assisters[x.id] < 10);
     let bounty = WIKI.championBounty; if (!this.firstBlood) { this.firstBlood = true; bounty += WIKI.firstBlood; w.emit('first-blood', { id: killer.id }); }
     this.giveGold(killer, bounty, 'kill');
@@ -2090,6 +2094,21 @@ const LAYOUT = {
   1: { blue: { x: 11000, y: 5500 }, red: { x: 5500, y: 10000 }, gromp: { x: 12500, y: 6800 }, wolves: { x: 11000, y: 7500 }, raptors: { x: 8000, y: 9500 }, krugs: { x: 4500, y: 11500 } },
   crab: [{ x: 5000, y: 5000 }, { x: 10000, y: 10000 }], grubs: { x: 5200, y: 10200 }, herald: { x: 5200, y: 10200 }, baron: { x: 5200, y: 10200 }, drake: { x: 9800, y: 4800 }
 };
+
+/* RECOMPENSA POR ACAMPAMENTO (nível 1; especificação do projeto): [ouro, XP] do acampamento inteiro, repartido entre os monstros pelo peso do registro
+   (`tree` = todos os monstros que o campo gera, incluindo as divisões dos Krugs). Limpar o acampamento todo vale exatamente 4 CS, não importa quantos monstros morram.
+   ESTIMADO (sem fonte): escala com a média de nível dos campeões (ouro até x1,2 e XP até x1,5 no nível 18), bônus de XP do caçador nos monstros grandes (+15%),
+   penalidade de rota do caçador antes de completar o item de selva (x0,5 de ouro e XP dos minions) e a contagem do item (35 = `totalcounters` do filhote). */
+const CAMP_REWARD = { blue: [90, 100], red: [90, 100], gromp: [80, 135], wolves: [85, 95], raptors: [85, 95], krugs: [80, 135], crab: [55, 115] };
+const CAMP_TREE = {
+  blue: ['sru_blue', 'sru_bluemini', 'sru_bluemini2'], red: ['sru_red', 'sru_redmini', 'sru_redmini'], gromp: ['sru_gromp'], wolves: ['sru_murkwolf', 'sru_murkwolfmini', 'sru_murkwolfmini'],
+  raptors: ['sru_razorbeak', ...Array(5).fill('sru_razorbeakmini')], krugs: ['sru_krug', 'sru_krugmini', ...Array(6).fill('sru_krugminimini')], crab: ['sru_crab']
+};
+const BIG = new Set(['sru_blue', 'sru_red', 'sru_gromp', 'sru_murkwolf', 'sru_razorbeak', 'sru_krug', 'sru_crab']);
+const JUNGLE_RULE = { csPerCamp: 4, goldScale: 0.2, xpScale: 0.5, hunterXp: 0.15, laneMinionPenalty: 0.5, itemStacks: 35 };
+const campKind = c => (c && c.key ? c.key.replace(/\d+$/, '') : null);
+const isHunter = u => !!(u && u.smite);
+const hunterDone = u => !isHunter(u) || (u.jgStacks || 0) >= JUNGLE_RULE.itemStacks;
 
 class Jungle {
   constructor(w, opts = {}) {
@@ -2150,15 +2169,24 @@ class Jungle {
     const w = this.w, sp = m.spec, team = killer && killer.kind !== 'minion' && killer.kind !== 'monster' ? killer.team : null;
     /* krugs se dividem */
     if (m.name === 'sru_krug' || m.name === 'sru_krugmini') { const n = m.name === 'sru_krug' ? 4 : 2; for (let i = 0; i < n; i++) { const k = MON.create(w, 'sru_krugminimini', { x: m.pos.x + i * 30, y: m.pos.y }, m.camp, m.level); k.pos = { x: m.pos.x + i * 30, y: m.pos.y }; k.camp = m.camp; if (m.camp) { m.camp.members.push(k); } k.target = m.target; } }
+    const kind = m.camp && !m.epicKey ? campKind(m.camp) : null, rw = kind && CAMP_REWARD[kind];
+    let gold = sp.gold, xp = sp.xp;
+    if (rw) {
+      const tree = CAMP_TREE[kind], sum = (f) => tree.reduce((a, k) => a + (f(MON.spec(w.loader, k, 1)) || 0), 0);
+      const sg = sum(x => x.gold) || 1, sx = sum(x => x.xp) || 1, L = Math.max(m.level, this.avgLevel()), f = (L - 1) / 17;
+      const me = MON.spec(w.loader, m.name, 1);
+      gold = rw[0] * (1 + JUNGLE_RULE.goldScale * f) * me.gold / sg; xp = rw[1] * (1 + JUNGLE_RULE.xpScale * f) * me.xp / sx;
+    }
     const near = team === null ? [] : w.units.filter(x => x.kind !== 'minion' && x.kind !== 'monster' && !x.dead && x.team === team && dist(x.pos, m.pos) <= sp.xpRadius);
-    if (near.length) near.forEach(x => w.econ ? w.econ.grantXp(x, sp.xp * xpShare(near.length), 'monster') : this.xpNoEcon(x, sp.xp * xpShare(near.length)));
-    if (killer && team !== null) { this.gold(killer, sp.gold, 'monster'); killer.stat.cs = (killer.stat.cs || 0) + 1; killer.stat.jungleCs = (killer.stat.jungleCs || 0) + 1; }
+    if (near.length) near.forEach(x => { const q = xp * xpShare(near.length) * (rw && BIG.has(m.name) && isHunter(x) ? 1 + JUNGLE_RULE.hunterXp : 1); w.econ ? w.econ.grantXp(x, q, 'monster') : this.xpNoEcon(x, q); });
+    if (killer && team !== null) { this.gold(killer, gold, 'monster'); if (isHunter(killer)) killer.jgStacks = (killer.jgStacks || 0) + 1; if (!rw) { killer.stat.cs = (killer.stat.cs || 0) + 1; killer.stat.jungleCs = (killer.stat.jungleCs || 0) + 1; } }
     w.emit('monster-kill', { id: m.id, mkey: m.name, src: killer && killer.id, level: m.level });
     if (m.camp && !m.epicKey && m.camp.members) {
       const alive = m.camp.members.filter(x => !x.dead && x !== m);
       if (!alive.length) {
         if (m.camp.members.length) this.campOf(m).members.forEach(() => 0);
         if (m.name === 'sru_blue' || m.name === 'sru_red') { /* buff vai ao assassino */ }
+        if (rw && killer && team !== null) { killer.stat.cs = (killer.stat.cs || 0) + JUNGLE_RULE.csPerCamp; killer.stat.jungleCs = (killer.stat.jungleCs || 0) + JUNGLE_RULE.csPerCamp; w.emit('cs', { id: killer.id, mtype: 'camp:' + kind, n: JUNGLE_RULE.csPerCamp }); }
         this.campCleared(m.camp);
       }
     }
@@ -2227,7 +2255,7 @@ class Jungle {
   update() { this.w.units.forEach(u => { if (u.smite) this.smiteUpdate(u); }); }
 }
 function enable(w, opts) { w.jungle = new Jungle(w, opts); return w.jungle; }
-module.exports = { enable, Jungle, T, SMITE, BARON, ELDER, DRAKES, COMPOSITION, LAYOUT };
+module.exports = { enable, Jungle, T, SMITE, BARON, ELDER, DRAKES, COMPOSITION, LAYOUT, CAMP_REWARD, CAMP_TREE, JUNGLE_RULE, hunterDone };
 
 }};
 DEF["src/engine/map/structures.js"]={deps:{"./layout":"src/engine/map/layout.js"},fn:function(module,exports,require,__dirname){'use strict';
@@ -2557,7 +2585,7 @@ class Brain {
   setEnemy(brain) {
     this.enemy = brain;
     const prof = brain.players.map(q => B.profile(q.u.ch));
-    this.players.forEach(p => { p.build = B.makeBuild(p.u.ch, prof); });
+    this.players.forEach(p => { const lane = brain.players.findIndex(q => q.role === p.role); p.build = B.makeBuild(p.u.ch, prof, { lane: lane >= 0 ? prof[lane] : null }); });      /* Bloco 4b: rival direto de rota pesa em dobro */
   }
   styleNow() { return STYLES[this.adapt && this.adapt.until > this.w.t ? this.adapt.key : this.style]; }
 
@@ -2596,7 +2624,7 @@ class Brain {
     objs.forEach(ob => {
       if ((this.objCd[ob.k] || 0) > t) return;                      /* Bloco 10: tentativa recente falhou: volta a farmar antes de tentar de novo */
       const pos = ob.mons[0].pos, mem = me.map(u => this.players.find(p => p.u === u)).filter(p => p && this.eligible(p, 'obj', { topOk: ob.pit === 'b' })), need = OBJ_NEED[ob.k];
-      if (mem.length < 2) return;
+      if (mem.length < Math.min(need, 3) || mem.reduce((a, p) => a + p.u.hp / p.u.hpMax, 0) / mem.length < 0.6) return;      /* Bloco 10b: so tenta objetivo com o time quase completo e com vida */
       const nF = mem.length >= need ? 1 : 0.25 + (mem.length / need) * 0.35, hpF = 0.6 + 0.4 * (mem.reduce((s, p) => s + p.u.hp / p.u.hpMax, 0) / mem.length);
       const near = op.filter(u => dist(u.pos, pos) < 1500), prw = mem.reduce((s, p) => s + power(p.u), 0) / Math.max(1, near.reduce((s, u) => s + power(u), 0) * 0.8 + op.reduce((s, u) => s + power(u), 0) * 0.2);
       const etaMe = mem.reduce((s, p) => s + dist(p.u.pos, pos), 0) / mem.length, etaOp = op.length ? op.reduce((s, u) => s + dist(u.pos, pos), 0) / op.length : 1e5;
@@ -2643,7 +2671,7 @@ class Brain {
   avgNoise() { return this.players.reduce((s, p) => s + p.par.noise, 0) / Math.max(1, this.players.length); }
   sameGoal(a, b) { return a.kind === b.kind && (a.kind === 'lane' || (a.kind === 'obj' ? a.k === b.k : a.kind === 'siege' ? a.id === b.id : a.where === b.where)); }
   goalValid(g) {
-    if (g.kind === 'obj') return g.mons.some(m => !m.dead && this.w.units.includes(m));
+    if (g.kind === 'obj') { if (!g.mons.some(m => !m.dead && this.w.units.includes(m))) return false; const ms = g.mem ? [...g.mem].filter(q => !q.u.dead) : []; return !(g.go && ms.length && ms.reduce((a, q) => a + q.u.hp / q.u.hpMax, 0) / ms.length < 0.35); }
     if (g.kind === 'siege') return !g.T.dead && !g.T.invuln;
     if (g.kind === 'defend') return this.w.t - g.since < 40 && this.w.units.some(u => !u.dead && u.team !== this.team && isChamp(u) && dist(u.pos, g.pos) < 1900);
     return true;
@@ -2654,6 +2682,7 @@ class Brain {
       const en = op.filter(u => dist(u.pos, s.pos) < 1300).length, em = this.w.units.filter(x => x.kind === 'minion' && !x.dead && x.team !== this.team && dist(x.pos, s.pos) < 1000).length;
       if (!en) return;                                         /* Bloco 10: so inimigo campeao perto puxa o time; onda empurrando a torre e da conta o laner (antes o time inteiro largava a rota) */
       const fr = this.alive().filter(u => dist(u.pos, s.pos) < 1300).length;
+      if (fr >= en && s.sub !== 'nexus') return;                  /* Bloco 10b: aliados ja la bastam: nao chama o time todo */
       const sc = (0.3 + 0.2 * Math.min(en, 3) + 0.03 * em) * (1 + st.def) * (s.sub === 'nexus' ? 1.5 : 1) * (fr >= en + 1 ? 0.6 : 1);
       if (!C.some(c => c.kind === 'defend' && c.where === s.lane)) C.push({ kind: 'defend', where: s.lane || 'nx', pos: s.pos, sc });
     });
@@ -2664,6 +2693,7 @@ class Brain {
     this.players.forEach(p => {
       if (!this.eligible(p, g.kind, { topOk: g.kind === 'obj' ? g.pit === 'b' : g.kind === 'siege' ? g.lane === 'top' : true })) return;
       if (p.mode === 'gank' && this.w.t < p.gankUntil) return;
+      if (g.kind === 'defend' && g.where !== 'nx' && dist(p.u.pos, g.pos) > 5500) return;      /* Bloco 10b: defesa so com quem esta perto */
       g.mem.add(p);
     });
   }
@@ -2698,7 +2728,8 @@ class Brain {
     for (const id of build) {
       if (u.items.includes(id)) continue;
       let best = null; const seen = new Set();
-      (function walk(i) { if (seen.has(i)) return; seen.add(i); if (!u.items.includes(i) || i !== id) { const q = SHOP.quote(u, i, cat); if (q.ok && i !== id && (!best || q.cost > best.cost)) best = { id: i, cost: q.cost }; } cat[i].from.forEach(walk); })(id);
+      (function walk(i) { if (seen.has(i)) return; seen.add(i); if (i !== id && u.items.includes(i)) return;       /* Bloco 4b: não desce em componente que já temos */
+    if (!u.items.includes(i) || i !== id) { const q = SHOP.quote(u, i, cat); if (q.ok && i !== id && (!best || q.cost > best.cost)) best = { id: i, cost: q.cost }; } cat[i].from.forEach(walk); })(id);
       if (best) return best;
     }
     return null;
@@ -2714,9 +2745,12 @@ class Brain {
       if (threat) { w.life.cancelRecall(w, u, 'ameaca'); } else { p.mode = 'recall'; return; }
     }
     const st = this.styleNow(), foes = w.units.filter(x => !x.dead && x.team !== u.team && isChamp(x)), allies = w.units.filter(x => !x.dead && x.team === u.team && isChamp(x));
-    const near = foes.filter(x => dist(x.pos, u.pos) < 1500), danger = near.length > 0;
+    const near = foes.filter(x => dist(x.pos, u.pos) < 1500);
+    /* Bloco 10b: a maioria das mortes era durante recall/retirada, para torre ou monstro epico (nao havia leitura desses perigos); agora conta como perigo tambem monstro epico por perto e torre inimiga sem cobertura de minions */
+    const monNear = p.role !== 'jungle' && w.units.some(x => x.kind === 'monster' && !x.dead && x.spec && x.spec.epic && dist(x.pos, u.pos) < 1500 && w.t - (x.lastDamageAt || -99) < 6);
+    const underT = this.underEnemyTurret(u.pos) && !this.covered(u.pos), danger = near.length > 0 || monNear || underT;
     /* retirada e recall */
-    const lowHp = u.hp < u.hpMax * (0.33 + 0.12 * p.par.greed * 0);
+    const lowHp = u.hp < u.hpMax * (underT || monNear ? 0.5 : 0.33);
     const nxt = p.build ? B.nextPurchase({ ...u, gold: 1e9 }, p.build.items) : null;
     const gate = nxt ? Math.min(1500, nxt.cost) : 1400, wantShop = u.gold >= Math.max(1100, gate * 0.95) && u.items.length < 6;
     const inGoal = this.goal && this.goal.kind !== 'lane' && this.goal.mem && this.goal.mem.has(p);
@@ -2768,22 +2802,32 @@ class Brain {
     const am = mins.filter(x => x.team === u.team), em = mins.filter(x => x.team !== u.team);
     const own = S.lane(this.team, p.lane).outer, ownS = P.project(own.pos).s;
     const eFront = em.length ? Math.min(...em.map(m => P.project(m.pos).s)) : null, fight = am.filter(m => eFront === null || P.project(m.pos).s <= eFront + 300);
-    let s = fight.length ? Math.max(...fight.map(m => P.project(m.pos).s)) - 80 - u.stats.range * 0.25 : eFront !== null ? eFront - 700 - u.stats.range : (am.length ? Math.max(...am.map(m => P.project(m.pos).s)) - 80 : ownS + 300);
+    let s = fight.length ? Math.max(...fight.map(m => P.project(m.pos).s)) - 80 - u.stats.range * 0.25 : eFront !== null ? eFront - 120 - u.stats.range * 0.8 : (am.length ? Math.max(...am.map(m => P.project(m.pos).s)) - 80 : ownS + 300);
     s = Math.max(s, ownS - 100);
     const T = this.frontTurret(p.lane); if (T) s = Math.min(s, P.project(T.pos).s - (TURRET.range + T.radius + 110));
     s = Math.max(0, s); const stand = P.at(s); p.mode = 'lane';
     const R = u.stats.range + 15, ens = em.filter(x => dist(x.pos, u.pos) <= 1400).sort((a, b) => dist(a.pos, u.pos) - dist(b.pos, u.pos));
     if (!ens.length) { this.go(u, stand, 80); return; }
-    if (P.project(u.pos).s > s + 150) { this.go(u, stand, 60); return; }                          /* nunca à frente dos próprios minions / sob a torre */
     const sk = u.ai.lastHit, spec = w.attackSpec(u), flight = d => (spec.missile > 0 ? d / spec.missile : 0), mine = d => spec.windupFrac / w.asOf(u) + flight(d);
     const dmg = u.stats.ad.total * 100 / (100 + Math.max(0, ens[0].stats.armor.total));
     const inRange = ens.filter(x => dist(x.pos, u.pos) <= R + x.radius);
     const incoming = x => { const tIm = w.t + mine(dist(u.pos, x.pos)); const raw = w.units.reduce((acc, m) => (m.kind === 'minion' && !m.dead && m.team !== x.team && m.attack.windup && m.attack.windup.target === x && m.attack.windup.until <= tIm + 0.05 ? acc + m.stats.ad.total * (m.spec.missile ? 1 : 1) : acc), 0) + w.projs.reduce((acc, q) => (q.kind === 'homing' && q.target === x && !q.owner.dead && q.owner.kind === 'minion' && w.t + Math.hypot(q.x - x.pos.x, q.y - x.pos.y) / q.speed <= tIm + 0.05 ? acc + q.owner.stats.ad.total : acc), 0);; return raw * 100 / (100 + Math.max(0, x.stats.armor.total)); };
     const rate = x => (x.dmgWin || []).filter(e => w.t - e.t < 1).reduce((a, e) => a + e.a, 0);                    /* dano recebido no último segundo (taxa) */
-    const pick = inRange.find(x => (x.hp - incoming(x) - rate(x) * mine(dist(u.pos, x.pos)) * 0.15) * (1 + this.lhError(u, x) * (1 - sk)) <= dmg * 0.25);
-    if (pick) { if (!(u.order && u.order.type === 'attack' && u.order.target === pick)) w.orderAttack(u, pick); return; }
-    if (!inRange.length) { const t = ens[0], front = am.length ? Math.max(...am.map(m => P.project(m.pos).s)) : s, sx = Math.min(front + 90, Math.max(s, P.project(t.pos).s - u.stats.range * 0.8)); const lim = T ? P.project(T.pos).s - (TURRET.range + T.radius + 110) : 1e9; this.go(u, P.at(Math.min(sx, lim)), 40); return; }
-    if (!u.attack.windup) u.order = null;
+    /* Bloco 10b (ESTIMADO, varredura de 32 partidas): `incoming` superestima o dano que chega (0,7); janela de golpe = vida prevista entre -0,5 e +0,6 do dano; o termo de taxa recente foi zerado (piorava o CS) */
+    const IS = 0.7, KW = 0.6, LO = -0.5, hImp = x => (x.hp - IS * incoming(x)) * (1 + this.lhError(u, x) * (1 - sk));
+    const pick = inRange.map(x => ({ x, h: hImp(x) })).filter(c => c.h > LO * dmg && c.h <= dmg * KW).sort((a, b) => a.h - b.h)[0];
+    if (pick) { if (!(u.order && u.order.type === 'attack' && u.order.target === pick.x)) w.orderAttack(u, pick.x); return; }
+    const reachS = s + 150 + 330;                                  /* Bloco 10b: margem de avanço para alcançar a onda inimiga (antes o laner ficava parado a ~350 do alvo) */
+    if (P.project(u.pos).s > reachS) { this.go(u, stand, 60); return; }                          /* nunca à frente dos próprios minions / sob a torre */
+    /* Bloco 10b: minion quase no ponto de abate fora do alcance (ex.: conjurador atras da onda): avanca ate o alcance, dentro do limite da torre */
+    const soon = ens.find(x => !inRange.includes(x) && (x.hp - incoming(x)) <= dmg * 1.6);
+    if (soon && !(w.units.some(f => isChamp(f) && !f.dead && f.team !== u.team && dist(f.pos, soon.pos) < 900))) { const lim2 = T ? P.project(T.pos).s - (TURRET.range + T.radius + 110) : 1e9; this.go(u, P.at(Math.min(P.project(soon.pos).s - R * 0.9, lim2, s + 380)), 30); return; }
+    if (!inRange.length) {       /* Bloco 10b: aproxima em linha reta do alvo (a onda fica ~330 ao lado do eixo da rota: andar pelo eixo nao chegava) */
+      const t = ens[0], lim = T ? P.project(T.pos).s - (TURRET.range + T.radius + 110) : 1e9, d0 = dist(t.pos, u.pos) || 1, want = Math.max(0, u.stats.range * 0.8 + t.radius * 0.5);
+      let d = { x: t.pos.x + (u.pos.x - t.pos.x) / d0 * want, y: t.pos.y + (u.pos.y - t.pos.y) / d0 * want }; const sd = P.project(d).s, cap = Math.min(reachS - 20, lim);
+      if (sd > cap) d = P.at(cap);
+      this.go(u, d, 40); return;
+    }    if (!u.attack.windup) u.order = null;
   }
   /* erro de estimativa fixo por (jogador, minion): sorteado uma vez, senão o mínimo de vários sorteios faz acertar cedo demais */
   lhError(u, x) { x.lhErr = x.lhErr || {}; if (x.lhErr[u.id] === undefined) x.lhErr[u.id] = this.w.rng.gauss("ia") * 1.0; return x.lhErr[u.id]; }
@@ -2864,13 +2908,13 @@ function createMatch(w, teams) {
 module.exports = { Brain, Path, STYLES, power, styleFromComp, createMatch, LANE_OF };
 
 }};
-DEF["src/engine/items/builds.js"]={deps:{"./catalog":"src/engine/items/catalog.js","./effects":"src/engine/items/effects.js","./shop":"src/engine/items/shop.js"},fn:function(module,exports,require,__dirname){'use strict';
+DEF["src/engine/items/builds.js"]={deps:{"./catalog":"src/engine/items/catalog.js","./effects":"src/engine/items/effects.js","./curated":"src/engine/items/curated.js","./shop":"src/engine/items/shop.js"},fn:function(module,exports,require,__dirname){'use strict';
 /* Builds inteligentes (Bloco 4): o campeão é analisado pelos próprios dados (proporção AP/AD/defesa nos cálculos oficiais das habilidades,
    classes do Data Dragon, alcance de ataque) e recebe um arquétipo; os itens são ordenados por valor em ouro dos atributos que o arquétipo quer
    (eficiência = valor do atributo / preço) e a build se adapta à composição inimiga (dano AP/AD, vida alta).
    Valores em ouro por atributo: tabela de eficiência da Wiki do LoL (ESTIMADO/REFERÊNCIA; usada só para ESCOLHER itens, nunca no combate). */
 const { catalog, components } = require('./catalog');
-const FX = require('./effects');
+const FX = require('./effects'), CUR = require('./curated');
 
 /* ouro por unidade de atributo (referência Wiki). pct e crit/fração -> por 1% = valor/100 aplicado na fração */
 const GOLD = { ad: 35, ap: 21.75, hp: 2.67, armor: 20, mr: 18, mana: 1.4, abilityHaste: 26.5, ms: 12, crit: 40 * 100, as: 25 * 100, lifesteal: 27.5 * 100, msPct: 39.6 * 100,
@@ -2884,8 +2928,11 @@ const ARCH = {
   'assassino':  { ad: 1, lethality: .95, abilityHaste: .55, armorPenPct: .5, hp: .15, ms: .25 },
   'tanque':     { hp: 1, armor: .9, mr: .9, abilityHaste: .5, tenacity: .3, baseHpRegenPct: .3, ad: .05 },
   'suporte':    { abilityHaste: 1, hp: .45, ap: .3, mr: .3, armor: .3, mana: .2, healPower: .5, hpRegen5: .1 },
-  'mago-tanque':{ ap: .6, hp: .8, abilityHaste: .6, armor: .5, mr: .5, mana: .2 }
+  'mago-tanque':{ ap: .6, hp: .8, abilityHaste: .6, armor: .5, mr: .5, mana: .2 },
+  'tanque-suporte': { hp: .7, armor: .8, mr: .8, abilityHaste: .8, tenacity: .2, ms: .1 },                    /* Bloco 4b: engage/protetor: sem Warmog, mais defesa ativa */
+  'encantador': { abilityHaste: 1, healPower: .9, ap: .35, hp: .3, mana: .4, ms: .2, hpRegen5: .1 }
 };
+const NO_SUPPORT = new Set([3083, 6657, 3084]);                  /* itens de rota/farm que suporte de fallback não compra (Warmog, Bastão das Eras, Coração de Aço) */
 
 /* proporção de AP/AD/defesa nos cálculos de habilidade: lê mStat de cada parte (ausente=AP, 2=AD, 1/6/12=defesa) */
 function scalingProfile(ch) {
@@ -2912,10 +2959,10 @@ function profile(ch) {
   else if (main === 'Mage') arch = second === 'Tank' ? 'mago-tanque' : 'mago';
   else if (main === 'Fighter') arch = apShare > 0.6 ? 'mago' : (second === 'Assassin' ? 'assassino' : 'lutador');
   else if (main === 'Tank') arch = second === 'Mage' ? 'mago-tanque' : 'tanque';
-  else if (main === 'Support') arch = second === 'Mage' && apShare > 0.6 ? 'mago' : 'suporte';
+  else if (main === 'Support') arch = second === 'Tank' ? 'tanque-suporte' : second === 'Mage' && apShare > 0.6 ? 'mago' : 'encantador';
   else arch = apShare > 0.5 ? 'mago' : (ranged ? 'atirador' : 'lutador');
   void has;
-  return { arch, apShare, ranged, roles, scaling: sc };
+  return { arch, apShare, ranged, roles, scaling: sc, id: ch.id };
 }
 
 const valueOf = (it, wts) => {
@@ -2937,13 +2984,15 @@ function score(it, arch, extra) {
 
 /* enemies: lista de perfis (profile()) dos inimigos; devolve a build completa ordenada de compra */
 function makeBuild(ch, enemies, opts = {}) {
+  const cur = CUR.BUILDS[ch.id]; if (cur) return curatedBuild(ch, cur, enemies, opts);
   const cat = catalog(), P = profile(ch), arch = P.arch;
   const legend = Object.values(cat).filter(i => i.cls === 'legendary' && i.maxStack <= 1);
   const boots = Object.values(cat).filter(i => i.cls === 'boots' && i.into.length === 0 && i.from.length);
   const apE = enemies.length ? enemies.reduce((s, e) => s + e.apShare, 0) / enemies.length : 0.5;
   const tanky = enemies.filter(e => e.arch === 'tanque' || e.arch === 'mago-tanque' || e.arch === 'lutador').length;
   const reasons = [];
-  const pool = legend.map(i => ({ i, s: score(i, arch) })).filter(x => x.s > 0);
+  const supp = arch === 'tanque-suporte' || arch === 'encantador';
+  const pool = legend.map(i => ({ i, s: score(i, arch) })).filter(x => x.s > 0 && !(supp && NO_SUPPORT.has(x.i.id)));
   /* adaptação: contra muito AP, bônus a resistência mágica; contra muito AD, a armadura; contra vida alta, penetração percentual */
   const adapt = (i) => {
     let b = 0;
@@ -2964,6 +3013,24 @@ function makeBuild(ch, enemies, opts = {}) {
   if (tanky >= 2) reasons.push('muitos alvos resistentes: priorizou penetração percentual');
   return { arch, profile: P, items: out.map(i => i.id), names: out.map(i => i.name), reasons };
 }
+/* Bloco 4b: build curada + adaptação. opts.lane = perfil do rival direto de rota (pesa em dobro no tipo de dano e na cura). */
+function curatedBuild(ch, cur, enemies, opts) {
+  const cat = catalog(), P = profile(ch), S = CUR.SIT[cur.k], reasons = ['build curada do campeão (estimada)'];
+  const all = enemies.concat(opts.lane ? [opts.lane] : []);
+  const apE = all.length ? all.reduce((s, e) => s + e.apShare, 0) / all.length : 0.5;
+  const tanky = enemies.filter(e => e.arch === 'tanque' || e.arch === 'mago-tanque' || e.arch === 'tanque-suporte' || e.arch === 'lutador').length;
+  const heal = all.filter(e => CUR.HEAL.has(e.id)).length + (opts.lane && CUR.HEAL.has(opts.lane.id) ? 1 : 0);
+  const have = new Set(cur.c.slice(0, 3)), sit = [];
+  const take = (pool, why) => { const id = (pool || []).find(i => !have.has(i) && !cur.c.includes(i)) || (pool || []).find(i => !have.has(i)); if (id && !sit.includes(id)) { sit.push(id); have.add(id); reasons.push(why + ': ' + cat[id].name); } };
+  if (apE >= 0.6) take(S.ap, 'dano inimigo AP'); else if (apE <= 0.4) take(S.ad, 'dano inimigo AD');
+  if (heal >= 1) take(S.heal, 'inimigo com cura');
+  if (tanky >= 2) take(S.tank, 'alvos resistentes');
+  const L = []; [...cur.c.slice(0, 3), ...sit, ...cur.c.slice(3), ...cur.f].forEach(i => { if (!L.includes(i) && cat[i]) L.push(i); });
+  let boots = cur.b;
+  if (boots === CUR.BOOTS.plated || boots === CUR.BOOTS.merc) boots = apE >= 0.6 ? CUR.BOOTS.merc : apE <= 0.4 ? CUR.BOOTS.plated : boots;
+  const legs = L.slice(0, 5), out = [legs[0], boots, ...legs.slice(1)];
+  return { arch: P.arch, k: cur.k, profile: P, items: out.map(i => i), names: out.map(i => cat[i].name), reasons };
+}
 /* itens do mesmo "tipo" que não devem coexistir (ex.: duas botas já tratadas; aqui evita o mesmo componente raiz exclusivo) */
 function overlaps(cat, a, b) { return a.id === b.id; }
 
@@ -2977,12 +3044,112 @@ function nextPurchase(u, build) {
     /* não dá o item inteiro: compra o maior componente que cabe e ainda não foi comprado */
     const comps = cat[id].from.filter(c => !u.items.includes(c)).sort((a, b) => cat[b].price - cat[a].price);
     for (const c of comps) { const qc = quote(u, c, cat); if (qc.ok) return { id: c, cost: qc.cost, partOf: id }; }
-    if (!comps.length) for (const c of cat[id].from) for (const g of cat[c].from) { const qg = quote(u, g, cat); if (qg.ok && !u.items.includes(g)) return { id: g, cost: qg.cost, partOf: id }; }
+    /* Bloco 4b: todos os componentes diretos já estão no inventário: só falta ouro para combinar; comprar "componentes de componentes" aqui lotava o inventário */
+    if (!comps.length) return null;
+    for (const c of comps) for (const g of cat[c].from) { const qg = quote(u, g, cat); if (qg.ok && !u.items.includes(g)) return { id: g, cost: qg.cost, partOf: id }; }
     return null;
   }
   return null;
 }
 module.exports = { profile, scalingProfile, makeBuild, nextPurchase, GOLD, ARCH, score };
+
+}};
+DEF["src/engine/items/curated.js"]={deps:{},fn:function(module,exports,require,__dirname){'use strict';
+/* Builds CURADAS por campeão (Bloco 4b). ESTIMADO: escritas à mão a partir de conhecimento geral do meta recente (NÃO são estatística do patch
+   16.22.1 nem de fonte citável dentro do projeto). Cada campeão tem: k = classe de adaptação, c = itens de núcleo em ordem de compra,
+   f = opções padrão para as vagas finais, b = botas (se não for a padrão da classe). As vagas finais são trocadas conforme a partida:
+   cura inimiga (Lembrete Mortal / Morellonomicon / Espinhos), dano inimigo AP ou AD (resistência), alvos resistentes (penetração).
+   Ids são do catálogo do patch (items.json); `check()` valida que existem e são itens completos. Campeão sem entrada cai no analisador por arquétipo. */
+const BOOTS = { speed: 3170, ionian: 3171, merc: 3173, plated: 3174, sorc: 3175 };
+const DEF_BOOTS = { fighter: 3174, tank: 3174, adc: 3170, mage: 3175, assassin: 3171, enchanter: 3171 };
+
+/* situações: heal = inimigo com cura; ap/ad = maioria do dano inimigo; tank = 2+ alvos resistentes. Listas em ordem de preferência. */
+const SIT = {
+  fighter:   { heal: [6609, 3075], ap: [3156, 3065, 4401], ad: [6333, 3026, 3143], tank: [3071, 6694, 3036] },
+  tank:      { heal: [3075, 2502], ap: [4401, 2504, 3065], ad: [3075, 3143, 3110], tank: [] },
+  adc:       { heal: [3033], ap: [3156, 3139, 3102], ad: [3026, 6333, 3814], tank: [3036, 3033, 3302] },
+  mage:      { heal: [3165], ap: [3102, 3157], ad: [3157, 3026], tank: [3135, 3137, 6653] },
+  assassin:  { heal: [6609, 3033], ap: [3814, 3156, 3102], ad: [3026, 6333, 3814], tank: [6694, 3036, 6609] },
+  enchanter: { heal: [3165], ap: [3222, 3102, 4401], ad: [3190, 3050, 3157], tank: [] }
+};
+/* campeões com cura/escudo relevante contra quem vale levar anticura */
+const HEAL = new Set(['Soraka', 'Aatrox', 'Warwick', 'Vladimir', 'Sylas', 'Briar', 'Yuumi', 'Nami', 'Sona', 'Seraphine', 'DrMundo', 'Swain', 'Olaf', 'Trundle', 'Nidalee', 'Milio', 'Illaoi', 'Fiora', 'Tryndamere', 'Samira', 'Kayn', 'Irelia', 'Renata']);
+
+const E = (k, c, f, b) => ({ k, c, f: f || [], b: b || DEF_BOOTS[k] });
+const BUILDS = {
+  /* topo */
+  Aatrox: E('fighter', [6610, 3071, 3053], [6333, 3026]), Camille: E('fighter', [3078, 6610, 3053], [6333, 3026], BOOTS.ionian),
+  Darius: E('fighter', [3071, 3053, 6333], [3156, 6694]), Fiora: E('fighter', [3078, 3074, 3053], [3156, 6694]), Garen: E('fighter', [3078, 3053, 6333], [3026, 3156]),
+  Gnar: E('tank', [3068, 3143, 3084], [3075, 4401]), Gwen: E('mage', [4633, 3115, 3089], [3157, 3102]), Illaoi: E('fighter', [6610, 3053, 3071], [6333, 3156]),
+  Irelia: E('fighter', [3078, 3153, 3053], [3156, 6333], BOOTS.ionian), Jax: E('fighter', [3124, 3078, 6333], [3156, 3026]), Jayce: E('fighter', [6692, 6699, 6694], [3156, 3026], BOOTS.ionian),
+  KSante: E('tank', [3068, 3084, 3143], [3075, 4401]), Kayle: E('mage', [3124, 3115, 3089], [3157, 3102], BOOTS.speed), Kled: E('fighter', [6631, 3053, 6333], [3156, 3026]),
+  Malphite: E('tank', [3068, 3075, 3143], [4401, 2504]), Maokai: E('tank', [3068, 3084, 2504], [3110, 3143]), Mordekaiser: E('mage', [4633, 6653, 3089], [3157, 3102]),
+  Nasus: E('fighter', [3078, 3065, 3110], [3075, 6333]), Olaf: E('fighter', [6610, 3053, 6333], [3071, 3026]), Ornn: E('tank', [3068, 3110, 3083], [3075, 4401, 3143]),
+  Pantheon: E('fighter', [6610, 3071, 3053], [6333, 3026]), Poppy: E('tank', [3068, 3075, 3143], [4401, 3110]), Quinn: E('assassin', [3142, 6676, 6694], [3026, 3814]),
+  Renekton: E('fighter', [6631, 3053, 6333], [3156, 3026], BOOTS.ionian), Riven: E('fighter', [6692, 3053, 6694], [3156, 3026], BOOTS.ionian), Rumble: E('mage', [6653, 4645, 3089], [3157, 3102]),
+  Sett: E('fighter', [3078, 3071, 3053], [6333, 3156]), Shen: E('tank', [3068, 3084, 3110], [3075, 4401]), Singed: E('tank', [6653, 3068, 3110], [4401, 3075]),
+  Sion: E('tank', [3084, 3068, 3110], [3075, 4401]), Teemo: E('mage', [6653, 4645, 3089], [3157, 3102]), Tryndamere: E('adc', [6673, 3031, 3087], [3026, 3072]),
+  Urgot: E('fighter', [6610, 3071, 6333], [3156, 3026]), Volibear: E('fighter', [6610, 3068, 3053], [6333, 3156]), MonkeyKing: E('fighter', [6610, 3071, 3053], [6333, 3026]),
+  Yorick: E('fighter', [3078, 3068, 3053], [3156, 6333]), Yone: E('adc', [6673, 3031, 3072], [3026, 6333]), Yasuo: E('adc', [6673, 3031, 3087], [3026, 3072]),
+  DrMundo: E('tank', [3068, 3083, 3065], [3075, 4401]), Chogath: E('tank', [6653, 3068, 3083], [4401, 3075]),
+  /* selva */
+  Amumu: E('tank', [3068, 6653, 3110], [2504, 4401]), Belveth: E('adc', [3153, 6672, 3124], [3026, 3156]), Briar: E('fighter', [3074, 6610, 3053], [6333, 3026]),
+  Diana: E('mage', [6655, 3089, 4645], [3157, 3102]), Ekko: E('mage', [6655, 4645, 3089], [3157, 3102]), Elise: E('mage', [6653, 4645, 3089], [3157, 3102]),
+  Evelynn: E('mage', [6655, 4645, 3089], [3157, 3102]), Fiddlesticks: E('mage', [6653, 3089, 4645], [3157, 3135]), Gragas: E('mage', [6653, 3157, 3089], [3102, 3135]),
+  Graves: E('assassin', [3142, 6676, 6694], [3026, 3814]), Hecarim: E('fighter', [6610, 3053, 6333], [3156, 3026]), Ivern: E('enchanter', [6617, 3504, 6620], [3107, 3222]),
+  JarvanIV: E('fighter', [6610, 3071, 3053], [6333, 3026]), Karthus: E('mage', [6653, 3089, 3157], [3135, 3102]), Kayn: E('fighter', [3078, 3071, 3053], [6333, 3026]),
+  Kindred: E('adc', [6672, 6676, 3031], [3026, 3033]), Khazix: E('assassin', [3142, 6676, 6694], [3814, 3026]), LeeSin: E('fighter', [6692, 6610, 3053], [6333, 3026]),
+  Lillia: E('mage', [4645, 3089, 6653], [3157, 3102]), MasterYi: E('adc', [6672, 3124, 3031], [3026, 3156]), Nidalee: E('mage', [6655, 4645, 3089], [3157, 3135]),
+  Nocturne: E('fighter', [6692, 3071, 3053], [6333, 3026], BOOTS.ionian), Nunu: E('tank', [3068, 3110, 3084], [2504, 3075]), Rammus: E('tank', [3075, 6665, 3143], [3110, 2504]),
+  RekSai: E('fighter', [6692, 3071, 6694], [6333, 3026]), Rengar: E('assassin', [3142, 6692, 6694], [3814, 3026]), Sejuani: E('tank', [3068, 3075, 3110], [4401, 3143]),
+  Shaco: E('assassin', [3142, 6692, 3814], [3026, 6694]), Shyvana: E('fighter', [3078, 3053, 3143], [6333, 3156]), Skarner: E('tank', [3084, 3068, 3110], [3075, 4401]),
+  Taliyah: E('mage', [6655, 3089, 6653], [3157, 3135]), Trundle: E('fighter', [3078, 3068, 3053], [6333, 3156]), Udyr: E('tank', [3068, 3084, 3075], [4401, 3143]),
+  Vi: E('fighter', [3078, 3071, 3053], [6333, 3026]), Viego: E('fighter', [6692, 3153, 3053], [3156, 3026]), Warwick: E('fighter', [3153, 6631, 3053], [3156, 3026]),
+  XinZhao: E('fighter', [3078, 3071, 3053], [6333, 3026]), Zac: E('tank', [3084, 3068, 3075], [4401, 3143]),
+  /* meio */
+  Ahri: E('mage', [6655, 4645, 3089], [3157, 3135, 3102]), Akali: E('mage', [3152, 4645, 3089], [3157, 3135]), Akshan: E('adc', [6676, 3031, 3033], [3026, 3814]),
+  Anivia: E('mage', [6657, 6653, 3089], [3157, 3135]), Annie: E('mage', [4645, 6655, 3089], [3157, 3135]), AurelionSol: E('mage', [6657, 4645, 3089], [3157, 3135]),
+  Aurora: E('mage', [6655, 4645, 3089], [3157, 3135]), Azir: E('mage', [3115, 6653, 3089], [3157, 3135]), Brand: E('mage', [6653, 4645, 3089], [3157, 3135]),
+  Cassiopeia: E('mage', [6657, 6653, 3089], [3157, 3135]), Fizz: E('mage', [3152, 4645, 3089], [3157, 3135]), Heimerdinger: E('mage', [6655, 3089, 4645], [3157, 3135]),
+  Hwei: E('mage', [6655, 4645, 3089], [3157, 3135]), Kassadin: E('mage', [3003, 3100, 3089], [3157, 3102]), Katarina: E('mage', [4645, 3152, 3089], [3157, 3135]),
+  Kennen: E('mage', [6655, 3116, 3157], [3089, 3135]), Leblanc: E('mage', [6655, 4645, 3089], [3157, 3135]), Lissandra: E('mage', [6653, 3116, 3157], [3089, 3102]),
+  Lux: E('mage', [6655, 4645, 3089], [3157, 3135]), Malzahar: E('mage', [6653, 4628, 3089], [3157, 3135]), Naafiri: E('assassin', [3142, 6676, 6694], [3026, 3814]),
+  Neeko: E('mage', [6653, 6655, 3089], [3157, 3135]), Orianna: E('mage', [6655, 3157, 3089], [4645, 3135]), Qiyana: E('assassin', [3142, 6676, 6694], [3026, 3814]),
+  Ryze: E('mage', [3003, 3116, 3089], [3157, 3102]), Swain: E('mage', [6653, 3116, 3157], [3089, 3102]), Sylas: E('mage', [4633, 6653, 3089], [3157, 3102]),
+  Syndra: E('mage', [6655, 4645, 3089], [3157, 3135]), Talon: E('assassin', [3142, 6676, 6694], [3026, 3814]), TwistedFate: E('mage', [3100, 3089, 3115], [3157, 3135]),
+  Veigar: E('mage', [6655, 4645, 3089], [3157, 3135]), Velkoz: E('mage', [6655, 4628, 3089], [3157, 3135]), Vex: E('mage', [6655, 4645, 3089], [3157, 3102]),
+  Viktor: E('mage', [4633, 3089, 4645], [3157, 3135]), Vladimir: E('mage', [4633, 3116, 3089], [3157, 3102]), Xerath: E('mage', [6655, 4645, 3089], [3157, 3135]),
+  Zed: E('assassin', [3142, 6696, 6694], [3814, 3026]), Ziggs: E('mage', [6655, 4645, 3089], [3157, 3135]), Zoe: E('mage', [6655, 4645, 3089], [3157, 3135]),
+  /* atirador */
+  Ashe: E('adc', [3032, 3031, 3036], [3026, 3033]), Aphelios: E('adc', [6676, 3031, 3036], [3026, 3033]), Caitlyn: E('adc', [3031, 3094, 3036], [3026, 3033]),
+  Draven: E('adc', [6676, 3031, 3072], [3026, 3033]), Ezreal: E('adc', [3004, 3078, 3508], [3156, 3026], BOOTS.ionian), Jhin: E('adc', [6676, 3031, 3036], [3026, 3033]),
+  Jinx: E('adc', [6672, 3031, 3085], [3026, 3033]), Kaisa: E('adc', [6672, 3031, 3036], [3026, 3033]), Kalista: E('adc', [6672, 3153, 3031], [3026, 3033]),
+  KogMaw: E('adc', [3124, 3153, 3302], [3026, 3033]), Lucian: E('adc', [3508, 3031, 3036], [3026, 3033]), MissFortune: E('adc', [6676, 3031, 3033], [3026, 3036]),
+  Nilah: E('adc', [6673, 3031, 3036], [3026, 3033]), Samira: E('adc', [6676, 3031, 3036], [3026, 3033]), Senna: E('adc', [3031, 6676, 3036], [3026, 3033]),
+  Sivir: E('adc', [3087, 3031, 3036], [3026, 3033]), Tristana: E('adc', [3031, 3094, 3036], [3026, 3033]), Twitch: E('adc', [3153, 3085, 3031], [3026, 3033]),
+  Varus: E('adc', [6676, 3031, 3036], [3026, 3033]), Vayne: E('adc', [6672, 3153, 3302], [3026, 3033]), Xayah: E('adc', [6676, 3031, 3036], [3026, 3033]),
+  Zeri: E('adc', [6672, 3087, 3032], [3026, 3033]),
+  /* suporte */
+  Alistar: E('tank', [3190, 3050, 3143], [3075, 2504]), Bard: E('enchanter', [2065, 3504, 3107], [3222, 3157]), Blitzcrank: E('tank', [3190, 3050, 3143], [3075, 2504]),
+  Braum: E('tank', [3109, 3190, 3050], [3143, 3075]), Janna: E('enchanter', [6617, 3504, 2065], [3107, 3222]), Karma: E('enchanter', [2065, 4629, 3504], [3157, 3107]),
+  Leona: E('tank', [3109, 3190, 3143], [3075, 2504]), Lulu: E('enchanter', [6617, 2065, 3504], [3107, 3222]), Milio: E('enchanter', [6617, 3504, 3107], [3222, 6620]),
+  Morgana: E('mage', [6653, 4645, 3157], [3089, 3135]), Nami: E('enchanter', [6617, 3504, 6620], [3107, 3222]), Nautilus: E('tank', [3190, 3068, 3143], [3075, 2504]),
+  Pyke: E('assassin', [3142, 6676, 6694], [3814, 3026]), Rakan: E('enchanter', [2065, 3190, 3050], [3107, 3222]), Rell: E('tank', [3109, 3190, 3143], [3075, 2504]),
+  Renata: E('enchanter', [2065, 6617, 3504], [3107, 3222]), Seraphine: E('enchanter', [6617, 3504, 4629], [3107, 3157]), Sona: E('enchanter', [6617, 3504, 4629], [3107, 3222]),
+  Soraka: E('enchanter', [6617, 3504, 3107], [3222, 6620]), TahmKench: E('tank', [3109, 3190, 3084], [3075, 4401]), Taric: E('tank', [3109, 3190, 3143], [3075, 2504]),
+  Thresh: E('tank', [3190, 3109, 3143], [3075, 2504]), Yuumi: E('enchanter', [6617, 3504, 3107], [3222, 6620]), Zilean: E('mage', [4629, 6617, 3157], [3089, 3102]),
+  Zyra: E('mage', [6653, 4645, 3089], [3157, 3135])
+};
+
+/* valida ids contra o catálogo (usado pelos testes) */
+function check(cat) {
+  const bad = [];
+  Object.entries(BUILDS).forEach(([n, b]) => [...b.c, ...b.f].forEach(id => { const i = cat[id]; if (!i || i.cls !== 'legendary') bad.push(n + ':' + id); }));
+  Object.entries(BUILDS).forEach(([n, b]) => { const i = cat[b.b]; if (!i || i.cls !== 'boots') bad.push(n + ':boots:' + b.b); });
+  Object.entries(SIT).forEach(([k, s]) => Object.values(s).flat().forEach(id => { const i = cat[id]; if (!i || i.cls !== 'legendary') bad.push('SIT.' + k + ':' + id); }));
+  return bad;
+}
+module.exports = { BUILDS, SIT, HEAL, BOOTS, DEF_BOOTS, check };
 
 }};
 DEF["src/engine/ai/attributes.js"]={deps:{},fn:function(module,exports,require,__dirname){'use strict';

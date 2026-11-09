@@ -8,7 +8,7 @@ for(let k=0;k<30;k++){
     __M={a:3,b:40,n:${k%2?5:3},res:null};S.mgr.dr=null;
     dvOpen();dvAll();dvGo();lvOpen();lvAll();
     var m=__M,f=m.fl||{a:[],b:[],g:[]},bad=[];
-    var cnt=function(side){var seen={};f.g.forEach(function(g,i){g[side].forEach(function(c){if(c&&seen[c])bad.push(side+':'+c+'@'+(i+1));seen[c]=1})})};
+    var cnt=function(side){var seen={};f.g.forEach(function(g,i){['a','b'].forEach(function(sd){g[sd].forEach(function(c){if(c&&seen[c])bad.push(sd+':'+c+'@'+(i+1));seen[c]=1})})})};
     cnt('a');cnt('b');
     return JSON.stringify({n:m.n,games:LV?LV.gi:null,rec:f.g.length,bad:bad,lockA:f.a.length,lockB:f.b.length,fx:m.fx})})()`);
   rep.push(JSON.parse(r));

@@ -16,8 +16,9 @@ function simOne(seed, attrA, attrB, pool) {
   let s = seed >>> 0; const rnd = () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; };
   const used = new Set(), pick = r => { const p = pool[r]; let c; do { c = p[Math.floor(rnd() * p.length)]; } while (used.has(c)); used.add(c); return c; };
   const mk = (nm, a) => ({ name: nm, style: 'ma', roster: ROLES.map(role => ({ name: pick(role), player: nm[0] + role, role, attrs: { lane: a, mec: a, macro: a, team: a, mental: a } })) });
-  const g = M.createGame({ seed, teams: [mk('A', attrA), mk('B', attrB)], cap: 3600 });
-  const w = g.w; while (w.winner() === null && w.t < 3600) w.run(10);
+  const CAP = (+process.env.CAL_CAP || 60) * 60;                 /* CAL_CAP=min limita a partida (afinacao rapida; metricas de duracao perdem sentido) */
+  const g = M.createGame({ seed, teams: [mk('A', attrA), mk('B', attrB)], cap: CAP });
+  const w = g.w; while (w.winner() === null && w.t < CAP) w.run(10);
   const ev = t => w.log.filter(e => e.type === t);
   const per = ti => g.brains[ti].players.map(p => ({ cs: p.u.stat.cs || 0, k: p.u.stat.kills || 0, d: p.u.stat.deaths || 0, a: p.u.stat.assists || 0, gold: p.u.stat.goldEarned || 0, lv: p.u.level, dmg: p.u.stat.dmgDealt || 0, items: p.u.items.length }));
   const cnt = (t, ti) => ev(t).filter(e => e.team === ti).length;

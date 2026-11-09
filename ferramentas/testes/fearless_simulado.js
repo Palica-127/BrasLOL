@@ -4,7 +4,7 @@ run(ctx,`S.opt=S.opt||{};S.opt.draft=1;S.opt.live=0;S.mgr={tid:3,dr:null,bench:[
 const r=run(ctx,`(function(){var bad=0,rec=0,N=200,wins=0,lens={};
  for(var k=0;k<N;k++){var m=mk(T(3),T(40),5);S.mgr.dr=null;play(m);
   var f=m.fl;if(!f||!f.g.length){continue}rec++;
-  ['a','b'].forEach(function(sd){var seen={};f.g.forEach(function(g){g[sd].forEach(function(c){if(seen[c])bad++;seen[c]=1})})});
+  var seen={};f.g.forEach(function(g){['a','b'].forEach(function(sd){g[sd].forEach(function(c){if(seen[c])bad++;seen[c]=1})})});    /* regra oficial: bloqueio vale para os dois times */
   lens[f.g.length]=(lens[f.g.length]||0)+1;if(m.res.w===3)wins++}
  return JSON.stringify({rec:rec,bad:bad,lens:lens,winsMine:wins/N,pa:mk(T(3),T(40),5).pa})})()`);
 console.log(r);

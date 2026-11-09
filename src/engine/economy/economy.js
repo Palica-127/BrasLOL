@@ -56,17 +56,20 @@ class Economy {
   }
   giveGold(u, g, why) { if (!(g > 0)) return; u.gold += g; u.stat.goldEarned = (u.stat.goldEarned || 0) + g; this.w.emit('gold', { id: u.id, amount: +g.toFixed(2), why }); }
 
+  /* penalidade de rota (ESTIMADO): o caçador que abate minions antes de completar o item de selva recebe menos ouro e XP */
+  laneMul(u) { return u && u.smite && (u.jgStacks || 0) < 35 ? 0.5 : 1; }
   /* ---------- morte de minion / campeão ---------- */
   onMinionDeath(m, killer) {
     const w = this.w, sp = m.spec, foeTeam = 1 - m.team;
     const near = w.units.filter(x => x.kind !== 'minion' && !x.dead && x.team === foeTeam && dist(x.pos, m.pos) <= sp.xpRadius);
-    near.forEach(x => this.grantXp(x, sp.xp * xpShare(near.length), 'minion'));
+    near.forEach(x => this.grantXp(x, sp.xp * xpShare(near.length) * this.laneMul(x), 'minion'));
     if (killer && killer.kind !== 'minion' && killer.team === foeTeam) {
-      this.giveGold(killer, sp.gold, 'cs'); killer.stat.cs = (killer.stat.cs || 0) + 1; w.emit('cs', { id: killer.id, mtype: sp.type });
+      this.giveGold(killer, sp.gold * this.laneMul(killer), 'cs'); killer.stat.cs = (killer.stat.cs || 0) + 1; w.emit('cs', { id: killer.id, mtype: sp.type });
     } else w.emit('minion-lost', { id: m.id, mtype: sp.type });
   }
   onChampionKill(dst, killer) {
     const w = this.w; if (!killer || killer.kind === 'minion' || killer.kind === 'monster') return;
+    if (killer.smite) killer.jgStacks = (killer.jgStacks || 0) + 1;
     const assisters = Object.keys(dst.assisters || {}).map(Number).map(id => w.byId(id)).filter(x => x && x !== killer && x.kind !== 'minion' && x.team === killer.team && w.t - dst.assisters[x.id] < 10);
     let bounty = WIKI.championBounty; if (!this.firstBlood) { this.firstBlood = true; bounty += WIKI.firstBlood; w.emit('first-blood', { id: killer.id }); }
     this.giveGold(killer, bounty, 'kill');

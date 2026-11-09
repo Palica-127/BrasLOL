@@ -4,7 +4,7 @@
    (eficiência = valor do atributo / preço) e a build se adapta à composição inimiga (dano AP/AD, vida alta).
    Valores em ouro por atributo: tabela de eficiência da Wiki do LoL (ESTIMADO/REFERÊNCIA; usada só para ESCOLHER itens, nunca no combate). */
 const { catalog, components } = require('./catalog');
-const FX = require('./effects');
+const FX = require('./effects'), CUR = require('./curated');
 
 /* ouro por unidade de atributo (referência Wiki). pct e crit/fração -> por 1% = valor/100 aplicado na fração */
 const GOLD = { ad: 35, ap: 21.75, hp: 2.67, armor: 20, mr: 18, mana: 1.4, abilityHaste: 26.5, ms: 12, crit: 40 * 100, as: 25 * 100, lifesteal: 27.5 * 100, msPct: 39.6 * 100,
@@ -18,8 +18,11 @@ const ARCH = {
   'assassino':  { ad: 1, lethality: .95, abilityHaste: .55, armorPenPct: .5, hp: .15, ms: .25 },
   'tanque':     { hp: 1, armor: .9, mr: .9, abilityHaste: .5, tenacity: .3, baseHpRegenPct: .3, ad: .05 },
   'suporte':    { abilityHaste: 1, hp: .45, ap: .3, mr: .3, armor: .3, mana: .2, healPower: .5, hpRegen5: .1 },
-  'mago-tanque':{ ap: .6, hp: .8, abilityHaste: .6, armor: .5, mr: .5, mana: .2 }
+  'mago-tanque':{ ap: .6, hp: .8, abilityHaste: .6, armor: .5, mr: .5, mana: .2 },
+  'tanque-suporte': { hp: .7, armor: .8, mr: .8, abilityHaste: .8, tenacity: .2, ms: .1 },                    /* Bloco 4b: engage/protetor: sem Warmog, mais defesa ativa */
+  'encantador': { abilityHaste: 1, healPower: .9, ap: .35, hp: .3, mana: .4, ms: .2, hpRegen5: .1 }
 };
+const NO_SUPPORT = new Set([3083, 6657, 3084]);                  /* itens de rota/farm que suporte de fallback não compra (Warmog, Bastão das Eras, Coração de Aço) */
 
 /* proporção de AP/AD/defesa nos cálculos de habilidade: lê mStat de cada parte (ausente=AP, 2=AD, 1/6/12=defesa) */
 function scalingProfile(ch) {
@@ -46,10 +49,10 @@ function profile(ch) {
   else if (main === 'Mage') arch = second === 'Tank' ? 'mago-tanque' : 'mago';
   else if (main === 'Fighter') arch = apShare > 0.6 ? 'mago' : (second === 'Assassin' ? 'assassino' : 'lutador');
   else if (main === 'Tank') arch = second === 'Mage' ? 'mago-tanque' : 'tanque';
-  else if (main === 'Support') arch = second === 'Mage' && apShare > 0.6 ? 'mago' : 'suporte';
+  else if (main === 'Support') arch = second === 'Tank' ? 'tanque-suporte' : second === 'Mage' && apShare > 0.6 ? 'mago' : 'encantador';
   else arch = apShare > 0.5 ? 'mago' : (ranged ? 'atirador' : 'lutador');
   void has;
-  return { arch, apShare, ranged, roles, scaling: sc };
+  return { arch, apShare, ranged, roles, scaling: sc, id: ch.id };
 }
 
 const valueOf = (it, wts) => {
@@ -71,13 +74,15 @@ function score(it, arch, extra) {
 
 /* enemies: lista de perfis (profile()) dos inimigos; devolve a build completa ordenada de compra */
 function makeBuild(ch, enemies, opts = {}) {
+  const cur = CUR.BUILDS[ch.id]; if (cur) return curatedBuild(ch, cur, enemies, opts);
   const cat = catalog(), P = profile(ch), arch = P.arch;
   const legend = Object.values(cat).filter(i => i.cls === 'legendary' && i.maxStack <= 1);
   const boots = Object.values(cat).filter(i => i.cls === 'boots' && i.into.length === 0 && i.from.length);
   const apE = enemies.length ? enemies.reduce((s, e) => s + e.apShare, 0) / enemies.length : 0.5;
   const tanky = enemies.filter(e => e.arch === 'tanque' || e.arch === 'mago-tanque' || e.arch === 'lutador').length;
   const reasons = [];
-  const pool = legend.map(i => ({ i, s: score(i, arch) })).filter(x => x.s > 0);
+  const supp = arch === 'tanque-suporte' || arch === 'encantador';
+  const pool = legend.map(i => ({ i, s: score(i, arch) })).filter(x => x.s > 0 && !(supp && NO_SUPPORT.has(x.i.id)));
   /* adaptação: contra muito AP, bônus a resistência mágica; contra muito AD, a armadura; contra vida alta, penetração percentual */
   const adapt = (i) => {
     let b = 0;
@@ -98,6 +103,24 @@ function makeBuild(ch, enemies, opts = {}) {
   if (tanky >= 2) reasons.push('muitos alvos resistentes: priorizou penetração percentual');
   return { arch, profile: P, items: out.map(i => i.id), names: out.map(i => i.name), reasons };
 }
+/* Bloco 4b: build curada + adaptação. opts.lane = perfil do rival direto de rota (pesa em dobro no tipo de dano e na cura). */
+function curatedBuild(ch, cur, enemies, opts) {
+  const cat = catalog(), P = profile(ch), S = CUR.SIT[cur.k], reasons = ['build curada do campeão (estimada)'];
+  const all = enemies.concat(opts.lane ? [opts.lane] : []);
+  const apE = all.length ? all.reduce((s, e) => s + e.apShare, 0) / all.length : 0.5;
+  const tanky = enemies.filter(e => e.arch === 'tanque' || e.arch === 'mago-tanque' || e.arch === 'tanque-suporte' || e.arch === 'lutador').length;
+  const heal = all.filter(e => CUR.HEAL.has(e.id)).length + (opts.lane && CUR.HEAL.has(opts.lane.id) ? 1 : 0);
+  const have = new Set(cur.c.slice(0, 3)), sit = [];
+  const take = (pool, why) => { const id = (pool || []).find(i => !have.has(i) && !cur.c.includes(i)) || (pool || []).find(i => !have.has(i)); if (id && !sit.includes(id)) { sit.push(id); have.add(id); reasons.push(why + ': ' + cat[id].name); } };
+  if (apE >= 0.6) take(S.ap, 'dano inimigo AP'); else if (apE <= 0.4) take(S.ad, 'dano inimigo AD');
+  if (heal >= 1) take(S.heal, 'inimigo com cura');
+  if (tanky >= 2) take(S.tank, 'alvos resistentes');
+  const L = []; [...cur.c.slice(0, 3), ...sit, ...cur.c.slice(3), ...cur.f].forEach(i => { if (!L.includes(i) && cat[i]) L.push(i); });
+  let boots = cur.b;
+  if (boots === CUR.BOOTS.plated || boots === CUR.BOOTS.merc) boots = apE >= 0.6 ? CUR.BOOTS.merc : apE <= 0.4 ? CUR.BOOTS.plated : boots;
+  const legs = L.slice(0, 5), out = [legs[0], boots, ...legs.slice(1)];
+  return { arch: P.arch, k: cur.k, profile: P, items: out.map(i => i), names: out.map(i => cat[i].name), reasons };
+}
 /* itens do mesmo "tipo" que não devem coexistir (ex.: duas botas já tratadas; aqui evita o mesmo componente raiz exclusivo) */
 function overlaps(cat, a, b) { return a.id === b.id; }
 
@@ -111,7 +134,9 @@ function nextPurchase(u, build) {
     /* não dá o item inteiro: compra o maior componente que cabe e ainda não foi comprado */
     const comps = cat[id].from.filter(c => !u.items.includes(c)).sort((a, b) => cat[b].price - cat[a].price);
     for (const c of comps) { const qc = quote(u, c, cat); if (qc.ok) return { id: c, cost: qc.cost, partOf: id }; }
-    if (!comps.length) for (const c of cat[id].from) for (const g of cat[c].from) { const qg = quote(u, g, cat); if (qg.ok && !u.items.includes(g)) return { id: g, cost: qg.cost, partOf: id }; }
+    /* Bloco 4b: todos os componentes diretos já estão no inventário: só falta ouro para combinar; comprar "componentes de componentes" aqui lotava o inventário */
+    if (!comps.length) return null;
+    for (const c of comps) for (const g of cat[c].from) { const qg = quote(u, g, cat); if (qg.ok && !u.items.includes(g)) return { id: g, cost: qg.cost, partOf: id }; }
     return null;
   }
   return null;

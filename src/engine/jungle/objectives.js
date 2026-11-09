@@ -30,6 +30,21 @@ const LAYOUT = {
   crab: [{ x: 5000, y: 5000 }, { x: 10000, y: 10000 }], grubs: { x: 5200, y: 10200 }, herald: { x: 5200, y: 10200 }, baron: { x: 5200, y: 10200 }, drake: { x: 9800, y: 4800 }
 };
 
+/* RECOMPENSA POR ACAMPAMENTO (nível 1; especificação do projeto): [ouro, XP] do acampamento inteiro, repartido entre os monstros pelo peso do registro
+   (`tree` = todos os monstros que o campo gera, incluindo as divisões dos Krugs). Limpar o acampamento todo vale exatamente 4 CS, não importa quantos monstros morram.
+   ESTIMADO (sem fonte): escala com a média de nível dos campeões (ouro até x1,2 e XP até x1,5 no nível 18), bônus de XP do caçador nos monstros grandes (+15%),
+   penalidade de rota do caçador antes de completar o item de selva (x0,5 de ouro e XP dos minions) e a contagem do item (35 = `totalcounters` do filhote). */
+const CAMP_REWARD = { blue: [90, 100], red: [90, 100], gromp: [80, 135], wolves: [85, 95], raptors: [85, 95], krugs: [80, 135], crab: [55, 115] };
+const CAMP_TREE = {
+  blue: ['sru_blue', 'sru_bluemini', 'sru_bluemini2'], red: ['sru_red', 'sru_redmini', 'sru_redmini'], gromp: ['sru_gromp'], wolves: ['sru_murkwolf', 'sru_murkwolfmini', 'sru_murkwolfmini'],
+  raptors: ['sru_razorbeak', ...Array(5).fill('sru_razorbeakmini')], krugs: ['sru_krug', 'sru_krugmini', ...Array(6).fill('sru_krugminimini')], crab: ['sru_crab']
+};
+const BIG = new Set(['sru_blue', 'sru_red', 'sru_gromp', 'sru_murkwolf', 'sru_razorbeak', 'sru_krug', 'sru_crab']);
+const JUNGLE_RULE = { csPerCamp: 4, goldScale: 0.2, xpScale: 0.5, hunterXp: 0.15, laneMinionPenalty: 0.5, itemStacks: 35 };
+const campKind = c => (c && c.key ? c.key.replace(/\d+$/, '') : null);
+const isHunter = u => !!(u && u.smite);
+const hunterDone = u => !isHunter(u) || (u.jgStacks || 0) >= JUNGLE_RULE.itemStacks;
+
 class Jungle {
   constructor(w, opts = {}) {
     this.w = w; this.layout = opts.layout || LAYOUT; this.camps = []; this.epics = {}; this.stacks = [[], []]; this.soul = [null, null]; this.rift = null; this.drakeN = 0; this.elderNext = false;
@@ -89,15 +104,24 @@ class Jungle {
     const w = this.w, sp = m.spec, team = killer && killer.kind !== 'minion' && killer.kind !== 'monster' ? killer.team : null;
     /* krugs se dividem */
     if (m.name === 'sru_krug' || m.name === 'sru_krugmini') { const n = m.name === 'sru_krug' ? 4 : 2; for (let i = 0; i < n; i++) { const k = MON.create(w, 'sru_krugminimini', { x: m.pos.x + i * 30, y: m.pos.y }, m.camp, m.level); k.pos = { x: m.pos.x + i * 30, y: m.pos.y }; k.camp = m.camp; if (m.camp) { m.camp.members.push(k); } k.target = m.target; } }
+    const kind = m.camp && !m.epicKey ? campKind(m.camp) : null, rw = kind && CAMP_REWARD[kind];
+    let gold = sp.gold, xp = sp.xp;
+    if (rw) {
+      const tree = CAMP_TREE[kind], sum = (f) => tree.reduce((a, k) => a + (f(MON.spec(w.loader, k, 1)) || 0), 0);
+      const sg = sum(x => x.gold) || 1, sx = sum(x => x.xp) || 1, L = Math.max(m.level, this.avgLevel()), f = (L - 1) / 17;
+      const me = MON.spec(w.loader, m.name, 1);
+      gold = rw[0] * (1 + JUNGLE_RULE.goldScale * f) * me.gold / sg; xp = rw[1] * (1 + JUNGLE_RULE.xpScale * f) * me.xp / sx;
+    }
     const near = team === null ? [] : w.units.filter(x => x.kind !== 'minion' && x.kind !== 'monster' && !x.dead && x.team === team && dist(x.pos, m.pos) <= sp.xpRadius);
-    if (near.length) near.forEach(x => w.econ ? w.econ.grantXp(x, sp.xp * xpShare(near.length), 'monster') : this.xpNoEcon(x, sp.xp * xpShare(near.length)));
-    if (killer && team !== null) { this.gold(killer, sp.gold, 'monster'); killer.stat.cs = (killer.stat.cs || 0) + 1; killer.stat.jungleCs = (killer.stat.jungleCs || 0) + 1; }
+    if (near.length) near.forEach(x => { const q = xp * xpShare(near.length) * (rw && BIG.has(m.name) && isHunter(x) ? 1 + JUNGLE_RULE.hunterXp : 1); w.econ ? w.econ.grantXp(x, q, 'monster') : this.xpNoEcon(x, q); });
+    if (killer && team !== null) { this.gold(killer, gold, 'monster'); if (isHunter(killer)) killer.jgStacks = (killer.jgStacks || 0) + 1; if (!rw) { killer.stat.cs = (killer.stat.cs || 0) + 1; killer.stat.jungleCs = (killer.stat.jungleCs || 0) + 1; } }
     w.emit('monster-kill', { id: m.id, mkey: m.name, src: killer && killer.id, level: m.level });
     if (m.camp && !m.epicKey && m.camp.members) {
       const alive = m.camp.members.filter(x => !x.dead && x !== m);
       if (!alive.length) {
         if (m.camp.members.length) this.campOf(m).members.forEach(() => 0);
         if (m.name === 'sru_blue' || m.name === 'sru_red') { /* buff vai ao assassino */ }
+        if (rw && killer && team !== null) { killer.stat.cs = (killer.stat.cs || 0) + JUNGLE_RULE.csPerCamp; killer.stat.jungleCs = (killer.stat.jungleCs || 0) + JUNGLE_RULE.csPerCamp; w.emit('cs', { id: killer.id, mtype: 'camp:' + kind, n: JUNGLE_RULE.csPerCamp }); }
         this.campCleared(m.camp);
       }
     }
@@ -166,4 +190,4 @@ class Jungle {
   update() { this.w.units.forEach(u => { if (u.smite) this.smiteUpdate(u); }); }
 }
 function enable(w, opts) { w.jungle = new Jungle(w, opts); return w.jungle; }
-module.exports = { enable, Jungle, T, SMITE, BARON, ELDER, DRAKES, COMPOSITION, LAYOUT };
+module.exports = { enable, Jungle, T, SMITE, BARON, ELDER, DRAKES, COMPOSITION, LAYOUT, CAMP_REWARD, CAMP_TREE, JUNGLE_RULE, hunterDone };

@@ -62,8 +62,9 @@ const evs = (w, t) => w.log.filter(e => e.type === t);
 /* ---------- recompensas ---------- */
 { const { w, eco } = world(), a = champ(w, 'Garen', 0, 2500, 8200, { level: 3 }), b = champ(w, 'Garen', 0, 2600, 8200, { level: 3 }); w.run(70);
   const g = monsters(w, 'sru_gromp', 0)[0], sp = g.spec, x0 = a.xp; kill(w, g, a);
-  T(near(a.stat.goldEarned, 80) && !b.stat.goldEarned && a.stat.jungleCs === 1, 'quem mata o monstro recebe o ouro (80) e conta CS de selva');
-  T(near(a.xp - x0, sp.xp * ECO.xpShare(2), 1e-6) && near(b.xp - xpToReach(L.rules(), 3), sp.xp * ECO.xpShare(2), 1e-6), 'XP do monstro dividido entre os dois campeões próximos', a.xp + '/' + b.xp); void eco; }
+  const f = (g.level - 1) / 17, gold = 80 * (1 + 0.2 * f), xp = 135 * (1 + 0.5 * f);
+  T(near(a.stat.goldEarned, gold, 1e-6) && !b.stat.goldEarned && a.stat.jungleCs === 4, 'Gromp: ouro ~80 (escala com o nível) ao assassino e acampamento limpo = 4 CS', a.stat.goldEarned + '/' + a.stat.jungleCs);
+  T(near(a.xp - x0, xp * ECO.xpShare(2), 1e-6) && near(b.xp - xpToReach(L.rules(), 3), xp * ECO.xpShare(2), 1e-6), 'XP do Gromp (135 base) dividido entre os dois campeões próximos', a.xp + '/' + b.xp); void eco; }
 
 /* ---------- Golpear ---------- */
 { const { w, jg } = world(), p = champ(w, 'Garen', 0, 2500, 8200, { level: 2, smite: true }); w.run(70);
@@ -187,5 +188,29 @@ const jungleLab = (seed, name, level, nItems) => {
 { const { w, jg } = drakeWorld(9), s = w.units.find(u => u.team === 0); s.smite = null; const sm = champ(w, 'Garen', 1, 9800, 4800, { level: 14, smite: true }); w.run(301);
   const d = jg.epics.drake[0]; d.hp = 590; jg.smite(sm, d);
   T(d.dead && sm.stat.goldEarned >= 75 && jg.stacks[1].length === 1, 'roubo de objetivo com Golpear: quem dá o último golpe (time 1) leva o dragão'); }
+
+
+/* ---------- recompensa por acampamento (especificação): totais, 4 CS, escala, caçador e penalidade de rota ---------- */
+{ const TAB = { gromp: [80, 135], krugs: [80, 135], wolves: [85, 95], raptors: [85, 95], blue: [90, 100], red: [90, 100] };
+  Object.keys(TAB).forEach(k => {
+    const { w } = world(7), a = champ(w, 'Garen', 0, 100, 100, { level: 1 }); w.run(80);
+    const c = w.jungle.camps.find(x => x.key === k && x.side === 0); a.xp = 0;
+    let g = 0; while (c.members.length && g++ < 20) c.members.slice().forEach(m => { if (!m.dead) kill(w, m, a); });
+    const f = (Math.max(1, w.jungle.avgLevel()) - 1) / 17;
+    T(a.stat.jungleCs === 4 && a.stat.cs === 4, `${k}: acampamento limpo = exatamente 4 CS, não importa o número de monstros`, a.stat.cs);
+    T(near(a.stat.goldEarned, TAB[k][0] * (1 + 0.2 * f), 1e-6), `${k}: ouro total ${TAB[k][0]} (escala com o nível) repartido entre os monstros`, a.stat.goldEarned);
+  }); }
+{ const run = hunter => { const { w } = world(3), a = champ(w, 'Garen', 0, 2500, 8200, { level: 1, smite: hunter }); w.run(80); a.xp = 0; a.level = 1;
+    const c = w.jungle.camps.find(x => x.key === 'gromp' && x.side === 0); kill(w, c.members[0], a); return a.xp; };
+  const base = run(false), hunt = run(true);
+  T(base > 130 && base < 150, 'XP do Gromp ~135 no nível 1', base);
+  T(near(hunt / base, 1.15, 1e-6), 'caçador com item de selva ganha +15% de XP em monstros grandes', hunt / base); }
+{ const { w } = world(5), h = champ(w, 'Garen', 0, 2500, 2500, { level: 3, smite: true }), n = champ(w, 'Garen', 0, 2600, 2500, { level: 3 });
+  const eco = w.econ, m1 = { spec: { xp: 60, gold: 20, type: 'melee', xpRadius: 1400 }, team: 1, pos: { x: 2500, y: 2500 }, kind: 'minion', id: 99991 };
+  const g0 = h.gold; eco.onMinionDeath(m1, h); const gh = h.gold - g0;
+  const g1 = n.gold; eco.onMinionDeath(m1, n); const gn = n.gold - g1;
+  T(gn > 0 && near(gh, gn * 0.5, 1e-6), 'caçador sem item de selva completo recebe metade do ouro de minions', gh + '/' + gn);
+  h.jgStacks = 35; const g2 = h.gold; eco.onMinionDeath(m1, h);
+  T(near(h.gold - g2, gn, 1e-6), 'com o item de selva completo (35 acúmulos) a penalidade some'); }
 
 console.log(ok ? '\nTODOS OS TESTES PASSARAM' : '\nHÁ FALHAS'); process.exit(ok ? 0 : 1);
