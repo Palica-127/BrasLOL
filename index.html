@@ -1297,6 +1297,17 @@ img{-webkit-user-drag:none}
 .bcpp{border-radius:8px;overflow:hidden;box-shadow:0 12px 28px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.1)}
 .bcpp .ppl{font-size:12px}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+/* cartinhas nas listas (elencos, prêmios, lendas) */
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:22px 14px;justify-items:center;margin:6px 0 4px}
+.fcell{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;width:100%;max-width:210px;text-align:center}
+.fcell .fut{width:158px;height:228px}
+.fcell .fut .fo{font-size:42px;left:23px;top:30px}.fcell .fut .fr{left:23px;top:72px;font-size:15px}.fcell .fut .fn{left:22px;top:94px;font-size:13px}.fcell .fut .fs{left:21px;top:114px;width:30px;height:35px}
+.fcell .fut .fa{right:20px;top:26px;width:88px;height:104px}.fcell .fut .fa.ph{left:57%;right:auto;top:7%;width:66%;height:58%}.fcell .fut .fnm{top:138px;font-size:20px}.fcell .fut .fst{top:170px;font-size:16px}
+.fcap{display:flex;flex-direction:column;gap:2px;font-size:13px;line-height:1.25;color:#9fb0c8}.fcap b{color:#e8edf7;font-weight:700}.fcap .pt{font-weight:800;color:#e8c566}
+.frk{position:absolute;left:4px;top:-6px;z-index:3;min-width:28px;height:28px;padding:0 6px;display:grid;place-items:center;border-radius:14px;background:#0b1230;border:2px solid #e8c566;color:#fff;font:800 14px var(--d)}
+.fgrid.pod{grid-template-columns:repeat(3,minmax(0,210px));justify-content:center;align-items:end}
+.hero .fut{margin:10px auto 6px;filter:drop-shadow(0 10px 18px rgba(0,0,0,.5))}.pn:has(.fgrid){grid-column:1/-1}
+@media(max-width:560px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 8px}.fcell .fut{width:150px;height:216px}.fgrid.pod{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -6220,6 +6231,11 @@ function fut(o,cls=''){
   ${o.f&&Math.abs(o.f)>=.5?`<span class="ff">${o.f>0?'▲':'▼'}${Math.abs(o.f).toFixed(1)}</span>`:''}</button>`;
 }
 const hx=(r,c='')=>`<span class="hx t${tier(r)} ${c}">${r}</span>`;
+/* listas de jogadores em cartinhas: cada item = carta (fut) + legenda; a grade se ajusta à largura */
+const teamOf=nm=>ALLT().find(t=>t.name===nm)||null;
+const roleOf=n=>{const d=S.pdb&&S.pdb[n];return d&&d.role!=null?d.role:2};
+const fcell=(o,cap='',pos=0,cls='')=>`<div class="fcell">${pos?`<span class="frk num">${pos}</span>`:''}${fut(o,cls)}${cap?`<div class="fcap">${cap}</div>`:''}</div>`;
+const fgrid=h=>`<div class="fgrid">${h}</div>`;
 const lk=n=>{const c=natC(n);return `<button class="lk" data-act="player" data-v="${esc(n)}">${esc(n)}</button>${S.inj&&S.inj[n]?'<span class="inj" title="Lesionado">LES</span>':''}${c?`<button class="nat" data-act="nation" data-v="${c}" title="${esc(NATN[c]||c)}">${natTxt(c)}</button>`:''}`};
 const tlk=t=>`<button class="lk" data-act="team" data-v="${t.id}">${esc(t.name)}</button>`;
 const IC={
@@ -6606,10 +6622,10 @@ function vBola(){
   const cur=S.hist.find(h=>h.y===selYear)||S.hist[S.hist.length-1];
   const w=cur.top[0];
   let h=`<div class="pills">${ys.map(y=>`<button class="pill" aria-pressed="${y===cur.y}" data-act="year" data-v="${y}">${y}</button>`).join('')}</div>`;
-  h+=`<section class="hero">${troSvg('b')}<div class="k">Melhor Jogador do Ano ${cur.y}</div><div class="nm">${lk(w.n)}</div>${hx(w.r,'dk lg')}<div class="tm">${esc(w.team)} · ${esc(w.lg)} · ${RN[w.role]}</div><div>${w.ch.map(c=>`<span class="chip">${esc(c)}</span>`).join('')}</div></section>`;
-  const pdm=i=>{const x=cur.top[i];return `<div class="pd p${i+1}">${hx(x.r,'sm')}<b>${lk(x.n)}</b><small>${esc(x.team)}</small><div class="bs">${i+1}</div></div>`};
-  h+=`<div class="podium">${pdm(1)}${pdm(0)}${pdm(2)}</div>`;
-  h+=`<section class="pn"><h2>Top 10 de ${cur.y}</h2><ol class="rank">${cur.top.map((x,i)=>`<li><span class="pos num">${i+1}</span>${hx(x.r,'sm')}<span><span class="nm2">${lk(x.n)}</span><br><small>${esc(x.team)} · ${RN[x.role]} · nota ${x.sc}</small>${x.ch.length?`<br><small>${x.ch.slice(0,3).map(esc).join(' · ')}</small>`:''}</span><span class="pt num">+${x.pts}<small>pts</small></span></li>`).join('')}</ol></section>`;
+  h+=`<section class="hero">${troSvg('b')}<div class="k">Melhor Jogador do Ano ${cur.y}</div><div class="nm">${lk(w.n)}</div>${fut({n:w.n,r:w.r,role:w.role,team:teamOf(w.team),f:0},'big')}<div class="tm">${esc(w.team)} · ${esc(w.lg)} · ${RN[w.role]}</div><div>${w.ch.map(c=>`<span class="chip">${esc(c)}</span>`).join('')}</div></section>`;
+  const pdm=i=>{const x=cur.top[i];return fcell({n:x.n,r:x.r,role:x.role,team:teamOf(x.team)},`<b>${esc(x.team)}</b><span>nota ${x.sc}</span><span class="pt">+${x.pts} pts</span>`,i+1)};
+  h+=`<section class="pn"><h2>Pódio ${cur.y}</h2><div class="fgrid pod">${pdm(0)}${pdm(1)}${pdm(2)}</div></section>`;
+  h+=`<section class="pn"><h2>Top 10 de ${cur.y}</h2>${fgrid(cur.top.map((x,i)=>fcell({n:x.n,r:x.r,role:x.role,team:teamOf(x.team)},`<b>${esc(x.team)}</b><span>nota ${x.sc}</span>${x.ch.length?`<span>${x.ch.slice(0,3).map(esc).join(' · ')}</span>`:''}<span class="pt">+${x.pts} pts</span>`,i+1)).join(''))}</section>`;
   const c=cur.champs;
   h+=`<section class="pn"><h2>Campeões de ${cur.y}</h2><div class="rowl"><span class="grow"><b>Mundial</b> ${esc(c.wc)}<br><small>MVP ${lk(c.mvp)}</small></span></div><div class="rowl"><span class="grow"><b>MSI</b> ${esc(c.msi)}<br><small>MVP ${c.msiMvp?lk(c.msiMvp):'–'}</small></span></div><div class="rowl"><span class="grow"><b>Split 1</b><br><small>${c.s1.map(esc).join(' · ')}</small>${c.mv1?`<br><small>MVPs: ${c.mv1.map(esc).join(' · ')}</small>`:''}</span></div><div class="rowl"><span class="grow"><b>Split 2</b><br><small>${c.s2.map(esc).join(' · ')}</small>${c.mv2?`<br><small>MVPs: ${c.mv2.map(esc).join(' · ')}</small>`:''}</span></div></section>`;
   return h+preHTML();
@@ -6634,8 +6650,9 @@ function plistHTML(){
   const tot=rows.length;
   let h=rows.slice(0,60).map(x=>{
     const tt=[x.h.bd?`${x.h.bd} Melhor${x.h.bd>1?'es':''} do Ano`:'',x.h.wc?`${x.h.wc} Mundial${x.h.wc>1?'is':''}`:'',x.h.msi?`${x.h.msi} MSI`:''].filter(Boolean).join(' · ');
-    return `<div class="pl">${x.r?hx(x.r,'sm'):'<span class="hx sm">–</span>'}<span><span class="nm2">${lk(x.n)}</span><span class="tag">${x.act?'ativo':'aposentado'}</span><br><small>${x.act?esc(x.P.t.name)+' · '+RN[x.P.p.role]:'fora do jogo'}${tt?' · '+tt:''}</small></span><span class="pt num">${r1(x.h.pts)}<small>pts</small></span></div>`;
+    return fcell({n:x.n,r:x.r||Math.round(60+Math.min(30,x.h.pts)),role:x.act?x.P.p.role:roleOf(x.n),team:x.act?x.P.t:null,f:x.act?x.P.p.f:0},`<b>${x.act?esc(x.P.t.name):'aposentado'}</b>${tt?`<span>${tt}</span>`:''}<span class="pt">${r1(x.h.pts)} pts</span>`);
   }).join('');
+  h=fgrid(h);
   if(!tot)h=`<p class="empty">Nenhum jogador encontrado.</p>`;
   if(tot>60)h+=`<p class="note">Mostrando 60 de ${tot}. Use a busca para achar os demais.</p>`;
   return h;
@@ -6669,9 +6686,9 @@ function vHof(){
       const hh=S.hof[n],mv=S.mv[n],p=PM[n];
       const m=mv==='N'?'<span class="mv new">novo</span>':mv>0?`<span class="mv up">▲${mv}</span>`:mv<0?`<span class="mv dn">▼${-mv}</span>`:'';
       const tt=[hh.bd?`${hh.bd} Melhor${hh.bd>1?'es':''} do Ano`:'',hh.wc?`${hh.wc} Mundial${hh.wc>1?'is':''}`:'',hh.msi?`${hh.msi} MSI`:'',hh.lg?`${hh.lg} liga${hh.lg>1?'s':''}`:'',hh.mvp?`${hh.mvp} MVP${hh.mvp>1?'s':''}`:''].filter(Boolean).join(' · ');
-      return `<li><span class="pos num">${i+1}</span>${p?hx(p.p.r,'sm'):'<span class="hx sm">–</span>'}<span><span class="nm2">${lk(n)}</span>${m}<span class="tag">${p?'ativo':'aposentado'}</span>${tt?`<br><small>${tt}</small>`:''}</span><span class="pt num">${Math.round(sc(hh))}<small>pts</small></span></li>`;
+      return fcell({n,r:p?p.p.r:Math.min(99,Math.round(60+sc(hh)/3)),role:p?p.p.role:roleOf(n),team:p?p.t:null,f:p?p.p.f:0},`<b>${p?esc(p.t.name):'aposentado'} ${m}</b>${tt?`<span>${tt}</span>`:''}<span class="pt">${Math.round(sc(hh))} pts</span>`,i+1);
     }).join('');
-    h+=`<section class="pn"><h2>Top 10 de todos os tempos</h2><ol class="rank">${rows}</ol><p class="note">Pontos = Melhor Jogador do Ano/temporada (${PTS.join(' · ')}) + Mundial 6 + MSI 3 + MVP 1,5 + liga 0,5. O hexágono mostra o OVR atual de quem ainda joga. Toque em um nome para abrir a ficha.</p></section>`;
+    h+=`<section class="pn"><h2>Top 10 de todos os tempos</h2>${fgrid(rows)}<p class="note">Pontos = Melhor Jogador do Ano/temporada (${PTS.join(' · ')}) + Mundial 6 + MSI 3 + MVP 1,5 + liga 0,5. A carta mostra o OVR atual de quem ainda joga. Toque em uma carta para abrir a ficha.</p></section>`;
     const bl=[...(S.pre||[]).map(x=>({y:x.y,n:x.top[0].n,team:x.top[0].team})),...S.hist.map(x=>({y:x.y,n:x.top[0].n,team:x.top[0].team}))].reverse();
     h+=`<section class="pn"><h2>Melhor Jogador do Ano</h2>${bl.map(x=>`<div class="rowl"><span class="lg num">${x.y}</span><span class="grow"><b>${lk(x.n)}</b> <small>${esc(x.team)}</small></span></div>`).join('')}</section>`;
   }else if(hofView==='wc'||hofView==='msi'){
@@ -6699,14 +6716,14 @@ function vTeams(){
   if(selLg==='NAT')return h+natListHTML();
   if(selLg==='TOP'){
     const all=S.teams.flatMap(t=>t.pl.map(p=>({p,t}))).sort((a,b)=>(b.p.r+b.p.f)-(a.p.r+a.p.f)).slice(0,25);
-    return h+`<section class="pn"><h2>Melhores jogadores agora</h2><ol class="rank">${all.map((x,i)=>`<li><span class="pos num">${i+1}</span>${hx(x.p.r,'sm')}<span><span class="nm2">${lk(x.p.n)}</span><br><small>${esc(x.t.name)} · ${RN[x.p.role]} · ${x.p.age} anos</small></span>${fmtF(x.p.f)}</li>`).join('')}</ol></section>`;
+    return h+`<section class="pn"><h2>Melhores jogadores agora</h2>${fgrid(all.map((x,i)=>fcell({n:x.p.n,r:x.p.r,role:x.p.role,age:x.p.age,f:x.p.f,team:x.t},`<b>${esc(x.t.name)}</b><span>${x.p.age} anos</span>`,i+1)).join(''))}</section>`;
   }
   const ts=pmSort(S.teams.filter(t=>t.lg===selLg)).map(x=>x.t);
   h+=`<div class="row"><button class="ghost" data-act="league" data-v="${selLg}">Ficha da liga ${selLg}</button></div>`;
   const cardF=t=>{
     const f=r1(eff(t)-baseOvr(t));
     return `<section class="pn"><div class="th"><h3>${crest(t)}<span>${tlk(t)}${t.est?' <span class="tag">estimado</span>':''} ${pmBadge(pmInfo(t))}</span></h3><span>${hx(Math.round(baseOvr(t)),'sm')}</span></div><small>Forma do time ${f>0?`<span class="st up">▲${f.toFixed(1)}</span>`:f<0?`<span class="st dn">▼${(-f).toFixed(1)}</span>`:'estável'}</small>
-    ${t.pl.map(p=>`<div class="pr"><span class="role">${RN[p.role]}</span><span class="who">${lk(p.n)}<small>${p.age} anos${p.age<=24?` · potencial ${Math.round(p.pot)}`:''}${p.d?` · ${p.d>0?'+':''}${p.d} na virada`:''}</small><div class="ovb"><i style="width:${clamp((p.r-60)*2.5,4,100)}%"></i></div></span>${fmtF(p.f)}${hx(p.r,'sm')}</div>`).join('')}</section>`;
+    ${fgrid(t.pl.map(p=>fcell({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f,team:t},`<span>${p.age} anos${p.age<=24?` · pot. ${Math.round(p.pot)}`:''}</span>${p.d?`<span>${p.d>0?'+':''}${p.d} na virada</span>`:''}`)).join(''))}</section>`;
   };
   h+=ts.map(cardF).join('');
   const t2=pmSort(D2L().filter(t=>t.lg===selLg)).map(x=>x.t);
@@ -6785,7 +6802,7 @@ function vNation(c){
   else o+=`<section class="pn"><h2>Histórico na Copa</h2><p class="empty" style="margin:0">Nenhuma Copa disputada ainda. A primeira é depois do Melhor Jogador do Ano de 2026, e depois de 4 em 4 anos.</p></section>`;
   if(S.nm&&S.nm.code===c&&(S.nm.cups||[]).length)o+=`<section class="pn"><h2>Seu histórico como técnico</h2>${S.nm.cups.slice().reverse().map(x=>`<div class="rowl"><span class="lg num">${x.y}</span><span class="grow"><b>${x.res}</b></span></div>`).join('')}</section>`;
   if(Object.keys(byLg).length)o+=`<section class="pn"><h2>Jogadores por liga</h2>${Object.keys(byLg).sort((a,b)=>byLg[b]-byLg[a]).map(l=>`<div class="rowl"><span class="lg">${llk(l)}</span><span class="grow"><b class="num">${byLg[l]}</b> jogador${byLg[l]>1?'es':''}</span></div>`).join('')}</section>`;
-  if(leg.length)o+=`<section class="pn"><h2>Lendas do país</h2><ol class="rank">${leg.map((x,i)=>`<li><span class="pos num">${i+1}</span><span class="hx sm t2">${Math.round(sc(x.h))}</span><span><span class="nm2">${lk(x.n)}</span><br><small>${x.h.bd||0} Melhor do Ano · ${x.h.wc||0} Mundiais · ${x.h.msi||0} MSI</small></span></li>`).join('')}</ol></section>`;
+  if(leg.length)o+=`<section class="pn"><h2>Lendas do país</h2>${fgrid(leg.map((x,i)=>fcell({n:x.n,r:Math.min(99,Math.round(sc(x.h))),role:roleOf(x.n)},`<span>${x.h.bd||0} Melhor do Ano · ${x.h.wc||0} Mundiais · ${x.h.msi||0} MSI</span>`,i+1)).join(''))}</section>`;
   return o;
 }
 
@@ -6981,7 +6998,7 @@ function vLeague(lg){
   o+=`<section class="pn"><h2>Estante da liga</h2>`+
     [['w','Mundiais',wcs],['m','MSI',msis]].map(([k,t,it])=>`<div class="sh-t"><span>${t}</span><b class="num">${it.length}</b></div>${shelfRow(k,it.map(x=>({y:x.y,l:`${x.k} ${x.y} · ${x.t.name}`,sub:x.t.name})),'wide')}`).join('')+
     `<div class="sh-t"><span>Melhor Jogador do Ano</span><b class="num">${bolas.length}</b></div>${shelfRow('b',bolas.map(x=>({y:x.y,l:`Melhor Jogador do Ano ${x.y}: ${x.n}`,sub:x.n})),'bola')}</section>`;
-  o+=`<section class="pn"><h2>Melhores jogadores</h2><ol class="rank">${top.map((x,i)=>`<li><span class="pos num">${i+1}</span>${hx(x.p.r,'sm')}<span><span class="nm2">${lk(x.p.n)}</span><br><small>${esc(x.t.name)} · ${RN[x.p.role]} · ${x.p.age} anos</small></span>${fmtF(x.p.f)}</li>`).join('')}</ol></section>`;
+  o+=`<section class="pn"><h2>Melhores jogadores</h2>${fgrid(top.map((x,i)=>fcell({n:x.p.n,r:x.p.r,role:x.p.role,age:x.p.age,f:x.p.f,team:x.t},`<b>${esc(x.t.name)}</b><span>${x.p.age} anos</span>`,i+1)).join(''))}</section>`;
   if(lgt.length)o+=`<section class="pn"><details class="det"><summary>Campeões por temporada</summary>${lgt.map(x=>`<div class="trp"><span class="y num">${x.y}</span><span><b>${esc(x.k)}</b><small>${tlk(x.t)}</small></span></div>`).join('')}</details></section>`;
   return o;
 }
@@ -7050,7 +7067,7 @@ function vTeam(id){
   o+=`<div class="shv v-${view}">`;
   if(view==='el'){
     o+=`<section class="pn sh-p"><h2>Elenco atual</h2>${pitchHTML(t)}</section>`;
-    if(t.bn&&t.bn.length)o+=`<section class="pn sh-r"><h2>Reservas</h2><p class="note" style="margin:0 0 8px">Quando um titular se aposenta, o reserva da mesma função assume a vaga. Sem reserva, o time contrata um jogador mais fraco.</p>${t.bn.map(p=>`<div class="pl" style="grid-template-columns:34px minmax(0,1fr) auto">${hx(p.r,'sm')}<span><span class="nm2">${esc(p.n)}</span><br><small>${RN[p.role]} · ${p.age} anos · pot. ${p.pot}</small></span></div>`).join('')}</section>`;
+    if(t.bn&&t.bn.length)o+=`<section class="pn sh-r"><h2>Reservas</h2><p class="note" style="margin:0 0 8px">Quando um titular se aposenta, o reserva da mesma função assume a vaga. Sem reserva, o time contrata um jogador mais fraco.</p>${fgrid(t.bn.map(p=>fcell({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f||0,team:t},`<span>${p.age} anos · pot. ${p.pot}</span>`)).join(''))}</section>`;
   }else if(view==='ti'){
     o+=shelfHTML(t);
     const allT=[...t.tt,...legExtra(t).c,...vc.map(x=>({...x,k:'Vice · '+x.k}))];
