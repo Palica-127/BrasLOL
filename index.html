@@ -3630,7 +3630,7 @@ const LDMS=5500;
 function ldSnap(){
   const mk=s=>{const t=dvTeam(s);return{name:t.name,t:t,pl:t.pl.map((p,i)=>({n:p.n,c:DV.pk[s][i],r:i}))}};
   const m=DV.m;
-  return{b:mk('b'),r:mk('r'),us:DV.us,gi:(DV.lv&&LV?LV.gi:0)+1,n:m.n,stage:m.cup?cupStageNm():m.fr?(S.season.fm&&S.season.fm.k==='sq'?'Scrim':'Exibição'):PHASES[S.phase]&&S.season.sp?spLabel(S.season.sp):(PHASES[S.phase]?PHASES[S.phase].l:'')};
+  return{b:mk('b'),r:mk('r'),us:DV.us,gi:(DV.lv&&LV?LV.gi:0)+1,n:m.n,stage:m.cup?cupStageNm():m.fr?(ptSq()?'Scrim':'Exibição'):PHASES[S.phase]&&S.season.sp?spLabel(S.season.sp):(PHASES[S.phase]?PHASES[S.phase].l:'')};
 }
 function ldStart(snap,cont){
   clearTimeout(LOADT);
@@ -3681,7 +3681,7 @@ function dfGridHTML(){
 }
 function vDraft(){
   const m=DV.m,us=DV.us,op=us==='b'?'r':'b',A=dvTeam('b'),B=dvTeam('r'),turn=DV.i<SEQ.length?SEQ[DV.i]:null,mine=!!turn&&turn[1]===us,myT=dvTeam(us),opT=dvTeam(op);
-  const stage=m.cup?cupStageNm():m.fr?(S.season.fm&&S.season.fm.k==='sq'?'Scrim':'Exibição'):PHASES[S.phase]&&S.season.sp?spLabel(S.season.sp):(PHASES[S.phase]?PHASES[S.phase].l:'');
+  const stage=m.cup?cupStageNm():m.fr?(ptSq()?'Scrim':'Exibição'):PHASES[S.phase]&&S.season.sp?spLabel(S.season.sp):(PHASES[S.phase]?PHASES[S.phase].l:'');
   const isBan=!!turn&&turn[0]==='ban';
   const gnum=(LV&&LV.m===m?LV.gi:0)+1;
   const lab=!turn?'Draft concluído':mine?(isBan?'Bans · sua vez':'Picks · sua vez'):`${isBan?'Bans':'Picks'} · ${esc(dvTeam(turn[1]).name)}`;
@@ -3742,7 +3742,7 @@ function lvOpen(){
 function lvGameStart(){
   LV.us=sdBlueA(LV.m,LV.gi)===LV.ia?'a':'b';
   LV.state=LV.pc?'pick':'ckpt';LV.ps=0;LV.ch=null;LV.cp=0;LV.min=0;LV.sec=0;LV.lead=0;LV.adj=0;LV.pp=null;LV.sub=false;LV.bar=false;LV.her=false;
-  LV.q=[];LV.mq=[];LV.pcw={k:1,d:1};
+  LV.q=[];LV.mq=[];LV.pcw=LV.pc&&pcPerk('c3')?{k:1.12,d:.9}:{k:1,d:1};
   LV.kd={me:[0,1,2,3,4].map(()=>({k:0,d:0,a:0,dead:0,st:0})),op:[0,1,2,3,4].map(()=>({k:0,d:0,a:0,dead:0,st:0}))};LV.str={me:lvMkStr(),op:lvMkStr()};
   LV.st={me:{k:0,t:0,d:0,b:0,g:0,e:0,h:0,n:0},op:{k:0,t:0,d:0,b:0,g:0,e:0,h:0,n:0}};LV.log=[{m:0,t:`Mapa ${LV.gi+1}: os times entram no Rift.`,k:'sys'}];
   LV.gh=[[0,0]];LV.ghT=0;LV.fp=null;
@@ -5206,7 +5206,7 @@ function pcLog(t){const pc=S.pc;pc.log.unshift(`${S.year}: ${t}`);pc.log=pc.log.
 function pcMake(p,t,extra){
   const at=extra.at;
   S.pc=Object.assign({n:p.n,at,xp:[0,0,0,0,0],en:100,fame:5,cash:0.2,sal:Math.max(.2,salOf(p)),ctr:2,start:S.year,hist:[],log:[],pool:{},offers:[],goals:{},ev:null,ended:null,r0:p.r,vaga:0,cap:p.pot+2},extra.pc||{});
-  p.pc=1;
+  p.pc=1;pcEnsure();
   pcLog(`começa a carreira no ${t.name}${extra.bn?' como reserva':''}.`);
 }
 function pcCreate(f){
@@ -5221,7 +5221,7 @@ function pcCreate(f){
   S.pdb[name]={role,debut:S.year,ret:null,seasons:[],tl:[],nat:f.nat||pick(GENN[t.lg]||WORLDN)};
   t.bn=t.bn||[];t.bn.push(p);
   S.mgr=null;
-  pcMake(p,t,{at,bn:true,pc:{fame:3}});
+  pcMake(p,t,{at,bn:true,pc:{fame:3,tr:30}});
   return true;
 }
 function pcAdopt(n){
@@ -5251,16 +5251,16 @@ function pcEv(k){
   let t='';
   const gp=(n)=>{pc.pts=(pc.pts||0)+n};
   if(e==='stream'){if(k==='a'){fm(4);pc.en=Math.max(0,pc.en-30);pc.cash=r1(pc.cash+.2);t='Stream de sucesso: mais fama, menos energia.'}else{pc.en=Math.min(100,pc.en+12);t='Você descansou.'}}
-  else if(e==='rival'){if(k==='a'){fm(3);pc.at[4]=Math.max(38,pc.at[4]-1);t='A resposta viralizou, mas a cabeça pesou (−1 Mental).'}else{pcXp(4,30);gp(1);t='Você ignorou e treinou a cabeça (+XP de Mental e +1 ponto).'}}
+  else if(e==='rival'){if(k==='a'){fm(3);pc.at[4]=Math.max(38,pc.at[4]-1);t='A resposta viralizou, mas a cabeça pesou (−1 Mental).'}else{pcXp(4,30);pcGain(40);t='Você ignorou e treinou a cabeça (+XP de Mental e +40 de XP).'}}
   else if(e==='sponsor'){if(k==='a'){pc.cash=r1(pc.cash+.5);fm(-1);t='Patrocínio fechado: +US$ 0,5 mi.'}else{fm(1);t='Você recusou e ganhou respeito.'}}
-  else if(e==='scrim'){if(k==='a'){pc.en=Math.max(0,pc.en-20);pcXp(2,34);gp(1);t='Scrim puxado: +XP de Macro e +1 ponto de atributo.'}else{pc.en=Math.min(100,pc.en+10);t='Você pulou o scrim.'}}
-  else if(e==='vod'){if(k==='a'){pcXp(3,30);gp(2);t='Revisão útil: +XP de Equipe e +2 pontos de atributo.'}else t='Você dispensou a revisão.'}
+  else if(e==='scrim'){if(k==='a'){pc.en=Math.max(0,pc.en-20);pcXp(2,34);pcGain(50);t='Scrim puxado: +XP de Macro e +50 de XP.'}else{pc.en=Math.min(100,pc.en+10);t='Você pulou o scrim.'}}
+  else if(e==='vod'){if(k==='a'){pcXp(3,30);pcGain(80);t='Revisão útil: +XP de Equipe e +80 de XP.'}else t='Você dispensou a revisão.'}
   pcSync();pcLog(t);msg=t;
 }
 function pcTick(){
   const pc=S.pc;if(!pc||pc.ended)return;
-  pc.en=Math.min(100,pc.en+50);pc.vaga=0;pc.rest=0;
-  const f=pcFind();
+  pc.en=Math.min(100,pc.en+10);
+  const f=pcFind();pcDaily();
   if(f){const pb=pcPoolB();f.p.f=clamp(f.p.f*.6+(pc.en>=70?.25:pc.en<35?-.5:0)+pb*.3,-3,3)}
   if(!pc.ev&&Math.random()<.14)pc.ev=pick(Object.keys(PEV));
 }
@@ -5270,19 +5270,192 @@ function pcPoolB(){
   return (l.reduce((a,b)=>a+b,0)/3-.5)*2;
 }
 function pcPts(n,why){const pc=S.pc;pc.pts=(pc.pts||0)+n;pcLog(`+${n} ponto${n>1?'s':''} de atributo (${why}).`)}
-function pcTrain(mode){
+/* ---------- nível, árvore de habilidades, treino semanal, confiança do técnico e testes (modo jogador) ----------
+   XP (partidas, treino semanal, scrims, torneios, eventos) sobe o nível; cada nível dá pontos para gastar em status (+1 atributo) e
+   características (3 ramos de 3). A vaga de titular não é pedida: o técnico decide pela confiança (desempenho em jogos, treinos e testes). */
+const PCLV=60,pcNeed=lv=>80+26*lv;
+const pcAbs=()=>S.year*365+(S.day||1);
+const pcPerk=id=>!!(S.pc&&S.pc.perks&&S.pc.perks[id]);
+const PBR={c:['Competidor','Decide jogos'],e:['Estudioso','Evolui mais rápido'],p:['Profissional','Vida de atleta']};
+/* [id, ramo, nome, descrição, custo, nível mínimo, pré-requisito] */
+const PERKS=[
+ ['c1','c','Sangue frio','"Buscar o jogo" acerta 10% mais vezes.',1,2,null],
+ ['c2','c','Decisivo','+0,3 de nota nos mapas vencidos.',2,6,'c1'],
+ ['c3','c','Carregador','Mais abates e menos mortes nos mapas (+12% / −10%).',3,12,'c2'],
+ ['e1','e','Dedicado','+20% de XP no treino semanal.',1,2,null],
+ ['e2','e','Polivalente','Treino de pool rende +6% (em vez de 4%) e gasta só 20 de energia.',2,6,'e1'],
+ ['e3','e','Analista','+25% de XP em partidas, scrims e torneios, e leitura de jogo (+1% de vitória).',3,12,'e2'],
+ ['p1','p','Descanso eficiente','Recupera +10 de energia por semana.',1,2,null],
+ ['p2','p','Voz de liderança','A confiança do técnico sobe 30% mais e cai 30% menos.',2,6,'p1'],
+ ['p3','p','Cara do time','Fama rende 50% mais e as propostas pagam 15% a mais.',3,12,'p2']
+];
+const PTRN={l:{n:'Leve',d:'Poupa energia; XP baixo.',xp:46,en:10,fx:9,tr:.4},n:{n:'Normal',d:'Equilíbrio entre XP e desgaste.',xp:82,en:22,fx:16,tr:1.1},i:{n:'Intenso',d:'Muito XP e a melhor impressão no técnico, mas cansa.',xp:132,en:38,fx:30,tr:1.8},d:{n:'Folga',d:'Recupera bastante energia; quase sem XP.',xp:12,en:-25,fx:0,tr:0}};
+function pcEnsure(){
+  const pc=S.pc;if(!pc)return;
+  const f=(pc.lv==null||pc.tr==null)?pcFind():null;
+  if(pc.lv==null){pc.lv=f?clamp(Math.round((f.p.r-58)/2.2)+1,1,24):1;pc.xl=0;pc.xt=0}
+  if(pc.tr==null)pc.tr=f&&f.bn?35:60;
+  if(!pc.plan)pc.plan='n';
+  if(!pc.perks)pc.perks={};
+  if(pc.wd==null)pc.wd=pcAbs();
+  if(pc.test===undefined)pc.test=null;
+  if(pc.tcd==null)pc.tcd=0;
+}
+function pcGain(n,mult){
+  const pc=S.pc;if(!pc)return 0;pcEnsure();n=Math.round(n*(mult||1));if(n<=0)return 0;
+  pc.xt=(pc.xt||0)+n;
+  if(pc.lv>=PCLV){pc.xl=0;return n}
+  pc.xl+=n;let up=0;
+  while(pc.lv<PCLV&&pc.xl>=pcNeed(pc.lv)){pc.xl-=pcNeed(pc.lv);pc.lv++;const k=pc.lv%5===0?2:1;pc.pts=(pc.pts||0)+k;up++;pcLog(`sobe para o nível ${pc.lv} (+${k} ponto${k>1?'s':''} de habilidade).`)}
+  if(up)pc.lvf=pc.lv;
+  return n;
+}
+function pcFame(d){const pc=S.pc;pc.fame=clamp(Math.round(pc.fame+(d>0&&pcPerk('p3')?d*1.5:d)),0,100)}
+function pcTrust(d,why){
+  const pc=S.pc;pcEnsure();
+  if(pcPerk('p2'))d*=d>0?1.3:.7;
+  const old=pc.tr;pc.tr=clamp(r1(pc.tr+d),0,100);
+  if(why&&Math.abs(pc.tr-old)>=2)pcLog(`confiança do técnico ${pc.tr>old?'sobe':'cai'} (${why}).`);
+}
+/* quem disputa a vaga com você: o titular da função (se você é reserva) ou o melhor reserva da função (se é titular) */
+function pcRef(f){
+  const t=f.t,role=f.p.role;
+  if(f.bn)return t.pl[role];
+  return (t.bn||[]).filter(x=>x.role===role&&!x.pc).sort((a,b)=>b.r-a.r)[0]||null;
+}
+function pcWeek(){
   const pc=S.pc,f=pcFind();if(!f)return;
-  const cost=mode==='i'?60:30,mul=mode==='i'?2.3:1;
-  if(pc.en<cost){msg=mode==='i'?'Treino intensivo pede 60 de energia.':'Energia baixa. Descanse antes de treinar.';return}
+  const P=PTRN[pc.plan]||PTRN.n,age=f.p.age;
+  const tired=pc.plan!=='d'&&pc.en<P.en;
+  const fac=(age<=21?1.25:age<=25?1.1:.95)*(f.bn?.92:1)*(pc.en<50?.75:1)*(pcPerk('e1')?1.2:1)*(tired?.5:1);
+  const xp=P.xp*fac*(.9+Math.random()*.2);
+  pcGain(xp);
   const fo=pc.focus==null?2:pc.focus;
-  const age=f.p.age,fac=(age<=21?1.25:age<=25?1.1:.95)*(pc.en<50?.75:1)*(f.bn?.9:1)*mul;
-  const gains=[0,1,2,3,4].map(i=>Math.round((4+Math.random()*2+(i===fo?10+Math.random()*4:0))*fac));
-  pc.en-=cost;
-  gains.forEach((g_,i)=>{if(pc.at[i]<Math.min(99,pc.cap))pcXp(i,g_)});
-  pc.ptx=(pc.ptx||0)+(mode==='i'?24:12);
-  let extra='';
-  while(pc.ptx>=48){pc.ptx-=48;pc.pts=(pc.pts||0)+1;extra=' +1 ponto de atributo!'}
-  msg=`${mode==='i'?'Treino intensivo':'Treino'}: tudo sobe um pouco, ${ATL[fo]} mais (+${gains[fo]} XP).${extra}`;
+  if(P.fx&&pc.at[fo]<Math.min(99,pc.cap))pcXp(fo,Math.round(P.fx*fac));
+  pc.en=clamp(pc.en-P.en+28+(pcPerk('p1')?10:0),0,100);pc.rest=0;
+  const ref=pcRef(f),drift=ref?clamp((f.p.r-ref.r)*.1,-.2,.5):.2;
+  pcTrust((tired?-1.2:P.tr)+drift);
+  pc.wk={xp:Math.round(xp),plan:pc.plan,tired,y:S.year,d:S.day};
+}
+/* o técnico decide a vaga: reserva com confiança alta (e nível próximo) sobe; titular com confiança no chão perde a posição para um reserva da função */
+function pcCoach(){
+  const pc=S.pc,f=pcFind();if(!f)return;const t=f.t,role=f.p.role;
+  if(f.bn){
+    const st=t.pl[role];
+    if(pc.tr>=70&&f.p.r>=st.r-5){
+      t.bn.splice(t.bn.indexOf(f.p),1);t.pl[role]=f.p;t.bn.push(st);
+      pc.tr=55;pcFame(2);
+      pcLog(`ganha a confiança do técnico e vira titular do ${t.name}, no lugar de ${st.n}.`);
+      news(`${f.p.n} é promovido a titular do ${t.name}.`);MAILSEQ++;
+      msg=`O técnico promoveu você a titular, no lugar de ${st.n}.`;
+    }
+  }else if(pc.tr<=15){
+    const rp=(t.bn||[]).filter(x=>x.role===role&&!x.pc).sort((a,b)=>b.r-a.r)[0];
+    if(rp&&rp.r>=f.p.r-7){
+      t.bn.splice(t.bn.indexOf(rp),1);t.pl[role]=rp;t.bn.push(f.p);
+      pc.tr=35;pcLog(`perde a confiança do técnico e vai para o banco; ${rp.n} assume a vaga.`);
+      news(`${f.p.n} perde a vaga de titular no ${t.name}.`);MAILSEQ++;
+      msg=`O técnico perdeu a confiança em você: ${rp.n} assume a vaga.`;
+    }
+  }
+}
+function pcCoachWeek(){
+  const pc=S.pc;pcCoach();
+  if(pc.tcd>0)pc.tcd--;
+  if(!pc.test&&pc.tcd<=0&&!S.season.fm&&Math.random()<.4)ptNew('s');
+}
+/* semanas que passaram desde o último treino semanal (até 8 por vez) + vida dos convites do técnico */
+function pcDaily(){
+  const pc=S.pc;if(!pc||pc.ended)return;pcEnsure();
+  const f=pcFind();if(!f)return;
+  const ab=pcAbs(),n=Math.floor((ab-pc.wd)/7);
+  if(ab<pc.wd)pc.wd=ab;
+  if(n>0){for(let i=0;i<Math.min(8,n);i++){pcWeek();pcCoachWeek()}pc.wd+=7*n}
+  ptLife();
+}
+/* ---- testes do técnico: scrims e torneio de meia temporada. Não valem pontos nem títulos, mas pesam na confiança ---- */
+function ptBlk(t){const m=nextMatches().find(x=>!x.res&&(x.a===t.id||x.b===t.id));return m?(m.a===t.id?m.b:m.a):null}
+function ptNew(k){
+  const pc=S.pc,f=pcFind();if(!f||pc.test)return;
+  const t=f.t,nx=ptBlk(t),pool=S.teams.filter(x=>x!==t&&x.id!==nx);
+  if(pool.length<2)return;
+  if(k==='s'){
+    const same=pool.filter(x=>x.lg===t.lg),o=same.length&&Math.random()<.65?pick(same):pick(pool);
+    pc.test={k:'s',o:o.id,r:0,ax:pcAbs()+4};
+    pcLog(`o técnico convoca você para uma scrim contra ${o.name}.`);
+  }else{
+    const ps=shuffle(pool.filter(x=>x.lg!==t.lg).sort((a,b)=>eff(b)-eff(a)).slice(0,8)).slice(0,2);
+    if(ps.length<2)return;
+    pc.test={k:'t',o:ps[0].id,o2:ps[1].id,r:0,ax:S.year*365+170};
+    pcLog('o técnico inscreve você no torneio de meia temporada.');
+  }
+  MAILSEQ++;
+}
+function ptLife(){
+  const pc=S.pc,f=pcFind();if(!f)return;const te=pc.test;
+  if(te&&pcAbs()>te.ax&&!S.season.fm){pcTrust(te.k==='t'?-2:-1,'convite ignorado');pcLog(`deixa passar ${te.k==='t'?'o torneio marcado':'a scrim marcada'} pelo técnico.`);pc.test=null;pc.tcd=2}
+  if(!pc.test&&pc.ty!==S.year&&S.day>=161&&S.day<=167&&f.t.d!==2&&!cevChamp()){pc.ty=S.year;if(hs(pc.n+S.year+'pt')%100<60)ptNew('t')}
+}
+const ptFree=()=>!!(S.pc&&S.pc.test&&!S.season.fm&&!LV&&!DV&&daysLeft()>0);
+const ptSq=()=>{const fm=S.season.fm;return !!fm&&(fm.k==='sq'||(fm.k==='pt'&&S.pc&&S.pc.test&&S.pc.test.k==='s'))};
+/* reserva joga o teste: entra no lugar do titular só durante a série */
+function ptSwapIn(){
+  const pc=S.pc,f=pcFind();if(!f||!f.bn)return;
+  const t=f.t,role=f.p.role,st=t.pl[role];
+  t.bn.splice(t.bn.indexOf(f.p),1);t.pl[role]=f.p;t.bn.push(st);pc.sw={t:t.id,role,st:st.n};
+}
+function ptSwapOut(){
+  const pc=S.pc;if(!pc||!pc.sw)return;
+  const sw=pc.sw;pc.sw=null;
+  const t=ALLT().find(x=>x.id===sw.t);if(!t)return;
+  const i=(t.bn||[]).findIndex(x=>x.n===sw.st);if(i<0)return;
+  const st=t.bn.splice(i,1)[0],me=t.pl[sw.role];
+  t.pl[sw.role]=st;t.bn.push(me);
+}
+function ptStart(sim){
+  const pc=S.pc,te=pc.test,f=pcFind();
+  if(!te||!f)return false;
+  if(S.season.fm||LV||DV){msg='Termine a partida aberta antes.';return false}
+  if(daysLeft()<=0){msg='Hoje é dia de jogo oficial. O teste fica para um dia livre.';return false}
+  const opp=T(te.k==='t'&&te.r?te.o2:te.o);if(!opp)return false;
+  ptSwapIn();
+  const m=mk(pcFind().t,opp,3);m.fr=1;m.ev=null;
+  S.season.fm={m,id:'pt',k:'pt',boot:1};
+  if(sim){ptFmEnd();return true}
+  if(dvNeeded()){dvOpen();S.season.fm.boot=0;return true}
+  if(lvNeeded())lvOpen();else ptFmEnd();
+  if(S.season.fm)S.season.fm.boot=0;
+  return true;
+}
+function ptNo(){
+  const pc=S.pc,te=pc.test;if(!te||S.season.fm||LV||DV)return;
+  if(te.r){msg='O torneio já começou: termine a final.';return}
+  pcTrust(te.k==='t'?-4:-2,'recusou o teste');pcLog(`recusa ${te.k==='t'?'o torneio':'a scrim'} do técnico.`);
+  pc.test=null;pc.tcd=2;msg='Você recusou. O técnico não gostou.';
+}
+function ptFmEnd(){
+  const fm=S.season.fm,pc=S.pc;if(!fm||fm.k!=='pt')return;
+  const m=fm.m,te=pc.test,tid=myTid();S.season.fm=null;
+  frResolve(m);
+  const won=m.res.w===tid,opp=T(m.a===tid?m.b:m.a),sc=`${tid===m.a?m.res.wa:m.res.wb}–${tid===m.a?m.res.wb:m.res.wa}`;
+  const f=pcFind();
+  let avg=pc.tAvg;pc.tAvg=null;
+  if(avg==null){const op=opp.pl[f.p.role];avg=clamp(r1(6+(f.p.r-op.r)*.07+(won?.7:-.4)+g()*.7),3,10)}
+  ptSwapOut();
+  const tn=te&&te.k==='t',mul=tn?1.6:1,nt=String(avg).replace('.',',');
+  pcGain((30+(won?15:0)+Math.max(0,avg-6)*12)*mul,pcPerk('e3')?1.25:1);
+  pcTrust(((avg-6.5)*2.4+(won?1:-.8))*(tn?1.4:1),`${tn?'torneio':'scrim'}: nota ${nt}`);
+  let t=`${tn?(te.r?'Final':'Semifinal'):'Scrim'} contra ${opp.name}: ${won?'vitória':'derrota'} por ${sc}, sua nota ${nt}.`;
+  if(!tn){pc.test=null;pc.tcd=2}
+  else if(!te.r){
+    if(won){te.r=1;t+=' Você está na final do torneio.'}
+    else{pc.test=null;pc.tcd=2;t+=' Eliminado do torneio.'}
+  }else{
+    pc.test=null;pc.tcd=2;
+    if(won){pcFame(1);pcTrust(3,'campeão do torneio');pcGain(80);t+=' Campeão do torneio de meia temporada!'}
+    else t+=' Vice-campeão do torneio.';
+  }
+  pcLog(t);msg=t;
 }
 let upI=-1;
 function pcSpend(i){
@@ -5290,23 +5463,11 @@ function pcSpend(i){
   if(pc.at[i]>=Math.min(99,pc.cap)){msg=`${ATL[i]} chegou ao limite de potencial.`;return}
   pc.pts--;pc.at[i]++;upI=i;pcSync();pcLog(`gasta 1 ponto em ${ATL[i]} (${pc.at[i]}).`);msg=`${ATL[i]} sobe para ${pc.at[i]}.`;
 }
-function pcRest(){const pc=S.pc;if(pc.rest){msg='Você já descansou nesta fase.';return}pc.rest=1;pc.en=Math.min(100,pc.en+25);msg='Você descansou (+25 de energia).'}
+function pcRest(){const pc=S.pc;if(pc.rest){msg='Você já descansou nesta semana.';return}pc.rest=1;pc.en=Math.min(100,pc.en+25);msg='Você descansou (+25 de energia).'}
 function pcPoolTrain(c){
-  const pc=S.pc;if(pc.en<30){msg='Energia baixa.';return}
+  const pc=S.pc,cost=pcPerk('e2')?20:30,gain=pcPerk('e2')?.06:.04;if(pc.en<cost){msg='Energia baixa.';return}
   const v=pc.pool[c]||0;if(mastOf(pc.n,c)>=1){msg='Domínio máximo.';return}
-  pc.en-=30;pc.pool[c]=Math.min(1,v+.04);msg=`Treino de pool: ${c} +4%.`;
-}
-function pcVagaOdds(){const f=pcFind();if(!f||!f.bn)return 0;const st=f.t.pl[f.p.role],pc=S.pc;return clamp(.45+(f.p.r-st.r)*.09+(pc.en-50)*.003+pc.fame*.0015,.05,.9)}
-function pcVaga(){
-  const f=pcFind(),pc=S.pc;if(!f||!f.bn){return}
-  if(pc.vaga){msg='Você já disputou a vaga nesta fase.';return}
-  if(pc.en<15){msg='Sem energia para disputar a vaga.';return}
-  pc.vaga=1;pc.en-=15;
-  const o=pcVagaOdds(),t=f.t,role=f.p.role,st=t.pl[role];
-  if(Math.random()<o){
-    t.bn.splice(t.bn.indexOf(f.p),1);t.pl[role]=f.p;t.bn.push(st);pc.fame=clamp(pc.fame+1,0,100);
-    pcLog(`conquista a vaga de titular no ${t.name}, no lugar de ${st.n}.`);msg='Você ganhou a vaga de titular!';
-  }else{pcLog(`perde a disputa de vaga para ${st.n}.`);msg=`${st.n} segurou a vaga. Treine mais.`}
+  pc.en-=cost;pc.pool[c]=Math.min(1,v+gain);pcGain(10);msg=`Treino de pool: ${c} +${Math.round(gain*100)}%.`;
 }
 const PGOALS=[
  ['t1','Estreia como titular','Jogue como titular em qualquer divisão.',(f,o)=>!f.bn,3],
@@ -5340,14 +5501,14 @@ function pcYear(){
   pc.mr=[];
   const trophies=(a.lg||[]).length+(a.msi==='C'?1:0)+(a.wc==='C'?2:0);
   pc.fame=clamp(Math.round(pc.fame+(rating!=null?(rating-6)*3:-1)+trophies*4+(ix>=0?5:0)),0,100);
-  if(rating!=null&&rating>=7)pc.pts=(pc.pts||0)+(rating>=8.5?3:rating>=8?2:1);
+  if(rating!=null&&rating>=7)pcGain(rating>=8.5?250:rating>=8?180:110);
   pc.cash=r1(pc.cash+pc.sal);pc.ctr--;
   pcSync();pc.r0=p.r;pc.cap=Math.max(pc.cap,p.pot+2);
   pc.hist.push({y:S.year,team:t.name,div:t.d===2?2:1,role:p.role,ovr:p.r,age:p.age,rating,bn:f.bn,titles:trophies,top:ix>=0?ix+1:0});
   pcLog(`temporada fechada no ${t.name}: ${rating!=null?'nota '+String(rating).replace('.',','):'no banco'}; OVR ${p.r}.`);
   /* metas */
   const wc=S.season.wc,msi=S.season.msi,ctx={msi:!!(msi&&msi.teams.includes(t.id)),wc:!!(wc&&wc.teams.includes(t.id)),lg:(a.lg||[]).length>0,top10:ix>=0,wcc:a.wc==='C',bola:ix===0};
-  PGOALS.forEach(([id,l,dsc,fn,fm])=>{if(!pc.goals[id]&&fn(f,ctx)){pc.goals[id]=S.year;pc.fame=clamp(pc.fame+fm,0,100);pc.pts=(pc.pts||0)+2;pcLog(`meta cumprida: ${l} (+2 pontos de atributo).`)}});
+  PGOALS.forEach(([id,l,dsc,fn,fm])=>{if(!pc.goals[id]&&fn(f,ctx)){pc.goals[id]=S.year;pc.fame=clamp(pc.fame+fm,0,100);pcGain(120);pcLog(`meta cumprida: ${l} (+120 de XP).`)}});
   /* renovação automática do contrato */
   if(pc.ctr<=0){pc.ctr=1;pcLog('contrato renovado por mais um ano nas mesmas condições.')}
 }
@@ -5362,7 +5523,7 @@ function pcOffers(){
     let kind=null;
     if(p.r>=st.r-1)kind='T';else if(tier===1&&p.r>=st.r-8&&p.r>=70)kind='R';
     if(!kind)return;
-    const base=salOf(p)*(tier?1.35:.9)*(1+pc.fame/180)*(kind==='R'?.6:1);
+    const base=salOf(p)*(tier?1.35:.9)*(1+pc.fame/180)*(kind==='R'?.6:1)*(pcPerk('p3')?1.15:1);
     L.push({tn:t.name,k:kind,sal:Math.max(.2,r1(base)),yrs:1+Math.floor(Math.random()*3),pr:baseOvr(t)});
   });
   L.sort((a,b)=>b.pr-a.pr);
@@ -5479,8 +5640,75 @@ function pcListHTML(){
   return rows.map(({p,t})=>`<div class="pl" style="grid-template-columns:34px minmax(0,1fr) auto">${hx(p.r,'sm')}<span><span class="nm2">${esc(p.n)}</span><br><small>${RN[p.role]} · ${esc(t.name)}${t.d===2?' (D2)':''} · ${p.age} anos</small></span><button class="ghost" data-act="pcPick" data-v="${esc(p.n)}">Jogar como</button></div>`).join('');
 }
 function pcBar(v,max){return `<div class="ovb" style="height:7px"><i style="width:${clamp(v/max*100,0,100)}%"></i></div>`}
+function pcLearn(id){
+  const pc=S.pc,d=PERKS.find(x=>x[0]===id);if(!d)return;pcEnsure();
+  const nm=d[2],cost=d[4],lv=d[5],req=d[6];
+  if(pc.perks[id]){msg='Você já tem essa característica.';return}
+  if(pc.lv<lv){msg=`${nm} pede nível ${lv}.`;return}
+  if(req&&!pc.perks[req]){msg=`${nm} pede ${PERKS.find(x=>x[0]===req)[2]} antes.`;return}
+  if((pc.pts||0)<cost){msg=`${nm} custa ${cost} ponto${cost>1?'s':''}.`;return}
+  pc.pts-=cost;pc.perks[id]=1;pcLog(`aprende a característica ${nm}.`);msg=`${nm} aprendida.`;
+}
+function pcTrustTxt(f){
+  const pc=S.pc,tr=Math.round(pc.tr),ref=pcRef(f);
+  if(f.bn){
+    const st=f.t.pl[f.p.role];
+    if(tr>=70)return f.p.r>=st.r-5?'O técnico já confia em você; a promoção sai na próxima avaliação semanal.':`O técnico confia, mas ${st.n} (OVR ${st.r}) ainda está bem à frente: evolua mais (OVR ${f.p.r}).`;
+    return `Para virar titular: chegue a 70% de confiança com OVR a até 5 do titular ${st.n} (${st.r}). Você: ${f.p.r}. Treine e jogue bem as scrims e os torneios.`;
+  }
+  if(tr<=15)return ref?`Perigo: o técnico pode trocar você por ${ref.n} (OVR ${ref.r}). Jogue bem e treine forte.`:'Confiança baixa, mas não há reserva da função para ocupar o seu lugar.';
+  if(tr<35)return 'Confiança baixa: uma sequência ruim pode mandar você ao banco.';
+  if(tr>=80)return 'Titular absoluto: o técnico aposta tudo em você.';
+  return 'Vaga segura por enquanto. Boas notas nas séries, treinos e scrims aumentam a confiança.';
+}
+function pcLvHTML(){
+  const pc=S.pc,need=pcNeed(pc.lv),max=pc.lv>=PCLV;
+  return `<section class="pn"><h2>Nível ${pc.lv}${max?' <span class="tag">máx</span>':''}</h2>${pcBar(max?1:pc.xl,max?1:need)}<p class="note" style="margin:6px 0 0">${max?'Nível máximo.':`${pc.xl} / ${need} de XP para o nível ${pc.lv+1}.`} Todo nível dá 1 ponto (2 a cada 5 níveis). XP vem de partidas, treino semanal, scrims, torneios, eventos e metas.</p></section>`;
+}
+function pcTrustHTML(f){
+  const pc=S.pc,tr=Math.round(pc.tr);
+  return `<section class="pn"><h2>Confiança do técnico</h2><div class="cab"><div><b class="num">${tr}%</b><small>${f.bn?'Reserva':'Titular'}</small></div></div><div style="position:relative;margin:2px 0 8px"><div class="ovb" style="height:9px"><i style="width:${tr}%"></i></div><u style="position:absolute;left:70%;top:-3px;bottom:-3px;width:2px;background:#FFE27A" title="70%: promoção a titular"></u><u style="position:absolute;left:15%;top:-3px;bottom:-3px;width:2px;background:#FF5C8A" title="15%: risco de banco"></u></div><p class="note" style="margin:0 0 6px">${esc(pcTrustTxt(f))}</p><p class="note" style="margin:0">Sobe com boas notas nas séries oficiais, treino semanal, scrims e torneios do técnico. Cai com notas ruins, cansaço e convites recusados.</p></section>`;
+}
+function pcTrainHTML(f){
+  const pc=S.pc,fo=pc.focus==null?2:pc.focus,wk=pc.wk,dl=7-(((pcAbs()-pc.wd)%7)+7)%7;
+  return `<section class="pn"><h2>Treino semanal</h2><p class="note" style="margin:0 0 8px">Uma vez por semana do calendário o programa abaixo é executado sozinho: dá XP de nível, um pouco de progresso no atributo em foco e pesa na impressão do técnico. Próximo treino em ${dl} dia${dl>1?'s':''}.</p>
+  <div class="sub">Programa</div><div class="pills">${Object.keys(PTRN).map(k=>`<button class="pill" aria-pressed="${pc.plan===k}" data-act="pcPlan" data-v="${k}">${PTRN[k].n}</button>`).join('')}</div>
+  <p class="note" style="margin:6px 0 8px">${PTRN[pc.plan].d} XP base ${PTRN[pc.plan].xp}, energia ${PTRN[pc.plan].en>0?'−':'+'}${Math.abs(PTRN[pc.plan].en)} por semana (recupera +${28+(pcPerk('p1')?10:0)} sozinha).</p>
+  <div class="sub">Foco (atributo)</div><div class="pills">${ATL.map((l,i)=>`<button class="pill" aria-pressed="${fo===i}" data-act="pcFocus" data-v="${i}">${l}</button>`).join('')}</div>
+  <div class="sub">Energia ${pc.en}/100</div>${pcBar(pc.en,100)}
+  <div class="row" style="margin:10px 0"><button class="ghost" data-act="pcRest"${pc.rest?' disabled':''}>Descansar hoje (+25)</button></div>
+  ${wk?`<p class="note" style="margin:0">Última semana: programa ${PTRN[wk.plan].n.toLowerCase()}, +${wk.xp} de XP${wk.tired?' (cansado, rendeu metade)':''}.</p>`:''}</section>`;
+}
+function pcTreeHTML(f){
+  const pc=S.pc,pts=pc.pts||0,fo=pc.focus==null?2:pc.focus,p=f.p;
+  let h=`<section class="pn"><h2>Árvore de habilidades</h2><div class="cab${pts>0?' ptsb':''}" style="margin:0 0 8px"><div><b class="num">${pts}</b><small>Pontos disponíveis</small></div><div><b class="num">${pc.lv}</b><small>Nível</small></div></div>
+  <div class="sub">Status</div><p class="note" style="margin:0 0 6px">Cada ponto vale +1 no atributo (limite: seu potencial, ${Math.min(99,pc.cap)}). O atributo em foco no treino semanal também ganha progresso lento.</p>
+  ${ATL.map((l,i)=>`<div class="mrow${i===upI?' upfl':''}" style="grid-template-columns:34px minmax(0,1fr) auto"><span class="hx t${tier(pc.at[i])} sm">${pc.at[i]}</span><span class="who"><b>${l}${fo===i?' <span class="tag">foco</span>':''} <small style="opacity:.7">· peso ${Math.round(PCW[p.role][i]*100)}%</small></b><small>${ATD[i]}</small>${pcBar(pc.xp[i],70)}</span><button class="ghost" data-act="pcSpend" data-v="${i}"${pts>0&&pc.at[i]<Math.min(99,pc.cap)?'':' disabled'}>+1</button></div>`).join('')}
+  <div class="sub" style="margin-top:12px">Características</div>`;
+  Object.keys(PBR).forEach(br=>{
+    h+=`<small class="k sqk">${PBR[br][0]} · ${PBR[br][1]}</small>`;
+    PERKS.filter(x=>x[1]===br).forEach(x=>{
+      const id=x[0],nm=x[2],ds=x[3],cost=x[4],lv=x[5],req=x[6];
+      const own=!!pc.perks[id],rq=req&&!pc.perks[req],lock=pc.lv<lv||rq,can=!own&&!lock&&pts>=cost;
+      const why=own?'aprendida':pc.lv<lv?`nível ${lv}`:rq?`após ${PERKS.find(y=>y[0]===req)[2]}`:`${cost} ponto${cost>1?'s':''}`;
+      h+=`<div class="mrow" style="grid-template-columns:minmax(0,1fr) auto;${own?'':lock?'opacity:.55':''}"><span class="who"><b${own?' style="color:#00F5A0"':''}>${own?'✓ ':''}${nm} <small style="opacity:.7">· custo ${cost}</small></b><small>${ds}</small></span><button class="ghost" data-act="pcLearn" data-v="${id}"${can?'':' disabled'}>${own?'ok':can?'Aprender':why}</button></div>`;
+    });
+  });
+  return h+'</section>';
+}
+/* convocação do técnico (scrim ou torneio): na tela Jogar, na carreira e na caixa de e-mail */
+function ptHTML(inner){
+  const pc=S.pc,te=pc&&pc.test;if(!te)return '';
+  const o=T(te.k==='t'&&te.r?te.o2:te.o);if(!o)return '';
+  const free=ptFree(),tn=te.k==='t';
+  const dl=Math.max(0,te.ax-pcAbs());
+  const body=`<div class="rowc"><h2${inner?' style="display:none"':''}>Teste do técnico</h2><small class="k">${tn?'Torneio de meia temporada':'Scrim'} · MD3 · não vale pontos nem títulos</small></div>
+  <div class="sqok">${crest(o,'md')}<div><small class="k">${tn?(te.r?'Final':'Semifinal'):'Convocação'}${dl&&!te.r?` · expira em ${dl} dia${dl>1?'s':''}`:''}</small><b>${esc(o.name)}</b><small>${o.lg} · OVR ${Math.round(baseOvr(o))}</small></div><div class="sqb"><button class="play" data-act="ptPlay"${free?'':' disabled'}>Jogar</button><button class="ghost" data-act="ptSim"${free?'':' disabled'}>Simular</button>${te.r?'':'<button class="ghost" data-act="ptNo"'+(S.season.fm||LV||DV?' disabled':'')+'>Recusar</button>'}</div></div>
+  <p class="note" style="margin:6px 0 0">${free?'O técnico avalia sua nota na série: vai direto na confiança. Reservas entram no lugar do titular só durante o teste.':'Hoje é dia de jogo oficial ou há outra partida aberta. Avance o calendário.'}</p>`;
+  return inner?`<div class="sqp">${body}</div>`:`<section class="pn sqp">${body}</section>`;
+}
 function vPc(){
-  const pc=S.pc;
+  const pc=S.pc;pcEnsure();
   if(!pc)return `<p class="empty">Escolha o modo Jogador no Menu.</p>`;
   let h=msg?`<div class="msg">${esc(msg)}</div>`:'';
   const f=pcFind();
@@ -5489,23 +5717,13 @@ function vPc(){
   }
   const p=f.p,t=f.t;
   h+=`<section class="pn"><div class="ph phf">${fut({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f,team:t},'big')}<div><h3>${esc(p.n)}</h3><small>${RN[p.role]} · ${p.age} anos · ${esc(t.name)}${t.d===2?' (D2)':''}</small><small>${f.bn?'<b style="color:#FF9AA8">Reserva</b>':'<b style="color:#00F5A0">Titular</b>'} · contrato ${pc.ctr} ano${pc.ctr===1?'':'s'} · ${fmtM(pc.sal)}/ano</small></div></div>
-  <div class="cab"><div><b class="num">${pc.fame}</b><small>Fama</small></div><div><b class="num" style="font-size:22px">${fmtM(pc.cash).replace('US$ ','')}</b><small>Patrimônio (US$)</small></div><div><b class="num" style="font-size:20px">${p.pot>=92?"Lendário":p.pot>=88?"Elite":p.pot>=84?"Alto":"Médio"}</b><small>Olheiros: potencial</small></div></div></section>`;
+  <div class="cab"><div><b class="num">${pc.lv}</b><small>Nível</small></div><div><b class="num">${pc.fame}</b><small>Fama</small></div><div><b class="num" style="font-size:22px">${fmtM(pc.cash).replace('US$ ','')}</b><small>Patrimônio (US$)</small></div><div><b class="num" style="font-size:20px">${p.pot>=92?"Lendário":p.pot>=88?"Elite":p.pot>=84?"Alto":"Médio"}</b><small>Olheiros: potencial</small></div></div></section>`;
   /* evento */
   if(pc.ev){const e=PEV[pc.ev];h+=`<section class="pn"><h2>Evento</h2><p class="note" style="margin:0 0 10px">${esc(e.t)}</p><div class="row" style="margin:0">${e.o.map(([l,k])=>`<button class="ghost" data-act="pcEv" data-v="${k}">${l}</button>`).join('')}</div></section>`}
-  /* treino */
-  const fo=pc.focus==null?2:pc.focus,pts=pc.pts||0;
-  h+=`<section class="pn"><h2>Treino</h2><p class="note" style="margin:0 0 8px">Cada treino sobe <b>todos</b> os atributos um pouco e o <b>foco</b> bem mais. Pontos de atributo vêm de treinos, partidas excepcionais, eventos e metas, e você gasta onde quiser.</p>
-  <div class="sub">Foco do treino</div><div class="pills">${ATL.map((l,i)=>`<button class="pill" aria-pressed="${fo===i}" data-act="pcFocus" data-v="${i}">${l}</button>`).join('')}</div>
-  <div class="sub">Energia ${pc.en}/100</div>${pcBar(pc.en,100)}
-  <div class="row" style="margin:10px 0"><button class="play" data-act="pcTrain" data-v="n"${pc.en<30?' disabled':''}>Treinar (30)</button><button class="ghost" data-act="pcTrain" data-v="i"${pc.en<60?' disabled':''}>Intensivo (60)</button><button class="ghost" data-act="pcRest"${pc.rest?' disabled':''}>Descansar (+25)</button></div>
-  <p class="note" style="margin:0 0 6px">A energia volta +50 a cada fase do calendário. Cansado (abaixo de 50), o treino rende menos.</p>
-  <div class="cab${pts>0?' ptsb':''}" style="margin:6px 0 8px"><div><b class="num">${pts}</b><small>Pontos de atributo</small></div></div>
-  ${ATL.map((l,i)=>`<div class="mrow${i===upI?' upfl':''}" style="grid-template-columns:34px minmax(0,1fr) auto"><span class="hx t${tier(pc.at[i])} sm">${pc.at[i]}</span><span class="who"><b>${l}${fo===i?' <span class="tag">foco</span>':''} <small style="opacity:.7">· peso ${Math.round(PCW[p.role][i]*100)}%</small></b><small>${ATD[i]}</small>${pcBar(pc.xp[i],70)}</span><button class="ghost" data-act="pcSpend" data-v="${i}"${pts>0&&pc.at[i]<Math.min(99,pc.cap)?'':' disabled'}>+1</button></div>`).join('')}</section>`;
+  h+=pcLvHTML()+pcTrustHTML(f)+ptHTML()+pcTrainHTML(f)+pcTreeHTML(f);
   /* pool */
   const pl=CH[p.role].map(([c,a])=>({c,a,v:Math.round(mastOf(pc.n,c)*100),m:metaOf(c)}));
-  h+=`<section class="pn"><h2>Pool de campeões</h2><p class="note" style="margin:0 0 8px">Todos os 8 campeões da função aparecem aqui. Cada treino de pool gasta 30 de energia e dá +4% de domínio em um campeão. Quanto melhor sua pool no meta atual (${esc(metaName())}), mais forma você carrega.</p>${pl.map(x=>`<div class="pool"><span class="ct sm" style="--h:${hs(x.c)%360}"><b>${esc(chIni(x.c))}</b></span><span class="who"><b>${esc(x.c)}</b><small>${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}</small></span><b class="num">${x.v}</b><button class="ghost" data-act="pcPool" data-v="${esc(x.c)}"${pc.en<30||x.v>=100?' disabled':''}>${x.v>=100?'máx':'+4%'}</button></div>`).join('')}</section>`;
-  /* vaga */
-  if(f.bn){const st=t.pl[p.role];h+=`<section class="pn"><h2>Disputa de vaga</h2><p class="note" style="margin:0 0 8px">Titular: ${esc(st.n)} (OVR ${st.r}). Você: OVR ${p.r}. Chance de ganhar a vaga agora: <b class="num">${Math.round(pcVagaOdds()*100)}%</b>. Custa 15 de energia e só uma vez por fase. Se um titular se aposentar, o melhor reserva da função assume.</p><div class="row" style="margin:0"><button class="ghost" data-act="pcVaga"${pc.vaga||pc.en<15?' disabled':''}>Pedir a vaga</button></div></section>`}
+  h+=`<section class="pn"><h2>Pool de campeões</h2><p class="note" style="margin:0 0 8px">Todos os 8 campeões da função aparecem aqui. Cada treino de pool gasta ${pcPerk('e2')?20:30} de energia e dá +${pcPerk('e2')?6:4}% de domínio em um campeão. Quanto melhor sua pool no meta atual (${esc(metaName())}), mais forma você carrega.</p>${pl.map(x=>`<div class="pool"><span class="ct sm" style="--h:${hs(x.c)%360}"><b>${esc(chIni(x.c))}</b></span><span class="who"><b>${esc(x.c)}</b><small>${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}</small></span><b class="num">${x.v}</b><button class="ghost" data-act="pcPool" data-v="${esc(x.c)}"${pc.en<(pcPerk('e2')?20:30)||x.v>=100?' disabled':''}>${x.v>=100?'máx':'+'+(pcPerk('e2')?6:4)+'%'}</button></div>`).join('')}</section>`;
   /* ofertas */
   if(pc.offers&&pc.offers.length){h+=`<section class="pn"><h2>Propostas</h2><p class="note" style="margin:0 0 8px">${pcPlayOk()?'Janela aberta: dá para assinar agora.':'Janela fechada: as propostas voltam a valer antes do próximo split.'}</p>${pc.offers.map((o,i)=>{const nt=ALLT().find(x=>x.name===o.tn);return `<div class="mrow" style="grid-template-columns:minmax(0,1fr) auto"><span class="who"><b>${o.ren?'Renovar com ':''}${nt?tlk(nt):esc(o.tn)}${nt&&nt.d===2?' <span class="tag">D2</span>':''}</b><small>${o.k==='T'?'Como titular':'Como reserva'} · ${o.yrs} ano${o.yrs>1?'s':''} · ${fmtM(o.sal)}/ano</small></span><button class="ghost" data-act="pcOffer" data-v="${i}"${pcPlayOk()?'':' disabled'}>${o.ren?'Renovar':'Assinar'}</button></div>`}).join('')}</section>`}
   /* metas */
@@ -5518,9 +5736,9 @@ function pcHistHTML(pc){
 }
 function pcLogHTML(pc){return pc.log.length?`<section class="pn"><h2>Diário</h2><ul class="lines">${pc.log.slice(0,10).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section>`:''}
 function pcSummary(){
-  const pc=S.pc,f=pcFind();if(!f)return'';
+  const pc=S.pc,f=pcFind();if(!f)return'';pcEnsure();
   const p=f.p,t=f.t;
-  return `<section class="pn"><div class="ph" style="margin:0">${hx(p.r,'lg')}<div style="flex:1;min-width:0"><h3 style="font-size:24px">${esc(p.n)}</h3><small>${RN[p.role]} · ${esc(t.name)}${t.d===2?' (D2)':''} · ${f.bn?'reserva':'titular'} · fama ${pc.fame} · energia ${pc.en}</small></div></div>${pc.ev?'<p class="note" style="margin:8px 0 0"><span class="inj">evento pendente</span></p>':''}<div class="row" style="margin:10px 0 0"><button class="ghost" data-act="tab" data-v="pc">Abrir carreira</button></div></section>`;
+  return ptHTML()+`<section class="pn"><div class="ph" style="margin:0">${hx(p.r,'lg')}<div style="flex:1;min-width:0"><h3 style="font-size:24px">${esc(p.n)}</h3><small>${RN[p.role]} · ${esc(t.name)}${t.d===2?' (D2)':''} · ${f.bn?'reserva':'titular'} · nível ${pc.lv} · confiança ${Math.round(pc.tr)}% · energia ${pc.en}</small></div></div>${pc.ev?'<p class="note" style="margin:8px 0 0"><span class="inj">evento pendente</span></p>':''}<div class="row" style="margin:10px 0 0"><button class="ghost" data-act="tab" data-v="pc">Abrir carreira</button></div></section>`;
 }
 
 
@@ -5559,7 +5777,7 @@ function lvPick(c){
   if(LV.used.includes(c)||flUsed(LV.m,c)){msg='Fearless: esse campeão já foi usado nesta série (por qualquer time).';return}
   const f=pcFind(),pc=S.pc;
   LV.ch=c;
-  const d=(mastOf(pc.n,c)-.5)*.06+metaOf(c)*.03;
+  const d=(mastOf(pc.n,c)-.5)*.06+metaOf(c)*.03+(pcPerk('e3')?.01:0);
   LV.adj=clamp(LV.adj+d,-.15,.15);
   LV.log.unshift({m:0,t:`Você escolhe ${c} (domínio ${Math.round(mastOf(pc.n,c)*100)}%${metaOf(c)>=.2?', forte no meta':metaOf(c)<=-.2?', fraco no meta':''}).`,k:'sys'});
   LV.state='ckpt';
@@ -5571,7 +5789,7 @@ function lvPosture(k){
   if(k==='sf'){LV.adj+=.005;LV.ps+=.2;LV.pcw.d*=.9;t='Postura segura: você joga pelo básico.'}
   else if(k==='tm'){LV.adj+=.015;LV.ps+=.1;t='Você prioriza o time: visão, rotação e peel.'}
   else{
-    const q=clamp(.5+(p.r-op.r)*.03+(mastOf(pc.n,LV.ch)-.5)*.2+(pc.en-50)*.002+(LV.lead>0?.05:0),.15,.85);
+    const q=clamp(.5+(p.r-op.r)*.03+(mastOf(pc.n,LV.ch)-.5)*.2+(pc.en-50)*.002+(LV.lead>0?.05:0)+(pcPerk('c1')?.1:0),.15,.85);
     if(Math.random()<q){LV.adj+=.03;LV.ps+=1;LV.pcw.k*=1.35;LV.pcw.d*=.85;t=`Você busca o jogo e acerta: ${p.n} domina ${op.n}.`}
     else{LV.adj-=.02;LV.ps-=.8;LV.pcw.k*=.85;LV.pcw.d*=1.3;t=`Você força demais e paga caro contra ${op.n}.`}
   }
@@ -5583,20 +5801,22 @@ function lvPosture(k){
 function pcGameEnd(win){
   const f=pcFind(),pc=S.pc,p=f.p,role=p.role;
   const sk0=LV.kd&&LV.kd.me[role]?LV.kd.me[role]:{k:0,d:0,a:0},kb=[3.2,3.5,3.8,3.8,3.2][role];
-  const rt=clamp(r1(6+LV.ps+(win?.7:-.5)+(mastOf(pc.n,LV.ch)-.5)*1.2+g()*.5+clamp(((sk0.k+sk0.a*.45)-sk0.d*1.1-kb)*.1,-1.2,1.2)),3,10);
+  const rt=clamp(r1(6+LV.ps+(win?.7+(pcPerk('c2')?.3:0):-.5)+(mastOf(pc.n,LV.ch)-.5)*1.2+g()*.5+clamp(((sk0.k+sk0.a*.45)-sk0.d*1.1-kb)*.1,-1.2,1.2)),3,10);
   const sk=LV.kd&&LV.kd.me[role]?LV.kd.me[role]:{k:0,d:0,a:0},k=sk.k,d=sk.d,a=sk.a;
   LV.gr.push({c:LV.ch,rt,k,d,a,win});LV.used.push(LV.ch);
   LV.log.unshift({m:LV.sec|0,t:`Sua nota no mapa: ${String(rt).replace('.',',')} (${k}/${d}/${a}) com ${LV.ch}.`,k:'end'});
 }
 function pcMatchEnd(){
-  const pc=S.pc;if(!pc||!LV||!LV.gr.length)return;
-  const avg=r1(LV.gr.reduce((s,x)=>s+x.rt,0)/LV.gr.length);
+  const pc=S.pc;if(!pc||!LV||!LV.gr.length)return;pcEnsure();
+  const fm=S.season.fm,test=!!(fm&&fm.k==='pt'),cup=!!(fm&&fm.k==='cup');
+  const avg=r1(LV.gr.reduce((s,x)=>s+x.rt,0)/LV.gr.length),won=LV.me>LV.op,nt=String(avg).replace('.',',');
+  if(test){pc.tAvg=avg;return}
   pc.mr=(pc.mr||[]).concat(avg).slice(-60);
-  if(avg>=8.5)pc.fame=clamp(pc.fame+1,0,100);
-  const pp=avg>=9.2?2:avg>=8.4?1:0;
-  if(pp)pcPts(pp,`série ${LV.me>LV.op?'vencida':'perdida'}, nota ${String(avg).replace('.',',')}`);
+  if(avg>=8.5)pcFame(1);
+  pcGain(45+(won?35:0)+Math.max(0,avg-6)*18,pcPerk('e3')?1.25:1);
+  if(!cup)pcTrust(clamp((avg-6.5)*3+(won?1.5:-1),-8,8),`série ${won?'vencida':'perdida'}, nota ${nt}`);
   const best=LV.gr.slice().sort((a,b)=>b.rt-a.rt)[0];
-  pcLog(`série ${LV.me>LV.op?'vencida':'perdida'} ${LV.me}–${LV.op}, nota ${String(avg).replace('.',',')}; destaque: ${best.c} (${best.k}/${best.d}/${best.a}).`);
+  pcLog(`série ${won?'vencida':'perdida'} ${LV.me}–${LV.op}, nota ${nt}; destaque: ${best.c} (${best.k}/${best.d}/${best.a}).`);
 }
 function pcLiveCtl(sA,sB){
   const f=pcFind(),pc=S.pc,p=f.p;
@@ -6167,6 +6387,7 @@ function mailFlow(){
 }
 function dayTick(){
   mailFlow();
+  if(pcAct())pcDaily();
   if(S.mgr&&mgrT())mgrDay();
   if(Math.random()<.05)dayNews();
   if(S.mgr&&mgrT()&&winOpen()&&Math.random()<(Object.keys(S.mgr.listed||{}).length?.25:.14)&&(S.mgr.offers||[]).length<3)dayOffer();
@@ -6392,8 +6613,8 @@ function cupPlayStart(){
   if(S.season.fm)S.season.fm.boot=0;
   return true;
 }
-function cupFmDrop(fm){if(fm&&fm.k==='cup'){if(!fm.pcN)S.mgr=fm.sv||null;if(fm.m){fm.m.cup=0;fm.m.dd=0;fm.m.fx=null}}}
-function fmEnd(){const fm=S.season.fm;if(fm&&fm.k==='cup')cupFmEnd();else cevFmEnd()}
+function cupFmDrop(fm){if(fm&&fm.k==='pt')ptSwapOut();if(fm&&fm.k==='cup'){if(!fm.pcN)S.mgr=fm.sv||null;if(fm.m){fm.m.cup=0;fm.m.dd=0;fm.m.fx=null}}}
+function fmEnd(){const fm=S.season.fm;if(fm&&fm.k==='cup')cupFmEnd();else if(fm&&fm.k==='pt')ptFmEnd();else cevFmEnd()}
 function cupFmEnd(){
   const fm=S.season.fm;if(!fm||fm.k!=='cup')return;
   const m=fm.m;S.season.fm=null;if(!fm.pcN)S.mgr=fm.sv||null;
@@ -6716,7 +6937,7 @@ function fixLPL(){
 }
 function slotGo(i){
   save();SLOT=i;KEY=SLOTK[i];try{localStorage.setItem('lol-slot',String(i))}catch(e){}
-  S=load();if(!S)freshGame();else{fixLPL();fixRoster();fixNatFix();if(S.season&&S.season.fm&&S.season.fm.k==='cup'){cupFmDrop(S.season.fm);S.season.fm=null}}ensureD2();fixNat();
+  S=load();if(!S)freshGame();else{fixLPL();fixRoster();fixNatFix();if(S.season&&S.season.fm&&S.season.fm.k==='cup'){cupFmDrop(S.season.fm);S.season.fm=null}if(S.season&&S.season.fm&&S.season.fm.k==='pt')S.season.fm=null;if(S.pc&&S.pc.sw)ptSwapOut()}ensureD2();fixNat();
   tab='season';menuV='home';menuAsk=null;prof=null;pstack=[];askReset=false;askEnd=false;cele=null;lastPlayed=null;mgrView='inicio';dHof=null;selYear=null;
   msg='Slot '+(i+1)+' carregado.';
 }
@@ -6893,7 +7114,7 @@ function mailOf(){const m=S.mgr;if(!m||!mgrT()||!m.offers)return [];return m.off
 function mailN(){
   let n=0;
   if(mgrT()){const q=sqS();n+=q.rq.length+q.rp.length+mailInv().length+mailFA().length+mailOf().length}
-  if(pcAct()&&pc.offers)n+=pc.offers.length;
+  if(pcAct()){const pc=S.pc;n+=(pc.offers||[]).length+(pc.test?1:0)}
   return n;
 }
 function mailHTML(){
@@ -6908,6 +7129,8 @@ function mailHTML(){
     h+=`<small class="k sqk">Jogadores livres</small>`;
     h+=fa.length?fa.map(f=>`<div class="sqr"><span><b>${lk(f.n)}</b><small>${RN[f.role]} · OVR ${f.r} · pot. ${Math.round(f.pot)} · agente livre</small></span><button class="ghost" data-act="mgrSign" data-v="${esc(f.n)}">Contratar</button></div>`).join(''):`<p class="note" style="margin:0">${winOpen()?'Nenhum jogador livre se ofereceu.':'Janela fechada: propostas voltam antes do próximo split.'}</p>`;
   }
+  if(pcAct()&&S.pc.test)h+=`<small class="k sqk">Convocação do técnico</small>`+ptHTML(true);
+  const pc=S.pc;
   if(pcAct()&&pc.offers&&pc.offers.length){
     h+=`<small class="k sqk">Propostas de clubes</small>`+pc.offers.map((o,i)=>{const nt=ALLT().find(x=>x.name===o.tn);return `<div class="sqr"><span><b>${o.ren?'Renovar com ':''}${nt?tlk(nt):esc(o.tn)}</b><small>${o.k==='T'?'Titular':'Reserva'} · ${o.yrs} ano${o.yrs>1?'s':''} · ${fmtM(o.sal)}/ano</small></span><button class="ghost" data-act="pcOffer" data-v="${i}"${pcPlayOk()?'':' disabled'}>${o.ren?'Renovar':'Assinar'}</button></div>`}).join('');
   }
@@ -7627,12 +7850,15 @@ function act(a,v){
   else if(a==='pcF'){const [k,x]=String(v).split('|');pcF[k]=k==='role'?+x:x}
   else if(a==='pcCreate'){if(pcCreate(pcF)){pcF.name='';menuV='home';tab='pc';msg='Carreira criada. Boa sorte!';save();top=true}}
   else if(a==='pcPick'){if(pcAdopt(v)){menuV='home';tab='pc';msg='Você assumiu a carreira de '+v+'.';save();top=true}}
-  else if(a==='pcTrain'){pcTrain(v);save()}
+  else if(a==='pcPlan'){S.pc.plan=v;save()}
+  else if(a==='pcLearn'){pcLearn(v);save()}
+  else if(a==='ptPlay'){if(ptStart(false))top=true;save()}
+  else if(a==='ptSim'){ptStart(true);save()}
+  else if(a==='ptNo'){ptNo();save()}
   else if(a==='pcFocus'){S.pc.focus=+v;save()}
   else if(a==='pcSpend'){pcSpend(+v);save()}
   else if(a==='pcRest'){pcRest();save()}
   else if(a==='pcPool'){pcPoolTrain(v);save()}
-  else if(a==='pcVaga'){pcVaga();save()}
   else if(a==='pcOffer'){pcAccept(+v);save()}
   else if(a==='pcEv'){pcEv(v);save()}
   else if(a==='setg'){setOpen[v]=!setOpen[v]}
