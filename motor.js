@@ -2752,9 +2752,9 @@ class Brain {
     /* retirada e recall */
     const lowHp = u.hp < u.hpMax * (underT || monNear ? 0.5 : 0.33);
     const nxt = p.build ? B.nextPurchase({ ...u, gold: 1e9 }, p.build.items) : null;
-    const gate = nxt ? Math.min(1500, nxt.cost) : 1400, wantShop = u.gold >= Math.max(1100, gate * 0.95) && u.items.length < 6;
+    const gate = nxt ? Math.min(1500, nxt.cost) : 1400, wantShop = u.gold >= Math.max(1000, gate * 0.95) && u.items.length < 6;
     const inGoal = this.goal && this.goal.kind !== 'lane' && this.goal.mem && this.goal.mem.has(p);
-    if ((lowHp || (wantShop && !inGoal && w.t - (p.lastRecall || -999) > 60)) && !p.back) {
+    if ((lowHp || (wantShop && (!inGoal || u.gold >= 1800) && w.t - (p.lastRecall || -999) > 60)) && !p.back) {
       if (!danger || !lowHp) { if (!danger && w.life.startRecall(w, u)) { p.mode = 'recall'; p.lastRecall = w.t; p.back = true; this.stats.recalls++; return; } }
       if (lowHp && danger) { this.retreat(p, near); return; }
     }
@@ -3200,6 +3200,11 @@ function shop(brain, p) {
     return;
   }
   const t = w.t / 60;
+  /* item de suporte: ao cumprir a missão (ESTIMADO: ~7 min) troca o Atlas Mundial por uma das três evoluções (400 de ouro) */
+  if (p.role === 'support' && t >= 7 && u.items.includes(ID.ATLAS) && u.gold >= 400) {
+    const ench = /encantador/.test(arch) || (p.build && p.build.items.some(i => [6617, 3222, 3504, 3107, 2065, 3050].includes(i))), up = ench ? 3870 : /tanque|lutador/.test(arch) ? 3869 : 3871, k = u.items.indexOf(ID.ATLAS);
+    u.items.splice(k, 1); if (!SHOP.buy(w, u, up).ok) u.items.splice(k, 0, ID.ATLAS);
+  }
   if (u.level >= 9 && (p.role === 'support' || p.role === 'jungle')) SUP.setTrinket(w, u, ID.ORACLE);
   SUP.refillAtBase(u);
   const pinks = SUP.count(u, ID.PINK), want = p.role === 'support' ? (t > 4 ? 2 : 0) : p.role === 'jungle' ? (t > 4 ? 1 : 0) : (t > 8 ? 1 : 0);
@@ -3343,7 +3348,7 @@ function snapshot(S) {
   const cnt = (type, ti) => S.cnt[type + ti] || 0;
   const obj = [0, 1].map(ti => ({ drakes: drakes[ti], grubs: (jg.stacks[ti] && jg.stacks[ti].grubs) || 0, herald: cnt('herald-kill', ti), baron: cnt('baron-kill', ti), elder: cnt('elder-kill', ti), soul: jg.soul[ti] ? 1 : 0 }));
   const team = ti => { const pl = players[ti]; return { k: pl.reduce((a, p) => a + p.k, 0), d: pl.reduce((a, p) => a + p.d, 0), gold: pl.reduce((a, p) => a + p.gold, 0), towers: 11 - (str[ti].top.concat(str[ti].mid, str[ti].bot, str[ti].nx).reduce((a, b) => a + b, 0)) }; };
-  return { t: w.t, winner: S.over ? S.over.winner : null, players, str, hpS, mons, obj, teams: [team(0), team(1)], drakeSpawned: !!jg.epics.drake, baronUp: !!(jg.epics.baron && jg.epics.baron.some(m => !m.dead)) };
+  return { t: w.t, winner: S.over ? S.over.winner : null, players, str, hpS, mons, obj, teams: [team(0), team(1)], buff: { baron: jg.hob.map(x => (x ? Math.max(0, x - w.t) : 0)), elder: jg.aspect.map(x => (x ? Math.max(0, x - w.t) : 0)) }, drakeSpawned: !!jg.epics.drake, baronUp: !!(jg.epics.baron && jg.epics.baron.some(m => !m.dead)) };
 }
 
 module.exports = { create, advance, snapshot, setStyle, drainLog, supported, hasKit, lvPos, ROLES, DEFAULT_CHAMP, DRAKE };

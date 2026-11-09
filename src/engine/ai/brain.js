@@ -239,9 +239,9 @@ class Brain {
     /* retirada e recall */
     const lowHp = u.hp < u.hpMax * (underT || monNear ? 0.5 : 0.33);
     const nxt = p.build ? B.nextPurchase({ ...u, gold: 1e9 }, p.build.items) : null;
-    const gate = nxt ? Math.min(1500, nxt.cost) : 1400, wantShop = u.gold >= Math.max(1100, gate * 0.95) && u.items.length < 6;
+    const gate = nxt ? Math.min(1500, nxt.cost) : 1400, wantShop = u.gold >= Math.max(1000, gate * 0.95) && u.items.length < 6;
     const inGoal = this.goal && this.goal.kind !== 'lane' && this.goal.mem && this.goal.mem.has(p);
-    if ((lowHp || (wantShop && !inGoal && w.t - (p.lastRecall || -999) > 60)) && !p.back) {
+    if ((lowHp || (wantShop && (!inGoal || u.gold >= 1800) && w.t - (p.lastRecall || -999) > 60)) && !p.back) {
       if (!danger || !lowHp) { if (!danger && w.life.startRecall(w, u)) { p.mode = 'recall'; p.lastRecall = w.t; p.back = true; this.stats.recalls++; return; } }
       if (lowHp && danger) { this.retreat(p, near); return; }
     }

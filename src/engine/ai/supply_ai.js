@@ -22,6 +22,11 @@ function shop(brain, p) {
     return;
   }
   const t = w.t / 60;
+  /* item de suporte: ao cumprir a missão (ESTIMADO: ~7 min) troca o Atlas Mundial por uma das três evoluções (400 de ouro) */
+  if (p.role === 'support' && t >= 7 && u.items.includes(ID.ATLAS) && u.gold >= 400) {
+    const ench = /encantador/.test(arch) || (p.build && p.build.items.some(i => [6617, 3222, 3504, 3107, 2065, 3050].includes(i))), up = ench ? 3870 : /tanque|lutador/.test(arch) ? 3869 : 3871, k = u.items.indexOf(ID.ATLAS);
+    u.items.splice(k, 1); if (!SHOP.buy(w, u, up).ok) u.items.splice(k, 0, ID.ATLAS);
+  }
   if (u.level >= 9 && (p.role === 'support' || p.role === 'jungle')) SUP.setTrinket(w, u, ID.ORACLE);
   SUP.refillAtBase(u);
   const pinks = SUP.count(u, ID.PINK), want = p.role === 'support' ? (t > 4 ? 2 : 0) : p.role === 'jungle' ? (t > 4 ? 1 : 0) : (t > 8 ? 1 : 0);

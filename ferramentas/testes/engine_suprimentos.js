@@ -17,4 +17,11 @@ const mk = seed => M.createGame({ seed, teams: [{ name: 'A', roster: M.ROSTERS.A
 { const g = mk(2), u = g.brains[0].players[4].u; SUP.setTrinket(g.w, u, SUP.ID.ORACLE); T(u.trk.id === SUP.ID.WARD, 'Oráculo exige nível 9');
   u.level = 9; T(SUP.setTrinket(g.w, u, SUP.ID.ORACLE) && u.trk.id === SUP.ID.ORACLE, 'Oráculo liberado no nível 9');
   u.gold = 5000; const r = SHOP.buy(g.w, u, SUP.ID.PINK); T(r.ok && SUP.count(u, SUP.ID.PINK) >= 1, 'compra de Sentinela de Controle'); }
+{ const g = mk(4), ids = [3869, 3870, 3871];
+  g.w.run(30);
+  T(g.brains.every(b => b.players.every(p => p.u.items.some(i => [1054, 1055, 1056, 1086, 1101, 1102, 1103, 3865].includes(i)))), 'todos compram o item inicial da função (Doran, filhote da selva ou Atlas)');
+  T(g.brains.every(b => b.players.find(p => p.role === 'jungle').u.items.some(i => [1101, 1102, 1103].includes(i))), 'o caçador compra o filhote de selva');
+  g.w.run(960);
+  const sup = g.brains.map(b => b.players.find(p => p.role === 'support').u);
+  T(sup.every(u => u.items.some(i => ids.includes(i)) && !u.items.includes(3865)), 'suportes trocam o Atlas Mundial por uma evolução depois da missão (~7 min)'); }
 console.log(bad ? '\nHÁ FALHAS' : '\nTODOS OS TESTES PASSARAM'); process.exit(bad ? 1 : 0);

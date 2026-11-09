@@ -106,7 +106,7 @@ function snapshot(S) {
   const cnt = (type, ti) => S.cnt[type + ti] || 0;
   const obj = [0, 1].map(ti => ({ drakes: drakes[ti], grubs: (jg.stacks[ti] && jg.stacks[ti].grubs) || 0, herald: cnt('herald-kill', ti), baron: cnt('baron-kill', ti), elder: cnt('elder-kill', ti), soul: jg.soul[ti] ? 1 : 0 }));
   const team = ti => { const pl = players[ti]; return { k: pl.reduce((a, p) => a + p.k, 0), d: pl.reduce((a, p) => a + p.d, 0), gold: pl.reduce((a, p) => a + p.gold, 0), towers: 11 - (str[ti].top.concat(str[ti].mid, str[ti].bot, str[ti].nx).reduce((a, b) => a + b, 0)) }; };
-  return { t: w.t, winner: S.over ? S.over.winner : null, players, str, hpS, mons, obj, teams: [team(0), team(1)], drakeSpawned: !!jg.epics.drake, baronUp: !!(jg.epics.baron && jg.epics.baron.some(m => !m.dead)) };
+  return { t: w.t, winner: S.over ? S.over.winner : null, players, str, hpS, mons, obj, teams: [team(0), team(1)], buff: { baron: jg.hob.map(x => (x ? Math.max(0, x - w.t) : 0)), elder: jg.aspect.map(x => (x ? Math.max(0, x - w.t) : 0)) }, drakeSpawned: !!jg.epics.drake, baronUp: !!(jg.epics.baron && jg.epics.baron.some(m => !m.dead)) };
 }
 
 module.exports = { create, advance, snapshot, setStyle, drainLog, supported, hasKit, lvPos, ROLES, DEFAULT_CHAMP, DRAKE };
