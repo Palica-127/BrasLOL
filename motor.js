@@ -183,14 +183,15 @@ class World {
   kill(dst, src) {
     if (dst.dead) return;
     dst.dead = true; dst.hp = 0; dst.stat.deaths++; if (src && dst.kind !== 'minion' && dst.kind !== 'monster' && dst.kind !== 'structure') src.stat.kills++;
-    Object.keys(dst.assisters || {}).forEach(id => { const u = this.byId(+id); if (u && u !== src && u.team === src.team && this.t - dst.assisters[id] < 10) u.stat.assists++; });
+    const asIds = [];
+    Object.keys(dst.assisters || {}).forEach(id => { const u = this.byId(+id); if (u && u !== src && u.team === src.team && this.t - dst.assisters[id] < 10) { u.stat.assists++; if (dst.kind !== 'minion' && dst.kind !== 'monster' && dst.kind !== 'structure') asIds.push(u.id); } });
     dst.cast = null; dst.attack.windup = null; dst.dash = null; dst.order = null;
     this.zones.forEach(z => { if (z.owner === dst && z.dieWithOwner) z.until = this.t; });
     if (dst.kind === 'structure') { this.structures.onDeath(dst, src); return; }
     if (dst.kind === 'minion') { if (this.econ) this.econ.onMinionDeath(dst, src); return; }
     if (dst.kind === 'monster') { if (this.jungle) this.jungle.onMonsterDeath(dst, src); return; }
     JB.onDeath(this, dst); if (this.respawn) LIFE.onDeath(this, dst);
-    this.emit('kill', { dst: dst.id, src: src && src.id });
+    this.emit('kill', { dst: dst.id, src: src && src.id, as: asIds });
     if (this.econ) this.econ.onChampionKill(dst, src);
   }
   get life() { return LIFE; }
@@ -3472,7 +3473,7 @@ function create(opts) {
   const pname = (ti, r) => teams[ti].roster[r].player;
   const nameOf = u => { for (let ti = 0; ti < 2; ti++) { const r = S.champs[ti].indexOf(u); if (r >= 0) return { ti, r, n: pname(ti, r), ch: teams[ti].roster[r].name }; } return null; };
   const tnm = ti => teams[ti].name;
-  const say = (t, text, k, ti) => S.logOut.push({ m: t, t: text, k: k || 'sys', ti });
+  const say = (t, text, k, ti, kf) => S.logOut.push({ m: t, t: text, k: k || 'sys', ti, kf });
   /* traducao do log estruturado -> linhas do jogo */
   S.cnt = {}; w.listeners.push(e => { if (e.team === 0 || e.team === 1) { const k = e.type + e.team; S.cnt[k] = (S.cnt[k] || 0) + 1; } });
   S.translate = e => {
@@ -3481,7 +3482,10 @@ function create(opts) {
       case 'kill': {
         const v = nameOf(nm(e.dst)); if (!v) break;
         const a = e.src != null ? nameOf(nm(e.src)) : null;
-        say(e.t, a ? `${a.n} (${a.ch}) abate ${v.n} (${v.ch}).` : `${v.n} (${v.ch}) morre.`, 'kill', a ? a.ti : 1 - v.ti); break;
+        const as = (e.as || []).map(id => nameOf(nm(id))).filter(Boolean);
+        /* kf: abatedor, vítima e assistentes (time + campeão) para a linha de ícones do log */
+        const kf = { k: a ? { ti: a.ti, ch: a.ch, n: a.n } : null, v: { ti: v.ti, ch: v.ch, n: v.n }, a: as.map(x => ({ ti: x.ti, ch: x.ch, n: x.n })) };
+        say(e.t, a ? `${a.n} (${a.ch}) abate ${v.n} (${v.ch}).` : `${v.n} (${v.ch}) morre.`, 'kill', a ? a.ti : 1 - v.ti, kf); break;
       }
       case 'structure-fall': {
         if (e.sub === 'inhibitor') say(e.t, `${tnm(1 - e.team)} derruba um inibidor ${e.lane ? 'na rota ' + ({ top: 'superior', mid: 'do meio', bot: 'inferior' })[e.lane] : ''}.`, 'tower', 1 - e.team);

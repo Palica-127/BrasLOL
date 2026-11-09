@@ -155,14 +155,15 @@ class World {
   kill(dst, src) {
     if (dst.dead) return;
     dst.dead = true; dst.hp = 0; dst.stat.deaths++; if (src && dst.kind !== 'minion' && dst.kind !== 'monster' && dst.kind !== 'structure') src.stat.kills++;
-    Object.keys(dst.assisters || {}).forEach(id => { const u = this.byId(+id); if (u && u !== src && u.team === src.team && this.t - dst.assisters[id] < 10) u.stat.assists++; });
+    const asIds = [];
+    Object.keys(dst.assisters || {}).forEach(id => { const u = this.byId(+id); if (u && u !== src && u.team === src.team && this.t - dst.assisters[id] < 10) { u.stat.assists++; if (dst.kind !== 'minion' && dst.kind !== 'monster' && dst.kind !== 'structure') asIds.push(u.id); } });
     dst.cast = null; dst.attack.windup = null; dst.dash = null; dst.order = null;
     this.zones.forEach(z => { if (z.owner === dst && z.dieWithOwner) z.until = this.t; });
     if (dst.kind === 'structure') { this.structures.onDeath(dst, src); return; }
     if (dst.kind === 'minion') { if (this.econ) this.econ.onMinionDeath(dst, src); return; }
     if (dst.kind === 'monster') { if (this.jungle) this.jungle.onMonsterDeath(dst, src); return; }
     JB.onDeath(this, dst); if (this.respawn) LIFE.onDeath(this, dst);
-    this.emit('kill', { dst: dst.id, src: src && src.id });
+    this.emit('kill', { dst: dst.id, src: src && src.id, as: asIds });
     if (this.econ) this.econ.onChampionKill(dst, src);
   }
   get life() { return LIFE; }
