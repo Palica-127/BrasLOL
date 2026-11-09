@@ -1534,6 +1534,9 @@ body::after{opacity:.32;filter:grayscale(.35) brightness(.8)}
 .sqreq{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:10px 0}.sqreq small{display:block;color:#7f8fb8;margin-top:2px}
 @media (max-width:760px){.pn.mail{position:fixed;top:64px;right:16px;left:16px;width:auto}}
 
+/* Prêmio: o Top 5 de 2011 a 2025 ocupa a linha inteira, abaixo dos campeões do ano */
+#app.wrap>.pn.prebx{grid-column:1/-1}
+
 /* Jogar: cabeçalho com ações agrupadas e blocos alinhados */
 .hub .hact{display:flex;gap:8px;align-items:center}
 .hub .tiles{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
@@ -6991,7 +6994,7 @@ function vSeason(){
 /* ---------- bola de ouro ---------- */
 function preHTML(){
   if(!S.pre||!S.pre.length)return '';
-  return `<section class="pn"><h2>Top 5 de 2011 a 2025</h2>${[...S.pre].reverse().map(x=>`<div class="rowl"><span class="lg num">${x.y}</span><span class="grow"><b>${lk(x.top[0].n)}</b> <small>${esc(x.top[0].team)}</small>${x.top.length>1?`<br><small>${x.top.slice(1).map(t=>lk(t.n)).join(' · ')}</small>`:''}</span></div>`).join('')}<p class="note">Seu ranking dos anos anteriores. Faker tem 4 prêmios de Melhor Jogador do Ano; Ruler e Chovy, 2 cada.</p></section>`;
+  return `<section class="pn prebx"><h2>Top 5 de 2011 a 2025</h2>${[...S.pre].reverse().map(x=>`<div class="rowl"><span class="lg num">${x.y}</span><span class="grow"><b>${lk(x.top[0].n)}</b> <small>${esc(x.top[0].team)}</small>${x.top.length>1?`<br><small>${x.top.slice(1).map(t=>lk(t.n)).join(' · ')}</small>`:''}</span></div>`).join('')}<p class="note">Seu ranking dos anos anteriores. Faker tem 4 prêmios de Melhor Jogador do Ano; Ruler e Chovy, 2 cada.</p></section>`;
 }
 function vBola(){
   if(!S.hist.length)return `<p class="empty">Nenhuma temporada de 2026 em diante fechada ainda. Jogue até o Melhor Jogador do Ano para ver o top 10 do ano.</p><button class="ghost" data-act="tab" data-v="season">Ir para a temporada</button>`+preHTML();
