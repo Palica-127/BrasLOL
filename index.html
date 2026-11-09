@@ -1586,10 +1586,15 @@ body::after{opacity:.32;filter:grayscale(.35) brightness(.8)}
 .cmd{display:grid;gap:6px;margin:10px 0 0}.cmd div{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:10px;font-size:13px;line-height:1.3}
 .cmd .clg{background:linear-gradient(90deg,rgba(132,102,255,.25),rgba(255,122,184,.06));border:1px solid rgba(160,130,255,.55);color:#E0D2FF}
 .cmd .ct10{background:linear-gradient(90deg,rgba(255,226,122,.16),rgba(255,226,122,.03));border:1px solid rgba(255,226,122,.4);color:#FFE27A}
-.fut.mol{background:none;clip-path:none;filter:drop-shadow(0 4px 8px rgba(0,0,0,.55))}.fut.mol::before{display:none}
-.fut .fbg{position:absolute;left:6.5%;right:6.5%;top:5.2%;bottom:5.2%;border-radius:12px;background:var(--fb);overflow:hidden}.fut .fbg::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(255,255,255,.3),rgba(255,255,255,0) 45%,rgba(0,0,0,.14))}
-.fut .fin{position:absolute;inset:0;transform:scale(.8);transform-origin:50% 50%}
-.fut .orn{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none;z-index:5}
+.fut.mol{background:none;clip-path:none;overflow:visible;filter:drop-shadow(0 4px 8px rgba(0,0,0,.55))}.fut.mol::before{display:none}
+/* o rosto da carta tem o mesmo tamanho de antes; a moldura fica por fora, centralizada, só um pouco sobreposta à borda */
+.fut .fbg{position:absolute;inset:0;border-radius:14px;background:var(--fb);overflow:hidden}.fut .fbg::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(255,255,255,.3),rgba(255,255,255,0) 45%,rgba(0,0,0,.14))}
+.fut .fin{position:absolute;inset:0;transform:scale(.96);transform-origin:50% 50%}
+.fut .orn{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:124.4%;height:113.8%;object-fit:fill;pointer-events:none;z-index:5;max-width:none}
+.fut .orn.lenda{width:123.6%;height:115.5%}.fut .orn.mundo{width:121.3%;height:112.6%}
+.fgrid:has(.mol){gap:34px 26px}.fgrid:has(.mol) .fcell{gap:18px}
+.futr:has(.mol){padding:20px 24px 26px}
+.ph .fut.mol{margin:16px 14px}
 .cmd b{white-space:nowrap;flex:none;font:700 12px var(--d);letter-spacing:.08em;text-transform:uppercase}.cmd span{opacity:.92}
 /* Prêmio: o Top 5 de 2011 a 2025 fica na mesma coluna, logo abaixo da tabela de campeões do ano */
 #app.wrap>.bcol{grid-column:auto;min-width:0;width:auto}.bcol>.pn:last-child{margin-bottom:14px}
@@ -6953,7 +6958,7 @@ function fut(o,cls=''){
   ${o.f&&Math.abs(o.f)>=.5?`<span class="ff">${o.f>0?'▲':'▼'}${Math.abs(o.f).toFixed(1)}</span>`:''}${med?`<span class="fmd">${med}</span>`:''}`;
   /* com conquista a carta ganha uma moldura: ambos, só lenda ou só melhor do mundo */
   const mol=bw.length&&ly?'ambos':ly?'lenda':bw.length?'mundo':'';
-  return `<button class="fut t${t} ${cls}${mol?' mol':''}${bw.length?' bw':''}${ly?' lgd':''}${ret?' ret':''}${S.inj&&S.inj[o.n]?' inj':''}" data-act="player" data-v="${esc(o.n)}" aria-label="${esc(o.n)}, ${o.r}">${mol?`<span class="fbg"></span><span class="fin">${inner}</span><img class="orn" src="cartas/moldura_${mol}.webp" alt="" draggable="false">`:inner}</button>`;
+  return `<button class="fut t${t} ${cls}${mol?' mol':''}${bw.length?' bw':''}${ly?' lgd':''}${ret?' ret':''}${S.inj&&S.inj[o.n]?' inj':''}" data-act="player" data-v="${esc(o.n)}" aria-label="${esc(o.n)}, ${o.r}">${mol?`<span class="fbg"></span><span class="fin">${inner}</span><img class="orn ${mol}" src="cartas/moldura_${mol}.webp" alt="" draggable="false">`:inner}</button>`;
 }
 const hx=(r,c='')=>`<span class="hx t${tier(r)} ${c}">${r}</span>`;
 /* listas de jogadores em cartinhas: cada item = carta (fut) + legenda; a grade se ajusta à largura */
