@@ -1580,12 +1580,6 @@ body::after{opacity:.32;filter:grayscale(.35) brightness(.8)}
 .cmd{display:grid;gap:6px;margin:10px 0 0}.cmd div{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:10px;font-size:13px;line-height:1.3}
 .cmd .clg{background:linear-gradient(90deg,rgba(132,102,255,.25),rgba(255,122,184,.06));border:1px solid rgba(160,130,255,.55);color:#E0D2FF}
 .cmd .ct10{background:linear-gradient(90deg,rgba(255,226,122,.16),rgba(255,226,122,.03));border:1px solid rgba(255,226,122,.4);color:#FFE27A}
-.fut.mol{background:none;clip-path:none;filter:drop-shadow(0 4px 8px rgba(0,0,0,.55))}.fut.mol::before{display:none}
-.fut .molbg,.fut .molfg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.fut .molbg{z-index:0}.fut .molfg{z-index:5}
-.fut.mol>span{z-index:2}.fut.mol .fa.ph{top:11%;height:56%}
-.fut.mol .fst{left:16px;right:16px}.fut.big.mol .fst{left:21px;right:21px}.fcell .fut.mol .fst{left:19px;right:19px}
-.fut.m-mundo,.fut.m-lend{--fc:#FFE9A0;--fm:rgba(255,233,160,.7)}.fut.m-t10{--fc:#EAD8FF;--fm:rgba(234,216,255,.7)}
-.fut.mol .fnm{border-bottom-color:transparent}
 .cmd b{white-space:nowrap;flex:none;font:700 12px var(--d);letter-spacing:.08em;text-transform:uppercase}.cmd span{opacity:.92}
 /* Prêmio: o Top 5 de 2011 a 2025 fica na mesma coluna, logo abaixo da tabela de campeões do ano */
 #app.wrap>.bcol{grid-column:auto;min-width:0;width:auto}.bcol>.pn:last-child{margin-bottom:14px}
@@ -6916,53 +6910,14 @@ function legendYear(n){
 }
 const yrsTxt=a=>a.length<=3?a[0]+a.slice(1).map(y=>'·'+String(y).slice(2)).join(''):`${a.length}× · ${a[a.length-1]}`;
 const legR=n=>{const h=S.hof&&S.hof[n];return h?Math.round(clamp(84+sc(h)/6,84,97)):80};
-/* Cartas com conquistas (modelo): dourada = Melhor do Mundo, roxa = Top 10 da História, dourada+roxa = Lendária; sempre com o ano na coroa */
-const MOLC={
-  mundo:{a:'#FFF1A8',b:'#E8B93E',c:'#7a5410',bg0:'#3b2a07',bg1:'#0c0a04',tx:'#FFE9A0',rb:'#0d0a04',lab:'MELHOR DO MUNDO'},
-  t10:{a:'#EAD6FF',b:'#A66CFF',c:'#3d1a8a',bg0:'#33156a',bg1:'#0a0618',tx:'#EAD8FF',rb:'#0b0618',lab:'TOP 10 DA HISTÓRIA'},
-  lend:{a:'#FFF1A8',b:'#E8B93E',c:'#7a5410',bg0:'#2e1259',bg1:'#0b0618',tx:'#FFE9A0',rb:'#0b0618',lab:'LENDÁRIA',p:'#A66CFF'}
-};
-const MOLP='M12 0H120L132 11V166L120 178H78L66 190L54 178H12L0 166V11Z';
-function molBg(k){
-  const c=MOLC[k],id='m'+k;
-  return `<svg class="molbg" viewBox="0 0 132 190" preserveAspectRatio="none" aria-hidden="true"><defs>
-<linearGradient id="${id}b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c.bg0}"/><stop offset="1" stop-color="${c.bg1}"/></linearGradient>
-<linearGradient id="${id}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c.a}"/><stop offset=".5" stop-color="${c.b}"/><stop offset="1" stop-color="${c.c}"/></linearGradient>
-<radialGradient id="${id}r" cx=".55" cy=".3" r=".6"><stop offset="0" stop-color="${c.p||c.b}" stop-opacity=".45"/><stop offset="1" stop-color="${c.p||c.b}" stop-opacity="0"/></radialGradient></defs>
-<path d="${MOLP}" fill="url(#${id}b)"/><path d="${MOLP}" fill="url(#${id}r)"/>
-<path d="M-10 150L70 -10M20 190L110 20M70 190L150 40M-10 90L50 -10" stroke="${c.p||c.b}" stroke-opacity=".14" stroke-width="1.2" fill="none"/>
-<rect x="7" y="110" width="118" height="27" fill="rgba(0,0,0,.55)"/><path d="M7 110H125M7 137H125" stroke="${c.b}" stroke-opacity=".7" stroke-width=".6"/>
-<rect x="7" y="139" width="118" height="26" fill="rgba(0,0,0,.5)" stroke="${c.b}" stroke-opacity=".55" stroke-width=".6"/>
-<path d="${MOLP}" fill="none" stroke="url(#${id}g)" stroke-width="3.4" stroke-linejoin="round"/>
-<path d="${MOLP}" fill="none" stroke="${c.a}" stroke-opacity=".6" stroke-width=".7" transform="translate(66 95) scale(.94) translate(-66 -95)"/>
-<path d="M0 11L5 8L3 3L8 5L12 0M132 11L127 8L129 3L124 5L120 0" stroke="url(#${id}g)" stroke-width="1.6" fill="none"/></svg>`;
-}
-function molFg(k,year){
-  const c=MOLC[k],id='m'+k,L=[];
-  /* louros nos cantos de baixo */
-  [[8,150,-70],[9,158,-60],[11,166,-45],[15,173,-30],[20,179,-15],[26,183,-5]].forEach(([x,y,r])=>{
-    [1,-1].forEach(sd=>{const X=sd>0?x:132-x,R=sd>0?r:-r;L.push(`<ellipse cx="${X}" cy="${y}" rx="5" ry="2" transform="rotate(${R} ${X} ${y})" fill="url(#${id}g)" stroke="${c.c}" stroke-width=".4"/>`)});
-  });
-  return `<svg class="molfg" viewBox="0 0 132 190" preserveAspectRatio="none" aria-hidden="true"><defs>
-<linearGradient id="${id}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c.a}"/><stop offset=".5" stop-color="${c.b}"/><stop offset="1" stop-color="${c.c}"/></linearGradient></defs>
-${L.join('')}
-<path d="M43 12H89L85 25H47Z" fill="${c.rb}" fill-opacity=".92" stroke="url(#${id}g)" stroke-width="1.1"/>
-<path d="M52 12L54 4L60 8L66 0L72 8L78 4L80 12Z" fill="url(#${id}g)" stroke="${c.c}" stroke-width=".4"/><circle cx="66" cy="6.2" r="1.4" fill="${c.p||'#7fd2ff'}"/>
-<text x="66" y="22.6" text-anchor="middle" style="font:800 11.5px var(--d);letter-spacing:.05em" fill="${c.tx}">${year}</text>
-<path d="M24 167H108L113 173L108 179H24L19 173Z" fill="${c.rb}" fill-opacity=".94" stroke="url(#${id}g)" stroke-width="1"/>
-<text x="66" y="175.4" text-anchor="middle" style="font:800 6px var(--d)" fill="${c.tx}" textLength="${c.lab.length>12?66:50}" lengthAdjust="spacingAndGlyphs">${c.lab}</text>
-<path d="M66 181L69 185.5L66 190L63 185.5Z" fill="url(#${id}g)"/></svg>`;
-}
 function fut(o,cls=''){
   const t=tier(o.r),st=futStats(o.n,o.r,o.role),c=natC(o.n),tm=o.team;
-  const bw=bwYears(o.n),t10=t10Hist()[o.n],ret=!tm||!!(S.pdb&&S.pdb[o.n]&&S.pdb[o.n].ret);
-  const k=bw.length&&t10?'lend':bw.length?'mundo':t10?'t10':'';
-  const yr=k==='mundo'?bw[bw.length-1]:k==='t10'?t10.in:Math.max(bw[bw.length-1],t10&&t10.in||0);
-  const inner=`<span class="fo num">${o.r}</span><span class="fr">${RN[o.role]||''}</span>${c?`<span class="fn">${natTxt(c)}</span>`:''}${tm?`<span class="fs">${crest(tm,'')}</span>`:''}
+  const ret=!tm||!!(S.pdb&&S.pdb[o.n]&&S.pdb[o.n].ret);
+  return `<button class="fut t${t} ${cls}${ret?' ret':''}${S.inj&&S.inj[o.n]?' inj':''}" data-act="player" data-v="${esc(o.n)}" aria-label="${esc(o.n)}, ${o.r}">
+  <span class="fo num">${o.r}</span><span class="fr">${RN[o.role]||''}</span>${c?`<span class="fn">${natTxt(c)}</span>`:''}${tm?`<span class="fs">${crest(tm,'')}</span>`:''}
   <span class="fa${phHas(o.n)?' ph':''}">${phHas(o.n)?phImg(o.n):AVA}</span><span class="fnm">${esc(o.n)}</span>
   <span class="fst">${st.map((v,i)=>`<span class="num">${v}<small>${FSTAT[i]}</small></span>`).join('')}</span>
-  ${o.f&&Math.abs(o.f)>=.5?`<span class="ff">${o.f>0?'▲':'▼'}${Math.abs(o.f).toFixed(1)}</span>`:''}`;
-  return `<button class="fut t${t} ${cls}${k?' mol m-'+k:''}${ret?' ret':''}${S.inj&&S.inj[o.n]?' inj':''}" data-act="player" data-v="${esc(o.n)}" aria-label="${esc(o.n)}, ${o.r}">${k?molBg(k)+inner+molFg(k,yr):inner}</button>`;
+  ${o.f&&Math.abs(o.f)>=.5?`<span class="ff">${o.f>0?'▲':'▼'}${Math.abs(o.f).toFixed(1)}</span>`:''}</button>`;
 }
 const hx=(r,c='')=>`<span class="hx t${tier(r)} ${c}">${r}</span>`;
 /* listas de jogadores em cartinhas: cada item = carta (fut) + legenda; a grade se ajusta à largura */
