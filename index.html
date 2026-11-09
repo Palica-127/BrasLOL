@@ -1524,6 +1524,16 @@ body::after{opacity:.32;filter:grayscale(.35) brightness(.8)}
 .pn.mail .sqr small{display:block;color:#7f8fb8}
 .pn.mail .sqask{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px}
 
+/* caixa de e-mail como balão logo abaixo do ícone: sobrepõe o conteúdo, sem empurrar nada */
+.hub .hh{position:relative}
+.mailw{position:relative}
+.pn.mail{position:absolute;top:calc(100% + 6px);right:0;width:min(360px,calc(100vw - 32px));max-height:min(70vh,520px);overflow:auto;margin:0;z-index:60;box-shadow:0 14px 40px rgba(0,0,0,.6);border:1px solid #c8aa6e;background:#0f1626}
+.pn.mail .sqask{display:none}
+.mrc{display:grid;gap:6px}.mrc .rc{display:flex;gap:8px;align-items:flex-start}.mrc .rc small{display:block;color:#7f8fb8;font-size:11.5px}.mrc .rc b{font:600 13px var(--b)}
+.hdt{display:block;margin-top:2px}
+.sqreq{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:10px 0}.sqreq small{display:block;color:#7f8fb8;margin-top:2px}
+@media (max-width:760px){.pn.mail{position:fixed;top:64px;right:16px;left:16px;width:auto}}
+
 /* Jogar: cabeçalho com ações agrupadas e blocos alinhados */
 .hub .hact{display:flex;gap:8px;align-items:center}
 .hub .tiles{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
@@ -5339,7 +5349,7 @@ function pcYear(){
 function pcPlayOk(){return winOpen()||S.phase===0}
 function pcOffers(){
   const pc=S.pc;if(!pc||pc.ended)return;
-  const f=pcFind();if(!f){pc.offers=[];return}
+  const f=pcFind();if(!f){pc.offers=[];pc.pend=[];return}
   const p=f.p,role=p.role,L=[];
   ALLT().forEach(t=>{
     if(t===f.t)return;
@@ -5352,8 +5362,9 @@ function pcOffers(){
   });
   L.sort((a,b)=>b.pr-a.pr);
   const pick_=[...L.slice(0,2),...shuffle(L.slice(2)).slice(0,2)];
-  pc.offers=pick_.map(x=>({tn:x.tn,k:x.k,sal:x.sal,yrs:x.yrs}));
-  pc.offers.unshift({tn:f.t.name,k:f.bn?'R':'T',sal:r1(Math.max(pc.sal,salOf(p))*1.1),yrs:2,ren:true});
+  /* a renovação chega logo; as propostas dos outros clubes entram na caixa de e-mail aos poucos, ao longo dos dias */
+  pc.pend=pick_.map(x=>({tn:x.tn,k:x.k,sal:x.sal,yrs:x.yrs}));
+  pc.offers=[{tn:f.t.name,k:f.bn?'R':'T',sal:r1(Math.max(pc.sal,salOf(p))*1.1),yrs:2,ren:true}];
 }
 function pcAccept(i){
   const pc=S.pc,o=pc.offers[i],f=pcFind();if(!o||!f)return;
@@ -5365,7 +5376,7 @@ function pcAccept(i){
   nt.bn=nt.bn||[];
   if(o.k==='T'){const old=nt.pl[role];nt.pl[role]=p;nt.bn.push(old)}else nt.bn.push(p);
   nt.bn.sort((a,b)=>b.r-a.r);while(nt.bn.length>3){const w=nt.bn.pop();if(w.pc)nt.bn.unshift(w)}
-  pd(p.n).role=role;pc.sal=o.sal;pc.ctr=o.yrs;pc.offers=[];
+  pd(p.n).role=role;pc.sal=o.sal;pc.ctr=o.yrs;pc.offers=[];pc.pend=[];
   pcLog(`assina com o ${nt.name} (${o.k==='T'?'titular':'reserva'}) por ${o.yrs} ano${o.yrs>1?'s':''}, salário ${fmtM(o.sal)}.`);
   news(`${p.n} deixa o ${ot.name} e assina com o ${nt.name}.`);
   msg=`Você assinou com o ${nt.name}.`;
@@ -6096,6 +6107,8 @@ const MES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','de
 const CAL={s1:35,m0:172,m1:178,m2:184,s2:192,wq:311,ws:317,wf:324,aw:332,cg1:337,cg2:341,cg3:345,ck1:349,ck2:352,ck3:356,ck4:360},SPB={s1:125,s2:95};/* dias disponíveis para o split inteiro: o ritmo se ajusta ao tamanho da liga e nunca invade MSI ou Mundial */
 function dmy(d){let m=0;d=Math.max(1,Math.min(365,d));while(d>MDN[m]){d-=MDN[m];m++}return{d,m}}
 const dTxt=d=>{const x=dmy(d);return `${x.d} ${MES[x.m]}`};
+/* data completa dd/mm/aaaa: o ano tem 365 dias (1 de janeiro = dia 1, 31 de dezembro = dia 365) */
+const dFull=d=>{const x=dmy(d),p=n=>String(n).padStart(2,'0');return `${p(x.d)}/${p(x.m+1)}/${S.year}`};
 const dWk=d=>{const x=dmy(d);return DSEM[new Date(Date.UTC(S.year,x.m,x.d)).getUTCDay()]};
 function phDay(i,live){
   const p=PHASES[i];if(!p)return 365;
@@ -6126,17 +6139,29 @@ function dayOffer(){
     if(over>0&&Math.random()<Math.min(.85,over*1.6))return;
     const w=S.teams.filter(x=>x!==t&&x.pl[f.p.role].r<f.p.r),buyer=pick(w.length?w:S.teams.filter(x=>x!==t));
     const price=r1(Math.min(ask,v*1.6)*(.8+Math.random()*.3));
-    m.offers.push({n,to:buyer.id,price});mlog(`${dTxt(S.day)}: ${buyer.name} oferece ${fmtM(price)} por ${n}, que está na lista.`);return;
+    m.offers.push({n,to:buyer.id,price});MAILSEQ++;mlog(`${dTxt(S.day)}: ${buyer.name} oferece ${fmtM(price)} por ${n}, que está na lista.`);return;
   }
   const cand=t.pl.concat(m.bench,m.acad).filter(p=>!m.offers.some(o=>o.n===p.n));
   if(!cand.length)return;
   const p=pick(cand),f=mFind(p.n);if(!f)return;
   const w=S.teams.filter(x=>x!==t&&x.pl[p.role].r<p.r),buyer=pick(w.length?w:S.teams.filter(x=>x!==t));
   const price=r1(mvOf(p)*(1.1+Math.random()*.4)*(f.k==='acad'?.85:1));
-  m.offers.push({n:p.n,to:buyer.id,price});
+  m.offers.push({n:p.n,to:buyer.id,price});MAILSEQ++;
   mlog(`${dTxt(S.day)}: ${buyer.name} oferece ${fmtM(price)} por ${p.n}.`);
 }
+/* ofertas de jogadores chegam aos poucos: um agente livre ou uma proposta de clube de cada vez, em dias aleatórios */
+let MAILSEQ=0;
+function mailFlow(){
+  const m=S.mgr;
+  if(m&&mgrT()&&m.fa){
+    m.fm=(m.fm||[]).filter(n=>m.fa.some(p=>p.n===n));
+    if(winOpen()&&m.fm.length<3&&Math.random()<.18){const c=m.fa.filter(p=>!m.fm.includes(p.n)).sort((a,b)=>b.pot-a.pot).slice(0,6);if(c.length){m.fm.push(pick(c).n);MAILSEQ++}}
+  }
+  const pc=S.pc;
+  if(pcAct()&&pc.pend&&pc.pend.length&&Math.random()<.3){pc.offers=pc.offers||[];pc.offers.push(pc.pend.shift());MAILSEQ++}
+}
 function dayTick(){
+  mailFlow();
   if(S.mgr&&mgrT())mgrDay();
   if(Math.random()<.05)dayNews();
   if(S.mgr&&mgrT()&&winOpen()&&Math.random()<(Object.keys(S.mgr.listed||{}).length?.25:.14)&&(S.mgr.offers||[]).length<3)dayOffer();
@@ -6148,14 +6173,32 @@ function advDay(n){
   else if(!k&&dayNow()>=evDay())msg='Hoje é dia de jogo.';
   return k;
 }
+/* avançar o tempo como no FIFA: os dias passam sozinhos até chegar um jogo, evento ou notificação nova na caixa de e-mail */
+let AUTO=null;
+const autoLbl=()=>AUTO?'Parar':(daysLeft()>0?'Avançar o tempo':'Avançar');
+function autoSig(){const m=S.mgr;return MAILSEQ+(mgrT()?mailInv().length:0)+(m&&m.offers?m.offers.length:0)}
+function autoStop(){if(AUTO){clearInterval(AUTO);AUTO=null}}
+function autoToggle(){
+  if(AUTO){autoStop();render();return}
+  if(daysLeft()<=0||cevBlock()){advDay(1);render();return}
+  const s0=autoSig(),end=()=>{autoStop();save()};
+  AUTO=setInterval(()=>{
+    try{
+      const k=advDay(1),y=window.scrollY;
+      if(!k||autoSig()>s0||cevBlock()||daysLeft()<=0||TITLE||LV||DV)end();
+      msg='';render();window.scrollTo(0,y);
+    }catch(e){end()}
+  },110);
+  render();
+}
 function calHTML(cur){
   const ev=evDay(),td=dayNow(),left=ev-td,x=dmy(td);
   const lbl=!cur?'Virada de ano':S.season.sp?spLabel(S.season.sp):cur.l;
-  let h=`<section class="pn cal"><div class="cdate"><div><small>${dWk(td)} · temporada ${S.year}</small><b class="num">${x.d} ${MESF[x.m]}</b></div><div class="cnext"><small>Próximo compromisso</small><b>${esc(lbl)}</b><span class="${left<=0?'now':''}">${left<=0?'HOJE':`${dTxt(ev)} · em ${left} dia${left>1?'s':''}`}</span></div></div>`;
+  let h=`<section class="pn cal"><div class="cdate"><div><small>${dWk(td)} · ${dFull(td)} · dia ${td} de 365</small><b class="num">${x.d} ${MESF[x.m]}</b></div><div class="cnext"><small>Próximo compromisso</small><b>${esc(lbl)}</b><span class="${left<=0?'now':''}">${left<=0?'HOJE':`${dTxt(ev)} · em ${left} dia${left>1?'s':''}`}</span></div></div>`;
   if(left<=0){
     h+=`<div class="playw"><button class="play" data-act="step">${cur?(S.season.sp?spBtn(S.season.sp):(cur.k==='s1'||cur.k==='s2')?'Iniciar '+cur.l+' jogo a jogo':cur.b):`Abrir temporada ${S.year+1}`}</button></div>`;
   }else{
-    h+=`<div class="dbtn"><button class="ghost" data-act="day" data-v="1">+1 dia</button><button class="ghost" data-act="day" data-v="7">+1 semana</button><button class="play sm" data-act="dayTo">Simular até o jogo</button></div>`;
+    h+=`<div class="dbtn"><button class="ghost" data-act="day" data-v="1">+1 dia</button><button class="ghost" data-act="day" data-v="7">+1 semana</button><button class="play sm" data-act="auto">${autoLbl()}</button></div>`;
   }
   /* mini calendário do mês */
   const f=new Date(Date.UTC(S.year,x.m,1)).getUTCDay(),n=MDN[x.m];
@@ -6758,7 +6801,7 @@ function vMeta(){
 }
 
 /* ---------- scrims sob pedido: outro clube pede ou você pede; jogadas como as partidas oficiais (draft e mapa ao vivo) ---------- */
-function sqS(){const se=S.season;if(!se.sq)se.sq={rq:[],ok:null,ask:-1,pd:-1,h:[]};return se.sq}
+function sqS(){const se=S.season;if(!se.sq)se.sq={rq:[],ok:null,ask:-1,pd:-1,h:[]};const q=se.sq;if(!q.out)q.out=[];if(!q.rp)q.rp=[];return q}
 /* próximo adversário oficial: não dá para treinar contra ele */
 function sqBlk(t){const nx=mgrMatch();return nx&&!nx.fr?(nx.a===t.id?nx.b:nx.a):null}
 /* dia livre: sem jogo oficial hoje e nenhuma partida aberta */
@@ -6770,29 +6813,35 @@ function sqCands(t){
 }
 /* chance de o clube aceitar o seu pedido: força dos dois, sua reputação e distância (outra região topa menos) */
 const sqOdds=(t,o)=>clamp(.6+(eff(t)-eff(o))/25+(((S.mgr&&S.mgr.rep)==null?50:S.mgr.rep)-50)/150-(o.lg!==t.lg?.12:0),.1,.95);
+/* pedido livre a qualquer time (feito na aba Elencos): o clube não é obrigado a aceitar e responde nos próximos dias, pela caixa de e-mail */
 function sqAsk(id){
-  const q=sqS(),t=mgrT(),o=T(+id);if(!t||!o)return;
-  if(!sqFree()){msg='Hoje não dá: há jogo oficial ou outra partida aberta.';return}
-  if(q.ok){msg='Você já tem uma scrim marcada para hoje.';return}
-  if(q.pd===S.day){msg='Você já jogou uma scrim hoje. Avance o calendário.';return}
-  if(q.ask===S.day){msg='Você já fez um pedido hoje. Tente de novo amanhã.';return}
-  q.ask=S.day;
-  if(Math.random()<sqOdds(t,o)){q.ok={o:o.id,d:S.day,src:'me'};q.rq=q.rq.filter(x=>x.o!==o.id);msg=`${o.name} aceitou a scrim. Ela está marcada para hoje.`}
-  else msg=`${o.name} recusou o pedido de scrim.`;
+  const q=sqS(),t=mgrT(),o=T(+id);if(!t||!o||o===t)return;
+  if(sqBlk(t)===o.id){msg=`Não dá para treinar contra ${o.name}: é o seu próximo adversário oficial.`;return}
+  if(q.out.some(x=>x.o===o.id)){msg=`Você já pediu uma scrim ao ${o.name}. Aguarde a resposta.`;return}
+  q.out.push({o:o.id,d:S.day});
+  msg=`Pedido de scrim enviado ao ${o.name}. A resposta chega na caixa de e-mail.`;
 }
+/* aceitar um pedido recebido ou marcar uma scrim já aceita pelo outro clube */
 function sqAcc(id){
-  const q=sqS(),r=q.rq.find(x=>x.o===+id);if(!r)return;
+  const q=sqS(),r=q.rq.find(x=>x.o===+id)||q.rp.find(x=>x.o===+id&&x.ok);if(!r)return;
   if(!sqFree()){msg='Hoje não dá: há jogo oficial ou outra partida aberta.';return}
   if(q.ok||q.pd===S.day){msg='Você já tem uma scrim hoje.';return}
-  q.rq=q.rq.filter(x=>x!==r);q.ok={o:r.o,d:S.day,src:'rq'};msg=`Scrim contra ${T(r.o).name} marcada para hoje.`;
+  q.rq=q.rq.filter(x=>x!==r);q.rp=q.rp.filter(x=>x!==r);q.ok={o:r.o,d:S.day,src:'rq'};msg=`Scrim contra ${T(r.o).name} marcada para hoje.`;
 }
-function sqDec(id){const q=sqS(),o=T(+id);q.rq=q.rq.filter(x=>x.o!==+id);msg=o?`Pedido de ${o.name} recusado.`:''}
-/* pedidos dos outros clubes: chegam nos dias livres e expiram em 3 dias */
+function sqDec(id){const q=sqS(),o=T(+id);q.rq=q.rq.filter(x=>x.o!==+id);q.rp=q.rp.filter(x=>x.o!==+id);msg=o?`${o.name}: dispensado.`:''}
+/* a cada dia: respostas aos seus pedidos e novos pedidos dos outros clubes (aos poucos, expiram em 3 dias) */
 function sqTick(){
   const t=mgrT();if(!t||!S.mgr)return;const q=sqS(),d=S.day,bl=sqBlk(t);
   q.rq=q.rq.filter(x=>d-x.d<=3&&x.o!==bl);
+  q.rp=q.rp.filter(x=>d-x.d<=3&&(!x.ok||x.o!==bl));
   if(q.ok&&q.ok.d<d)q.ok=null;
-  if(q.rq.length<3&&Math.random()<.3){const c=sqCands(t).filter(x=>!q.rq.some(r=>r.o===x.id)).slice(0,8);if(c.length)q.rq.push({o:c[Math.floor(Math.random()*c.length)].id,d})}
+  q.out=q.out.filter(x=>{
+    if(x.o===bl)return false;
+    if(d<=x.d||Math.random()>.7)return true;
+    const o=T(x.o),ok=Math.random()<sqOdds(t,o);
+    q.rp.push({o:x.o,d,ok});MAILSEQ++;return false;
+  });
+  if(q.rq.length<2&&Math.random()<.12){const c=sqCands(t).filter(x=>!q.rq.some(r=>r.o===x.id)).slice(0,8);if(c.length){q.rq.push({o:c[Math.floor(Math.random()*c.length)].id,d});MAILSEQ++}}
 }
 function sqStart(sim){
   const q=sqS(),t=mgrT();if(!t||!q.ok)return false;
@@ -6816,9 +6865,13 @@ function sqHTML(mail){
   else if(!free)h+=`<p class="note">Hoje é dia de jogo oficial. Scrims só nos dias livres.</p>`;
   if(!mail)return h+'</section>';
   h+=`<small class="k sqk">Pedidos recebidos</small>`;
-  h+=q.rq.length?q.rq.map(r=>{const o=T(r.o),ag=d-r.d;return `<div class="sqr">${crest(o,'sm')}<span><b>${esc(o.name)}</b><small>${o.lg} · OVR ${Math.round(baseOvr(o))} · pediu ${ag?'há '+ag+' dia'+(ag>1?'s':''):'hoje'}</small></span><button class="ghost" data-act="sqAcc" data-v="${o.id}" ${q.ok||q.pd===d||!free?'disabled':''}>Aceitar</button><button class="ghost" data-act="sqDec" data-v="${o.id}">Recusar</button></div>`}).join(''):`<p class="note">Nenhum pedido no momento. Outros clubes pedem scrims nos dias livres.</p>`;
-  const can=free&&!q.ok&&q.pd!==d&&q.ask!==d;
-  h+=`<small class="k sqk">Pedir scrim${q.ask===d?' · você já pediu hoje':''}</small><div class="sqask">${sqCands(t).slice(0,8).map(o=>`<button class="sqc" data-act="sqAsk" data-v="${o.id}" ${can?'':'disabled'}>${crest(o,'sm')}<span><b>${esc(o.name)}</b><small>${o.lg} · ${Math.round(sqOdds(t,o)*100)}% de aceitar</small></span></button>`).join('')}</div>`;
+  h+=q.rq.length?q.rq.map(r=>{const o=T(r.o),ag=d-r.d;return `<div class="sqr">${crest(o,'sm')}<span><b>${esc(o.name)}</b><small>${o.lg} · OVR ${Math.round(baseOvr(o))} · pediu ${ag?'há '+ag+' dia'+(ag>1?'s':''):'hoje'}</small></span><button class="ghost" data-act="sqAcc" data-v="${o.id}" ${q.ok||q.pd===d||!free?'disabled':''}>Aceitar</button><button class="ghost" data-act="sqDec" data-v="${o.id}">Recusar</button></div>`}).join(''):`<p class="note" style="margin:0">Nenhum pedido no momento.</p>`;
+  if(q.rp.length||q.out.length){
+    h+=`<small class="k sqk">Seus pedidos</small>`;
+    h+=q.rp.map(r=>{const o=T(r.o);return `<div class="sqr">${crest(o,'sm')}<span><b>${esc(o.name)}</b><small>${r.ok?'aceitou a sua scrim':'recusou a sua scrim'}</small></span>${r.ok?`<button class="ghost" data-act="sqAcc" data-v="${o.id}" ${q.ok||q.pd===d||!free?'disabled':''}>Marcar hoje</button>`:''}<button class="ghost" data-act="sqDec" data-v="${o.id}">${r.ok?'Dispensar':'Ok'}</button></div>`}).join('');
+    h+=q.out.map(r=>`<div class="sqr">${crest(T(r.o),'sm')}<span><b>${esc(T(r.o).name)}</b><small>aguardando resposta</small></span></div>`).join('');
+  }
+  h+=`<p class="note" style="margin:8px 0 0">Para pedir uma scrim, abra o time na aba Elencos.</p>`;
   if(q.h.length)h+=`<small class="k sqk">Últimas scrims</small>`+q.h.slice(0,4).map(x=>`<div class="sqr sqh"><span class="num">${dTxt(x.d)}</span><span>${esc(T(x.o).name)}</span><b class="${x.w?'w':'l'}">${x.w?'V':'D'} ${x.sc}</b></div>`).join('');
   return h+'</section>';
 }
@@ -6828,16 +6881,21 @@ function mailInv(){
   const t=mgrT();if(!t||cevChamp())return [];const d=S.day;
   return cevL().filter(e=>e.st===0&&!e.sk&&d>=CEVT[e.id].d0&&d<=CEVT[e.id].d1&&cevElig(e,t));
 }
-function mailFA(){const m=S.mgr;if(!m||!mgrT()||!winOpen()||!m.fa)return [];return m.fa.slice().sort((a,b)=>b.pot-a.pot).slice(0,3)}
+function mailFA(){const m=S.mgr;if(!m||!mgrT()||!winOpen()||!m.fa||!m.fm)return [];return m.fm.map(n=>m.fa.find(p=>p.n===n)).filter(Boolean)}
+/* resumo do ano que acabou: chega como uma mensagem na caixa de e-mail */
+function mailRecap(){return S.phase===0&&!S.season.sp&&S.recap&&S.recap.y===S.year-1?S.recap:null}
 function mailN(){
   let n=0;
-  if(mgrT()){n+=sqS().rq.length+mailInv().length+mailFA().length}
+  if(mgrT()){const q=sqS();n+=q.rq.length+q.rp.length+mailInv().length+mailFA().length}
   if(pcAct()&&pc.offers)n+=pc.offers.length;
+  if(mailRecap()&&S.rcSeen!==S.recap.y)n++;
   return n;
 }
 function mailHTML(){
-  if(!mgrT()&&!pcAct())return '';
+  const rc=mailRecap();
+  if(!mgrT()&&!pcAct()&&!rc)return '';
   let h=`<section class="pn mail"><div class="rowc"><h2 style="margin:0">Caixa de entrada</h2><button class="ghost" data-act="mail">Fechar</button></div>`;
+  if(rc)h+=`<small class="k sqk">Resumo de ${rc.y}</small><div class="mrc">${rc.L.map(([i,k,t])=>`<div class="rc"><span>${i}</span><div><small>${esc(k)}</small><b>${esc(t)}</b></div></div>`).join('')}</div>`;
   if(mgrT()){
     const inv=mailInv(),fa=mailFA();
     h+=`<small class="k sqk">Torneios</small>`;
@@ -6872,7 +6930,7 @@ function hubHTML(cur,sideH,underH){
   const m=heroMatch();
   const rec=PHASES[S.phase]&&PHASES[S.phase].k==='sw'&&S.season.wc&&S.season.wc.rec;
   const side=t=>`<div class="tm"><span class="crw">${crest(t,'lg')}${stdPos(t)}</span><b>${esc(t.name)}</b>${t.fm?`<span class="fm">${[...t.fm].map(c=>`<i class="${c==='V'?'w':'l'}"></i>`).join('')}</span>`:''}<small>${stdRec(t)?stdRec(t)+' · ':''}OVR ${Math.round(baseOvr(t))}</small></div>`;
-  let h=`<div class="hub"><div class="hh"><div><small class="k">${dWk(td)} · temporada ${S.year}</small><b class="num">${x.d} ${MESF[x.m]}</b></div><div class="hact">${cur?`<button class="ghost" data-act="all">${cur.g===5?'Simular o resto da Copa':'Pular para o Melhor Jogador do Ano'}</button>`:''}${(mgrT()||pcAct())?`<button class="ghost mailb" data-act="mail" aria-expanded="${MAILO}">✉ E-mail${mailN()?` <span class="mbd">${mailN()}</span>`:''}</button>`:''}</div></div>${MAILO?mailHTML():''}`;
+  let h=`<div class="hub"><div class="hh"><div><small class="k">${dWk(td)} · temporada ${S.year}</small><b class="num">${x.d} ${MESF[x.m]}</b><small class="k hdt">${dFull(td)} · dia ${td} de 365</small></div><div class="hact">${cur?`<button class="ghost" data-act="all">${cur.g===5?'Simular o resto da Copa':'Pular para o Melhor Jogador do Ano'}</button>`:''}${(mgrT()||pcAct()||mailRecap())?`<div class="mailw"><button class="ghost mailb" data-act="mail" aria-expanded="${MAILO}">✉ E-mail${mailN()?` <span class="mbd">${mailN()}</span>`:''}</button>${MAILO?mailHTML():''}</div>`:''}</div></div>`;
   const evx=evNow();
   if(evx)h+='<div class="hcol">'+evHeroHTML(evx,side);else{
   h+=`<div class="hcol"><section class="hero2"><small class="k">${left<=0?'Hoje':'Próximo'} · ${esc(nm)}</small>`;
@@ -6880,7 +6938,7 @@ function hubHTML(cur,sideH,underH){
     const A=T(m.a),B=T(m.b),pa=Math.round(m.pa*100);
     h+=`<div class="vs">${side(A)}<div class="vsm"><b>VS</b><small>${m.n===1?'Jogo único':'MD'+m.n}</small>${isRival(A,B)?'<em class="cls">Clássico</em>':''}${rvTxt(A,B)?`<small>${rvTxt(A,B)}</small>`:''}</div>${side(B)}</div><div class="odds"><div><span>${pa}%</span><span>chance de vitória</span><span>${100-pa}%</span></div><div class="ob"><i style="width:${pa}%"></i></div></div>`;
   }else h+=`<h3 class="hn">${esc(nm)}</h3>`;
-  h+=`<p class="hw">${when}</p><button class="play hbtn" data-act="${left<=0?'step':'dayTo'}">${left<=0?playLbl:'Avançar para o próximo jogo'}</button></section>`;
+  h+=`<p class="hw">${when}</p><button class="play hbtn" data-act="${left<=0?'step':'auto'}">${left<=0?playLbl:autoLbl()}</button></section>`;
   }
   /* blocos */
   const ag=[];for(let i=S.phase;i<PHASES.length&&ag.length<3;i++){const p=PHASES[i];if(p)ag.push({d:phDay(i,i===S.phase),l:(i===S.phase&&sp)?spLabel(sp):p.l})}
@@ -6897,7 +6955,7 @@ function hubHTML(cur,sideH,underH){
   const hl=(S.hl||[]).slice(0,2);
   const t4=`<section class="tile"><small class="k">Manchetes</small>${hl.length?hl.map(x=>`<p>${esc(x.t)}</p>`).join(''):'<p>Sem novidades.</p>'}</section>`;
   h+=`${underH||''}<div class="tiles">${tc}${ts}${t3}${t4}</div></div>`;
-  h+=`<div class="bar2">${evx?`<button class="play" data-act="cevPlay" data-v="ex|${evx.id}|0">Jogar ${evx.pl&&evx.pl.st==='fin'?'final':'semifinal'}</button>`:`<button class="play" data-act="${left<=0?'step':'dayTo'}">${left<=0?playLbl:'Avançar para o próximo jogo'}</button>`}</div>${sideH||''}</div>`;
+  h+=`<div class="bar2">${evx?`<button class="play" data-act="cevPlay" data-v="ex|${evx.id}|0">Jogar ${evx.pl&&evx.pl.st==='fin'?'final':'semifinal'}</button>`:`<button class="play" data-act="${left<=0?'step':'auto'}">${left<=0?playLbl:autoLbl()}</button>`}</div>${sideH||''}</div>`;
   return h;
 }
 
@@ -6922,11 +6980,9 @@ function vSeason(){
   if(mgrT())un+=sqHTML()+mgrSummary();
   if(pcAct()&&pcFind())un+=pcSummary();
   h+=hubHTML(cur,det,un);
-  if(S.phase===0&&!S.season.sp&&S.recap&&S.recap.y===S.year-1)h+=`<section class="pn recap"><h2>Resumo de ${S.recap.y}</h2>${S.recap.L.map(([i,k,t],n)=>`<div class="rc" style="--i:${n}"><span>${i}</span><div><small>${esc(k)}</small><b>${esc(t)}</b></div></div>`).join('')}</section>`;
-  if(S.phase===0&&!S.season.sp&&S.off.length)h+=`<section class="pn"><h2>Virada de ano</h2><ul class="lines">${S.off.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section>`;
   if(!cur){const t=S.hist[S.hist.length-1];h+=`<section class="pn"><h2>Melhor Jogador do Ano ${S.year}</h2><div class="crown"><small>Vencedor</small><b>${esc(t.top[0].n)}</b><span>${esc(t.top[0].team)} · nota ${t.top[0].sc}</span></div><div class="row"><button class="ghost" data-act="tab" data-v="bola">Ver top 10 do ano</button><button class="ghost" data-act="tab" data-v="hof">Ver lendas</button></div></section>`}
   if((S.phase===0||S.phase===4)&&!S.season.sp)h+=flHTML();
-  if(S.phase===0&&!S.off.length)h+=`<p class="empty">Cada temporada tem dois splits, o MSI e o Mundial com fase suíça. Você joga fase por fase e vê as chances de cada partida antes de simular. Toque em qualquer nome para abrir a ficha.</p>`;
+  if(S.phase===0&&!S.hist.length)h+=`<p class="empty">Cada temporada tem dois splits, o MSI e o Mundial com fase suíça. Você joga fase por fase e vê as chances de cada partida antes de simular. Toque em qualquer nome para abrir a ficha.</p>`;
   return h;
 }
 
@@ -7387,6 +7443,8 @@ function vTeam(id){
   o+=`<section class="pn shh"><div class="ph">${crest(t,'lg')}<div style="flex:1;min-width:0"><h3>${esc(t.name)}</h3><small>${llk(t.lg)}${t.d===2?' · 2ª divisão':''}${t.est?' · elenco estimado':''}<br>OVR ${Math.round(baseOvr(t))}${pwPos(t)>0?` · power #${pwPos(t)}`:''} · forma ${f>0?`<span class="st up">▲${f.toFixed(1)}</span>`:f<0?`<span class="st dn">▼${(-f).toFixed(1)}</span>`:'estável'}</small></div></div>
   <div class="cab"><div>${troSvg('w')}<b class="num">${c.wc}</b><small>Mundiais</small></div><div>${troSvg('m')}<b class="num">${c.msi}</b><small>MSI</small></div><div>${troSvg('l')}<b class="num">${c.lg}</b><small>Ligas</small></div></div>
   <div class="kv kv4"><div><small>Vices</small><b class="num">${vc.length}</b></div><div><small>Melhor do Ano</small><b class="num">${bo.length}</b></div><div><small>Anos</small><b class="num">${yh.length}</b></div><div><small>Aprov.</small><b class="num">${gw+gl?Math.round(100*gw/(gw+gl))+'%':'—'}</b></div></div></section>`;
+  {const mt=mgrT();if(mt&&mt!==t){const q=sqS(),pend=q.out.some(x=>x.o===t.id),bl=sqBlk(mt)===t.id;
+    o+=`<section class="pn sqreq"><div><b>Scrim</b><small>${bl?'Próximo adversário oficial: não dá para treinar contra ele.':pend?'Pedido enviado. A resposta chega na caixa de e-mail.':`Qualquer clube pode ser convidado, mas não é obrigado a aceitar (${Math.round(sqOdds(mt,t)*100)}% de chance).`}</small></div><button class="ghost" data-act="sqAsk" data-v="${t.id}" ${pend||bl?'disabled':''}>${pend?'Pedido enviado':'Pedir scrim'}</button></section>`}}
   o+=`<div class="shv v-${view}">`;
   if(view==='el'){
     o+=`<section class="pn sh-p"><h2>Elenco atual</h2>${pitchHTML(t)}</section>`;
@@ -7451,6 +7509,7 @@ function render(){
 /* ---------- ações ---------- */
 function act(a,v){
   msg='';
+  if(AUTO&&a!=='auto')autoStop();
   if(['tab','player','team','lteam','nation','back','step','all'].includes(a))animNext=true;
   let top=false;
   if(a==='tab'){detT='';tab=v;askReset=false;askEnd=false;lastPlayed=null;prof=null;pstack=[]}
@@ -7476,6 +7535,7 @@ function act(a,v){
   else if(a==='engOpt'){S.opt=S.opt||{};S.opt.eng=+v;save()}
   else if(a==='day'){advDay(+v);save()}
   else if(a==='dayTo'){advDay(999);save()}
+  else if(a==='auto'){autoToggle()}
   else if(a==='fl'){S.opt=S.opt||{};S.opt.fl=v;save()}
   else if(a==='all'){const c5=PHASES[S.phase]&&PHASES[S.phase].g===5;CUPSIM=1;try{while(S.phase<PHASES.length&&(c5||PHASES[S.phase].g<5))step()}finally{CUPSIM=0}lastPlayed=null;S.day=evDay();tab='bola';save();top=true}
   else if(a==='year'){selYear=+v}
@@ -7541,7 +7601,7 @@ function act(a,v){
   else if(a==='spRR'){while(S.season.sp&&S.season.sp.stage==='rr')spStep();save();top=true}
   else if(a==='spAll'){const ph=S.phase;let g2=0;CUPSIM=1;try{while(S.phase===ph&&g2++<400)step()}finally{CUPSIM=0}save();top=true}
   else if(a==='mgrView'){mgrView=v}
-  else if(a==='mail'){MAILO=!MAILO}
+  else if(a==='mail'){MAILO=!MAILO;const rc=mailRecap();if(MAILO&&rc){S.rcSeen=rc.y;save()}}
   else if(a==='tOpen'){const id=+v;if(OPENT.has(id))OPENT.delete(id);else OPENT.add(id)}
   else if(a==='tAll'){const ids=pmSort(S.teams.filter(t=>t.lg===v)).map(x=>x.t.id);if(ids.every(i=>OPENT.has(i)))ids.forEach(i=>OPENT.delete(i));else ids.forEach(i=>OPENT.add(i))}
   else if(a==='focus'){if(S.mgr){S.mgr.focus=v;save()}}
