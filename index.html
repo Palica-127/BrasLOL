@@ -1523,6 +1523,20 @@ body::after{opacity:.32;filter:grayscale(.35) brightness(.8)}
 .pn.mail .sqr{display:flex;align-items:center;gap:8px}.pn.mail .sqr>span{flex:1;min-width:0}
 .pn.mail .sqr small{display:block;color:#7f8fb8}
 .pn.mail .sqask{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px}
+
+/* Jogar: cabeçalho com ações agrupadas e blocos alinhados */
+.hub .hact{display:flex;gap:8px;align-items:center}
+.hub .tiles{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.hub .tile{min-height:0}
+.hub .msum{margin:0}
+.hub .sqp{margin:0}
+
+/* bandeiras: retângulo limpo com a imagem vetorial, sem anel colorido */
+.crest.flag{background:#1a2236;border:0;border-radius:3px;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.2);height:calc(var(--s)*1)}
+.crest.flag .flg{object-fit:cover}
+.crest.flag{width:calc(var(--s)*1.5)}
+.rank li.nrk{grid-template-columns:30px 62px minmax(0,1fr) auto}
+.nrk .nfl{display:flex}.nrk .nin b{display:block;font:700 16px var(--b);color:#f2f5fc}.nrk .nin small{display:block;color:#7f8fb8;font-size:12.5px;margin-top:2px;line-height:1.35}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -6611,7 +6625,7 @@ function mgrSummary(){
   if(inj.length)al.push(`<span class="inj">${inj.map(p=>p.n).join(', ')} lesionado${inj.length>1?'s':''}</span>`);
   if(exp.length&&winOpen())al.push(`<span class="inj">${exp.length} contrato${exp.length>1?'s':''} vencendo</span>`);
   if(offs&&winOpen())al.push(`<span class="nat" style="margin:0">${offs} oferta${offs>1?'s':''}</span>`);
-  return `<section class="pn msum"><div class="ph" style="margin:0">${crest(mt,'md')}<div style="flex:1;min-width:0"><h3 style="font-size:20px">${esc(mt.name)}</h3><small>Meta: ${goalTxt(m,mt)} · caixa ${m.cheat?'∞':fmtM(m.cash)}${winOpen()?' · janela aberta':''}</small>${al.length?`<div style="margin-top:6px">${al.join(' ')}</div>`:''}</div><button class="ghost" data-act="tab" data-v="mgr">Abrir Gestão</button></div></section>`;
+  return `<section class="pn msum"><div class="ph" style="margin:0">${crest(mt,'md')}<div style="flex:1;min-width:0"><h3 style="font-size:20px">${esc(mt.name)}</h3><small>Meta: ${goalTxt(m,mt)} · caixa ${m.cheat?'∞':fmtM(m.cash)} · forma ${(r1(eff(mt)-baseOvr(mt))>0?'+':'')+r1(eff(mt)-baseOvr(mt)).toFixed(1).replace('.',',')}${winOpen()?' · janela aberta':''}</small>${al.length?`<div style="margin-top:6px">${al.join(' ')}</div>`:''}</div><button class="ghost" data-act="tab" data-v="mgr">Abrir Gestão</button></div></section>`;
 }
 
 /* ---------- salvamentos, sons e gráficos ---------- */
@@ -6834,7 +6848,7 @@ function hubHTML(cur,sideH,underH){
   const m=heroMatch();
   const rec=PHASES[S.phase]&&PHASES[S.phase].k==='sw'&&S.season.wc&&S.season.wc.rec;
   const side=t=>`<div class="tm"><span class="crw">${crest(t,'lg')}${stdPos(t)}</span><b>${esc(t.name)}</b>${t.fm?`<span class="fm">${[...t.fm].map(c=>`<i class="${c==='V'?'w':'l'}"></i>`).join('')}</span>`:''}<small>${stdRec(t)?stdRec(t)+' · ':''}OVR ${Math.round(baseOvr(t))}</small></div>`;
-  let h=`<div class="hub"><div class="hh"><div><small class="k">${dWk(td)} · temporada ${S.year}</small><b class="num">${x.d} ${MESF[x.m]}</b></div>${(mgrT()||pcAct())?`<button class="ghost mailb" data-act="mail" aria-expanded="${MAILO}">✉ E-mail${mailN()?` <span class="mbd">${mailN()}</span>`:''}</button>`:''}</div>${MAILO?mailHTML():''}`;
+  let h=`<div class="hub"><div class="hh"><div><small class="k">${dWk(td)} · temporada ${S.year}</small><b class="num">${x.d} ${MESF[x.m]}</b></div><div class="hact">${cur?`<button class="ghost" data-act="all">${cur.g===5?'Simular o resto da Copa':'Pular para o Melhor Jogador do Ano'}</button>`:''}${(mgrT()||pcAct())?`<button class="ghost mailb" data-act="mail" aria-expanded="${MAILO}">✉ E-mail${mailN()?` <span class="mbd">${mailN()}</span>`:''}</button>`:''}</div></div>${MAILO?mailHTML():''}`;
   const evx=evNow();
   if(evx)h+='<div class="hcol">'+evHeroHTML(evx,side);else{
   h+=`<div class="hcol"><section class="hero2"><small class="k">${left<=0?'Hoje':'Próximo'} · ${esc(nm)}</small>`;
@@ -6853,13 +6867,12 @@ function hubHTML(cur,sideH,underH){
   else{tt='Favoritos';rows=S.teams.slice().sort((a,b)=>eff(b)-eff(a)).slice(0,3).map(t=>({t,r:Math.round(eff(t))}))}
   const ts=`<section class="tile"><small class="k">${tt}</small><ul>${rows.map((r,i)=>`<li><b class="num">${i+1}</b> ${tlk(r.t)} <span class="num">${r.r}</span></li>`).join('')}</ul></section>`;
   let t3;
-  if(mgrT()){const t=mgrT(),fo=r1(eff(t)-baseOvr(t)),inj=t.pl.filter(p=>S.inj&&S.inj[p.n]).length;
-    t3=`<section class="tile"><small class="k">Meu elenco</small><b class="big ${fo>0?'up':fo<0?'dn':''}">${fo>0?'+':''}${fo.toFixed(1).replace('.',',')}</b><small>${inj?inj+' lesionado'+(inj>1?'s':''):'forma do time'}</small></section>`}
+  if(mgrT()){t3=''}
   else{const top=S.teams.flatMap(t=>t.pl.map(p=>({p,t}))).sort((a,b)=>(b.p.r+b.p.f)-(a.p.r+a.p.f)).slice(0,3);
     t3=`<section class="tile"><small class="k">Em alta</small><ul>${top.map((x,i)=>`<li><b class="num">${i+1}</b> ${lk(x.p.n)} <span class="num">${x.p.r}</span></li>`).join('')}</ul></section>`}
   const hl=(S.hl||[]).slice(0,2);
   const t4=`<section class="tile"><small class="k">Manchetes</small>${hl.length?hl.map(x=>`<p>${esc(x.t)}</p>`).join(''):'<p>Sem novidades.</p>'}</section>`;
-  h+=`<div class="tiles">${tc}${ts}${t3}${t4}</div>${underH||''}</div>`;
+  h+=`${underH||''}<div class="tiles">${tc}${ts}${t3}${t4}</div></div>`;
   h+=`<div class="bar2">${evx?`<button class="play" data-act="cevPlay" data-v="ex|${evx.id}|0">Jogar ${evx.pl&&evx.pl.st==='fin'?'final':'semifinal'}</button>`:`<button class="play" data-act="${left<=0?'step':'dayTo'}">${left<=0?playLbl:'Avançar para o próximo jogo'}</button>`}</div>${sideH||''}</div>`;
   return h;
 }
@@ -6882,7 +6895,6 @@ function vSeason(){
   if(lastPlayed&&!detT&&['wc','msi','cup'].includes(lastPlayed.k)&&SEC.some(x=>x[0]===lastPlayed.k))sk=lastPlayed.k;
   const det=`<details class="pn det more2"${lastPlayed||detOpen||(typeof innerWidth!=='undefined'&&innerWidth>=1000)?' open':''} ontoggle="detOpen=this.open"><summary>Detalhes: calendário, tabelas e resultados</summary><div class="pills dtabs">${SEC.map(x=>`<button class="pill" aria-pressed="${x[0]===sk}" data-act="dtab" data-v="${x[0]}">${x[1]}</button>`).join('')}</div>${SEC.find(x=>x[0]===sk)[2]}</details>`;
   let un='';
-  if(cur)un+=`<div class="row skp"><button class="ghost" data-act="all">${cur.g===5?'Simular o resto da Copa':'Pular para o Melhor Jogador do Ano'}</button></div>`;
   if(mgrT())un+=sqHTML()+mgrSummary();
   if(pcAct()&&pcFind())un+=pcSummary();
   h+=hubHTML(cur,det,un);
@@ -7020,7 +7032,7 @@ function vTeams(){
 const natHue=c=>{let h=0;for(const x of c)h=(h*37+x.charCodeAt(0))%360;return h};
 /* seleção = bandeira (sem o nome); o nome fica no título e no rótulo de acessibilidade */
 const nlk=(c,cl='md')=>`<button class="lk nlk" data-act="nation" data-v="${c}" title="${esc(NATN[c]||c)}" aria-label="${esc(NATN[c]||c)}">${natCrest(c,'flag '+cl)}</button>`;
-const natCrest=(c,cl='')=>{const i=ISO2[c];return `<span class="crest ${cl}" style="--h:${natHue(c)}" aria-hidden="true">${i?`<img class="flg" src="https://flagcdn.com/w160/${i.toLowerCase()}.png" alt="" loading="lazy" onerror="this.remove()">`:''}${esc(c)}</span>`};
+const natCrest=(c,cl='')=>{const i=ISO2[c];return `<span class="crest ${cl}" style="--h:${natHue(c)}" aria-hidden="true">${i?`<img class="flg" src="flags/${i.toLowerCase()}.svg" alt="" loading="lazy" onerror="this.remove()">`:''}${esc(c)}</span>`};
 function natActive(c){return S.teams.flatMap(t=>t.pl.filter(p=>natC(p.n)===c).map(p=>({p,t})))}
 function natXI(c){
   const a=natActive(c),pl=[];
@@ -7068,7 +7080,7 @@ function natRankHTML(){
   const rows=natRank();
   return `<section class="pn"><h2>Seleções de todos os tempos</h2><ol class="rank">${rows.map((x,i)=>{
     const tt=[x.bd?`${x.bd} Melhor${x.bd>1?'es':''} do Ano`:'',x.wc?`${x.wc} Mundia${x.wc>1?'is':'l'}`:'',x.msi?`${x.msi} MSI`:'',x.cups?`${x.cups} Copa${x.cups>1?'s':''}`:'',x.vice?`${x.vice} vice${x.vice>1?'s':''} na Copa`:''].filter(Boolean).join(' · ');
-    return `<li><span class="pos num">${i+1}</span><span><span class="nm2">${nlk(x.c,'lg')}</span><br><small>${tt||'sem títulos'} · ${x.n} lenda${x.n>1?'s':''}${x.top?` · melhor: ${esc(x.top.n)}`:''}</small></span><span class="pt num">${Math.round(x.pts)}<small>pts</small></span></li>`}).join('')}</ol><p class="note">Pontos do país = soma dos pontos de todas as lendas nascidas lá, mais 40 por Copa do Mundo de LoL vencida e 15 por vice. Toque num país para abrir a ficha.</p></section>`;
+    return `<li class="nrk"><span class="pos num">${i+1}</span><span class="nfl">${nlk(x.c,'lg')}</span><span class="nin"><b>${esc(NATN[x.c]||x.c)}</b><small>${tt||'sem títulos'} · ${x.n} lenda${x.n>1?'s':''}${x.top?` · melhor: ${esc(x.top.n)}`:''}</small></span><span class="pt num">${Math.round(x.pts)}<small>pts</small></span></li>`}).join('')}</ol><p class="note">Pontos do país = soma dos pontos de todas as lendas nascidas lá, mais 40 por Copa do Mundo de LoL vencida e 15 por vice. Toque num país para abrir a ficha.</p></section>`;
 }
 function vNation(c){
   const act=natActive(c),xi=natXI(c),have=xi.filter(Boolean);
