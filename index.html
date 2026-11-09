@@ -3681,7 +3681,9 @@ function ldStart(snap,cont){
 }
 function ldEnd(){
   clearTimeout(LOADT);if(!LOAD)return;
-  const c=LOAD.cont;try{c()}finally{LOAD=null}render();
+  const c=LOAD.cont;
+  try{c()}catch(e){console.error('carregamento da partida',e);msg='Erro ao iniciar o mapa; tente de novo.'}finally{LOAD=null}
+  try{render()}catch(e){console.error('render após o carregamento',e);try{if(LV&&LV.state==='between'&&!DV){const m=document.querySelector('#app');if(m)m.innerHTML=''}render()}catch(e2){console.error(e2)}}
 }
 const chArt=c=>CHMAP[c]?'champs/arte/'+CHMAP[c]+'.webp':'';
 function vLoad(){
@@ -7924,6 +7926,7 @@ function render(){
   if(TITLE){const a=document.querySelector('#app');a.className='';a.innerHTML=DEFS+titleHTML();return}
   const v={season:vSeason,bola:vBola,hof:vHof,teams:vTeams,set:vSet,prof:vProf,mgr:vMgr,menu:vMenu,pc:vPc,meta:vMeta}[tab]();
   const ap=document.querySelector('#app');ap.className='wrap'+(animNext?' enter':'');animNext=false;
+  if(LOAD&&Date.now()-LOAD.t0>LDMS+1500){setTimeout(ldEnd,0)}
   ap.innerHTML=DEFS+header()+v+nav()+(msg&&tab!=='mgr'&&tab!=='set'?`<div class="toast" role="status">${esc(msg)}</div>`:'')+(DV?vDraft():'')+(LV&&!(DV&&DV.lv)?vLive():'')+(LOAD?vLoad():'');
 }
 
