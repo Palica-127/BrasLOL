@@ -112,7 +112,7 @@ run(ctx,`S.pc.plan='p';S.pc.en=100;S.pc.pool={};var rl=pcFind().p.role;pcWeek();
 ok(J('S.pc.wk.pl.length===5&&S.pc.wk.pl.every(function(c){return (S.pc.pool[c]||0)>0})'),'treino de pool: 5 campeões aleatórios ganham domínio');
 run(ctx,`CH[rl].forEach(function(x){S.pc.pool[x[0]]=1});S.pc.en=100;pcWeek();`);
 ok(J('S.pc.wk.pl.length===0'),'treino de pool ignora campeões já em 100%');
-run(ctx,`pcTreeOpen=true;`);
+run(ctx,`pcTreeOpen=true;`);ok(run(ctx,'pcTreeHTML(pcFind())').includes('tdet'),'árvore em nós com detalhe');
 ok(run(ctx,'vPc()').includes('Fechar árvore de habilidades'),'botão abre a árvore');
 
 /* ---- telas ---- */

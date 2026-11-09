@@ -1197,6 +1197,27 @@ h1,h2,h3,.hn,.mhero h2,.cdate>div:first-child b,.play,.pill,.mc2 h3{font-style:n
   .dfpl{height:96px}.dfpl b{font-size:11px}.dfpl span{padding:16px 4px 6px}.dfr{font-size:14px;top:24%}.dfpl em{display:none}
 }
 /* ---------- meta ---------- */
+.tree{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:12px 6px 4px;border-radius:14px;background:radial-gradient(120% 90% at 50% 0%,rgba(255,226,122,.08),transparent 60%),rgba(6,9,34,.55);border:1px solid rgba(130,150,255,.2)}
+.tbr{display:flex;flex-direction:column;align-items:center;min-width:0}
+.tbr h4{margin:0 0 10px;font:800 13px var(--d);letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-align:center}.tbr h4 small{display:block;font:600 10px var(--b);letter-spacing:.04em;text-transform:none;color:var(--muted)}
+.tn{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;width:100%;padding-bottom:26px}
+.tn::after{content:"";position:absolute;left:50%;top:58px;bottom:-4px;width:4px;margin-left:-2px;border-radius:2px;background:rgba(130,150,255,.25)}
+.tn.last::after{display:none}.tn.ln::after{background:linear-gradient(180deg,#FFE27A,#c9a24a);box-shadow:0 0 8px rgba(255,226,122,.6)}
+.tn b{margin-top:6px;font:700 12px/1.15 var(--b);max-width:100%;overflow-wrap:anywhere}.tn small{font:600 10px var(--b);color:var(--muted)}
+.tnb{position:relative;z-index:1;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-size:26px;cursor:pointer;color:inherit;padding:0;border:2px solid rgba(130,150,255,.4);background:radial-gradient(circle at 35% 30%,#2b3a8c,#0c1240);box-shadow:inset 0 0 0 3px rgba(6,9,34,.7)}
+.tnb span{filter:grayscale(.2)}
+.tn.lock .tnb{opacity:.45;filter:grayscale(1)}
+.tn.cost .tnb{border-color:rgba(255,226,122,.45)}
+.tn.can .tnb{border-color:#00F5A0;box-shadow:inset 0 0 0 3px rgba(6,9,34,.7),0 0 14px rgba(0,245,160,.55);animation:tnp 1.8s ease-in-out infinite}
+.tn.own .tnb{border-color:#FFE27A;background:radial-gradient(circle at 35% 30%,#8a6d2a,#2a1d05);box-shadow:inset 0 0 0 3px rgba(6,9,34,.6),0 0 16px rgba(255,226,122,.7)}
+.tnb.sel{outline:3px solid #fff;outline-offset:3px}
+.tok{position:absolute;right:-4px;bottom:-4px;width:20px;height:20px;border-radius:50%;background:#00F5A0;color:#04130c;font:800 12px/20px var(--b);font-style:normal}
+@keyframes tnp{50%{box-shadow:inset 0 0 0 3px rgba(6,9,34,.7),0 0 6px rgba(0,245,160,.25)}}
+@media (prefers-reduced-motion:reduce){.tn.can .tnb{animation:none}}
+.tdet{margin-top:12px;padding:12px;border-radius:12px;border:1px solid rgba(130,150,255,.28);background:rgba(6,9,34,.6)}
+.tdet.own{border-color:rgba(255,226,122,.6)}.tdet.can{border-color:rgba(0,245,160,.6)}
+.tdh{display:flex;gap:10px;align-items:center;margin-bottom:6px}.tdi{font-size:30px}.tdh b{display:block;font:800 17px var(--d);letter-spacing:.04em}.tdh small{font:600 11px var(--b);color:var(--muted)}
+.tdet p{margin:0 0 10px;font-size:14px}
 .pcTop{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;align-items:start}.pcTop>.pn{margin-bottom:8px}.pcSide .pn:last-child{margin-bottom:8px}
 @media (max-width:560px){.pcTop{grid-template-columns:1fr}}
 .cmp .pn,.mgr .pn{padding:10px 12px 8px;margin-bottom:8px}
@@ -5712,20 +5733,25 @@ function pcTreeBtnHTML(){
   const tp=S.pc.tp||0;
   return `<section class="pn"><div class="row" style="margin:0"><button class="${tp>0?'play':'ghost'}" data-act="pcTree">${pcTreeOpen?'Fechar árvore de habilidades':'Abrir árvore de habilidades'} · ${tp} ponto${tp===1?'':'s'}</button></div></section>`;
 }
+const PERKI={c1:'❄️',c2:'🎯',c3:'🔥',e1:'📘',e2:'🧩',e3:'🔍',p1:'💤',p2:'📣',p3:'⭐'};
+let pcPerkSel=null;
 function pcTreeHTML(f){
   const pc=S.pc,tp=pc.tp||0;
-  let h=`<section class="pn"><h2>Árvore de habilidades</h2><div class="cab${tp>0?' ptsb':''}" style="margin:0 0 8px"><div><b class="num">${tp}</b><small>Pontos de habilidade</small></div><div><b class="num">${pc.lv}</b><small>Nível</small></div></div><p class="note" style="margin:0 0 6px">Estes pontos são separados dos pontos de status e só servem para características.</p>
-  <div class="sub" style="margin-top:4px">Características</div>`;
+  const st=id=>{const d=PERKS.find(x=>x[0]===id),own=!!pc.perks[id],rq=d[6]&&!pc.perks[d[6]],lock=pc.lv<d[5]||rq;return own?'own':lock?'lock':tp>=d[4]?'can':'cost'};
+  const selId=PERKS.some(x=>x[0]===pcPerkSel)?pcPerkSel:(PERKS.find(x=>st(x[0])==='can')||PERKS[0])[0];
+  const d=PERKS.find(x=>x[0]===selId),s0=st(selId);
+  const why=s0==='own'?'Aprendida':pc.lv<d[5]?`Requer nível ${d[5]}`:(d[6]&&!pc.perks[d[6]])?`Requer ${PERKS.find(y=>y[0]===d[6])[2]} antes`:tp<d[4]?`Faltam ${d[4]-tp} ponto${d[4]-tp>1?'s':''}`:'';
+  let h=`<section class="pn"><h2>Árvore de habilidades</h2><div class="cab${tp>0?' ptsb':''}" style="margin:0 0 10px;grid-template-columns:repeat(2,minmax(0,1fr))"><div><b class="num">${tp}</b><small>Pontos de habilidade</small></div><div><b class="num">${Object.keys(pc.perks).length}/${PERKS.length}</b><small>Aprendidas</small></div></div><div class="tree">`;
   Object.keys(PBR).forEach(br=>{
-    h+=`<small class="k sqk">${PBR[br][0]} · ${PBR[br][1]}</small>`;
-    PERKS.filter(x=>x[1]===br).forEach(x=>{
-      const id=x[0],nm=x[2],ds=x[3],cost=x[4],lv=x[5],req=x[6];
-      const own=!!pc.perks[id],rq=req&&!pc.perks[req],lock=pc.lv<lv||rq,can=!own&&!lock&&tp>=cost;
-      const why=own?'aprendida':pc.lv<lv?`nível ${lv}`:rq?`após ${PERKS.find(y=>y[0]===req)[2]}`:`${cost} ponto${cost>1?'s':''}`;
-      h+=`<div class="mrow" style="grid-template-columns:minmax(0,1fr) auto;${own?'':lock?'opacity:.55':''}"><span class="who"><b${own?' style="color:#00F5A0"':''}>${own?'✓ ':''}${nm} <small style="opacity:.7">· custo ${cost}</small></b><small>${ds}</small></span><button class="ghost" data-act="pcLearn" data-v="${id}"${can?'':' disabled'}>${own?'ok':can?'Aprender':why}</button></div>`;
+    h+=`<div class="tbr b${br}"><h4>${PBR[br][0]}<small>${PBR[br][1]}</small></h4>`;
+    PERKS.filter(x=>x[1]===br).forEach((x,i,arr)=>{
+      const id=x[0],k=st(id),next=arr[i+1];
+      h+=`<div class="tn ${k}${next?(pc.perks[id]?' ln':''):' last'}"><button class="tnb${id===selId?' sel':''}" data-act="pcPerkSel" data-v="${id}" aria-label="${esc(x[2])}"><span>${PERKI[id]||'✦'}</span>${k==='own'?'<i class="tok">✓</i>':''}</button><b>${esc(x[2])}</b><small>${k==='own'?'aprendida':k==='lock'?(pc.lv<x[5]?'nível '+x[5]:'bloqueada'):x[4]+' pt'+(x[4]>1?'s':'')}</small></div>`;
     });
+    h+='</div>';
   });
-  return h+'</section>';
+  h+=`</div><div class="tdet ${s0}"><div class="tdh"><span class="tdi">${PERKI[selId]||'✦'}</span><div><b>${esc(d[2])}</b><small>${PBR[d[1]][0]} · custo ${d[4]} ponto${d[4]>1?'s':''} · nível ${d[5]}</small></div></div><p>${esc(d[3])}</p>${s0==='own'?'<span class="tag">Aprendida</span>':`<button class="${s0==='can'?'play':'ghost'}" data-act="pcLearn" data-v="${selId}"${s0==='can'?'':' disabled'}>${s0==='can'?'Aprender':esc(why)}</button>`}</div></section>`;
+  return h;
 }
 /* convocação do técnico (scrim ou torneio): na tela Jogar, na carreira e na caixa de e-mail */
 function ptHTML(inner){
@@ -7936,6 +7962,7 @@ function act(a,v){
   else if(a==='pcPick'){if(pcAdopt(v)){menuV='home';tab='pc';msg='Você assumiu a carreira de '+v+'.';save();top=true}}
   else if(a==='pcPlan'){S.pc.plan=v;save()}
   else if(a==='pcTree'){pcTreeOpen=!pcTreeOpen}
+  else if(a==='pcPerkSel'){pcPerkSel=v}
   else if(a==='pcLearn'){pcLearn(v);save()}
   else if(a==='ptPlay'){if(ptStart(false))top=true;save()}
   else if(a==='ptSim'){ptStart(true);save()}
