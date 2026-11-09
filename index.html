@@ -767,7 +767,6 @@ h1{letter-spacing:.02em}
 .lvspd{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:2px 0 6px}.lvspd small{color:#9fb4ff;font-weight:700}.lvspd .pill{min-height:32px;padding:3px 14px;font-size:13px}
 .lvmapw{width:100%;max-width:680px;margin:6px auto 10px}
 .lvmap{display:block;width:100%;aspect-ratio:134.88/100;border-radius:16px;border:1px solid rgba(255,255,255,.16);box-shadow:inset 0 0 40px rgba(0,0,0,.45),0 8px 24px rgba(0,0,20,.4);background:#0b2f27}
-.bcmap.m3{transform:none;position:relative}.bcmap.m3 .lvmap{visibility:hidden}
 .lvmap .hpb rect{fill:#0008;stroke:#000a;stroke-width:.15}.lvmap .hpb .f{stroke:none}.lvmap .hpb.b .f{fill:#4d8dff}.lvmap .hpb.r .f{fill:#ff5c8a}.lvmap .hpb.mn .f{fill:#6fd16f}.lvmap .hpb.ep .f{fill:#f3b94d}.lvmap .stc{stroke:#fff;stroke-width:.5;transition:opacity .4s}.lvmap .stc.b{fill:#4d8dff}.lvmap .stc.r{fill:#ff5c8a}.lvmap .stc.nx{stroke-width:.7}.lvmap .stc.inh{stroke:#FFE27A}.lvmap .stc.dn{fill:#222;stroke:#555;opacity:.4}
 .lvmap .pit circle{fill:rgba(0,0,0,.4);stroke:rgba(255,255,255,.3);stroke-width:.4}.lvmap .pit.up circle{stroke:#FFE27A;stroke-width:.7}.lvmap .pit:not(.up) image{opacity:.4;filter:grayscale(1)}.lvmap .pit .hi,.lvmap .pit .bi{display:none}.lvmap .pit.hd .hi,.lvmap .pit.bn .bi{display:inline}.lvmap .pit .hi ellipse{fill:rgba(160,110,255,.35);stroke:#d9c2ff;stroke-width:.5}.lvmap .pit .hi .ip{fill:#fff;stroke:none}.lvmap .pit .bi polygon{fill:#ff7ad9;stroke:#fff;stroke-width:.35;stroke-linejoin:round}.lvmap .pit.hd circle{stroke:#b58cff;stroke-width:.8}.lvmap .pit.bn circle{stroke:#ff7ad9;stroke-width:.9}.lvmap .pit text{font:700 3.2px sans-serif;fill:#cfd8ff;text-anchor:middle}
 .lvmap .dt{transition:opacity .3s}.lvmap .dt .dtm{display:none;font:700 5.2px system-ui,sans-serif;fill:#fff;text-anchor:middle;paint-order:stroke;stroke:#000;stroke-width:1.1px}.lvmap .dt.x .dtm{display:block}.lvmap.fast .kx text{animation-duration:1.2s}.lvmap.f20 .kx text{animation-duration:.7s}.lvmap .dt .rg{fill:#fff;stroke:none}.lvmap .dt.b .rg{fill:#4d8dff}.lvmap .dt.r .rg{fill:#ff5c8a}.lvmap .dt .bg{fill:#0c1230;stroke:rgba(255,255,255,.9);stroke-width:.3}.lvmap .dt .sg{font:800 2.5px sans-serif;fill:#fff;text-anchor:middle;letter-spacing:.05px}.lvmap .dt .rb{fill:#0c1230;stroke:#fff;stroke-width:.25}.lvmap .dt.b .rb{fill:#2f6fe0}.lvmap .dt.r .rb{fill:#d93a6a}.lvmap .dt .rl{font:800 1.7px sans-serif;fill:#fff;text-anchor:middle}.lvmap .dt .nk{font:700 2px sans-serif;fill:#fff;text-anchor:middle;paint-order:stroke;stroke:#000;stroke-width:.5;stroke-linejoin:round}.lvmap .dt{filter:drop-shadow(0 .4px .6px rgba(0,0,0,.6))}.lvmap .dt.x{opacity:.3}.lvmap .dt.me .rg{fill:#FFE27A}
@@ -1581,15 +1580,12 @@ body::after{opacity:.32;filter:grayscale(.35) brightness(.8)}
 .cmd{display:grid;gap:6px;margin:10px 0 0}.cmd div{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:10px;font-size:13px;line-height:1.3}
 .cmd .clg{background:linear-gradient(90deg,rgba(132,102,255,.25),rgba(255,122,184,.06));border:1px solid rgba(160,130,255,.55);color:#E0D2FF}
 .cmd .ct10{background:linear-gradient(90deg,rgba(255,226,122,.16),rgba(255,226,122,.03));border:1px solid rgba(255,226,122,.4);color:#FFE27A}
-.fut.mol{background:none;clip-path:none;overflow:visible;filter:drop-shadow(0 4px 8px rgba(0,0,0,.55))}.fut.mol::before{display:none}
-/* o rosto da carta tem o mesmo tamanho de antes; a moldura fica por fora, centralizada, só um pouco sobreposta à borda */
-.fut .fbg{position:absolute;inset:0;border-radius:14px;background:var(--fb);overflow:hidden}.fut .fbg::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(255,255,255,.3),rgba(255,255,255,0) 45%,rgba(0,0,0,.14))}
-.fut .fin{position:absolute;inset:0;transform:scale(.96);transform-origin:50% 50%}
-.fut .orn{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:124.4%;height:113.8%;object-fit:fill;pointer-events:none;z-index:5;max-width:none}
-.fut .orn.lenda{width:123.6%;height:115.5%}.fut .orn.mundo{width:121.3%;height:112.6%}
-.fgrid:has(.mol){gap:34px 26px}.fgrid:has(.mol) .fcell{gap:18px}
-.futr:has(.mol){padding:20px 24px 26px}
-.ph .fut.mol{margin:16px 14px}
+.fut.mol{background:none;clip-path:none;filter:drop-shadow(0 4px 8px rgba(0,0,0,.55))}.fut.mol::before{display:none}
+.fut .molbg,.fut .molfg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.fut .molbg{z-index:0}.fut .molfg{z-index:5}
+.fut.mol>span{z-index:2}.fut.mol .fa.ph{top:11%;height:56%}
+.fut.mol .fst{left:16px;right:16px}.fut.big.mol .fst{left:21px;right:21px}.fcell .fut.mol .fst{left:19px;right:19px}
+.fut.m-mundo,.fut.m-lend{--fc:#FFE9A0;--fm:rgba(255,233,160,.7)}.fut.m-t10{--fc:#EAD8FF;--fm:rgba(234,216,255,.7)}
+.fut.mol .fnm{border-bottom-color:transparent}
 .cmd b{white-space:nowrap;flex:none;font:700 12px var(--d);letter-spacing:.08em;text-transform:uppercase}.cmd span{opacity:.92}
 /* Prêmio: o Top 5 de 2011 a 2025 fica na mesma coluna, logo abaixo da tabela de campeões do ano */
 #app.wrap>.bcol{grid-column:auto;min-width:0;width:auto}.bcol>.pn:last-child{margin-bottom:14px}
@@ -4962,7 +4958,7 @@ function lvAll(){
   }
 }
 function lvSkipPhase(){if(!LV||LV.state!=='run')return;lvStop();const cp=LV.cp,gi=LV.gi;while(LV.state==='run'&&LV.cp===cp&&LV.gi===gi)lvTick()}
-function lvDone(){lvStop();if(typeof window!=='undefined'&&window.LV3D)LV3D.unmount();if(LV&&LV.m&&LV.state!=='done'&&flOn(LV.m)){LV.m.fl=null;LV.m.dd=0}LV=null}
+function lvDone(){lvStop();if(LV&&LV.m&&LV.state!=='done'&&flOn(LV.m)){LV.m.fl=null;LV.m.dd=0}LV=null}
 /* barras de vida no mapa: so a torre da frente de cada rota (cai a externa, passa para a interna, depois a do inibidor) e os monstros da selva vivos */
 function lvHpList(){
   const o=[];
@@ -4980,25 +4976,6 @@ function lvHpList(){
 function lvHpBars(){
   const bar=(x,y,f,cls,w)=>{w=w||6;return `<g class="hpb ${cls}"><rect x="${(lvX(x)-w/2).toFixed(1)}" y="${(y-3.6).toFixed(1)}" width="${w}" height="1" rx=".3"/><rect class="f" x="${(lvX(x)-w/2).toFixed(1)}" y="${(y-3.6).toFixed(1)}" width="${(w*Math.max(0,Math.min(1,f))).toFixed(2)}" height="1" rx=".3"/></g>`};
   return lvHpList().map(b=>bar(b.x,b.y,b.f,b.c,b.w)).join('');
-}
-/* mapa 3D (lib/lv3d.js + lib/three.min.js, carregados sob demanda): so desenha o estado do jogo */
-let B3=false;try{B3=localStorage.getItem('bras3d')==='1'}catch(e){}
-function lv3dLoad(cb){
-  if(typeof window==='undefined'||typeof document==='undefined'||!document.createElement)return;
-  if(window.THREE&&window.LV3D)return cb();
-  const add=(src,next)=>{const s=document.createElement('script');s.src=src;s.onload=next;s.onerror=()=>{B3=false;render()};document.head.appendChild(s)};
-  add('lib/three.min.js',()=>add('lib/lv3d.js',cb));
-}
-function lv3dToggle(){B3=!B3;try{localStorage.setItem('bras3d',B3?'1':'0')}catch(e){}if(B3)lv3dLoad(render);else{if(window.LV3D)LV3D.unmount();render()}}
-function lv3dState(){
-  const dt=(s,r)=>document.getElementById(`dt-${s}${r}`),sts=lvStList();
-  return {
-    structs:sts.map(x=>({id:x.id,x:lvX(x.x),y:x.y,team:/ b( |$)/.test(x.cls)?'b':'r',kind:/ nx /.test(x.cls)?'x':/-nd$/.test(x.id)?'t':/inh/.test(x.cls)?'i':'t',alive:!/ dn/.test(x.cls)})),
-    players:['me','op'].flatMap(s=>[0,1,2,3,4].map(r=>{const e=dt(s,r),P=LV.pp&&LV.pp[s][r],p=lvPos(s,r);return {id:`p${s}${r}`,x:e&&e._cx!=null?lvX(e._cx):lvX(p[0]),y:e&&e._cy!=null?e._cy:p[1],team:lvBlue(s)?'b':'r',hp:P?P.hp:1,lv:P?P.lv:0,dead:LV.kd[s][r].dead>LV.sec,name:lvChamp(s,r)||LVR[r],me:!!(LV.pc&&s==='me'&&LV.pcrole===r)}})),
-    mons:(LV.mons||[]).map(m=>({x:lvX(m.x),y:m.y,hp:m.hp,epic:!!m.epic,k:m.k})),
-    bars:lvHpList().filter(b=>b.c==='b'||b.c==='r').map(b=>({x:lvX(b.x),y:b.y,f:b.f,c:b.c})),
-    pits:[{id:'d',x:lvX(LVPIT.d[0]),y:LVPIT.d[1],up:LV.sec>=LV.dn.d,color:0xffa040},{id:'b',x:lvX(LVPIT.b[0]),y:LVPIT.b[1],up:LV.sec>=LV.dn.b,color:0xb06cff}]
-  };
 }
 function lvStList(){
   const out=[];
@@ -5171,11 +5148,11 @@ function vLive(){
   const [bl,rd]=lvSide(),sp=lvSpd(),run=LV.state==='run';
   const side=`<div class="bcside"><small class="k">${esc(stage)} · ${m.n===1?'jogo único':'MD'+m.n}</small><span class="bclive"><i></i>Ao vivo</span><small id="lvph">${ph||(LV.state==='pick'?'escolha de campeão':'')}${run&&!LV.pc&&LV.tac?' · '+planName(LV.tac):''}</small>
     <div class="bcspd"><small>Vel.</small><button class="pill" data-act="lvSpd" data-v="20" aria-pressed="${sp===20}">20×</button><button class="pill" data-act="lvSpd" data-v="30" aria-pressed="${sp===30}">30×</button></div>
-    <button class="ghost" data-act="lv3d" aria-pressed="${B3}" title="Alterna entre o mapa 2D e o mapa 3D (arraste para girar, roda para aproximar, duplo clique restaura)">${B3?'Mapa 2D':'Mapa 3D'}</button>${run?`<button class="ghost" data-act="lvSkip">Pular fase</button>`:''}<button class="ghost" data-act="lvAll">Simular o resto</button><button class="ghost" data-act="lvX">Voltar</button></div>`;
+    ${run?`<button class="ghost" data-act="lvSkip">Pular fase</button>`:''}<button class="ghost" data-act="lvAll">Simular o resto</button><button class="ghost" data-act="lvX">Voltar</button></div>`;
   return `<div class="dvx lvx bcx"><div class="bcw">
   <div class="bctop" id="lvst">${lvStatsHTML()}</div>
   <div class="bcmid">
-    <div class="bcmapw"><div class="bcmap${B3&&typeof window!=='undefined'&&window.LV3D?' m3':''}">${lvMapHTML()}</div></div>
+    <div class="bcmapw"><div class="bcmap">${lvMapHTML()}</div></div>
     <div class="bcfeed" id="lvlg" aria-live="polite">${lvLogHTML()}</div>
     ${side}
     ${run?'':`<div class="bcov"><div class="bcovc lvctl">${ctl}</div></div>`}
@@ -5212,10 +5189,6 @@ function lvPaint(now){
     {const bt=!dead&&LV.pp&&LV.pp[s][r]&&lvBounty(LV.pp[s][r]).pay>=300;if(e._bt!==bt){e.classList.toggle('bt',bt);e._bt=bt}}
     if(dead){const dm=$(`dm-${s}${r}`);if(dm){const v=Math.ceil(LV.kd[s][r].dead-LV.sec);if(dm._v!==v){dm.textContent=v;dm._v=v}}}
   }));
-  if(B3&&typeof window!=='undefined'&&window.LV3D&&LV3D.ok()){
-    if(!LV3D.mounted()||!document.querySelector('.bcmap .lv3dcv')){LV3D.unmount();const bm=document.querySelector('.bcmap');if(bm&&getComputedStyle(bm).position==='static')bm.style.position='relative';if(bm)LV3D.mount(bm,LV_MAP)}
-    LV3D.frame(lv3dState());
-  }
   /* painel, placar, KDA e log: no máximo ~8 vezes por segundo e só o que mudou */
   if(now&&LV.pt&&now-LV.pt<120)return;
   LV.pt=now||Date.now();
@@ -6943,16 +6916,53 @@ function legendYear(n){
 }
 const yrsTxt=a=>a.length<=3?a[0]+a.slice(1).map(y=>'·'+String(y).slice(2)).join(''):`${a.length}× · ${a[a.length-1]}`;
 const legR=n=>{const h=S.hof&&S.hof[n];return h?Math.round(clamp(84+sc(h)/6,84,97)):80};
+/* Cartas com conquistas (modelo): dourada = Melhor do Mundo, roxa = Top 10 da História, dourada+roxa = Lendária; sempre com o ano na coroa */
+const MOLC={
+  mundo:{a:'#FFF1A8',b:'#E8B93E',c:'#7a5410',bg0:'#3b2a07',bg1:'#0c0a04',tx:'#FFE9A0',rb:'#0d0a04',lab:'MELHOR DO MUNDO'},
+  t10:{a:'#EAD6FF',b:'#A66CFF',c:'#3d1a8a',bg0:'#33156a',bg1:'#0a0618',tx:'#EAD8FF',rb:'#0b0618',lab:'TOP 10 DA HISTÓRIA'},
+  lend:{a:'#FFF1A8',b:'#E8B93E',c:'#7a5410',bg0:'#2e1259',bg1:'#0b0618',tx:'#FFE9A0',rb:'#0b0618',lab:'LENDÁRIA',p:'#A66CFF'}
+};
+const MOLP='M12 0H120L132 11V166L120 178H78L66 190L54 178H12L0 166V11Z';
+function molBg(k){
+  const c=MOLC[k],id='m'+k;
+  return `<svg class="molbg" viewBox="0 0 132 190" preserveAspectRatio="none" aria-hidden="true"><defs>
+<linearGradient id="${id}b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c.bg0}"/><stop offset="1" stop-color="${c.bg1}"/></linearGradient>
+<linearGradient id="${id}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c.a}"/><stop offset=".5" stop-color="${c.b}"/><stop offset="1" stop-color="${c.c}"/></linearGradient>
+<radialGradient id="${id}r" cx=".55" cy=".3" r=".6"><stop offset="0" stop-color="${c.p||c.b}" stop-opacity=".45"/><stop offset="1" stop-color="${c.p||c.b}" stop-opacity="0"/></radialGradient></defs>
+<path d="${MOLP}" fill="url(#${id}b)"/><path d="${MOLP}" fill="url(#${id}r)"/>
+<path d="M-10 150L70 -10M20 190L110 20M70 190L150 40M-10 90L50 -10" stroke="${c.p||c.b}" stroke-opacity=".14" stroke-width="1.2" fill="none"/>
+<rect x="7" y="110" width="118" height="27" fill="rgba(0,0,0,.55)"/><path d="M7 110H125M7 137H125" stroke="${c.b}" stroke-opacity=".7" stroke-width=".6"/>
+<rect x="7" y="139" width="118" height="26" fill="rgba(0,0,0,.5)" stroke="${c.b}" stroke-opacity=".55" stroke-width=".6"/>
+<path d="${MOLP}" fill="none" stroke="url(#${id}g)" stroke-width="3.4" stroke-linejoin="round"/>
+<path d="${MOLP}" fill="none" stroke="${c.a}" stroke-opacity=".6" stroke-width=".7" transform="translate(66 95) scale(.94) translate(-66 -95)"/>
+<path d="M0 11L5 8L3 3L8 5L12 0M132 11L127 8L129 3L124 5L120 0" stroke="url(#${id}g)" stroke-width="1.6" fill="none"/></svg>`;
+}
+function molFg(k,year){
+  const c=MOLC[k],id='m'+k,L=[];
+  /* louros nos cantos de baixo */
+  [[8,150,-70],[9,158,-60],[11,166,-45],[15,173,-30],[20,179,-15],[26,183,-5]].forEach(([x,y,r])=>{
+    [1,-1].forEach(sd=>{const X=sd>0?x:132-x,R=sd>0?r:-r;L.push(`<ellipse cx="${X}" cy="${y}" rx="5" ry="2" transform="rotate(${R} ${X} ${y})" fill="url(#${id}g)" stroke="${c.c}" stroke-width=".4"/>`)});
+  });
+  return `<svg class="molfg" viewBox="0 0 132 190" preserveAspectRatio="none" aria-hidden="true"><defs>
+<linearGradient id="${id}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c.a}"/><stop offset=".5" stop-color="${c.b}"/><stop offset="1" stop-color="${c.c}"/></linearGradient></defs>
+${L.join('')}
+<path d="M43 12H89L85 25H47Z" fill="${c.rb}" fill-opacity=".92" stroke="url(#${id}g)" stroke-width="1.1"/>
+<path d="M52 12L54 4L60 8L66 0L72 8L78 4L80 12Z" fill="url(#${id}g)" stroke="${c.c}" stroke-width=".4"/><circle cx="66" cy="6.2" r="1.4" fill="${c.p||'#7fd2ff'}"/>
+<text x="66" y="22.6" text-anchor="middle" style="font:800 11.5px var(--d);letter-spacing:.05em" fill="${c.tx}">${year}</text>
+<path d="M24 167H108L113 173L108 179H24L19 173Z" fill="${c.rb}" fill-opacity=".94" stroke="url(#${id}g)" stroke-width="1"/>
+<text x="66" y="175.4" text-anchor="middle" style="font:800 6px var(--d)" fill="${c.tx}" textLength="${c.lab.length>12?66:50}" lengthAdjust="spacingAndGlyphs">${c.lab}</text>
+<path d="M66 181L69 185.5L66 190L63 185.5Z" fill="url(#${id}g)"/></svg>`;
+}
 function fut(o,cls=''){
   const t=tier(o.r),st=futStats(o.n,o.r,o.role),c=natC(o.n),tm=o.team;
-  const bw=bwYears(o.n),ly=legendYear(o.n),ret=!tm||!!(S.pdb&&S.pdb[o.n]&&S.pdb[o.n].ret);
+  const bw=bwYears(o.n),t10=t10Hist()[o.n],ret=!tm||!!(S.pdb&&S.pdb[o.n]&&S.pdb[o.n].ret);
+  const k=bw.length&&t10?'lend':bw.length?'mundo':t10?'t10':'';
+  const yr=k==='mundo'?bw[bw.length-1]:k==='t10'?t10.in:Math.max(bw[bw.length-1],t10&&t10.in||0);
   const inner=`<span class="fo num">${o.r}</span><span class="fr">${RN[o.role]||''}</span>${c?`<span class="fn">${natTxt(c)}</span>`:''}${tm?`<span class="fs">${crest(tm,'')}</span>`:''}
   <span class="fa${phHas(o.n)?' ph':''}">${phHas(o.n)?phImg(o.n):AVA}</span><span class="fnm">${esc(o.n)}</span>
   <span class="fst">${st.map((v,i)=>`<span class="num">${v}<small>${FSTAT[i]}</small></span>`).join('')}</span>
   ${o.f&&Math.abs(o.f)>=.5?`<span class="ff">${o.f>0?'▲':'▼'}${Math.abs(o.f).toFixed(1)}</span>`:''}`;
-  /* com conquista a carta ganha uma moldura: ambos, só lenda ou só melhor do mundo */
-  const mol=bw.length&&ly?'ambos':ly?'lenda':bw.length?'mundo':'';
-  return `<button class="fut t${t} ${cls}${mol?' mol':''}${bw.length?' bw':''}${ly?' lgd':''}${ret?' ret':''}${S.inj&&S.inj[o.n]?' inj':''}" data-act="player" data-v="${esc(o.n)}" aria-label="${esc(o.n)}, ${o.r}">${mol?`<span class="fbg"></span><span class="fin">${inner}</span><img class="orn ${mol}" src="cartas/moldura_${mol}.webp" alt="" draggable="false">`:inner}</button>`;
+  return `<button class="fut t${t} ${cls}${k?' mol m-'+k:''}${ret?' ret':''}${S.inj&&S.inj[o.n]?' inj':''}" data-act="player" data-v="${esc(o.n)}" aria-label="${esc(o.n)}, ${o.r}">${k?molBg(k)+inner+molFg(k,yr):inner}</button>`;
 }
 const hx=(r,c='')=>`<span class="hx t${tier(r)} ${c}">${r}</span>`;
 /* listas de jogadores em cartinhas: cada item = carta (fut) + legenda; a grade se ajusta à largura */
@@ -8019,7 +8029,7 @@ function act(a,v){
   else if(a==='dvX'){clearTimeout(DVT);DV=null}
   else if(a==='dvGo'){if(DV&&DV.done){const lvc=DV.lv,snap=ldSnap();dvGo();ldStart(snap,()=>{if(lvc)lvResume();else if(lvNeeded())lvOpen();else if(S.season.fm)fmEnd();else step();sndAfter();save()});top=true}}
   else if(a==='ldSkip'){ldEnd()}
-  else if(a==='lvTac'){if(LV&&LV.pc)lvPosture(v);else lvTac(v)}else if(a==='lvPick'){lvPick(v)}else if(a==='lvSub'){lvSub(v);save()}else if(a==='lvNext'){lvNext();top=true}else if(a==='lv3d'){lv3dToggle()}else if(a==='lvSide'){if(LV&&LV.state==='between'&&sdNeed(LV.m,LV.gi,LV.ia)){LV.m.sd=LV.m.sd||[];LV.m.sd[LV.gi]=(v==='b')===LV.ia;save()}top=true}else if(a==='lvSkip'){lvSkipPhase()}else if(a==='cevCfg'){cevCfg(v)}else if(a==='cevPs'){cevPs(v)}else if(a==='cevGo'){cevGo(v);save()}else if(a==='cevPlay'){const [k,i,q]=String(v).split('|');if(cevPlayStart(k,i,q))top=true;save()}else if(a==='cevSkip'){cevSkip(v);save()}else if(a==='cevEnd'){cevEnd(v);save()}else if(a==='cevDest'){cevDest(v)}else if(a==='lvAll'){lvAll()}else if(a==='lvX'){lvDone()}else if(a==='lvSpd'){S.opt=S.opt||{};S.opt.lvs=+v===30?30:20;save();render()}
+  else if(a==='lvTac'){if(LV&&LV.pc)lvPosture(v);else lvTac(v)}else if(a==='lvPick'){lvPick(v)}else if(a==='lvSub'){lvSub(v);save()}else if(a==='lvNext'){lvNext();top=true}else if(a==='lvSide'){if(LV&&LV.state==='between'&&sdNeed(LV.m,LV.gi,LV.ia)){LV.m.sd=LV.m.sd||[];LV.m.sd[LV.gi]=(v==='b')===LV.ia;save()}top=true}else if(a==='lvSkip'){lvSkipPhase()}else if(a==='cevCfg'){cevCfg(v)}else if(a==='cevPs'){cevPs(v)}else if(a==='cevGo'){cevGo(v);save()}else if(a==='cevPlay'){const [k,i,q]=String(v).split('|');if(cevPlayStart(k,i,q))top=true;save()}else if(a==='cevSkip'){cevSkip(v);save()}else if(a==='cevEnd'){cevEnd(v);save()}else if(a==='cevDest'){cevDest(v)}else if(a==='lvAll'){lvAll()}else if(a==='lvX'){lvDone()}else if(a==='lvSpd'){S.opt=S.opt||{};S.opt.lvs=+v===30?30:20;save();render()}
   else if(a==='lvDone'){if(LV&&LV.state==='done'){const fr=!!LV.m.fr||!!LV.m.cup;if(LV.pc)pcMatchEnd();lvDone();if(fr)fmEnd();else step();sndAfter();save();top=true}}
   else if(a==='liveOpt'){S.opt=S.opt||{};S.opt.live=+v;save()}
   else if(a==='engOpt'){S.opt=S.opt||{};S.opt.eng=+v;save()}

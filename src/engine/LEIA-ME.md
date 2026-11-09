@@ -69,6 +69,5 @@ Código JS puro (CommonJS), sem DOM, sem globais e **sem `Math.random()`** (um t
 ## Atualizações pós-Bloco 9
 - **Suprimentos** (`items/supplies.js`, `ai/supply_ai.js`): kit inicial por função, poções, sentinelas, Sentinela de Controle, Lente do Oráculo (docs/ITENS_COMPRA_LEAGUEOFGRAPHS.md). Teste: `engine_suprimentos.js`.
 - **Kits automáticos** (`champion/kits/auto.json`, gerado por `ferramentas/dados/gerar_kits_auto.js`): 165 rascunhos validados contra os dados do patch; os 8 kits manuais têm prioridade. Cobertura e lacunas: docs/KITS_AUTO_16.22.1.md. Teste: `engine_kits_auto.js`.
-- **Mapa 3D** na partida ao vivo (`lib/lv3d.js` + `lib/three.min.js`, carregados sob demanda): botão "Mapa 3D/2D"; só desenha o estado do jogo. Arraste gira, Shift/botão direito move, roda aproxima, duplo clique restaura.
 - **Barras de vida** no mapa: torre da frente de cada rota e monstros da selva (snapshot do adaptador: `hpS`, `mons`).
 - **Bloco 10** (`ferramentas/balanceamento.js`): simulação em massa paralela e relatório em docs/BLOCO10_BALANCEAMENTO.md.
