@@ -1310,6 +1310,7 @@ img{-webkit-user-drag:none}
 @media(max-width:560px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 8px}.fcell .fut{width:150px;height:216px}.fgrid.pod{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .crest.flag{border-radius:4px;width:calc(var(--s)*1.5);box-shadow:0 0 0 1px rgba(255,255,255,.22),0 1px 3px rgba(0,0,0,.45)}.crest.flag.md{--s:26px}.crest.flag.lg{--s:34px}
 .nlk{display:inline-flex;align-items:center;padding:0;background:none;border:0;line-height:0;cursor:pointer}.nlk:hover .crest,.nlk:focus-visible .crest{filter:brightness(1.12)}
+.pmr .obx{width:26px;height:26px;object-fit:contain;margin:0 2px;vertical-align:middle;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -2898,12 +2899,12 @@ function lvCampDone(P){
   const s=P.s,sec=LV.sec,i=P.cl.i;P.cl=null;
   if(i>=6){
     const k=i-6;if(LV.cr[k]>sec){LV.jc[s].lost++;return}
-    LV.cr[k]=sec+JGS.re;P.gt+=JGS.gd;P.xp+=JGS.xp;P.cs+=1;P.bf.sc=sec+60;LV.jc[s].cr++;
+    LV.cr[k]=sec+JGS.re;P.gt+=JGS.gd;P.xp+=JGS.xp;P.cs+=4;P.bf.sc=sec+60;LV.jc[s].cr++;
     lvSayOnce('cr'+s+k,40,`${lvNick(P)} abate o ${JGS.n} e ganha a velocidade do rio.`,s,'obj');return;
   }
   const cm=LV.cm[lvBlue(s)?'b':'r'],c=JGC[i];
   if(cm[i]>sec){LV.jc[s].lost++;return}
-  cm[i]=sec+c.re;P.cs+=1;P.gt+=c.gd;P.xp+=c.xp;LV.jc[s].cl++;
+  cm[i]=sec+c.re;P.cs+=4;P.gt+=c.gd;P.xp+=c.xp;LV.jc[s].cl++;
   if(c.bf){P.bf[c.bf]=sec+JGB[c.bf].dur;LV.jc[s].bf++}
 }
 /* invasores limpam o acampamento rival: o dono perde ouro, experiência e o buff */
@@ -3990,7 +3991,7 @@ function lvPlan(s){
     const key='o'+ob.k,pit=ob.k==='d'||ob.k==='e'?'d':'b',w=lvGroup(s,'obj',{pit}),need=ob.k==='b'||ob.k==='e'?4:3;
     if(w.length<2)return;
     const att=LV.at&&LV.at.k===ob.k?LV.at:null;
-    let V=LVOBV[ob.k]*(1+(st.obj||0));if(ob.k==='d'&&LV.st[s].d===3)V+=.12;if(ob.k==='b'&&a.gd<-2500)V+=.15;
+    let V=LVOBV[ob.k]*(1+(st.obj||0));if(ob.k==='d'&&LV.st[s].d===3)V+=.12;if(ob.k==='d'||ob.k==='e')V+=clamp((sec-ob.up)/240,0,.55);/* dragão parado há tempo vira prioridade (nasce e renasce a cada 5 min) */if(ob.k==='b'&&a.gd<-2500)V+=.15;
     {const pr0=(LV.ln[ob.k==='d'||ob.k==='e'?'bot':'top'].u-.5)*(lvBlue(s)?1:-1);V*=1+.4*clamp(pr0*2,-1,1)}
     const nF=w.length>=need?1:.25+w.length/need*.35;
     const etaMe=w.reduce((x,P)=>x+lvEta(P,ob.x,ob.y),0)/w.length;
@@ -4763,7 +4764,7 @@ function lvPostHTML(ctl,bottom){
   const sA=bl==='me'?LV.me:LV.op,sB=bl==='me'?LV.op:LV.me;
   const hd=(s,c)=>`<div class="pmt ${c}">${crest(lvTeam(s),'lg')}<b>${esc(lvTeamNm(s))}</b><span class="${s===wS?'w':'l'}">${s===wS?'Vitória':'Derrota'}</span></div>`;
   const tot=s=>LV.kd[s].reduce((a,x)=>({k:a.k+x.k,d:a.d+x.d,a:a.a+x.a}),{k:0,d:0,a:0});
-  const icons=(n,cls)=>n?Array.from({length:Math.min(n,6)},()=>`<i class="obi ${cls}"></i>`).join('')+(n>6?`<small>×${n}</small>`:''):'<span class="dash">—</span>';
+  const OBI={gr:'larva.png',hd:'herald.svg',bn:'baron.svg',el:'elder.svg'};const icons=(n,cls)=>n?Array.from({length:Math.min(n,6)},()=>OBI[cls]?`<img class="obx" src="champs/obj/${OBI[cls]}" alt="" draggable="false">`:`<i class="obi ${cls}"></i>`).join('')+(n>6?`<small>×${n}</small>`:''):'<span class="dash">—</span>';
   const bans=LV.m.bans,bOf=s=>bans?(lvTeam(s).id===LV.m.a?bans.b:bans.r)||[]:[];
   const row=(l,a,b,va,vb)=>{const hi=va==null||va===vb?'':va>vb?' hl':' hr';return `<div class="pmr${hi}"><span>${a}</span><b>${l}</b><span>${b}</span></div>`};
   const A=tot(bl),B=tot(rd),S1=LV.st[bl],S2=LV.st[rd];
