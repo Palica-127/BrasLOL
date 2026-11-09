@@ -1126,7 +1126,7 @@ h1,h2,h3,.hn,.mhero h2,.cdate>div:first-child b,.play,.pill,.mc2 h3{font-style:n
 .dftop{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:10px 18px}
 .dfback{justify-self:start;background:none;border:0;padding:6px 0;color:#dfe4f4;font:700 13px var(--d);letter-spacing:.16em;text-transform:uppercase;cursor:pointer}.dfback:hover{color:#fff}
 .dftop>b{font:700 14px var(--d);letter-spacing:.18em;text-transform:uppercase;text-align:center}
-.dfmeta{justify-self:end;font:600 11px var(--d);letter-spacing:.12em;text-transform:uppercase;color:#aab4d4}
+.dfmeta{display:flex;align-items:center;gap:12px;justify-self:end;font:600 11px var(--d);letter-spacing:.12em;text-transform:uppercase;color:#aab4d4}
 .dfx .flb{margin:0 18px}
 .dfmid{flex:1;display:flex;justify-content:center;align-items:flex-start;padding:8px 16px 14px}
 .dfp{width:min(1080px,100%);padding:14px 20px 12px;background:rgba(70,80,112,.6);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.1)}
@@ -1145,7 +1145,7 @@ h1,h2,h3,.hn,.mhero h2,.cdate>div:first-child b,.play,.pill,.mc2 h3{font-style:n
 .dfft p{margin:0 auto 0 0;font:600 13px var(--b);color:#dfe4f4}
 .dfp .ghost{min-height:40px;padding:6px 14px;font-size:12px}
 .dfok{min-width:140px;min-height:40px;padding:0 18px;background:#fff;color:#0A0F24;border:0;font:800 13px var(--d);letter-spacing:.2em;text-transform:uppercase;cursor:pointer}.dfok:hover{background:#E4E8F3}.dfok:disabled{background:rgba(255,255,255,.25);color:rgba(10,15,36,.5);cursor:not-allowed}
-.dfw{display:grid;justify-items:center;gap:12px;padding:28px;text-align:center}.dfw h2{margin:0}.dfw .dvs{width:100%}
+.dfw{display:grid;justify-items:center;align-content:center;gap:12px;padding:28px;text-align:center;min-height:340px}.dfw h2{margin:0}.dfw .dvs{width:100%}
 .dfbans{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:end;gap:10px;border-bottom:3px solid #2b6bff}.dfbans>.b,.dfbans>.r{display:flex;align-items:flex-end;gap:0;position:relative;padding-top:22px;background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.2))}
 .dfbans>.b{border-top:3px solid #2b6bff;border-right:0}.dfbans>.r{border-top:3px solid #e0364f;justify-content:flex-end}
 .dfcoach{position:absolute;left:8px;top:3px;font:700 10px var(--d);letter-spacing:.16em;text-transform:uppercase;color:#dfe4f4;white-space:nowrap}.dfbans>.r .dfcoach{left:auto;right:8px}
@@ -1188,7 +1188,7 @@ h1,h2,h3,.hn,.mhero h2,.cdate>div:first-child b,.play,.pill,.mc2 h3{font-style:n
 .dfcr{display:flex;align-items:center;gap:16px}.dfcr i{font:800 14px var(--d);color:#aab4d4}
 .dfc p{margin:0;font:700 12px var(--d);letter-spacing:.16em;text-transform:uppercase;color:#aab4d4}.dfc p.me{color:#fff}
 @media (max-width:900px){
-  .dftop{grid-template-columns:auto 1fr;padding:8px 10px}.dfmeta{display:none}.dftop>b{text-align:right;font-size:12px}
+  .dftop{grid-template-columns:auto 1fr;padding:8px 10px}.dfmt{display:none}.dftop>b{text-align:right;font-size:12px}
   .dfmid{padding:6px 8px 10px}.dfp{padding:10px}.dfq{min-width:0;flex:1 1 100%}
   .dfg{grid-template-columns:repeat(auto-fill,minmax(62px,1fr));max-height:44vh}.dft img,.dft>i{width:56px;height:56px}.dft small{font-size:10px;max-width:62px}
   .dfft p{flex:1 1 100%}.dfok{flex:1}
@@ -1308,6 +1308,8 @@ img{-webkit-user-drag:none}
 .fgrid.pod{grid-template-columns:repeat(3,minmax(0,210px));justify-content:center;align-items:end}
 .hero .fut{margin:10px auto 6px;filter:drop-shadow(0 10px 18px rgba(0,0,0,.5))}.pn:has(.fgrid){grid-column:1/-1}
 @media(max-width:560px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 8px}.fcell .fut{width:150px;height:216px}.fgrid.pod{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.crest.flag{border-radius:4px;width:calc(var(--s)*1.5);box-shadow:0 0 0 1px rgba(255,255,255,.22),0 1px 3px rgba(0,0,0,.45)}.crest.flag.md{--s:26px}.crest.flag.lg{--s:34px}
+.nlk{display:inline-flex;align-items:center;padding:0;background:none;border:0;line-height:0;cursor:pointer}.nlk:hover .crest,.nlk:focus-visible .crest{filter:brightness(1.12)}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -3437,14 +3439,14 @@ function vDraft(){
     const info=sc?`<b>${esc(sc)}</b> · ${RN[rr]} · ${isBan?'domínio do rival '+esc(ref.n):'domínio de '+esc(ref.n)} <b class="num">${Math.round(mastOf(ref.n,sc)*100)}</b> · meta ${tierOf(metaOf(sc))}${d?' · '+d.t.slice(0,2).map(x=>TG[x]).join('/'):''}`:(isBan?'Selecione um campeão para banir':'Selecione um campeão para escolher');
     main=`<section class="dfp"><div class="dfh"><h2>Campeões</h2><div class="dff">${tabs.map(([k,l])=>`<button class="${String(f)===String(k)?'on':''}" data-act="dvFlt" data-v="${k}">${l}</button>`).join('')}</div><label class="dfq"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-4-4" stroke="currentColor" stroke-width="2"/></svg><input id="dv-q" type="search" placeholder="Pesquisar campeão" value="${esc(DV.q||'')}" autocomplete="off" aria-label="Pesquisar campeão"></label></div>
     <div class="dfg" id="dfgrid">${dfGridHTML()}</div>
-    <div class="dfft"><p>${info}</p><button class="ghost" data-act="dvAuto">Escolha automática</button><button class="ghost" data-act="dvAll">Autodraft</button><button class="dfok" data-act="dvOk" ${sc?'':'disabled'}>${isBan?'Banir':'Escolher'}</button></div></section>`;
+    <div class="dfft"><p>${info}</p><button class="ghost" data-act="dvAuto">Escolha automática</button><button class="dfok" data-act="dvOk" ${sc?'':'disabled'}>${isBan?'Banir':'Escolher'}</button></div></section>`;
   }else if(!DV.done){
-    main=`<section class="dfp dfw"><div class="dvw"><i></i><i></i><i></i></div><p>${esc(opT.name)} está ${isBan?'banindo':'escolhendo'}…</p><button class="ghost" data-act="dvAll">Autodraft completo</button></section>`;
+    main=`<section class="dfp dfw"><div class="dvw"><i></i><i></i><i></i></div><p>${esc(opT.name)} está ${isBan?'banindo':'escolhendo'}…</p></section>`;
   }else{
     const maj=cs=>planName(compMaj(cs.filter(Boolean)));
     main=`<section class="dfp dfw"><h2>Draft concluído</h2><div class="dvs"><div><small>Sua composição</small><b>${esc(maj(DV.pk[us]))}</b></div><div><small>Rival</small><b>${esc(maj(DV.pk[op]))}</b></div></div><p class="note">${cmpTxt(DV.pk[us],DV.pk[op])}</p><button class="dfok" data-act="dvGo">Jogar partida</button></section>`;
   }
-  return `<div class="dvx dfx"><div class="dftop"><button class="dfback" data-act="dvX">‹ Sair do draft</button><b>${esc(stage)}</b><span class="dfmeta">Meta ${esc(metaName())}</span></div>
+  return `<div class="dvx dfx"><div class="dftop"><button class="dfback" data-act="dvX">‹ Sair do draft</button><b>${esc(stage)}</b><span class="dfmeta">${DV.done?'':'<button class="ghost dfauto" data-act="dvAll" title="Completa todo o draft automaticamente">Autodraft</button>'}<span class="dfmt">Meta ${esc(metaName())}</span></span></div>
   <div class="dfmid">${main}</div>
   <div class="dfbans"><div class="b"><small class="dfcoach">Bans · ${esc(A.name)}</small>${bans('b')}</div>${sbHTML}<div class="r"><small class="dfcoach">Bans · ${esc(B.name)}</small>${bans('r')}</div></div>
   <div class="dfbot"><div class="dfcols b">${[0,1,2,3,4].map(i=>col('b',i)).join('')}</div>
@@ -3919,7 +3921,7 @@ function lvObjDone(s,k){
   }else if(k==='d'){
     S2.d++;LV.dn.d=sec+LVCFG.dragonRe;
     /* regra: 2 primeiros aleatórios; o 3º define o elemento do mapa e os seguintes (e a Alma) seguem ele */
-    let dy;if(LV.st.me.d+LV.st.op.d<=2)dy=pick(DRT);else{if(!LV.rift)LV.rift=pick(DRT);dy=DRT.find(x=>x[0]===LV.rift)}
+    let dy;if(LV.st.me.d+LV.st.op.d<=2)dy=pick(DRT);else{if(!LV.rift)LV.rift=pick(DRT)[0];dy=DRT.find(x=>x[0]===LV.rift)}
     if(LV.st.me.d+LV.st.op.d===3)lvSay(`O mapa se transforma: Terras ${({inf:'Infernais',mon:'das Montanhas',oce:'dos Oceanos',nuv:'das Nuvens',hex:'Hextec',qui:'Quimtec'})[LV.rift]}.`,'sys','obj');
     LV.dt[s][dy[0]]=lvDrN(s,dy[0])+1;
     lvSay(`${tn} garante o dragão ${dy[1]} (${S2.d}º).`,s,'obj');
@@ -6127,13 +6129,13 @@ function fixPhase(){
 }
 function cupRow(m){
   const r=m.res,A=CT(m.a),B=CT(m.b);
-  return `<div class="cm"><span class="${r&&r.w===m.a?'w':''}"><button class="lk" data-act="nation" data-v="${A.id}">${esc(A.name)}</button></span><b class="num">${r?`${r.wa}–${r.wb}`:'vs'}</b><span class="b ${r&&r.w===m.b?'w':''}"><button class="lk" data-act="nation" data-v="${B.id}">${esc(B.name)}</button></span></div>`;
+  return `<div class="cm"><span class="${r&&r.w===m.a?'w':''}">${nlk(A.id)}</span><b class="num">${r?`${r.wa}–${r.wb}`:'vs'}</b><span class="b ${r&&r.w===m.b?'w':''}">${nlk(B.id)}</span></div>`;
 }
 function cupMatchHTML(m,i,fx){
   const A=CT(m.a),B=CT(m.b),r=m.res,pa=Math.round(m.pa*100),pb=100-pa;
   const aw=r&&r.w===m.a,bw=r&&r.w===m.b,up=r&&m.n!==2&&((aw&&m.pa<.3)||(bw&&m.pa>.7));
   return `<div class="m${fx?' fx':''}${S.nm&&(m.a===S.nm.code||m.b===S.nm.code)?' mine':''}" style="--i:${i}">${up?'<span class="zb">Zebra</span>':''}
-  <div class="mt"><span class="tn ${r?(aw?'win':'lose'):''}"><span class="cn"><button class="lk" data-act="nation" data-v="${A.id}">${esc(A.name)}</button></span></span><span class="sc num">${r?`${r.wa}<i>–</i>${r.wb}`:'<em>VS</em>'}</span><span class="tn b ${r?(bw?'win':'lose'):''}"><span class="cn"><button class="lk" data-act="nation" data-v="${B.id}">${esc(B.name)}</button></span></span></div>
+  <div class="mt"><span class="tn ${r?(aw?'win':'lose'):''}"><span class="cn">${nlk(A.id,'lg')}</span></span><span class="sc num">${r?`${r.wa}<i>–</i>${r.wb}`:'<em>VS</em>'}</span><span class="tn b ${r?(bw?'win':'lose'):''}"><span class="cn">${nlk(B.id,'lg')}</span></span></div>
   <div class="od"><i style="width:${pa}%"></i><i class="o2" style="width:${pb}%"></i></div>
   <div class="ol"><b class="num">${pa}%</b><span>${m.lab?m.lab+' · ':''}MD${m.n} · ${Math.round(m.qa*100)}% por jogo · ${m.d>=0?'+':''}${m.d.toFixed(1)} OVR</span><b class="num">${pb}%</b></div></div>`;
 }
@@ -6161,7 +6163,7 @@ function cupHTML(){
     const done=cup.gi>=3;
     h+=`<div class="sub">Fase de grupos</div>`+cup.groups.map(g=>{
       const ord=done?cupGroupOrder(cup,g):g.ids.slice().sort((a,b)=>{const x=cup.rec[a],y=cup.rec[b];return y.p-x.p||(y.gw-y.gl)-(x.gw-x.gl)||y.gw-x.gw});
-      return `<div class="sub" style="margin-top:6px">${g.name}</div><div class="grp">${ord.map((id,i)=>{const r=cup.rec[id];return `<div class="gr${done&&i<2?' q':''}${done&&i>=2?' x':''}${S.nm&&id===S.nm.code?' mine':''}"><span><button class="lk" data-act="nation" data-v="${id}">${esc(CT(id).name)}</button></span><span class="num">${r.w}V ${r.d}E ${r.l}D · <b>${r.p}</b> pts · ${r.gw-r.gl>0?'+':''}${r.gw-r.gl}</span></div>`}).join('')}</div>`;
+      return `<div class="sub" style="margin-top:6px">${g.name}</div><div class="grp">${ord.map((id,i)=>{const r=cup.rec[id];return `<div class="gr${done&&i<2?' q':''}${done&&i>=2?' x':''}${S.nm&&id===S.nm.code?' mine':''}"><span>${nlk(id)}</span><span class="num">${r.w}V ${r.d}E ${r.l}D · <b>${r.p}</b> pts · ${r.gw-r.gl>0?'+':''}${r.gw-r.gl}</span></div>`}).join('')}</div>`;
     }).join('');
     /* jogos da fase de grupos */
     const nxt=cup.gi<3?cup.gi:-1;
@@ -6172,9 +6174,9 @@ function cupHTML(){
       if(!pend&&!gs)return;
       h+=`<details class="det"${pend?' open':''}><summary>${pend?'Próximos jogos · ':''}${st.name}</summary><div class="cmw">${st.ms.map(cupRow).join('')}</div></details>`;
     });
-    h+=`<details class="det"><summary>Convocados (${cup.teams.length} seleções)</summary>${cup.teams.map(t=>`<div class="sub"><button class="lk" data-act="nation" data-v="${t.id}">${esc(t.name)}</button> · OVR ${Math.round(eff(t))}</div><p class="note" style="margin:0 0 6px">${t.pl.map(p=>`${RN[p.role]} ${lk(p.n)} <small class="num">${p.r}</small>${p.ext?' <small>(reforço)</small>':''}`).join(' · ')}</p>`).join('')}</details></section>`;
+    h+=`<details class="det"><summary>Convocados (${cup.teams.length} seleções)</summary>${cup.teams.map(t=>`<div class="sub">${nlk(t.id)} · OVR ${Math.round(eff(t))}</div><p class="note" style="margin:0 0 6px">${t.pl.map(p=>`${RN[p.role]} ${lk(p.n)} <small class="num">${p.r}</small>${p.ext?' <small>(reforço)</small>':''}`).join(' · ')}</p>`).join('')}</details></section>`;
   }
-  if(S.cups&&S.cups.length&&!(cup&&S.cups.length===1&&cup.champ!=null))h+=`<section class="pn"><h2>Copas do Mundo</h2>${S.cups.slice().reverse().map(c=>`<div class="rowl"><span class="lg num">${c.y}</span><span class="grow"><b><button class="lk" data-act="nation" data-v="${c.code||''}">${esc(c.champ)}</button></b> campeão<br><small>vice ${esc(c.runner)} · final ${c.score}${c.third?` · 3º ${esc(c.third)}`:''} · MVP ${lk(c.mvp)}</small></span></div>`).join('')}</section>`;
+  if(S.cups&&S.cups.length&&!(cup&&S.cups.length===1&&cup.champ!=null))h+=`<section class="pn"><h2>Copas do Mundo</h2>${S.cups.slice().reverse().map(c=>`<div class="rowl"><span class="lg num">${c.y}</span><span class="grow"><b>${c.code?nlk(c.code):esc(c.champ)}</b> campeã<br><small>vice ${esc(c.runner)} · final ${c.score}${c.third?` · 3º ${esc(c.third)}`:''} · MVP ${lk(c.mvp)}</small></span></div>`).join('')}</section>`;
   return h;
 }
 
@@ -6736,6 +6738,8 @@ function vTeams(){
 
 /* ---------- ficha das seleções ---------- */
 const natHue=c=>{let h=0;for(const x of c)h=(h*37+x.charCodeAt(0))%360;return h};
+/* seleção = bandeira (sem o nome); o nome fica no título e no rótulo de acessibilidade */
+const nlk=(c,cl='md')=>`<button class="lk nlk" data-act="nation" data-v="${c}" title="${esc(NATN[c]||c)}" aria-label="${esc(NATN[c]||c)}">${natCrest(c,'flag '+cl)}</button>`;
 const natCrest=(c,cl='')=>{const i=ISO2[c];return `<span class="crest ${cl}" style="--h:${natHue(c)}" aria-hidden="true">${i?`<img class="flg" src="https://flagcdn.com/w160/${i.toLowerCase()}.png" alt="" loading="lazy" onerror="this.remove()">`:''}${esc(c)}</span>`};
 function natActive(c){return S.teams.flatMap(t=>t.pl.filter(p=>natC(p.n)===c).map(p=>({p,t})))}
 function natXI(c){
@@ -6747,7 +6751,7 @@ function natListHTML(){
   const cs={};
   S.teams.forEach(t=>t.pl.forEach(p=>{const c=natC(p.n);if(c)(cs[c]=cs[c]||[]).push(p)}));
   const rows=Object.keys(cs).map(c=>{const xi=natXI(c).filter(Boolean);return{c,n:cs[c].length,best:Math.max(...cs[c].map(p=>p.r)),cov:xi.length,avg:xi.length?xi.reduce((a,x)=>a+x.p.r,0)/xi.length:0}}).sort((a,b)=>b.avg*(b.cov>=4?1:.9)-a.avg*(a.cov>=4?1:.9)||b.n-a.n);
-  return `<section class="pn"><h2>Seleções</h2>${rows.map((r,i)=>`<div class="pl" style="grid-template-columns:30px minmax(0,1fr) auto"><span class="pos num" style="font-size:20px">${i+1}</span><span><span class="nm2"><button class="lk" data-act="nation" data-v="${r.c}">${esc(NATN[r.c]||r.c)}</button></span><br><small>${r.n} jogador${r.n>1?'es':''} ativo${r.n>1?'s':''} · melhor ${r.best}${r.cov<5?` · ${r.cov}/5 posições`:''}</small></span>${hx(Math.round(r.avg),'sm')}</div>`).join('')}<p class="note">Ordenadas pelo OVR médio do melhor jogador de cada posição. Toque num país para abrir a ficha.</p></section>`;
+  return `<section class="pn"><h2>Seleções</h2>${rows.map((r,i)=>`<div class="pl" style="grid-template-columns:30px minmax(0,1fr) auto"><span class="pos num" style="font-size:20px">${i+1}</span><span><span class="nm2">${nlk(r.c,'lg')}</span><br><small>${r.n} jogador${r.n>1?'es':''} ativo${r.n>1?'s':''} · melhor ${r.best}${r.cov<5?` · ${r.cov}/5 posições`:''}</small></span>${hx(Math.round(r.avg),'sm')}</div>`).join('')}<p class="note">Ordenadas pelo OVR médio do melhor jogador de cada posição. Toque num país para abrir a ficha.</p></section>`;
 }
 function cupHistHTML(k){
   const wc=k==='wc',CH_=wc?WCT:MST,VV=wc?WCV:MSV,lbl=wc?'Mundial':'MSI';
@@ -6784,7 +6788,7 @@ function natRankHTML(){
   const rows=natRank();
   return `<section class="pn"><h2>Seleções de todos os tempos</h2><ol class="rank">${rows.map((x,i)=>{
     const tt=[x.bd?`${x.bd} Melhor${x.bd>1?'es':''} do Ano`:'',x.wc?`${x.wc} Mundia${x.wc>1?'is':'l'}`:'',x.msi?`${x.msi} MSI`:'',x.cups?`${x.cups} Copa${x.cups>1?'s':''}`:'',x.vice?`${x.vice} vice${x.vice>1?'s':''} na Copa`:''].filter(Boolean).join(' · ');
-    return `<li><span class="pos num">${i+1}</span>${natCrest(x.c,'sm')}<span><span class="nm2"><button class="lk" data-act="nation" data-v="${x.c}">${esc(NATN[x.c]||x.c)}</button></span><br><small>${tt||'sem títulos'} · ${x.n} lenda${x.n>1?'s':''}${x.top?` · melhor: ${esc(x.top.n)}`:''}</small></span><span class="pt num">${Math.round(x.pts)}<small>pts</small></span></li>`}).join('')}</ol><p class="note">Pontos do país = soma dos pontos de todas as lendas nascidas lá, mais 40 por Copa do Mundo de LoL vencida e 15 por vice. Toque num país para abrir a ficha.</p></section>`;
+    return `<li><span class="pos num">${i+1}</span><span><span class="nm2">${nlk(x.c,'lg')}</span><br><small>${tt||'sem títulos'} · ${x.n} lenda${x.n>1?'s':''}${x.top?` · melhor: ${esc(x.top.n)}`:''}</small></span><span class="pt num">${Math.round(x.pts)}<small>pts</small></span></li>`}).join('')}</ol><p class="note">Pontos do país = soma dos pontos de todas as lendas nascidas lá, mais 40 por Copa do Mundo de LoL vencida e 15 por vice. Toque num país para abrir a ficha.</p></section>`;
 }
 function vNation(c){
   const act=natActive(c),xi=natXI(c),have=xi.filter(Boolean);

@@ -158,7 +158,7 @@ class World {
     if (info.ability && ['Q', 'W', 'E', 'R'].includes(info.ability) && src.team !== dst.team && FX.blockAbility(this, dst)) return null;
     const split = !info._split && this.exec.preDamage(this, src, dst, amount, type);
     if (split) { let last = null; split.forEach(([am, ty]) => { last = this.dealDamage(src, dst, am, ty, { ...info, _split: true }) || last; }); return last; }
-    if (src.smite && dst.kind === 'monster' && !info.smite) amount *= 3;                      /* item de selva (ESTIMADO, Bloco 10): bonus de dano do cacador contra monstros */
+    if (src.smite && dst.kind === 'monster' && !info.smite) amount *= 5;                      /* item de selva (ESTIMADO, Bloco 10): bonus de dano do cacador contra monstros */
     if (src.kind === 'monster' && dst.smite) amount *= 1 - 0.5;                              /* companheiro de selva: -50% de dano de monstros (ESTIMADO, Bloco 6 pendente) */
     let a = amount, crit = false;
     if (info.canCrit && src.stats.crit > 0 && this.rng.next('combate') < src.stats.crit) { a *= D.critMultiplier(src.stats.critDamage); crit = true; }
@@ -1928,12 +1928,25 @@ function jungleTarget(w, u) {
   const J = w.jungle; if (!J) return null;
   if (u.ai.goal && !u.ai.goal.dead) return u.ai.goal;
   const route = (u.ai.jungle && u.ai.jungle.route) || ['blue', 'gromp', 'wolves', 'raptors', 'red', 'krugs'];
+  /* o acampamento mais próximo entre os permitidos (os campos formam uma corrente, então a limpeza vai e volta em vez de cruzar o mapa a cada ciclo); buffs têm leve preferência */
+  let best = null;
   for (const k of route) {
     const c = J.camps.find(x => x.side === u.team && x.key === k); if (!c) continue;
     const alive = c.members.filter(m => !m.dead); if (!alive.length) continue;
-    return alive.sort((a, b) => dist(a.pos, u.pos) - dist(b.pos, u.pos))[0];
+    const m = alive.sort((a, b) => dist(a.pos, u.pos) - dist(b.pos, u.pos))[0], cost = dist(m.pos, u.pos) - (k === 'blue' || k === 'red' ? 500 : 0);
+    if (!best || cost < best.cost) best = { cost, m };
   }
-  return null;
+  /* sem campo próprio disponível: invade (contra-selva) o campo inimigo sem campeões por perto; só depois do nível 4 e dos 4:00 */
+  if (!best && u.level >= 4 && w.t >= 240) {
+    const foes = w.units.filter(x => x.kind !== 'minion' && x.kind !== 'monster' && !x.dead && x.team !== u.team);
+    for (const c of J.camps) {
+      if (c.side !== 1 - u.team) continue; const alive = c.members.filter(m => !m.dead); if (!alive.length) continue;
+      const m = alive.sort((a, b) => dist(a.pos, u.pos) - dist(b.pos, u.pos))[0];
+      if (foes.some(x => dist(x.pos, m.pos) < 2200)) continue;
+      const cost = dist(m.pos, u.pos); if (!best || cost < best.cost) best = { cost, m };
+    }
+  }
+  return best ? best.m : null;
 }
 function decide(w, u) {
   if (!w.canAct(u) || u.dash || u.cast) return;
@@ -2140,7 +2153,7 @@ class Jungle {
   }
   campOf(m) { return m.camp; }
   campCleared(c) {
-    const w = this.w; c.cleared = w.t; c.members = [];
+    const w = this.w; c.cleared = w.t; c.members = []; c.respawnAt = w.t + (c.respawn || 1e9);
     if (c.respawn) w.schedule(w.t + c.respawn, () => this.spawnCamp(c));
     w.emit('camp-clear', { camp: c.name, next: +(w.t + c.respawn).toFixed(1) });
   }
@@ -2872,11 +2885,16 @@ class Brain {
       if (best && best.sc > 0.55) { p.gankUntil = w.t + 14; p.gankCd = w.t + 70; p.gankT = best.tgt; this.stats.ganks++; w.emit('gank', { id: u.id, lane: best.id }); }
     }
     if (w.t < p.gankUntil && p.gankT && !p.gankT.dead) { p.mode = 'gank'; u.ai.focus = p.gankT; if (dist(u.pos, p.gankT.pos) > Math.max(u.stats.range, 500) + 200) { this.go(u, p.gankT.pos, 100); return; } AI.decide(w, u); return; }
-    u.ai.jungle.route = u.level < 3 ? ['gromp', 'wolves', 'raptors', 'krugs'] : u.level < 5 ? ['gromp', 'blue', 'wolves', 'raptors', 'red', 'krugs'] : ['blue', 'gromp', 'wolves', 'raptors', 'red', 'krugs'];
+    u.ai.jungle.route = u.level < 2 ? ['gromp', 'wolves', 'raptors', 'krugs'] : ['blue', 'gromp', 'wolves', 'raptors', 'red', 'krugs'];
     const tg = AI.jungleTarget(w, u);
     if (tg) { u.ai.focus = tg; AI.decide(w, u); return; }
     u.ai.focus = null;
-    const c = J && J.camps.find(x => x.side === u.team); if (c) this.go(u, c.pos, 200);
+    /* sem monstro vivo: vai para o acampamento que fica pronto primeiro (chegada = max(respawn, viagem)), em vez de sempre o primeiro da lista */
+    if (J) {
+      const ms = Math.max(300, w.msOf(u)); let best = null;
+      J.camps.filter(x => x.side === u.team).forEach(x => { const ready = x.members.some(m => !m.dead) ? w.t : (x.respawnAt || x.first), at = Math.max(ready, w.t + dist(u.pos, x.pos) / ms); if (!best || at < best.at) best = { at, c: x }; });
+      if (best) this.go(u, best.c.pos, 200);
+    }
   }
 
   /* ações de objetivo de equipe */

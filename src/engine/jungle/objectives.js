@@ -75,7 +75,7 @@ class Jungle {
   }
   campOf(m) { return m.camp; }
   campCleared(c) {
-    const w = this.w; c.cleared = w.t; c.members = [];
+    const w = this.w; c.cleared = w.t; c.members = []; c.respawnAt = w.t + (c.respawn || 1e9);
     if (c.respawn) w.schedule(w.t + c.respawn, () => this.spawnCamp(c));
     w.emit('camp-clear', { camp: c.name, next: +(w.t + c.respawn).toFixed(1) });
   }

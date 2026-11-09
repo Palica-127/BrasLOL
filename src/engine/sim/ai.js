@@ -69,12 +69,25 @@ function jungleTarget(w, u) {
   const J = w.jungle; if (!J) return null;
   if (u.ai.goal && !u.ai.goal.dead) return u.ai.goal;
   const route = (u.ai.jungle && u.ai.jungle.route) || ['blue', 'gromp', 'wolves', 'raptors', 'red', 'krugs'];
+  /* o acampamento mais próximo entre os permitidos (os campos formam uma corrente, então a limpeza vai e volta em vez de cruzar o mapa a cada ciclo); buffs têm leve preferência */
+  let best = null;
   for (const k of route) {
     const c = J.camps.find(x => x.side === u.team && x.key === k); if (!c) continue;
     const alive = c.members.filter(m => !m.dead); if (!alive.length) continue;
-    return alive.sort((a, b) => dist(a.pos, u.pos) - dist(b.pos, u.pos))[0];
+    const m = alive.sort((a, b) => dist(a.pos, u.pos) - dist(b.pos, u.pos))[0], cost = dist(m.pos, u.pos) - (k === 'blue' || k === 'red' ? 500 : 0);
+    if (!best || cost < best.cost) best = { cost, m };
   }
-  return null;
+  /* sem campo próprio disponível: invade (contra-selva) o campo inimigo sem campeões por perto; só depois do nível 4 e dos 4:00 */
+  if (!best && u.level >= 4 && w.t >= 240) {
+    const foes = w.units.filter(x => x.kind !== 'minion' && x.kind !== 'monster' && !x.dead && x.team !== u.team);
+    for (const c of J.camps) {
+      if (c.side !== 1 - u.team) continue; const alive = c.members.filter(m => !m.dead); if (!alive.length) continue;
+      const m = alive.sort((a, b) => dist(a.pos, u.pos) - dist(b.pos, u.pos))[0];
+      if (foes.some(x => dist(x.pos, m.pos) < 2200)) continue;
+      const cost = dist(m.pos, u.pos); if (!best || cost < best.cost) best = { cost, m };
+    }
+  }
+  return best ? best.m : null;
 }
 function decide(w, u) {
   if (!w.canAct(u) || u.dash || u.cast) return;

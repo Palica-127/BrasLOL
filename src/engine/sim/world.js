@@ -130,7 +130,7 @@ class World {
     if (info.ability && ['Q', 'W', 'E', 'R'].includes(info.ability) && src.team !== dst.team && FX.blockAbility(this, dst)) return null;
     const split = !info._split && this.exec.preDamage(this, src, dst, amount, type);
     if (split) { let last = null; split.forEach(([am, ty]) => { last = this.dealDamage(src, dst, am, ty, { ...info, _split: true }) || last; }); return last; }
-    if (src.smite && dst.kind === 'monster' && !info.smite) amount *= 3;                      /* item de selva (ESTIMADO, Bloco 10): bonus de dano do cacador contra monstros */
+    if (src.smite && dst.kind === 'monster' && !info.smite) amount *= 5;                      /* item de selva (ESTIMADO, Bloco 10): bonus de dano do cacador contra monstros */
     if (src.kind === 'monster' && dst.smite) amount *= 1 - 0.5;                              /* companheiro de selva: -50% de dano de monstros (ESTIMADO, Bloco 6 pendente) */
     let a = amount, crit = false;
     if (info.canCrit && src.stats.crit > 0 && this.rng.next('combate') < src.stats.crit) { a *= D.critMultiplier(src.stats.critDamage); crit = true; }

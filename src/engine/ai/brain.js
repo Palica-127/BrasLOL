@@ -337,11 +337,16 @@ class Brain {
       if (best && best.sc > 0.55) { p.gankUntil = w.t + 14; p.gankCd = w.t + 70; p.gankT = best.tgt; this.stats.ganks++; w.emit('gank', { id: u.id, lane: best.id }); }
     }
     if (w.t < p.gankUntil && p.gankT && !p.gankT.dead) { p.mode = 'gank'; u.ai.focus = p.gankT; if (dist(u.pos, p.gankT.pos) > Math.max(u.stats.range, 500) + 200) { this.go(u, p.gankT.pos, 100); return; } AI.decide(w, u); return; }
-    u.ai.jungle.route = u.level < 3 ? ['gromp', 'wolves', 'raptors', 'krugs'] : u.level < 5 ? ['gromp', 'blue', 'wolves', 'raptors', 'red', 'krugs'] : ['blue', 'gromp', 'wolves', 'raptors', 'red', 'krugs'];
+    u.ai.jungle.route = u.level < 2 ? ['gromp', 'wolves', 'raptors', 'krugs'] : ['blue', 'gromp', 'wolves', 'raptors', 'red', 'krugs'];
     const tg = AI.jungleTarget(w, u);
     if (tg) { u.ai.focus = tg; AI.decide(w, u); return; }
     u.ai.focus = null;
-    const c = J && J.camps.find(x => x.side === u.team); if (c) this.go(u, c.pos, 200);
+    /* sem monstro vivo: vai para o acampamento que fica pronto primeiro (chegada = max(respawn, viagem)), em vez de sempre o primeiro da lista */
+    if (J) {
+      const ms = Math.max(300, w.msOf(u)); let best = null;
+      J.camps.filter(x => x.side === u.team).forEach(x => { const ready = x.members.some(m => !m.dead) ? w.t : (x.respawnAt || x.first), at = Math.max(ready, w.t + dist(u.pos, x.pos) / ms); if (!best || at < best.at) best = { at, c: x }; });
+      if (best) this.go(u, best.c.pos, 200);
+    }
   }
 
   /* ações de objetivo de equipe */
