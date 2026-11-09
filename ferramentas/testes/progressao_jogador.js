@@ -98,7 +98,11 @@ ok(J('!!DV')===true,'scrim abre o draft');
 ok(J('pcFind().bn')===false,'durante o teste a reserva ocupa a vaga');
 run(ctx,`var g1=0;while(DV.i<SEQ.length&&g1++<60){var t=SEQ[DV.i];if(t[1]===DV.us){if(t[0]==='ban'){var c=CH[0].find(function(x){return !dvTaken(x[0])})[0];DV.bans[DV.us].push(c);DV.i++}else{var cc=CH[DV.prole].find(function(x){return !dvTaken(x[0])})[0];DV.pk[DV.us][DV.prole]=cc;DV.i++}}else dvAI()}DV.done=true;LOAD={};dvGo();lvOpen();LOAD=null;`);
 ok(J('!!LV&&LV.m.fr===1')===true,'mapa ao vivo da scrim abre (não o jogo oficial)');
-run(ctx,`lvPick(pcAuto());lvPosture('sf');`);
+/* regressão: Barão/Ancião ativo no fim do mapa 1 não pode quebrar a tela do mapa 2 (lvGold com LV.pp vazio) */
+run(ctx,`LV.bb={s:'me',until:99999,tot:180,t0:0,g0:0};LV.elder={s:'me',until:99999,tot:160,t0:0,g0:0};lvGameStart();`);
+ok(J('LV.bb===null&&LV.elder===null')===true,'novo mapa limpa Barão e Ancião do mapa anterior');
+ok(J('(function(){try{lvPowerHTML();return true}catch(e){return false}})()')===true,'tela do novo mapa não quebra com buffs do mapa anterior');
+run(ctx,`lvGameStart();lvPick(pcAuto());lvPosture('sf');`);
 for(let k=0;k<4000&&run(ctx,`LV&&LV.state!=='done'`);k++){
   const st=run(ctx,'LV.state');
   if(st==='run')run(ctx,'lvTick(5)');
@@ -107,6 +111,7 @@ for(let k=0;k<4000&&run(ctx,`LV&&LV.state!=='done'`);k++){
   else if(st==='pick')run(ctx,'lvPick(pcAuto())');
 }
 ok(J('LV.state')==='done','série ao vivo termina');
+
 run(ctx,`var xtC=S.pc.xt;pcMatchEnd();lvDone();fmEnd();`);
 ok(J('S.season.fm===null&&S.pc.test===null')===true,'teste encerrado');
 ok(J('pcFind().bn&&pcFind().t.pl[pcFind().p.role].n')===J('tit'),'titular original de volta depois da série ao vivo');

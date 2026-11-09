@@ -3789,6 +3789,7 @@ function lvGameStart(){
   LV.kd={me:[0,1,2,3,4].map(()=>({k:0,d:0,a:0,dead:0,st:0})),op:[0,1,2,3,4].map(()=>({k:0,d:0,a:0,dead:0,st:0}))};LV.str={me:lvMkStr(),op:lvMkStr()};
   LV.st={me:{k:0,t:0,d:0,b:0,g:0,e:0,h:0,n:0},op:{k:0,t:0,d:0,b:0,g:0,e:0,h:0,n:0}};LV.log=[{m:0,t:`Mapa ${LV.gi+1}: os times entram no Rift.`,k:'sys'}];
   LV.gh=[[0,0]];LV.ghT=0;LV.fp=null;
+  LV.bb=null;LV.elder=null;LV.rift=null;/* buffs do mapa anterior não vazam para o próximo (o placar do powerplay lia LV.pp ainda vazio) */
 }
 /* dano causado a campeões (só para as estatísticas do fim de mapa): fração de vida tirada × vida máxima estimada pelo nível da vítima */
 function lvDmg(a,v,x){if(!a||!v)return;const amt=x*(560+92*(v.lv||1));a.dm=(a.dm||0)+amt;if(LV.sec<840)a.d14=(a.d14||0)+amt}
