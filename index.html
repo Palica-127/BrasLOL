@@ -1452,6 +1452,77 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opa
 .ob{height:7px;border-radius:99px;overflow:hidden;background:linear-gradient(90deg,rgba(255,92,138,.85),rgba(242,193,78,.85))}.ob i{background:linear-gradient(90deg,#4d8dff,#29d9e6)!important;box-shadow:0 0 12px rgba(41,217,230,.5)}
 .odds>div:first-child span:first-child{color:#8fbaff;font-weight:800}.odds>div:first-child span:last-child{color:#ff9db8;font-weight:800}
 .m{border-radius:10px;background:rgba(255,255,255,.035);border:1px solid var(--gl);padding:9px 12px 7px;margin-bottom:7px}.m.mine{border-color:rgba(41,217,230,.55);box-shadow:0 0 0 1px rgba(41,217,230,.25),0 0 20px rgba(41,217,230,.12)}
+
+/* =====================================================================
+   Ajuste v3.1 — visual mais sóbrio e esportivo: sem brilho neon, sem vidro, sem degradê colorido
+   ===================================================================== */
+:root{--k1:#c8aa6e;--k2:#c8aa6e;--ln2:#212c46;--pnl:#0f1626}
+body::before{background:linear-gradient(180deg,#0b1120,#070a14 80%)}
+body::after{opacity:.32;filter:grayscale(.35) brightness(.8)}
+.pn,.db,.tile,.mc2,.bm2,.bids,.dvpool,.more2,.mgh,.shh{background:var(--pnl);border:1px solid var(--ln2);border-radius:8px;box-shadow:none;backdrop-filter:none}
+.pn,.db{border-top:1px solid var(--ln2)}
+.pn>h2::after{display:none}
+.pn>h2,.dbh,.dbh>b,.dbh>h2{color:#c8aa6e;letter-spacing:.14em;border-bottom:1px solid var(--ln2)}
+.play,.pn .play,.db .play,.dbb .play,button.play{background:#c8aa6e!important;color:#0b0f1a!important;box-shadow:none!important;border-radius:6px!important;font-style:normal}
+.play:hover{filter:brightness(1.1)}
+.ghost{border-radius:6px;background:transparent;border-color:#35425f}.ghost:hover{border-color:#c8aa6e;color:#fff}
+.pill{border-radius:6px;background:transparent;border-color:#2a3654}
+.pill[aria-pressed="true"]{background:#c8aa6e;color:#0b0f1a}
+.hud .season{background:transparent;border-radius:6px;border-color:#2a3654}
+@media (min-width:1000px){
+  .nav{background:#0a0f1c;backdrop-filter:none;border-right:1px solid var(--ln2)}
+  .nav::before{border-radius:8px;box-shadow:none;background:var(--logo,none) center/cover,#1a2236}
+  .nb{border-radius:8px}
+  .nb[aria-selected="true"]{background:rgba(200,170,110,.1);box-shadow:none}
+  .nb[aria-selected="true"] svg{color:#c8aa6e;filter:none}
+  .nb[aria-selected="true"]::before{background:#c8aa6e;box-shadow:none}
+}
+.od i{background:#4d8dff!important}.od i.o2{background:#e0475b!important}
+.ob{background:#e0475b}.ob i{background:#4d8dff!important;box-shadow:none}
+.m{border-radius:8px}.m.mine{border-color:#c8aa6e;box-shadow:none}
+
+/* ranking compacto (Lendas e Prêmio) */
+.rkt{display:grid}
+.rkr{display:grid;grid-template-columns:28px 46px minmax(0,1fr) minmax(0,1.3fr) 70px;align-items:center;gap:12px;width:100%;padding:7px 8px;border:0;border-bottom:1px solid var(--ln2);background:none;color:inherit;text-align:left;cursor:pointer;font:inherit}
+.rkr:last-child{border-bottom:0}.rkr:hover{background:rgba(255,255,255,.04)}
+.rkr .rk{font:800 16px var(--d);color:#7f8fb8;text-align:center}
+.rkr.top1 .rk{color:#e8c86a}.rkr.top2 .rk{color:#c3cbd8}.rkr.top3 .rk{color:#c98a54}
+.rkr .rav{width:46px;height:46px;border-radius:50%;overflow:hidden;background:#182033;border:2px solid #2a3654;display:block}
+.rkr.top1 .rav{border-color:#e8c86a}.rkr.top2 .rav{border-color:#c3cbd8}.rkr.top3 .rav{border-color:#c98a54}
+.rkr .rav img{width:100%;height:100%;object-fit:cover;object-position:50% 18%}.rkr .rav svg{width:100%;height:100%;fill:#2a3654}
+.rkr .rnm b{display:block;font:700 16px var(--b);color:#f2f5fc;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rkr .rnm small{display:block;color:#7f8fb8;font-size:12px;margin-top:1px}
+.rkr .rtt{font-size:12.5px;color:#aebadb;line-height:1.3}
+.rkr .rpt{font:800 20px var(--d);color:#c8aa6e;text-align:right}.rkr .rpt small{display:block;font:600 10px var(--d);letter-spacing:.1em;text-transform:uppercase;color:#7f8fb8}
+@media (max-width:760px){.rkr{grid-template-columns:24px 40px minmax(0,1fr) 56px}.rkr .rtt{display:none}}
+.yrl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 22px}.yr{display:flex;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--ln2)}.yr .lg{color:#c8aa6e;font:700 13px var(--d);min-width:38px}
+@media (max-width:600px){.yrl{grid-template-columns:1fr}}
+/* vencedor do ano: faixa compacta */
+.pn.win{display:grid;grid-template-columns:96px minmax(0,1fr) 64px;align-items:center;gap:18px;padding:14px 18px}
+.win .wav{width:96px;height:96px;border-radius:50%;overflow:hidden;border:3px solid #e8c86a;background:#182033}.win .wav img{width:100%;height:100%;object-fit:cover;object-position:50% 18%}.win .wav svg{width:100%;height:100%;fill:#2a3654}
+.win .k{color:#c8aa6e;font:700 11px var(--d);letter-spacing:.16em;text-transform:uppercase}.win .wnm{font:800 34px/1.05 var(--d);letter-spacing:.03em;margin:2px 0}.win .wnm .lk{font:inherit;color:#fff}
+.win .wsub{color:#aebadb;font-size:13.5px}.win .wch{margin-top:6px}.win .wtr svg{width:60px;height:60px;color:#e8c86a}
+/* elencos: lista de times com botão para abrir o elenco */
+.pn.tl .rowc{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.tls{display:grid}
+.trw{border-bottom:1px solid var(--ln2)}.trw:last-child{border-bottom:0}
+.trh{display:grid;grid-template-columns:40px minmax(0,1fr) 70px 54px 130px;align-items:center;gap:12px;padding:8px 6px}
+.trh .trc .crest,.trh .trc .shield{width:34px;height:34px}
+.trn{min-width:0;font:700 16px var(--b);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.trn .lk{font:inherit}
+.trf{text-align:right;font-size:13px}.tro{display:flex;justify-content:center}
+.tbtn{min-height:32px;padding:5px 10px;font-size:12px;justify-self:end;width:100%}
+.trw.open{background:rgba(255,255,255,.025)}.trw.open .tbtn{border-color:#c8aa6e;color:#c8aa6e}
+.trb{padding:6px 6px 14px}
+@media (max-width:760px){.trh{grid-template-columns:34px minmax(0,1fr) 50px 96px}.trf{display:none}}
+
+/* Jogar: cabeçalho com e-mail e caixa de entrada */
+.hub .hh{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.mailb{position:relative;min-height:34px;padding:6px 12px;font-size:13px}
+.mbd{display:inline-block;min-width:18px;padding:0 5px;margin-left:4px;border-radius:9px;background:#e0475b;color:#fff;font:700 11px/18px var(--d);text-align:center}
+.pn.mail{margin-bottom:10px}.pn.mail .sqp{margin-top:4px}
+.pn.mail .sqk{display:block;margin:12px 0 4px;color:#c8aa6e}
+.pn.mail .sqr{display:flex;align-items:center;gap:8px}.pn.mail .sqr>span{flex:1;min-width:0}
+.pn.mail .sqr small{display:block;color:#7f8fb8}
+.pn.mail .sqask{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -6393,7 +6464,7 @@ const crest=(t,c='')=>{
   const o=`<path d="${P}" fill="${A}"/><g clip-path="url(#${id})">${mo}</g><path d="${P}" fill="none" stroke="${B}" stroke-width="6"/><path d="${P}" fill="none" stroke="rgba(0,0,0,.4)" stroke-width="1.5" transform="translate(50 58) scale(.88) translate(-50 -58)"/><text x="50" y="${k===2?72:68}" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-weight="800" font-size="${fs}" fill="${tc}" stroke="${sk}" stroke-width="3.5" paint-order="stroke" letter-spacing="1">${esc(tx)}</text>`;
   return `<span class="shield ${c}" aria-hidden="true"><svg viewBox="0 0 100 118"><defs><clipPath id="${id}"><path d="${P}"/></clipPath></defs>${o}</svg></span>`};
 const AVA='<svg viewBox="0 0 80 96"><circle cx="40" cy="28" r="20"/><path d="M4 96C4 66 20 54 40 54S76 66 76 96Z"/></svg>';
-/*PHOTOS*/const PHOTOS=new Set(["1jiang","ablazeolive","about","ackerman","aegis","aiming","andil","aria","artemis","ayu","bao","baus","bdd","betty","bie","bin","blaber","bluffing","boal","booki","boukada","brance","breathe","breezy","brokenblade","bruce","burdol","busio","bvoy","bwipo","caliste","callme","canna","canyon","caps","career","cariok","carlsen","carzzy","casting","ceo","ceos","chika","chovy","citrus","clear","cloud","clozer","cody","contractz","corejj","courage","creme","crisp","crownie","cryogen","cuzz","cypher","daglas","darkwings","dash","delicate","delight","deokdam","devost","dhokla","diable","dire","disamis","doggo","doran","drakehero","draktharr","dudu","duduhh","duro","eddie","effort","elio","elk","ellim","elyoya","enga","envy","evi","exyu","faker","fbi","feisty","fenrir","fiesta","finn","fisher","flakked","flauren","fleshy","fudge","fuuu","gakgos","gala","gideon","gloryy","grevthar","gryffinn","guigo","guigs","gumayusi","gury","guti","guwon","haetae","hambak","hanssama","harky","hena","hidan","hizto","hongq","hongsuo","huhi","husha","ignar","impact","inspired","isles","isma","jackeylove","jackies","jaehyuk","jiaqi","jiwoo","jojo","jojopyun","jool","jopa","josedeodo","jun","junjia","kael","kaiwing","kakkun","kamiloo","kanavi","karis","kaze","kellin","keria","kiari","kiaya","kiin","kingen","kisee","kisno","knight","kog","kratos","kryra","kryze","kyeahoo","labrov","lazyfeel","lehends","leleko","leza","loki","loopy","lospa","lucid","lyncas","lyonz","makes","marble","marvin","massu","maynter","meiko","mikyx","minous","mireu","mnm","mobility","momo","momochi","morgan","morttheus","myrwn","naaknako","namgung","nemesis","netuno","nuc","oddie","on","oner","only35","oscarinin","paduck","painter","palafox","parus","peach","perfect","peyz","philip","piero","pilot","poby","pout","pun","pyeonsik","pyosik","quad","quid","rabelo","rahel","raptor","razork","rekkles","rest","rhilech","roamer","rookie","rooster","ruler","rym","saint","sajed","samd","scamber","scary","scout","serin","sero","shanks","shiauc","showmaker","siuloong","siwoo","skeanz","skewmond","slowq","smash","soboro","solid","spawn","spica","sponge","srtty","stepz","supa","sylvie","tactical","taeyoon","taki","tao","tarzan","tatu","teddy","thanatos","thayger","theshy","tian","tracyn","trymbi","tutsz","tyrin","ucal","uniboy","upset","uzent","vampire","velja","vicla","vladi","vsta","vulcan","wei","weiwei","willer","winner","woody","wunder","xiaohu","xiaoxu","xun","xyno","yeon","yike","young","yukino","zamudo","zeka","zeus","zeyzal","zhuo","zicssi","zika","zinie","zoelys","zothve","zuian","zynts"]);
+/*PHOTOS*/const PHOTOS=new Set(["1jiang","1xn","ablazeolive","about","ackerman","aegis","ahn","aiming","alvaro","andil","aria","artemis","ayu","bao","baus","bdd","berserker","betty","bie","bin","blaber","bluffing","boal","booki","boukada","brance","breathe","breezy","brokenblade","bruce","bulldog","burdol","busio","bvoy","bwipo","caliste","callme","canna","canyon","caps","care","career","cariok","carlsen","carzzy","casting","ceo","ceos","chika","chovy","citrus","clear","cloud","clozer","cody","contractz","corejj","courage","creme","crisp","crownie","cryogen","cube","curse","cuzz","cypher","daglas","darkwings","dash","delicate","delight","denathor","deokdam","devost","dhokla","diable","dire","disamis","doggo","doran","drakehero","draktharr","dudu","duduhh","duro","eddie","effort","elio","elk","ellim","elyoya","enga","envy","erha","evi","exyu","faker","fbi","feather","feisty","feng","fengyue","fenrir","fiesta","finn","fisher","flakked","flauren","fleshy","frog","fudge","fuuu","gakgos","gala","gideon","gloryy","grevthar","gryffinn","guigo","guigs","gumayusi","gury","guti","guwon","haetae","hambak","hanssama","harky","hena","heng","heru","hidan","hizto","hongq","hongsuo","hope","hoya","huhi","husha","hype","ignar","impact","inspired","isles","isma","jackeylove","jackies","jaehyuk","jiaqi","jiejie","jiwoo","jojo","jojopyun","jool","jopa","josedeodo","jun","junhao","junjia","jwei","kael","kaiwing","kakkun","kamiloo","kanavi","karis","kaze","kellin","keria","keshi","kiari","kiaya","kiin","kingen","kino","kisee","kisno","knight","kog","kratos","kryra","kryze","kyeahoo","labrov","lazyfeel","leave","lehends","leleko","leza","loki","loopy","lospa","lucid","lyncas","lyonz","makes","manel","marble","marvin","massu","maynter","meiko","mikyx","minous","mireu","mnm","mobility","momo","momochi","monki","morgan","morttheus","myrwn","naaknako","namgung","namiru","nemesis","netuno","nia","nuc","oddie","on","oner","only35","oscarinin","paduck","painter","palafox","parukia","parus","peach","perfect","peter","peyz","philip","photic","piero","pilot","poby","pop9","pout","pun","pyeonsik","pyosik","quad","quid","rabelo","rahel","raptor","razork","rekkles","rest","rhilech","roamer","rookie","rooster","ruler","rym","saint","sajed","samd","scamber","scary","scout","serin","sero","shad0w","shanks","shaoye","sheer","shiauc","shiku","showmaker","sinatra","siuloong","siwoo","skeanz","skewmond","slowq","smash","soboro","solid","spawn","spica","sponge","srtty","stepz","strensh","supa","sylvie","tactical","taeyoon","taki","tangyuan","tao","tarzan","tatu","teddy","thanatos","thayger","theshy","tian","tracyn","trymbi","tutsz","tyrin","ucal","uniboy","upset","uzent","vampire","van1","velja","vicla","viper","vladi","vsta","vulcan","way","wei","weiwei","willer","winner","woody","wunder","xiaohao","xiaohu","xiaoxu","xun","xyno","ycx","yeon","yike","young","yukino","zamudo","zdz","zeka","zekas","zest","zeus","zeyzal","zhuo","zicssi","zika","zinie","zoelys","zothve","zuian","zynts"]);
 const phSlug=n=>String(n).toLowerCase().replace(/[^a-z0-9]/g,'');
 const phHas=n=>PHOTOS.has(phSlug(n));
 const phImg=n=>`<img src="jogadores/${phSlug(n)}.webp" alt="" loading="lazy" decoding="async" draggable="false">`;
@@ -6697,18 +6768,49 @@ function sqStart(sim){
   if(S.season.fm)S.season.fm.boot=0;
   return true;
 }
-function sqHTML(){
+function sqHTML(mail){
   const t=mgrT();if(!t)return '';const q=sqS(),free=sqFree(),d=S.day;
   const w=q.h.filter(x=>x.w).length;
+  if(!mail&&!q.ok&&q.pd!==d)return '';
   let h=`<section class="pn sqp"><div class="rowc"><h2>Scrims</h2><small class="k">${q.h.length?`${w}V ${q.h.length-w}D no ano`:'MD3 · não valem pontos'}</small></div>`;
   if(q.ok){const o=T(q.ok.o);h+=`<div class="sqok">${crest(o,'md')}<div><small class="k">Scrim marcada · hoje</small><b>${esc(o.name)}</b><small>${o.lg} · OVR ${Math.round(baseOvr(o))} · MD3</small></div><div class="sqb"><button class="play" data-act="sqPlay">Jogar</button><button class="ghost" data-act="sqSim">Simular</button><button class="ghost" data-act="sqCancel">Desmarcar</button></div></div>`}
   else if(q.pd===d)h+=`<p class="note">Você já jogou uma scrim hoje. Avance o calendário para treinar de novo.</p>`;
   else if(!free)h+=`<p class="note">Hoje é dia de jogo oficial. Scrims só nos dias livres.</p>`;
+  if(!mail)return h+'</section>';
   h+=`<small class="k sqk">Pedidos recebidos</small>`;
   h+=q.rq.length?q.rq.map(r=>{const o=T(r.o),ag=d-r.d;return `<div class="sqr">${crest(o,'sm')}<span><b>${esc(o.name)}</b><small>${o.lg} · OVR ${Math.round(baseOvr(o))} · pediu ${ag?'há '+ag+' dia'+(ag>1?'s':''):'hoje'}</small></span><button class="ghost" data-act="sqAcc" data-v="${o.id}" ${q.ok||q.pd===d||!free?'disabled':''}>Aceitar</button><button class="ghost" data-act="sqDec" data-v="${o.id}">Recusar</button></div>`}).join(''):`<p class="note">Nenhum pedido no momento. Outros clubes pedem scrims nos dias livres.</p>`;
   const can=free&&!q.ok&&q.pd!==d&&q.ask!==d;
   h+=`<small class="k sqk">Pedir scrim${q.ask===d?' · você já pediu hoje':''}</small><div class="sqask">${sqCands(t).slice(0,8).map(o=>`<button class="sqc" data-act="sqAsk" data-v="${o.id}" ${can?'':'disabled'}>${crest(o,'sm')}<span><b>${esc(o.name)}</b><small>${o.lg} · ${Math.round(sqOdds(t,o)*100)}% de aceitar</small></span></button>`).join('')}</div>`;
   if(q.h.length)h+=`<small class="k sqk">Últimas scrims</small>`+q.h.slice(0,4).map(x=>`<div class="sqr sqh"><span class="num">${dTxt(x.d)}</span><span>${esc(T(x.o).name)}</span><b class="${x.w?'w':'l'}">${x.w?'V':'D'} ${x.sc}</b></div>`).join('');
+  return h+'</section>';
+}
+/* caixa de e-mail: pedidos de scrim, convites de torneio e propostas de jogadores */
+let MAILO=false;
+function mailInv(){
+  const t=mgrT();if(!t||cevChamp())return [];const d=S.day;
+  return cevL().filter(e=>e.st===0&&!e.sk&&d>=CEVT[e.id].d0&&d<=CEVT[e.id].d1&&cevElig(e,t));
+}
+function mailFA(){const m=S.mgr;if(!m||!mgrT()||!winOpen()||!m.fa)return [];return m.fa.slice().sort((a,b)=>b.pot-a.pot).slice(0,3)}
+function mailN(){
+  let n=0;
+  if(mgrT()){n+=sqS().rq.length+mailInv().length+mailFA().length}
+  if(pcAct()&&pc.offers)n+=pc.offers.length;
+  return n;
+}
+function mailHTML(){
+  if(!mgrT()&&!pcAct())return '';
+  let h=`<section class="pn mail"><div class="rowc"><h2 style="margin:0">Caixa de entrada</h2><button class="ghost" data-act="mail">Fechar</button></div>`;
+  if(mgrT()){
+    const inv=mailInv(),fa=mailFA();
+    h+=`<small class="k sqk">Torneios</small>`;
+    h+=inv.length?inv.map(e=>{const c=CEVT[e.id];return `<div class="sqr"><span><b>${esc(c.n)}</b><small>${dTxt(c.d0)} a ${dTxt(c.d1)}${c.pz?' · prêmio '+fmtM(c.pz):''}</small></span>${c.k==='ex'?`<button class="ghost" data-act="cevPlay" data-v="ex|${e.id}|0">Participar</button>`:`<button class="ghost" data-act="tab" data-v="mgr">Abrir convite</button>`}${e.pl?'':`<button class="ghost" data-act="cevSkip" data-v="${e.id}">Recusar</button>`}</div>`}).join(''):`<p class="note" style="margin:0">Nenhum convite no momento.</p>`;
+    h+=`<small class="k sqk">Jogadores</small>`;
+    h+=fa.length?fa.map(f=>`<div class="sqr"><span><b>${lk(f.n)}</b><small>${RN[f.role]} · OVR ${f.r} · pot. ${Math.round(f.pot)} · agente livre</small></span><button class="ghost" data-act="mgrSign" data-v="${esc(f.n)}">Contratar</button></div>`).join(''):`<p class="note" style="margin:0">${winOpen()?'Nenhum jogador livre se ofereceu.':'Janela fechada: propostas voltam antes do próximo split.'}</p>`;
+  }
+  if(pcAct()&&pc.offers&&pc.offers.length){
+    h+=`<small class="k sqk">Propostas de clubes</small>`+pc.offers.map((o,i)=>{const nt=ALLT().find(x=>x.name===o.tn);return `<div class="sqr"><span><b>${o.ren?'Renovar com ':''}${nt?tlk(nt):esc(o.tn)}</b><small>${o.k==='T'?'Titular':'Reserva'} · ${o.yrs} ano${o.yrs>1?'s':''} · ${fmtM(o.sal)}/ano</small></span><button class="ghost" data-act="pcOffer" data-v="${i}"${pcPlayOk()?'':' disabled'}>${o.ren?'Renovar':'Assinar'}</button></div>`}).join('');
+  }
+  if(mgrT())h+=sqHTML(true).replace('<section class="pn sqp">','<div class="sqp">').replace(/<div class="rowc"><h2>Scrims<\/h2>/,'<div class="rowc"><small class="k sqk" style="margin:0">Scrims</small>').replace(/<\/section>$/,'</div>');
   return h+'</section>';
 }
 /* torneio de exibição pendente ou em andamento (jogado pela tela Jogar) */
@@ -6732,7 +6834,7 @@ function hubHTML(cur,sideH,underH){
   const m=heroMatch();
   const rec=PHASES[S.phase]&&PHASES[S.phase].k==='sw'&&S.season.wc&&S.season.wc.rec;
   const side=t=>`<div class="tm"><span class="crw">${crest(t,'lg')}${stdPos(t)}</span><b>${esc(t.name)}</b>${t.fm?`<span class="fm">${[...t.fm].map(c=>`<i class="${c==='V'?'w':'l'}"></i>`).join('')}</span>`:''}<small>${stdRec(t)?stdRec(t)+' · ':''}OVR ${Math.round(baseOvr(t))}</small></div>`;
-  let h=`<div class="hub"><div class="hh"><div><small class="k">${dWk(td)} · temporada ${S.year}</small><b class="num">${x.d} ${MESF[x.m]}</b></div></div>`;
+  let h=`<div class="hub"><div class="hh"><div><small class="k">${dWk(td)} · temporada ${S.year}</small><b class="num">${x.d} ${MESF[x.m]}</b></div>${(mgrT()||pcAct())?`<button class="ghost mailb" data-act="mail" aria-expanded="${MAILO}">✉ E-mail${mailN()?` <span class="mbd">${mailN()}</span>`:''}</button>`:''}</div>${MAILO?mailHTML():''}`;
   const evx=evNow();
   if(evx)h+='<div class="hcol">'+evHeroHTML(evx,side);else{
   h+=`<div class="hcol"><section class="hero2"><small class="k">${left<=0?'Hoje':'Próximo'} · ${esc(nm)}</small>`;
@@ -6803,10 +6905,8 @@ function vBola(){
   const cur=S.hist.find(h=>h.y===selYear)||S.hist[S.hist.length-1];
   const w=cur.top[0];
   let h=`<div class="pills">${ys.map(y=>`<button class="pill" aria-pressed="${y===cur.y}" data-act="year" data-v="${y}">${y}</button>`).join('')}</div>`;
-  h+=`<section class="hero">${troSvg('b')}<div class="k">Melhor Jogador do Ano ${cur.y}</div><div class="nm">${lk(w.n)}</div>${fut({n:w.n,r:w.r,role:w.role,team:teamOf(w.team),f:0},'big')}<div class="tm">${esc(w.team)} · ${esc(w.lg)} · ${RN[w.role]}</div><div>${w.ch.map(c=>`<span class="chip">${esc(c)}</span>`).join('')}</div></section>`;
-  const pdm=i=>{const x=cur.top[i];return fcell({n:x.n,r:x.r,role:x.role,team:teamOf(x.team)},`<b>${esc(x.team)}</b><span>nota ${x.sc}</span><span class="pt">+${x.pts} pts</span>`,i+1)};
-  h+=`<section class="pn"><h2>Pódio ${cur.y}</h2><div class="fgrid pod">${pdm(0)}${pdm(1)}${pdm(2)}</div></section>`;
-  h+=`<section class="pn"><h2>Top 10 de ${cur.y}</h2>${fgrid(cur.top.map((x,i)=>fcell({n:x.n,r:x.r,role:x.role,team:teamOf(x.team)},`<b>${esc(x.team)}</b><span>nota ${x.sc}</span>${x.ch.length?`<span>${x.ch.slice(0,3).map(esc).join(' · ')}</span>`:''}<span class="pt">+${x.pts} pts</span>`,i+1)).join(''))}</section>`;
+  h+=`<section class="pn win"><span class="wav">${phHas(w.n)?phImg(w.n):AVA}</span><div class="wtx"><small class="k">Melhor Jogador do Ano ${cur.y}</small><div class="wnm">${lk(w.n)}</div><div class="wsub">${esc(w.team)} · ${esc(w.lg)} · ${RN[w.role]} · OVR ${w.r}</div><div class="wch">${w.ch.map(c=>`<span class="chip">${esc(c)}</span>`).join('')}</div></div><span class="wtr">${troSvg('b')}</span></section>`;
+  h+=`<section class="pn"><h2>Top 10 de ${cur.y}</h2><div class="rkt">${cur.top.map((x,i)=>rkRow(i,x.n,`${esc(x.team)} · ${RN[x.role]||''}`,x.ch.length?x.ch.slice(0,3).map(esc).join(' · '):'',`+${x.pts}`,`nota ${x.sc}`)).join('')}</div></section>`;
   const c=cur.champs;
   h+=`<section class="pn"><h2>Campeões de ${cur.y}</h2><div class="rowl"><span class="grow"><b>Mundial</b> ${esc(c.wc)}<br><small>MVP ${lk(c.mvp)}</small></span></div><div class="rowl"><span class="grow"><b>MSI</b> ${esc(c.msi)}<br><small>MVP ${c.msiMvp?lk(c.msiMvp):'–'}</small></span></div><div class="rowl"><span class="grow"><b>Split 1</b><br><small>${c.s1.map(esc).join(' · ')}</small>${c.mv1?`<br><small>MVPs: ${c.mv1.map(esc).join(' · ')}</small>`:''}</span></div><div class="rowl"><span class="grow"><b>Split 2</b><br><small>${c.s2.map(esc).join(' · ')}</small>${c.mv2?`<br><small>MVPs: ${c.mv2.map(esc).join(' · ')}</small>`:''}</span></div></section>`;
   return h+preHTML();
@@ -6858,6 +6958,8 @@ function pwHTML(){
   }).join('');
   return `<section class="pn"><h2>Power ranking</h2><ol class="rank">${rows}</ol><p class="note">Muda a cada jogo: força atual do elenco com a forma, títulos dos últimos 5 anos (peso maior nos recentes; Mundial pesa mais que MSI e liga) e aproveitamento das duas últimas temporadas. As setas comparam com o fim da última temporada.</p></section>`;
 }
+/* ranking compacto: posição, foto, nome, detalhes e pontos numa linha só */
+const rkRow=(i,n,sub,tt,pt,sf)=>`<button class="rkr${i<3?' top'+(i+1):''}" data-act="player" data-v="${esc(n)}"><span class="rk num">${i+1}</span><span class="rav">${phHas(n)?phImg(n):AVA}</span><span class="rnm"><b>${esc(n)}</b><small>${sub}</small></span><span class="rtt">${tt||''}</span><span class="rpt num">${pt}${sf?`<small>${sf}</small>`:''}</span></button>`;
 function vHof(){
   const PM=pmap();
   let h=`<div class="pills stk">${[['rank','Ranking'],['wc','Mundial'],['msi','MSI'],['teams','Times'],['nat','Seleções'],['players','Jogadores']].map(([k,l])=>`<button class="pill" aria-pressed="${hofView===k}" data-act="hv" data-v="${k}">${l}</button>`).join('')}</div>`;
@@ -6866,12 +6968,13 @@ function vHof(){
     const rows=r.map((n,i)=>{
       const hh=S.hof[n],mv=S.mv[n],p=PM[n];
       const m=mv==='N'?'<span class="mv new">novo</span>':mv>0?`<span class="mv up">▲${mv}</span>`:mv<0?`<span class="mv dn">▼${-mv}</span>`:'';
-      const tt=[hh.bd?`${hh.bd} Melhor${hh.bd>1?'es':''} do Ano`:'',hh.wc?`${hh.wc} Mundial${hh.wc>1?'is':''}`:'',hh.msi?`${hh.msi} MSI`:'',hh.lg?`${hh.lg} liga${hh.lg>1?'s':''}`:'',hh.mvp?`${hh.mvp} MVP${hh.mvp>1?'s':''}`:''].filter(Boolean).join(' · ');
-      return fcell({n,r:p?p.p.r:Math.min(99,Math.round(60+sc(hh)/3)),role:p?p.p.role:roleOf(n),team:p?p.t:null,f:p?p.p.f:0},`<b>${p?esc(p.t.name):'aposentado'} ${m}</b>${tt?`<span>${tt}</span>`:''}<span class="pt">${Math.round(sc(hh))} pts</span>`,i+1);
+      const tt=[hh.bd?`${hh.bd}× Melhor do Ano`:'',hh.wc?`${hh.wc}× Mundial`:'',hh.msi?`${hh.msi}× MSI`:'',hh.lg?`${hh.lg} liga${hh.lg>1?'s':''}`:'',hh.mvp?`${hh.mvp} MVP${hh.mvp>1?'s':''}`:''].filter(Boolean).join(' · ');
+      const role=p?p.p.role:roleOf(n),c=natC(n);
+      return rkRow(i,n,`${p?esc(p.t.name):'aposentado'} · ${RN[role]||''}${c?' · '+natTxt(c):''} ${m}`,tt,Math.round(sc(hh)),'pts');
     }).join('');
-    h+=`<section class="pn"><h2>Top 10 de todos os tempos</h2>${fgrid(rows)}<p class="note">Pontos = Melhor Jogador do Ano/temporada (${PTS.join(' · ')}) + Mundial 6 + MSI 3 + MVP 1,5 + liga 0,5. A carta mostra o OVR atual de quem ainda joga. Toque em uma carta para abrir a ficha.</p></section>`;
+    h+=`<section class="pn"><h2>Top 10 de todos os tempos</h2><div class="rkt">${rows}</div><p class="note">Pontos = Melhor Jogador do Ano/temporada (${PTS.join(' · ')}) + Mundial 6 + MSI 3 + MVP 1,5 + liga 0,5. Toque em um jogador para abrir a ficha.</p></section>`;
     const bl=[...(S.pre||[]).map(x=>({y:x.y,n:x.top[0].n,team:x.top[0].team})),...S.hist.map(x=>({y:x.y,n:x.top[0].n,team:x.top[0].team}))].reverse();
-    h+=`<section class="pn"><h2>Melhor Jogador do Ano</h2>${bl.map(x=>`<div class="rowl"><span class="lg num">${x.y}</span><span class="grow"><b>${lk(x.n)}</b> <small>${esc(x.team)}</small></span></div>`).join('')}</section>`;
+    h+=`<section class="pn"><h2>Melhor Jogador do Ano</h2><div class="yrl">${bl.map(x=>`<div class="yr"><span class="lg num">${x.y}</span><span class="grow"><b>${lk(x.n)}</b> <small>${esc(x.team)}</small></span></div>`).join('')}</div></section>`;
   }else if(hofView==='wc'||hofView==='msi'){
     h+=cupHistHTML(hofView);
   }else if(hofView==='nat'){
@@ -6892,6 +6995,7 @@ function fmtF(f){
   const v=r1(f);
   return Math.abs(v)<.5?'<span class="fm z">–</span>':v>0?`<span class="fm up">▲${v.toFixed(1)}</span>`:`<span class="fm dn">▼${(-v).toFixed(1)}</span>`;
 }
+let OPENT=new Set();
 function vTeams(){
   let h=`<div class="pills stk">${LGS.map(l=>`<button class="pill" aria-pressed="${l===selLg}" data-act="lg" data-v="${l}">${l}</button>`).join('')}<button class="pill" aria-pressed="${selLg==='TOP'}" data-act="lg" data-v="TOP">TOP 25</button><button class="pill" aria-pressed="${selLg==='NAT'}" data-act="lg" data-v="NAT">PAÍSES</button></div>`;
   if(selLg==='NAT')return h+natListHTML();
@@ -6902,13 +7006,13 @@ function vTeams(){
   const ts=pmSort(S.teams.filter(t=>t.lg===selLg)).map(x=>x.t);
   h+=`<div class="row"><button class="ghost" data-act="league" data-v="${selLg}">Ficha da liga ${selLg}</button></div>`;
   const cardF=t=>{
-    const f=r1(eff(t)-baseOvr(t));
-    return `<section class="pn"><div class="th"><h3>${crest(t)}<span>${tlk(t)}${t.est?' <span class="tag">estimado</span>':''} ${pmBadge(pmInfo(t))}</span></h3><span>${hx(Math.round(baseOvr(t)),'sm')}</span></div><small>Forma do time ${f>0?`<span class="st up">▲${f.toFixed(1)}</span>`:f<0?`<span class="st dn">▼${(-f).toFixed(1)}</span>`:'estável'}</small>
-    ${fgrid(t.pl.map(p=>fcell({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f,team:t},`<span>${p.age} anos${p.age<=24?` · pot. ${Math.round(p.pot)}`:''}</span>${p.d?`<span>${p.d>0?'+':''}${p.d} na virada</span>`:''}`)).join(''))}</section>`;
+    const f=r1(eff(t)-baseOvr(t)),op=OPENT.has(t.id);
+    return `<div class="trw${op?' open':''}"><div class="trh"><span class="trc">${crest(t)}</span><span class="trn">${tlk(t)}${t.est?' <span class="tag">estimado</span>':''} ${pmBadge(pmInfo(t))}</span><span class="trf">${f>0?`<span class="st up">▲${f.toFixed(1)}</span>`:f<0?`<span class="st dn">▼${(-f).toFixed(1)}</span>`:'<span class="st">estável</span>'}</span><span class="tro">${hx(Math.round(baseOvr(t)),'sm')}</span><button class="ghost tbtn" data-act="tOpen" data-v="${t.id}" aria-expanded="${op}">${op?'Ocultar elenco':'Ver elenco'}</button></div>${op?`<div class="trb">${fgrid(t.pl.map(p=>fcell({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f,team:t},`<span>${p.age} anos${p.age<=24?` · pot. ${Math.round(p.pot)}`:''}</span>${p.d?`<span>${p.d>0?'+':''}${p.d} na virada</span>`:''}`)).join(''))}</div>`:''}</div>`;
   };
-  h+=ts.map(cardF).join('');
+  const allOpen=ts.length&&ts.every(t=>OPENT.has(t.id));
+  h+=`<section class="pn tl"><div class="rowc"><h2 style="margin:0">${selLg} · ${ts.length} times</h2><button class="ghost" data-act="tAll" data-v="${selLg}">${allOpen?'Ocultar todos os elencos':'Mostrar todos os elencos'}</button></div><div class="tls">${ts.map(cardF).join('')}</div></section>`;
   const t2=pmSort(D2L().filter(t=>t.lg===selLg)).map(x=>x.t);
-  if(t2.length)h+=`<section class="pn"><h2>Segunda divisão · ${selLg}</h2><p class="note" style="margin:0">Elencos da D2, na ordem do último Split 2. Quem subiu ou caiu aparece marcado.</p></section>`+t2.map(cardF).join('');
+  if(t2.length)h+=`<section class="pn tl"><h2>Segunda divisão · ${selLg}</h2><div class="tls">${t2.map(cardF).join('')}</div><p class="note" style="margin:8px 0 0">Elencos da D2, na ordem do último Split 2. Quem subiu ou caiu aparece marcado.</p></section>`;
   return h+`<p class="note">Elencos de 2026: os 19 times do Mundial seguem as listas divulgadas; os marcados como estimado são chutes meus. OVR e idades são notas minhas, não oficiais. O OVR sobe e cai com idade, potencial e desempenho; a seta mostra a forma atual, que também entra nas chances de vitória.</p>`;
 }
 
@@ -7401,6 +7505,9 @@ function act(a,v){
   else if(a==='spRR'){while(S.season.sp&&S.season.sp.stage==='rr')spStep();save();top=true}
   else if(a==='spAll'){const ph=S.phase;let g2=0;CUPSIM=1;try{while(S.phase===ph&&g2++<400)step()}finally{CUPSIM=0}save();top=true}
   else if(a==='mgrView'){mgrView=v}
+  else if(a==='mail'){MAILO=!MAILO}
+  else if(a==='tOpen'){const id=+v;if(OPENT.has(id))OPENT.delete(id);else OPENT.add(id)}
+  else if(a==='tAll'){const ids=pmSort(S.teams.filter(t=>t.lg===v)).map(x=>x.t.id);if(ids.every(i=>OPENT.has(i)))ids.forEach(i=>OPENT.delete(i));else ids.forEach(i=>OPENT.add(i))}
   else if(a==='focus'){if(S.mgr){S.mgr.focus=v;save()}}
   else if(a==='mgrEv'){mgrEv(v);save()}
   else if(a==='mgrTr'){mgrTr(v);save()}
