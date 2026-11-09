@@ -1586,8 +1586,10 @@ body::after{opacity:.32;filter:grayscale(.35) brightness(.8)}
 .cmd{display:grid;gap:6px;margin:10px 0 0}.cmd div{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:10px;font-size:13px;line-height:1.3}
 .cmd .clg{background:linear-gradient(90deg,rgba(132,102,255,.25),rgba(255,122,184,.06));border:1px solid rgba(160,130,255,.55);color:#E0D2FF}
 .cmd .ct10{background:linear-gradient(90deg,rgba(255,226,122,.16),rgba(255,226,122,.03));border:1px solid rgba(255,226,122,.4);color:#FFE27A}
-.fut .orn{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3;overflow:visible}
-.fut .orn .gl{fill:#E8B93E;stroke:#6b4a0e;stroke-width:.6}.fut .orn .gs{fill:none;stroke:#E8B93E;vector-effect:non-scaling-stroke}.fut .orn .vl{fill:#E0D2FF;stroke:#3a1f8c;stroke-width:.6}.fut .orn .vs{fill:none;stroke:#E0D2FF;vector-effect:non-scaling-stroke}.fut .orn .vg{fill:#FF7AB8;stroke:#3a1f8c;stroke-width:.5}
+.fut.mol{background:none;clip-path:none;filter:drop-shadow(0 4px 8px rgba(0,0,0,.55))}.fut.mol::before{display:none}
+.fut .fbg{position:absolute;left:6.5%;right:6.5%;top:5.2%;bottom:5.2%;border-radius:12px;background:var(--fb);overflow:hidden}.fut .fbg::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(255,255,255,.3),rgba(255,255,255,0) 45%,rgba(0,0,0,.14))}
+.fut .fin{position:absolute;inset:0;transform:scale(.8);transform-origin:50% 50%}
+.fut .orn{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none;z-index:5}
 .cmd b{white-space:nowrap;flex:none;font:700 12px var(--d);letter-spacing:.08em;text-transform:uppercase}.cmd span{opacity:.92}
 /* Prêmio: o Top 5 de 2011 a 2025 fica na mesma coluna, logo abaixo da tabela de campeões do ano */
 #app.wrap>.bcol{grid-column:auto;min-width:0;width:auto}.bcol>.pn:last-child{margin-bottom:14px}
@@ -6941,43 +6943,17 @@ function legendYear(n){
 }
 const yrsTxt=a=>a.length<=3?a[0]+a.slice(1).map(y=>'·'+String(y).slice(2)).join(''):`${a.length}× · ${a[a.length-1]}`;
 const legR=n=>{const h=S.hof&&S.hof[n];return h?Math.round(clamp(84+sc(h)/6,84,97)):80};
-/* adornos da carta (SVG 132x190 sobre o hexágono): Melhor do Mundo = filete duplo dourado + coroa de louros + estrela;
-   Lenda = coroa com gemas + losangos nos ombros e filete prateado */
-const HEXP='66,0 118.8,11.4 132,28.5 132,152 66,190 0,152 0,28.5 13.2,11.4';
-const hexIn=k=>`translate(66 95) scale(${k}) translate(-66 -95)`;
-function laurel(){
-  /* folhas em duas fileiras ao longo das laterais (só onde não há texto da carta), espelhadas nos dois lados */
-  const o=[];
-  for(let y=46;y<=134;y+=11){
-    [[1,4.5,y,-62],[1,8.2,y-4.5,-118],[-1,127.5,y,62],[-1,123.8,y-4.5,118]].forEach(([sd,x,yy,r])=>{
-      o.push(`<ellipse class="gl" cx="${x}" cy="${yy}" rx="4.8" ry="2" transform="rotate(${r} ${x} ${yy})"/>`)});
-  }
-  return o.join('');
-}
-function ornHTML(bw,lg){
-  let o=`<svg class="orn" viewBox="0 0 132 190" preserveAspectRatio="xMidYMid meet" aria-hidden="true">`;
-  if(bw){
-    o+=`<polygon class="gs" points="${HEXP}" transform="${hexIn(.955)}" stroke-width="1.6"/><polygon class="gs" points="${HEXP}" transform="${hexIn(.925)}" stroke-width=".7" opacity=".8"/>`;
-    o+=laurel();
-    if(!lg)o+=`<path class="gl" d="M66 3l2.4 5.2 5.6.6-4.2 3.8 1.2 5.5L66 15.2l-5 2.9 1.2-5.5-4.2-3.8 5.6-.6z"/>`;
-  }
-  if(lg){
-    if(!bw)o+=`<polygon class="vs" points="${HEXP}" transform="${hexIn(.955)}" stroke-width="1.5"/><polygon class="vs" points="${HEXP}" transform="${hexIn(.925)}" stroke-width=".7" opacity=".8"/>`;
-    /* coroa */
-    o+=`<g transform="translate(66 8)"><path class="vl" d="M-11 11l-2-10 6 5 7-8 7 8 6-5-2 10z"/><circle class="vg" cx="-7" cy="1" r="1.5"/><circle class="vg" cx="0" cy="-3" r="1.7"/><circle class="vg" cx="7" cy="1" r="1.5"/></g>`;
-    [[11,16],[121,16],[4,76],[128,76]].forEach(([x,y])=>{o+=`<path class="vl" d="M${x} ${y-4.2}l3.2 4.2-3.2 4.2-3.2-4.2z"/>`});
-  }
-  return o+'</svg>';
-}
 function fut(o,cls=''){
   const t=tier(o.r),st=futStats(o.n,o.r,o.role),c=natC(o.n),tm=o.team;
   const bw=bwYears(o.n),ly=legendYear(o.n),ret=!!(S.pdb&&S.pdb[o.n]&&S.pdb[o.n].ret);
   const med=(bw.length?`<span class="mbw" title="Melhor do Mundo: ${bw.join(', ')}">★ ${yrsTxt(bw)}</span>`:'')+(ly?`<span class="mlg" title="Lenda desde ${ly}">◆ ${ly}</span>`:'');
-  return `<button class="fut t${t} ${cls}${bw.length?' bw':''}${ly?' lgd':''}${ret?' ret':''}${S.inj&&S.inj[o.n]?' inj':''}" data-act="player" data-v="${esc(o.n)}" aria-label="${esc(o.n)}, ${o.r}">
-  <span class="fo num">${o.r}</span><span class="fr">${RN[o.role]||''}</span>${c?`<span class="fn">${natTxt(c)}</span>`:''}${tm?`<span class="fs">${crest(tm,'')}</span>`:''}
+  const inner=`<span class="fo num">${o.r}</span><span class="fr">${RN[o.role]||''}</span>${c?`<span class="fn">${natTxt(c)}</span>`:''}${tm?`<span class="fs">${crest(tm,'')}</span>`:''}
   <span class="fa${phHas(o.n)?' ph':''}">${phHas(o.n)?phImg(o.n):AVA}</span><span class="fnm">${esc(o.n)}</span>
   <span class="fst">${st.map((v,i)=>`<span class="num">${v}<small>${FSTAT[i]}</small></span>`).join('')}</span>
-  ${o.f&&Math.abs(o.f)>=.5?`<span class="ff">${o.f>0?'▲':'▼'}${Math.abs(o.f).toFixed(1)}</span>`:''}${med?`<span class="fmd">${med}</span>`:''}${bw.length||ly?ornHTML(!!bw.length,!!ly):''}</button>`;
+  ${o.f&&Math.abs(o.f)>=.5?`<span class="ff">${o.f>0?'▲':'▼'}${Math.abs(o.f).toFixed(1)}</span>`:''}${med?`<span class="fmd">${med}</span>`:''}`;
+  /* com conquista a carta ganha uma moldura: ambos, só lenda ou só melhor do mundo */
+  const mol=bw.length&&ly?'ambos':ly?'lenda':bw.length?'mundo':'';
+  return `<button class="fut t${t} ${cls}${mol?' mol':''}${bw.length?' bw':''}${ly?' lgd':''}${ret?' ret':''}${S.inj&&S.inj[o.n]?' inj':''}" data-act="player" data-v="${esc(o.n)}" aria-label="${esc(o.n)}, ${o.r}">${mol?`<span class="fbg"></span><span class="fin">${inner}</span><img class="orn" src="cartas/moldura_${mol}.webp" alt="" draggable="false">`:inner}</button>`;
 }
 const hx=(r,c='')=>`<span class="hx t${tier(r)} ${c}">${r}</span>`;
 /* listas de jogadores em cartinhas: cada item = carta (fut) + legenda; a grade se ajusta à largura */
