@@ -1577,22 +1577,18 @@ body::after{opacity:.32;filter:grayscale(.35) brightness(.8)}
 @media (max-width:760px){.pn.mail{position:fixed;top:64px;right:16px;left:16px;width:auto}}
 
 /* carta com conquistas: Melhor do Mundo (dourada) e Lenda (violeta/rosa); medalhas citam o ano */
-.fut.lgd{--fb:linear-gradient(160deg,#D9C7FF,#8466FF 45%,#FF7AB8);--fc:#150A33;--fm:rgba(21,10,51,.6)}
-.fut.bw{--fb:linear-gradient(160deg,#FFF3C4,#E8B93E 38%,#8C6420 72%,#F6D77A);--fc:#2A1D04;--fm:rgba(42,29,4,.6)}
-.fut.bw.lgd{--fb:linear-gradient(160deg,#FFF3C4,#E8B93E 32%,#B36AD8 68%,#FF7AB8)}
-.fut .fsh{position:absolute;inset:0;clip-path:inherit;pointer-events:none;z-index:4;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.5) 50%,transparent 65%);background-size:260% 100%;background-position:130% 0;animation:futshine 4.2s ease-in-out infinite}
-@keyframes futshine{0%,55%{background-position:130% 0}100%{background-position:-60% 0}}
 .fut .fmd{position:absolute;right:9px;top:64px;display:grid;gap:3px;justify-items:end;z-index:3}
 .fut .fmd span{font:800 9px/1 var(--d);padding:3px 5px;border-radius:9px;letter-spacing:.03em;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.45)}
 .fut .mbw{background:linear-gradient(180deg,#2A1D04,#5a3f0a);color:#FFE27A;border:1px solid #FFE27A}
 .fut .mlg{background:linear-gradient(180deg,#1b0f45,#4a2a9a);color:#E0D2FF;border:1px solid #C9B6FF}
 .fut.big .fmd{right:12px;top:96px}.fut.big .fmd span{font-size:11px;padding:4px 7px}
 .fcell .fut .fmd{right:11px;top:78px}.fcell .fut .fmd span{font-size:10px}
-@media (prefers-reduced-motion:reduce){.fut .fsh{animation:none;opacity:0}}
 .cmd{display:grid;gap:6px;margin:10px 0 0}.cmd div{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:10px;font-size:13px;line-height:1.3}
-.cmd .cbw{background:linear-gradient(90deg,rgba(232,185,62,.22),rgba(232,185,62,.04));border:1px solid rgba(232,185,62,.5);color:#FFE27A}
 .cmd .clg{background:linear-gradient(90deg,rgba(132,102,255,.25),rgba(255,122,184,.06));border:1px solid rgba(160,130,255,.55);color:#E0D2FF}
-.cmd b{font:700 12px var(--d);letter-spacing:.08em;text-transform:uppercase}.cmd span{opacity:.92}
+.cmd .ct10{background:linear-gradient(90deg,rgba(255,226,122,.16),rgba(255,226,122,.03));border:1px solid rgba(255,226,122,.4);color:#FFE27A}
+.fut .orn{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3;overflow:visible}
+.fut .orn .gl{fill:#E8B93E;stroke:#6b4a0e;stroke-width:.6}.fut .orn .gs{fill:none;stroke:#E8B93E;vector-effect:non-scaling-stroke}.fut .orn .vl{fill:#E0D2FF;stroke:#3a1f8c;stroke-width:.6}.fut .orn .vs{fill:none;stroke:#E0D2FF;vector-effect:non-scaling-stroke}.fut .orn .vg{fill:#FF7AB8;stroke:#3a1f8c;stroke-width:.5}
+.cmd b{white-space:nowrap;flex:none;font:700 12px var(--d);letter-spacing:.08em;text-transform:uppercase}.cmd span{opacity:.92}
 /* Prêmio: o Top 5 de 2011 a 2025 fica na mesma coluna, logo abaixo da tabela de campeões do ano */
 #app.wrap>.bcol{grid-column:auto;min-width:0;width:auto}.bcol>.pn:last-child{margin-bottom:14px}
 .mavr{width:34px;height:34px;border-radius:50%;overflow:hidden;background:#182033;border:2px solid #2a3654;display:block;flex:none}.mavr img{width:100%;height:100%;object-fit:cover;object-position:50% 18%}.mavr svg{width:100%;height:100%;fill:#2a3654}
@@ -2379,6 +2375,11 @@ function awards(){
   {const hb=S.hof[top[0].n].bd;news(`${top[0].n} (${top[0].team}) é eleito o Melhor Jogador do Ano ${S.year}${hb>1?`, a ${hb}ª da carreira`:''}.`)}
   S.mv={};
   hofRank().slice(0,10).forEach((n,i)=>{S.mv[n]=oldPos[n]===undefined?'N':oldPos[n]-i});
+  /* entrada/saída do top 10 de todos os tempos (in:0 = já estava lá quando o registro começou) */
+  {const t=S.t10||(S.t10={}),cur=new Set(hofRank().slice(0,10));
+   if(!S.t10i){S.t10i=1;Object.keys(oldPos).forEach(n=>{if(oldPos[n]<10)t[n]={in:0,out:0}})}
+   cur.forEach(n=>{const e=t[n];if(!e||e.out)t[n]={in:S.year,out:0}});
+   Object.keys(t).forEach(n=>{if(!cur.has(n)&&!t[n].out)t[n].out=S.year})}
   const msi=S.season.msi,wc=S.season.wc;
   const code=(tour,id)=>!tour.teams.includes(id)?'-':id===tour.champ?'C':({Final:'F',Semifinais:'SF',Quartas:'QF'})[tour.elim[id]]||'G';
   S.teams.forEach(t=>{
@@ -6929,6 +6930,34 @@ function legendYear(n){
 }
 const yrsTxt=a=>a.length<=3?a[0]+a.slice(1).map(y=>'·'+String(y).slice(2)).join(''):`${a.length}× · ${a[a.length-1]}`;
 const legR=n=>{const h=S.hof&&S.hof[n];return h?Math.round(clamp(84+sc(h)/6,84,97)):80};
+/* adornos da carta (SVG 132x190 sobre o hexágono): Melhor do Mundo = filete duplo dourado + coroa de louros + estrela;
+   Lenda = coroa com gemas + losangos nos ombros e filete prateado */
+const HEXP='66,0 118.8,11.4 132,28.5 132,152 66,190 0,152 0,28.5 13.2,11.4';
+const hexIn=k=>`translate(66 95) scale(${k}) translate(-66 -95)`;
+function laurel(){
+  /* folhas em duas fileiras ao longo das laterais (só onde não há texto da carta), espelhadas nos dois lados */
+  const o=[];
+  for(let y=46;y<=134;y+=11){
+    [[1,4.5,y,-62],[1,8.2,y-4.5,-118],[-1,127.5,y,62],[-1,123.8,y-4.5,118]].forEach(([sd,x,yy,r])=>{
+      o.push(`<ellipse class="gl" cx="${x}" cy="${yy}" rx="4.8" ry="2" transform="rotate(${r} ${x} ${yy})"/>`)});
+  }
+  return o.join('');
+}
+function ornHTML(bw,lg){
+  let o=`<svg class="orn" viewBox="0 0 132 190" preserveAspectRatio="xMidYMid meet" aria-hidden="true">`;
+  if(bw){
+    o+=`<polygon class="gs" points="${HEXP}" transform="${hexIn(.955)}" stroke-width="1.6"/><polygon class="gs" points="${HEXP}" transform="${hexIn(.925)}" stroke-width=".7" opacity=".8"/>`;
+    o+=laurel();
+    if(!lg)o+=`<path class="gl" d="M66 3l2.4 5.2 5.6.6-4.2 3.8 1.2 5.5L66 15.2l-5 2.9 1.2-5.5-4.2-3.8 5.6-.6z"/>`;
+  }
+  if(lg){
+    if(!bw)o+=`<polygon class="vs" points="${HEXP}" transform="${hexIn(.955)}" stroke-width="1.5"/><polygon class="vs" points="${HEXP}" transform="${hexIn(.925)}" stroke-width=".7" opacity=".8"/>`;
+    /* coroa */
+    o+=`<g transform="translate(66 8)"><path class="vl" d="M-11 11l-2-10 6 5 7-8 7 8 6-5-2 10z"/><circle class="vg" cx="-7" cy="1" r="1.5"/><circle class="vg" cx="0" cy="-3" r="1.7"/><circle class="vg" cx="7" cy="1" r="1.5"/></g>`;
+    [[11,16],[121,16],[4,76],[128,76]].forEach(([x,y])=>{o+=`<path class="vl" d="M${x} ${y-4.2}l3.2 4.2-3.2 4.2-3.2-4.2z"/>`});
+  }
+  return o+'</svg>';
+}
 function fut(o,cls=''){
   const t=tier(o.r),st=futStats(o.n,o.r,o.role),c=natC(o.n),tm=o.team;
   const bw=bwYears(o.n),ly=legendYear(o.n),ret=!!(S.pdb&&S.pdb[o.n]&&S.pdb[o.n].ret);
@@ -6937,7 +6966,7 @@ function fut(o,cls=''){
   <span class="fo num">${o.r}</span><span class="fr">${RN[o.role]||''}</span>${c?`<span class="fn">${natTxt(c)}</span>`:''}${tm?`<span class="fs">${crest(tm,'')}</span>`:''}
   <span class="fa${phHas(o.n)?' ph':''}">${phHas(o.n)?phImg(o.n):AVA}</span><span class="fnm">${esc(o.n)}</span>
   <span class="fst">${st.map((v,i)=>`<span class="num">${v}<small>${FSTAT[i]}</small></span>`).join('')}</span>
-  ${o.f&&Math.abs(o.f)>=.5?`<span class="ff">${o.f>0?'▲':'▼'}${Math.abs(o.f).toFixed(1)}</span>`:''}${med?`<span class="fmd">${med}</span>`:''}${bw.length||ly?'<span class="fsh"></span>':''}</button>`;
+  ${o.f&&Math.abs(o.f)>=.5?`<span class="ff">${o.f>0?'▲':'▼'}${Math.abs(o.f).toFixed(1)}</span>`:''}${med?`<span class="fmd">${med}</span>`:''}${bw.length||ly?ornHTML(!!bw.length,!!ly):''}</button>`;
 }
 const hx=(r,c='')=>`<span class="hx t${tier(r)} ${c}">${r}</span>`;
 /* listas de jogadores em cartinhas: cada item = carta (fut) + legenda; a grade se ajusta à largura */
@@ -7827,9 +7856,10 @@ function poolHTML(n,role,tm){
 function bnFind(n){for(const t of ALLT()){const p=(t.bn||[]).find(x=>x.n===n);if(p)return{p,t:{name:t.name+' (reserva)',lg:t.lg,d:t.d,yh:[],id:t.id,real:t}}}return null}
 function divTxt(t){if(!t||!t.lg)return'';const r=t.real||t,i=r.yh&&r.yh.length?pmInfo(r):{tag:''};return ` · ${r.d===2?'D2':'D1'} ${r.lg}${i.tag?' ('+i.tag+')':''}`}
 function cmdHTML(n){
-  const bw=bwYears(n),ly=legendYear(n),ret=S.pdb&&S.pdb[n]&&S.pdb[n].ret;
-  if(!bw.length&&!ly)return '';
-  return `<div class="cmd">${bw.length?`<div class="cbw"><b>★ Melhor do Mundo</b><span>${bw.join(' · ')}</span></div>`:''}${ly?`<div class="clg"><b>◆ Lenda</b><span>desde ${ly}${ret?' · aposentado em '+ret:''}</span></div>`:''}</div>`;
+  const ly=legendYear(n),ret=S.pdb&&S.pdb[n]&&S.pdb[n].ret,e=S.t10&&S.t10[n];
+  const t10=e?(e.out?`Saiu do top 10 de todos os tempos em ${e.out}`:e.in?`No top 10 de todos os tempos desde ${e.in}`:''):'';
+  if(!ly&&!t10)return '';
+  return `<div class="cmd">${ly?`<div class="clg"><b>◆ Lenda</b><span>desde ${ly}${ret?' · aposentado em '+ret:''}</span></div>`:''}${t10?`<div class="ct10"><b>▲ Top 10</b><span>${t10}</span></div>`:''}</div>`;
 }
 function vPlayer(n){
   const P=pmap()[n]||mExtra(n)||bnFind(n);
