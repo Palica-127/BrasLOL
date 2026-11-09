@@ -14,23 +14,23 @@ ok(J('pcFind().bn')===true,'começa como reserva');
 
 /* ---- XP e níveis ---- */
 run(ctx,`var pts0=S.pc.pts||0;pcGain(pcNeed(1));`);
-ok(J('S.pc.lv')===2&&J('S.pc.pts')===J('pts0')+1,'XP suficiente sobe o nível 1->2 e dá 1 ponto');
+ok(J('S.pc.lv')===2&&J('S.pc.pts')===J('pts0')+1,'XP suficiente sobe o nível 1->2 e dá 1 ponto de status');
 run(ctx,`pcGain(100000);`);
 ok(J('S.pc.lv')===60,'nível máximo 60');
 run(ctx,`S.pc.lv=4;S.pc.xl=0;S.pc.pts=0;pcGain(pcNeed(4));`);
 ok(J('S.pc.lv')===5&&J('S.pc.pts')===2,'nível 5 dá 2 pontos');
 
 /* ---- árvore: requisitos de nível, pré-requisito e custo ---- */
-run(ctx,`S.pc.lv=3;S.pc.pts=5;pcLearn('c2');`);
+run(ctx,`S.pc.lv=3;S.pc.tp=5;pcLearn('c2');`);
 ok(J('!S.pc.perks.c2'),'característica de nível 6 bloqueada no nível 3');
 run(ctx,`pcLearn('c1');`);
-ok(J('S.pc.perks.c1')===1&&J('S.pc.pts')===4,'aprende c1 por 1 ponto');
+ok(J('S.pc.perks.c1')===1&&J('S.pc.tp')===4,'aprende c1 por 1 ponto');
 run(ctx,`S.pc.lv=6;pcLearn('c3');`);
 ok(J('!S.pc.perks.c3'),'c3 pede c2 antes');
 run(ctx,`pcLearn('c2');`);
-ok(J('S.pc.perks.c2')===1&&J('S.pc.pts')===2,'aprende c2 por 2 pontos');
+ok(J('S.pc.perks.c2')===1&&J('S.pc.tp')===2,'aprende c2 por 2 pontos');
 run(ctx,`pcLearn('c1');`);
-ok(J('S.pc.pts')===2,'não paga duas vezes pela mesma característica');
+ok(J('S.pc.tp')===2,'não paga duas vezes pela mesma característica');
 run(ctx,`var a0=S.pc.at[1];S.pc.pts=1;pcSpend(1);`);
 ok(J('S.pc.at[1]')===J('a0')+1,'ponto de status sobe o atributo');
 
@@ -105,8 +105,18 @@ ok(J('S.pc.tr<trA&&S.pc.test===null')===true,'recusar a scrim derruba a confian�
 run(ctx,`S.pc.test=null;ptNew('s');S.pc.test.ax=pcAbs()-1;var trE=S.pc.tr;ptLife();`);
 ok(J('S.pc.test===null&&S.pc.tr<trE')===true,'convite expirado derruba a confiança');
 
+/* ---- pontos separados e treino de pool ---- */
+run(ctx,`S.pc.lv=1;S.pc.xl=0;S.pc.pts=0;S.pc.tp=0;pcGain(pcNeed(1));`);
+ok(J('S.pc.lv===2&&S.pc.pts===1&&S.pc.tp===1'),'nível 2: 1 ponto de status e 1 de habilidade, separados');
+run(ctx,`S.pc.plan='p';S.pc.en=100;S.pc.pool={};var rl=pcFind().p.role;pcWeek();`);
+ok(J('S.pc.wk.pl.length===5&&S.pc.wk.pl.every(function(c){return (S.pc.pool[c]||0)>0})'),'treino de pool: 5 campeões aleatórios ganham domínio');
+run(ctx,`CH[rl].forEach(function(x){S.pc.pool[x[0]]=1});S.pc.en=100;pcWeek();`);
+ok(J('S.pc.wk.pl.length===0'),'treino de pool ignora campeões já em 100%');
+run(ctx,`pcTreeOpen=true;`);
+ok(run(ctx,'vPc()').includes('Fechar árvore de habilidades'),'botão abre a árvore');
+
 /* ---- telas ---- */
-for(const e of ['vPc()','pcSummary()','mailHTML()','pcTreeHTML(pcFind())','pcTrainHTML(pcFind())','pcTrustHTML(pcFind())','pcLvHTML()']){
+for(const e of ['vPc()','pcSummary()','mailHTML()','pcTreeHTML(pcFind())','pcTrainHTML(pcFind())','pcTrustHTML(pcFind())','pcLvHTML()','pcStatusHTML(pcFind())','pcTreeBtnHTML()']){
   try{const x=run(ctx,e);ok(String(x).length>40,'renderiza '+e)}catch(err){ok(false,'renderiza '+e+' -> '+err.message)}
 }
 

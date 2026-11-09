@@ -1197,6 +1197,7 @@ h1,h2,h3,.hn,.mhero h2,.cdate>div:first-child b,.play,.pill,.mc2 h3{font-style:n
   .dfpl{height:96px}.dfpl b{font-size:11px}.dfpl span{padding:16px 4px 6px}.dfr{font-size:14px;top:24%}.dfpl em{display:none}
 }
 /* ---------- meta ---------- */
+.kvr{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-top:1px solid rgba(130,150,255,.14);font-size:14px}.kvr span{color:var(--muted)}
 .mtx{grid-column:1/-1;display:grid;gap:18px;margin-bottom:24px}
 .tS{--tc:#F3D77A}.tA{--tc:#8EE3B0}.tB{--tc:#C6CDE6}.tC{--tc:#FFB084}.tF{--tc:#FF7A93}
 .mth{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px}
@@ -1364,6 +1365,9 @@ img{-webkit-user-drag:none}
 }
 
 body:has(.dvx.bcx){overflow:hidden}
+/* tela de resultado do mapa/série (MD3 e MD5): pode ser mais alta que a janela, então precisa rolar para chegar ao botão de continuar */
+.dvx.bcx.pmx{overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+.pmx .pmw{padding-bottom:calc(60px + env(safe-area-inset-bottom,0px))}
 @media (min-width:761px){
   .bcfeed{max-height:calc(100% - 8px);overflow:hidden}
   .bcside{max-height:calc(100% - 8px);overflow:hidden auto}
@@ -5289,7 +5293,7 @@ const PERKS=[
  ['p2','p','Voz de liderança','A confiança do técnico sobe 30% mais e cai 30% menos.',2,6,'p1'],
  ['p3','p','Cara do time','Fama rende 50% mais e as propostas pagam 15% a mais.',3,12,'p2']
 ];
-const PTRN={l:{n:'Leve',d:'Poupa energia; XP baixo.',xp:46,en:10,fx:9,tr:.4},n:{n:'Normal',d:'Equilíbrio entre XP e desgaste.',xp:82,en:22,fx:16,tr:1.1},i:{n:'Intenso',d:'Muito XP e a melhor impressão no técnico, mas cansa.',xp:132,en:38,fx:30,tr:1.8},d:{n:'Folga',d:'Recupera bastante energia; quase sem XP.',xp:12,en:-25,fx:0,tr:0}};
+const PTRN={l:{n:'Leve',d:'Poupa energia; XP baixo.',xp:46,en:10,fx:9,tr:.4},n:{n:'Normal',d:'Equilíbrio entre XP e desgaste.',xp:82,en:22,fx:16,tr:1.1},i:{n:'Intenso',d:'Muito XP e a melhor impressão no técnico, mas cansa.',xp:132,en:38,fx:30,tr:1.8},p:{n:'Pool',d:'Treina 5 campeões aleatórios da sua função que ainda não estão em 100% (+3% cada). XP baixo.',xp:35,en:20,fx:0,tr:.7},d:{n:'Folga',d:'Recupera bastante energia; quase sem XP.',xp:12,en:-25,fx:0,tr:0}};
 function pcEnsure(){
   const pc=S.pc;if(!pc)return;
   const f=(pc.lv==null||pc.tr==null)?pcFind():null;
@@ -5297,6 +5301,7 @@ function pcEnsure(){
   if(pc.tr==null)pc.tr=f&&f.bn?35:60;
   if(!pc.plan)pc.plan='n';
   if(!pc.perks)pc.perks={};
+  if(pc.tp==null){let e=0;for(let l=2;l<=pc.lv;l++)e+=l%5===0?2:l%2===0?1:0;PERKS.forEach(x=>{if(pc.perks[x[0]])e-=x[4]});pc.tp=Math.max(0,e)}
   if(pc.wd==null)pc.wd=pcAbs();
   if(pc.test===undefined)pc.test=null;
   if(pc.tcd==null)pc.tcd=0;
@@ -5306,7 +5311,7 @@ function pcGain(n,mult){
   pc.xt=(pc.xt||0)+n;
   if(pc.lv>=PCLV){pc.xl=0;return n}
   pc.xl+=n;let up=0;
-  while(pc.lv<PCLV&&pc.xl>=pcNeed(pc.lv)){pc.xl-=pcNeed(pc.lv);pc.lv++;const k=pc.lv%5===0?2:1;pc.pts=(pc.pts||0)+k;up++;pcLog(`sobe para o nível ${pc.lv} (+${k} ponto${k>1?'s':''} de habilidade).`)}
+  while(pc.lv<PCLV&&pc.xl>=pcNeed(pc.lv)){pc.xl-=pcNeed(pc.lv);pc.lv++;const k=pc.lv%5===0?2:1,h=pc.lv%5===0?2:pc.lv%2===0?1:0;pc.pts=(pc.pts||0)+k;pc.tp=(pc.tp||0)+h;up++;pcLog(`sobe para o nível ${pc.lv} (+${k} ponto${k>1?'s':''} de status${h?` e +${h} de habilidade`:''}).`)}
   if(up)pc.lvf=pc.lv;
   return n;
 }
@@ -5335,7 +5340,13 @@ function pcWeek(){
   pc.en=clamp(pc.en-P.en+28+(pcPerk('p1')?10:0),0,100);pc.rest=0;
   const ref=pcRef(f),drift=ref?clamp((f.p.r-ref.r)*.1,-.2,.5):.2;
   pcTrust((tired?-1.2:P.tr)+drift);
-  pc.wk={xp:Math.round(xp),plan:pc.plan,tired,y:S.year,d:S.day};
+  let pl=null;
+  if(pc.plan==='p'&&!tired){
+    const gain=pcPerk('e2')?.045:.03;
+    pl=shuffle(CH[f.p.role].map(x=>x[0]).filter(c=>mastOf(pc.n,c)<1)).slice(0,5);
+    pl.forEach(c=>{pc.pool[c]=Math.min(1,(pc.pool[c]||0)+gain)});
+  }
+  pc.wk={xp:Math.round(xp),plan:pc.plan,tired,y:S.year,d:S.day,pl};
 }
 /* o técnico decide a vaga: reserva com confiança alta (e nível próximo) sobe; titular com confiança no chão perde a posição para um reserva da função */
 function pcCoach(){
@@ -5646,8 +5657,8 @@ function pcLearn(id){
   if(pc.perks[id]){msg='Você já tem essa característica.';return}
   if(pc.lv<lv){msg=`${nm} pede nível ${lv}.`;return}
   if(req&&!pc.perks[req]){msg=`${nm} pede ${PERKS.find(x=>x[0]===req)[2]} antes.`;return}
-  if((pc.pts||0)<cost){msg=`${nm} custa ${cost} ponto${cost>1?'s':''}.`;return}
-  pc.pts-=cost;pc.perks[id]=1;pcLog(`aprende a característica ${nm}.`);msg=`${nm} aprendida.`;
+  if((pc.tp||0)<cost){msg=`${nm} custa ${cost} ponto${cost>1?'s':''} de habilidade.`;return}
+  pc.tp-=cost;pc.perks[id]=1;pcLog(`aprende a característica ${nm}.`);msg=`${nm} aprendida.`;
 }
 function pcTrustTxt(f){
   const pc=S.pc,tr=Math.round(pc.tr),ref=pcRef(f);
@@ -5663,7 +5674,7 @@ function pcTrustTxt(f){
 }
 function pcLvHTML(){
   const pc=S.pc,need=pcNeed(pc.lv),max=pc.lv>=PCLV;
-  return `<section class="pn"><h2>Nível ${pc.lv}${max?' <span class="tag">máx</span>':''}</h2>${pcBar(max?1:pc.xl,max?1:need)}<p class="note" style="margin:6px 0 0">${max?'Nível máximo.':`${pc.xl} / ${need} de XP para o nível ${pc.lv+1}.`} Todo nível dá 1 ponto (2 a cada 5 níveis). XP vem de partidas, treino semanal, scrims, torneios, eventos e metas.</p></section>`;
+  return `<section class="pn"><h2>Nível ${pc.lv}${max?' <span class="tag">máx</span>':''}</h2>${pcBar(max?1:pc.xl,max?1:need)}<p class="note" style="margin:6px 0 0">${max?'Nível máximo.':`${pc.xl} / ${need} de XP para o nível ${pc.lv+1}.`} Todo nível dá 1 ponto de status (2 a cada 5 níveis) e, nos níveis pares, 1 ponto de habilidade para a árvore (2 a cada 5 níveis). XP vem de partidas, treino semanal, scrims, torneios, eventos e metas.</p></section>`;
 }
 function pcTrustHTML(f){
   const pc=S.pc,tr=Math.round(pc.tr);
@@ -5677,19 +5688,28 @@ function pcTrainHTML(f){
   <div class="sub">Foco (atributo)</div><div class="pills">${ATL.map((l,i)=>`<button class="pill" aria-pressed="${fo===i}" data-act="pcFocus" data-v="${i}">${l}</button>`).join('')}</div>
   <div class="sub">Energia ${pc.en}/100</div>${pcBar(pc.en,100)}
   <div class="row" style="margin:10px 0"><button class="ghost" data-act="pcRest"${pc.rest?' disabled':''}>Descansar hoje (+25)</button></div>
-  ${wk?`<p class="note" style="margin:0">Última semana: programa ${PTRN[wk.plan].n.toLowerCase()}, +${wk.xp} de XP${wk.tired?' (cansado, rendeu metade)':''}.</p>`:''}</section>`;
+  ${wk?`<p class="note" style="margin:0">Última semana: programa ${PTRN[wk.plan].n.toLowerCase()}, +${wk.xp} de XP${wk.tired?' (cansado, rendeu metade)':''}.${wk.pl&&wk.pl.length?' Treinou: '+wk.pl.map(esc).join(', ')+'.':wk.plan==='p'&&!wk.tired?' Todos os campeões da função já estão em 100%.':''}</p>`:''}</section>`;
+}
+let pcTreeOpen=false;
+function pcStatusHTML(f){
+  const pc=S.pc,pts=pc.pts||0,fo=pc.focus==null?2:pc.focus,p=f.p;
+  return `<section class="pn"><h2>Status</h2><div class="cab${pts>0?' ptsb':''}" style="margin:0 0 8px"><div><b class="num">${pts}</b><small>Pontos de status</small></div><div><b class="num">${pc.lv}</b><small>Nível</small></div></div>
+  <p class="note" style="margin:0 0 6px">Cada ponto vale +1 no atributo (limite: seu potencial, ${Math.min(99,pc.cap)}). O atributo em foco no treino semanal também ganha progresso lento.</p>
+  ${ATL.map((l,i)=>`<div class="mrow${i===upI?' upfl':''}" style="grid-template-columns:34px minmax(0,1fr) auto"><span class="hx t${tier(pc.at[i])} sm">${pc.at[i]}</span><span class="who"><b>${l}${fo===i?' <span class="tag">foco</span>':''} <small style="opacity:.7">· peso ${Math.round(PCW[p.role][i]*100)}%</small></b><small>${ATD[i]}</small>${pcBar(pc.xp[i],70)}</span><button class="ghost" data-act="pcSpend" data-v="${i}"${pts>0&&pc.at[i]<Math.min(99,pc.cap)?'':' disabled'}>+1</button></div>`).join('')}</section>`;
+}
+function pcTreeBtnHTML(){
+  const tp=S.pc.tp||0;
+  return `<section class="pn"><div class="row" style="margin:0"><button class="${tp>0?'play':'ghost'}" data-act="pcTree">${pcTreeOpen?'Fechar árvore de habilidades':'Abrir árvore de habilidades'} · ${tp} ponto${tp===1?'':'s'}</button></div></section>`;
 }
 function pcTreeHTML(f){
-  const pc=S.pc,pts=pc.pts||0,fo=pc.focus==null?2:pc.focus,p=f.p;
-  let h=`<section class="pn"><h2>Árvore de habilidades</h2><div class="cab${pts>0?' ptsb':''}" style="margin:0 0 8px"><div><b class="num">${pts}</b><small>Pontos disponíveis</small></div><div><b class="num">${pc.lv}</b><small>Nível</small></div></div>
-  <div class="sub">Status</div><p class="note" style="margin:0 0 6px">Cada ponto vale +1 no atributo (limite: seu potencial, ${Math.min(99,pc.cap)}). O atributo em foco no treino semanal também ganha progresso lento.</p>
-  ${ATL.map((l,i)=>`<div class="mrow${i===upI?' upfl':''}" style="grid-template-columns:34px minmax(0,1fr) auto"><span class="hx t${tier(pc.at[i])} sm">${pc.at[i]}</span><span class="who"><b>${l}${fo===i?' <span class="tag">foco</span>':''} <small style="opacity:.7">· peso ${Math.round(PCW[p.role][i]*100)}%</small></b><small>${ATD[i]}</small>${pcBar(pc.xp[i],70)}</span><button class="ghost" data-act="pcSpend" data-v="${i}"${pts>0&&pc.at[i]<Math.min(99,pc.cap)?'':' disabled'}>+1</button></div>`).join('')}
-  <div class="sub" style="margin-top:12px">Características</div>`;
+  const pc=S.pc,tp=pc.tp||0;
+  let h=`<section class="pn"><h2>Árvore de habilidades</h2><div class="cab${tp>0?' ptsb':''}" style="margin:0 0 8px"><div><b class="num">${tp}</b><small>Pontos de habilidade</small></div><div><b class="num">${pc.lv}</b><small>Nível</small></div></div><p class="note" style="margin:0 0 6px">Estes pontos são separados dos pontos de status e só servem para características.</p>
+  <div class="sub" style="margin-top:4px">Características</div>`;
   Object.keys(PBR).forEach(br=>{
     h+=`<small class="k sqk">${PBR[br][0]} · ${PBR[br][1]}</small>`;
     PERKS.filter(x=>x[1]===br).forEach(x=>{
       const id=x[0],nm=x[2],ds=x[3],cost=x[4],lv=x[5],req=x[6];
-      const own=!!pc.perks[id],rq=req&&!pc.perks[req],lock=pc.lv<lv||rq,can=!own&&!lock&&pts>=cost;
+      const own=!!pc.perks[id],rq=req&&!pc.perks[req],lock=pc.lv<lv||rq,can=!own&&!lock&&tp>=cost;
       const why=own?'aprendida':pc.lv<lv?`nível ${lv}`:rq?`após ${PERKS.find(y=>y[0]===req)[2]}`:`${cost} ponto${cost>1?'s':''}`;
       h+=`<div class="mrow" style="grid-template-columns:minmax(0,1fr) auto;${own?'':lock?'opacity:.55':''}"><span class="who"><b${own?' style="color:#00F5A0"':''}>${own?'✓ ':''}${nm} <small style="opacity:.7">· custo ${cost}</small></b><small>${ds}</small></span><button class="ghost" data-act="pcLearn" data-v="${id}"${can?'':' disabled'}>${own?'ok':can?'Aprender':why}</button></div>`;
     });
@@ -5720,7 +5740,7 @@ function vPc(){
   <div class="cab"><div><b class="num">${pc.lv}</b><small>Nível</small></div><div><b class="num">${pc.fame}</b><small>Fama</small></div><div><b class="num" style="font-size:22px">${fmtM(pc.cash).replace('US$ ','')}</b><small>Patrimônio (US$)</small></div><div><b class="num" style="font-size:20px">${p.pot>=92?"Lendário":p.pot>=88?"Elite":p.pot>=84?"Alto":"Médio"}</b><small>Olheiros: potencial</small></div></div></section>`;
   /* evento */
   if(pc.ev){const e=PEV[pc.ev];h+=`<section class="pn"><h2>Evento</h2><p class="note" style="margin:0 0 10px">${esc(e.t)}</p><div class="row" style="margin:0">${e.o.map(([l,k])=>`<button class="ghost" data-act="pcEv" data-v="${k}">${l}</button>`).join('')}</div></section>`}
-  h+=pcLvHTML()+pcTrustHTML(f)+ptHTML()+pcTrainHTML(f)+pcTreeHTML(f);
+  h+=pcLvHTML()+pcTrustHTML(f)+ptHTML()+pcTrainHTML(f)+pcStatusHTML(f)+pcTreeBtnHTML()+(pcTreeOpen?pcTreeHTML(f):'');
   /* pool */
   const pl=CH[p.role].map(([c,a])=>({c,a,v:Math.round(mastOf(pc.n,c)*100),m:metaOf(c)}));
   h+=`<section class="pn"><h2>Pool de campeões</h2><p class="note" style="margin:0 0 8px">Todos os 8 campeões da função aparecem aqui. Cada treino de pool gasta ${pcPerk('e2')?20:30} de energia e dá +${pcPerk('e2')?6:4}% de domínio em um campeão. Quanto melhor sua pool no meta atual (${esc(metaName())}), mais forma você carrega.</p>${pl.map(x=>`<div class="pool"><span class="ct sm" style="--h:${hs(x.c)%360}"><b>${esc(chIni(x.c))}</b></span><span class="who"><b>${esc(x.c)}</b><small>${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}</small></span><b class="num">${x.v}</b><button class="ghost" data-act="pcPool" data-v="${esc(x.c)}"${pc.en<(pcPerk('e2')?20:30)||x.v>=100?' disabled':''}>${x.v>=100?'máx':'+'+(pcPerk('e2')?6:4)+'%'}</button></div>`).join('')}</section>`;
@@ -7009,6 +7029,10 @@ let metaR=0,metaC=null;
 function tierOf(v){return v>=.42?'S':v>=.25?'A':v<=-.42?'F':v<=-.25?'C':'B'}
 const TIERTX={S:'Prioridade máxima: vale treinar o domínio dos seus jogadores neste campeão.',A:'Forte no meta: escolha segura quando o jogador domina o campeão.',B:'Neutro: depende do domínio do jogador e da composição.',C:'Fraco no meta: só vale com muito domínio ou como counter.',F:'Evite: o meta atual pune quem escolhe este campeão.'};
 function vMeta(){
+  if(metaV==='it')return metaSwitch()+vItens();
+  return metaSwitch()+vMetaCh();
+}
+function vMetaCh(){
   const r=metaR,L=CH[r].map(([c,a])=>({c,a,v:metaOf(c)})).map(x=>Object.assign(x,{t:tierOf(x.v)})).sort((x,y)=>y.v-x.v||x.c.localeCompare(y.c));
   const good=L.filter(x=>x.t==='S'||x.t==='A'),bad=L.filter(x=>x.t==='F'||x.t==='C').sort((x,y)=>x.v-y.v);
   const sel=L.find(x=>x.c===metaC)||good[0]||L[0];
@@ -7025,6 +7049,52 @@ function vMeta(){
     <section class="mtc mtc2"><h3>Tier F e C <small>${RNF[r]}</small></h3>${bad.length?bad.map(x=>row(x,1)).join(''):'<p class="note">Nenhum campeão em baixa nesta rota.</p>'}</section>
   </div></div>`;
 }
+
+/* ---------- tela Itens (dentro da aba Meta): preço, receita, atributos e passivas do patch ---------- */
+let metaV='ch',itQ='',itC='legendary',itSel=null,itSort='p';
+const ITC=[['all','Todos'],['legendary','Lendários'],['epic','Épicos'],['component','Componentes'],['boots','Botas'],['starter','Iniciais'],['consumable','Consumíveis'],['trinket','Amuletos']];
+const ITF={ad:'Dano de ataque',ap:'Poder de habilidade',hp:'Vida',mana:'Mana',armor:'Armadura',mr:'Resistência mágica',ms:'Vel. de movimento',abilityHaste:'Aceleração de habilidade',lethality:'Letalidade',hpRegen5:'Regeneração de vida (5s)'};
+const ITP={as:'Vel. de ataque',ms:'Vel. de movimento'};
+const ITE={critDamage:'Dano crítico',lifesteal:'Roubo de vida',tenacity:'Tenacidade',healPower:'Poder de cura e escudo',slowResist:'Resist. a lentidão',magicPenFlat:'Penetração mágica (fixa)',armorPenPct:'Penetração de armadura',magicPenPct:'Penetração mágica',baseHpRegenPct:'Regeneração de vida base'};
+const itPct=v=>String(Math.round(v*1000)/10).replace('.',',')+'%';
+const itNum=v=>String(Math.round(v*100)/100).replace('.',',');
+function itStats(m){
+  const o=[];
+  Object.keys(ITF).forEach(k=>{if(m.flat[k])o.push([ITF[k],'+'+itNum(m.flat[k])])});
+  if(m.flat.crit)o.push(['Chance de crítico','+'+itPct(m.flat.crit)]);
+  Object.keys(ITP).forEach(k=>{if(m.pct[k])o.push([ITP[k],'+'+itPct(m.pct[k])])});
+  Object.keys(ITE).forEach(k=>{if(m.extra[k])o.push([ITE[k],'+'+(k==='magicPenFlat'?itNum(m.extra[k]):itPct(m.extra[k]))])});
+  return o;
+}
+function vItens(){
+  const B=typeof BrasEngine!=='undefined'&&BrasEngine.items;
+  if(!B)return `<section class="pn"><h2>Itens</h2><p class="note" style="margin:0">Os dados dos itens vêm do motor realista (motor.js), que não foi carregado.</p></section>`;
+  const nm=id=>{const x=B.find(i=>i.id===id);return x?x.n:'?'};
+  const sel=B.find(i=>i.id===itSel)||null;
+  const into=sel?B.filter(i=>i.f.includes(sel.id)):[];
+  let det='';
+  if(sel){
+    const st=itStats(sel.m);
+    det=`<section class="pn"><h2>${esc(sel.n)}</h2><div class="cab"><div><b class="num">${sel.p}</b><small>Ouro</small></div><div><b class="num">${sel.s}</b><small>Venda</small></div><div><b class="num" style="font-size:16px">${(ITC.find(c=>c[0]===sel.c)||[0,sel.c])[1]}</b><small>Classe</small></div></div>
+    ${st.length?`<div class="sub">Atributos</div>${st.map(([k,v])=>`<div class="kvr"><span>${k}</span><b class="num">${v}</b></div>`).join('')}`:''}
+    ${sel.d?`<div class="sub">Passivas e ativas</div><p class="note" style="margin:0 0 6px">${esc(sel.d)}</p><p class="note" style="margin:0"><b style="color:${sel.im?'#00F5A0':'#FF9AA8'}">${sel.im?'Passiva implementada no motor.':sel.pv?'Passiva ainda não implementada no motor (vale só os atributos).':''}</b></p>`:''}
+    ${sel.f.length?`<div class="sub">Receita</div>${sel.f.map(id=>`<button class="pill" data-act="itSel" data-v="${id}">${esc(nm(id))}</button>`).join('')}`:''}
+    ${into.length?`<div class="sub">Compõe</div>${into.slice(0,14).map(i=>`<button class="pill" data-act="itSel" data-v="${i.id}">${esc(i.n)}</button>`).join('')}`:''}</section>`;
+  }
+  return `<div class="mtx"><div class="mth"><div><small class="k">Patch ${esc(BrasEngine.patch||'')} · dados do cliente</small><h2>Itens <span>${B.length}</span></h2></div></div>
+  <section class="pn"><input class="itq" type="search" placeholder="Buscar item ou efeito" value="${esc(itQ)}" id="it-q" aria-label="Buscar item" style="width:100%;box-sizing:border-box;padding:10px 12px;margin:0 0 8px;border-radius:10px;border:1px solid rgba(130,150,255,.3);background:rgba(10,14,40,.7);color:inherit;font:inherit">
+  <div class="pills">${ITC.map(([k,l])=>`<button class="pill" aria-pressed="${itC===k}" data-act="itC" data-v="${k}">${l}</button>`).join('')}</div>
+  <div class="pills" style="margin-top:6px"><button class="pill" aria-pressed="${itSort==='p'}" data-act="itSort" data-v="p">Mais caros</button><button class="pill" aria-pressed="${itSort==='n'}" data-act="itSort" data-v="n">A–Z</button></div></section>
+  ${det}
+  <div id="it-list">${itListHTML()}</div></div>`;
+}
+function itListHTML(){
+  const B=BrasEngine.items,q=itQ.trim().toLowerCase();
+  let L=B.filter(i=>(itC==='all'||i.c===itC)&&(!q||i.n.toLowerCase().includes(q)||i.d.toLowerCase().includes(q)));
+  L=L.slice().sort(itSort==='n'?(a,b)=>a.n.localeCompare(b.n):(a,b)=>b.p-a.p||a.n.localeCompare(b.n));
+  return `<section class="pn"><h2>${L.length} ${L.length===1?'item':'itens'}</h2>${L.length?L.map(i=>{const st=itStats(i.m).slice(0,3).map(([k,v])=>v+' '+k).join(' · ');return `<button class="mtr${i.id===itSel?' on':''}" style="width:100%;text-align:left" data-act="itSel" data-v="${i.id}"><span><b>${esc(i.n)}${i.im?' <span class="tag">passiva ok</span>':''}</b><small>${esc(st||i.x||'—')}</small></span><em class="mtb" style="min-width:48px">${i.p}</em></button>`}).join(''):'<p class="note" style="margin:0">Nenhum item encontrado.</p>'}</section>`;
+}
+function metaSwitch(){return `<div class="pills" style="margin:0 0 10px"><button class="pill" aria-pressed="${metaV==='ch'}" data-act="metaV" data-v="ch">Campeões</button><button class="pill" aria-pressed="${metaV==='it'}" data-act="metaV" data-v="it">Itens</button></div>`}
 
 /* ---------- scrims sob pedido: outro clube pede ou você pede; jogadas como as partidas oficiais (draft e mapa ao vivo) ---------- */
 function sqS(){const se=S.season;if(!se.sq)se.sq={rq:[],ok:null,ask:-1,pd:-1,h:[]};const q=se.sq;if(!q.out)q.out=[];if(!q.rp)q.rp=[];return q}
@@ -7789,6 +7859,7 @@ function act(a,v){
   else if(a==='dvSel'){if(DV)DV.sel=DV.sel===v?null:v}
   else if(a==='dvFlt'){if(DV)DV.flt=v==='all'?'all':+v}
   else if(a==='dvOk'){if(DV&&DV.sel&&DV.i<SEQ.length&&SEQ[DV.i][1]===DV.us&&!dvTaken(DV.sel)){const c=DV.sel,r=CHD[c]?CHD[c].r:0,t=SEQ[DV.i];if(t[0]==='ban'){DV.bans[DV.us].push(c);DV.i++;DV.sel=null;dvAdv()}else if(!DV.pk[DV.us][r]&&!dvLk(c,DV.us)&&(!DV.pc||r===DV.prole)){DV.pk[DV.us][r]=c;DV.i++;DV.sel=null;dvAdv()}}}
+  else if(a==='metaV'){metaV=v}else if(a==='itSel'){itSel=+v}else if(a==='itC'){itC=v}else if(a==='itSort'){itSort=v}
   else if(a==='metaR'){metaR=+v;metaC=null}else if(a==='metaC'){metaC=v}
   else if(a==='sqAsk'){sqAsk(v);save()}else if(a==='sqAcc'){sqAcc(v);save()}else if(a==='sqDec'){sqDec(v);save()}else if(a==='sqCancel'){sqS().ok=null;save()}
   else if(a==='sqPlay'){if(sqStart(false))top=true;save()}else if(a==='sqSim'){sqStart(true);save()}
@@ -7851,6 +7922,7 @@ function act(a,v){
   else if(a==='pcCreate'){if(pcCreate(pcF)){pcF.name='';menuV='home';tab='pc';msg='Carreira criada. Boa sorte!';save();top=true}}
   else if(a==='pcPick'){if(pcAdopt(v)){menuV='home';tab='pc';msg='Você assumiu a carreira de '+v+'.';save();top=true}}
   else if(a==='pcPlan'){S.pc.plan=v;save()}
+  else if(a==='pcTree'){pcTreeOpen=!pcTreeOpen}
   else if(a==='pcLearn'){pcLearn(v);save()}
   else if(a==='ptPlay'){if(ptStart(false))top=true;save()}
   else if(a==='ptSim'){ptStart(true);save()}
@@ -7927,6 +7999,7 @@ document.addEventListener('input',e=>{
   else if(e.target.id==='pc-name'){pcF.name=e.target.value}
   else if(e.target.id==='pc-nat'){pcF.nat=e.target.value}
   else if(e.target.id==='pc-team'){pcF.team=e.target.value}
+  else if(e.target.id==='it-q'){itQ=e.target.value;const l=document.querySelector('#it-list');if(l)l.innerHTML=itListHTML()}
   else if(e.target.id==='pc-q'){pcQ=e.target.value;const l=document.querySelector('#pc-list');if(l)l.innerHTML=pcListHTML()}
   else if(e.target.id==='mgr-q'){mgrQ=e.target.value;const l=document.querySelector('#mlist');if(l)l.innerHTML=mlistHTML()}
   else if(e.target.id==='dv-q'){if(DV){DV.q=e.target.value;const g=document.querySelector('#dfgrid');if(g)g.innerHTML=dfGridHTML()}}

@@ -29,6 +29,11 @@ function build() {
   const data = {};
   ['champions.json', 'items.json', 'rules.json', 'monstros.json', 'minions.json', 'estruturas.json'].forEach(f => { data[f] = JSON.parse(fs.readFileSync(path.join(DATA, f), 'utf8')); });
   ids.forEach(id => { data['champions/' + id + '.json'] = JSON.parse(fs.readFileSync(path.join(DATA, 'champions', id + '.json'), 'utf8')); });
+  /* lista enxuta de itens para a tela Itens do jogo (preço, venda, receita, atributos e texto) */
+  const FXi = new Set(require(path.join(SRC, 'items', 'effects.js')).IMPLEMENTED);
+  const clean = h => (h || '').replace(/<stats>[\s\S]*?<\/stats>/gi, ' ').replace(/<br\s*\/?>/gi, ' ').replace(/<passive>([\s\S]*?)<\/passive>/gi, ' ◆ $1: ').replace(/<active>([\s\S]*?)<\/active>/gi, ' ◆ Ativa ($1): ').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+  const icat = require(path.join(SRC, 'items', 'catalog.js')).catalog(loader);
+  const itemsSlim = Object.values(icat).sort((x, y) => x.price - y.price || x.name.localeCompare(y.name)).map(i => ({ id: i.id, n: i.name, p: i.price, s: i.sell, f: i.from, c: i.cls, m: i.mods, x: i.simple || '', d: clean(i.text), pv: i.hasPassive, im: FXi.has(i.id) }));
   const out = [];
   out.push('/* GERADO por ferramentas/build_motor.js - nao edite. Motor realista do BrasLOL (patch ' + PATCH + '). */');
   out.push('(function(g){"use strict";');
@@ -41,7 +46,7 @@ function build() {
   });
   out.push('function load(k){if(CACHE[k])return CACHE[k].exports;var d=DEF[k],m={exports:{}};CACHE[k]=m;d.fn(m,m.exports,function(r){if(r==="fs")return FS;if(r==="path")return PATH;return load(d.deps[r])},"/data/' + PATCH + '/x");return m.exports}');
   out.push('var M=load(' + JSON.stringify(entry) + ');');
-  out.push('g.BrasEngine={Adapter:load(' + JSON.stringify(entryA) + '),patch:' + JSON.stringify(PATCH) + ',M:M,LAY:load("src/engine/map/layout.js"),kits:' + JSON.stringify(kitNames) + ',ids:' + JSON.stringify(ids) + '};');
+  out.push('g.BrasEngine={Adapter:load(' + JSON.stringify(entryA) + '),patch:' + JSON.stringify(PATCH) + ',M:M,LAY:load("src/engine/map/layout.js"),kits:' + JSON.stringify(kitNames) + ',ids:' + JSON.stringify(ids) + ',items:' + JSON.stringify(itemsSlim) + '};');
   out.push('})(typeof window!=="undefined"?window:globalThis);');
   return out.join('\n');
 }

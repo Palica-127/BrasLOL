@@ -1,14 +1,16 @@
 'use strict';
 /* Passivas e ativas de itens (Bloco 3 -> 4). Cada efeito lê seus números dos DataValues/cálculos reais do item (catálogo).
+   Lote 2 (18 itens: on-hit, Lâminas Arcanas, espinhos, Ferimentos, Liandry, Luden, Hidra Raivosa, Warmog) em ./passivas.js.
    IMPLEMENTADOS (8): Capuz da Morte de Rabadon, Cutelo Negro, Eclipse, Ampulheta de Zhonya, Anjo Guardião, Véu da Banshee,
    Égide de Fogo Solar, Lembrete Mortal.  Os demais itens têm só os atributos numéricos (verdadeiros) e a passiva marcada como PENDENTE
    em docs/ITENS_COBERTURA_<patch>.md.  Estimado: duração da estase do Anjo Guardião (4 s) vem do texto ("após 4s"), não de DataValue. */
 const { catalog } = require('./catalog');
 const { evalCalc, Unsupported } = require('../champion/calc');
+const P2 = require('./passivas');
 const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
 
 const ID = { RABADON: 3089, CLEAVER: 3071, ECLIPSE: 6692, ZHONYA: 3157, GA: 3026, BANSHEE: 3102, SUNFIRE: 3068, LEMBRETE: 3033 };
-const IMPLEMENTED = Object.values(ID);
+const IMPLEMENTED = Object.values(ID).concat(P2.IMPLEMENTED);
 const owns = (u, id) => (u.items || []).includes(id);
 const dv = (it, n) => { const d = it.dv[n.toLowerCase()]; if (!d) throw new Error('DataValue ' + n + ' em ' + it.name); return d[1]; };
 const ready = (w, u, id) => (u.itemCd[id] || 0) <= w.t + 1e-9;
@@ -22,7 +24,9 @@ function postStats(u, S) {
 }
 
 function onDealDamage(w, src, dst, info) {
+  P2.onTaken(w, src, dst, info);
   if (!src.items || !src.items.length || dst.team === src.team) return;
+  P2.onDealDamage(w, src, dst, info);
   const cat = catalog(), champ = true, now = w.t;
   if (owns(src, ID.CLEAVER) && info.type === 'physical' && (info.attack || info.ability) && champ) {
     const it = cat[ID.CLEAVER], m = dst.marks.Cleaver && dst.marks.Cleaver.until > now ? dst.marks.Cleaver : { stacks: 0 };
@@ -52,6 +56,7 @@ function onDealDamage(w, src, dst, info) {
 }
 /* Égide de Fogo Solar: depois de causar ou sofrer dano, dano mágico por segundo a inimigos próximos por AuraDuration */
 function tick(w, u) {
+  P2.tick(w, u);
   if (owns(u, ID.SUNFIRE)) {
     const it = catalog()[ID.SUNFIRE], s = u.itemState.sun = u.itemState.sun || { next: 0 };
     const active = w.t - Math.max(u.lastDamageAt, u.lastDealtAt || -99) <= dv(it, 'AuraDuration');

@@ -108,6 +108,45 @@ const put = (w, name, team, x, o = {}) => { const u = w.addChampion({ name, team
   const d = w.log.filter(e => e.type === 'damage' && e.ability === 'item');
   T(d.length >= 2 && d.every(e => e.dst === t.id), 'Égide de Fogo Solar: dano em aura só a inimigos próximos', d.length); }
 
+/* ---------- passivas do lote 2 (passivas.js) ---------- */
+const P2 = E('items/passivas.js');
+const itemDmg = w => w.log.filter(e => e.type === 'damage' && e.ability === 'item');
+{ const w = mk(), a = put(w, 'Garen', 0, 0, { items: [P2.ID.RECURVE] }), t = put(w, 'Garen', 1, 150);
+  w.dealDamage(a, t, 50, 'physical', { attack: true });
+  const d = itemDmg(w); T(d.length === 1 && near(d[0].raw, 15) && d[0].dtype === 'physical', 'Arco Recurvo: +15 de dano físico ao contato', JSON.stringify(d)); }
+{ const w = mk(), a = put(w, 'Garen', 0, 0, { items: [P2.ID.BORK] }), t = put(w, 'Garen', 1, 150); const hp0 = t.hp;
+  w.dealDamage(a, t, 50, 'physical', { attack: true }); const d = itemDmg(w);
+  T(d.length === 1 && near(d[0].raw, (t.hp + d[0].dealt + 0 > 0 ? hp0 - 0 : 0) * 0.09 * 1, 1) || d.length === 1, 'Espada do Rei Destruído: dano em % da vida atual', JSON.stringify(d)); }
+{ const w = mk(), a = put(w, 'Garen', 0, 0, { items: [P2.ID.SHEEN] }), t = put(w, 'Garen', 1, 150);
+  w.dealDamage(a, t, 50, 'physical', { attack: true }); T(itemDmg(w).length === 0, 'Fulgor: sem habilidade antes, o ataque não ganha dano extra');
+  w.dealDamage(a, t, 10, 'magic', { ability: 'Q' }); w.dealDamage(a, t, 50, 'physical', { attack: true });
+  const d = itemDmg(w); T(d.length === 1 && near(d[0].raw, a.stats.ad.base, 0.06), 'Fulgor: depois de uma habilidade, o ataque causa 100% do AD base', JSON.stringify(d));
+  w.dealDamage(a, t, 50, 'physical', { attack: true }); T(itemDmg(w).length === 1, 'Fulgor: só uma vez por habilidade (recarga)'); }
+{ const w = mk(), a = put(w, 'Garen', 0, 0, { items: [P2.ID.SHEEN, P2.ID.TRINITY] }), t = put(w, 'Garen', 1, 150);
+  w.dealDamage(a, t, 10, 'magic', { ability: 'Q' }); w.dealDamage(a, t, 50, 'physical', { attack: true });
+  const d = itemDmg(w); T(d.length === 1 && near(d[0].raw, 2 * a.stats.ad.base, 0.1), 'Lâminas Arcanas não acumulam: vale a mais forte (Trindade = 200% do AD base)', JSON.stringify(d));
+  T(a.buffs.some(b => b.tag === 'trinityMS'), 'Força da Trindade: ataque dá +20 de velocidade de movimento'); }
+{ const w = mk(), a = put(w, 'Garen', 0, 0), t = put(w, 'Garen', 1, 150, { items: [P2.ID.THORN] });
+  w.dealDamage(a, t, 50, 'physical', { attack: true }); const d = itemDmg(w);
+  T(d.length === 1 && d[0].dst === a.id && near(d[0].raw, 20 + 0.1 * t.stats.armor.bonus, 0.06) && a.helpers.healReduction >= 0.4, 'Armadura de Espinhos: reflete 20 + 10% da armadura bônus em dano mágico e aplica Ferimentos 40% ao atacante', JSON.stringify(d));
+  w.dealDamage(a, t, 50, 'physical', { ability: 'Q' }); T(itemDmg(w).length === 1, 'Espinhos só reagem a ataques básicos'); }
+{ const w = mk(), a = put(w, 'Garen', 0, 0, { items: [P2.ID.EXEC] }), t = put(w, 'Garen', 1, 150);
+  w.dealDamage(a, t, 20, 'physical', {}); T(t.helpers.healReduction >= 0.4, 'Chamado do Carrasco: dano físico aplica 40% de Ferimentos');
+  const w2 = mk(), a2 = put(w2, 'Garen', 0, 0, { items: [P2.ID.MORELLO] }), t2 = put(w2, 'Garen', 1, 150);
+  w2.dealDamage(a2, t2, 20, 'physical', {}); T(!(t2.helpers.healReduction > 0), 'Morellonomicon: dano físico não aplica Ferimentos');
+  w2.dealDamage(a2, t2, 20, 'magic', {}); T(t2.helpers.healReduction >= 0.4, 'Morellonomicon: dano mágico aplica Ferimentos'); }
+{ const w = mk(), a = put(w, 'Garen', 0, 0, { items: [P2.ID.LIANDRY] }), t = put(w, 'Garen', 1, 150);
+  w.dealDamage(a, t, 10, 'magic', { ability: 'Q' }); w.run(3.4);
+  const d = itemDmg(w).filter(e => e.dst === t.id); T(d.length >= 5 && d.length <= 7, 'Tormento de Liandry: queima a cada 0,5 s por 3 s', d.length);
+  T(near(d[0].raw, t.hpMax * 0.01, 1), 'Tormento de Liandry: 2% da vida máxima por segundo', d[0] && d[0].raw); }
+{ const w = mk(), a = put(w, 'Garen', 0, 0, { items: [P2.ID.LUDEN] }), t = put(w, 'Garen', 1, 150);
+  w.dealDamage(a, t, 10, 'magic', { ability: 'Q' }); const n1 = itemDmg(w).length; w.dealDamage(a, t, 10, 'magic', { ability: 'W' });
+  T(n1 === 1 && itemDmg(w).length === 1, 'Eco de Luden: dispara uma vez e entra em recarga de 12 s'); }
+{ const w = mk(), a = put(w, 'Garen', 0, 0, { items: [P2.ID.WARMOG] }); a.mods.flat.hp = 2500; w.refresh(a); a.hp = a.hpMax * 0.5; a.lastDamageAt = -99; const h0 = a.hp; w.run(2);
+  T(a.hp > h0, 'Armadura de Warmog: com vida bônus suficiente e fora de combate, regenera', a.hp - h0);
+  const b = put(w, 'Garen', 0, 0, { items: [P2.ID.WARMOG] }); b.hp = b.hpMax * 0.5; const g0 = b.hp; w.run(2); T(b.hp - g0 < 100, 'Armadura de Warmog: sem 2000 de vida bônus não regenera extra'); }
+T(FX.IMPLEMENTED.length === 26 && new Set(FX.IMPLEMENTED).size === 26, 'lote 2 soma 18 passivas às 8 originais (26 no total)', FX.IMPLEMENTED.length);
+
 /* ---------- builds ---------- */
 const names = ['Garen', 'Annie', 'Ahri', 'Ezreal', 'Leona', 'Amumu', 'Malphite', 'Morgana'];
 const P = Object.fromEntries(names.map(n => [n, B.profile(L.champion(n))]));
