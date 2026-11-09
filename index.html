@@ -1372,6 +1372,86 @@ body:has(.dvx.bcx){overflow:hidden}
   .bcfeed .bcf:nth-child(n+5){display:none}
   .bcside{gap:4px;padding:6px}.bcside .ghost{padding:5px 8px;font-size:12px}
 }
+
+/* =====================================================================
+   TEMA v3 — visual de gerenciador de esports: compacto, limpo, com cor
+   (camada final: sobrescreve as anteriores; a tela ao vivo tem tema próprio)
+   ===================================================================== */
+:root{--k1:#29d9e6;--k2:#5b8cff;--k3:#f2c14e;--k4:#ff5c8a;--k5:#57e38f;--g1:rgba(13,19,41,.78);--g2:rgba(8,12,28,.82);--gl:rgba(255,255,255,.075);--tx:#e9eefc;--tm:#8d9cc6}
+html{background:#060914}
+html,body{background:#060914}body{background:transparent!important;color:var(--tx);position:relative;min-height:100vh}
+/* fundo: arte de campeões nas laterais, brilhos de cor e grade sutil */
+body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(900px 520px at 12% -8%,rgba(41,217,230,.20),transparent 62%),
+    radial-gradient(900px 560px at 100% 4%,rgba(255,92,138,.17),transparent 62%),
+    radial-gradient(1000px 640px at 50% 118%,rgba(91,140,255,.20),transparent 62%),
+    linear-gradient(180deg,#0a1024,#060914 70%)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+  background:var(--artL,none) left center/auto 112% no-repeat,var(--artR,none) right center/auto 112% no-repeat;
+  -webkit-mask-image:linear-gradient(90deg,#000 0,rgba(0,0,0,.55) 14%,transparent 34%,transparent 66%,rgba(0,0,0,.55) 86%,#000 100%);
+  mask-image:linear-gradient(90deg,#000 0,rgba(0,0,0,.55) 14%,transparent 34%,transparent 66%,rgba(0,0,0,.55) 86%,#000 100%);
+  filter:blur(1.5px) saturate(1.15) brightness(.85)}
+.wrap{max-width:1560px;padding-left:14px;padding-right:14px}
+
+/* cabeçalho compacto */
+.hud{margin-bottom:8px;padding:2px 2px 0}
+.hud .logo svg{width:22px;height:22px;color:var(--k3)}
+.hud .eyebrow{display:none}.hud h1{font-size:19px;letter-spacing:.14em;margin:0}
+.hud .season{display:flex;align-items:baseline;gap:8px;background:var(--g2);border:1px solid var(--gl);border-radius:999px;padding:3px 12px}
+.hud .season small{font-size:9.5px;letter-spacing:.16em;color:var(--tm)}.hud .season b{font-size:15px;color:var(--k3)}
+
+/* painéis em vidro, com faixa de cor no topo */
+.pn,.db,.tile,.mc2,.bm2,.bids,.dvpool,.more2,.mgh,.shh{border-radius:12px;background:linear-gradient(180deg,var(--g1),var(--g2));border:1px solid var(--gl);box-shadow:0 10px 28px rgba(0,0,10,.35);backdrop-filter:blur(8px)}
+.pn,.db{--pc:var(--k1);position:relative;padding:11px 14px 12px;margin-bottom:10px;border-top:2px solid var(--pc)}
+.pn:nth-of-type(4n+2),.db:nth-of-type(4n+2){--pc:var(--k3)}.pn:nth-of-type(4n+3),.db:nth-of-type(4n+3){--pc:var(--k4)}.pn:nth-of-type(4n+4),.db:nth-of-type(4n+4){--pc:var(--k5)}
+.pn::before,.pn::after{display:none}
+.pn>h2,.db .dbh h2,.dbh>b,.dbh>h2{font:700 12px/1 var(--d);letter-spacing:.16em;text-transform:uppercase;color:#cfdaf6;font-style:normal;padding-left:0}
+.pn>h2::before{display:none}
+.pn>h2,.dbh{display:flex;align-items:center;gap:8px;padding:0 0 9px;margin:0 0 10px;border-bottom:1px solid var(--gl)}
+.pn>h2::after{content:"";width:7px;height:7px;border-radius:50%;background:var(--pc);box-shadow:0 0 10px var(--pc);order:-1}
+.dbh small,.pn .sub,.note{color:var(--tm)}
+
+/* botões */
+.play,.ghost,.pill,button.ghost{border-radius:9px}
+.play{background:linear-gradient(100deg,var(--k1),var(--k2));color:#04101e;font-style:normal;min-height:44px;font-size:16px;letter-spacing:.14em;box-shadow:0 6px 20px rgba(41,217,230,.28)}
+.play:hover{filter:brightness(1.08)}
+.ghost{min-height:36px;padding:7px 12px;font-size:13px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.14)}.ghost:hover{border-color:var(--k1);color:#fff}
+.pill{min-height:30px;padding:4px 12px;font-size:12.5px;font-style:normal;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12)}
+.pill[aria-pressed="true"]{background:linear-gradient(100deg,var(--k1),var(--k2));color:#04101e;border-color:transparent}
+
+/* menu lateral (desktop): trilho com ícones */
+@media (min-width:1000px){
+  body{padding-left:84px!important;padding-top:10px!important}
+  .nav{position:fixed;left:0;top:0;bottom:0;right:auto;width:84px!important;height:auto!important;display:flex!important;flex-direction:column;justify-content:flex-start;align-items:stretch!important;gap:4px;padding:14px 8px!important;border:0;border-right:1px solid var(--gl);background:linear-gradient(180deg,rgba(14,20,44,.96),rgba(7,10,24,.98));backdrop-filter:blur(10px);z-index:30}
+  .nav::before{content:"";display:block;width:44px;height:44px;margin:0 auto 12px;border-radius:12px;background:var(--logo,none) center/cover,linear-gradient(135deg,var(--k1),var(--k2));box-shadow:0 6px 18px rgba(41,217,230,.35)}
+  .nb{flex:none!important;width:100%;min-height:62px;padding:9px 2px 7px;border-radius:12px;gap:5px!important;justify-content:center;color:var(--tm);font-size:10px;letter-spacing:.12em;position:relative;transition:background .18s,color .18s}
+  .nb{flex-direction:column!important;padding:9px 2px 7px!important}.nb svg{display:block!important;width:23px;height:23px}
+  .nb:hover{background:rgba(255,255,255,.06);color:#fff}
+  .nb[aria-selected="true"]{background:linear-gradient(180deg,rgba(41,217,230,.18),rgba(91,140,255,.10));color:#fff;box-shadow:inset 0 0 0 1px rgba(41,217,230,.35)}
+  .nb[aria-selected="true"] svg{color:var(--k1);filter:drop-shadow(0 0 7px rgba(41,217,230,.7))}
+  .nb[aria-selected="true"]::before{top:18%;bottom:18%;left:-8px;right:auto;width:3px;height:auto;border-radius:0 3px 3px 0;background:var(--k1);box-shadow:0 0 10px var(--k1)}
+  .nb:last-child{margin-top:auto}
+}
+
+/* abas internas (Gestão etc.) */
+.mgh{padding:12px 16px}
+.mgv .pills,.pills{gap:4px}
+
+.play,.pn .play,.db .play,.dbb .play,button.play{background:linear-gradient(100deg,var(--k1),var(--k2))!important;color:#04101e!important;border-radius:9px!important}
+.dbb .ghost{color:#dfe8ff}
+
+@media (min-width:1000px){.nb::after,.nb[aria-selected="true"]::after{display:none!important}.hud .logo svg{display:none}.hud .logo h1{font-size:15px;color:var(--tm);letter-spacing:.3em}}
+
+/* listas de elencos: dois times por linha em telas largas */
+@media (min-width:1300px){#app.wrap:has(.fgrid){grid-template-columns:repeat(2,minmax(0,1fr))!important}#app.wrap:has(.fgrid) .pn:has(.fgrid){grid-column:auto}#app.wrap:has(.fgrid)>:not(.pn){grid-column:1/-1}}
+
+/* probabilidades: azul (mandante/esquerda) x rosa (direita) */
+.od{height:6px;border-radius:99px;overflow:hidden;background:rgba(255,255,255,.07)}.od i{background:linear-gradient(90deg,#4d8dff,#29d9e6)!important}.od i.o2{background:linear-gradient(90deg,#ff5c8a,#f2c14e)!important}
+.ol b:first-child{color:#8fbaff}.ol b:last-child{color:#ff9db8}
+.ob{height:7px;border-radius:99px;overflow:hidden;background:linear-gradient(90deg,rgba(255,92,138,.85),rgba(242,193,78,.85))}.ob i{background:linear-gradient(90deg,#4d8dff,#29d9e6)!important;box-shadow:0 0 12px rgba(41,217,230,.5)}
+.odds>div:first-child span:first-child{color:#8fbaff;font-weight:800}.odds>div:first-child span:last-child{color:#ff9db8;font-weight:800}
+.m{border-radius:10px;background:rgba(255,255,255,.035);border:1px solid var(--gl);padding:9px 12px 7px;margin-bottom:7px}.m.mine{border-color:rgba(41,217,230,.55);box-shadow:0 0 0 1px rgba(41,217,230,.25),0 0 20px rgba(41,217,230,.12)}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -7216,7 +7296,10 @@ function vSet(){
   ${askReset?`<div class="row" style="margin:0"><button class="ghost danger" data-act="resetOk">Confirmar e apagar tudo</button><button class="ghost" data-act="resetNo">Cancelar</button></div>`:`<button class="ghost" data-act="reset">Reiniciar simulador</button>`}</div>`:''}</section>`;
 }
 
+const BGART=['Ahri','Jinx','LeeSin','Yasuo','Viego','Azir','Zed','Ezreal','Kaisa','Sylas','Akali','Lux','Ryze','Thresh','Orianna','Vi','Ekko','Jhin','Aurora','Varus','Kalista','Ambessa'];
+let BGSET=false;function bgArt(){if(BGSET||typeof document==='undefined'||!document.documentElement||!document.documentElement.style)return;BGSET=true;try{const a=BGART[Math.floor(Math.random()*BGART.length)];let b=BGART[Math.floor(Math.random()*BGART.length)];if(b===a)b=BGART[(BGART.indexOf(a)+7)%BGART.length];const st=document.documentElement.style;st.setProperty('--artL',`url(champs/arte/${a}.webp)`);st.setProperty('--artR',`url(champs/arte/${b}.webp)`);st.setProperty('--logo','url(logo.webp)')}catch(e){}}
 function render(){
+  bgArt();
   fixNat();
   try{document.body.classList.toggle('ttlon',!!TITLE)}catch(e){}
   if(TITLE){const a=document.querySelector('#app');a.className='';a.innerHTML=DEFS+titleHTML();return}
