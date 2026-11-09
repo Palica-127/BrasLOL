@@ -102,7 +102,7 @@ class World {
   msOf(u) {
     const slows = u.st.filter(s => s.kind === 'slow').map(s => s.amount);
     let ms = u.stats.ms.total * (1 - D.stackSlows(slows) * (1 - (u.helpers.slowResist || 0)));
-    ms *= 1 + (u.helpers.oocMsNow || 0) + (u.helpers.soulMs || 0);
+    ms *= 1 + (u.helpers.oocMsNow || 0) + (u.helpers.soulMs || 0) + (u.helpers.zoneMs || 0);
     if (this.has(u, 'root')) ms = 0;
     return Math.max(0, ms);
   }
@@ -1054,7 +1054,7 @@ function postStats(w, u, S) {
   const J = w.jungle; if (!J || u.kind === 'minion' || u.kind === 'monster') return S;
   const tm = u.team, n = k => count(J, tm, k), h = u.helpers;
   h.oocMs = 0.05 * n(K.AIR); h.slowResist = (h.slowResist || 0) + 0.05 * n(K.AIR); h.oceanPct = 0.02 * n(K.WATER);
-  h.itemTenacity = Math.max(h.itemTenacity || 0, 0.06 * n(K.CHEM)); h.healPower = (h.healPower || 0) + 0.06 * n(K.CHEM);
+  const ch = n(K.CHEM); if (ch) { S.abilityHaste += 5 * ch; const f = 0.02 * ch; S.ad.bonus += S.ad.total * f; S.ad.total += S.ad.total * f; S.ap.bonus += S.ap.total * f; S.ap.total += S.ap.total * f; }   /* especificação: Aceleração de Habilidade e AD/AP adicionais */
   const inf = 0.03 * n(K.FIRE); if (inf) { S.ad.bonus += S.ad.total * inf; S.ad.total += S.ad.total * inf; S.ap.bonus += S.ap.total * inf; S.ap.total += S.ap.total * inf; }
   const mt = 0.05 * n(K.EARTH); if (mt) { S.armor.bonus += S.armor.total * mt; S.armor.total *= 1 + mt; S.mr.bonus += S.mr.total * mt; S.mr.total *= 1 + mt; }
   const hx = n(K.HEX); if (hx) { S.abilityHaste += 5 * hx; S.as.bonus += 0.05 * hx; S.as.total = Math.min(2.5, S.as.base + S.as.ratio * S.as.bonus); }
@@ -2077,8 +2077,12 @@ const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
 
 const T = {                                                    /* Wiki */
   camps: { blue: [55, 300], red: [55, 300], gromp: [67, 135], wolves: [55, 135], raptors: [55, 135], krugs: [67, 135] },
-  scuttle: [175, 150], grubs: { spawn: 480, despawn: 885 }, herald: { spawn: 900, despawn: 1185 }, baron: { spawn: 1200, respawn: 360 }, drake: { spawn: 300, respawn: 300 }, elder: { respawn: 360 }
+  scuttle: [175, 150], grubs: { spawn: 480, despawn: 885 }, herald: { spawn: 900, despawn: 1185 }, baron: { spawn: 1200, respawn: 360 }, drake: { spawn: 300, respawn: 300 }, elder: { respawn: 300 }
 };
+/* Dragões (especificação do projeto): o 1º nasce aos 5:00 e cada um renasce 5 min depois de abatido; os 2 primeiros são aleatórios, o 3º define o ELEMENTO DO MAPA
+   (os seguintes e a Alma seguem esse elemento); com a Alma, os elementais param e o Ancião passa a nascer a cada 5 min. Efeitos de terreno ESTIMADOS: Nuvem = zonas de
+   velocidade no rio e nos covis; Oceano = Frutas-Mel de cura no rio. Infernal/Montanha/Hextec/Quimtec alteram paredes e portais: PENDENTE (precisa da malha de navegação). */
+const RIFT_FX = { cloudMs: 0.1, cloudR: 750, fruitHeal: [120, 0.15], fruitCd: 150, fruitR: 140 };
 const DRAKES = ['sru_dragon_fire', 'sru_dragon_water', 'sru_dragon_earth', 'sru_dragon_air', 'sru_dragon_hextech', 'sru_dragon_chemtech'];
 const SMITE = { dmg: 600, cd: 15, range: 500, level: 3, firstExtra: 48, every: 90, max: 2 };            /* Wiki */
 const BARON = { buff: 180, globalGold: 150, killGold: 100, globalXp: 650 }, ELDER = { buff: 150, globalGold: 150, globalXp: 650 };
@@ -2113,7 +2117,7 @@ const hunterDone = u => !isHunter(u) || (u.jgStacks || 0) >= JUNGLE_RULE.itemSta
 class Jungle {
   constructor(w, opts = {}) {
     this.w = w; this.layout = opts.layout || LAYOUT; this.camps = []; this.epics = {}; this.stacks = [[], []]; this.soul = [null, null]; this.rift = null; this.drakeN = 0; this.elderNext = false;
-    this.aspect = [null, null]; this.hob = [null, null]; this.log = [];
+    this.aspect = [null, null]; this.hob = [null, null]; this.log = []; this.riftOn = false; this.fruits = null;
     Object.keys(T.camps).forEach(k => [0, 1].forEach(side => this.addCamp(k, side, T.camps[k][0], T.camps[k][1])));
     LAYOUT.crab.forEach((p, i) => this.addCamp('crab' + i, null, T.scuttle[0], T.scuttle[1], ['sru_crab'], p));
     w.schedule(T.grubs.spawn, () => this.spawnGrubs()); w.schedule(T.grubs.despawn, () => this.despawn('grubs'));
@@ -2229,6 +2233,7 @@ class Jungle {
         this.aspect[team] = w.t + ELDER.buff; w.emit('elder-kill', { team }); this.elderNext = true; w.schedule(w.t + T.elder.respawn, () => this.spawnDrake()); return;
       }
       this.drakeN++; const st = this.stacks[team]; st.push(m.name);
+      if (this.drakeN === 3 && this.rift && !this.riftOn) this.transformMap();
       w.emit('drake-kill', { team, mkey: m.name, stacks: st.length });
       if (st.length === 4 && !this.soul[team]) { this.soul[team] = this.rift || m.name; this.elderNext = true; w.emit('soul', { team, mkey: this.soul[team] }); w.schedule(w.t + T.elder.respawn, () => this.spawnDrake()); }
       else w.schedule(w.t + T.drake.respawn, () => this.spawnDrake());
@@ -2236,6 +2241,16 @@ class Jungle {
     }
   }
 
+  /* o 3º dragão abatido transforma o mapa no elemento dele */
+  transformMap() {
+    const w = this.w, L = this.layout; this.riftOn = true; w.emit('rift', { mkey: this.rift });
+    if (this.rift === 'sru_dragon_water') this.fruits = [...L.crab, { x: (L.crab[0].x + L.drake.x) / 2, y: (L.crab[0].y + L.drake.y) / 2 }, { x: (L.crab[1].x + L.grubs.x) / 2, y: (L.crab[1].y + L.grubs.y) / 2 }].map(p => ({ x: p.x, y: p.y, ready: 0 }));
+  }
+  mapFx(u) {
+    if (!this.riftOn || this.rift !== 'sru_dragon_air') return 0;
+    const L = this.layout, pts = [...L.crab, L.drake, L.baron];
+    return pts.some(p => dist(u.pos, p) <= RIFT_FX.cloudR) ? RIFT_FX.cloudMs : 0;
+  }
   /* ---------- Golpear ---------- */
   smiteInit(u) { u.smite = { charges: 1, cdUntil: 0, nextCharge: SMITE.firstExtra }; }
   smiteUpdate(u) {
@@ -2252,10 +2267,17 @@ class Jungle {
     w.dealDamage(u, target, SMITE.dmg, 'true', { ability: 'smite', smite: true });
     return true;
   }
-  update() { this.w.units.forEach(u => { if (u.smite) this.smiteUpdate(u); }); }
+  update() {
+    const w = this.w, fr = this.riftOn && this.rift === 'sru_dragon_air';
+    w.units.forEach(u => {
+      if (u.smite) this.smiteUpdate(u);
+      if (u.kind !== 'minion' && u.kind !== 'monster' && u.helpers) u.helpers.zoneMs = fr ? this.mapFx(u) : 0;
+    });
+    if (this.fruits) this.fruits.forEach(f => { if (w.t < f.ready) return; const u = w.units.find(x => x.kind !== 'minion' && x.kind !== 'monster' && !x.dead && x.hp < x.hpMax && dist(x.pos, f) <= RIFT_FX.fruitR); if (u) { f.ready = w.t + RIFT_FX.fruitCd; w.heal(u, RIFT_FX.fruitHeal[0] + RIFT_FX.fruitHeal[1] * (u.hpMax - u.hp), u); w.emit('fruit', { id: u.id }); } });
+  }
 }
 function enable(w, opts) { w.jungle = new Jungle(w, opts); return w.jungle; }
-module.exports = { enable, Jungle, T, SMITE, BARON, ELDER, DRAKES, COMPOSITION, LAYOUT, CAMP_REWARD, CAMP_TREE, JUNGLE_RULE, hunterDone };
+module.exports = { enable, Jungle, RIFT_FX, T, SMITE, BARON, ELDER, DRAKES, COMPOSITION, LAYOUT, CAMP_REWARD, CAMP_TREE, JUNGLE_RULE, hunterDone };
 
 }};
 DEF["src/engine/map/structures.js"]={deps:{"./layout":"src/engine/map/layout.js"},fn:function(module,exports,require,__dirname){'use strict';
@@ -3293,6 +3315,7 @@ function create(opts) {
         break;
       }
       case 'drake-kill': say(e.t, `${tnm(e.team)} abate o Dragão ${DRAKE_PT[DRAKE[e.mkey]] || ''}.`, 'obj', e.team); break;
+      case 'rift': say(e.t, `O mapa se transforma: Terras ${({ sru_dragon_fire: 'Infernais', sru_dragon_earth: 'das Montanhas', sru_dragon_water: 'dos Oceanos', sru_dragon_air: 'das Nuvens', sru_dragon_hextech: 'Hextec', sru_dragon_chemtech: 'Quimtec' })[e.mkey] || ''}.`, 'sys'); break;
       case 'soul': say(e.t, `${tnm(e.team)} conquista a Alma do Dragão!`, 'obj', e.team); break;
       case 'elder-kill': say(e.t, `${tnm(e.team)} abate o Dragão Ancião!`, 'obj', e.team); break;
       case 'baron-kill': say(e.t, `${tnm(e.team)} abate o Barão Nashor!`, 'obj', e.team); break;
@@ -3348,7 +3371,7 @@ function snapshot(S) {
   const cnt = (type, ti) => S.cnt[type + ti] || 0;
   const obj = [0, 1].map(ti => ({ drakes: drakes[ti], grubs: (jg.stacks[ti] && jg.stacks[ti].grubs) || 0, herald: cnt('herald-kill', ti), baron: cnt('baron-kill', ti), elder: cnt('elder-kill', ti), soul: jg.soul[ti] ? 1 : 0 }));
   const team = ti => { const pl = players[ti]; return { k: pl.reduce((a, p) => a + p.k, 0), d: pl.reduce((a, p) => a + p.d, 0), gold: pl.reduce((a, p) => a + p.gold, 0), towers: 11 - (str[ti].top.concat(str[ti].mid, str[ti].bot, str[ti].nx).reduce((a, b) => a + b, 0)) }; };
-  return { t: w.t, winner: S.over ? S.over.winner : null, players, str, hpS, mons, obj, teams: [team(0), team(1)], buff: { baron: jg.hob.map(x => (x ? Math.max(0, x - w.t) : 0)), elder: jg.aspect.map(x => (x ? Math.max(0, x - w.t) : 0)) }, drakeSpawned: !!jg.epics.drake, baronUp: !!(jg.epics.baron && jg.epics.baron.some(m => !m.dead)) };
+  return { t: w.t, winner: S.over ? S.over.winner : null, players, str, hpS, mons, obj, teams: [team(0), team(1)], buff: { baron: jg.hob.map(x => (x ? Math.max(0, x - w.t) : 0)), elder: jg.aspect.map(x => (x ? Math.max(0, x - w.t) : 0)) }, rift: jg.riftOn ? jg.rift : null, drakeSpawned: !!jg.epics.drake, baronUp: !!(jg.epics.baron && jg.epics.baron.some(m => !m.dead)) };
 }
 
 module.exports = { create, advance, snapshot, setStyle, drainLog, supported, hasKit, lvPos, ROLES, DEFAULT_CHAMP, DRAKE };

@@ -74,7 +74,7 @@ class World {
   msOf(u) {
     const slows = u.st.filter(s => s.kind === 'slow').map(s => s.amount);
     let ms = u.stats.ms.total * (1 - D.stackSlows(slows) * (1 - (u.helpers.slowResist || 0)));
-    ms *= 1 + (u.helpers.oocMsNow || 0) + (u.helpers.soulMs || 0);
+    ms *= 1 + (u.helpers.oocMsNow || 0) + (u.helpers.soulMs || 0) + (u.helpers.zoneMs || 0);
     if (this.has(u, 'root')) ms = 0;
     return Math.max(0, ms);
   }

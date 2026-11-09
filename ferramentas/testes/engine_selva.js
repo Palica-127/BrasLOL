@@ -126,7 +126,7 @@ const drakeWorld = seed => { const x = world(seed); x.a = champ(x.w, 'Garen', 0,
   w.run(301); const d3 = jg.epics.drake[0]; const rift = jg.rift; kill(w, d3, a);
   w.run(301); const d4 = jg.epics.drake[0]; T(d4.name === rift && d3.name === rift, 'a partir do 3º dragão o elemento da Fenda é fixo (' + rift + ')');
   kill(w, d4, a); T(jg.stacks[0].length === 4 && jg.soul[0] === rift, '4 dragões = Alma do ' + rift + ' para o time');
-  w.run(361); const el = jg.epics.drake[0]; T(el && el.name === 'sru_dragon_elder' && el.level >= 13, 'Dragão Ancião nasce 6:00 depois da alma (nível mínimo 13)');
+  w.run(299); T(!jg.epics.drake || jg.epics.drake.every(m => m.dead), 'Ancião ainda não nasceu aos 4:59 depois da alma'); w.run(2); const el = jg.epics.drake[0]; T(el && el.name === 'sru_dragon_elder' && el.level >= 13, 'Dragão Ancião nasce 5:00 depois da alma (nível mínimo 13)');
   kill(w, el, a); T(a.helpers.aspectUntil > w.t && near(a.helpers.aspectUntil - w.t, 150, 0.1), 'Aspecto do Dragão por 150 s para o time'); }
 { const a1 = drakeWorld(3), a2 = drakeWorld(3), a3 = drakeWorld(4);
   [a1, a2, a3].forEach(x => { x.w.run(301); x.name1 = x.jg.epics.drake[0].name; });
@@ -148,7 +148,7 @@ const drakeWorld = seed => { const x = world(seed); x.a = champ(x.w, 'Garen', 0,
   jg.stacks[0].length = 0; jg.stacks[0].push('sru_dragon_hextech', 'sru_dragon_hextech'); w.refresh(a);
   T(a.stats.abilityHaste - plain.stats.abilityHaste === 10 && near(a.stats.as.bonus - plain.stats.as.bonus, 0.1, 1e-9), 'Proeza Hextec: +5 aceleração e +5% AS por pilha');
   jg.stacks[0].length = 0; jg.stacks[0].push('sru_dragon_chemtech', 'sru_dragon_chemtech', 'sru_dragon_chemtech'); w.refresh(a);
-  T(near(a.helpers.itemTenacity, 0.18) && near(a.helpers.healPower, 0.18), 'Praga Quimtec: +6% tenacidade e poder de cura por pilha');
+  T(a.stats.abilityHaste - plain.stats.abilityHaste === 15 && near(a.stats.ad.total / plain.stats.ad.total, 1.06, 0.001), 'Quimtec (especificação): +5 aceleração e +2% AD/AP por pilha');
   jg.stacks[0].length = 0; jg.stacks[0].push('sru_dragon_air', 'sru_dragon_air'); w.refresh(a);
   T(near(a.helpers.slowResist, 0.1), 'Graça da Nuvem: +5% resistência a lentidão por pilha');
   jg.stacks[0].length = 0; jg.stacks[0].push('sru_dragon_water', 'sru_dragon_water'); w.refresh(a); a.hp = a.hpMax * 0.5; a.helpers.nextOcean = 0; w.run(0.1);
@@ -212,5 +212,16 @@ const jungleLab = (seed, name, level, nItems) => {
   T(gn > 0 && near(gh, gn * 0.5, 1e-6), 'caçador sem item de selva completo recebe metade do ouro de minions', gh + '/' + gn);
   h.jgStacks = 35; const g2 = h.gold; eco.onMinionDeath(m1, h);
   T(near(h.gold - g2, gn, 1e-6), 'com o item de selva completo (35 acúmulos) a penalidade some'); }
+
+
+/* ---------- dragões: transformação do mapa e efeitos de terreno ---------- */
+{ const { w, jg, a } = drakeWorld(6); w.run(301); kill(w, jg.epics.drake[0], a); w.run(301); kill(w, jg.epics.drake[0], a);
+  T(!jg.riftOn && !w.log.some(e => e.type === 'rift'), 'o mapa ainda não mudou depois de 2 dragões');
+  w.run(301); const d3 = jg.epics.drake[0]; const rift = jg.rift; kill(w, d3, a);
+  T(jg.riftOn && w.log.some(e => e.type === 'rift' && e.mkey === rift) && d3.name === rift, 'o 3º dragão abatido transforma o mapa no elemento dele (' + rift + ')'); }
+{ const { w, jg, a } = drakeWorld(8); jg.riftOn = true; jg.rift = 'sru_dragon_air'; const L = jg.layout; a.pos = { x: L.drake.x, y: L.drake.y }; const far = champ(w, 'Garen', 1, 100, 100, { level: 14 }); w.run(1);
+  T(near(a.helpers.zoneMs, 0.1) && far.helpers.zoneMs === 0, 'mapa das Nuvens: zona de velocidade nos covis e no rio (+10%), nada fora delas'); }
+{ const { w, jg, a } = drakeWorld(9); jg.riftOn = true; jg.rift = 'sru_dragon_water'; jg.transformMap(); a.hp = a.hpMax * 0.4; a.pos = { x: jg.fruits[0].x, y: jg.fruits[0].y }; const h0 = a.hp; w.run(1);
+  T(jg.fruits.length >= 3 && a.hp > h0 + 100 && w.log.some(e => e.type === 'fruit'), 'mapa dos Oceanos: Frutas-Mel curam quem passa ferido'); }
 
 console.log(ok ? '\nTODOS OS TESTES PASSARAM' : '\nHÁ FALHAS'); process.exit(ok ? 0 : 1);

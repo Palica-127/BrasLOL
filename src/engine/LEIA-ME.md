@@ -57,6 +57,7 @@ Código JS puro (CommonJS), sem DOM, sem globais e **sem `Math.random()`** (um t
 - **Bloco 10b**: calibração da IA de rota/macro (objetivos com time completo, defesa local, aproximação do laner, janela de último golpe, leitura de perigo no recall, bônus ESTIMADO de dano do caçador contra monstros em `sim/world.js`); resultados e pendências em `docs/BLOCO10B_CALIBRACAO_IA.md`.
 - **Bloco 4b**: builds curadas por campeão (`items/curated.js`, ESTIMADO) com adaptação à partida; ver `docs/ITENS_BUILDS_CURADAS.md`.
 - **Selva**: recompensa por acampamento (4 CS por campo, tabela de ouro/XP, escala, bônus do caçador, penalidade de rota); ver `docs/SELVA_RECOMPENSAS.md`.
+- **Dragões**: cronograma, elemento do mapa, Alma e Ancião a cada 5 min, efeitos de terreno (Nuvem/Oceano); ver `docs/DRAGOES_REGRAS.md`.
 ## Bloco 9 — integração com o jogo (index.html)
 - `node ferramentas/build_motor.js` empacota `src/engine` (CommonJS) + os dados do patch dos 8 campeões com kit (itens, regras, monstros, minions, estruturas) em **`motor.js`** (~2 MB, gerado; faz parte do repositório porque o jogo é estático e não tem build). `index.html` o carrega com `<script src="motor.js" onerror>`: se o arquivo faltar, o jogo funciona só com o motor clássico.
 - `src/engine/integracao/adapter.js` (sem DOM, sem `Math.random`) conduz uma partida do motor (`create`, `advance`, `snapshot`, `drainLog`, `setStyle`) e entrega o estado no formato que a tela já lê: posições em %, vida 0..1, estruturas vivas, objetivos, KDA, log em português.

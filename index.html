@@ -3540,7 +3540,7 @@ function lvChamp(s,r){const w=lvWho(s,r),m=w.match(/\((.*)\)$/);return m?m[1]:''
    e ordens individuais. Nenhum acontecimento é marcado por minuto: o relógio só libera objetivos e muda os pesos das decisões.
    O vencedor sai do Nexus destruído; a força de cada time vem do lvP() (ratings, draft, instrução) via LV.mm. */
 const LVEXPO=.2;/* quanto a nota do jogador pesa na força: calibrado para a taxa de vitória ao vivo acompanhar a tabela de OVR (kgNow) */
-const LVCFG={cyc:4,spd:2.3,kap:.05,dragon:300,dragonRe:300,elderRe:360,grubs:[480],grubsEnd:885,herald:900,heraldEnd:1185,baron:1200,baronRe:360,inhRe:300,camp:135,cpA:600,cpB:1200,cap:4200};
+const LVCFG={cyc:4,spd:2.3,kap:.05,dragon:300,dragonRe:300,elderRe:300,grubs:[480],grubsEnd:885,herald:900,heraldEnd:1185,baron:1200,baronRe:360,inhRe:300,camp:135,cpA:600,cpB:1200,cap:4200};
 const LVSTY={
   ag:{n:'Agressivo',agg:.30,gank:.35,roam:.30,obj:-.05,inv:.20,split:0,def:0,fight:-.12},
   ma:{n:'Macro',agg:-.05,gank:0,roam:.05,obj:.30,inv:.05,split:.25,def:.10,fight:.05},
@@ -3656,7 +3656,7 @@ function lvInit(){
   LV.cm={b:JGC.map(c=>c.sp),r:JGC.map(c=>c.sp)};LV.cr=[JGS.sp,JGS.sp];LV.jc={me:{cl:0,st:0,lost:0,bf:0,cr:0},op:{cl:0,st:0,lost:0,bf:0,cr:0}};LV.dt={me:{},op:{}};LV.dst={me:null,op:null};LV.jgOpen=false;
   const tw=()=>({top:LVTWH.slice(),mid:LVTWH.slice(),bot:LVTWH.slice(),nx:[LVNXH,LVNXH],nex:LVNEXH});
   LV.tw={me:tw(),op:tw()};
-  LV.ob={g:{n:3,w:0,up:LVCFG.grubs[0]},h:{up:LVCFG.herald,done:false}};LV.elder=null;LV.soul={me:false,op:false};LV.gb={me:0,op:0};LV.hd=null;LV.bb=null;
+  LV.ob={g:{n:3,w:0,up:LVCFG.grubs[0]},h:{up:LVCFG.herald,done:false}};LV.elder=null;LV.rift=null;LV.soul={me:false,op:false};LV.gb={me:0,op:0};LV.hd=null;LV.bb=null;
   LV.dn={d:LVCFG.dragon,h:LVCFG.grubs[0],b:LVCFG.baron};LV.at=null;LV.wd=[];LV.sg={me:null,op:null};LV.mm={me:1,op:1};LV.ed=0;LV.edT=-1;LV.edD=true;LV.as=null;LV.lx=0;LV.cd=0;LV.fl={};LV.hist=[];LV.ps2=null;
   LV.sty={me:lvPickSty('me'),op:lvPickSty('op')};
   LV.ai={me:{g:null,inv:Math.random()},op:{g:null,inv:Math.random()}};
@@ -3918,7 +3918,10 @@ function lvObjDone(s,k){
     lvSay(`${tn} derruba o Arauto e se prepara para usá-lo numa rota.`,s,'obj');
   }else if(k==='d'){
     S2.d++;LV.dn.d=sec+LVCFG.dragonRe;
-    const dy=pick(DRT);LV.dt[s][dy[0]]=lvDrN(s,dy[0])+1;
+    /* regra: 2 primeiros aleatórios; o 3º define o elemento do mapa e os seguintes (e a Alma) seguem ele */
+    let dy;if(LV.st.me.d+LV.st.op.d<=2)dy=pick(DRT);else{if(!LV.rift)LV.rift=pick(DRT);dy=DRT.find(x=>x[0]===LV.rift)}
+    if(LV.st.me.d+LV.st.op.d===3)lvSay(`O mapa se transforma: Terras ${({inf:'Infernais',mon:'das Montanhas',oce:'dos Oceanos',nuv:'das Nuvens',hex:'Hextec',qui:'Quimtec'})[LV.rift]}.`,'sys','obj');
+    LV.dt[s][dy[0]]=lvDrN(s,dy[0])+1;
     lvSay(`${tn} garante o dragão ${dy[1]} (${S2.d}º).`,s,'obj');
     if(S2.d===4){LV.soul[s]=true;LV.dst[s]=dy[0];LV.dn.d=sec+LVCFG.elderRe;lvSay(`${tn} conquista a ALMA DO DRAGÃO! Bônus permanente pelo resto do mapa.`,s,'obj')}
   }else if(k==='e'){

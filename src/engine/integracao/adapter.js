@@ -51,6 +51,7 @@ function create(opts) {
         break;
       }
       case 'drake-kill': say(e.t, `${tnm(e.team)} abate o Dragão ${DRAKE_PT[DRAKE[e.mkey]] || ''}.`, 'obj', e.team); break;
+      case 'rift': say(e.t, `O mapa se transforma: Terras ${({ sru_dragon_fire: 'Infernais', sru_dragon_earth: 'das Montanhas', sru_dragon_water: 'dos Oceanos', sru_dragon_air: 'das Nuvens', sru_dragon_hextech: 'Hextec', sru_dragon_chemtech: 'Quimtec' })[e.mkey] || ''}.`, 'sys'); break;
       case 'soul': say(e.t, `${tnm(e.team)} conquista a Alma do Dragão!`, 'obj', e.team); break;
       case 'elder-kill': say(e.t, `${tnm(e.team)} abate o Dragão Ancião!`, 'obj', e.team); break;
       case 'baron-kill': say(e.t, `${tnm(e.team)} abate o Barão Nashor!`, 'obj', e.team); break;
@@ -106,7 +107,7 @@ function snapshot(S) {
   const cnt = (type, ti) => S.cnt[type + ti] || 0;
   const obj = [0, 1].map(ti => ({ drakes: drakes[ti], grubs: (jg.stacks[ti] && jg.stacks[ti].grubs) || 0, herald: cnt('herald-kill', ti), baron: cnt('baron-kill', ti), elder: cnt('elder-kill', ti), soul: jg.soul[ti] ? 1 : 0 }));
   const team = ti => { const pl = players[ti]; return { k: pl.reduce((a, p) => a + p.k, 0), d: pl.reduce((a, p) => a + p.d, 0), gold: pl.reduce((a, p) => a + p.gold, 0), towers: 11 - (str[ti].top.concat(str[ti].mid, str[ti].bot, str[ti].nx).reduce((a, b) => a + b, 0)) }; };
-  return { t: w.t, winner: S.over ? S.over.winner : null, players, str, hpS, mons, obj, teams: [team(0), team(1)], buff: { baron: jg.hob.map(x => (x ? Math.max(0, x - w.t) : 0)), elder: jg.aspect.map(x => (x ? Math.max(0, x - w.t) : 0)) }, drakeSpawned: !!jg.epics.drake, baronUp: !!(jg.epics.baron && jg.epics.baron.some(m => !m.dead)) };
+  return { t: w.t, winner: S.over ? S.over.winner : null, players, str, hpS, mons, obj, teams: [team(0), team(1)], buff: { baron: jg.hob.map(x => (x ? Math.max(0, x - w.t) : 0)), elder: jg.aspect.map(x => (x ? Math.max(0, x - w.t) : 0)) }, rift: jg.riftOn ? jg.rift : null, drakeSpawned: !!jg.epics.drake, baronUp: !!(jg.epics.baron && jg.epics.baron.some(m => !m.dead)) };
 }
 
 module.exports = { create, advance, snapshot, setStyle, drainLog, supported, hasKit, lvPos, ROLES, DEFAULT_CHAMP, DRAKE };

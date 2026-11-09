@@ -24,7 +24,7 @@ function postStats(w, u, S) {
   const J = w.jungle; if (!J || u.kind === 'minion' || u.kind === 'monster') return S;
   const tm = u.team, n = k => count(J, tm, k), h = u.helpers;
   h.oocMs = 0.05 * n(K.AIR); h.slowResist = (h.slowResist || 0) + 0.05 * n(K.AIR); h.oceanPct = 0.02 * n(K.WATER);
-  h.itemTenacity = Math.max(h.itemTenacity || 0, 0.06 * n(K.CHEM)); h.healPower = (h.healPower || 0) + 0.06 * n(K.CHEM);
+  const ch = n(K.CHEM); if (ch) { S.abilityHaste += 5 * ch; const f = 0.02 * ch; S.ad.bonus += S.ad.total * f; S.ad.total += S.ad.total * f; S.ap.bonus += S.ap.total * f; S.ap.total += S.ap.total * f; }   /* especificação: Aceleração de Habilidade e AD/AP adicionais */
   const inf = 0.03 * n(K.FIRE); if (inf) { S.ad.bonus += S.ad.total * inf; S.ad.total += S.ad.total * inf; S.ap.bonus += S.ap.total * inf; S.ap.total += S.ap.total * inf; }
   const mt = 0.05 * n(K.EARTH); if (mt) { S.armor.bonus += S.armor.total * mt; S.armor.total *= 1 + mt; S.mr.bonus += S.mr.total * mt; S.mr.total *= 1 + mt; }
   const hx = n(K.HEX); if (hx) { S.abilityHaste += 5 * hx; S.as.bonus += 0.05 * hx; S.as.total = Math.min(2.5, S.as.base + S.as.ratio * S.as.bonus); }
