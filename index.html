@@ -5082,7 +5082,7 @@ const lvMkHTML=()=>{const m=LV&&LV.mk;if(!m||Date.now()-m.t0>3800)return '';retu
 const kfTile=(p,small)=>`<span class="kft ${lvBlue(p.s)?'b':'r'}${small?' as':''}" title="${esc(p.n||'')} (${esc(p.c)})">${chTile(p.c)}</span>`;
 const kfObj=o=>{const c=lvBlue(o.s)?'b':'r',n=o.n,src=n==='tw'?`tw_${c}.webp`:n==='inh'?`inh_${c}.png`:n==='gr'?'larva.png':n==='hd'?`hd_${c}.png`:n==='bn'?`bn_${c}.png`:n==='el'?`el_${c}.png`:n+'.png';return `<span class="kft kob ${c}" title="${({tw:'Torre',inh:'Inibidor',gr:'Vastilarva',hd:'Arauto',bn:'Barão Nashor',el:'Dragão Ancião'})[n]||'Dragão'}"><img src="champs/obj/${src}" alt="" draggable="false"></span>`};
 const kfHTML=kf=>`<span class="kfx">${kf.k?kfTile(kf.k):kf.o&&!kf.v&&!(kf.a||[]).length?`<span class="kft mn ${lvBlue(kf.ts)?'b':'r'}" title="Tropas">Tropas</span>`:''}${(kf.a||[]).map(p=>kfTile(p,1)).join('')}<i class="kfs" aria-label="abate">⚔</i>${kf.v?kfTile(kf.v):kfObj(kf.o)}</span>`;
-const lvLogHTML=()=>LV.log.filter(e=>e.kf).slice(0,7).map(e=>`<div class="bcf kf ${lvBlue(e.kf.ts!=null?e.kf.ts:e.kf.k?e.kf.k.s:e.kf.v.s==='me'?'op':'me')?'b':'r'}"><b class="num">${lvFmt(e.m)}</b>${kfHTML(e.kf)}</div>`).join('');
+const lvLogHTML=()=>LV.log.filter(e=>e.kf||!LV.eng).slice(0,7).map(e=>e.kf?`<div class="bcf kf ${lvBlue(e.kf.ts!=null?e.kf.ts:e.kf.k?e.kf.k.s:e.kf.v.s==='me'?'op':'me')?'b':'r'}"><b class="num">${lvFmt(e.m)}</b>${kfHTML(e.kf)}</div>`:`<div class="bcf ${e.k==='me'||e.k==='op'?(lvBlue(e.k)?'b':'r'):e.k}"><b class="num">${lvFmt(e.m)}</b><span>${esc(e.t)}</span></div>`).join('');
 function lvKdaTot(s){const t=LV.kd[s].reduce((a,x)=>({k:a.k+x.k,d:a.d+x.d,a:a.a+x.a}),{k:0,d:0,a:0});return `${t.k}/${t.d}/${t.a}`}
 
 /* ---------- fim de mapa: estatísticas da partida ---------- */
