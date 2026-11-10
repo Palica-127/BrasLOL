@@ -43,6 +43,7 @@ const shop = require('../items/shop'), FX = require('../items/effects'), LIFE = 
 const HARD = new Set(['stun', 'knockup', 'charm', 'fear', 'suppress', 'stasis']);        /* impedem agir */
 const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
 
+const LASTHIT_AA = 2.5;
 class World {
   constructor({ seed = 1, loader, dt = 0.05, arena = { w: 6000, h: 6000 } } = {}) {
     this.seed = seed; this.rng = makeRng(seed); this.loader = loader || createLoader(); this.rules = this.loader.rules();
@@ -160,6 +161,7 @@ class World {
     if (split) { let last = null; split.forEach(([am, ty]) => { last = this.dealDamage(src, dst, am, ty, { ...info, _split: true }) || last; }); return last; }
     if (src.smite && dst.kind === 'monster' && !info.smite) amount *= 5;                      /* item de selva (ESTIMADO, Bloco 10): bonus de dano do cacador contra monstros */
     if (src.kind === 'monster' && dst.smite) amount *= 1 - 0.5;                              /* companheiro de selva: -50% de dano de monstros (ESTIMADO, Bloco 6 pendente) */
+    if (info.attack && dst.kind === 'minion' && src.kind !== 'minion' && src.kind !== 'monster' && src.kind !== 'structure') amount *= LASTHIT_AA;   /* ESTIMADO: os profissionais acertam o ultimo golpe com muito mais precisao que a IA (calibrado no CS de 15 min) */
     let a = amount, crit = false;
     if (info.canCrit && src.stats.crit > 0 && this.rng.next('combate') < src.stats.crit) { a *= D.critMultiplier(src.stats.critDamage); crit = true; }
     if (src.helpers.dmgAmp) a *= 1 + src.helpers.dmgAmp;
@@ -182,11 +184,19 @@ class World {
   }
   kill(dst, src) {
     if (dst.dead) return;
+    /* morte para torre, minion ou monstro: o abate vai para o campeao inimigo que bateu na vitima nos ultimos 20 s (o mais recente); os demais viram assistencia */
+    const isNc = k => k === 'minion' || k === 'monster' || k === 'structure' || k === 'obj';
+    let win = 10;
+    if (!isNc(dst.kind) && (!src || isNc(src.kind))) {
+      let best = null, bt = -1;
+      Object.keys(dst.assisters || {}).forEach(id => { const u = this.byId(+id), tm = dst.assisters[id]; if (u && !isNc(u.kind) && u.team !== dst.team && this.t - tm < 20 && tm > bt) { best = u; bt = tm; } });
+      if (best) { src = best; win = 20; }
+    }
     dst.dead = true; dst.hp = 0; dst.stat.deaths++; if (src && dst.kind !== 'minion' && dst.kind !== 'monster' && dst.kind !== 'structure') src.stat.kills++;
     const asIds = [];
     /* assistência só existe em abate de campeão (antes contava também em minions, monstros e torres), e só para campeões */
     const notCh = k => k === 'minion' || k === 'monster' || k === 'structure' || k === 'obj';
-    if (!notCh(dst.kind)) Object.keys(dst.assisters || {}).forEach(id => { const u = this.byId(+id); if (u && u !== src && u.team === src.team && !notCh(u.kind) && this.t - dst.assisters[id] < 10) { u.stat.assists++; asIds.push(u.id); } });
+    if (!notCh(dst.kind)) Object.keys(dst.assisters || {}).forEach(id => { const u = this.byId(+id); if (u && u !== src && u.team === src.team && !notCh(u.kind) && this.t - dst.assisters[id] < win) { u.stat.assists++; asIds.push(u.id); } });
     dst.cast = null; dst.attack.windup = null; dst.dash = null; dst.order = null;
     this.zones.forEach(z => { if (z.owner === dst && z.dieWithOwner) z.until = this.t; });
     if (dst.kind === 'structure') { this.structures.onDeath(dst, src); return; }
@@ -2266,9 +2276,9 @@ const COMPOSITION = {
 };
 /* layout alinhado com a imagem do mapa (coordenadas do motor: 14870 x 14980, origem embaixo à esquerda) */
 const LAYOUT = {
-  0: { gromp: { x: 2126, y: 8883 }, blue: { x: 3970, y: 8434 }, wolves: { x: 3822, y: 6936 }, raptors: { x: 6796, y: 5797 }, red: { x: 7955, y: 4194 }, krugs: { x: 6870, y: 2202 } },
-  1: { gromp: { x: 12922, y: 6786 }, blue: { x: 11048, y: 7535 }, wolves: { x: 11123, y: 8838 }, raptors: { x: 7896, y: 10037 }, red: { x: 7063, y: 11280 }, krugs: { x: 7747, y: 13437 } },
-  crab: [{ x: 6245, y: 9437 }, { x: 8625, y: 6292 }], grubs: { x: 4907, y: 11085 }, herald: { x: 4907, y: 11085 }, baron: { x: 4907, y: 11085 }, drake: { x: 10112, y: 4494 }
+  0: { gromp: { x: 2201, y: 8883 }, blue: { x: 3941, y: 8434 }, wolves: { x: 3807, y: 6741 }, raptors: { x: 7063, y: 5692 }, red: { x: 7941, y: 4224 }, krugs: { x: 8625, y: 2711 } },
+  1: { gromp: { x: 12937, y: 6816 }, blue: { x: 11138, y: 7475 }, wolves: { x: 11108, y: 8748 }, raptors: { x: 7970, y: 9902 }, red: { x: 7182, y: 11340 }, krugs: { x: 6558, y: 12688 } },
+  crab: [{ x: 4520, y: 10052 }, { x: 10498, y: 5573 }], grubs: { x: 5249, y: 11295 }, herald: { x: 5249, y: 11295 }, baron: { x: 5249, y: 11295 }, drake: { x: 10156, y: 4569 }
 };
 
 /* RECOMPENSA POR ACAMPAMENTO (nível 1; especificação do projeto): [ouro, XP] do acampamento inteiro, repartido entre os monstros pelo peso do registro
@@ -2973,8 +2983,8 @@ class Brain {
   fight(p, near, allies) {
     const w = this.w, u = p.u, R = 1400, A_ = allies.filter(a => dist(a.pos, u.pos) < R), E_ = near.filter(x => dist(x.pos, u.pos) < R);
     const skirmish = A_.length >= 2 || E_.length >= 2 || (this.goal && this.goal.kind !== 'lane' && this.goal.mem && this.goal.mem.has(p)) || p.role === 'jungle';
-    const reach = skirmish ? Math.max(u.stats.range, 450) + 350 : u.stats.range + 110, sg0 = this.goal && this.goal.kind === 'siege', tgs = near.filter(x => dist(x.pos, u.pos) <= reach && (sg0 || !(this.underEnemyTurret(x.pos) && !this.covered(x.pos))));   /* nao persegue ninguem para debaixo da torre sem minions aliados */
-    if (!sg0 && this.underEnemyTurret(u.pos) && !this.covered(u.pos) && near.some(x => dist(x.pos, u.pos) < 1400)) { this.retreat(p, near); return true; }
+    const reach = skirmish ? Math.max(u.stats.range, 450) + 350 : u.stats.range + 110, sg0 = this.goal && this.goal.kind === 'siege', tgs = near.filter(x => dist(x.pos, u.pos) <= reach && (sg0 || !this.underEnemyTurret(x.pos) || (this.covered(x.pos) && x.hp < x.hpMax * 0.25 && u.hp > u.hpMax * 0.7)));   /* nao persegue ninguem para debaixo da torre sem minions aliados */
+    if (!sg0 && this.underEnemyTurret(u.pos) && (!this.covered(u.pos) || u.hp < u.hpMax * 0.6) && near.some(x => dist(x.pos, u.pos) < 1400)) { this.retreat(p, near); return true; }
     if (!tgs.length) { u.ai.focus = null; return false; }
     let ratio = A_.reduce((s, a) => s + power(a), 0) / Math.max(1, E_.reduce((s, e) => s + power(e), 0));
     ratio *= 1 + this.avgNoise() * 0.5 * w.rng.gauss('ia');

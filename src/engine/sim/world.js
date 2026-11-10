@@ -15,6 +15,7 @@ const shop = require('../items/shop'), FX = require('../items/effects'), LIFE = 
 const HARD = new Set(['stun', 'knockup', 'charm', 'fear', 'suppress', 'stasis']);        /* impedem agir */
 const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
 
+const LASTHIT_AA = 2.5;
 class World {
   constructor({ seed = 1, loader, dt = 0.05, arena = { w: 6000, h: 6000 } } = {}) {
     this.seed = seed; this.rng = makeRng(seed); this.loader = loader || createLoader(); this.rules = this.loader.rules();
@@ -132,6 +133,7 @@ class World {
     if (split) { let last = null; split.forEach(([am, ty]) => { last = this.dealDamage(src, dst, am, ty, { ...info, _split: true }) || last; }); return last; }
     if (src.smite && dst.kind === 'monster' && !info.smite) amount *= 5;                      /* item de selva (ESTIMADO, Bloco 10): bonus de dano do cacador contra monstros */
     if (src.kind === 'monster' && dst.smite) amount *= 1 - 0.5;                              /* companheiro de selva: -50% de dano de monstros (ESTIMADO, Bloco 6 pendente) */
+    if (info.attack && dst.kind === 'minion' && src.kind !== 'minion' && src.kind !== 'monster' && src.kind !== 'structure') amount *= LASTHIT_AA;   /* ESTIMADO: os profissionais acertam o ultimo golpe com muito mais precisao que a IA (calibrado no CS de 15 min) */
     let a = amount, crit = false;
     if (info.canCrit && src.stats.crit > 0 && this.rng.next('combate') < src.stats.crit) { a *= D.critMultiplier(src.stats.critDamage); crit = true; }
     if (src.helpers.dmgAmp) a *= 1 + src.helpers.dmgAmp;
@@ -154,11 +156,19 @@ class World {
   }
   kill(dst, src) {
     if (dst.dead) return;
+    /* morte para torre, minion ou monstro: o abate vai para o campeao inimigo que bateu na vitima nos ultimos 20 s (o mais recente); os demais viram assistencia */
+    const isNc = k => k === 'minion' || k === 'monster' || k === 'structure' || k === 'obj';
+    let win = 10;
+    if (!isNc(dst.kind) && (!src || isNc(src.kind))) {
+      let best = null, bt = -1;
+      Object.keys(dst.assisters || {}).forEach(id => { const u = this.byId(+id), tm = dst.assisters[id]; if (u && !isNc(u.kind) && u.team !== dst.team && this.t - tm < 20 && tm > bt) { best = u; bt = tm; } });
+      if (best) { src = best; win = 20; }
+    }
     dst.dead = true; dst.hp = 0; dst.stat.deaths++; if (src && dst.kind !== 'minion' && dst.kind !== 'monster' && dst.kind !== 'structure') src.stat.kills++;
     const asIds = [];
     /* assistência só existe em abate de campeão (antes contava também em minions, monstros e torres), e só para campeões */
     const notCh = k => k === 'minion' || k === 'monster' || k === 'structure' || k === 'obj';
-    if (!notCh(dst.kind)) Object.keys(dst.assisters || {}).forEach(id => { const u = this.byId(+id); if (u && u !== src && u.team === src.team && !notCh(u.kind) && this.t - dst.assisters[id] < 10) { u.stat.assists++; asIds.push(u.id); } });
+    if (!notCh(dst.kind)) Object.keys(dst.assisters || {}).forEach(id => { const u = this.byId(+id); if (u && u !== src && u.team === src.team && !notCh(u.kind) && this.t - dst.assisters[id] < win) { u.stat.assists++; asIds.push(u.id); } });
     dst.cast = null; dst.attack.windup = null; dst.dash = null; dst.order = null;
     this.zones.forEach(z => { if (z.owner === dst && z.dieWithOwner) z.until = this.t; });
     if (dst.kind === 'structure') { this.structures.onDeath(dst, src); return; }

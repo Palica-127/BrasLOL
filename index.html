@@ -3836,7 +3836,7 @@ function lvDotInner(s,r){const P=LV.pp&&LV.pp[s]&&LV.pp[s][r];
 const LVR=['TOP','JNG','MID','ADC','SUP'],LVRL=['T','J','M','A','S'],LVL=['top','mid','bot'],LVNM={top:'topo',mid:'meio',bot:'inferior'};
 const LVPTH={top:[[8,84],[8,50],[8,9],[50,5],[90,5]],mid:[[13,85],[87,13]],bot:[[13,94],[50,94],[94,94],[95,50],[95,12]]};
 const LVKX=1.3488,lvX=x=>x*LVKX,LV_MAP='champs/mapa_rift.webp';
-const LVPIT={d:[68,70],b:[33,26]};
+const LVPIT={d:[68.3,69.5],b:[35.3,24.6]};
 const LVSTV=[.38,.24,.14,.085],LVNX=[[10.2,84.5],[13.1,88.2]],LVNXR=[[87.7,12.3],[84.5,8.3]],
 /* posições das estruturas medidas sobre a imagem do mapa (torre externa, interna, torre do inibidor, inibidor) */
 LVTWB={top:[[7.5,26.8],[10.2,52.6],[7,68.9],[7,75.8]],mid:[[39.6,54],[34.4,66.4],[24.2,74.4],[20.7,78.4]],bot:[[72.9,94.7],[46.9,91.1],[27.9,92.5],[22.1,93.6]]},
@@ -3892,8 +3892,8 @@ function lvNavInit(){
   [[20,18],LVPIT.b,[42,37],[50,49],[58,58],LVPIT.d,[78,74],[86,82]].forEach((p,i)=>add('r'+i,p));
   for(let i=0;i<7;i++)ln('r'+i,'r'+(i+1));
   /* acampamentos medidos sobre a imagem do mapa: Grompe, Azuporã, Lobos, Acuâminas, Rubrivira, Krugues (lado azul, depois vermelho) */
-  [[14.3,40.7],[26.7,43.7],[25.7,53.7],[45.7,61.3],[53.5,72],[46.2,85.3]].forEach((p,i)=>add('j'+i,p));
-  [[86.9,54.7],[74.3,49.7],[74.8,41],[53.1,33],[47.5,24.7],[52.1,10.3]].forEach((p,i)=>add('j'+(i+6),p));
+  [[14.8,40.7],[26.5,43.7],[25.6,55.0],[47.5,62.0],[53.4,71.8],[58.0,81.9]].forEach((p,i)=>add('j'+i,p));
+  [[87.0,54.5],[74.9,50.1],[74.7,41.6],[53.6,33.9],[48.3,24.3],[44.1,15.3]].forEach((p,i)=>add('j'+(i+6),p));
   ln('bB','top0');ln('bB','mid0');ln('bB','bot0');ln('rB','top10');ln('rB','mid10');ln('rB','bot10');ln('mid5','r3');
   for(let i=n1;i<N.length;i++){
     const ds=[];for(let j=0;j<N.length;j++)if(j!==i)ds.push([lvD(N[i][0],N[i][1],N[j][0],N[j][1]),j]);
@@ -5645,6 +5645,7 @@ function pcOffers(){
   pc.pend=pick_.map(x=>({tn:x.tn,k:x.k,sal:x.sal,yrs:x.yrs}));
   pc.offers=[{tn:f.t.name,k:f.bn?'R':'T',sal:r1(Math.max(pc.sal,salOf(p))*1.1),yrs:2,ren:true}];
 }
+function pcDecline(i){const pc=S.pc,o=pc.offers&&pc.offers[i];if(!o)return;pc.offers=pc.offers.filter((_,j)=>j!==i);pcLog(`recusa a proposta do ${o.tn}.`);msg='Proposta recusada.'}
 function pcAccept(i){
   const pc=S.pc,o=pc.offers[i],f=pcFind();if(!o||!f)return;
   if(!pcPlayOk()){msg='A janela de transferências está fechada.';return}
@@ -5857,7 +5858,7 @@ function vPc0(){
   const pl=CH[p.role].map(([c,a])=>({c,a,v:Math.round(mastOf(pc.n,c)*100),m:metaOf(c)}));
   h+=`<details class="pn det"><summary>Pool de campeões</summary><p class="note" style="margin:0 0 8px">Todos os 8 campeões da função aparecem aqui. Cada treino de pool gasta ${Math.max(10,30-pcFx('poolc'))} de energia e dá +${Math.round((.04+pcFx('poolg'))*100)}% de domínio em um campeão. Quanto melhor sua pool no meta atual (${esc(metaName())}), mais forma você carrega.</p>${pl.map(x=>`<div class="pool"><span class="ct sm" style="--h:${hs(x.c)%360}"><b>${esc(chIni(x.c))}</b></span><span class="who"><b>${esc(x.c)}</b><small>${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}</small></span><b class="num">${x.v}</b><button class="ghost" data-act="pcPool" data-v="${esc(x.c)}"${pc.en<Math.max(10,30-pcFx('poolc'))||x.v>=100?' disabled':''}>${x.v>=100?'máx':'+'+Math.round((.04+pcFx('poolg'))*100)+'%'}</button></div>`).join('')}</details>`;
   /* ofertas */
-  if(pc.offers&&pc.offers.length){h+=`<section class="pn"><h2>Propostas</h2><p class="note" style="margin:0 0 8px">${pcPlayOk()?'Janela aberta: dá para assinar agora.':'Janela fechada: as propostas voltam a valer antes do próximo split.'}</p>${pc.offers.map((o,i)=>{const nt=ALLT().find(x=>x.name===o.tn);return `<div class="mrow" style="grid-template-columns:minmax(0,1fr) auto"><span class="who"><b>${o.ren?'Renovar com ':''}${nt?tlk(nt):esc(o.tn)}${nt&&nt.d===2?' <span class="tag">D2</span>':''}</b><small>${o.k==='T'?'Como titular':'Como reserva'} · ${o.yrs} ano${o.yrs>1?'s':''} · ${fmtM(o.sal)}/ano</small></span><button class="ghost" data-act="pcOffer" data-v="${i}"${pcPlayOk()?'':' disabled'}>${o.ren?'Renovar':'Assinar'}</button></div>`}).join('')}</section>`}
+  if(pc.offers&&pc.offers.length){h+=`<section class="pn"><h2>Propostas</h2><p class="note" style="margin:0 0 8px">${pcPlayOk()?'Janela aberta: dá para assinar agora.':'Janela fechada: as propostas voltam a valer antes do próximo split.'}</p>${pc.offers.map((o,i)=>{const nt=ALLT().find(x=>x.name===o.tn);return `<div class="mrow" style="grid-template-columns:minmax(0,1fr) auto auto"><span class="who"><b>${o.ren?'Renovar com ':''}${nt?tlk(nt):esc(o.tn)}${nt&&nt.d===2?' <span class="tag">D2</span>':''}</b><small>${o.k==='T'?'Como titular':'Como reserva'} · ${o.yrs} ano${o.yrs>1?'s':''} · ${fmtM(o.sal)}/ano</small></span><button class="ghost" data-act="pcOffer" data-v="${i}"${pcPlayOk()?'':' disabled'}>${o.ren?'Renovar':'Assinar'}</button><button class="ghost" data-act="pcNo" data-v="${i}">Recusar</button></div>`}).join('')}</section>`}
   /* metas */
   h+=`<details class="pn det"><summary>Metas de carreira (${Object.keys(pc.goals).length}/${PGOALS.length})</summary>${PGOALS.map(([id,l,d])=>`<div class="mrow" style="grid-template-columns:28px minmax(0,1fr)"><span class="num" style="font-size:20px">${pc.goals[id]?'✓':'·'}</span><span class="who"><b${pc.goals[id]?' style="color:#00F5A0"':''}>${l}</b><small>${d}${pc.goals[id]?' · '+pc.goals[id]:''}</small></span></div>`).join('')}</details>`;
   return h+pcHistHTML(pc)+`<section class="pn"><div class="row" style="margin:0"><button class="ghost" data-act="player" data-v="${esc(p.n)}">Ver ficha pública</button></div></section>`;
@@ -7351,7 +7352,7 @@ function mailHTML(){
   if(pcAct()&&S.pc.test)h+=`<small class="k sqk">Convocação do técnico</small>`+ptHTML(true);
   const pc=S.pc;
   if(pcAct()&&pc.offers&&pc.offers.length){
-    h+=`<small class="k sqk">Propostas de clubes</small>`+pc.offers.map((o,i)=>{const nt=ALLT().find(x=>x.name===o.tn);return `<div class="sqr"><span><b>${o.ren?'Renovar com ':''}${nt?tlk(nt):esc(o.tn)}</b><small>${o.k==='T'?'Titular':'Reserva'} · ${o.yrs} ano${o.yrs>1?'s':''} · ${fmtM(o.sal)}/ano</small></span><button class="ghost" data-act="pcOffer" data-v="${i}"${pcPlayOk()?'':' disabled'}>${o.ren?'Renovar':'Assinar'}</button></div>`}).join('');
+    h+=`<small class="k sqk">Propostas de clubes</small>`+pc.offers.map((o,i)=>{const nt=ALLT().find(x=>x.name===o.tn);return `<div class="sqr"><span><b>${o.ren?'Renovar com ':''}${nt?tlk(nt):esc(o.tn)}</b><small>${o.k==='T'?'Titular':'Reserva'} · ${o.yrs} ano${o.yrs>1?'s':''} · ${fmtM(o.sal)}/ano</small></span><button class="ghost" data-act="pcOffer" data-v="${i}"${pcPlayOk()?'':' disabled'}>${o.ren?'Renovar':'Assinar'}</button><button class="ghost" data-act="pcNo" data-v="${i}">Recusar</button></div>`}).join('');
   }
   if(mgrT())h+=sqHTML(true).replace('<section class="pn sqp">','<div class="sqp">').replace(/<div class="rowc"><h2>Scrims<\/h2>/,'<div class="rowc"><small class="k sqk" style="margin:0">Scrims</small>').replace(/<\/section>$/,'</div>');
   return h+'</section>';
@@ -8091,6 +8092,7 @@ function act(a,v){
   else if(a==='pcRest'){pcRest();save()}
   else if(a==='pcPool'){pcPoolTrain(v);save()}
   else if(a==='pcOffer'){pcAccept(+v);save()}
+  else if(a==='pcNo'){pcDecline(+v);save()}
   else if(a==='pcEv'){pcEv(v);save()}
   else if(a==='setg'){setOpen[v]=!setOpen[v]}
   else if(a==='mgrEndOk'){S.mgr=null;askEnd=false;tab='set';msg='Modo carreira encerrado.';save()}

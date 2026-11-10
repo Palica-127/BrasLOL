@@ -259,8 +259,8 @@ class Brain {
   fight(p, near, allies) {
     const w = this.w, u = p.u, R = 1400, A_ = allies.filter(a => dist(a.pos, u.pos) < R), E_ = near.filter(x => dist(x.pos, u.pos) < R);
     const skirmish = A_.length >= 2 || E_.length >= 2 || (this.goal && this.goal.kind !== 'lane' && this.goal.mem && this.goal.mem.has(p)) || p.role === 'jungle';
-    const reach = skirmish ? Math.max(u.stats.range, 450) + 350 : u.stats.range + 110, sg0 = this.goal && this.goal.kind === 'siege', tgs = near.filter(x => dist(x.pos, u.pos) <= reach && (sg0 || !(this.underEnemyTurret(x.pos) && !this.covered(x.pos))));   /* nao persegue ninguem para debaixo da torre sem minions aliados */
-    if (!sg0 && this.underEnemyTurret(u.pos) && !this.covered(u.pos) && near.some(x => dist(x.pos, u.pos) < 1400)) { this.retreat(p, near); return true; }
+    const reach = skirmish ? Math.max(u.stats.range, 450) + 350 : u.stats.range + 110, sg0 = this.goal && this.goal.kind === 'siege', tgs = near.filter(x => dist(x.pos, u.pos) <= reach && (sg0 || !this.underEnemyTurret(x.pos) || (this.covered(x.pos) && x.hp < x.hpMax * 0.25 && u.hp > u.hpMax * 0.7)));   /* nao persegue ninguem para debaixo da torre sem minions aliados */
+    if (!sg0 && this.underEnemyTurret(u.pos) && (!this.covered(u.pos) || u.hp < u.hpMax * 0.6) && near.some(x => dist(x.pos, u.pos) < 1400)) { this.retreat(p, near); return true; }
     if (!tgs.length) { u.ai.focus = null; return false; }
     let ratio = A_.reduce((s, a) => s + power(a), 0) / Math.max(1, E_.reduce((s, e) => s + power(e), 0));
     ratio *= 1 + this.avgNoise() * 0.5 * w.rng.gauss('ia');

@@ -29,9 +29,9 @@ const COMPOSITION = {
 };
 /* layout alinhado com a imagem do mapa (coordenadas do motor: 14870 x 14980, origem embaixo à esquerda) */
 const LAYOUT = {
-  0: { gromp: { x: 2126, y: 8883 }, blue: { x: 3970, y: 8434 }, wolves: { x: 3822, y: 6936 }, raptors: { x: 6796, y: 5797 }, red: { x: 7955, y: 4194 }, krugs: { x: 6870, y: 2202 } },
-  1: { gromp: { x: 12922, y: 6786 }, blue: { x: 11048, y: 7535 }, wolves: { x: 11123, y: 8838 }, raptors: { x: 7896, y: 10037 }, red: { x: 7063, y: 11280 }, krugs: { x: 7747, y: 13437 } },
-  crab: [{ x: 6245, y: 9437 }, { x: 8625, y: 6292 }], grubs: { x: 4907, y: 11085 }, herald: { x: 4907, y: 11085 }, baron: { x: 4907, y: 11085 }, drake: { x: 10112, y: 4494 }
+  0: { gromp: { x: 2201, y: 8883 }, blue: { x: 3941, y: 8434 }, wolves: { x: 3807, y: 6741 }, raptors: { x: 7063, y: 5692 }, red: { x: 7941, y: 4224 }, krugs: { x: 8625, y: 2711 } },
+  1: { gromp: { x: 12937, y: 6816 }, blue: { x: 11138, y: 7475 }, wolves: { x: 11108, y: 8748 }, raptors: { x: 7970, y: 9902 }, red: { x: 7182, y: 11340 }, krugs: { x: 6558, y: 12688 } },
+  crab: [{ x: 4520, y: 10052 }, { x: 10498, y: 5573 }], grubs: { x: 5249, y: 11295 }, herald: { x: 5249, y: 11295 }, baron: { x: 5249, y: 11295 }, drake: { x: 10156, y: 4569 }
 };
 
 /* RECOMPENSA POR ACAMPAMENTO (nível 1; especificação do projeto): [ouro, XP] do acampamento inteiro, repartido entre os monstros pelo peso do registro
