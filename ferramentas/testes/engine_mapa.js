@@ -123,8 +123,8 @@ const mk = (w, team, type, pos, lane) => { const m = M.create(w, team, type, lan
 { const { w, S } = world(1, true), a = champ(w, 0, { x: 100, y: 100 }), L = S.lane(1, 'mid');
   [L.outer, L.inner, L.inhibTurret, L.inhibitor].forEach(s => fall(w, s, a)); const td = w.t;
   T(L.inhibitor.dead && L.superWaves === 8, 'inibidor caído: 8 ondas de super minion na rota');
-  w.run(95.5 - w.t); const sup = w.units.filter(u => u.kind === 'minion' && u.team === 0 && u.name === 'super'), sg0 = w.units.filter(u => u.kind === 'minion' && u.team === 0 && u.name === 'siege' && u.lane.id === 'mid');
-  T(sup.length === 3 && sup.every(u => u.lane.id === 'mid') && sg0.length === 0 && L.superWaves === 5, 'cada onda (3 até 1:35) do time 0 na rota do meio ganha 1 super no lugar do siege; restam 5 ondas', sup.length + '/' + sg0.length);
+  w.run(130 - w.t); const sup = w.units.filter(u => u.kind === 'minion' && u.team === 0 && u.name === 'super'), sg0 = w.units.filter(u => u.kind === 'minion' && u.team === 0 && u.name === 'siege' && u.lane.id === 'mid');
+  T(sup.length === 3 && sup.every(u => u.lane.id === 'mid') && sg0.length === 0 && L.superWaves === 5, 'cada onda (3 até 2:05) do time 0 na rota do meio ganha 1 super no lugar do siege; restam 5 ondas', sup.length + '/' + sg0.length);
   T(!w.units.some(u => u.kind === 'minion' && u.team === 1 && u.name === 'super'), 'o time do inibidor caído não ganha super minion');
   T(near(sup[0].hpMax, 1500, 700) && sup[0].stats.ad.total > 150, 'super minion usa atributos do cliente (1500 de vida, 180 de dano base)', sup[0].hpMax + '/' + sup[0].stats.ad.total);
   w.run(td + 299 - w.t); T(L.inhibitor.dead, 'inibidor continua caído aos 4:59'); w.run(2); T(!L.inhibitor.dead && L.inhibitor.hp === L.inhibitor.hpMax, 'inibidor reaparece 5 minutos depois com vida cheia'); T(w.log.some(e => e.type === 'inhibitor-up'), 'evento "inhibitor-up" registrado'); }

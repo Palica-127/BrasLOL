@@ -183,7 +183,7 @@ async function main() {
       vel_ataque_max: { valor: 2.5, src: 'wiki' }
     },
     ondas_de_minions: {
-      primeira_onda_s: 30, intervalo_entre_minions_s: 0.792,
+      primeira_onda_s: 65, intervalo_entre_minions_s: 0.792,
       intervalos: [{ de_s: 30, ate_s: 840, intervalo_s: 30 }, { de_s: 840, ate_s: 1800, intervalo_s: 25 }, { de_s: 1800, ate_s: null, intervalo_s: 20 }],
       composicao: { melee: 3, caster: 3, siege: 'a partir de 1:30; a cada 3 ondas ate 14:00, a cada 2 ate 25:00, depois toda onda; nunca junto de super', super: '1/rota se 1 inibidor caiu; 2/rota se todos' },
       ouro: { melee: 20, caster: 14, siege_0030: 50, siege_1400: 59, siege_2500: 66, siege_3000: 69, ref: 'V26.01 (Wiki)' },

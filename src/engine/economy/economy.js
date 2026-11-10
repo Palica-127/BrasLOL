@@ -30,7 +30,7 @@ class Economy {
   /* composição de uma onda: 3 melee + 3 caster; siege a partir de 1:30 (a cada 3 ondas até 14:00, a cada 2 até 25:00, depois toda onda) */
   composition(i, t) {
     let siege = false;
-    if (t >= 90) { if (t < 840) siege = (i - 2) % 3 === 0; else if (t < 1500) siege = (i % 2 === 0) || false; else siege = true; }
+    if (t >= 90) { if (t < 900) siege = (i - 2) % 3 === 0; else if (t < 1500) siege = (i % 2 === 0) || false; else siege = true; }
     const c = { melee: 3, ranged: 3, siege: siege ? 1 : 0 };
     if (siege && t >= 840) c.melee = 2;                                              /* Wiki: 1 melee a menos quando o siege nasce depois de 14:00 */
     if (siege && t >= 1800) c.ranged = 2;                                            /* Wiki: 1 caster a menos depois de 30:00 */
@@ -67,7 +67,7 @@ class Economy {
     const near = w.units.filter(x => x.kind !== 'minion' && !x.dead && x.team === foeTeam && dist(x.pos, m.pos) <= sp.xpRadius);
     near.forEach(x => this.grantXp(x, sp.xp * xpShare(near.length) * this.laneMul(x), 'minion'));
     if (killer && killer.kind !== 'minion' && killer.team === foeTeam) {
-      this.giveGold(killer, sp.gold * this.laneMul(killer), 'cs'); killer.stat.cs = (killer.stat.cs || 0) + 1; w.emit('cs', { id: killer.id, mtype: sp.type });
+      this.giveGold(killer, Math.max(0, sp.gold - (m.lane && m.lane.id === 'mid' && w.t < M.PARAMS.midGoldPenaltyUntil ? 1 : 0)) * this.laneMul(killer), 'cs'); killer.stat.cs = (killer.stat.cs || 0) + 1; w.emit('cs', { id: killer.id, mtype: sp.type });
     } else w.emit('minion-lost', { id: m.id, mtype: sp.type });
   }
   bountyOf(u) {

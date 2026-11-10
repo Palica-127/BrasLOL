@@ -10,6 +10,10 @@ const PARAMS = {
   /* ganho total até o teto (Wiki 26.09: melee 465->1550 PV, 11->80 AD, 0->20 armadura; caster 284->600 PV, 21->125 AD; siege 835->5850 PV, 37.5->126 AD) */
   growth: { melee: { hp: 1085, ad: 69, armor: 20 }, ranged: { hp: 316, ad: 104, armor: 0 }, siege: { hp: 5015, ad: 88.5, armor: 0 }, super: { hp: 0, ad: 0, armor: 0 } },
   siegeGoldPerUpgrade: 1,                                                          /* Wiki: siege 50 + 1 por melhoria */
+  /* vida e ouro conforme o guia de minions (1:05 de primeira onda; melhoria a cada 90 s) */
+  hpBase: { melee: 477, ranged: 296, siege: 913, super: 1500 }, hpUp: { super: 200 },   /* vida inicial conforme o guia; o crescimento dos outros tipos segue o teto da Wiki (growth): mantem o ritmo de empurrar torres */
+  goldBase: { melee: 21, ranged: 14, super: 90 }, siegeGold: { from: 60, to: 90, untilS: 1020 },   /* canhao: 60 -> 90 de ouro ate ~17 min */
+  midGoldPenaltyUntil: 840,                                                        /* rota do meio: -1 de ouro por minion ate os 14 min */
   vsChampionStructure: 0.6                                                         /* Wiki: dano de minion contra campeões/estruturas */
 };
 const TYPE_ID = { melee: 'minionmelee', ranged: 'minionranged', siege: 'minionsiege', super: 'minionsuper' };
@@ -23,10 +27,10 @@ function spec(loader, team, type, t) {
   const at = r.basicAttack || {}, key = Object.keys(loader.minions()['sru_' + (team === 0 ? 'order' : 'chaos') + TYPE_ID[type]].objetos || {}).find(k => /BasicAttack$/.test(k));
   const ms = key ? (loader.minions()['sru_' + (team === 0 ? 'order' : 'chaos') + TYPE_ID[type]].objetos[key].mSpell || {}).missileSpeed || 0 : 0;
   return {
-    type, hp: v(r.baseHPModifiable) + g.hp * f, ad: v(r.baseDamageModifiable) + g.ad * f, armor: v(r.baseArmorModifiable) + g.armor * f, mr: 0,
+    type, hp: PARAMS.hpBase[type] + (type === 'super' ? PARAMS.hpUp.super * n : g.hp * f), ad: v(r.baseDamageModifiable) + g.ad * f, armor: v(r.baseArmorModifiable) + g.armor * f, mr: 0,
     ms: v(r.baseMoveSpeedModifiable), range: v(r.attackRangeModifiable), as: v(r.attackSpeedModifiable),
     total: at.mAttackTotalTime, cast: at.mAttackCastTime, missile: ms, radius: r.overrideGameplayCollisionRadius || r.pathfindingCollisionRadius || 48,
-    xp: r.expGivenOnDeath, gold: r.goldGivenOnDeath + (type === 'siege' ? PARAMS.siegeGoldPerUpgrade * n : 0), xpRadius: r.experienceRadius, acquire: r.firstAcquisitionRange, wake: r.wakeUpRange
+    xp: r.expGivenOnDeath, gold: type === 'siege' ? Math.min(PARAMS.siegeGold.to, PARAMS.siegeGold.from + (PARAMS.siegeGold.to - PARAMS.siegeGold.from) * t / PARAMS.siegeGold.untilS) : PARAMS.goldBase[type], xpRadius: r.experienceRadius, acquire: r.firstAcquisitionRange, wake: r.wakeUpRange
   };
 }
 
