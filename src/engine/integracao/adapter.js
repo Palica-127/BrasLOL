@@ -37,6 +37,13 @@ function create(opts) {
   const say = (t, text, k, ti, kf) => S.logOut.push({ m: t, t: text, k: k || 'sys', ti, kf });
   /* traducao do log estruturado -> linhas do jogo */
   S.cnt = {}; w.listeners.push(e => { if (e.team === 0 || e.team === 1) { const k = e.type + e.team; S.cnt[k] = (S.cnt[k] || 0) + 1; } });
+  /* objetivo com abatedor e assistentes (icones no log): ti = time que ficou com o objetivo */
+  const objKf = (e, ti, o, text) => {
+    const a = e.src != null ? nameOf(nm(e.src)) : null, as = (e.as || []).map(id => nameOf(nm(id))).filter(Boolean).filter(x => x.ti === ti && (!a || x.n !== a.n));
+    let k = a && a.ti === ti ? a : null, rest = as;
+    if (!k && as.length) { k = as[0]; rest = as.slice(1); }
+    say(e.t, text, 'obj', ti, { k: k ? { ti: k.ti, ch: k.ch, n: k.n } : null, v: null, a: rest.map(x => ({ ti: x.ti, ch: x.ch, n: x.n })), o, ts: ti });
+  };
   S.translate = e => {
     switch (e.type) {
       case 'first-blood': { const a = nameOf(nm(e.id)); if (a) say(e.t, `Primeiro abate! ${a.n} (${a.ch}) abre o placar.`, 'kill', a.ti); break; }
@@ -49,17 +56,16 @@ function create(opts) {
         say(e.t, a ? `${a.n} (${a.ch}) abate ${v.n} (${v.ch}).` : `${v.n} (${v.ch}) morre.`, 'kill', a ? a.ti : 1 - v.ti, kf); break;
       }
       case 'structure-fall': {
-        if (e.sub === 'inhibitor') say(e.t, `${tnm(1 - e.team)} derruba um inibidor ${e.lane ? 'na rota ' + ({ top: 'superior', mid: 'do meio', bot: 'inferior' })[e.lane] : ''}.`, 'tower', 1 - e.team);
-        else if (e.sub === 'turret') say(e.t, `${tnm(1 - e.team)} derruba uma torre${e.lane ? ' ' + ({ top: 'do topo', mid: 'do meio', bot: 'inferior' })[e.lane] : ' do Nexus'}.`, 'tower', 1 - e.team);
+        if (e.sub !== 'inhibitor' && e.sub !== 'turret') break;
+        const ob = e.sub === 'inhibitor' ? { n: 'inh', ti: e.team } : { n: 'tw', ti: e.team };
+        objKf(e, 1 - e.team, ob, e.sub === 'inhibitor' ? `${tnm(1 - e.team)} derruba um inibidor.` : `${tnm(1 - e.team)} derruba uma torre.`);
         break;
       }
-      case 'drake-kill': say(e.t, `${tnm(e.team)} abate o Dragão ${DRAKE_PT[DRAKE[e.mkey]] || ''}.`, 'obj', e.team); break;
-      case 'rift': say(e.t, `O mapa se transforma: Terras ${({ sru_dragon_fire: 'Infernais', sru_dragon_earth: 'das Montanhas', sru_dragon_water: 'dos Oceanos', sru_dragon_air: 'das Nuvens', sru_dragon_hextech: 'Hextec', sru_dragon_chemtech: 'Quimtec' })[e.mkey] || ''}.`, 'sys'); break;
-      case 'soul': say(e.t, `${tnm(e.team)} conquista a Alma do Dragão!`, 'obj', e.team); break;
-      case 'elder-kill': say(e.t, `${tnm(e.team)} abate o Dragão Ancião!`, 'obj', e.team); break;
-      case 'baron-kill': say(e.t, `${tnm(e.team)} abate o Barão Nashor!`, 'obj', e.team); break;
-      case 'herald-kill': say(e.t, `${tnm(e.team)} abate o Arauto do Vale.`, 'obj', e.team); break;
-      case 'grub-stack': say(e.t, `${tnm(e.team)} abate uma Vastilarva (${e.n}).`, 'obj', e.team); break;
+      case 'drake-kill': objKf(e, e.team, { n: 'dr_' + (DRAKE[e.mkey] || 'inf'), ti: e.team }, `${tnm(e.team)} abate o Dragão ${DRAKE_PT[DRAKE[e.mkey]] || ''}.`); break;
+      case 'elder-kill': objKf(e, e.team, { n: 'el', ti: e.team }, `${tnm(e.team)} abate o Dragão Ancião!`); break;
+      case 'baron-kill': objKf(e, e.team, { n: 'bn', ti: e.team }, `${tnm(e.team)} abate o Barão Nashor!`); break;
+      case 'herald-kill': objKf(e, e.team, { n: 'hd', ti: e.team }, `${tnm(e.team)} abate o Arauto do Vale.`); break;
+      case 'grub-stack': objKf(e, e.team, { n: 'gr', ti: e.team }, `${tnm(e.team)} abate uma Vastilarva (${e.n}).`); break;
       case 'epic-spawn': say(e.t, ({ baron: 'O Barão Nashor nasceu.', herald: 'O Arauto do Vale nasceu.', grubs: 'As larvas do Vazio nasceram.', drake: 'Um Dragão nasceu.' })[e.epic] || null, 'sys'); break;
       case 'inhibitor-up': say(e.t, `Um inibidor de ${tnm(e.team)} renasceu.`, 'sys'); break;
       case 'gank': { const a = nameOf(nm(e.id)); if (a) say(e.t, `${a.n} (${a.ch}) faz gank ${e.lane === 'top' ? 'no topo' : e.lane === 'mid' ? 'no meio' : 'na rota inferior'}.`, 'sys', a.ti); break; }

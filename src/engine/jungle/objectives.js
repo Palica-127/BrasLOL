@@ -139,24 +139,31 @@ class Jungle {
     const w = this.w;
     w.units.filter(u => u.kind !== 'minion' && u.kind !== 'monster' && u.team === team && !u.dead).forEach(u => { this.gold(u, g, why); if (w.econ) w.econ.grantXp(u, xp, why); });
   }
+  /* quem abateu e quem ajudou (campeoes do time a menos de 1500 do monstro): vai no evento para o log de icones */
+  crew(m, killer, team) {
+    const w = this.w, ch = u => u && u.team === team && !['minion', 'monster', 'structure', 'obj'].includes(u.kind);
+    const k = ch(killer) ? killer : null;
+    const near = w.units.filter(u => ch(u) && !u.dead && u !== k && dist(u.pos, m.pos) <= 1500);
+    return { src: k ? k.id : null, as: near.map(u => u.id) };
+  }
   onEpic(m, killer, team) {
-    const w = this.w, name = m.epicKey;
+    const w = this.w, name = m.epicKey, cr = team === null ? {} : this.crew(m, killer, team);
     if (name === 'grubs') {
       this.epics.grubs = this.epics.grubs.filter(x => x !== m);
       if (team !== null) {
         this.stacks[team].grubs = (this.stacks[team].grubs || 0) + 1;                        /* Toque do Vazio: efeito pendente (precisa de torres) */
-        w.emit('grub-stack', { team, n: this.stacks[team].grubs });
+        w.emit('grub-stack', { team, n: this.stacks[team].grubs, ...cr });
       }
       return;
     }
     if (team === null) return;
-    if (name === 'herald') { this.eye = { team, until: w.t + 20 }; w.emit('herald-kill', { team, eye: 20 }); return; }
+    if (name === 'herald') { this.eye = { team, until: w.t + 20 }; w.emit('herald-kill', { team, eye: 20, ...cr }); return; }
     if (name === 'baron') {
       this.teamGold(team, BARON.globalGold, BARON.globalXp, 'baron'); this.gold(killer, BARON.killGold, 'baron-kill');
       const mins = w.t / 60, k = Math.max(0, Math.min(1, (mins - 20) / 20));                 /* ESTIMADO: 12-48 AD e 20-80 AP, de 20 a 40 min */
       const ad = 12 + 36 * k, ap = 20 + 60 * k;
       w.units.filter(u => u.kind !== 'minion' && u.kind !== 'monster' && u.team === team && !u.dead).forEach(u => w.addBuff(u, { dur: BARON.buff, flat: { ad, ap }, tag: 'hob', loseOnDeath: true }));
-      this.hob[team] = w.t + BARON.buff; w.emit('baron-kill', { team, ad, ap });
+      this.hob[team] = w.t + BARON.buff; w.emit('baron-kill', { team, ad, ap, ...cr });
       w.schedule(w.t + T.baron.respawn, () => this.spawnEpic('baron', 'sru_baron', this.layout.baron));
       return;
     }
@@ -165,11 +172,11 @@ class Jungle {
         this.teamGold(team, ELDER.globalGold, ELDER.globalXp, 'elder');
         const mins = w.t / 60, k = Math.max(0, Math.min(1, (mins - 25) / 20));              /* ESTIMADO: queimadura 75-225 por minuto de jogo */
         w.units.filter(u => u.kind !== 'minion' && u.kind !== 'monster' && u.team === team && !u.dead).forEach(u => { u.helpers.aspectUntil = w.t + ELDER.buff; u.helpers.aspectBurn = 75 + 150 * k; });
-        this.aspect[team] = w.t + ELDER.buff; w.emit('elder-kill', { team }); this.elderNext = true; w.schedule(w.t + T.elder.respawn, () => this.spawnDrake()); return;
+        this.aspect[team] = w.t + ELDER.buff; w.emit('elder-kill', { team, ...cr }); this.elderNext = true; w.schedule(w.t + T.elder.respawn, () => this.spawnDrake()); return;
       }
       this.drakeN++; const st = this.stacks[team]; st.push(m.name);
       if (this.drakeN === 3 && this.rift && !this.riftOn) this.transformMap();
-      w.emit('drake-kill', { team, mkey: m.name, stacks: st.length });
+      w.emit('drake-kill', { team, mkey: m.name, stacks: st.length, ...cr });
       if (st.length === 4 && !this.soul[team]) { this.soul[team] = this.rift || m.name; this.elderNext = true; w.emit('soul', { team, mkey: this.soul[team] }); w.schedule(w.t + T.elder.respawn, () => this.spawnDrake()); }
       else w.schedule(w.t + T.drake.respawn, () => this.spawnDrake());
       w.units.filter(u => u.kind !== 'minion' && u.kind !== 'monster' && u.team === team).forEach(u => w.refresh(u));

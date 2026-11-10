@@ -2374,24 +2374,31 @@ class Jungle {
     const w = this.w;
     w.units.filter(u => u.kind !== 'minion' && u.kind !== 'monster' && u.team === team && !u.dead).forEach(u => { this.gold(u, g, why); if (w.econ) w.econ.grantXp(u, xp, why); });
   }
+  /* quem abateu e quem ajudou (campeoes do time a menos de 1500 do monstro): vai no evento para o log de icones */
+  crew(m, killer, team) {
+    const w = this.w, ch = u => u && u.team === team && !['minion', 'monster', 'structure', 'obj'].includes(u.kind);
+    const k = ch(killer) ? killer : null;
+    const near = w.units.filter(u => ch(u) && !u.dead && u !== k && dist(u.pos, m.pos) <= 1500);
+    return { src: k ? k.id : null, as: near.map(u => u.id) };
+  }
   onEpic(m, killer, team) {
-    const w = this.w, name = m.epicKey;
+    const w = this.w, name = m.epicKey, cr = team === null ? {} : this.crew(m, killer, team);
     if (name === 'grubs') {
       this.epics.grubs = this.epics.grubs.filter(x => x !== m);
       if (team !== null) {
         this.stacks[team].grubs = (this.stacks[team].grubs || 0) + 1;                        /* Toque do Vazio: efeito pendente (precisa de torres) */
-        w.emit('grub-stack', { team, n: this.stacks[team].grubs });
+        w.emit('grub-stack', { team, n: this.stacks[team].grubs, ...cr });
       }
       return;
     }
     if (team === null) return;
-    if (name === 'herald') { this.eye = { team, until: w.t + 20 }; w.emit('herald-kill', { team, eye: 20 }); return; }
+    if (name === 'herald') { this.eye = { team, until: w.t + 20 }; w.emit('herald-kill', { team, eye: 20, ...cr }); return; }
     if (name === 'baron') {
       this.teamGold(team, BARON.globalGold, BARON.globalXp, 'baron'); this.gold(killer, BARON.killGold, 'baron-kill');
       const mins = w.t / 60, k = Math.max(0, Math.min(1, (mins - 20) / 20));                 /* ESTIMADO: 12-48 AD e 20-80 AP, de 20 a 40 min */
       const ad = 12 + 36 * k, ap = 20 + 60 * k;
       w.units.filter(u => u.kind !== 'minion' && u.kind !== 'monster' && u.team === team && !u.dead).forEach(u => w.addBuff(u, { dur: BARON.buff, flat: { ad, ap }, tag: 'hob', loseOnDeath: true }));
-      this.hob[team] = w.t + BARON.buff; w.emit('baron-kill', { team, ad, ap });
+      this.hob[team] = w.t + BARON.buff; w.emit('baron-kill', { team, ad, ap, ...cr });
       w.schedule(w.t + T.baron.respawn, () => this.spawnEpic('baron', 'sru_baron', this.layout.baron));
       return;
     }
@@ -2400,11 +2407,11 @@ class Jungle {
         this.teamGold(team, ELDER.globalGold, ELDER.globalXp, 'elder');
         const mins = w.t / 60, k = Math.max(0, Math.min(1, (mins - 25) / 20));              /* ESTIMADO: queimadura 75-225 por minuto de jogo */
         w.units.filter(u => u.kind !== 'minion' && u.kind !== 'monster' && u.team === team && !u.dead).forEach(u => { u.helpers.aspectUntil = w.t + ELDER.buff; u.helpers.aspectBurn = 75 + 150 * k; });
-        this.aspect[team] = w.t + ELDER.buff; w.emit('elder-kill', { team }); this.elderNext = true; w.schedule(w.t + T.elder.respawn, () => this.spawnDrake()); return;
+        this.aspect[team] = w.t + ELDER.buff; w.emit('elder-kill', { team, ...cr }); this.elderNext = true; w.schedule(w.t + T.elder.respawn, () => this.spawnDrake()); return;
       }
       this.drakeN++; const st = this.stacks[team]; st.push(m.name);
       if (this.drakeN === 3 && this.rift && !this.riftOn) this.transformMap();
-      w.emit('drake-kill', { team, mkey: m.name, stacks: st.length });
+      w.emit('drake-kill', { team, mkey: m.name, stacks: st.length, ...cr });
       if (st.length === 4 && !this.soul[team]) { this.soul[team] = this.rift || m.name; this.elderNext = true; w.emit('soul', { team, mkey: this.soul[team] }); w.schedule(w.t + T.elder.respawn, () => this.spawnDrake()); }
       else w.schedule(w.t + T.drake.respawn, () => this.spawnDrake());
       w.units.filter(u => u.kind !== 'minion' && u.kind !== 'monster' && u.team === team).forEach(u => w.refresh(u));
@@ -2644,7 +2651,7 @@ class Structures {
 
   onDeath(s, killer) {
     const w = this.w, foe = 1 - s.team;
-    w.emit('structure-fall', { sid: s.id, sname: s.name, team: s.team, sub: s.sub, tier: s.tier, lane: s.lane, src: killer && killer.id });
+    w.emit('structure-fall', { sid: s.id, sname: s.name, team: s.team, sub: s.sub, tier: s.tier, lane: s.lane, src: killer && killer.id, as: [...new Set([...Object.keys(s.assisters || {}).filter(id => w.t - s.assisters[id] < P.assistWindow).map(Number), ...w.units.filter(u => !u.dead && u.team === foe && !['minion', 'monster', 'structure', 'obj'].includes(u.kind) && dist(u.pos, s.pos) <= 5000).sort((x, y) => dist(x.pos, s.pos) - dist(y.pos, s.pos)).slice(0, 3).map(u => u.id)])] });
     if (s.sub === 'turret') {
       this.teamGold(foe, TURRET[s.tier].gold, 'turret');
       if (s.tier === 'outer') this.localGold(s, P.plateGold, killer, 'plate');
@@ -3476,6 +3483,13 @@ function create(opts) {
   const say = (t, text, k, ti, kf) => S.logOut.push({ m: t, t: text, k: k || 'sys', ti, kf });
   /* traducao do log estruturado -> linhas do jogo */
   S.cnt = {}; w.listeners.push(e => { if (e.team === 0 || e.team === 1) { const k = e.type + e.team; S.cnt[k] = (S.cnt[k] || 0) + 1; } });
+  /* objetivo com abatedor e assistentes (icones no log): ti = time que ficou com o objetivo */
+  const objKf = (e, ti, o, text) => {
+    const a = e.src != null ? nameOf(nm(e.src)) : null, as = (e.as || []).map(id => nameOf(nm(id))).filter(Boolean).filter(x => x.ti === ti && (!a || x.n !== a.n));
+    let k = a && a.ti === ti ? a : null, rest = as;
+    if (!k && as.length) { k = as[0]; rest = as.slice(1); }
+    say(e.t, text, 'obj', ti, { k: k ? { ti: k.ti, ch: k.ch, n: k.n } : null, v: null, a: rest.map(x => ({ ti: x.ti, ch: x.ch, n: x.n })), o, ts: ti });
+  };
   S.translate = e => {
     switch (e.type) {
       case 'first-blood': { const a = nameOf(nm(e.id)); if (a) say(e.t, `Primeiro abate! ${a.n} (${a.ch}) abre o placar.`, 'kill', a.ti); break; }
@@ -3488,17 +3502,16 @@ function create(opts) {
         say(e.t, a ? `${a.n} (${a.ch}) abate ${v.n} (${v.ch}).` : `${v.n} (${v.ch}) morre.`, 'kill', a ? a.ti : 1 - v.ti, kf); break;
       }
       case 'structure-fall': {
-        if (e.sub === 'inhibitor') say(e.t, `${tnm(1 - e.team)} derruba um inibidor ${e.lane ? 'na rota ' + ({ top: 'superior', mid: 'do meio', bot: 'inferior' })[e.lane] : ''}.`, 'tower', 1 - e.team);
-        else if (e.sub === 'turret') say(e.t, `${tnm(1 - e.team)} derruba uma torre${e.lane ? ' ' + ({ top: 'do topo', mid: 'do meio', bot: 'inferior' })[e.lane] : ' do Nexus'}.`, 'tower', 1 - e.team);
+        if (e.sub !== 'inhibitor' && e.sub !== 'turret') break;
+        const ob = e.sub === 'inhibitor' ? { n: 'inh', ti: e.team } : { n: 'tw', ti: e.team };
+        objKf(e, 1 - e.team, ob, e.sub === 'inhibitor' ? `${tnm(1 - e.team)} derruba um inibidor.` : `${tnm(1 - e.team)} derruba uma torre.`);
         break;
       }
-      case 'drake-kill': say(e.t, `${tnm(e.team)} abate o Dragão ${DRAKE_PT[DRAKE[e.mkey]] || ''}.`, 'obj', e.team); break;
-      case 'rift': say(e.t, `O mapa se transforma: Terras ${({ sru_dragon_fire: 'Infernais', sru_dragon_earth: 'das Montanhas', sru_dragon_water: 'dos Oceanos', sru_dragon_air: 'das Nuvens', sru_dragon_hextech: 'Hextec', sru_dragon_chemtech: 'Quimtec' })[e.mkey] || ''}.`, 'sys'); break;
-      case 'soul': say(e.t, `${tnm(e.team)} conquista a Alma do Dragão!`, 'obj', e.team); break;
-      case 'elder-kill': say(e.t, `${tnm(e.team)} abate o Dragão Ancião!`, 'obj', e.team); break;
-      case 'baron-kill': say(e.t, `${tnm(e.team)} abate o Barão Nashor!`, 'obj', e.team); break;
-      case 'herald-kill': say(e.t, `${tnm(e.team)} abate o Arauto do Vale.`, 'obj', e.team); break;
-      case 'grub-stack': say(e.t, `${tnm(e.team)} abate uma Vastilarva (${e.n}).`, 'obj', e.team); break;
+      case 'drake-kill': objKf(e, e.team, { n: 'dr_' + (DRAKE[e.mkey] || 'inf'), ti: e.team }, `${tnm(e.team)} abate o Dragão ${DRAKE_PT[DRAKE[e.mkey]] || ''}.`); break;
+      case 'elder-kill': objKf(e, e.team, { n: 'el', ti: e.team }, `${tnm(e.team)} abate o Dragão Ancião!`); break;
+      case 'baron-kill': objKf(e, e.team, { n: 'bn', ti: e.team }, `${tnm(e.team)} abate o Barão Nashor!`); break;
+      case 'herald-kill': objKf(e, e.team, { n: 'hd', ti: e.team }, `${tnm(e.team)} abate o Arauto do Vale.`); break;
+      case 'grub-stack': objKf(e, e.team, { n: 'gr', ti: e.team }, `${tnm(e.team)} abate uma Vastilarva (${e.n}).`); break;
       case 'epic-spawn': say(e.t, ({ baron: 'O Barão Nashor nasceu.', herald: 'O Arauto do Vale nasceu.', grubs: 'As larvas do Vazio nasceram.', drake: 'Um Dragão nasceu.' })[e.epic] || null, 'sys'); break;
       case 'inhibitor-up': say(e.t, `Um inibidor de ${tnm(e.team)} renasceu.`, 'sys'); break;
       case 'gank': { const a = nameOf(nm(e.id)); if (a) say(e.t, `${a.n} (${a.ch}) faz gank ${e.lane === 'top' ? 'no topo' : e.lane === 'mid' ? 'no meio' : 'na rota inferior'}.`, 'sys', a.ti); break; }

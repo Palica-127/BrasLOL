@@ -192,7 +192,7 @@ class Structures {
 
   onDeath(s, killer) {
     const w = this.w, foe = 1 - s.team;
-    w.emit('structure-fall', { sid: s.id, sname: s.name, team: s.team, sub: s.sub, tier: s.tier, lane: s.lane, src: killer && killer.id });
+    w.emit('structure-fall', { sid: s.id, sname: s.name, team: s.team, sub: s.sub, tier: s.tier, lane: s.lane, src: killer && killer.id, as: [...new Set([...Object.keys(s.assisters || {}).filter(id => w.t - s.assisters[id] < P.assistWindow).map(Number), ...w.units.filter(u => !u.dead && u.team === foe && !['minion', 'monster', 'structure', 'obj'].includes(u.kind) && dist(u.pos, s.pos) <= 5000).sort((x, y) => dist(x.pos, s.pos) - dist(y.pos, s.pos)).slice(0, 3).map(u => u.id)])] });
     if (s.sub === 'turret') {
       this.teamGold(foe, TURRET[s.tier].gold, 'turret');
       if (s.tier === 'outer') this.localGold(s, P.plateGold, killer, 'plate');
