@@ -184,7 +184,9 @@ class World {
     if (dst.dead) return;
     dst.dead = true; dst.hp = 0; dst.stat.deaths++; if (src && dst.kind !== 'minion' && dst.kind !== 'monster' && dst.kind !== 'structure') src.stat.kills++;
     const asIds = [];
-    Object.keys(dst.assisters || {}).forEach(id => { const u = this.byId(+id); if (u && u !== src && u.team === src.team && this.t - dst.assisters[id] < 10) { u.stat.assists++; if (dst.kind !== 'minion' && dst.kind !== 'monster' && dst.kind !== 'structure') asIds.push(u.id); } });
+    /* assistência só existe em abate de campeão (antes contava também em minions, monstros e torres), e só para campeões */
+    const notCh = k => k === 'minion' || k === 'monster' || k === 'structure' || k === 'obj';
+    if (!notCh(dst.kind)) Object.keys(dst.assisters || {}).forEach(id => { const u = this.byId(+id); if (u && u !== src && u.team === src.team && !notCh(u.kind) && this.t - dst.assisters[id] < 10) { u.stat.assists++; asIds.push(u.id); } });
     dst.cast = null; dst.attack.windup = null; dst.dash = null; dst.order = null;
     this.zones.forEach(z => { if (z.owner === dst && z.dieWithOwner) z.until = this.t; });
     if (dst.kind === 'structure') { this.structures.onDeath(dst, src); return; }
