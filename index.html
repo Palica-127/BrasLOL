@@ -6354,26 +6354,49 @@ function ageDelta(p){
   return -2.2+g()*1.5;
 }
 /* mercado vivo: na janela de transferências, os clubes corrigem a posição mais fraca (quanto mais defasada, maior a chance), comprando de outros clubes, de reservas ou da D2 */
+/* venda de um titular: o vendedor recebe o jogador do comprador e, se perdeu qualidade, passa a PROCURAR um substituto de nivel parecido (a necessidade e atendida pelo mercado diario) */
+function starSale(seller,buyer,i,keepTeamOrder){
+  const out=seller.pl[i],back=buyer.pl[i];
+  seller.pl[i]=back;buyer.pl[i]=out;pd(out.n).role=i;pd(back.n).role=i;
+  if(out.r-back.r>=4)setNeed(seller,i,out.r-2,out.n);
+}
+function setNeed(t,i,target,star,depth){
+  S.need=S.need||{};
+  if(S.need[t.id]&&S.need[t.id].role===i&&S.need[t.id].target>=target)return;
+  S.need[t.id]={role:i,target:Math.min(target,t.pl[i].r+24),star,depth:depth||0,y:S.year};
+  const mine=pcT();if(mine===t)news(`${t.name} vendeu ${star} e procura um substituto à altura.`);
+}
 function aiMarketDay(){
   const mt=S.mgr&&S.mgr.tid!=null?S.mgr.tid:-1;S.tf=S.tf||[];
-  const gaps=S.teams.filter(t=>t.id!==mt).map(t=>{
-    const avg=t.pl.reduce((a,p)=>a+p.r,0)/5;let bi=-1,bg=0;
-    t.pl.forEach((p,i)=>{if(p.pc)return;const gp=Math.max(0,avg+1-p.r)+Math.max(0,78-p.r)*.5;if(gp>bg){bg=gp;bi=i}});
-    return{t,i:bi,g:bg};
-  }).filter(x=>x.i>=0&&x.g>=2);
-  if(!gaps.length)return;
-  let r=Math.random()*gaps.reduce((a,x)=>a+x.g*x.g,0),B=gaps[0];for(const x of gaps){r-=x.g*x.g;if(r<=0){B=x;break}}
-  const buyer=B.t,i=B.i,cur=buyer.pl[i],c=[];
+  const need=S.need=S.need||{};
+  Object.keys(need).forEach(k=>{const t=S.teams.find(x=>x.id===+k);if(!t||t.pl[need[k].role].r>=need[k].target-2||S.year-need[k].y>1)delete need[k]});
+  const needy=S.teams.filter(t=>t.id!==mt&&need[t.id]);
+  let buyer,i,nd=null;
+  if(needy.length&&Math.random()<.75){buyer=pick(needy);nd=need[buyer.id];i=nd.role}
+  else{
+    const gaps=S.teams.filter(t=>t.id!==mt).map(t=>{
+      const avg=t.pl.reduce((a,p)=>a+p.r,0)/5;let bi=-1,bg=0;
+      t.pl.forEach((p,j)=>{if(p.pc)return;const gp=Math.max(0,avg+1-p.r)+Math.max(0,78-p.r)*.5;if(gp>bg){bg=gp;bi=j}});
+      return{t,i:bi,g:bg};
+    }).filter(x=>x.i>=0&&x.g>=2);
+    if(!gaps.length)return;
+    let r=Math.random()*gaps.reduce((a,x)=>a+x.g*x.g,0),B=gaps[0];for(const x of gaps){r-=x.g*x.g;if(r<=0){B=x;break}}
+    buyer=B.t;i=B.i;
+  }
+  const cur=buyer.pl[i],c=[];
+  /* com necessidade (acabou de vender um titular) o clube mira o nivel do que perdeu; sem necessidade, so melhoras pequenas e trocas justas */
+  const lo=nd?Math.max(cur.r+2,nd.target-3):cur.r+2,hi=nd?nd.target+4:cur.r+4;
   S.teams.forEach(x=>{
     if(x===buyer||x.id===mt)return;
-    const p=x.pl[i];if(!p.pc&&x!==pcT()&&p.r>=cur.r+2&&p.r<=cur.r+4&&p.r<90)c.push({k:'t',x,p});            /* titular so sai por uma troca justa (ate 4 pontos), estrelas 90+ e o clube do jogador carreira nao sao vendidos aqui */
-    (x.bn||[]).forEach((b,j)=>{if(b.role===i&&!b.pc&&b.r>=cur.r+2)c.push({k:'b',x,p:b,j})});
+    const p=x.pl[i];if(!p.pc&&p.r>=lo&&p.r<=hi&&(nd||p.r<90))c.push({k:'t',x,p});
+    (x.bn||[]).forEach((b,j)=>{if(b.role===i&&!b.pc&&b.r>=lo)c.push({k:'b',x,p:b,j})});
   });
-  D2L().forEach(d=>{if(d.id===mt+100)return;d.pl.forEach((p,j)=>{if(p.role===i&&!p.pc&&p.r>=cur.r+2)c.push({k:'d',x:d,p,j})})});
+  D2L().forEach(d=>{if(d.id===mt+100)return;d.pl.forEach((p,j)=>{if(p.role===i&&!p.pc&&p.r>=lo)c.push({k:'d',x:d,p,j})})});
+  if(nd&&!c.length){nd.tries=(nd.tries||0)+1;if(nd.tries>6)nd.target-=2;return}
   if(!c.length)return;
-  c.sort((a,b)=>b.p.r-a.p.r);
+  if(nd)c.sort((a,b)=>Math.abs(a.p.r-nd.target)-Math.abs(b.p.r-nd.target));else c.sort((a,b)=>b.p.r-a.p.r);
   const z=c[Math.floor(Math.random()*Math.min(3,c.length))],p=z.p;
-  if(z.k==='t'){z.x.pl[i]=cur;buyer.pl[i]=p}
+  if(z.k==='t'){z.x.pl[i]=cur;buyer.pl[i]=p;if(p.r-cur.r>=4&&(!nd||nd.depth<1))setNeed(z.x,i,p.r-3,p.n,(nd?nd.depth:0)+1)}
   else if(z.k==='b'){z.x.bn[z.j]=cur;buyer.pl[i]=p}
   else{z.x.pl[z.j]=cur;buyer.pl[i]=p}
   pd(p.n).role=i;pd(cur.n).role=i;
@@ -6386,11 +6409,11 @@ function aiTransfers(){
   const mt=S.mgr&&S.mgr.tid!=null?S.mgr.tid:-1,n=4+Math.floor(Math.random()*4);
   S.tf=S.tf||[];
   for(let k=0;k<n;k++){
-    const buyer=pick(S.teams.filter(t=>t.id!==mt)),c=[],mineT=pcT();
-    S.teams.forEach(x=>{if(x===buyer||x.id===mt||x===mineT)return;x.pl.forEach(p=>{const cur=buyer.pl[p.role];if(p.r>cur.r&&p.r-cur.r<=3&&!p.pc&&!cur.pc)c.push({x,p})})});            /* o vendedor nao aceita perder mais que 3 pontos no jogador */
+    const buyer=pick(S.teams.filter(t=>t.id!==mt)),c=[];
+    S.teams.forEach(x=>{if(x===buyer||x.id===mt)return;x.pl.forEach(p=>{const cur=buyer.pl[p.role];if(p.r>cur.r&&p.r-cur.r<=6&&!p.pc&&!cur.pc)c.push({x,p})})});
     if(!c.length)continue;
     const z=pick(c),p=z.p,i=p.role,old=buyer.pl[i];
-    z.x.pl[i]=old;buyer.pl[i]=p;pd(p.n).role=i;pd(old.n).role=i;
+    starSale(z.x,buyer,i,true);
     S.tf.unshift({y:S.year,t:`${S.year}: ${buyer.name} contrata ${p.n} (${z.x.name}); ${old.n} faz o caminho inverso.`});
     if(p.r>=86)news(`${buyer.name} contrata ${p.n}, do ${z.x.name}.`);
   }
@@ -6452,13 +6475,12 @@ function nextSeason(){
   }));
   for(let k=0;k<8;k++){
     const all=S.teams.flatMap(t=>t.pl.map((p,i)=>({t,p,i})));
-    const mineT=pcT();
-    const A=pick(all.filter(x=>x.p.r>=80&&!x.p.pc&&x.t.id!==mid&&x.t!==mineT&&!moved.has(x.p.n)));
+    const A=pick(all.filter(x=>x.p.r>=80&&!x.p.pc&&x.t.id!==mid&&!moved.has(x.p.n)));
     if(!A)break;
-    const B=pick(all.filter(x=>x.t!==A.t&&x.t.id!==mid&&x.t!==mineT&&x.i===A.i&&!x.p.pc&&!moved.has(x.p.n)&&Math.abs(x.p.r-A.p.r)<=3));        /* troca de estrelas so entre jogadores de nivel parecido (antes um 98 podia ir por um 80) */
+    const B=pick(all.filter(x=>x.t!==A.t&&x.t.id!==mid&&x.i===A.i&&!x.p.pc&&!moved.has(x.p.n)));
     if(!B)continue;
-    A.t.pl[A.i]=B.p;B.t.pl[B.i]=A.p;moved.add(A.p.n);moved.add(B.p.n);
-    off.push(`${A.p.n} vai de ${A.t.name} para ${B.t.name}, em troca de ${B.p.n}.`);
+    starSale(A.t,B.t,A.i);moved.add(A.p.n);moved.add(B.p.n);
+    off.push(`${A.p.n} vai de ${A.t.name} para ${B.t.name}; ${A.t.name} recebe ${B.p.n} e procura um substituto à altura.`);
   }
   {const h=S.hist[S.hist.length-1],L=[],z=S.season.zb;
    if(h){L.push(['🏆','Mundial',`${h.champs.wc}${h.champs.mvp?' · MVP '+h.champs.mvp:''}`]);L.push(['🌍','MSI',h.champs.msi]);L.push(['🥇','Melhor Jogador do Ano',`${h.top[0].n} (${h.top[0].team})`])}

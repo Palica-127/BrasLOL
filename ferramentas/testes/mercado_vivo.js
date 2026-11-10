@@ -15,14 +15,19 @@ T(r.moves>=15,'janela movimentada: '+r.moves+' contratacoes em 34 dias');
 T(r.up>=r.tot*.45&&r.up>=15,'compradores melhoram a vaga em 2+ pontos: '+r.up+' de '+r.tot+' trocas de titular');
 T(r.ok,'elencos completos e funcoes consistentes');
 T(r.dup===0,'nenhum jogador duplicado');
-/* clube do jogador carreira: nenhum titular e vendido nas trocas automaticas da virada (antes um mid 98 podia ir por um 80) */
+/* estrela vendida: o clube (inclusive o do jogador carreira) recebe necessidade e o mercado diario traz um substituto de nivel parecido */
 {const r2=JSON.parse(run(ctx,`(function(){
-  S.mgr=null;pcAdopt('Faker');var f=pcFind(),t=f.t,moved=0,mid=t.pl[2];mid.r=98;mid.pot=98;
-  var keep=t.pl.map(function(p){return p.n});
-  for(var y=0;y<5;y++){try{nextSeason()}catch(e){return JSON.stringify({err:String(e.message)+' @ '+String(e.stack).slice(0,160).split(String.fromCharCode(10)).join('|')})}
-    var ret=function(n){return S.pdb[n]&&S.pdb[n].ret};
-    t.pl.forEach(function(p,i){if(keep[i]!==p.n&&!ret(keep[i]))moved++});keep=t.pl.map(function(p){return p.n});}
-  return JSON.stringify({moved:moved,team:t.name})})()`));
- T(!r2.err,'virada de ano roda sem erro'+(r2.err?': '+r2.err:''));
- T(r2.moved===0,'clube do jogador carreira mantem os titulares (sem venda automatica) em 5 viradas: '+r2.moved+' saidas');}
+  S.mgr=null;pcAdopt('Faker');S.phase=0;S.day=1;S.season.sp=null;S.need={};S.tf=[];
+  var f=pcFind(),t=f.t,i=2,star=t.pl[i];star.r=98;star.pot=98;
+  var buyer=S.teams.filter(function(x){return x!==t&&x.d!==2}).sort(function(a,b){return a.pl[i].r-b.pl[i].r})[0];
+  starSale(t,buyer,i);
+  var after=t.pl[i].r,n0=!!S.need[t.id],tgt=n0?S.need[t.id].target:0;
+  for(var d=0;d<35;d++){S.day=1+d;aiMarketDay();if(!S.need[t.id])break}
+  var out={sold:buyer.pl[i]===star,need:n0,target:tgt,after:after,final:t.pl[i].r,done:!S.need[t.id],days:d,news:(S.hl||[]).slice(0,4).map(function(x){return x.t}),tf:S.tf.slice(0,3).map(function(x){return x.t})};
+  return JSON.stringify(out)})()`));
+ console.log(JSON.stringify(r2));
+ T(r2.sold,'a estrela (98) foi vendida ao comprador');
+ T(r2.need&&r2.target>=90,'o clube passa a buscar um substituto proximo do nivel vendido (alvo '+r2.target+')');
+ T(r2.final>=r2.target-5&&r2.final>r2.after+8,'o substituto chega em '+r2.days+' dias: '+r2.after+' -> '+r2.final);
+ T(r2.done,'a necessidade e encerrada quando o substituto chega');}
 console.log(bad?'HA FALHAS':'TODOS OS TESTES PASSARAM');process.exit(bad?1:0);
