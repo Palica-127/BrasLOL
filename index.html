@@ -895,7 +895,9 @@ h1{letter-spacing:.02em}
 .bcfeed{position:absolute;left:0;top:4px;z-index:2;display:grid;gap:4px;width:min(310px,28%);pointer-events:none}
 .bcf{display:flex;gap:8px;align-items:baseline;padding:5px 10px;background:rgba(10,14,34,.88);border:1px solid rgba(255,255,255,.07);border-left:3px solid rgba(255,255,255,.25);border-radius:3px;font-size:12.5px;line-height:1.3}
 .bcf b{flex:none;font-size:10.5px;font-weight:600;color:#8592bd}.bcf.b{border-left-color:#4d8dff}.bcf.r{border-left-color:#ff5c8a}.bcf.end{border-left-color:#FFE27A;background:rgba(58,48,10,.9)}.bcf.sys{color:#aab6dc}
-.bcf.kf{align-items:center;padding:4px 8px}.kfx{display:flex;align-items:center;gap:4px}.kft{display:inline-flex;border-radius:5px;overflow:hidden;border:2px solid #4d8dff;line-height:0}.kft.r{border-color:#ff5c8a}.kft .ct{width:28px;height:28px;border:0;border-radius:0;box-shadow:none}.kft.as .ct{width:22px;height:22px}.kft.as{opacity:.85}.kfs{font-style:normal;font-size:15px;color:#e6ecff;margin:0 2px;line-height:1}
+.bcf.kf{display:flex;align-items:center;justify-content:flex-end;gap:6px;padding:3px 0 3px 8px;background:linear-gradient(90deg,rgba(6,9,24,0),rgba(6,9,24,.78) 30%);border:0;border-radius:0;box-shadow:inset -4px 0 0 #4d8dff}.bcf.kf.r{box-shadow:inset -4px 0 0 #ff5c8a}.bcf.kf b{margin-right:auto;font-size:10px;opacity:.75}.kfx{display:flex;align-items:center;gap:3px;margin-right:9px}.kft{display:inline-flex;border-radius:4px;overflow:hidden;border:1.5px solid rgba(255,255,255,.55);line-height:0;box-shadow:0 1px 4px rgba(0,0,0,.6)}.kft.b{border-color:#6aa2ff}.kft.r{border-color:#ff7a9e}.kft .ct{width:30px;height:30px;border:0;border-radius:0;box-shadow:none}.kft.as .ct{width:22px;height:22px}.kft.as{opacity:.9}.kfs{font-style:normal;font-size:16px;color:#f1f4ff;margin:0 3px;line-height:1;text-shadow:0 0 4px #000}
+.mkw{position:absolute;left:50%;top:14%;transform:translateX(-50%);z-index:6;pointer-events:none}.mk{display:flex;align-items:center;gap:10px;padding:8px 20px 8px 10px;border-radius:10px;background:linear-gradient(90deg,rgba(8,10,28,.92),rgba(8,10,28,.75));border:2px solid #FFE27A;box-shadow:0 0 28px rgba(255,200,60,.55);animation:mkin 3.8s ease forwards}.mk .mkt{display:inline-flex;border-radius:8px;overflow:hidden;line-height:0;border:2px solid #FFE27A}.mk .ct{width:46px;height:46px;border:0;border-radius:0;box-shadow:none}.mkx{display:grid;line-height:1.1}.mkx b{white-space:nowrap;font:800 22px var(--d);letter-spacing:.08em;color:#FFE27A;text-shadow:0 0 12px rgba(255,200,60,.8)}.mkx small{font-size:12px;color:#cdd6f6}.mk.tri{border-color:#6aa2ff;box-shadow:0 0 28px rgba(80,140,255,.6)}.mk.tri b{color:#a8c8ff}.mk.qua{border-color:#c58bff;box-shadow:0 0 30px rgba(170,100,255,.65)}.mk.qua b{color:#e0c4ff;font-size:25px}.mk.pen{border-color:#ff5c5c;box-shadow:0 0 40px rgba(255,70,70,.8)}.mk.pen b{color:#ffb0b0;font-size:30px}
+@keyframes mkin{0%{opacity:0;transform:scale(.6)}8%{opacity:1;transform:scale(1.12)}16%{transform:scale(1)}85%{opacity:1}100%{opacity:0;transform:translateY(-10px)}}
 .bcside{position:absolute;right:0;top:4px;z-index:2;display:flex;flex-direction:column;gap:6px;width:200px;padding:10px;background:rgba(10,14,34,.88);border:1px solid rgba(255,255,255,.08);border-radius:4px}
 .bcside .k{font:600 11px var(--d);letter-spacing:.12em;text-transform:uppercase;color:#aab4d4}.bcside #lvph{color:#c6cde6;font-size:12px}
 .bcside .ghost{width:100%;padding:8px 10px;font-size:13px}
@@ -3795,7 +3797,7 @@ function lvGameStart(){
   LV.kd={me:[0,1,2,3,4].map(()=>({k:0,d:0,a:0,dead:0,st:0})),op:[0,1,2,3,4].map(()=>({k:0,d:0,a:0,dead:0,st:0}))};LV.str={me:lvMkStr(),op:lvMkStr()};
   LV.st={me:{k:0,t:0,d:0,b:0,g:0,e:0,h:0,n:0},op:{k:0,t:0,d:0,b:0,g:0,e:0,h:0,n:0}};LV.log=[{m:0,t:`Mapa ${LV.gi+1}: os times entram no Rift.`,k:'sys'}];
   LV.gh=[[0,0]];LV.ghT=0;LV.fp=null;
-  LV.bb=null;LV.elder=null;LV.rift=null;/* buffs do mapa anterior não vazam para o próximo (o placar do powerplay lia LV.pp ainda vazio) */
+  LV.bb=null;LV.elder=null;LV.rift=null;LV.mkc={};LV.mk=null;/* buffs do mapa anterior não vazam para o próximo (o placar do powerplay lia LV.pp ainda vazio) */
 }
 /* dano causado a campeões (só para as estatísticas do fim de mapa): fração de vida tirada × vida máxima estimada pelo nível da vítima */
 function lvDmg(a,v,x){if(!a||!v)return;const amt=x*(560+92*(v.lv||1));a.dm=(a.dm||0)+amt;if(LV.sec<840)a.d14=(a.d14||0)+amt}
@@ -3961,7 +3963,7 @@ function engSecond(dt){
     if(!hit)LV[k]=null;else if(!LV[k]||LV[k].s!==hit.s||hit.until-LV[k].until>20)LV[k]={s:hit.s,until:hit.until,tot:hit.tot,t0:LV.sec,g0:lvGold(hit.s)-lvGold(lvOpp(hit.s))};else LV[k].until=hit.until;
   });
   LV.dn.d=sn.drakeSpawned?0:1e9;LV.dn.b=sn.baronUp?0:1e9;LV.dn.h=1e9;
-  A.drainLog(E).forEach(l=>LV.log.unshift({m:l.m|0,t:l.t,k:l.ti===0||l.ti===1?sd(l.ti):l.k,kf:l.kf?{k:l.kf.k&&{s:sd(l.kf.k.ti),c:l.kf.k.ch,n:l.kf.k.n},v:{s:sd(l.kf.v.ti),c:l.kf.v.ch,n:l.kf.v.n},a:l.kf.a.map(x=>({s:sd(x.ti),c:x.ch,n:x.n}))}:null}));
+  A.drainLog(E).forEach(l=>{lvMulti(l,l.kf&&l.kf.k?sd(l.kf.k.ti):'');LV.log.unshift({m:l.m|0,t:l.t,k:l.ti===0||l.ti===1?sd(l.ti):l.k,kf:l.kf?{k:l.kf.k&&{s:sd(l.kf.k.ti),c:l.kf.k.ch,n:l.kf.k.n},v:{s:sd(l.kf.v.ti),c:l.kf.v.ch,n:l.kf.v.n},a:l.kf.a.map(x=>({s:sd(x.ti),c:x.ch,n:x.n}))}:null})});
   if(LV.log.length>300)LV.log.length=300;
   if(sn.winner!==null&&LV.state==='run'){LV.ev.endby='nexus';lvGameEnd(sd(sn.winner)==='me')}
 }
@@ -5068,6 +5070,15 @@ function lvTabHTML(){
   }).join('');
 }
 /* abate: assistentes + abatedor ⚔ vítima, só com os ícones dos campeões (borda azul/vermelha do time) */
+/* multi-abates: kills do mesmo campeão com até 10s entre si; 3+ vira aviso na tela */
+const MKN={3:['TRIPLE KILL','tri'],4:['QUADRA KILL','qua'],5:['PENTA KILL','pen']};
+function lvMulti(l,side){
+  const k=l.kf&&l.kf.k;if(!k)return;
+  const C=LV.mkc=LV.mkc||{},key=k.ti+'|'+k.n,c=C[key];
+  const n=c&&l.m-c.t<=10?c.n+1:1;C[key]={n,t:l.m};
+  if(n>=3){const m=MKN[Math.min(n,5)];LV.mk={txt:m[0],cl:m[1],c:k.ch,pl:k.n,s:lvBlue(side)?'b':'r',t0:Date.now()}}
+}
+const lvMkHTML=()=>{const m=LV&&LV.mk;if(!m||Date.now()-m.t0>3800)return '';return `<div class="mk ${m.cl} ${m.s}" data-k="${m.t0}"><span class="mkt">${chTile(m.c)}</span><span class="mkx"><b>${m.txt}</b><small>${esc(m.pl||m.c)}</small></span></div>`};
 const kfTile=(p,small)=>`<span class="kft ${lvBlue(p.s)?'b':'r'}${small?' as':''}" title="${esc(p.n||'')} (${esc(p.c)})">${chTile(p.c)}</span>`;
 const kfHTML=kf=>`<span class="kfx">${(kf.a||[]).map(p=>kfTile(p,1)).join('')}${kf.k?kfTile(kf.k):''}<i class="kfs" aria-label="abate">⚔</i>${kfTile(kf.v)}</span>`;
 const lvLogHTML=()=>LV.log.slice(0,7).map(e=>e.kf?`<div class="bcf kf ${lvBlue(e.kf.k?e.kf.k.s:e.kf.v.s==='me'?'op':'me')?'b':'r'}"><b class="num">${lvFmt(e.m)}</b>${kfHTML(e.kf)}</div>`:`<div class="bcf ${e.k==='me'||e.k==='op'?(lvBlue(e.k)?'b':'r'):e.k}"><b class="num">${lvFmt(e.m)}</b><span>${esc(e.t)}</span></div>`).join('');
@@ -5146,7 +5157,7 @@ function vLive(){
   return `<div class="dvx lvx bcx"><div class="bcw">
   <div class="bctop" id="lvst">${lvStatsHTML()}</div>
   <div class="bcmid">
-    <div class="bcmapw"><div class="bcmap">${lvMapHTML()}</div></div>
+    <div class="bcmapw"><div class="bcmap">${lvMapHTML()}</div><div class="mkw" id="lvmk">${lvMkHTML()}</div></div>
     <div class="bcfeed" id="lvlg" aria-live="polite">${lvLogHTML()}</div>
     ${side}
     ${run?'':`<div class="bcov"><div class="bcovc lvctl">${ctl}</div></div>`}
@@ -5189,7 +5200,7 @@ function lvPaint(now){
   set('lvst',lvStatsHTML());
   set('lvtb',lvTabHTML());
   {const [bl,rd]=lvSide();set('lvfa',lvFeatHTML(bl));set('lvfb',lvFeatHTML(rd))}
-  set('lvlg',lvLogHTML());
+  set('lvlg',lvLogHTML());set('lvmk',lvMkHTML());
   /* barra de vida e nível sobre cada campeão no mapa */
   if(LV.pp)['me','op'].forEach(s=>LV.pp[s].forEach((P,r)=>{
     const hb=$(`hb-${s}${r}`),lt=$(`lv-${s}${r}`);
