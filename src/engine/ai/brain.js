@@ -259,7 +259,9 @@ class Brain {
   fight(p, near, allies) {
     const w = this.w, u = p.u, R = 1400, A_ = allies.filter(a => dist(a.pos, u.pos) < R), E_ = near.filter(x => dist(x.pos, u.pos) < R);
     const skirmish = A_.length >= 2 || E_.length >= 2 || (this.goal && this.goal.kind !== 'lane' && this.goal.mem && this.goal.mem.has(p)) || p.role === 'jungle';
-    const reach = skirmish ? Math.max(u.stats.range, 450) + 350 : u.stats.range + 110, tgs = near.filter(x => dist(x.pos, u.pos) <= reach); if (!tgs.length) { u.ai.focus = null; return false; }
+    const reach = skirmish ? Math.max(u.stats.range, 450) + 350 : u.stats.range + 110, sg0 = this.goal && this.goal.kind === 'siege', tgs = near.filter(x => dist(x.pos, u.pos) <= reach && (sg0 || !(this.underEnemyTurret(x.pos) && !this.covered(x.pos))));   /* nao persegue ninguem para debaixo da torre sem minions aliados */
+    if (!sg0 && this.underEnemyTurret(u.pos) && !this.covered(u.pos) && near.some(x => dist(x.pos, u.pos) < 1400)) { this.retreat(p, near); return true; }
+    if (!tgs.length) { u.ai.focus = null; return false; }
     let ratio = A_.reduce((s, a) => s + power(a), 0) / Math.max(1, E_.reduce((s, e) => s + power(e), 0));
     ratio *= 1 + this.avgNoise() * 0.5 * w.rng.gauss('ia');
     /* ajuste por torre inimiga: sob torre sem minions aliados por perto é muito arriscado */
@@ -331,7 +333,7 @@ class Brain {
         const tgt = en.reduce((b, x) => (x.hp < b.hp ? x : b)), eta = dist(u.pos, tgt.pos) / Math.max(300, w.msOf(u));
         if (eta > 22) return;
         const ally = this.players.filter(q => q.lane === id && !q.u.dead);
-        const sc = 0.12 + st.gank + 0.5 * (1 - tgt.hp / tgt.hpMax) + 0.1 * ally.length + 0.015 * u.level - 0.012 * eta + 0.1 * w.rng.gauss('ia') * p.par.noise * 3 - (this.underEnemyTurret(tgt.pos) ? 0.3 : 0);
+        const sc = 0.12 + st.gank + 0.5 * (1 - tgt.hp / tgt.hpMax) + 0.1 * ally.length + 0.015 * u.level - 0.012 * eta + 0.1 * w.rng.gauss('ia') * p.par.noise * 3 - (this.underEnemyTurret(tgt.pos) ? 0.6 : 0);
         if (!best || sc > best.sc) best = { sc, tgt, id };
       });
       if (best && best.sc > 0.55) { p.gankUntil = w.t + 14; p.gankCd = w.t + 70; p.gankT = best.tgt; this.stats.ganks++; w.emit('gank', { id: u.id, lane: best.id }); }
