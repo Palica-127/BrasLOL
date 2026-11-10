@@ -2800,7 +2800,7 @@ class Brain {
     const par = A.fromAttributes({ ...A.DEFAULT, ...(r.attrs || {}) });
     u.ai = { ...u.ai, enabled: false, brain: true, farm: false, aim: par.aim, dodge: par.dodge, react: par.react, lastHit: par.lastHit, next: 0 };
     if (r.role === 'jungle') u.ai.jungle = { route: r.route || ['blue', 'gromp', 'wolves', 'raptors', 'red', 'krugs'] };
-    const p = { u, role: r.role, lane: LANE_OF[r.role], par, attrs: { ...A.DEFAULT, ...(r.attrs || {}) }, next: 0, mode: 'start', build: null, gankUntil: 0, gankCd: 0, back: false };
+    const p = { u, role: r.role, lane: LANE_OF[r.role], homeLane: LANE_OF[r.role], par, attrs: { ...A.DEFAULT, ...(r.attrs || {}) }, next: 0, mode: 'start', build: null, gankUntil: 0, gankCd: 0, back: false };
     if (w.supplies) SUP.init(w, u, r.role);
     this.players.push(p); return p;
   }
@@ -2853,7 +2853,8 @@ class Brain {
       const etaMe = mem.reduce((s, p) => s + dist(p.u.pos, pos), 0) / mem.length, etaOp = op.length ? op.reduce((s, u) => s + dist(u.pos, pos), 0) / op.length : 1e5;
       const reach = clamp(0.5 + (etaOp - etaMe) / 12000, 0.2, 1);
       let V = OBJ_VALUE[ob.k] * (1 + st.obj) * (this.pressing() ? 0.55 : 1); if (ob.k === 'b' && this.gold(this.team) - this.gold(1 - this.team) < -2500) V += 0.15;
-      const sc = V * nF * hpF * reach * clamp(0.55 + 0.45 * (prw - 0.7), 0.2, 1.15) * (1 - 0.14 * near.length) * rk;
+      const eg = this.enemy && this.enemy.goal, backdoor = this.homeThreat() > 0 || (eg && eg.kind === 'siege' && (eg.id === 'nx' || (eg.T && this.isBase(eg.T))));
+      const sc = V * nF * hpF * reach * clamp(0.55 + 0.45 * (prw - 0.7), 0.2, 1.15) * (1 - 0.14 * near.length) * rk * (backdoor ? 0.2 : 1);
       C.push({ kind: 'obj', k: ob.k, mons: ob.mons, pos, pit: ob.pit, sc, need });
     });
     /* torres: a estrutura vulnerável mais externa de cada rota (e a base) */
@@ -2889,12 +2890,27 @@ class Brain {
     this.setMembers();
     this.adaptStyle();
   }
+  /* fim de jogo: inimigos perto da nossa base (inibidor/nexus): defender vem antes de objetivo; evita o time no Baron enquanto o outro da backdoor */
+  isBase(s) { return s.sub === 'nexus' || s.sub === 'inhibitor' || s.tier === 'inhibTurret' || s.tier === 'inhibitor' || s.tier === 'nexus'; }
+  homeThreat() {
+    const S = this.w.structures, en = this.alive(1 - this.team); if (!en.length) return 0;
+    const base = S.byTeam[this.team].filter(s => !s.dead && this.isBase(s));
+    return en.filter(u => base.some(s => dist(u.pos, s.pos) < 2600)).length;
+  }
+  /* fim de jogo: o time anda junto em uma rota (a mais empurrada), em vez de cada um voltar para a sua e morrer sozinho */
+  rallyLane() {
+    const w = this.w, t = w.t; if (t < 1320 || !w.structures) return null;
+    if (this.rally && t - this.rally.at < 40) return this.rally.lane;
+    const S = w.structures, foe = 1 - this.team; let best = 'mid', bs = -1;
+    ['mid', 'top', 'bot'].forEach(id => { const L = S.lane(foe, id); const dead = TIERS.reduce((n, k) => n + (L[k].dead ? 1 : 0), 0); const own = S.lane(this.team, id), lost = TIERS.reduce((n, k) => n + (own[k].dead ? 1 : 0), 0); const sc = dead * 1 + lost * 0.6 + (id === 'mid' ? 0.35 : 0); if (sc > bs) { bs = sc; best = id; } });
+    this.rally = { lane: best, at: t }; return best;
+  }
   /* fim de jogo: com inibidor inimigo caído o time prioriza derrubar a base em vez de objetivos */
   pressing() { return this.w.structures.anyInhibitorDown(1 - this.team); }
   avgNoise() { return this.players.reduce((s, p) => s + p.par.noise, 0) / Math.max(1, this.players.length); }
   sameGoal(a, b) { return a.kind === b.kind && (a.kind === 'lane' || (a.kind === 'obj' ? a.k === b.k : a.kind === 'siege' ? a.id === b.id : a.where === b.where)); }
   goalValid(g) {
-    if (g.kind === 'obj') { if (!g.mons.some(m => !m.dead && this.w.units.includes(m))) return false; const ms = g.mem ? [...g.mem].filter(q => !q.u.dead) : []; return !(g.go && ms.length && ms.reduce((a, q) => a + q.u.hp / q.u.hpMax, 0) / ms.length < 0.35); }
+    if (g.kind === 'obj') { if (!g.mons.some(m => !m.dead && this.w.units.includes(m))) return false; if (this.homeThreat() >= 2) return false; const ms = g.mem ? [...g.mem].filter(q => !q.u.dead) : []; return !(g.go && ms.length && ms.reduce((a, q) => a + q.u.hp / q.u.hpMax, 0) / ms.length < 0.35); }
     if (g.kind === 'siege') return !g.T.dead && !g.T.invuln;
     if (g.kind === 'defend') return this.w.t - g.since < 40 && this.w.units.some(u => !u.dead && u.team !== this.team && isChamp(u) && dist(u.pos, g.pos) < 1900);
     return true;
@@ -2905,9 +2921,10 @@ class Brain {
       const en = op.filter(u => dist(u.pos, s.pos) < 1300).length, em = this.w.units.filter(x => x.kind === 'minion' && !x.dead && x.team !== this.team && dist(x.pos, s.pos) < 1000).length;
       if (!en) return;                                         /* Bloco 10: so inimigo campeao perto puxa o time; onda empurrando a torre e da conta o laner (antes o time inteiro largava a rota) */
       const fr = this.alive().filter(u => dist(u.pos, s.pos) < 1300).length;
-      if (fr >= en && s.sub !== 'nexus') return;                  /* Bloco 10b: aliados ja la bastam: nao chama o time todo */
-      const sc = (0.3 + 0.2 * Math.min(en, 3) + 0.03 * em) * (1 + st.def) * (s.sub === 'nexus' ? 1.5 : 1) * (fr >= en + 1 ? 0.6 : 1);
-      if (!C.some(c => c.kind === 'defend' && c.where === s.lane)) C.push({ kind: 'defend', where: s.lane || 'nx', pos: s.pos, sc });
+      const baseS = this.isBase(s);
+      if (fr >= en && !baseS) return;                  /* Bloco 10b: aliados ja la bastam: nao chama o time todo */
+      const sc = (0.3 + 0.2 * Math.min(en, 3) + 0.03 * em) * (1 + st.def) * (s.sub === 'nexus' ? 1.5 : baseS ? 1.6 : 1) * (fr >= en + 1 && !baseS ? 0.6 : 1);
+      if (!C.some(c => c.kind === 'defend' && c.where === (s.lane || 'nx'))) C.push({ kind: 'defend', where: s.lane || 'nx', pos: s.pos, sc, base: baseS });
     });
   }
   setMembers() {
@@ -2916,7 +2933,7 @@ class Brain {
     this.players.forEach(p => {
       if (!this.eligible(p, g.kind, { topOk: g.kind === 'obj' ? g.pit === 'b' : g.kind === 'siege' ? g.lane === 'top' : true })) return;
       if (p.mode === 'gank' && this.w.t < p.gankUntil) return;
-      if (g.kind === 'defend' && g.where !== 'nx' && dist(p.u.pos, g.pos) > 5500) return;      /* Bloco 10b: defesa so com quem esta perto */
+      if (g.kind === 'defend' && g.where !== 'nx' && !g.base && dist(p.u.pos, g.pos) > 5500) return;      /* Bloco 10b: defesa so com quem esta perto */
       g.mem.add(p);
     });
   }
@@ -2987,7 +3004,7 @@ class Brain {
     if (this.fight(p, near, allies)) return;
     /* objetivo de equipe */
     if (inGoal && this.goalAct(p)) return;
-    if (p.role === 'jungle') this.jungleAct(p, foes); else this.laneAct(p, foes, allies);
+    if (p.role === 'jungle') this.jungleAct(p, foes); else { const rl = this.rallyLane(); p.lane = rl || p.homeLane || p.lane; this.laneAct(p, foes, allies); }
   }
   retreat(p, near) { const u = p.u; this.stats.retreats++; p.mode = 'retreat'; u.ai.focus = null; const d = this.home(p); this.go(u, near.some(x => dist(x.pos, u.pos) < 500) ? this.fountain() : d, 40); }
 
