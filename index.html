@@ -4128,6 +4128,14 @@ function lvDeathT(lv,sec){
   return b*(1+Math.min(f,50)/100);
 }
 /* ---------- mortes ---------- */
+/* log em ícones no motor clássico: abates e objetivos (mesmo formato do motor realista) */
+const lvKfT=P=>({s:P.s,c:P.ch,n:lvTeam(P.s).pl[P.r].n});
+function lvKfPush(m,kf){LV.log.unshift({m,t:'',k:kf.ts||'sys',kf});if(LV.log.length>300)LV.log.length=300}
+function lvKfObj(s,o,roles,n){
+  const live=lvLive(s),l=[];roles.forEach(r=>{const P=live.find(x=>x.r===r);if(P&&!l.includes(P))l.push(P)});
+  live.forEach(P=>{if(l.length<n&&!l.includes(P))l.push(P)});
+  const T=l.slice(0,n).map(lvKfT);lvKfPush(LV.sec|0,{k:T[0]||null,v:null,a:T.slice(1),o,ts:s});
+}
 function lvKill(k,v,as,x,y,tag){
   const sec=LV.sec,s=k.s,o=v.s,kd=LV.kd;
   if(lvIsDead(v))return false;
@@ -4146,6 +4154,7 @@ function lvKill(k,v,as,x,y,tag){
   if(kk.st>=2)t+=` — ${LVML[Math.min(kk.st,5)]}!`;
   if(bty>=150)t+=` — recompensa de ${bty} G`;
   lvSay(t+'.',s,'kill');
+  lvMulti({m:sec|0,kf:{k:{ti:s==='me'?0:1,ch:k.ch,n:lvTeam(k.s).pl[k.r].n}}},s);lvKfPush(sec|0,{k:lvKfT(k),v:lvKfT(v),a:as.map(lvKfT),o:null,ts:null});
   if(LV.kd[o].every(z=>z.dead>sec)){lvSay(`ACE! ${lvTeamNm(s)} elimina o time inteiro.`,s,'ace');LV.ev.aces++}
   LV.mq.push({x,y});
   return true;
@@ -4239,10 +4248,11 @@ function lvTower(s,L,i){
   const o=lvOpp(s),sec=LV.sec,tn=lvTeamNm(s);
   LV.str[o][L][i]=0;if(i<3)LV.st[s].t++;
   lvSay(i<3?`${tn} derruba a torre ${['externa','interna','do inibidor'][i]} d${LVNM[L]==='meio'?'o meio':LVNM[L]==='topo'?'o topo':'a rota inferior'}.`:`${tn} destrói o inibidor d${LVNM[L]==='meio'?'o meio':LVNM[L]==='topo'?'o topo':'a rota inferior'}!`,s,'tower');
+  lvKfObj(s,{n:i<3?'tw':'inh',s:o},L==='top'?[0]:L==='mid'?[2]:[3,4],L==='bot'?2:1);
   const near=lvLive(s);near.forEach(P=>{P.gt+=i<3?150:120});lvObjBty(s,'t'+i);
   if(i===3){lvQ(sec+LVCFG.inhRe,()=>{LV.str[o][L][3]=1;LV.tw[o][L][3]=LVTWH[3]})}
 }
-function lvNxDown(s,i){const o=lvOpp(s);LV.str[o].nx[i]=0;LV.st[s].t++;lvObjBty(s,'nx');lvSay(`${lvTeamNm(s)} derruba uma torre do Nexus.`,s,'tower');lvLive(s).forEach(P=>{P.gt+=100})}
+function lvNxDown(s,i){const o=lvOpp(s);LV.str[o].nx[i]=0;LV.st[s].t++;lvObjBty(s,'nx');lvSay(`${lvTeamNm(s)} derruba uma torre do Nexus.`,s,'tower');lvKfObj(s,{n:'tw',s:o},[2],2);lvLive(s).forEach(P=>{P.gt+=100})}
 /* ---------- objetivos ---------- */
 function lvObjList(){
   const sec=LV.sec,L=[],pb=LVPIT.b,pd=LVPIT.d,o=LV.ob;
@@ -4257,26 +4267,26 @@ function lvObjDone(s,k){
   lvLive(s).forEach(P=>{P.gt+=k==='b'?300:k==='g'?60:k==='e'?250:150;P.xp+=k==='b'?400:120});lvObjBty(s,k);
   if(k==='g'){
     S2.g=(S2.g||0)+3;LV.gb[s]+=3;LV.ob.g.n=0;LV.ob.g.w++;
-    lvSay(`${tn} derruba as larvas do Vazio e acumula os buffs de torre.`,s,'obj');
+    lvSay(`${tn} derruba as larvas do Vazio e acumula os buffs de torre.`,s,'obj');lvKfObj(s,{n:'gr',s},[1],3);
     const nx=LVCFG.grubs[LV.ob.g.w];
     if(nx!==undefined&&nx<LVCFG.grubsEnd){LV.ob.g.n=3;LV.ob.g.up=nx;LV.dn.h=nx}else LV.dn.h=LV.ob.h.up;
   }else if(k==='h'){
     S2.b++;S2.h=(S2.h||0)+1;LV.ob.h.done=true;LV.dn.h=Infinity;LV.hd={s,until:sec+260};
-    lvSay(`${tn} derruba o Arauto e se prepara para usá-lo numa rota.`,s,'obj');
+    lvSay(`${tn} derruba o Arauto e se prepara para usá-lo numa rota.`,s,'obj');lvKfObj(s,{n:'hd',s},[1],3);
   }else if(k==='d'){
     S2.d++;LV.dn.d=sec+LVCFG.dragonRe;
     /* regra: 2 primeiros aleatórios; o 3º define o elemento do mapa e os seguintes (e a Alma) seguem ele */
     let dy;if(LV.st.me.d+LV.st.op.d<=2)dy=pick(DRT);else{if(!LV.rift)LV.rift=pick(DRT)[0];dy=DRT.find(x=>x[0]===LV.rift)}
     if(LV.st.me.d+LV.st.op.d===3)lvSay(`O mapa se transforma: Terras ${({inf:'Infernais',mon:'das Montanhas',oce:'dos Oceanos',nuv:'das Nuvens',hex:'Hextec',qui:'Quimtec'})[LV.rift]}.`,'sys','obj');
     LV.dt[s][dy[0]]=lvDrN(s,dy[0])+1;
-    lvSay(`${tn} garante o dragão ${dy[1]} (${S2.d}º).`,s,'obj');
+    lvSay(`${tn} garante o dragão ${dy[1]} (${S2.d}º).`,s,'obj');lvKfObj(s,{n:'dr_'+dy[0],s},[1],4);
     if(S2.d===4){LV.soul[s]=true;LV.dst[s]=dy[0];LV.dn.d=sec+LVCFG.elderRe;lvSay(`${tn} conquista a ALMA DO DRAGÃO! Bônus permanente pelo resto do mapa.`,s,'obj')}
   }else if(k==='e'){
     S2.e=(S2.e||0)+1;LV.dn.d=sec+LVCFG.elderRe;LV.elder={s,until:sec+160,tot:160,t0:sec,g0:lvGold(s)-lvGold(lvOpp(s))};
-    lvSay(`${tn} derrota o Dragão Ancião! Quem fica abaixo da vida é executado nas lutas.`,s,'obj');
+    lvSay(`${tn} derrota o Dragão Ancião! Quem fica abaixo da vida é executado nas lutas.`,s,'obj');lvKfObj(s,{n:'el',s},[1],5);
   }else{
     S2.b++;S2.n=(S2.n||0)+1;LV.dn.b=sec+LVCFG.baronRe;LV.bb={s,until:sec+180,tot:180,t0:sec,g0:lvGold(s)-lvGold(lvOpp(s))};
-    lvSay(`${tn} derrota o Barão! Buff grande por 3 minutos.`,s,'obj');
+    lvSay(`${tn} derrota o Barão! Buff grande por 3 minutos.`,s,'obj');lvKfObj(s,{n:'bn',s},[1],5);
   }
 }
 /* ---------- decisões ---------- */
@@ -5082,7 +5092,7 @@ const lvMkHTML=()=>{const m=LV&&LV.mk;if(!m||Date.now()-m.t0>3800)return '';retu
 const kfTile=(p,small)=>`<span class="kft ${lvBlue(p.s)?'b':'r'}${small?' as':''}" title="${esc(p.n||'')} (${esc(p.c)})">${chTile(p.c)}</span>`;
 const kfObj=o=>{const c=lvBlue(o.s)?'b':'r',n=o.n,src=n==='tw'?`tw_${c}.webp`:n==='inh'?`inh_${c}.png`:n==='gr'?'larva.png':n==='hd'?`hd_${c}.png`:n==='bn'?`bn_${c}.png`:n==='el'?`el_${c}.png`:n+'.png';return `<span class="kft kob ${c}" title="${({tw:'Torre',inh:'Inibidor',gr:'Vastilarva',hd:'Arauto',bn:'Barão Nashor',el:'Dragão Ancião'})[n]||'Dragão'}"><img src="champs/obj/${src}" alt="" draggable="false"></span>`};
 const kfHTML=kf=>`<span class="kfx">${kf.k?kfTile(kf.k):kf.o&&!kf.v&&!(kf.a||[]).length?`<span class="kft mn ${lvBlue(kf.ts)?'b':'r'}" title="Tropas">Tropas</span>`:''}${(kf.a||[]).map(p=>kfTile(p,1)).join('')}<i class="kfs" aria-label="abate">⚔</i>${kf.v?kfTile(kf.v):kfObj(kf.o)}</span>`;
-const lvLogHTML=()=>LV.log.filter(e=>e.kf||!LV.eng).slice(0,7).map(e=>e.kf?`<div class="bcf kf ${lvBlue(e.kf.ts!=null?e.kf.ts:e.kf.k?e.kf.k.s:e.kf.v.s==='me'?'op':'me')?'b':'r'}"><b class="num">${lvFmt(e.m)}</b>${kfHTML(e.kf)}</div>`:`<div class="bcf ${e.k==='me'||e.k==='op'?(lvBlue(e.k)?'b':'r'):e.k}"><b class="num">${lvFmt(e.m)}</b><span>${esc(e.t)}</span></div>`).join('');
+const lvLogHTML=()=>LV.log.filter(e=>e.kf).slice(0,7).map(e=>e.kf?`<div class="bcf kf ${lvBlue(e.kf.ts!=null?e.kf.ts:e.kf.k?e.kf.k.s:e.kf.v.s==='me'?'op':'me')?'b':'r'}"><b class="num">${lvFmt(e.m)}</b>${kfHTML(e.kf)}</div>`:`<div class="bcf ${e.k==='me'||e.k==='op'?(lvBlue(e.k)?'b':'r'):e.k}"><b class="num">${lvFmt(e.m)}</b><span>${esc(e.t)}</span></div>`).join('');
 function lvKdaTot(s){const t=LV.kd[s].reduce((a,x)=>({k:a.k+x.k,d:a.d+x.d,a:a.a+x.a}),{k:0,d:0,a:0});return `${t.k}/${t.d}/${t.a}`}
 
 /* ---------- fim de mapa: estatísticas da partida ---------- */
