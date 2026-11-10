@@ -6970,7 +6970,7 @@ function fut(o,cls=''){
   const ret=!tm||!!(S.pdb&&S.pdb[o.n]&&S.pdb[o.n].ret);
   return `<button class="fut t${t} ${cls}${ret?' ret':''}${S.inj&&S.inj[o.n]?' inj':''}" data-act="player" data-v="${esc(o.n)}" aria-label="${esc(o.n)}, ${o.r}">
   <span class="fo num">${o.r}</span><span class="fr">${RN[o.role]||''}</span>${c?`<span class="fn">${natTxt(c)}</span>`:''}${tm?`<span class="fs">${crest(tm,'')}</span>`:''}
-  <span class="fa${phHas(o.n)?' ph':''}">${phHas(o.n)?phImg(o.n):AVA}</span><span class="fnm">${esc(o.n)}</span>
+  <span class="fa${phHas(o.n)?' ph':''}">${phHas(o.n)?phImg(o.n):AVA}</span><span class="fnm" style="font-size:${o.n.length>9?Math.max(9.5,Math.floor(150/o.n.length*10)/10):17}px">${esc(o.n)}</span>
   <span class="fst">${st.map((v,i)=>`<span class="num">${v}<small>${FSTAT[i]}</small></span>`).join('')}</span>
   ${o.f&&Math.abs(o.f)>=.5?`<span class="ff">${o.f>0?'▲':'▼'}${Math.abs(o.f).toFixed(1)}</span>`:''}</button>`;
 }
