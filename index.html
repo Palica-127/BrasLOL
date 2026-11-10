@@ -6883,12 +6883,12 @@ const TCOL={'T1':['#d4122a','#14141c'],'Gen.G':['#c9a227','#15130c'],'Hanwha Lif
 const LOGOS=new Set(['7rex-team','against-all-authority','al-young','anyone-s-legend','azubu-frost','blg','blg-junior','blue-otter','bnk-fearx','brion','ccg-esports','cloud9','counter-logic-gaming','ctbc-flying-oyster','cupide-esports','deep-cross-gaming','detonation-focusme','dignitas','disguised','dn-soopers','dorado-gaming','dplus-kia','dplus-kia-challengers','drx','edg-youth','edward-gaming','ei-nerd-esports','estral-esports','fennel','fluxo-w7m','flyquest','fnatic','frank-esports','funplus-phoenix','furia','g2','galions','gam-esports','gen-g','gen-g-global-academy','gentle-mates','giantx','ground-zero-gaming','hanwha-life','hanwha-life-challengers','intz','invictus-gaming','jd-gaming','kabum','karmine-corp','karmine-corp-blue','kiwoom-drx-challengers','koo-tigers','kt-rolster','kt-rolster-challengers','leviatan','lgd-gaming','lgd-youth','lng-academy','lng-esports','los','los-ratones','loud','lyon','movistar-koi','mvk-esports','navi','ninjas-in-pyjamas','nongshim-redforce','nrg','oh-my-god','pain-academy','pain-gaming','red-canids','rmd-gaming','royal-club','saigon-dino','saigon-warriors','samsung-galaxy','sentinels','shifters','shopify-rebellion','sk-gaming','sn-cybercore','softbank-hawks','solary','suning','supernova','t1','t1-esports-academy','taipei-assassins','team-gromp','team-heretics','team-liquid','team-secret-whales','team-solid','team-we','tes-challengers','top-esports','tt-gaming','vitality','vitality-bee','vivo-keyd-stars','vivo-keyd-stars-academy','we-academy','weibo-gaming','weibo-gaming-youth']);
 const slug=n=>n.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 /* nomes diferentes que compartilham o mesmo logo (o nome exibido continua o original) */
-const LOGOALIAS={'royal-never-give-up':'royal-club','star-horn-royal-club':'royal-club','samsung-white':'samsung-galaxy'};
+const LOGOALIAS={'royal-never-give-up':'royal-club','star-horn-royal-club':'royal-club','samsung-white':'samsung-galaxy','sk-telecom-t1':'t1','skt':'t1','g2-esports':'g2','damwon-gaming':'dplus-kia','dwg-kia':'dplus-kia','bilibili-gaming':'blg','kingzone-dragonx':'drx'};
 const crest=(t,c='')=>{
   if(typeof t.id==='string'&&ISO2[t.id])return natCrest(t.id,'flag '+c);
   const sl0=slug(t.name),sl=LOGOALIAS[sl0]||sl0;
   if(LOGOS.has(sl))return `<span class="shield real lg-${sl} ${c}" aria-hidden="true"></span>`;
-  const h=hs(t.name),tx=ini(t.name),id='sh'+h,fs=tx.length>=3?25:32;
+  const h=hs(t.name),tx=ini(t.name),id='sh'+h,fs=tx.length>=3?31:40;
   const cl=TCOL[t.name]||['hsl('+(h%360)+' 70% 42%)','hsl('+((h>>5)%360)+' 78% 62%)'],A=cl[0],B=cl[1];
   const lum=x=>{const m=/^#(..)(..)(..)$/.exec(x);return m?(parseInt(m[1],16)*.3+parseInt(m[2],16)*.59+parseInt(m[3],16)*.11):90};
   const tc=lum(A)>150?'#14141c':'#fff',sk=lum(A)>150?'rgba(255,255,255,.7)':'rgba(0,0,0,.6)';
