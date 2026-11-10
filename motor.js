@@ -2213,6 +2213,7 @@ class Economy {
   /* ---------- morte de minion / campeão ---------- */
   onMinionDeath(m, killer) {
     const w = this.w, sp = m.spec, foeTeam = 1 - m.team;
+    if (this.farmClassico) { w.emit('minion-lost', { id: m.id, mtype: sp.type }); return; }          /* o farm vem do tempo na rota (update), nao do ultimo golpe */
     const near = w.units.filter(x => x.kind !== 'minion' && !x.dead && x.team === foeTeam && dist(x.pos, m.pos) <= sp.xpRadius);
     near.forEach(x => this.grantXp(x, sp.xp * xpShare(near.length) * this.laneMul(x), 'minion'));
     if (killer && killer.kind !== 'minion' && killer.team === foeTeam) {
@@ -2240,6 +2241,11 @@ class Economy {
   }
   update() {
     const w = this.w;
+    if (this.farmClassico && w.t >= 65) w.units.forEach(u => {
+      if (u.dead || !u.farmRate || !(w.t - (u.farmAt || -9) < 0.7)) return;
+      const cs = u.farmRate * 1.6 * w.dt * (0.9 + 0.2 * (u.level < 6 ? 0 : 1)), g = cs * 22;       /* taxas de CS/s por posicao e ouro por CS: mesmas do motor classico */
+      u.stat.cs = (u.stat.cs || 0) + cs; u.gold += g; u.stat.goldEarned = (u.stat.goldEarned || 0) + g; this.grantXp(u, u.farmXp * 1.6 * w.dt, 'farm');
+    });
     if (w.t >= WIKI.passiveStart) w.units.forEach(u => { if (u.kind !== 'minion' && !u.dead) this.giveGoldQuiet(u, WIKI.passivePer10s / 10 * w.dt); });
     if (w.tickN % Math.round(60 / w.dt) === 0) this.timeline.push({ t: Math.round(w.t), champs: w.units.filter(u => u.kind !== 'minion').map(u => ({ id: u.id, lvl: u.level, xp: Math.round(u.xp), gold: Math.round(u.stat.goldEarned || 0), cs: u.stat.cs || 0 })) });
   }
@@ -2776,6 +2782,8 @@ function power(u) {
   const dps = S.ad.total * Math.min(2.5, S.as.total) * (1 + S.crit * (S.critDamage - 1)) + S.ap.total * 0.45 + 40 + 14 * u.level;
   return Math.sqrt(ehp * dps);
 }
+/* taxas do motor classico (CS por segundo e XP por segundo na rota) */
+const FARM_CS = { top: 0.17, mid: 0.17, adc: 0.19, support: 0.035 }, FARM_XP = { top: 4.2, mid: 4.2, adc: 4.0, support: 2.4 };
 const isChamp = u => u.kind !== 'minion' && u.kind !== 'monster' && u.kind !== 'structure';
 
 class Brain {
@@ -3014,6 +3022,8 @@ class Brain {
   /* rota: último golpe e posição na onda */
   laneAct(p, foes, allies) {
     const w = this.w, u = p.u, P = this.paths[p.lane], S = w.structures; u.ai.focus = null;
+    u.farmRate = FARM_CS[p.role] || 0; u.farmXp = FARM_XP[p.role] || 0;
+    if (p.role === 'support') { u.farmAt = w.t; }
     if (p.role === 'support') { const adc = this.players.find(q => q.role === 'adc' && !q.u.dead); if (adc && dist(adc.u.pos, u.pos) < 3500 || adc) { const s = P.project(adc.u.pos).s; const stand = P.at(Math.max(0, s - 250)); p.mode = 'lane'; this.go(u, stand, 80); return; } }
     const mins = w.units.filter(x => !x.dead && x.kind === 'minion' && x.lane && x.lane.id === p.lane);
     const am = mins.filter(x => x.team === u.team), em = mins.filter(x => x.team !== u.team);
@@ -3023,6 +3033,7 @@ class Brain {
     s = Math.max(s, ownS - 100);
     const T = this.frontTurret(p.lane); if (T) s = Math.min(s, P.project(T.pos).s - (TURRET.range + T.radius + 110));
     s = Math.max(0, s); const stand = P.at(s); p.mode = 'lane';
+    if (em.some(x => dist(x.pos, u.pos) <= 1400)) u.farmAt = w.t;              /* na rota com onda inimiga por perto: o farm classico acumula */
     const R = u.stats.range + 15, ens = em.filter(x => dist(x.pos, u.pos) <= 1400).sort((a, b) => dist(a.pos, u.pos) - dist(b.pos, u.pos));
     if (!ens.length) { this.go(u, stand, 80); return; }
     const sk = u.ai.lastHit, spec = w.attackSpec(u), flight = d => (spec.missile > 0 ? d / spec.missile : 0), mine = d => spec.windupFrac / w.asOf(u) + flight(d);
@@ -3501,6 +3512,7 @@ function create(opts) {
   }));
   const g = M.createGame({ seed: opts.seed || 1, teams, cap: opts.cap || 3600 });
   const S = { g, w: g.w, teams, names: teams.map(t => t.roster.map(p => p.show || p.name)), cursor: 0, logOut: [], over: null, steps: 0 };
+  g.w.econ.farmClassico = true;      /* farm de rota igual ao do motor classico: CS, ouro e XP por tempo na rota (nao pelo ultimo golpe) */
   const w = g.w, nm = id => { const u = w.units.find(x => x.id === id); return u ? u : null; };
     const side = team => (team === 0 ? 'blue' : 'red');
   /* os campeoes de cada time na ordem de papel */
@@ -3572,7 +3584,7 @@ function snapshot(S) {
   const players = [0, 1].map(ti => S.champs[ti].map((u, r) => {
     const p = lvPos(u.pos), deadIn = u.dead ? Math.max(0, (u.respawnAt || w.t) - w.t) : 0;
     return { r, ch: S.names[ti][r], x: p[0], y: p[1], hp: clamp(u.hp / Math.max(1, u.hpMax), 0, 1), mana: u.manaMax ? clamp(u.mana / u.manaMax, 0, 1) : 0, lv: u.level, gold: Math.round((u.stat.goldEarned || 0) + 500),
-      cs: u.stat.cs || 0, sk: u.streak || 0, dth: u.dsr || 0, cb: u.cbty || 0, k: u.stat.kills || 0, d: u.stat.deaths || 0, a: u.stat.assists || 0, dead: u.dead, deadIn, dmg: Math.round(u.stat.dmgDealt || 0), items: (u.items || []).slice(0, 6), mn: u.manaMax ? clamp(u.mana / u.manaMax, 0, 1) : null };
+      cs: Math.floor(u.stat.cs || 0), sk: u.streak || 0, dth: u.dsr || 0, cb: u.cbty || 0, k: u.stat.kills || 0, d: u.stat.deaths || 0, a: u.stat.assists || 0, dead: u.dead, deadIn, dmg: Math.round(u.stat.dmgDealt || 0), items: (u.items || []).slice(0, 6), mn: u.manaMax ? clamp(u.mana / u.manaMax, 0, 1) : null };
   }));
   const str = [0, 1].map(ti => {
     const L = sx.lanes[ti], o = {};

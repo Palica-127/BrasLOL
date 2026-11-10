@@ -64,6 +64,7 @@ class Economy {
   /* ---------- morte de minion / campeão ---------- */
   onMinionDeath(m, killer) {
     const w = this.w, sp = m.spec, foeTeam = 1 - m.team;
+    if (this.farmClassico) { w.emit('minion-lost', { id: m.id, mtype: sp.type }); return; }          /* o farm vem do tempo na rota (update), nao do ultimo golpe */
     const near = w.units.filter(x => x.kind !== 'minion' && !x.dead && x.team === foeTeam && dist(x.pos, m.pos) <= sp.xpRadius);
     near.forEach(x => this.grantXp(x, sp.xp * xpShare(near.length) * this.laneMul(x), 'minion'));
     if (killer && killer.kind !== 'minion' && killer.team === foeTeam) {
@@ -91,6 +92,11 @@ class Economy {
   }
   update() {
     const w = this.w;
+    if (this.farmClassico && w.t >= 65) w.units.forEach(u => {
+      if (u.dead || !u.farmRate || !(w.t - (u.farmAt || -9) < 0.7)) return;
+      const cs = u.farmRate * 1.6 * w.dt * (0.9 + 0.2 * (u.level < 6 ? 0 : 1)), g = cs * 22;       /* taxas de CS/s por posicao e ouro por CS: mesmas do motor classico */
+      u.stat.cs = (u.stat.cs || 0) + cs; u.gold += g; u.stat.goldEarned = (u.stat.goldEarned || 0) + g; this.grantXp(u, u.farmXp * 1.6 * w.dt, 'farm');
+    });
     if (w.t >= WIKI.passiveStart) w.units.forEach(u => { if (u.kind !== 'minion' && !u.dead) this.giveGoldQuiet(u, WIKI.passivePer10s / 10 * w.dt); });
     if (w.tickN % Math.round(60 / w.dt) === 0) this.timeline.push({ t: Math.round(w.t), champs: w.units.filter(u => u.kind !== 'minion').map(u => ({ id: u.id, lvl: u.level, xp: Math.round(u.xp), gold: Math.round(u.stat.goldEarned || 0), cs: u.stat.cs || 0 })) });
   }

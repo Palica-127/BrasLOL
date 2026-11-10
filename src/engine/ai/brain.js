@@ -48,6 +48,8 @@ function power(u) {
   const dps = S.ad.total * Math.min(2.5, S.as.total) * (1 + S.crit * (S.critDamage - 1)) + S.ap.total * 0.45 + 40 + 14 * u.level;
   return Math.sqrt(ehp * dps);
 }
+/* taxas do motor classico (CS por segundo e XP por segundo na rota) */
+const FARM_CS = { top: 0.17, mid: 0.17, adc: 0.19, support: 0.035 }, FARM_XP = { top: 4.2, mid: 4.2, adc: 4.0, support: 2.4 };
 const isChamp = u => u.kind !== 'minion' && u.kind !== 'monster' && u.kind !== 'structure';
 
 class Brain {
@@ -286,6 +288,8 @@ class Brain {
   /* rota: último golpe e posição na onda */
   laneAct(p, foes, allies) {
     const w = this.w, u = p.u, P = this.paths[p.lane], S = w.structures; u.ai.focus = null;
+    u.farmRate = FARM_CS[p.role] || 0; u.farmXp = FARM_XP[p.role] || 0;
+    if (p.role === 'support') { u.farmAt = w.t; }
     if (p.role === 'support') { const adc = this.players.find(q => q.role === 'adc' && !q.u.dead); if (adc && dist(adc.u.pos, u.pos) < 3500 || adc) { const s = P.project(adc.u.pos).s; const stand = P.at(Math.max(0, s - 250)); p.mode = 'lane'; this.go(u, stand, 80); return; } }
     const mins = w.units.filter(x => !x.dead && x.kind === 'minion' && x.lane && x.lane.id === p.lane);
     const am = mins.filter(x => x.team === u.team), em = mins.filter(x => x.team !== u.team);
@@ -295,6 +299,7 @@ class Brain {
     s = Math.max(s, ownS - 100);
     const T = this.frontTurret(p.lane); if (T) s = Math.min(s, P.project(T.pos).s - (TURRET.range + T.radius + 110));
     s = Math.max(0, s); const stand = P.at(s); p.mode = 'lane';
+    if (em.some(x => dist(x.pos, u.pos) <= 1400)) u.farmAt = w.t;              /* na rota com onda inimiga por perto: o farm classico acumula */
     const R = u.stats.range + 15, ens = em.filter(x => dist(x.pos, u.pos) <= 1400).sort((a, b) => dist(a.pos, u.pos) - dist(b.pos, u.pos));
     if (!ens.length) { this.go(u, stand, 80); return; }
     const sk = u.ai.lastHit, spec = w.attackSpec(u), flight = d => (spec.missile > 0 ? d / spec.missile : 0), mine = d => spec.windupFrac / w.asOf(u) + flight(d);

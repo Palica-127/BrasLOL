@@ -37,6 +37,7 @@ function create(opts) {
   }));
   const g = M.createGame({ seed: opts.seed || 1, teams, cap: opts.cap || 3600 });
   const S = { g, w: g.w, teams, names: teams.map(t => t.roster.map(p => p.show || p.name)), cursor: 0, logOut: [], over: null, steps: 0 };
+  g.w.econ.farmClassico = true;      /* farm de rota igual ao do motor classico: CS, ouro e XP por tempo na rota (nao pelo ultimo golpe) */
   const w = g.w, nm = id => { const u = w.units.find(x => x.id === id); return u ? u : null; };
     const side = team => (team === 0 ? 'blue' : 'red');
   /* os campeoes de cada time na ordem de papel */
@@ -108,7 +109,7 @@ function snapshot(S) {
   const players = [0, 1].map(ti => S.champs[ti].map((u, r) => {
     const p = lvPos(u.pos), deadIn = u.dead ? Math.max(0, (u.respawnAt || w.t) - w.t) : 0;
     return { r, ch: S.names[ti][r], x: p[0], y: p[1], hp: clamp(u.hp / Math.max(1, u.hpMax), 0, 1), mana: u.manaMax ? clamp(u.mana / u.manaMax, 0, 1) : 0, lv: u.level, gold: Math.round((u.stat.goldEarned || 0) + 500),
-      cs: u.stat.cs || 0, sk: u.streak || 0, dth: u.dsr || 0, cb: u.cbty || 0, k: u.stat.kills || 0, d: u.stat.deaths || 0, a: u.stat.assists || 0, dead: u.dead, deadIn, dmg: Math.round(u.stat.dmgDealt || 0), items: (u.items || []).slice(0, 6), mn: u.manaMax ? clamp(u.mana / u.manaMax, 0, 1) : null };
+      cs: Math.floor(u.stat.cs || 0), sk: u.streak || 0, dth: u.dsr || 0, cb: u.cbty || 0, k: u.stat.kills || 0, d: u.stat.deaths || 0, a: u.stat.assists || 0, dead: u.dead, deadIn, dmg: Math.round(u.stat.dmgDealt || 0), items: (u.items || []).slice(0, 6), mn: u.manaMax ? clamp(u.mana / u.manaMax, 0, 1) : null };
   }));
   const str = [0, 1].map(ti => {
     const L = sx.lanes[ti], o = {};
