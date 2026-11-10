@@ -52,7 +52,7 @@ const hunterDone = u => !isHunter(u) || (u.jgStacks || 0) >= JUNGLE_RULE.itemSta
 class Jungle {
   constructor(w, opts = {}) {
     this.w = w; this.layout = opts.layout || LAYOUT; this.camps = []; this.epics = {}; this.stacks = [[], []]; this.soul = [null, null]; this.rift = null; this.drakeN = 0; this.elderNext = false;
-    this.aspect = [null, null]; this.hob = [null, null]; this.log = []; this.riftOn = false; this.fruits = null;
+    this.nextAt = { baron: T.baron.spawn, drake: T.drake.spawn }; this.aspect = [null, null]; this.hob = [null, null]; this.log = []; this.riftOn = false; this.fruits = null;
     Object.keys(T.camps).forEach(k => [0, 1].forEach(side => this.addCamp(k, side, T.camps[k][0], T.camps[k][1])));
     LAYOUT.crab.forEach((p, i) => this.addCamp('crab' + i, null, T.scuttle[0], T.scuttle[1], ['sru_crab'], p));
     w.schedule(T.grubs.spawn, () => this.spawnGrubs()); w.schedule(T.grubs.despawn, () => this.despawn('grubs'));
@@ -164,7 +164,7 @@ class Jungle {
       const ad = 12 + 36 * k, ap = 20 + 60 * k;
       w.units.filter(u => u.kind !== 'minion' && u.kind !== 'monster' && u.team === team && !u.dead).forEach(u => w.addBuff(u, { dur: BARON.buff, flat: { ad, ap }, tag: 'hob', loseOnDeath: true }));
       this.hob[team] = w.t + BARON.buff; w.emit('baron-kill', { team, ad, ap, ...cr });
-      w.schedule(w.t + T.baron.respawn, () => this.spawnEpic('baron', 'sru_baron', this.layout.baron));
+      this.nextAt.baron = w.t + T.baron.respawn; w.schedule(w.t + T.baron.respawn, () => this.spawnEpic('baron', 'sru_baron', this.layout.baron));
       return;
     }
     if (name === 'drake') {
@@ -172,13 +172,13 @@ class Jungle {
         this.teamGold(team, ELDER.globalGold, ELDER.globalXp, 'elder');
         const mins = w.t / 60, k = Math.max(0, Math.min(1, (mins - 25) / 20));              /* ESTIMADO: queimadura 75-225 por minuto de jogo */
         w.units.filter(u => u.kind !== 'minion' && u.kind !== 'monster' && u.team === team && !u.dead).forEach(u => { u.helpers.aspectUntil = w.t + ELDER.buff; u.helpers.aspectBurn = 75 + 150 * k; });
-        this.aspect[team] = w.t + ELDER.buff; w.emit('elder-kill', { team, ...cr }); this.elderNext = true; w.schedule(w.t + T.elder.respawn, () => this.spawnDrake()); return;
+        this.aspect[team] = w.t + ELDER.buff; w.emit('elder-kill', { team, ...cr }); this.elderNext = true; this.nextAt.drake = w.t + T.elder.respawn; w.schedule(w.t + T.elder.respawn, () => this.spawnDrake()); return;
       }
       this.drakeN++; const st = this.stacks[team]; st.push(m.name);
       if (this.drakeN === 3 && this.rift && !this.riftOn) this.transformMap();
       w.emit('drake-kill', { team, mkey: m.name, stacks: st.length, ...cr });
-      if (st.length === 4 && !this.soul[team]) { this.soul[team] = this.rift || m.name; this.elderNext = true; w.emit('soul', { team, mkey: this.soul[team] }); w.schedule(w.t + T.elder.respawn, () => this.spawnDrake()); }
-      else w.schedule(w.t + T.drake.respawn, () => this.spawnDrake());
+      if (st.length === 4 && !this.soul[team]) { this.soul[team] = this.rift || m.name; this.elderNext = true; w.emit('soul', { team, mkey: this.soul[team] }); this.nextAt.drake = w.t + T.elder.respawn; w.schedule(w.t + T.elder.respawn, () => this.spawnDrake()); }
+      else { this.nextAt.drake = w.t + T.drake.respawn; w.schedule(w.t + T.drake.respawn, () => this.spawnDrake()); }
       w.units.filter(u => u.kind !== 'minion' && u.kind !== 'monster' && u.team === team).forEach(u => w.refresh(u));
     }
   }

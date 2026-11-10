@@ -6,7 +6,7 @@
    ESTIMADO (calibrar no Bloco 10): pesos de pontuação, raios de decisão, limiares de recall/retirada, função de poder, nomes de rota por papel.
    Simplificação declarada: IA onisciente (sem névoa de guerra; visão/sentinelas ficam pendentes) e sem feitiços de invocador. */
 const LAY = require('../map/layout'), AI = require('../sim/ai'), SHOP = require('../items/shop'), B = require('../items/builds'), A = require('./attributes');
-const { TURRET } = require('../map/structures'), SUPAI = require('./supply_ai'), SUP = require('../items/supplies');
+const { Strategy } = require('./strategy'), { TURRET } = require('../map/structures'), SUPAI = require('./supply_ai'), SUP = require('../items/supplies');
 const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
 
@@ -57,7 +57,7 @@ class Brain {
     this.w = w; this.team = team; this.style = style; this.name = name || 'T' + team; this.players = []; this.goal = null; this.nextPlan = 0; this.enemy = null;
     this.paths = {}; LAY.lanes().forEach(l => { this.paths[l.id] = new Path(team === 0 ? l.path : l.path.slice().reverse()); });
     this.stats = { objStarts: 0, sieges: 0, defends: 0, ganks: 0, recalls: 0, fights: 0, retreats: 0, goals: {} }; this.adapt = null;
-    roster.forEach((r, i) => this.add(r, i));
+    roster.forEach((r, i) => this.add(r, i)); this.strat = new Strategy(this);
     w.brains.push(this);
   }
   add(r, i) {
@@ -89,6 +89,7 @@ class Brain {
   theta() { return clamp(0.9 - 0.5 * this.risk() + this.styleNow().fight * 0.5, 0.55, 1.4); }                  /* limiar de poder para lutar (lvTheta) */
   eligible(p, k, extra = {}) {
     const u = p.u; if (u.dead || u.hp < u.hpMax * 0.4 || u.recall || p.mode === 'recall' || p.back) return false;
+    if (this.strat.isSplit(p) && (k === 'obj' || k === 'setup' || (k === 'siege' && extra.lane !== this.strat.splitLane))) return false;
     if (p.role === 'top' && !(extra.topOk || this.w.t / 60 >= 24)) return false;
     return true;
   }
@@ -96,6 +97,7 @@ class Brain {
   /* ---------- planejamento de equipe (1 s) ---------- */
   plan() {
     const w = this.w, t = w.t, st = this.styleNow(), me = this.alive(), op = this.alive(1 - this.team); if (!me.length) { this.goal = null; return; }
+    this.strat.update(); const SG = this.strat;
     const noise = () => 1 + this.avgNoise() * w.rng.gauss('ia');
     const pr = clamp(me.reduce((s, u) => s + power(u), 0) / Math.max(1, op.reduce((s, u) => s + power(u), 0)), 0.2, 3);
     const C = [], risk = this.risk(), rk = 1 + 0.5 * clamp(risk, -0.6, 0.8), mn = t / 60;
@@ -120,9 +122,10 @@ class Brain {
       const reach = clamp(0.5 + (etaOp - etaMe) / 12000, 0.2, 1);
       let V = OBJ_VALUE[ob.k] * (1 + st.obj) * (this.pressing() ? 0.55 : 1); if (ob.k === 'b' && this.gold(this.team) - this.gold(1 - this.team) < -2500) V += 0.15;
       const eg = this.enemy && this.enemy.goal, backdoor = this.homeThreat() > 0 || (eg && eg.kind === 'siege' && (eg.id === 'nx' || (eg.T && this.isBase(eg.T))));
-      const sc = V * nF * hpF * reach * clamp(0.55 + 0.45 * (prw - 0.7), 0.2, 1.15) * (1 - 0.14 * near.length) * rk * (backdoor ? 0.2 : 1);
+      const sc = V * nF * hpF * reach * clamp(0.55 + 0.45 * (prw - 0.7), 0.2, 1.15) * (1 - 0.14 * near.length) * rk * (backdoor ? 0.2 : 1) * SG.objFactor(ob);
       C.push({ kind: 'obj', k: ob.k, mons: ob.mons, pos, pit: ob.pit, sc, need });
     });
+    if (SG.active() && SG.state === 'OBJECTIVE_SETUP' && SG.obj && !SG.obj.alive) { const o = SG.obj, mem = me.filter(u => !SG.isSplit(this.players.find(p => p.u === u))); if (mem.length >= 3) C.push({ kind: 'setup', k: o.k, pos: o.pos, sc: 0.9, spawnIn: o.spawnIn, need: 3 }); }
     /* torres: a estrutura vulnerável mais externa de cada rota (e a base) */
     const S = w.structures;
     if (S) {
@@ -132,18 +135,19 @@ class Brain {
         if (id === 'nx') { T = S.nexusTurrets[enemyT].find(s => !s.dead && !s.invuln) || (!S.nexus[enemyT].invuln && !S.nexus[enemyT].dead ? S.nexus[enemyT] : null); tier = 3; }
         else { const L = S.lane(enemyT, id); for (let i = 0; i < 4; i++) if (!L[TIERS[i]].dead) { T = L[TIERS[i]]; tier = i; break; } if (T && T.invuln) T = null; }
         if (!T) return;
-        const lane = id === 'nx' ? 'mid' : id, mem = me.map(u => this.players.find(p => p.u === u)).filter(p => p && this.eligible(p, 'siege', { topOk: lane === 'top' }));
+        const lane = id === 'nx' ? 'mid' : id, mem = me.map(u => this.players.find(p => p.u === u)).filter(p => p && this.eligible(p, 'siege', { topOk: lane === 'top', lane }));
         if (mem.length < 2) return;
         const mine = w.units.filter(x => x.kind === 'minion' && !x.dead && x.team === this.team && dist(x.pos, T.pos) < 1100).length, theirs = w.units.filter(x => x.kind === 'minion' && !x.dead && x.team !== this.team && dist(x.pos, T.pos) < 1100).length;
         const press = clamp(0.35 + 0.1 * (mine - theirs), 0.15, 1.1), need = tier === 0 && mn < 14 ? 2 : 3, nF = mem.length >= need ? 1 : 0.35;
         const V = [0.5, 0.62, 0.8, 0.9][tier] || 0.9, hp = T.hp / T.hpMax;
-        const sc = V * nF * press * clamp(0.5 + 0.5 * (pr - 0.6), 0.25, 1.2) * (0.7 + 0.3 * hp) * (1 + 0.15 * clamp(me.length - op.length, 0, 3)) * (1 + st.agg * 0.25 + st.obj * 0.1) * rk * (this.pressing() ? (id === 'nx' ? 2 : 1.5) : 1);
+        const sc = V * nF * press * clamp(0.5 + 0.5 * (pr - 0.6), 0.25, 1.2) * (0.7 + 0.3 * hp) * (1 + 0.15 * clamp(me.length - op.length, 0, 3)) * (1 + st.agg * 0.25 + st.obj * 0.1) * rk * (this.pressing() ? (id === 'nx' ? 2 : 1.5) : 1) * SG.siegeFactor(T, mem.length) + SG.tradeBonus(lane) * (SG.concede ? 1 : 0);
         C.push({ kind: 'siege', lane, T, id, sc });
       });
       /* defesa: inimigos perto de uma estrutura nossa */
       this.defendCandidates(C, op, st);
     }
     C.forEach(c => { c.sc *= noise(); if (this.goal && this.goal.kind === c.kind && this.sameGoal(this.goal, c)) c.sc += 0.12; });
+    if (this.goal && this.goal.kind === 'setup') { const o = C.find(c => c.kind === 'obj' && c.k === this.goal.k); if (o) { this.goal = { ...o, since: t }; this.stats.goals.obj = (this.stats.goals.obj || 0) + 1; this.stats.objStarts++; } }
     const best = C.reduce((b, c) => (c.sc > b.sc ? c : b), C[0]);
     if (!this.goal || !this.goalValid(this.goal) || (t - this.goal.since >= 8 && best !== undefined && !this.sameGoal(this.goal, best) && best.sc > this.goal.sc + 0.05) || t - this.goal.since > 150) {
       const thr = best.kind === 'lane' ? 0 : 0.34;
@@ -174,9 +178,10 @@ class Brain {
   /* fim de jogo: com inibidor inimigo caído o time prioriza derrubar a base em vez de objetivos */
   pressing() { return this.w.structures.anyInhibitorDown(1 - this.team); }
   avgNoise() { return this.players.reduce((s, p) => s + p.par.noise, 0) / Math.max(1, this.players.length); }
-  sameGoal(a, b) { return a.kind === b.kind && (a.kind === 'lane' || (a.kind === 'obj' ? a.k === b.k : a.kind === 'siege' ? a.id === b.id : a.where === b.where)); }
+  sameGoal(a, b) { return a.kind === b.kind && (a.kind === 'lane' || (a.kind === 'obj' || a.kind === 'setup' ? a.k === b.k : a.kind === 'siege' ? a.id === b.id : a.where === b.where)); }
   goalValid(g) {
     if (g.kind === 'obj') { if (!g.mons.some(m => !m.dead && this.w.units.includes(m))) return false; if (this.homeThreat() >= 2) return false; const ms = g.mem ? [...g.mem].filter(q => !q.u.dead) : []; return !(g.go && ms.length && ms.reduce((a, q) => a + q.u.hp / q.u.hpMax, 0) / ms.length < 0.35); }
+    if (g.kind === 'setup') return this.strat.state === 'OBJECTIVE_SETUP' && !!this.strat.obj && this.strat.obj.k === g.k && !this.strat.obj.alive;
     if (g.kind === 'siege') return !g.T.dead && !g.T.invuln;
     if (g.kind === 'defend') return this.w.t - g.since < 40 && this.w.units.some(u => !u.dead && u.team !== this.team && isChamp(u) && dist(u.pos, g.pos) < 1900);
     return true;
@@ -197,7 +202,7 @@ class Brain {
     const g = this.goal; if (!g) return;
     g.mem = new Set(); if (g.kind === 'lane') return;
     this.players.forEach(p => {
-      if (!this.eligible(p, g.kind, { topOk: g.kind === 'obj' ? g.pit === 'b' : g.kind === 'siege' ? g.lane === 'top' : true })) return;
+      if (!this.eligible(p, g.kind, { topOk: g.kind === 'obj' || g.kind === 'setup' ? g.pit === 'b' || g.kind === 'setup' : g.kind === 'siege' ? g.lane === 'top' : true, lane: g.lane })) return;
       if (p.mode === 'gank' && this.w.t < p.gankUntil) return;
       if (g.kind === 'defend' && g.where !== 'nx' && !g.base && dist(p.u.pos, g.pos) > 5500) return;      /* Bloco 10b: defesa so com quem esta perto */
       g.mem.add(p);
@@ -270,12 +275,14 @@ class Brain {
     if (this.fight(p, near, allies)) return;
     /* objetivo de equipe */
     if (inGoal && this.goalAct(p)) return;
-    if (p.role === 'jungle') this.jungleAct(p, foes); else { const rl = this.rallyLane(); p.lane = rl || p.homeLane || p.lane; this.laneAct(p, foes, allies); }
+    if (this.strat.act(p, foes)) return;
+    if (p.role === 'jungle') this.jungleAct(p, foes); else { p.lane = this.strat.laneFor(p) || p.homeLane || p.lane; this.laneAct(p, foes, allies); }
   }
   retreat(p, near) { const u = p.u; this.stats.retreats++; p.mode = 'retreat'; u.ai.focus = null; const d = this.home(p); this.go(u, near.some(x => dist(x.pos, u.pos) < 500) ? this.fountain() : d, 40); }
 
   /* combate local: lutar, atrair ou recuar */
   fight(p, near, allies) {
+    if (this.strat.active() && this.strat.state === 'DISENGAGE' && near.length && p.role !== 'jungle') { this.retreat(p, near); return true; }
     const w = this.w, u = p.u, R = 1400, A_ = allies.filter(a => dist(a.pos, u.pos) < R), E_ = near.filter(x => dist(x.pos, u.pos) < R);
     const skirmish = A_.length >= 2 || E_.length >= 2 || (this.goal && this.goal.kind !== 'lane' && this.goal.mem && this.goal.mem.has(p)) || p.role === 'jungle';
     const reach = skirmish ? Math.max(u.stats.range, 450) + 350 : u.stats.range + 110, sg0 = this.goal && this.goal.kind === 'siege', tgs = near.filter(x => dist(x.pos, u.pos) <= reach && (sg0 || !this.underEnemyTurret(x.pos) || (this.covered(x.pos) && x.hp < x.hpMax * 0.25 && u.hp > u.hpMax * 0.7)));   /* nao persegue ninguem para debaixo da torre sem minions aliados */
@@ -291,6 +298,13 @@ class Brain {
     if (under && !siege) theta += weak.length ? 0.3 : 0.9;
     if (p.role === 'support' && this.laneMate(p)) theta *= 0.95;
     if (!skirmish) { const t0 = tgs[0], mine = u.hp / u.hpMax, his = t0.hp / t0.hpMax; if (!(ratio >= theta * 1.8 || (ratio >= theta * 1.1 && (his < 0.55 || mine > his + 0.1)))) { u.ai.focus = null; if (ratio < theta * 0.8 && E_.some(x => dist(x.pos, u.pos) < Math.max(x.stats.range, 450) + 100)) { this.retreat(p, near); return true; } return false; } }
+    if (this.strat.active() && !(typeof __P !== 'undefined' && __P.nofight) && A_.length >= 2 && E_.length >= 2) {                         /* lutas coordenadas: front-to-back e iniciacao */
+      const SGt = this.strat, role = SGt.roleOf(p), foe0 = E_.slice().sort((a, c) => dist(a.pos, u.pos) - dist(c.pos, u.pos))[0], dF = dist(foe0.pos, u.pos);
+      const frontIn = A_.some(a => a !== u && a.stats.range < 400 && dist(a.pos, foe0.pos) < dF - 120), ini = SGt.init;
+      const cen = { x: A_.reduce((s0, a) => s0 + a.pos.x, 0) / A_.length, y: A_.reduce((s0, a) => s0 + a.pos.y, 0) / A_.length };
+      if ((role === 'carry' || role === 'peel' || role === 'wave') && u.stats.range >= 450 && !frontIn && dF > u.stats.range + 120 && dF > 700) { p.mode = 'hold'; u.ai.focus = null; this.go(u, { x: cen.x + (cen.x - foe0.pos.x) * 0.15, y: cen.y + (cen.y - foe0.pos.y) * 0.15 }, 150); return true; }
+      if (role !== 'init' && ini && ini.u !== u && !ini.u.dead && ini.mode !== 'fight' && dF > 750 && ratio < theta * 1.5 && A_.some(a => a === (ini.u))) { p.mode = 'hold'; u.ai.focus = null; this.go(u, cen, 200); return true; }
+    }
     if (ratio >= theta) {
       const f = tgs.reduce((b, x) => { const k = (x.hp + (x.shields[0] ? x.shields[0].amount : 0)) * (1 + (x.stats.armor.total + x.stats.mr.total) / 200); return k < b.k ? { x, k } : b; }, { x: null, k: 1e12 }).x;
       p.mode = 'fight'; u.ai.focus = f; this.stats.fights++; AI.decide(w, u); return true;
@@ -307,7 +321,7 @@ class Brain {
     const w = this.w, u = p.u, P = this.paths[p.lane], S = w.structures; u.ai.focus = null;
     u.farmRate = FARM_CS[p.role] || 0; u.farmXp = FARM_XP[p.role] || 0;
     if (p.role === 'support') { u.farmAt = w.t; }
-    if (p.role === 'support') { const adc = this.players.find(q => q.role === 'adc' && !q.u.dead); if (adc && dist(adc.u.pos, u.pos) < 3500 || adc) { const s = P.project(adc.u.pos).s; const stand = P.at(Math.max(0, s - 250)); p.mode = 'lane'; this.go(u, stand, 80); return; } }
+    if (p.role === 'support') { const adc = this.players.find(q => q.role === 'adc' && !q.u.dead && q.lane === p.lane); if (adc && dist(adc.u.pos, u.pos) < 3500 || adc) { const s = P.project(adc.u.pos).s; const stand = P.at(Math.max(0, s - 250)); p.mode = 'lane'; this.go(u, stand, 80); return; } }
     const mins = w.units.filter(x => !x.dead && x.kind === 'minion' && x.lane && x.lane.id === p.lane);
     const am = mins.filter(x => x.team === u.team), em = mins.filter(x => x.team !== u.team);
     const own = S.lane(this.team, p.lane).outer, ownS = P.project(own.pos).s;
@@ -315,10 +329,14 @@ class Brain {
     let s = fight.length ? Math.max(...fight.map(m => P.project(m.pos).s)) - 80 - u.stats.range * 0.25 : eFront !== null ? eFront - 120 - u.stats.range * 0.8 : (am.length ? Math.max(...am.map(m => P.project(m.pos).s)) - 80 : ownS + 300);
     s = Math.max(s, ownS - 100);
     const T = this.frontTurret(p.lane); if (T) s = Math.min(s, P.project(T.pos).s - (TURRET.range + T.radius + 110));
+    const wv = p.wv || 'last';
+    if (wv === 'slow') s = Math.max(ownS - 100, s - 450); else if (wv === 'hold') s = Math.min(s, ownS + 1500); else if (wv === 'fast') s += 220;
+    const T0 = this.frontTurret(p.lane); if (T0) s = Math.min(s, P.project(T0.pos).s - (TURRET.range + T0.radius + 110));
     s = Math.max(0, s); const stand = P.at(s); p.mode = 'lane';
     if (em.some(x => dist(x.pos, u.pos) <= 1400)) u.farmAt = w.t;              /* na rota com onda inimiga por perto: o farm classico acumula */
     const R = u.stats.range + 15, ens = em.filter(x => dist(x.pos, u.pos) <= 1400).sort((a, b) => dist(a.pos, u.pos) - dist(b.pos, u.pos));
     if (!ens.length) { this.go(u, stand, 80); return; }
+    if (wv === 'fast') { const ir = ens.find(x => dist(x.pos, u.pos) <= u.stats.range + 15 + x.radius); if (ir) { if (!(u.order && u.order.type === 'attack' && u.order.target === ir)) w.orderAttack(u, ir); return; } }
     const sk = u.ai.lastHit, spec = w.attackSpec(u), flight = d => (spec.missile > 0 ? d / spec.missile : 0), mine = d => spec.windupFrac / w.asOf(u) + flight(d);
     const dmg = u.stats.ad.total * 100 / (100 + Math.max(0, ens[0].stats.armor.total));
     const inRange = ens.filter(x => dist(x.pos, u.pos) <= R + x.radius);
@@ -387,6 +405,7 @@ class Brain {
       if (dist(u.pos, pos) > 650 && !u.attack.windup) { this.go(u, pos, 300); return true; }
       u.ai.focus = mon; AI.decide(w, u); return true;
     }
+    if (g.kind === 'setup') { const o = this.strat.obj; return !!o && this.strat.setupAct(p, o); }
     if (g.kind === 'siege') {
       const T = g.T; p.mode = 'siege'; const P = this.paths[g.lane];
       const tank = w.units.filter(m => m.kind === 'minion' && !m.dead && m.team === u.team && dist(m.pos, T.pos) < 800).length;

@@ -2309,7 +2309,7 @@ const hunterDone = u => !isHunter(u) || (u.jgStacks || 0) >= JUNGLE_RULE.itemSta
 class Jungle {
   constructor(w, opts = {}) {
     this.w = w; this.layout = opts.layout || LAYOUT; this.camps = []; this.epics = {}; this.stacks = [[], []]; this.soul = [null, null]; this.rift = null; this.drakeN = 0; this.elderNext = false;
-    this.aspect = [null, null]; this.hob = [null, null]; this.log = []; this.riftOn = false; this.fruits = null;
+    this.nextAt = { baron: T.baron.spawn, drake: T.drake.spawn }; this.aspect = [null, null]; this.hob = [null, null]; this.log = []; this.riftOn = false; this.fruits = null;
     Object.keys(T.camps).forEach(k => [0, 1].forEach(side => this.addCamp(k, side, T.camps[k][0], T.camps[k][1])));
     LAYOUT.crab.forEach((p, i) => this.addCamp('crab' + i, null, T.scuttle[0], T.scuttle[1], ['sru_crab'], p));
     w.schedule(T.grubs.spawn, () => this.spawnGrubs()); w.schedule(T.grubs.despawn, () => this.despawn('grubs'));
@@ -2421,7 +2421,7 @@ class Jungle {
       const ad = 12 + 36 * k, ap = 20 + 60 * k;
       w.units.filter(u => u.kind !== 'minion' && u.kind !== 'monster' && u.team === team && !u.dead).forEach(u => w.addBuff(u, { dur: BARON.buff, flat: { ad, ap }, tag: 'hob', loseOnDeath: true }));
       this.hob[team] = w.t + BARON.buff; w.emit('baron-kill', { team, ad, ap, ...cr });
-      w.schedule(w.t + T.baron.respawn, () => this.spawnEpic('baron', 'sru_baron', this.layout.baron));
+      this.nextAt.baron = w.t + T.baron.respawn; w.schedule(w.t + T.baron.respawn, () => this.spawnEpic('baron', 'sru_baron', this.layout.baron));
       return;
     }
     if (name === 'drake') {
@@ -2429,13 +2429,13 @@ class Jungle {
         this.teamGold(team, ELDER.globalGold, ELDER.globalXp, 'elder');
         const mins = w.t / 60, k = Math.max(0, Math.min(1, (mins - 25) / 20));              /* ESTIMADO: queimadura 75-225 por minuto de jogo */
         w.units.filter(u => u.kind !== 'minion' && u.kind !== 'monster' && u.team === team && !u.dead).forEach(u => { u.helpers.aspectUntil = w.t + ELDER.buff; u.helpers.aspectBurn = 75 + 150 * k; });
-        this.aspect[team] = w.t + ELDER.buff; w.emit('elder-kill', { team, ...cr }); this.elderNext = true; w.schedule(w.t + T.elder.respawn, () => this.spawnDrake()); return;
+        this.aspect[team] = w.t + ELDER.buff; w.emit('elder-kill', { team, ...cr }); this.elderNext = true; this.nextAt.drake = w.t + T.elder.respawn; w.schedule(w.t + T.elder.respawn, () => this.spawnDrake()); return;
       }
       this.drakeN++; const st = this.stacks[team]; st.push(m.name);
       if (this.drakeN === 3 && this.rift && !this.riftOn) this.transformMap();
       w.emit('drake-kill', { team, mkey: m.name, stacks: st.length, ...cr });
-      if (st.length === 4 && !this.soul[team]) { this.soul[team] = this.rift || m.name; this.elderNext = true; w.emit('soul', { team, mkey: this.soul[team] }); w.schedule(w.t + T.elder.respawn, () => this.spawnDrake()); }
-      else w.schedule(w.t + T.drake.respawn, () => this.spawnDrake());
+      if (st.length === 4 && !this.soul[team]) { this.soul[team] = this.rift || m.name; this.elderNext = true; w.emit('soul', { team, mkey: this.soul[team] }); this.nextAt.drake = w.t + T.elder.respawn; w.schedule(w.t + T.elder.respawn, () => this.spawnDrake()); }
+      else { this.nextAt.drake = w.t + T.drake.respawn; w.schedule(w.t + T.drake.respawn, () => this.spawnDrake()); }
       w.units.filter(u => u.kind !== 'minion' && u.kind !== 'monster' && u.team === team).forEach(u => w.refresh(u));
     }
   }
@@ -2732,7 +2732,7 @@ function lanes() {
 module.exports = { W, H, mirror, ORDER, ORDER_PATH, structurePositions, lanes };
 
 }};
-DEF["src/engine/ai/brain.js"]={deps:{"../map/layout":"src/engine/map/layout.js","../sim/ai":"src/engine/sim/ai.js","../items/shop":"src/engine/items/shop.js","../items/builds":"src/engine/items/builds.js","./attributes":"src/engine/ai/attributes.js","../map/structures":"src/engine/map/structures.js","./supply_ai":"src/engine/ai/supply_ai.js","../items/supplies":"src/engine/items/supplies.js","../items/catalog":"src/engine/items/catalog.js"},fn:function(module,exports,require,__dirname){'use strict';
+DEF["src/engine/ai/brain.js"]={deps:{"../map/layout":"src/engine/map/layout.js","../sim/ai":"src/engine/sim/ai.js","../items/shop":"src/engine/items/shop.js","../items/builds":"src/engine/items/builds.js","./attributes":"src/engine/ai/attributes.js","./strategy":"src/engine/ai/strategy.js","../map/structures":"src/engine/map/structures.js","./supply_ai":"src/engine/ai/supply_ai.js","../items/supplies":"src/engine/items/supplies.js","../items/catalog":"src/engine/items/catalog.js"},fn:function(module,exports,require,__dirname){'use strict';
 /* IA de macro (Bloco 8): decide o que cada jogador faz e executa sobre o estado REAL do mundo (campeões, minions, torres, objetivos).
    Estrutura portada do motor legado (lvAssess / lvRisk / lvPlan / lvGankScore / estilos LVSTY), agora com: caminhos de rota, último golpe real,
    torres que atiram, recall e compras, objetivos com HP real. Cada jogador tem 5 atributos (Lane, Mecânica, Macro, Equipe, Mental) que
@@ -2740,7 +2740,7 @@ DEF["src/engine/ai/brain.js"]={deps:{"../map/layout":"src/engine/map/layout.js",
    ESTIMADO (calibrar no Bloco 10): pesos de pontuação, raios de decisão, limiares de recall/retirada, função de poder, nomes de rota por papel.
    Simplificação declarada: IA onisciente (sem névoa de guerra; visão/sentinelas ficam pendentes) e sem feitiços de invocador. */
 const LAY = require('../map/layout'), AI = require('../sim/ai'), SHOP = require('../items/shop'), B = require('../items/builds'), A = require('./attributes');
-const { TURRET } = require('../map/structures'), SUPAI = require('./supply_ai'), SUP = require('../items/supplies');
+const { Strategy } = require('./strategy'), { TURRET } = require('../map/structures'), SUPAI = require('./supply_ai'), SUP = require('../items/supplies');
 const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
 
@@ -2791,7 +2791,7 @@ class Brain {
     this.w = w; this.team = team; this.style = style; this.name = name || 'T' + team; this.players = []; this.goal = null; this.nextPlan = 0; this.enemy = null;
     this.paths = {}; LAY.lanes().forEach(l => { this.paths[l.id] = new Path(team === 0 ? l.path : l.path.slice().reverse()); });
     this.stats = { objStarts: 0, sieges: 0, defends: 0, ganks: 0, recalls: 0, fights: 0, retreats: 0, goals: {} }; this.adapt = null;
-    roster.forEach((r, i) => this.add(r, i));
+    roster.forEach((r, i) => this.add(r, i)); this.strat = new Strategy(this);
     w.brains.push(this);
   }
   add(r, i) {
@@ -2823,6 +2823,7 @@ class Brain {
   theta() { return clamp(0.9 - 0.5 * this.risk() + this.styleNow().fight * 0.5, 0.55, 1.4); }                  /* limiar de poder para lutar (lvTheta) */
   eligible(p, k, extra = {}) {
     const u = p.u; if (u.dead || u.hp < u.hpMax * 0.4 || u.recall || p.mode === 'recall' || p.back) return false;
+    if (this.strat.isSplit(p) && (k === 'obj' || k === 'setup' || (k === 'siege' && extra.lane !== this.strat.splitLane))) return false;
     if (p.role === 'top' && !(extra.topOk || this.w.t / 60 >= 24)) return false;
     return true;
   }
@@ -2830,6 +2831,7 @@ class Brain {
   /* ---------- planejamento de equipe (1 s) ---------- */
   plan() {
     const w = this.w, t = w.t, st = this.styleNow(), me = this.alive(), op = this.alive(1 - this.team); if (!me.length) { this.goal = null; return; }
+    this.strat.update(); const SG = this.strat;
     const noise = () => 1 + this.avgNoise() * w.rng.gauss('ia');
     const pr = clamp(me.reduce((s, u) => s + power(u), 0) / Math.max(1, op.reduce((s, u) => s + power(u), 0)), 0.2, 3);
     const C = [], risk = this.risk(), rk = 1 + 0.5 * clamp(risk, -0.6, 0.8), mn = t / 60;
@@ -2854,9 +2856,10 @@ class Brain {
       const reach = clamp(0.5 + (etaOp - etaMe) / 12000, 0.2, 1);
       let V = OBJ_VALUE[ob.k] * (1 + st.obj) * (this.pressing() ? 0.55 : 1); if (ob.k === 'b' && this.gold(this.team) - this.gold(1 - this.team) < -2500) V += 0.15;
       const eg = this.enemy && this.enemy.goal, backdoor = this.homeThreat() > 0 || (eg && eg.kind === 'siege' && (eg.id === 'nx' || (eg.T && this.isBase(eg.T))));
-      const sc = V * nF * hpF * reach * clamp(0.55 + 0.45 * (prw - 0.7), 0.2, 1.15) * (1 - 0.14 * near.length) * rk * (backdoor ? 0.2 : 1);
+      const sc = V * nF * hpF * reach * clamp(0.55 + 0.45 * (prw - 0.7), 0.2, 1.15) * (1 - 0.14 * near.length) * rk * (backdoor ? 0.2 : 1) * SG.objFactor(ob);
       C.push({ kind: 'obj', k: ob.k, mons: ob.mons, pos, pit: ob.pit, sc, need });
     });
+    if (SG.active() && SG.state === 'OBJECTIVE_SETUP' && SG.obj && !SG.obj.alive) { const o = SG.obj, mem = me.filter(u => !SG.isSplit(this.players.find(p => p.u === u))); if (mem.length >= 3) C.push({ kind: 'setup', k: o.k, pos: o.pos, sc: 0.9, spawnIn: o.spawnIn, need: 3 }); }
     /* torres: a estrutura vulnerável mais externa de cada rota (e a base) */
     const S = w.structures;
     if (S) {
@@ -2866,18 +2869,19 @@ class Brain {
         if (id === 'nx') { T = S.nexusTurrets[enemyT].find(s => !s.dead && !s.invuln) || (!S.nexus[enemyT].invuln && !S.nexus[enemyT].dead ? S.nexus[enemyT] : null); tier = 3; }
         else { const L = S.lane(enemyT, id); for (let i = 0; i < 4; i++) if (!L[TIERS[i]].dead) { T = L[TIERS[i]]; tier = i; break; } if (T && T.invuln) T = null; }
         if (!T) return;
-        const lane = id === 'nx' ? 'mid' : id, mem = me.map(u => this.players.find(p => p.u === u)).filter(p => p && this.eligible(p, 'siege', { topOk: lane === 'top' }));
+        const lane = id === 'nx' ? 'mid' : id, mem = me.map(u => this.players.find(p => p.u === u)).filter(p => p && this.eligible(p, 'siege', { topOk: lane === 'top', lane }));
         if (mem.length < 2) return;
         const mine = w.units.filter(x => x.kind === 'minion' && !x.dead && x.team === this.team && dist(x.pos, T.pos) < 1100).length, theirs = w.units.filter(x => x.kind === 'minion' && !x.dead && x.team !== this.team && dist(x.pos, T.pos) < 1100).length;
         const press = clamp(0.35 + 0.1 * (mine - theirs), 0.15, 1.1), need = tier === 0 && mn < 14 ? 2 : 3, nF = mem.length >= need ? 1 : 0.35;
         const V = [0.5, 0.62, 0.8, 0.9][tier] || 0.9, hp = T.hp / T.hpMax;
-        const sc = V * nF * press * clamp(0.5 + 0.5 * (pr - 0.6), 0.25, 1.2) * (0.7 + 0.3 * hp) * (1 + 0.15 * clamp(me.length - op.length, 0, 3)) * (1 + st.agg * 0.25 + st.obj * 0.1) * rk * (this.pressing() ? (id === 'nx' ? 2 : 1.5) : 1);
+        const sc = V * nF * press * clamp(0.5 + 0.5 * (pr - 0.6), 0.25, 1.2) * (0.7 + 0.3 * hp) * (1 + 0.15 * clamp(me.length - op.length, 0, 3)) * (1 + st.agg * 0.25 + st.obj * 0.1) * rk * (this.pressing() ? (id === 'nx' ? 2 : 1.5) : 1) * SG.siegeFactor(T, mem.length) + SG.tradeBonus(lane) * (SG.concede ? 1 : 0);
         C.push({ kind: 'siege', lane, T, id, sc });
       });
       /* defesa: inimigos perto de uma estrutura nossa */
       this.defendCandidates(C, op, st);
     }
     C.forEach(c => { c.sc *= noise(); if (this.goal && this.goal.kind === c.kind && this.sameGoal(this.goal, c)) c.sc += 0.12; });
+    if (this.goal && this.goal.kind === 'setup') { const o = C.find(c => c.kind === 'obj' && c.k === this.goal.k); if (o) { this.goal = { ...o, since: t }; this.stats.goals.obj = (this.stats.goals.obj || 0) + 1; this.stats.objStarts++; } }
     const best = C.reduce((b, c) => (c.sc > b.sc ? c : b), C[0]);
     if (!this.goal || !this.goalValid(this.goal) || (t - this.goal.since >= 8 && best !== undefined && !this.sameGoal(this.goal, best) && best.sc > this.goal.sc + 0.05) || t - this.goal.since > 150) {
       const thr = best.kind === 'lane' ? 0 : 0.34;
@@ -2908,9 +2912,10 @@ class Brain {
   /* fim de jogo: com inibidor inimigo caído o time prioriza derrubar a base em vez de objetivos */
   pressing() { return this.w.structures.anyInhibitorDown(1 - this.team); }
   avgNoise() { return this.players.reduce((s, p) => s + p.par.noise, 0) / Math.max(1, this.players.length); }
-  sameGoal(a, b) { return a.kind === b.kind && (a.kind === 'lane' || (a.kind === 'obj' ? a.k === b.k : a.kind === 'siege' ? a.id === b.id : a.where === b.where)); }
+  sameGoal(a, b) { return a.kind === b.kind && (a.kind === 'lane' || (a.kind === 'obj' || a.kind === 'setup' ? a.k === b.k : a.kind === 'siege' ? a.id === b.id : a.where === b.where)); }
   goalValid(g) {
     if (g.kind === 'obj') { if (!g.mons.some(m => !m.dead && this.w.units.includes(m))) return false; if (this.homeThreat() >= 2) return false; const ms = g.mem ? [...g.mem].filter(q => !q.u.dead) : []; return !(g.go && ms.length && ms.reduce((a, q) => a + q.u.hp / q.u.hpMax, 0) / ms.length < 0.35); }
+    if (g.kind === 'setup') return this.strat.state === 'OBJECTIVE_SETUP' && !!this.strat.obj && this.strat.obj.k === g.k && !this.strat.obj.alive;
     if (g.kind === 'siege') return !g.T.dead && !g.T.invuln;
     if (g.kind === 'defend') return this.w.t - g.since < 40 && this.w.units.some(u => !u.dead && u.team !== this.team && isChamp(u) && dist(u.pos, g.pos) < 1900);
     return true;
@@ -2931,7 +2936,7 @@ class Brain {
     const g = this.goal; if (!g) return;
     g.mem = new Set(); if (g.kind === 'lane') return;
     this.players.forEach(p => {
-      if (!this.eligible(p, g.kind, { topOk: g.kind === 'obj' ? g.pit === 'b' : g.kind === 'siege' ? g.lane === 'top' : true })) return;
+      if (!this.eligible(p, g.kind, { topOk: g.kind === 'obj' || g.kind === 'setup' ? g.pit === 'b' || g.kind === 'setup' : g.kind === 'siege' ? g.lane === 'top' : true, lane: g.lane })) return;
       if (p.mode === 'gank' && this.w.t < p.gankUntil) return;
       if (g.kind === 'defend' && g.where !== 'nx' && !g.base && dist(p.u.pos, g.pos) > 5500) return;      /* Bloco 10b: defesa so com quem esta perto */
       g.mem.add(p);
@@ -3004,12 +3009,14 @@ class Brain {
     if (this.fight(p, near, allies)) return;
     /* objetivo de equipe */
     if (inGoal && this.goalAct(p)) return;
-    if (p.role === 'jungle') this.jungleAct(p, foes); else { const rl = this.rallyLane(); p.lane = rl || p.homeLane || p.lane; this.laneAct(p, foes, allies); }
+    if (this.strat.act(p, foes)) return;
+    if (p.role === 'jungle') this.jungleAct(p, foes); else { p.lane = this.strat.laneFor(p) || p.homeLane || p.lane; this.laneAct(p, foes, allies); }
   }
   retreat(p, near) { const u = p.u; this.stats.retreats++; p.mode = 'retreat'; u.ai.focus = null; const d = this.home(p); this.go(u, near.some(x => dist(x.pos, u.pos) < 500) ? this.fountain() : d, 40); }
 
   /* combate local: lutar, atrair ou recuar */
   fight(p, near, allies) {
+    if (this.strat.active() && this.strat.state === 'DISENGAGE' && near.length && p.role !== 'jungle') { this.retreat(p, near); return true; }
     const w = this.w, u = p.u, R = 1400, A_ = allies.filter(a => dist(a.pos, u.pos) < R), E_ = near.filter(x => dist(x.pos, u.pos) < R);
     const skirmish = A_.length >= 2 || E_.length >= 2 || (this.goal && this.goal.kind !== 'lane' && this.goal.mem && this.goal.mem.has(p)) || p.role === 'jungle';
     const reach = skirmish ? Math.max(u.stats.range, 450) + 350 : u.stats.range + 110, sg0 = this.goal && this.goal.kind === 'siege', tgs = near.filter(x => dist(x.pos, u.pos) <= reach && (sg0 || !this.underEnemyTurret(x.pos) || (this.covered(x.pos) && x.hp < x.hpMax * 0.25 && u.hp > u.hpMax * 0.7)));   /* nao persegue ninguem para debaixo da torre sem minions aliados */
@@ -3025,6 +3032,13 @@ class Brain {
     if (under && !siege) theta += weak.length ? 0.3 : 0.9;
     if (p.role === 'support' && this.laneMate(p)) theta *= 0.95;
     if (!skirmish) { const t0 = tgs[0], mine = u.hp / u.hpMax, his = t0.hp / t0.hpMax; if (!(ratio >= theta * 1.8 || (ratio >= theta * 1.1 && (his < 0.55 || mine > his + 0.1)))) { u.ai.focus = null; if (ratio < theta * 0.8 && E_.some(x => dist(x.pos, u.pos) < Math.max(x.stats.range, 450) + 100)) { this.retreat(p, near); return true; } return false; } }
+    if (this.strat.active() && !(typeof __P !== 'undefined' && __P.nofight) && A_.length >= 2 && E_.length >= 2) {                         /* lutas coordenadas: front-to-back e iniciacao */
+      const SGt = this.strat, role = SGt.roleOf(p), foe0 = E_.slice().sort((a, c) => dist(a.pos, u.pos) - dist(c.pos, u.pos))[0], dF = dist(foe0.pos, u.pos);
+      const frontIn = A_.some(a => a !== u && a.stats.range < 400 && dist(a.pos, foe0.pos) < dF - 120), ini = SGt.init;
+      const cen = { x: A_.reduce((s0, a) => s0 + a.pos.x, 0) / A_.length, y: A_.reduce((s0, a) => s0 + a.pos.y, 0) / A_.length };
+      if ((role === 'carry' || role === 'peel' || role === 'wave') && u.stats.range >= 450 && !frontIn && dF > u.stats.range + 120 && dF > 700) { p.mode = 'hold'; u.ai.focus = null; this.go(u, { x: cen.x + (cen.x - foe0.pos.x) * 0.15, y: cen.y + (cen.y - foe0.pos.y) * 0.15 }, 150); return true; }
+      if (role !== 'init' && ini && ini.u !== u && !ini.u.dead && ini.mode !== 'fight' && dF > 750 && ratio < theta * 1.5 && A_.some(a => a === (ini.u))) { p.mode = 'hold'; u.ai.focus = null; this.go(u, cen, 200); return true; }
+    }
     if (ratio >= theta) {
       const f = tgs.reduce((b, x) => { const k = (x.hp + (x.shields[0] ? x.shields[0].amount : 0)) * (1 + (x.stats.armor.total + x.stats.mr.total) / 200); return k < b.k ? { x, k } : b; }, { x: null, k: 1e12 }).x;
       p.mode = 'fight'; u.ai.focus = f; this.stats.fights++; AI.decide(w, u); return true;
@@ -3041,7 +3055,7 @@ class Brain {
     const w = this.w, u = p.u, P = this.paths[p.lane], S = w.structures; u.ai.focus = null;
     u.farmRate = FARM_CS[p.role] || 0; u.farmXp = FARM_XP[p.role] || 0;
     if (p.role === 'support') { u.farmAt = w.t; }
-    if (p.role === 'support') { const adc = this.players.find(q => q.role === 'adc' && !q.u.dead); if (adc && dist(adc.u.pos, u.pos) < 3500 || adc) { const s = P.project(adc.u.pos).s; const stand = P.at(Math.max(0, s - 250)); p.mode = 'lane'; this.go(u, stand, 80); return; } }
+    if (p.role === 'support') { const adc = this.players.find(q => q.role === 'adc' && !q.u.dead && q.lane === p.lane); if (adc && dist(adc.u.pos, u.pos) < 3500 || adc) { const s = P.project(adc.u.pos).s; const stand = P.at(Math.max(0, s - 250)); p.mode = 'lane'; this.go(u, stand, 80); return; } }
     const mins = w.units.filter(x => !x.dead && x.kind === 'minion' && x.lane && x.lane.id === p.lane);
     const am = mins.filter(x => x.team === u.team), em = mins.filter(x => x.team !== u.team);
     const own = S.lane(this.team, p.lane).outer, ownS = P.project(own.pos).s;
@@ -3049,10 +3063,14 @@ class Brain {
     let s = fight.length ? Math.max(...fight.map(m => P.project(m.pos).s)) - 80 - u.stats.range * 0.25 : eFront !== null ? eFront - 120 - u.stats.range * 0.8 : (am.length ? Math.max(...am.map(m => P.project(m.pos).s)) - 80 : ownS + 300);
     s = Math.max(s, ownS - 100);
     const T = this.frontTurret(p.lane); if (T) s = Math.min(s, P.project(T.pos).s - (TURRET.range + T.radius + 110));
+    const wv = p.wv || 'last';
+    if (wv === 'slow') s = Math.max(ownS - 100, s - 450); else if (wv === 'hold') s = Math.min(s, ownS + 1500); else if (wv === 'fast') s += 220;
+    const T0 = this.frontTurret(p.lane); if (T0) s = Math.min(s, P.project(T0.pos).s - (TURRET.range + T0.radius + 110));
     s = Math.max(0, s); const stand = P.at(s); p.mode = 'lane';
     if (em.some(x => dist(x.pos, u.pos) <= 1400)) u.farmAt = w.t;              /* na rota com onda inimiga por perto: o farm classico acumula */
     const R = u.stats.range + 15, ens = em.filter(x => dist(x.pos, u.pos) <= 1400).sort((a, b) => dist(a.pos, u.pos) - dist(b.pos, u.pos));
     if (!ens.length) { this.go(u, stand, 80); return; }
+    if (wv === 'fast') { const ir = ens.find(x => dist(x.pos, u.pos) <= u.stats.range + 15 + x.radius); if (ir) { if (!(u.order && u.order.type === 'attack' && u.order.target === ir)) w.orderAttack(u, ir); return; } }
     const sk = u.ai.lastHit, spec = w.attackSpec(u), flight = d => (spec.missile > 0 ? d / spec.missile : 0), mine = d => spec.windupFrac / w.asOf(u) + flight(d);
     const dmg = u.stats.ad.total * 100 / (100 + Math.max(0, ens[0].stats.armor.total));
     const inRange = ens.filter(x => dist(x.pos, u.pos) <= R + x.radius);
@@ -3121,6 +3139,7 @@ class Brain {
       if (dist(u.pos, pos) > 650 && !u.attack.windup) { this.go(u, pos, 300); return true; }
       u.ai.focus = mon; AI.decide(w, u); return true;
     }
+    if (g.kind === 'setup') { const o = this.strat.obj; return !!o && this.strat.setupAct(p, o); }
     if (g.kind === 'siege') {
       const T = g.T; p.mode = 'siege'; const P = this.paths[g.lane];
       const tank = w.units.filter(m => m.kind === 'minion' && !m.dead && m.team === u.team && dist(m.pos, T.pos) < 800).length;
@@ -3424,6 +3443,238 @@ function fromAttributes(a = {}) {
 }
 const DEFAULT = { lane: 60, mec: 60, macro: 60, team: 60, mental: 60 };
 module.exports = { fromAttributes, DEFAULT };
+
+}};
+DEF["src/engine/ai/strategy.js"]={deps:{"./brain":"src/engine/ai/brain.js","./supply_ai":"src/engine/ai/supply_ai.js"},fn:function(module,exports,require,__dirname){'use strict';
+/* Inteligencia estrategica coletiva (late game). Fica ACIMA do Brain (ai/brain.js), que continua dono dos objetivos de equipe (lane/obj/siege/defend),
+   do combate local e da rota. Quatro niveis:
+     1. Team Strategic AI  -> update(): le o estado do mapa e escolhe UM estado estrategico (STATES) por regras de prioridade.
+     2. Role Assignment    -> assign(): reparte papeis (split, wave, vision, peel, init, carry, front, objective) entre os cinco, sem agrupar para sempre.
+     3. Individual Player  -> act(p): cada um cumpre o papel (pressao lateral, ondas, visao, preparacao de objetivo, pickoff, recuo).
+     4. Tactical Adaptation-> o estado e reavaliado a cada segundo: concede objetivo, cancela cerco, junta o split, recua apos perder gente.
+   Reaproveita: Brain.goal/plan/fight/laneAct, Jungle.epics/nextAt, structures, supply_ai (sentinelas), econ. ESTIMADO: todos os limiares (cfg).
+   Simplificacoes declaradas: o motor nao tem neblina de guerra nem Teleporte; "visao" vira viagem de sentinela e "TP" e aproximado pela distancia ate a rota. */
+const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+const X = (typeof __P !== 'undefined' && __P) || {};
+const STATES = ['OBJECTIVE_SETUP', 'OBJECTIVE_CONTEST', 'OBJECTIVE_TAKE', 'SPLIT_PUSH', 'SIEGE', 'DEFENSIVE_HOLD', 'BASE_DEFENSE', 'PICK_SETUP', 'TEAMFIGHT', 'RESET', 'MAP_CONTROL', 'DISENGAGE', 'BASE_RACE', 'RECOVERY'];
+/* linha do tempo da preparacao (s antes do nascimento) e demais limiares: configuraveis */
+const CFG = { allowSplit: false, start: 840, wave: 90, move: 60, vision: 45, pos: 30, stage: [2800, 2200, 1700, 1400], concedeAlive: 3, lostFightDeaths: 2, retreatS: 10, splitMin: 1000, pickIso: 2500, tfR: 1300 };
+
+class Strategy {
+  constructor(brain, cfg) {
+    this.b = brain; this.w = brain.w; this.cfg = { ...CFG, ...(cfg || {}) };
+    this.state = 'MAP_CONTROL'; this.since = 0; this.formation = 'spread'; this.roles = new Map(); this.obj = null; this.concede = null; this.pick = null;
+    this.split = null; this.split2 = null; this.splitLane = null; this.splitAt = -99; this.init = null; this.group = 'mid'; this.groupAt = -99;
+    this.deaths = []; this.lastAlive = 5; this.retreatUntil = 0; this.stats = { states: {}, concedes: 0, picks: 0, setups: 0 };
+  }
+  active() { return this.w.t >= this.cfg.start && !!this.w.structures; }
+  roleOf(p) { return this.roles.get(p) || 'flex'; }
+  isSplit(p) { return !!this.split && (this.split === p || this.split2 === p); }
+
+  /* ---------- nivel 1: leitura do mapa e estado ---------- */
+  objInfo(me, op) {
+    const w = this.w, t = w.t, J = w.jungle; if (!J) return null; const E = J.epics, L = [];
+    const add = (k, mons, pos, at, val) => { const alive = mons && mons.some(m => !m.dead); if (!alive && !(at > 0)) return; L.push({ k, alive: !!alive, pos: alive ? mons.find(m => !m.dead).pos : pos, spawnIn: alive ? 0 : at - t, val, mons: alive ? mons.filter(m => !m.dead) : [] }); };
+    const dk = E.drake && E.drake.find(m => !m.dead);
+    add('b', E.baron, J.layout.baron, J.nextAt.baron, 1.0);
+    add(dk ? (dk.name === 'sru_dragon_elder' ? 'e' : 'd') : J.elderNext ? 'e' : 'd', E.drake, J.layout.drake, J.nextAt.drake, dk && dk.name === 'sru_dragon_elder' ? 1.05 : 0.7);
+    const c = L.filter(o => o.spawnIn <= this.cfg.wave).sort((a, b) => (a.spawnIn - a.val * 25) - (b.spawnIn - b.val * 25))[0];
+    if (!c) return null;
+    c.meNear = me.filter(u => dist(u.pos, c.pos) < 2400); c.opNear = op.filter(u => dist(u.pos, c.pos) < 2400);
+    const eta = (arr) => (arr.length ? arr.reduce((s, u) => s + dist(u.pos, c.pos), 0) / arr.length : 1e5);
+    c.etaMe = eta(me), c.etaOp = eta(op); return c;
+  }
+  update() {
+    const b = this.b, w = this.w, t = w.t, team = b.team;
+    if (!this.active()) { this.state = 'MAP_CONTROL'; this.formation = 'spread'; this.split = this.split2 = null; this.obj = null; this.roles.clear(); return; }
+    const me = b.alive(), op = b.alive(1 - team); if (!me.length) { this.set('RECOVERY'); return; }
+    if (me.length < this.lastAlive) this.deaths.push(t); this.lastAlive = me.length; this.deaths = this.deaths.filter(x => t - x < 12);
+    if (this.deaths.length >= this.cfg.lostFightDeaths && op.some(e => me.some(u => dist(u.pos, e.pos) < 2500))) this.retreatUntil = t + this.cfg.retreatS;
+    const gd = b.gold(team) - b.gold(1 - team), S = w.structures, lost = S.byTeam[team].filter(s => s.dead && s.sub === 'turret').length, took = S.byTeam[1 - team].filter(s => s.dead && s.sub === 'turret').length;
+    const power = require('./brain').power, pwr = us => us.reduce((s, u) => s + power(u), 0), pr = pwr(me) / Math.max(1, pwr(op));
+    const obj = this.obj = this.objInfo(me, op), threat = b.homeThreat();
+    const meNearTf = me.filter(u => op.some(e => dist(u.pos, e.pos) < this.cfg.tfR)), opNearTf = op.filter(e => me.some(u => dist(u.pos, e.pos) < this.cfg.tfR));
+    const needReset = me.filter(u => u.hp < u.hpMax * 0.42 || (u.gold >= 2200 && u.items.length < 6 && !u.recall)).length;
+    const f = 1 - team, opBase = S.fountain[f], opHome = op.filter(e => dist(e.pos, opBase) < 4500).length, deadOp = this.w.units.filter(u => u.team === f && u.dead && u.kind !== 'minion' && u.kind !== 'monster' && u.kind !== 'structure' && (u.respawnAt || 0) - t > 22).length;
+    const eg = b.enemy && b.enemy.goal, enemyOnObj = obj && eg && (eg.kind === 'obj' || eg.kind === 'setup') && eg.k === obj.k;
+    this.pick = this.findPick(me, op);
+    let st = 'MAP_CONTROL';
+    if (threat > 0 && (me.length <= op.length + 1 || threat >= 2)) st = 'BASE_DEFENSE';
+    else if (meNearTf.length >= 3 && opNearTf.length >= 3) st = 'TEAMFIGHT';
+    else if (!X.nodis && (t < this.retreatUntil || (op.length - me.length >= 2 && opNearTf.length >= 2))) st = 'DISENGAGE';
+    else if (S.anyInhibitorDown(f) && opHome === 0 && me.length >= 2 && (deadOp >= 2 || op.length <= 2)) st = 'BASE_RACE';
+    else if (needReset >= 2 && !meNearTf.length && !(obj && obj.spawnIn < 25)) st = 'RESET';
+    else if (obj && obj.spawnIn <= this.cfg.wave) {
+      if (obj.alive) {
+        const dom = obj.opNear.length >= this.cfg.concedeAlive && (obj.opNear.length >= obj.meNear.length + 1 || obj.etaMe > obj.etaOp + 3000);
+        if (dom && (!this.concede || this.concede.k !== obj.k)) { this.concede = { k: obj.k, until: t + 60 }; this.stats.concedes++; }
+        if (this.concede && this.concede.k === obj.k && this.concede.until > t) st = this.pickTrade(me, op) || 'SIEGE';
+        else st = enemyOnObj || obj.opNear.length ? 'OBJECTIVE_CONTEST' : 'OBJECTIVE_TAKE';
+      } else st = 'OBJECTIVE_SETUP';
+    } else if (this.pick) st = 'PICK_SETUP';
+    else if (b.goal && b.goal.kind === 'defend') st = 'DEFENSIVE_HOLD';
+    else if (gd < -3500 || lost - took >= 3) st = 'RECOVERY';
+    else if (b.goal && b.goal.kind === 'siege') st = 'SIEGE';
+    else st = 'MAP_CONTROL';
+    if (this.concede && this.concede.until <= t) this.concede = null;
+    this.set(st); this.assign(me, op, pr, gd);
+    if (st === 'MAP_CONTROL' && this.split && b.styleNow().split + 0.1 > 0 && me.length >= 4) this.state = 'SPLIT_PUSH';
+    this.stats.states[this.state] = (this.stats.states[this.state] || 0) + 1;
+  }
+  set(st) { if (st !== this.state) { this.state = st; this.since = this.w.t; } }
+  pickTrade() { return this.split ? 'SPLIT_PUSH' : null; }
+  /* adversario isolado, longe dos aliados dele e de torre, perto de pelo menos tres dos nossos */
+  findPick(me, op) {
+    const b = this.b; if (me.length < 3) return null;
+    for (const e of op) {
+      if (op.some(o => o !== e && dist(o.pos, e.pos) < this.cfg.pickIso)) continue;
+      if (this.w.structures.byTeam[1 - b.team].some(s => !s.dead && s.sub === 'turret' && dist(s.pos, e.pos) < 1100)) continue;
+      const close = me.filter(u => dist(u.pos, e.pos) < 4500 && u.hp > u.hpMax * 0.55); if (close.length >= 3) { if (!this.pick || this.pick.id !== e.id) this.stats.picks++; return e; }
+    }
+    return null;
+  }
+
+  /* ---------- nivel 2: papeis ---------- */
+  assign(me, op, pr, gd) {
+    const b = this.b, w = this.w, t = w.t, P = b.players.filter(p => !p.u.dead), roles = new Map();
+    const tank = u => u.hpMax * (1 + (u.stats.armor.total + u.stats.mr.total) / 200), tags = p => (p.u.ch && p.u.ch.funcoes) || [];
+    /* iniciador: campeao mais resistente que nao e carregador nem suporte */
+    const front = P.filter(p => p.role !== 'adc' && p.role !== 'support' && p.role !== 'jungle' || (p.role === 'jungle' && tags(p).some(x => x === 'Tank' || x === 'Fighter')));
+    const ini = (front.length ? front : P).slice().sort((a, c) => tank(c.u) - tank(a.u))[0]; this.init = ini || null;
+    /* pressao lateral: so com time sem pressa e pelo menos 4 vivos */
+    const calm = ['MAP_CONTROL', 'OBJECTIVE_SETUP', 'OBJECTIVE_TAKE', 'SIEGE', 'SPLIT_PUSH', 'DEFENSIVE_HOLD'].includes(this.state) || (this.state === 'SIEGE'), ok = P.length >= 4 && me.length >= op.length && pr >= 1.05 && calm && t >= this.cfg.splitMin && this.state !== 'RECOVERY';
+    if (!ok || X.nosplit || !this.cfg.allowSplit) { this.split = this.split2 = null; }
+    else if (!this.split || this.split.u.dead || t - this.splitAt > 80 || this.split.u.hp < this.split.u.hpMax * 0.4) {
+      const sc = p => (p.role === 'top' ? 1 : p.role === 'mid' ? 0.35 : p.role === 'adc' ? 0.1 : -9) + (tags(p).some(x => x === 'Fighter' || x === 'Assassin') ? 0.6 : 0) - (tags(p).some(x => x === 'Support') ? 0.8 : 0) + (p.u.hp / p.u.hpMax - 0.5) - (p === ini && this.state === 'OBJECTIVE_TAKE' ? 0.6 : 0);
+      const c = P.filter(p => p.role !== 'jungle' && p.role !== 'support' && p.u.hp > p.u.hpMax * 0.55).sort((a, d) => sc(d) - sc(a))[0];
+      if (c && sc(c) > 0.7 && (b.styleNow().split > 0 || t > 1500 || pr > 1)) {
+        this.split = c; this.splitAt = t; this.splitLane = this.pickSplitLane(c, op);
+      } else { this.split = null; }
+    }
+    /* 1-3-1: com estilo de macro, o carregador tambem pressiona a rota do outro lado */
+    const adc = P.find(p => p.role === 'adc');
+    this.split2 = this.split && gd > 3000 && b.styleNow().split >= 0.2 && adc && adc !== this.split && adc.u.hp > adc.u.hpMax * 0.7 && this.splitLane && this.state !== 'OBJECTIVE_TAKE' && this.state !== 'OBJECTIVE_SETUP' && me.length >= 5 ? adc : null;
+    if (this.split && !this.splitLane) this.splitLane = this.pickSplitLane(this.split, op);
+    this.formation = this.split2 ? '1-3-1' : this.split ? '4-1' : (['RECOVERY', 'DEFENSIVE_HOLD'].includes(this.state) ? 'spread' : '5g');
+    P.forEach(p => {
+      let r = 'flex';
+      if (p === this.split || p === this.split2) r = 'split';
+      else if (p.role === 'support') r = ['OBJECTIVE_SETUP', 'MAP_CONTROL', 'SPLIT_PUSH'].includes(this.state) ? 'vision' : 'peel';
+      else if (p.role === 'adc') r = 'carry';
+      else if (p.role === 'jungle') r = 'objective';
+      else if (p === ini) r = 'init';
+      else if (p.role === 'mid') r = 'wave';
+      else r = 'front';
+      if (this.state === 'PICK_SETUP' && this.pick && r !== 'split' && me.filter(u => dist(u.pos, this.pick.pos) < 4500).includes(p.u)) r = 'pick';
+      roles.set(p, r);
+    });
+    this.roles = roles;
+    this.group = this.groupLane(); this.waves();
+  }
+  pickSplitLane(p, op) {
+    const b = this.b, t = this.w.t; let best = null;
+    ['top', 'bot', 'mid'].forEach(id => {
+      if (id === this.group && id === 'mid') return;
+      const T = b.frontTurret(id); if (!T) return;
+      const foes = op.filter(e => dist(e.pos, T.pos) < 5200).length; if (foes) return;
+      const sc = (p.role === 'top' && id === 'top' ? 0.6 : 0) + (p.role === 'adc' && id === 'bot' ? 0.5 : 0) - 0.5 * foes + (id === 'mid' ? -0.4 : 0) + this.w.rng.gauss('ia') * 0.03;
+      if (!best || sc > best.sc) best = { id, sc };
+    });
+    return best ? best.id : null;
+  }
+  /* rota onde o grupo se reune: a mais empurrada (torres inimigas caidas), ou a do cerco/defesa em curso */
+  groupLane() {
+    const b = this.b, w = this.w, t = w.t, g = b.goal;
+    if (g && (g.kind === 'siege' || g.kind === 'defend')) { const ln = g.kind === 'siege' ? g.lane : g.where === 'nx' ? 'mid' : g.where; if (ln) { this.groupAt = t; this.groupCur = ln; return ln; } }
+    if (this.groupCur && t - this.groupAt < 40) return this.groupCur;
+    const S = w.structures, foe = 1 - b.team, TI = ['outer', 'inner', 'inhibTurret', 'inhibitor']; let best = 'mid', bs = -1;
+    ['mid', 'top', 'bot'].forEach(id => { const L = S.lane(foe, id), own = S.lane(b.team, id), dead = TI.reduce((n, k) => n + (L[k].dead ? 1 : 0), 0), lost = TI.reduce((n, k) => n + (own[k].dead ? 1 : 0), 0); const sc = dead + lost * 0.6 + (id === 'mid' ? 0.35 : 0) - (id === this.splitLane && this.split ? 2 : 0); if (sc > bs) { bs = sc; best = id; } });
+    this.groupCur = best; this.groupAt = t; return best;
+  }
+  laneFor(p) {
+    if (!this.active() || p.role === 'jungle') return p.homeLane;
+    if (this.formation === 'spread') return p.homeLane;
+    if (p === this.split || p === this.split2) return p === this.split2 && this.splitLane === this.group ? 'bot' : (this.splitLane || p.homeLane);
+    if (this.formation === '1-3-1' && p === this.split2) return 'bot';
+    return this.group;
+  }
+  /* ---------- gerenciamento de ondas: fast / slow / hold por jogador ---------- */
+  waves() {
+    const o = this.obj, c = this.cfg; this.b.players.forEach(p => {
+      let wv = 'last';
+      if (o && !o.alive && o.spawnIn <= c.wave && o.spawnIn > c.move && !this.isSplit(p)) wv = 'fast';                 /* ~90 s: organiza/empurra a onda antes de sair da rota */
+      else if (this.isSplit(p)) wv = this.state === 'SIEGE' ? 'fast' : 'slow';                                          /* pressao lateral: onda grande e lenta */
+      else if (['SIEGE', 'BASE_RACE', 'SPLIT_PUSH'].includes(this.state) && p.lane === this.group) wv = 'fast';
+      else if (['RECOVERY', 'DEFENSIVE_HOLD', 'BASE_DEFENSE'].includes(this.state)) wv = 'hold';
+      p.wv = wv;
+    });
+  }
+  /* ---------- fatores usados pelo Brain na pontuacao de metas ---------- */
+  objFactor(ob) {
+    const s = this.state; if (!this.active()) return 1;
+    if (this.concede && this.concede.k === ob.k) return 0.12;
+    if (['BASE_DEFENSE', 'DISENGAGE', 'RESET', 'RECOVERY', 'TEAMFIGHT'].includes(s)) return 0.3;
+    if (s === 'OBJECTIVE_TAKE' || s === 'OBJECTIVE_CONTEST') return 1.25;
+    return 1;
+  }
+  /* cerco/backdoor so com janela real: inimigos mortos ou longe, ou o time quase todo junto */
+  siegeFactor(T, memN) {
+    if (!this.active() || !this.b.isBase(T)) return 1;
+    const op = this.b.alive(1 - this.b.team), f = 1 - this.b.team, base = this.w.structures.fountain[f], away = op.filter(e => dist(e.pos, base) > 5500).length;
+    const window = op.length <= 2 || away >= op.length || memN >= 4;
+    return window ? 1 : 0.3;
+  }
+  tradeBonus(lane) { return this.concede && lane && lane !== this.group ? 0.3 : (this.concede ? 0.15 : 0); }
+
+  /* ---------- nivel 3: execucao ---------- */
+  stage(o, k) {
+    const F = this.b.fountain(), d = Math.max(1, dist(o.pos, F)), r = this.cfg.stage[k];
+    return { x: o.pos.x + (F.x - o.pos.x) * r / d, y: o.pos.y + (F.y - o.pos.y) * r / d };
+  }
+  /* devolve true se assumiu o comando do jogador neste tick (luta local e recall continuam antes no Brain.act) */
+  act(p, foes) {
+    if (!this.active() || X.noact) return false;
+    const b = this.b, w = this.w, u = p.u, r = this.roleOf(p), st = this.state, o = this.obj;
+    if (st === 'DISENGAGE' && p.role !== 'jungle') { p.mode = 'retreat'; b.go(u, this.safeSpot(u), 150); return true; }
+    if (r === 'split') return this.splitAct(p, foes);
+    if (st === 'PICK_SETUP' && this.pick && r === 'pick') { p.mode = 'pick'; b.go(u, this.pick.pos, 250); return true; }
+    if (st === 'OBJECTIVE_SETUP' && o && !o.alive) return this.setupAct(p, o);
+    return false;
+  }
+  /* ponto seguro para recuar: a torre aliada mais proxima (o inimigo que persegue toma tiro), ou a fonte */
+  safeSpot(u) {
+    const b = this.b, F = b.fountain(), Ts = this.w.structures.byTeam[b.team].filter(s => !s.dead && s.sub === 'turret'); let best = null;
+    Ts.forEach(s => { const d = dist(s.pos, u.pos); if (dist(s.pos, F) < dist(u.pos, F) + 500 && (!best || d < best.d)) best = { s, d }; });
+    if (!best) return F; const T = best.s.pos, k = 350 / Math.max(1, dist(T, F));
+    return { x: T.x + (F.x - T.x) * k, y: T.y + (F.y - T.y) * k };
+  }
+  setupAct(p, o) {
+    const b = this.b, w = this.w, u = p.u, c = this.cfg, r = this.roleOf(p), sp = o.spawnIn;
+    if (sp > c.move) return false;                                                    /* ate ~60 s: so ondas (fast push) */
+    if (u.hp < u.hpMax * 0.5) return false;
+    p.mode = 'setup';
+    const k = sp > c.vision ? 0 : sp > c.pos ? 1 : sp > 12 ? 2 : 3, stage = this.stage(o, k);
+    if (sp <= c.vision && (r === 'vision' || r === 'objective') && w.supplies) {
+      const SUPAI = require('./supply_ai'), pit = SUPAI.spots(b.team, 'pit').concat(SUPAI.spots(b.team, 'river')).sort((a, d) => dist(a, o.pos) - dist(d, o.pos))[0];
+      if (pit && dist(u.pos, pit) > 320 && !(p.wardGo && p.wardGo.until > w.t)) p.wardGo = { s: pit, until: w.t + 12 };
+    }
+    /* lanes escalonam: quem esta longe da rota-grupo nao chega a tempo, entao mantem a onda ate ~45 s */
+    if (r !== 'objective' && sp > c.vision && dist(u.pos, stage) > 6500) return false;
+    b.go(u, stage, 260); return true;
+  }
+  splitAct(p, foes) {
+    const b = this.b, w = this.w, u = p.u, lane = this.laneFor(p), P = b.paths[lane]; if (!P) return false;
+    const T = b.frontTurret(lane); if (!T) { return false; }
+    const near = foes.filter(x => dist(x.pos, u.pos) < 3200 || dist(x.pos, T.pos) < 2200);
+    /* qualquer inimigo se aproximando => cancela a pressao e volta ao grupo (sem Teleporte nao ha fuga tardia) */
+    if (near.length >= 1) { p.mode = 'retreat'; b.go(u, b.home(p), 120); this.splitAt = -99; this.split = null; this.split2 = null; return true; }
+    const mine = w.units.filter(m => m.kind === 'minion' && !m.dead && m.team === u.team && dist(m.pos, T.pos) < 900).length;
+    if (mine >= 3 && T.sub === 'turret' && !T.invuln) { p.mode = 'siege'; u.ai.focus = T; if (!(u.order && u.order.type === 'attack' && u.order.target === T)) w.orderAttack(u, T); return true; }
+    return false;                                                                    /* senao: laneAct na rota dele (onda lenta/rapida via p.wv) */
+  }
+}
+module.exports = { Strategy, STATES, CFG };
 
 }};
 DEF["src/engine/ai/supply_ai.js"]={deps:{"../items/supplies":"src/engine/items/supplies.js","../items/shop":"src/engine/items/shop.js","../map/layout":"src/engine/map/layout.js"},fn:function(module,exports,require,__dirname){'use strict';
