@@ -12,7 +12,17 @@ const DRAKE_PT = { inf: 'Infernal', mon: 'Montanha', oce: 'Oceano', nuv: 'Nuvem'
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
 const STYLE = { ag: 'ag', eq: 'ma', co: 're' };            /* instrucoes do jogo -> estilos da IA (Agressivo, Macro, Reativo) */
 
-const hasKit = name => !!name && Object.prototype.hasOwnProperty.call(KITS, name);
+/* o jogo usa o nome de exibição (Lee Sin, Kha'Zix, Wukong); os kits usam o id do patch (LeeSin, Khazix, MonkeyKing) */
+const KIT_ALIAS = { wukong: 'MonkeyKing', nunu: 'Nunu' };
+let KIT_IDX = null;
+const kitId = name => {
+  if (!name) return null;
+  if (Object.prototype.hasOwnProperty.call(KITS, name)) return name;
+  if (!KIT_IDX) { KIT_IDX = {}; Object.keys(KITS).forEach(id => { KIT_IDX[id.toLowerCase()] = id; }); }
+  const k = String(name).toLowerCase().replace(/[^a-z]/g, '');
+  return KIT_IDX[k] || (KIT_ALIAS[k] && KITS[KIT_ALIAS[k]] ? KIT_ALIAS[k] : null);
+};
+const hasKit = name => !!kitId(name);
 /* campeoes (10, ou null = sem draft) -> o motor realista suporta? null conta como suportado (usa o campeao padrao do papel) */
 const supported = champs => (champs || []).every(c => c == null || c === '' || hasKit(c));
 /* o time 1 repete o campeao do time 0 em varias funcoes (ex. Amumu x2, Ezreal x2): o motor permite, entao so a existencia do kit importa */
@@ -23,16 +33,16 @@ function lvPos(p) { return [clamp(p.x / LAY.W * 100, 1, 99), clamp(100 - p.y / L
 function create(opts) {
   const teams = opts.teams.map((t, ti) => ({
     name: t.name, style: STYLE[t.style] || t.style || undefined,
-    roster: t.players.map((p, r) => ({ name: hasKit(p.champ) ? p.champ : DEFAULT_CHAMP[r][ti], player: p.name, role: ROLES[r], attrs: p.attrs, level: p.level }))
+    roster: t.players.map((p, r) => ({ name: hasKit(p.champ) ? kitId(p.champ) : DEFAULT_CHAMP[r][ti], show: hasKit(p.champ) ? p.champ : DEFAULT_CHAMP[r][ti], player: p.name, role: ROLES[r], attrs: p.attrs, level: p.level }))
   }));
   const g = M.createGame({ seed: opts.seed || 1, teams, cap: opts.cap || 3600 });
-  const S = { g, w: g.w, teams, names: teams.map(t => t.roster.map(p => p.name)), cursor: 0, logOut: [], over: null, steps: 0 };
+  const S = { g, w: g.w, teams, names: teams.map(t => t.roster.map(p => p.show || p.name)), cursor: 0, logOut: [], over: null, steps: 0 };
   const w = g.w, nm = id => { const u = w.units.find(x => x.id === id); return u ? u : null; };
     const side = team => (team === 0 ? 'blue' : 'red');
   /* os campeoes de cada time na ordem de papel */
   S.champs = [0, 1].map(ti => g.brains[ti].players.map(p => p.u));
   const pname = (ti, r) => teams[ti].roster[r].player;
-  const nameOf = u => { for (let ti = 0; ti < 2; ti++) { const r = S.champs[ti].indexOf(u); if (r >= 0) return { ti, r, n: pname(ti, r), ch: teams[ti].roster[r].name }; } return null; };
+  const nameOf = u => { for (let ti = 0; ti < 2; ti++) { const r = S.champs[ti].indexOf(u); if (r >= 0) return { ti, r, n: pname(ti, r), ch: teams[ti].roster[r].show || teams[ti].roster[r].name }; } return null; };
   const tnm = ti => teams[ti].name;
   const say = (t, text, k, ti, kf) => S.logOut.push({ m: t, t: text, k: k || 'sys', ti, kf });
   /* traducao do log estruturado -> linhas do jogo */
