@@ -46,7 +46,7 @@ function build() {
   });
   out.push('function load(k){if(CACHE[k])return CACHE[k].exports;var d=DEF[k],m={exports:{}};CACHE[k]=m;d.fn(m,m.exports,function(r){if(r==="fs")return FS;if(r==="path")return PATH;return load(d.deps[r])},"/data/' + PATCH + '/x");return m.exports}');
   out.push('var M=load(' + JSON.stringify(entry) + ');');
-  out.push('g.BrasEngine={Adapter:load(' + JSON.stringify(entryA) + '),patch:' + JSON.stringify(PATCH) + ',M:M,LAY:load("src/engine/map/layout.js"),kits:' + JSON.stringify(kitNames) + ',ids:' + JSON.stringify(ids) + ',items:' + JSON.stringify(itemsSlim) + '};');
+  out.push('g.BrasEngine={Adapter:load(' + JSON.stringify(entryA) + '),patch:' + JSON.stringify(PATCH) + ',M:M,LAY:load("src/engine/map/layout.js"),Lanes:load("src/engine/ai/lanes.js"),kits:' + JSON.stringify(kitNames) + ',ids:' + JSON.stringify(ids) + ',items:' + JSON.stringify(itemsSlim) + '};');
   out.push('})(typeof window!=="undefined"?window:globalThis);');
   return out.join('\n');
 }

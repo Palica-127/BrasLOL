@@ -319,7 +319,8 @@ class Brain {
   /* rota: último golpe e posição na onda */
   laneAct(p, foes, allies) {
     const w = this.w, u = p.u, P = this.paths[p.lane], S = w.structures; u.ai.focus = null;
-    u.farmRate = FARM_CS[p.role] || 0; u.farmXp = FARM_XP[p.role] || 0;
+    { const sh = 1 + this.players.filter(q => q !== p && !q.u.dead && q.role !== 'support' && q.role !== 'jungle' && q.lane === p.lane && p.role !== 'support' && dist(q.u.pos, u.pos) < 1700).length;     /* carregadores na mesma onda dividem o farm */
+      u.farmRate = (FARM_CS[p.role] || 0) / sh; u.farmXp = (FARM_XP[p.role] || 0) / Math.sqrt(sh); }
     if (p.role === 'support') { u.farmAt = w.t; }
     if (p.role === 'support') { const adc = this.players.find(q => q.role === 'adc' && !q.u.dead && q.lane === p.lane); if (adc && dist(adc.u.pos, u.pos) < 3500 || adc) { const s = P.project(adc.u.pos).s; const stand = P.at(Math.max(0, s - 250)); p.mode = 'lane'; this.go(u, stand, 80); return; } }
     const mins = w.units.filter(x => !x.dead && x.kind === 'minion' && x.lane && x.lane.id === p.lane);

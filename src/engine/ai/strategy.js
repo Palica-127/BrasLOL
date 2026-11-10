@@ -7,6 +7,7 @@
      4. Tactical Adaptation-> o estado e reavaliado a cada segundo: concede objetivo, cancela cerco, junta o split, recua apos perder gente.
    Reaproveita: Brain.goal/plan/fight/laneAct, Jungle.epics/nextAt, structures, supply_ai (sentinelas), econ. ESTIMADO: todos os limiares (cfg).
    Simplificacoes declaradas: o motor nao tem neblina de guerra nem Teleporte; "visao" vira viagem de sentinela e "TP" e aproximado pela distancia ate a rota. */
+const { LaneAssign } = require('./lanes');
 const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
 const X = (typeof __P !== 'undefined' && __P) || {};
@@ -19,7 +20,7 @@ class Strategy {
     this.b = brain; this.w = brain.w; this.cfg = { ...CFG, ...(cfg || {}) };
     this.state = 'MAP_CONTROL'; this.since = 0; this.formation = 'spread'; this.roles = new Map(); this.obj = null; this.concede = null; this.pick = null;
     this.split = null; this.split2 = null; this.splitLane = null; this.splitAt = -99; this.init = null; this.group = 'mid'; this.groupAt = -99;
-    this.deaths = []; this.lastAlive = 5; this.retreatUntil = 0; this.stats = { states: {}, concedes: 0, picks: 0, setups: 0 };
+    this.lanes = new LaneAssign(this); this.deaths = []; this.lastAlive = 5; this.retreatUntil = 0; this.stats = { states: {}, concedes: 0, picks: 0, setups: 0 };
   }
   active() { return this.w.t >= this.cfg.start && !!this.w.structures; }
   roleOf(p) { return this.roles.get(p) || 'flex'; }
@@ -38,7 +39,8 @@ class Strategy {
     const eta = (arr) => (arr.length ? arr.reduce((s, u) => s + dist(u.pos, c.pos), 0) / arr.length : 1e5);
     c.etaMe = eta(me), c.etaOp = eta(op); return c;
   }
-  update() {
+  update() { try { this._update(); } finally { this.lanes.update(); } }
+  _update() {
     const b = this.b, w = this.w, t = w.t, team = b.team;
     if (!this.active()) { this.state = 'MAP_CONTROL'; this.formation = 'spread'; this.split = this.split2 = null; this.obj = null; this.roles.clear(); return; }
     const me = b.alive(), op = b.alive(1 - team); if (!me.length) { this.set('RECOVERY'); return; }
@@ -146,9 +148,10 @@ class Strategy {
     this.groupCur = best; this.groupAt = t; return best;
   }
   laneFor(p) {
+    const L = this.lanes.laneOf(p); if (L !== undefined) return L || p.homeLane;
     if (!this.active() || p.role === 'jungle') return p.homeLane;
     if (this.formation === 'spread') return p.homeLane;
-    if (p === this.split || p === this.split2) return p === this.split2 && this.splitLane === this.group ? 'bot' : (this.splitLane || p.homeLane);
+    if (p === this.split || p === this.split2) return p === this.split2 ? (this.splitLane === 'bot' ? 'top' : 'bot') : (this.splitLane || p.homeLane);
     if (this.formation === '1-3-1' && p === this.split2) return 'bot';
     return this.group;
   }
