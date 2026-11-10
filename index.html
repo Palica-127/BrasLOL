@@ -4019,7 +4019,7 @@ function lvPw(P){
   const s=P.s,sec=LV.sec,mn=sec/60,a=P.ar;
   const sc=a==='ag'?(mn<16?.06:mn>28?-.06:0):a==='co'?(mn<16?-.06:mn>26?.08:0):0;
   let m=P.b0*(1+.052*(P.lv-1))*(1+Math.min(P.bg,16000)/9000)*(1+sc)*LV.mm[s]*chFxP(P);
-  if(LV.bb&&LV.bb.s===s&&LV.bb.until>sec)m*=1.07;
+  if(LV.bb&&LV.bb.s===s&&LV.bb.until>sec)m*=1.14;
   if(LV.elder&&LV.elder.s===s&&LV.elder.until>sec)m*=1.12;
   m*=1+.022*Math.min(LV.st[s].d,4)+(LV.soul[s]?.05:0)+lvDrx(s);
   if(P.bf){if(P.bf.bl>sec)m*=1+JGB.bl.pw;if(P.bf.rd>sec)m*=1+JGB.rd.pw;if(P.bf.sc>sec)m*=1.02}
@@ -4082,12 +4082,14 @@ function lvWave(dt){
 function lvEco(P,dt){
   const sec=LV.sec;
   if(sec>=110)P.gt+=2.04*dt;
+  /* powerplay do Barao/Ancião: ondas empurradas e placas das torres rendem ouro extra ao time com o buff (empurrar sem farmar não deve deixar o time pior) */
+  if((LV.bb&&LV.bb.s===P.s&&LV.bb.until>sec)||(LV.elder&&LV.elder.s===P.s&&LV.elder.until>sec))P.gt+=2.4*dt;
   let xp=1.1;
   if(P.go.k==='farm'&&P.r!==1&&P.bz<=sec&&sec>=65){
     const L=LV.lw[P.s][P.r]||'mid',p=lvLanePos(P.s,P.r,L);
     if(lvD(P.x,P.y,p[0],p[1])<7){
       const bl=lvBlue(P.s),adv=(LV.ln[L].u-.5)*(bl?1:-1),k=adv<-.2?.7:adv<-.1?.85:1;
-      const cs=LVRCS[P.r]*dt*k*(.9+.2*(P.lv<6?0:1));P.cs+=cs;P.gt+=cs*22;xp=LVXPR[P.r]*k;
+      const cs=LVRCS[P.r]*dt*k*(.9+.2*(P.lv<6?0:1))*((LV.bb&&LV.bb.s===P.s&&LV.bb.until>sec)||(LV.elder&&LV.elder.s===P.s&&LV.elder.until>sec)?1.35:1);P.cs+=cs;P.gt+=cs*22;xp=LVXPR[P.r]*k;
     }
   }else if(P.r===1&&P.cl&&P.cl.t>sec){xp=LVXPR[1]}
   P.xp+=xp*dt;
@@ -4638,7 +4640,7 @@ function lvJungle(P){
     const p=G.N[G.K[best.n]];lvGo(P,'clear',p[0],p[1]);
     if(lvAt(P,p[0],p[1],3)&&best.rd<=sec){
       const cl=best.i<6?JGC[best.i].cl:JGS.cl,spd=(P.cd?P.cd.cl:1)*(.92+.16*P.jk)*(1+.012*(P.lv-1));
-      P.cl={t:sec+cl*(1+.5/P.lv)/spd+Math.random()*2,i:best.i};
+      P.cl={t:sec+cl*(1+.5/P.lv)/spd+Math.random()*2,i:best.i,s0:sec};
     }
     return;
   }
@@ -4994,7 +4996,17 @@ function lvHpList(){
     });
   });
   (LV.mons||[]).forEach(m=>o.push({x:m.x,y:m.y,f:m.hp,c:m.epic?'ep':'mn',w:m.epic?9:5}));
+  if(!LV.mons)lvMonBars(o);
   return o;
+}
+/* motor classico: barras de vida dos monstros da selva e dos objetivos; descem enquanto o jungle (ou invasores/time) limpa */
+function lvMonBars(o){
+  const sec=LV.sec,G=lvNavInit(),prog={};
+  lvLive('me').concat(lvLive('op')).forEach(P=>{if(P.cl&&P.cl.s0!=null&&P.cl.t>P.cl.s0)prog[(P.cl.i>=6?'c':lvBlue(P.s)?'b':'r')+(P.cl.i>=6?P.cl.i-6:P.cl.i)]=clamp((sec-P.cl.s0)/(P.cl.t-P.cl.s0),0,1)});
+  ['me','op'].forEach(s=>{const g=LV.ai[s]&&LV.ai[s].g;if(g&&g.k==='invade'&&g.ci!=null&&g.sp>0)prog[(lvBlue(s)?'r':'b')+g.ci]=clamp(g.sp/(JGC[g.ci].cl*.9),0,1)});
+  ['b','r'].forEach(sd=>JGC.forEach((c,i)=>{if(LV.cm[sd][i]>sec)return;const p=G.N[G.K['j'+((sd==='b'?0:6)+i)]];if(!p)return;o.push({x:p[0],y:p[1]+1.2,f:1-(prog[sd+i]||0),c:'mn',w:c.bf?6:5})}));
+  if(sec>=JGS.sp)JGS.nodes.forEach((n,k)=>{if(LV.cr[k]>sec)return;const p=G.N[G.K[n]];if(p)o.push({x:p[0],y:p[1]+1.2,f:1-(prog['c'+k]||0),c:'mn',w:4})});
+  lvObjList().forEach(ob=>{if(sec<ob.up)return;const a=LV.at&&LV.at.k===ob.k?LV.at.prog:0;o.push({x:ob.x,y:ob.y+1.6,f:1-clamp(a,0,1),c:'ep',w:ob.k==='g'?7:9})});
 }
 function lvHpBars(){
   const bar=(x,y,f,cls,w)=>{w=w||6;return `<g class="hpb ${cls}"><rect x="${(lvX(x)-w/2).toFixed(1)}" y="${(y-3.6).toFixed(1)}" width="${w}" height="1" rx=".3"/><rect class="f" x="${(lvX(x)-w/2).toFixed(1)}" y="${(y-3.6).toFixed(1)}" width="${(w*Math.max(0,Math.min(1,f))).toFixed(2)}" height="1" rx=".3"/></g>`};
