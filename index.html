@@ -4130,7 +4130,7 @@ function lvDeathT(lv,sec){
 }
 /* ---------- mortes ---------- */
 /* log em ícones no motor clássico: abates e objetivos (mesmo formato do motor realista) */
-const lvKfT=P=>({s:P.s,c:P.ch,n:lvTeam(P.s).pl[P.r].n});
+const lvKfT=P=>({s:P.s,c:lvChOf(P.s,P.r)||P.ch||'',n:lvTeam(P.s).pl[P.r].n});
 function lvKfPush(m,kf){LV.log.unshift({m,t:'',k:kf.ts||'sys',kf});if(LV.log.length>300)LV.log.length=300}
 function lvKfObj(s,o,roles,n){
   const live=lvLive(s),l=[];roles.forEach(r=>{const P=live.find(x=>x.r===r);if(P&&!l.includes(P))l.push(P)});
@@ -4155,7 +4155,7 @@ function lvKill(k,v,as,x,y,tag){
   if(kk.st>=2)t+=` — ${LVML[Math.min(kk.st,5)]}!`;
   if(bty>=150)t+=` — recompensa de ${bty} G`;
   lvSay(t+'.',s,'kill');
-  lvMulti({m:sec|0,kf:{k:{ti:s==='me'?0:1,ch:k.ch,n:lvTeam(k.s).pl[k.r].n}}},s);lvKfPush(sec|0,{k:lvKfT(k),v:lvKfT(v),a:as.map(lvKfT),o:null,ts:null});
+  lvMulti({m:sec|0,kf:{k:{ti:s==='me'?0:1,ch:lvChOf(k.s,k.r)||k.ch||'',n:lvTeam(k.s).pl[k.r].n}}},s);lvKfPush(sec|0,{k:lvKfT(k),v:lvKfT(v),a:as.map(lvKfT),o:null,ts:null});
   if(LV.kd[o].every(z=>z.dead>sec)){lvSay(`ACE! ${lvTeamNm(s)} elimina o time inteiro.`,s,'ace');LV.ev.aces++}
   LV.mq.push({x,y});
   return true;
@@ -5101,7 +5101,7 @@ function lvMulti(l,side){
   if(n>=3){const m=MKN[Math.min(n,5)];LV.mk={txt:m[0],cl:m[1],c:k.ch,pl:k.n,s:lvBlue(side)?'b':'r',t0:Date.now()}}
 }
 const lvMkHTML=()=>{const m=LV&&LV.mk;if(!m||Date.now()-m.t0>3800)return '';return `<div class="mk ${m.cl} ${m.s}" data-k="${m.t0}"><span class="mkt">${chTile(m.c)}</span><span class="mkx"><b>${m.txt}</b><small>${esc(m.pl||m.c)}</small></span></div>`};
-const kfTile=(p,small)=>`<span class="kft ${lvBlue(p.s)?'b':'r'}${small?' as':''}" title="${esc(p.n||'')} (${esc(p.c)})">${chTile(p.c)}</span>`;
+const kfTile=(p,small)=>`<span class="kft ${lvBlue(p.s)?'b':'r'}${small?' as':''}" title="${esc(p.n||'')}${p.c?' ('+esc(p.c)+')':''}">${chTile(p.c||p.n||'?')}</span>`;
 const kfObj=o=>{const c=lvBlue(o.s)?'b':'r',n=o.n,src=n==='tw'?`tw_${c}.webp`:n==='inh'?`inh_${c}.png`:n==='gr'?'larva.png':n==='hd'?`hd_${c}.png`:n==='bn'?`bn_${c}.png`:n==='el'?`el_${c}.png`:n+'.png';return `<span class="kft kob ${c}" title="${({tw:'Torre',inh:'Inibidor',gr:'Vastilarva',hd:'Arauto',bn:'Barão Nashor',el:'Dragão Ancião'})[n]||'Dragão'}"><img src="champs/obj/${src}" alt="" draggable="false"></span>`};
 const kfHTML=kf=>`<span class="kfx">${(kf.a||[]).map(p=>kfTile(p,1)).join('')}${kf.k?kfTile(kf.k):kf.o&&!kf.v&&!(kf.a||[]).length?`<span class="kft mn ${lvBlue(kf.ts)?'b':'r'}" title="Tropas">Tropas</span>`:''}<i class="kfs" aria-label="abate">⚔</i>${kf.v?kfTile(kf.v):kfObj(kf.o)}</span>`;
 const lvLogHTML=()=>LV.log.filter(e=>e.kf).slice(0,7).map(e=>e.kf?`<div class="bcf kf ${lvBlue(e.kf.ts!=null?e.kf.ts:e.kf.k?e.kf.k.s:e.kf.v.s==='me'?'op':'me')?'b':'r'}"><b class="num">${lvFmt(e.m)}</b>${kfHTML(e.kf)}</div>`:`<div class="bcf ${e.k==='me'||e.k==='op'?(lvBlue(e.k)?'b':'r'):e.k}"><b class="num">${lvFmt(e.m)}</b><span>${esc(e.t)}</span></div>`).join('');
