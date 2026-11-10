@@ -4375,11 +4375,11 @@ function lvPlan(s){
     const w=lvGroup(s,'siege',{ln:L});if(w.length<2)return;
     const eta=w.reduce((x,P)=>x+lvEta(P,...lvTgtSpot(s,t)),0)/w.length;
     const press=clamp(.5+((LV.ln[L].u-.5)*(lvBlue(s)?1:-1))*1.6,.3,1.1);
-    const need=t.i===0&&mn<14?2:3,nF=w.length>=need?1:.35;
-    const V=[.5,.62,.74,.85][t.i],plates=t.i===0&&mn<14?(pr>1.3?1:.75):1;
+    const need=t.i<=1?2:3,nF=w.length>=need?1:.5;
+    const V=[.5,.62,.74,.85][t.i],plates=t.i===0&&mn<12?(pr>1.2?1:.88):1;
     const hp=lvTgtHp(s,t)/LVTWH[t.i];
     let sc=V*plates*nF*press*clamp(.5+.5*(pr-.6),.25,1.2)*(1.1-.2*Math.min(1,eta/60))*(.7+.3*hp)*(1+.15*clamp(a.n-a.no,0,3));
-    sc*=(1+st.agg*.25+(st.obj*.1))*rk;
+    sc*=(1+st.agg*.25+(st.obj*.1))*rk*(mn<12?1.6:mn<20?1.8:1);
     if(LV.hd&&LV.hd.s===s&&LV.hd.until>sec)sc+=.28;
     if(a.gd<-3500)sc*=.85;
     if(a.no<=1&&a.n>=3)sc+=.3;
@@ -4646,7 +4646,7 @@ function lvContacts(){
   all.forEach(seed=>{
     if(used.has(seed))return;
     const cl=[seed];used.add(seed);
-    for(let i=0;i<cl.length;i++)all.forEach(q=>{if(!used.has(q)&&lvD(q.x,q.y,cl[i].x,cl[i].y)<(q.s===cl[i].s?10:8)){used.add(q);cl.push(q)}});
+    for(let i=0;i<cl.length;i++)all.forEach(q=>{if(!used.has(q)&&lvD(q.x,q.y,cl[i].x,cl[i].y)<(q.s===cl[i].s?10:(q.go.k==='farm'&&cl[i].go.k==='farm'&&q.r!==1&&cl[i].r!==1?16:8))){used.add(q);cl.push(q)}});
     const A=cl.filter(P=>P.s==='me'),B=cl.filter(P=>P.s==='op');
     if(!A.length||!B.length)return;
     lvClash(A,B);
@@ -4718,6 +4718,16 @@ function lvTrade(A,B){
   A.forEach(P=>{const h=P.hp;P.hp=Math.max(.05,P.hp-k*Math.pow(1/r,.8)*(.5+Math.random()));lvDmg(B[Math.random()*B.length|0],P,h-P.hp)});
   B.forEach(P=>{const h=P.hp;P.hp=Math.max(.05,P.hp-k*Math.pow(r,.8)*(.5+Math.random()));lvDmg(A[Math.random()*A.length|0],P,h-P.hp)});
   LV.ev.trade++;
+  /* all-in na rota: o mais forte (ou com vida de sobra) força o duelo; vira abate em 1x1 e 2x2 */
+  {const mn=sec/60,ab=[[A,B],[B,A]];
+   for(const [w,l] of ab){
+     const hw=w.reduce((a,P)=>a+P.hp,0)/w.length,hl=l.reduce((a,P)=>a+P.hp,0)/l.length,pr=lvSum(w)/Math.max(lvSum(l),.05);
+     const pAll=(mn<3?.003:mn<18?.014:.006)*(w.length>1||(w[0].r>=3&&mn>3)?1.8:1)*(.6+.8*clamp(pr-.7,0,1))*(hl<.6?1.8:1)*(hw>.55?1:.4);
+     if(Math.random()<pAll){
+       /* na bot lane o duelo é da dupla: o parceiro vivo e por perto entra junto (2x2) */
+       const duo=(T)=>{if(T[0].r!==3&&T[0].r!==4)return T;const q=lvLive(T[0].s).find(z=>z.r===(T[0].r===3?4:3)&&!T.includes(z)&&z.hp>.35&&lvD(z.x,z.y,T[0].x,T[0].y)<18);return q?[...T,q]:T};
+       const W=duo(w),L=duo(l);const r=lvBrawl(w[0].x,w[0].y,W,L,{eng:w===A?0:1,tag:'skirm',rk:[0,0]});[...W,...L].forEach(P=>{P.cf=sec+r.dur+22});LV.ev.fights++;LV.ev.skirm++;return}
+   }}
   /* fraco e machucado diante de um rival saudável: dá para matar na rota */
   const pairs=[[A,B],[B,A]];
   pairs.forEach(([w,l])=>{
@@ -4799,6 +4809,7 @@ function lvSiegeTick(s,dt){
     dps*=lvCm(s,'siege');
     dps*=1.35*(1+clamp((lvGold(s)-lvGold(o))/16000,0,.7));/* vantagem de ouro derruba estruturas mais rápido */
     if(sec>2100)dps*=1+(sec-2100)/420;
+    if(t.k==='s'&&t.i<=1&&sec<1140)dps*=1.5;/* placas da torre externa caem rápido */
     const pos=lvTgtPos(s,t),hd=LV.hd&&LV.hd.s===s&&LV.hd.until>sec&&t.k==='s';
     if(hd){LV.hd=null;LV.tw[o][t.ln][t.i]-=hpMax*.5;lvSay(`${lvTeamNm(s)} usa o Arauto contra ${lvLnA(t.ln)}.`,s,'obj')}
     LV.sg[o]={ln:t.ln||'mid',i:t.i||0,nx:t.k!=='s',px:pos[0],py:pos[1],t:sec,hp:Math.max(0,lvTgtHp(s,t))/hpMax};
