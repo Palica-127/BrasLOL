@@ -6366,7 +6366,7 @@ function aiMarketDay(){
   const buyer=B.t,i=B.i,cur=buyer.pl[i],c=[];
   S.teams.forEach(x=>{
     if(x===buyer||x.id===mt)return;
-    const p=x.pl[i];if(!p.pc&&p.r>=cur.r+2&&p.r<=cur.r+9)c.push({k:'t',x,p});
+    const p=x.pl[i];if(!p.pc&&x!==pcT()&&p.r>=cur.r+2&&p.r<=cur.r+4&&p.r<90)c.push({k:'t',x,p});            /* titular so sai por uma troca justa (ate 4 pontos), estrelas 90+ e o clube do jogador carreira nao sao vendidos aqui */
     (x.bn||[]).forEach((b,j)=>{if(b.role===i&&!b.pc&&b.r>=cur.r+2)c.push({k:'b',x,p:b,j})});
   });
   D2L().forEach(d=>{if(d.id===mt+100)return;d.pl.forEach((p,j)=>{if(p.role===i&&!p.pc&&p.r>=cur.r+2)c.push({k:'d',x:d,p,j})})});
@@ -6386,8 +6386,8 @@ function aiTransfers(){
   const mt=S.mgr&&S.mgr.tid!=null?S.mgr.tid:-1,n=4+Math.floor(Math.random()*4);
   S.tf=S.tf||[];
   for(let k=0;k<n;k++){
-    const buyer=pick(S.teams.filter(t=>t.id!==mt)),c=[];
-    S.teams.forEach(x=>{if(x===buyer||x.id===mt)return;x.pl.forEach(p=>{const cur=buyer.pl[p.role];if(p.r>cur.r&&p.r-cur.r<=6&&!p.pc&&!cur.pc)c.push({x,p})})});
+    const buyer=pick(S.teams.filter(t=>t.id!==mt)),c=[],mineT=pcT();
+    S.teams.forEach(x=>{if(x===buyer||x.id===mt||x===mineT)return;x.pl.forEach(p=>{const cur=buyer.pl[p.role];if(p.r>cur.r&&p.r-cur.r<=3&&!p.pc&&!cur.pc)c.push({x,p})})});            /* o vendedor nao aceita perder mais que 3 pontos no jogador */
     if(!c.length)continue;
     const z=pick(c),p=z.p,i=p.role,old=buyer.pl[i];
     z.x.pl[i]=old;buyer.pl[i]=p;pd(p.n).role=i;pd(old.n).role=i;
@@ -6452,9 +6452,10 @@ function nextSeason(){
   }));
   for(let k=0;k<8;k++){
     const all=S.teams.flatMap(t=>t.pl.map((p,i)=>({t,p,i})));
-    const A=pick(all.filter(x=>x.p.r>=80&&!x.p.pc&&x.t.id!==mid&&!moved.has(x.p.n)));
+    const mineT=pcT();
+    const A=pick(all.filter(x=>x.p.r>=80&&!x.p.pc&&x.t.id!==mid&&x.t!==mineT&&!moved.has(x.p.n)));
     if(!A)break;
-    const B=pick(all.filter(x=>x.t!==A.t&&x.t.id!==mid&&x.i===A.i&&!x.p.pc&&!moved.has(x.p.n)));
+    const B=pick(all.filter(x=>x.t!==A.t&&x.t.id!==mid&&x.t!==mineT&&x.i===A.i&&!x.p.pc&&!moved.has(x.p.n)&&Math.abs(x.p.r-A.p.r)<=3));        /* troca de estrelas so entre jogadores de nivel parecido (antes um 98 podia ir por um 80) */
     if(!B)continue;
     A.t.pl[A.i]=B.p;B.t.pl[B.i]=A.p;moved.add(A.p.n);moved.add(B.p.n);
     off.push(`${A.p.n} vai de ${A.t.name} para ${B.t.name}, em troca de ${B.p.n}.`);
