@@ -2242,12 +2242,26 @@ function spHTML(){
 const stageP=(name,pairs,n)=>({name,n,ms:pairs.map(([a,b])=>mk(a,b,n))});
 const seedPairs=s=>[[s[0],s[7]],[s[3],s[4]],[s[2],s[5]],[s[1],s[6]]];
 
+/* primeiro jogo do MSI/Mundial: nunca times da mesma região. Mantém cada cabeça de chave do topo e redistribui só a metade de baixo
+   (menor deslocamento possível em relação ao chaveamento original; se for impossível, minimiza os confrontos regionais) */
+function pairNoSameRegion(top,bot,rand){
+  const n=top.length,cost=p=>p.reduce((c,j,i)=>c+(top[i].lg===bot[j].lg?1000:0),0);
+  let best=null,bc=Infinity;
+  const idx=[...Array(n).keys()];
+  const perms=[];(function g(a,r){if(!r.length){perms.push(a);return}r.forEach((x,i)=>g([...a,x],r.filter((_,k)=>k!==i)))})([],idx);
+  const pool=rand?shuffle(perms.slice()):perms;
+  pool.forEach(p=>{const c=cost(p)+(rand?0:p.reduce((s,j,i)=>s+Math.abs(j-i),0));if(c<bc){bc=c;best=p}});
+  return best.map((j,i)=>[top[i],bot[j]]);
+}
 function startMSI(){
   const q=LGS.map(lg=>T(S.season.rank['s1'+lg][0]));
   ['LCK','LPL'].forEach(lg=>q.push(T(S.season.rank['s1'+lg][1])));
   q.forEach(t=>t.hot=0);
   q.sort((a,b)=>eff(b)-eff(a));
-  S.season.msi={teams:q.map(t=>t.id),stages:[stageP('Quartas',seedPairs(q),5)],elim:{},champ:null,mvp:null};
+  /* seedPairs: [0,7] [3,4] [2,5] [1,6] -> topo = 0,3,2,1 ; baixo = 7,4,5,6 (índices que mantêm o chaveamento) */
+  const top=[q[0],q[3],q[2],q[1]],bot=[q[7],q[4],q[5],q[6]];
+  const qf=pairNoSameRegion(top,bot,false);
+  S.season.msi={teams:q.map(t=>t.id),stages:[{name:'Quartas',n:5,ms:qf.map(([a,b])=>mk(a,b,5))}],elim:{},champ:null,mvp:null};
 }
 function swissRound(tour,rnd){
   const open=tour.teams.filter(id=>tour.rec[id].w<3&&tour.rec[id].l<3);
@@ -2257,8 +2271,14 @@ function swissRound(tour,rnd){
   Object.keys(groups).sort().forEach(k=>{
     const ids=groups[k];let pairs=[];
     if(rnd===1){
-      const h=ids.length/2,bot=shuffle(ids.slice(h));
-      for(let i=0;i<h;i++)pairs.push([ids[i],bot[i]]);
+      /* 1ª rodada: nunca times da mesma região (sorteio com reinício; se impossível, minimiza conflitos) */
+      const h=ids.length/2,top=ids.slice(0,h);
+      let bot=null,bc=Infinity;
+      for(let a=0;a<400&&bc>0;a++){
+        const s=shuffle(ids.slice(h)),c=s.reduce((n,id,i)=>n+(T(id).lg===T(top[i]).lg?1:0),0);
+        if(c<bc){bc=c;bot=s}
+      }
+      for(let i=0;i<h;i++)pairs.push([top[i],bot[i]]);
     }else{
       let best=null;
       for(let a=0;a<80&&!best;a++){
