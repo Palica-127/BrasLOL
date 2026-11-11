@@ -1,3 +1,5 @@
+> **Nota:** este relatório é do motor realista, removido depois (histórico em `docs/arquivo_realista/`). `ferramentas/balanceamento.js` e `src/engine/` citados abaixo não existem mais; o equivalente atual é `ferramentas/balanceamento_classico.js`.
+
 # Balance Check — motor realista (método do `/balance-check` do Claude-Code-Game-Studios)
 
 Dados: `node ferramentas/balanceamento.js 64 gscheck 70 70` (63 partidas válidas, atributos 70 x 70; bruto em `ferramentas/balanceamento/gscheck.json`).

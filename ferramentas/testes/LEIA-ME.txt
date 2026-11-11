@@ -6,7 +6,7 @@ Testes do motor (rodam sem navegador, com Node):
   node ferramentas/testes/calendario.js       eventos, bloqueios e restricoes de scrim
   node ferramentas/testes/telas.js            renderizacao das telas novas
   node ferramentas/testes/modo_jogador.js     modo carreira de jogador com Fearless
-  node ferramentas/testes/itens_tela.js       aba Meta > Itens: lista, busca, filtros e detalhes (le o motor.js)
+  node ferramentas/testes/itens_tela.js       aba Meta > Itens: lista, busca, filtros e detalhes (le itens.js)
   node ferramentas/testes/progressao_jogador.js  nivel/XP, arvore de habilidades, treino semanal, confianca do tecnico, scrims e torneio de teste
   node ferramentas/testes/composicoes.js 60   tabela de vitorias por tipo de composicao (demora)
   node ferramentas/testes/series_md.js        MD3/MD5: draft do proximo mapa, placares finais, serie encerrada nao reabre
@@ -20,16 +20,8 @@ Icones: python ferramentas/champs_icones.py baixa do Data Dragon da Riot o que f
   node ferramentas/testes/motor_favorito.js 60  taxa de vitória do mais forte por diferença de OVR (deve acompanhar kgNow)
 - node ferramentas/testes/dados.js            Bloco 1: banco de dados data/<patch>/ (gerar: node ferramentas/dados/gerar.js; validar: validar.js --relatorio)
 - node ferramentas/testes/menu_inicial.js     menu inicial: Novo jogo, Continuar, Opcoes, sobrescrever com confirmacao
-- node ferramentas/testes/engine_campeoes.js   Bloco 2: stats, calculos oficiais, habilidades e kits da onda 1 (--relatorio gera docs/CAMPEOES_COBERTURA)
-- node ferramentas/testes/engine_combate.js    Bloco 3: dano, resistencias, escudos, CC, projeteis, skillshots, determinismo e lutas 1v1/2v2/5v5
-- node ferramentas/testes/engine_itens.js      Bloco 4: catalogo de itens, loja/receitas, atributos, passivas/ativas implementadas, builds por arquetipo e adaptacao (--relatorio gera docs/ITENS_COBERTURA)
-- node ferramentas/testes/engine_economia.js   Bloco 5: minions (dados+crescimento estimado), ondas, CS, ouro, XP/niveis, abates, passivo e laboratorio de rota
-- node ferramentas/testes/engine_selva.js   Bloco 6: monstros (vs Wiki), acampamentos, agro/correia, Golpear, buffs, larvas, Arauto, dragoes/almas/Anciao, Barao, IA de jungler
-- node ferramentas/testes/engine_mapa.js   Bloco 7: estruturas (atributos Wiki/cliente), simetria, invulnerabilidade em cadeia, alvo e dano da torre, placas, ouro, inibidor/super minions, Nexus e fim de partida
-- node ferramentas/testes/engine_ia.js   Bloco 8: atributos->IA, morte/renascimento/recall, caminhos, farm e torres, decisao de luta, estilos, objetivos e partidas 5x5 completas (~2 min)
-- node ferramentas/testes/engine_integracao.js   Bloco 9: bundle motor.js, adaptador (determinismo, snapshot, log), series MD3/MD5 pelo jogo real com o motor realista, modo jogador, fallback classico (~5 min)
 - node ferramentas/testes/lados.js   Lados da série (sorteio no mapa 1, perdedor escolhe) e draft do primeiro mapa feito pelo jogador
-
-engine_suprimentos.js  - kit inicial, pocoes, sentinelas, Sentinela de Controle, Oraculo.
-engine_kits_auto.js    - 173 campeoes com kit (165 rascunhos gerados), referencias validas, partidas de fumaca com todos.
-(balanceamento: node ferramentas/balanceamento.js 1000 base 70 70  -> docs/BLOCO10_BALANCEAMENTO.md)
+  node ferramentas/testes/kits_classico.js    perfil de combate dos kits (173 campeoes), efeito nas lutas, ficha e build sugerida
+  node ferramentas/testes/lanes_classico.js   preparo de onda para dragao/Barao (varias rotas na mesma janela)
+(balanceamento do motor classico: node ferramentas/balanceamento_classico.js 100 rotulo -> docs/CLASSICO_KITS_E_CALIBRACAO.md)
+(o motor realista e seus testes engine_*/lane_assignment foram removidos: docs/arquivo_realista/)

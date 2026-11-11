@@ -1,11 +1,11 @@
 'use strict';
-/* Balanceamento do motor CLASSICO (index.html): mesmas metricas do balanceamento.js (motor realista), medidas em partidas completas.
+/* Balanceamento do motor CLASSICO (index.html): partidas completas, metricas no mesmo formato do antigo balanceamento do motor realista (removido; ver docs/arquivo_realista/).
    Uso: node ferramentas/balanceamento_classico.js [partidas=60] [rotulo=classico]   (SEED=<n> muda a semente base do harness)
-   Alvos: os mesmos de docs/BLOCO10_BALANCEAMENTO.md (ESTIMADOS, medias aproximadas de ligas profissionais, sem fonte citavel). */
+   Alvos: os de docs/arquivo_realista/BLOCO10_BALANCEAMENTO.md e docs/CLASSICO_KITS_E_CALIBRACAO.md (ESTIMADOS, medias aproximadas de ligas profissionais, sem fonte citavel). */
 const path = require('path'), fs = require('fs');
 const { load, run } = require('./testes/harness.js');
 const N = +process.argv[2] || 60, LABEL = process.argv[3] || 'classico';
-const ctx = load(path.join(__dirname, '..', 'index.html'));
+const ctx = load(process.env.CAL_HTML || path.join(__dirname, '..', 'index.html'));      /* CAL_HTML: compara com outro index.html (ex.: do git) */
 const out = run(ctx, `(function(){
  S.opt=S.opt||{};S.opt.draft=0;S.opt.live=1;var __M=null;mgrMatch=function(){return __M};S.mgr={tid:3,dr:null,bench:[],acad:[]};
  var pairs=[[3,7],[3,11],[3,40],[0,50],[2,55],[5,6],[8,20],[12,30]],rows=[];

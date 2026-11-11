@@ -59,7 +59,11 @@ console.log('campeoes com perfil:', Object.keys(out).length, 'de', names.length,
 const ex = ['Leona', 'Ahri', 'Jinx', 'Lulu', 'Zed', 'Garen']; ex.forEach(n => out[n] && console.log(n, out[n].k, '(explosao controle sustentacao mobilidade alcance)'));
 if (process.argv.includes('--dry')) process.exit(0);
 const B = '/*KITP-BEGIN*/', E = '/*KITP-END*/', block = B + lit + E;
-if (html.includes(B)) { const a = html.indexOf(B), b = html.indexOf(E) + E.length; html = html.slice(0, a) + block + html.slice(b); }
+if (html.includes(B)) {
+  const a = html.indexOf(B), e = html.indexOf(E);
+  if (e < a || html.indexOf(B, a + 1) !== -1 || html.indexOf(E, e + 1) !== -1) throw new Error('marcadores KITP-BEGIN/END ausentes, fora de ordem ou duplicados no index.html: nada foi escrito');
+  html = html.slice(0, a) + block + html.slice(e + E.length);
+}
 else html = html.replace('const CHD={},CHSY={},CHCT={};', () => '/* perfil de combate e habilidades dos kits (gerado por ferramentas/dados/gerar_perfil_classico.js) */\n' + block + '\nconst CHD={},CHSY={},CHCT={};');
 fs.writeFileSync(HTML, html);
 console.log('index.html atualizado');
