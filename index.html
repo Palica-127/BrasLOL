@@ -1634,7 +1634,6 @@ body::after{opacity:.32;filter:grayscale(.35) brightness(.8)}
 <div class="wrap" id="app"></div>
 
 <script src="itens.js" onerror="void 0"></script>
-<script src="motor.js" onerror="void 0"></script>
 <script>
 const SLOTK=['lol-bola-de-ouro-v6','lol-bola-de-ouro-v6-s2','lol-bola-de-ouro-v6-s3'];
 let SLOT=0;try{SLOT=Math.min(2,Math.max(0,+localStorage.getItem('lol-slot')||0))}catch(e){}
@@ -3959,55 +3958,6 @@ function lvPickSty(s){
   if(co>=3&&(k==='ag'||k==='ca'))k=hs(t.name+'x')%2?'es':'ma';
   return k;
 }
-/* ---------- motor realista (Bloco 9) ----------
-   motor.js (gerado por ferramentas/build_motor.js) define BrasEngine. Sem ele, com a opção desligada ou com campeões sem kit: motor clássico (acima). */
-const engOk=()=>typeof BrasEngine!=='undefined'&&!!BrasEngine.Adapter;
-const engOn=()=>engOk()&&!!(S&&S.opt&&S.opt.eng===1);
-const engOptHTML=pl=>engOk()?'<div class="os"><h3>Motor da partida</h3><p>Motor realista (beta): 5x5 com dados do patch, torres, selva e IA por atributos. Usado só quando todos os campeões escolhidos têm kit pronto; senão, o motor clássico.</p>'+pl('engOpt',engOn()?1:0,[[0,'Clássico'],[1,'Realista (beta)']])+'</div>':'<div class="os"><h3>Motor da partida</h3><p>O motor realista não carregou (arquivo motor.js ausente ou bloqueado): só o clássico está disponível.</p></div>';
-function engAttrs(s,r){
-  if(LV.pc&&s==='me'&&LV.pcrole===r&&S.pc&&S.pc.at){const a=S.pc.at;return{lane:a[0],mec:a[1],macro:a[2],team:a[3],mental:a[4]}}
-  const p=lvTeam(s).pl[r],b=RBIAS[r],v=i=>clamp(Math.round((p.r||60)+b[i]),30,99);
-  return{lane:v(0),mec:v(1),macro:v(2),team:v(3),mental:v(4)};
-}
-function engInit(){
-  LV.eng=null;if(!engOn())return;
-  const A=BrasEngine.Adapter,shown={me:[0,1,2,3,4].map(r=>lvChOf('me',r)||null),op:[0,1,2,3,4].map(r=>lvChOf('op',r)||null)},idOf=c=>c?(CHMAP[c]||c):null,champs={me:shown.me.map(idOf),op:shown.op.map(idOf)};
-  if(!A.supported(champs.me.concat(champs.op)))return;
-  const mk=s=>({name:lvTeamNm(s),players:[0,1,2,3,4].map(r=>({name:lvTeam(s).pl[r].n,champ:champs[s][r],attrs:engAttrs(s,r)}))});
-  const blue=lvBlue('me')?'me':'op',red=lvOpp(blue);
-  LV.eng=A.create({seed:Math.floor(Math.random()*1e9)+1,teams:[mk(blue),mk(red)],cap:LVCFG.cap});
-  LV.eng.tiMe=blue==='me'?0:1;LV.eng.tac=null;
-  /* campeões efetivamente usados (os padrões do papel entram quando o draft não definiu) */
-  ['me','op'].forEach(s=>LV.pp[s].forEach(P=>{P.ch=shown[s][P.r]||LV.eng.names[s===blue?0:1][P.r]}));
-}
-function engSecond(dt){
-  const E=LV.eng,A=BrasEngine.Adapter;
-  if(LV.tac&&E.tac!==LV.tac){A.setStyle(E,E.tiMe,LV.tac);if(LV.ot)A.setStyle(E,1-E.tiMe,LV.ot);E.tac=LV.tac}
-  A.advance(E,dt);
-  const sn=A.snapshot(E),sd=ti=>ti===E.tiMe?'me':'op';
-  [0,1].forEach(ti=>{
-    const s=sd(ti),o=sn.obj[ti],st=LV.st[s];
-    sn.players[ti].forEach((q,r)=>{
-      const P=LV.pp[s][r],k=LV.kd[s][r];
-      P.sk=q.sk||0;P.dth=q.dth||0;P.cb=q.cb||0;P.x=q.x;P.y=q.y;P.hp=q.hp;P.mn=q.mn;P.itm=q.items;P.lv=q.lv;P.gt=q.gold;P.cs=q.cs;P.dm=q.dmg;
-      k.k=q.k;k.d=q.d;k.a=q.a;k.dead=q.dead?LV.sec+Math.max(.01,q.deadIn):0;
-    });
-    LV.hpS=LV.hpS||{};LV.hpS[s]=sn.hpS[ti];
-    const ih=sn.str[ti].inhib||{};LV.str[s]=Object.assign(lvMkStr(),{top:sn.str[ti].top.concat([ih.top?1:0]),mid:sn.str[ti].mid.concat([ih.mid?1:0]),bot:sn.str[ti].bot.concat([ih.bot?1:0]),nx:sn.str[ti].nx,nex:sn.str[ti].nex});
-    st.k=sn.teams[ti].k;st.t=sn.teams[1-ti].towers;st.g=o.grubs;st.h=o.herald;st.n=o.baron;st.e=o.elder;
-    st.d=Object.keys(o.drakes).reduce((a,x)=>a+o.drakes[x],0);
-    LV.dt[s]=Object.assign({},o.drakes);
-  });
-  LV.mons=sn.mons;
-  if(sn.buff)[['bb','baron',180],['elder','elder',150]].forEach(([k,n,tot])=>{
-    let hit=null;[0,1].forEach(ti=>{const r=sn.buff[n][ti];if(r>0)hit={s:sd(ti),until:LV.sec+r,tot}});
-    if(!hit)LV[k]=null;else if(!LV[k]||LV[k].s!==hit.s||hit.until-LV[k].until>20)LV[k]={s:hit.s,until:hit.until,tot:hit.tot,t0:LV.sec,g0:lvGold(hit.s)-lvGold(lvOpp(hit.s))};else LV[k].until=hit.until;
-  });
-  LV.dn.d=sn.drakeSpawned?0:1e9;LV.dn.b=sn.baronUp?0:1e9;LV.dn.h=1e9;
-  A.drainLog(E).forEach(l=>{lvMulti(l,l.kf&&l.kf.k?sd(l.kf.k.ti):'');LV.log.unshift({m:l.m|0,t:l.t,k:l.ti===0||l.ti===1?sd(l.ti):l.k,kf:l.kf?{k:l.kf.k&&{s:sd(l.kf.k.ti),c:l.kf.k.ch,n:l.kf.k.n},v:l.kf.v&&{s:sd(l.kf.v.ti),c:l.kf.v.ch,n:l.kf.v.n},a:l.kf.a.map(x=>({s:sd(x.ti),c:x.ch,n:x.n})),o:l.kf.o&&{n:l.kf.o.n,s:sd(l.kf.o.ti)},ts:l.kf.ts==null?null:sd(l.kf.ts)}:null})});
-  if(LV.log.length>300)LV.log.length=300;
-  if(sn.winner!==null&&LV.state==='run'){LV.ev.endby='nexus';lvGameEnd(sd(sn.winner)==='me')}
-}
 function lvInit(){
   lvNavInit();
   LV.ev={ganks:0,gankOk:0,gankFail:0,fights:0,tf:0,skirm:0,pick:0,rot:0,inv:0,roam:0,contest:0,trade:0,steal:0,split:0,aces:0,recalls:0,def:0,swaps:0};
@@ -4031,7 +3981,6 @@ function lvInit(){
   });
   LV.pp.me.forEach(P=>{P.go={k:'base'};const q=LV.pp.op[P.r];P.mu=P.ch&&q.ch?chMu(P.ch,q.ch):0;q.mu=-P.mu});LV.pp.op.forEach(P=>{P.go={k:'base'}});
   LV.cmp={me:cmpOf(LV.pp.me.map(P=>P.ch)),op:cmpOf(LV.pp.op.map(P=>P.ch))};LV.cmp.me.ed=cmpEdge(LV.cmp.me,LV.cmp.op);LV.cmp.op.ed=-LV.cmp.me.ed;
-  engInit();
 }
 /* ---------- utilidades ---------- */
 function lvTeamNm(s){return lvTeam(s).name}
@@ -4927,11 +4876,11 @@ function lvStep(dt){
     const d=nxt-LV.sec;LV.sec=nxt;LV.min=Math.floor(LV.sec/60);
     if(LV.pp&&LV.gh&&LV.sec-LV.ghT>=15){LV.ghT=LV.sec;LV.gh.push([LV.sec,lvGold('me')-lvGold('op')])}
     if(d>0){
-      if(LV.eng)engSecond(d);else lvSecond(d);
+      lvSecond(d);
       if(LV&&LV.pp)lvBtyTick();
       if(!LV||LV.state!=='run')return;
     }
-    if(!LV.eng&&LV.sec>=LV.lx+LVCFG.cyc){LV.lx=LV.sec;lvThink()}
+    if(LV.sec>=LV.lx+LVCFG.cyc){LV.lx=LV.sec;lvThink()}
     if(LV.sec>=LVCFG.cap){lvForceEnd();return}
   }
   if(LV&&LV.state==='run'&&LV.sec>=end&&LV.cp<2){
@@ -5753,7 +5702,6 @@ function titleHTML(){
     <div class="os"><h3>Sons</h3><p>Efeitos curtos ao jogar, vencer e conquistar títulos.</p>${pl('snd',sndOn()?1:0,[[1,'Ligados'],[0,'Desligados']])}</div>
     <div class="os"><h3>Bandeiras</h3><p>Em alguns aparelhos (como Windows) a bandeira aparece só como letras.</p>${pl('flags',flagOn()?'1':'0',[['1','Ligadas'],['0','Desligadas']])}</div>
     <div class="os"><h3>Jogo ao vivo</h3><p>Partida minuto a minuto no mapa (modo treinador).</p>${pl('liveOpt',liveOn()?1:0,[[1,'Ligado'],[0,'Desligado']])}</div>
-    ${engOptHTML(pl)}
     <div class="os"><h3>Draft de campeões</h3><p>Bans e picks no dia do jogo.</p>${pl('draftOpt',draftOn()?1:0,[[1,'Ligado'],[0,'Desligado']])}</div>
     <div class="os"><h3>Aleatoriedade</h3><p>Quanto o favorito se impõe.</p>${pl('rnd',o.rnd||'normal',[['baixa','Menor'],['normal','Normal'],['alta','Maior']])}</div>
     <div class="os"><h3>Dificuldade do treinador</h3><p>Receita, mercado e paciência da diretoria.</p>${pl('dif',o.dif||'normal',[['facil','Fácil'],['normal','Normal'],['dificil','Difícil']])}</div></div>
@@ -8060,7 +8008,6 @@ function vSet(){
   <section class="pn cmp mod"><h2>Modo atual</h2><p class="note" style="margin:0 0 6px">${modeNow()==='mgr'?'Treinador'+(mgrT()?' · '+esc(mgrT().name):''):modeNow()==='pc'?'Jogador · '+esc(S.pc.n):'Simulador'}. </p><div class="row" style="margin:0"><button class="ghost" data-act="tab" data-v="menu">Trocar de modo</button><button class="ghost" data-act="ttlOpen">Menu inicial</button></div></section>
   <section class="pn cmp"><button class="sgb" data-act="setg" data-v="jog" aria-expanded="${!!setOpen.jog}">Jogabilidade<span>▾</span></button>${setOpen.jog?`<div class="sset"><h3>Draft de campeões</h3><p class="note" style="margin:0 0 10px">Bans e picks automáticos no dia do jogo. No modo jogador, você escolhe o campeão a partir do 2º mapa; domínio e força do campeão mudam as chances (até 7% por mapa). Desligado: começa direto.</p><div class="pills" style="margin:0">${[[1,'Ligado'],[0,'Desligado']].map(([k,l])=>`<button class="pill" aria-pressed="${(draftOn()?1:0)===k}" data-act="draftOpt" data-v="${k}">${l}</button>`).join('')}</div></div>
   <div class="sset"><h3>Jogo ao vivo</h3><p class="note" style="margin:0 0 10px">Só no modo treinador. A partida roda minuto a minuto, com instruções no início, meio e fim e uma substituição por mapa. Desligado: simulação direta.</p><div class="pills" style="margin:0">${[[1,'Ligado'],[0,'Desligado']].map(([k,l])=>`<button class="pill" aria-pressed="${(liveOn()?1:0)===k}" data-act="liveOpt" data-v="${k}">${l}</button>`).join('')}</div></div>
-  <div class="sset"><h3>Motor da partida</h3><p class="note" style="margin:0 0 10px">Realista (beta): 5x5 com dados do patch; só entra quando todos os campeões têm kit pronto. ${engOk()?'':'<b>motor.js não carregou: só o clássico.</b>'}</p><div class="pills" style="margin:0">${[[0,'Clássico'],[1,'Realista (beta)']].map(([k,l])=>`<button class="pill" aria-pressed="${(engOn()?1:0)===k}" data-act="engOpt" data-v="${k}"${k===1&&!engOk()?' disabled':''}>${l}</button>`).join('')}</div></div>
   <div class="sset"><h3>Folha salarial</h3><p class="note" style="margin:0 0 10px">Só no modo treinador. Ligada: salários saem do caixa a cada temporada e os custos fixos são menores.</p><div class="pills" style="margin:0">${[[1,'Ligada'],[0,'Desligada']].map(([k,l])=>`<button class="pill" aria-pressed="${(payOn()?1:0)===k}" data-act="payOpt" data-v="${k}">${l}</button>`).join('')}</div></div>
   <div class="sset"><h3>Aleatoriedade</h3><p class="note" style="margin:0 0 10px">Menor: a vantagem de OVR pesa mais e zebras ficam raras. Maior: qualquer time surpreende. Vale para os próximos jogos.</p><div class="pills" style="margin:0">${[['baixa','Menor'],['normal','Normal'],['alta','Maior']].map(([k,l])=>`<button class="pill" aria-pressed="${((S.opt&&S.opt.rnd)||'normal')===k}" data-act="rnd" data-v="${k}">${l}</button>`).join('')}</div></div>
   <div class="sset"><h3>Dificuldade do treinador</h3><p class="note" style="margin:0 0 10px">Fácil: receita +20% e mercado 15% mais barato. Difícil: receita −15% e mercado 20% mais caro.</p><div class="pills" style="margin:0">${[['facil','Fácil'],['normal','Normal'],['dificil','Difícil']].map(([k,l])=>`<button class="pill" aria-pressed="${((S.opt&&S.opt.dif)||'normal')===k}" data-act="dif" data-v="${k}">${l}</button>`).join('')}</div></div>
@@ -8153,7 +8100,6 @@ function act(a,v){
   else if(a==='lvTac'){if(LV&&LV.pc)lvPosture(v);else lvTac(v)}else if(a==='lvPick'){lvPick(v)}else if(a==='lvSub'){lvSub(v);save()}else if(a==='lvNext'){lvNext();top=true}else if(a==='lvSide'){if(LV&&LV.state==='between'&&sdNeed(LV.m,LV.gi,LV.ia)){LV.m.sd=LV.m.sd||[];LV.m.sd[LV.gi]=(v==='b')===LV.ia;save()}top=true}else if(a==='lvSkip'){lvSkipPhase()}else if(a==='cevCfg'){cevCfg(v)}else if(a==='cevPs'){cevPs(v)}else if(a==='cevGo'){cevGo(v);save()}else if(a==='cevPlay'){const [k,i,q]=String(v).split('|');if(cevPlayStart(k,i,q))top=true;save()}else if(a==='cevSkip'){cevSkip(v);save()}else if(a==='cevEnd'){cevEnd(v);save()}else if(a==='cevDest'){cevDest(v)}else if(a==='lvAll'){lvAll()}else if(a==='lvX'){lvDone()}else if(a==='lvSpd'){S.opt=S.opt||{};S.opt.lvs=+v===30?30:20;save();render()}
   else if(a==='lvDone'){if(LV&&LV.state==='done'){const fr=!!LV.m.fr||!!LV.m.cup;if(LV.pc)pcMatchEnd();lvDone();if(fr)fmEnd();else step();sndAfter();save();top=true}}
   else if(a==='liveOpt'){S.opt=S.opt||{};S.opt.live=+v;save()}
-  else if(a==='engOpt'){S.opt=S.opt||{};S.opt.eng=+v;save()}
   else if(a==='day'){advDay(+v);save()}
   else if(a==='dayTo'){advDay(999);save()}
   else if(a==='auto'){autoToggle()}

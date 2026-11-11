@@ -1,7 +1,7 @@
 'use strict';
 /* Gera o perfil de combate dos kits para o motor CLASSICO e o injeta no index.html (entre /*KITP-BEGIN*​/ e /*KITP-END*​/).
    Uso: node ferramentas/dados/gerar_perfil_classico.js [--dry]
-   Entrada: kits (src/engine/champion/kits: 8 manuais + 165 rascunhos) e data/16.22.1/champions/*.json (textos pt_BR, alcance, recargas).
+   Entrada: kits (ferramentas/dados/fontes: 8 manuais + 165 rascunhos) e builds curadas e data/16.22.1/champions/*.json (textos pt_BR, alcance, recargas).
    Saida em index.html: const KITP = { 'Nome do jogo': { k:'bcsmr' (cinco digitos 0-9), h:[[slot,nome,descricao,recarga],...], b:[ids de item: botas, nucleo, finais] } }
    k = explosao, controle, sustentacao, mobilidade, alcance. Contagem de efeitos do kit ponderada pela recarga (nada de numeros inventados: so a estrutura dos kits e os dados do patch). */
 const fs = require('fs'), path = require('path');
