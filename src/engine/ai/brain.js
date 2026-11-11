@@ -6,7 +6,7 @@
    ESTIMADO (calibrar no Bloco 10): pesos de pontuação, raios de decisão, limiares de recall/retirada, função de poder, nomes de rota por papel.
    Simplificação declarada: IA onisciente (sem névoa de guerra; visão/sentinelas ficam pendentes) e sem feitiços de invocador. */
 const LAY = require('../map/layout'), AI = require('../sim/ai'), SHOP = require('../items/shop'), B = require('../items/builds'), A = require('./attributes');
-const { Strategy } = require('./strategy'), { TURRET } = require('../map/structures'), SUPAI = require('./supply_ai'), SUP = require('../items/supplies');
+const { Strategy } = require('./strategy'), { TURRET } = require('../map/structures'), SUPAI = require('./supply_ai'), SUP = require('../items/supplies'); const MIN = require('../economy/minions');
 const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
 
@@ -341,10 +341,10 @@ class Brain {
     const sk = u.ai.lastHit, spec = w.attackSpec(u), flight = d => (spec.missile > 0 ? d / spec.missile : 0), mine = d => spec.windupFrac / w.asOf(u) + flight(d);
     const dmg = u.stats.ad.total * 100 / (100 + Math.max(0, ens[0].stats.armor.total));
     const inRange = ens.filter(x => dist(x.pos, u.pos) <= R + x.radius);
-    const incoming = x => { const tIm = w.t + mine(dist(u.pos, x.pos)); const raw = w.units.reduce((acc, m) => (m.kind === 'minion' && !m.dead && m.team !== x.team && m.attack.windup && m.attack.windup.target === x && m.attack.windup.until <= tIm + 0.05 ? acc + m.stats.ad.total * (m.spec.missile ? 1 : 1) : acc), 0) + w.projs.reduce((acc, q) => (q.kind === 'homing' && q.target === x && !q.owner.dead && q.owner.kind === 'minion' && w.t + Math.hypot(q.x - x.pos.x, q.y - x.pos.y) / q.speed <= tIm + 0.05 ? acc + q.owner.stats.ad.total : acc), 0);; return raw * 100 / (100 + Math.max(0, x.stats.armor.total)); };
+    const incoming = x => { const tIm = w.t + mine(dist(u.pos, x.pos)); const raw = w.units.reduce((acc, m) => (m.kind === 'minion' && !m.dead && m.team !== x.team && m.attack.windup && m.attack.windup.target === x && m.attack.windup.until <= tIm + 0.05 ? acc + m.stats.ad.total * (m.spec.missile ? 1 : 1) : acc), 0) + w.projs.reduce((acc, q) => (q.kind === 'homing' && q.target === x && !q.owner.dead && q.owner.kind === 'minion' && w.t + Math.hypot(q.x - x.pos.x, q.y - x.pos.y) / q.speed <= tIm + 0.05 ? acc + q.owner.stats.ad.total : acc), 0);; const fut = this.futureMinionDmg(x, tIm); return (raw + fut) * 100 / (100 + Math.max(0, x.stats.armor.total)); };
     const rate = x => (x.dmgWin || []).filter(e => w.t - e.t < 1).reduce((a, e) => a + e.a, 0);                    /* dano recebido no último segundo (taxa) */
     /* Bloco 10b (ESTIMADO, varredura de 32 partidas): `incoming` superestima o dano que chega (0,7); janela de golpe = vida prevista entre -0,5 e +0,6 do dano; o termo de taxa recente foi zerado (piorava o CS) */
-    const IS = 0.7, KW = 0.6, LO = -0.5, hImp = x => (x.hp - IS * incoming(x)) * (1 + this.lhError(u, x) * (1 - sk));
+    const IS = 0.85, KW = 0.6, LO = -0.5, hImp = x => (x.hp - IS * incoming(x)) * (1 + this.lhError(u, x) * (1 - sk));
     const pick = inRange.map(x => ({ x, h: hImp(x) })).filter(c => c.h > LO * dmg && c.h <= dmg * KW).sort((a, b) => a.h - b.h)[0];
     if (pick) { if (!(u.order && u.order.type === 'attack' && u.order.target === pick.x)) w.orderAttack(u, pick.x); return; }
     const reachS = s + 150 + 330;                                  /* Bloco 10b: margem de avanço para alcançar a onda inimiga (antes o laner ficava parado a ~350 do alvo) */
@@ -358,6 +358,19 @@ class Brain {
       if (sd > cap) d = P.at(cap);
       this.go(u, d, 40); return;
     }    if (!u.attack.windup) u.order = null;
+  }
+  /* Bloco 10c: previsor de morte de minion. Soma o dano dos golpes de minion (e de torre nao: so minions) que AINDA nao entraram em windup mas vao acertar `x` antes de `tIm`,
+     pelo ciclo real de ataque (readyAt, cast, total, missil). Os golpes ja em windup/voo continuam no termo `raw` de `incoming`. */
+  futureMinionDmg(x, tIm) {
+    const w = this.w; let sum = 0;
+    for (const m of w.idx.minions[1 - x.team]) {
+      if (m.dead || m.attack.windup || !w.canAct(m)) continue;
+      const dd = dist(m.pos, x.pos); if (dd > m.stats.range + x.radius + 15 + 60) continue;
+      if (MIN.pickTarget(w, m) !== x) continue;
+      const sp = m.spec, fl = sp.missile > 0 ? dd / sp.missile : 0; let land = Math.max(w.t, m.attack.readyAt) + sp.cast + fl, n = 0;
+      while (land <= tIm + 0.05 && n < 3) { sum += m.stats.ad.total; land += sp.total; n++; }
+    }
+    return sum;
   }
   /* erro de estimativa fixo por (jogador, minion): sorteado uma vez, senão o mínimo de vários sorteios faz acertar cedo demais */
   lhError(u, x) { x.lhErr = x.lhErr || {}; if (x.lhErr[u.id] === undefined) x.lhErr[u.id] = this.w.rng.gauss("ia") * 1.0; return x.lhErr[u.id]; }

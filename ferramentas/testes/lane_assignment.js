@@ -104,7 +104,7 @@ tp.u.recall = null;
 /* ---------- Teste C: split push com campeao adequado + Teste L: late game ---------- */
 run(1560); wipeTowers(); clean();
 T(LA.getPhase() === 'LATE', 'L0: aos 26 min a fase e LATE');
-const base = () => { LA.sig = ''; LA.nextAt = 0; LA.update(); };
+const base = () => { st.obj = null; st.concede = null; LA.sig = ''; LA.nextAt = 0; LA.update(); };
 st.formation = '5g'; st.split = st.split2 = null; st.group = 'mid'; base();
 T(['top', 'mid', 'adc'].every(r => L(r) === 'mid'), 'L1: formacao 5-0 agrupa os tres laners no mesmo lugar: ' + ['top', 'mid', 'adc'].map(L));
 st.formation = '4-1'; st.split = P('top'); st.splitLane = 'top'; st.group = 'mid'; base();
