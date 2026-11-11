@@ -1629,6 +1629,299 @@ body::after{opacity:.32;filter:grayscale(.35) brightness(.8)}
   .grp .gr .gnm b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
   .grp .gr>.num{display:block;margin:2px 0 0 52px;font-size:12px;color:#8d9cc6;white-space:nowrap}
 }
+/*V4-BEGIN*/
+/* =====================================================================
+   DESIGN SYSTEM v4 — camada final. Só aparência: nenhuma regra de jogo depende dela.
+   Tokens: superfícies (--s1..s3), interação coral (--ac), prestígio dourado (--prestige), informação azul (--info).
+   Princípios: menos caixas com borda (profundidade por contraste de superfície), listas e tabelas sem moldura,
+   painéis só onde a informação é o destaque, hierarquia tipográfica clara, animações curtas.
+   ===================================================================== */
+:root{
+  --bg0:#080D19;--s1:#10192B;--s2:#17223A;--s3:#202D49;
+  --ac:#E26770;--ac-hi:#F08A92;--ac-lo:#B84C56;--on-ac:#1B0A0D;--ac-rgb:226 103 112;
+  --prestige:#D6B65C;--prestige-hi:#EBD58E;--prestige-rgb:214 182 92;
+  --info:#6EA2FF;--ok:#4FD39A;--bad:#F0626E;
+  --t1:#EEF1F8;--t2:#A5B0C7;--t3:#707C98;
+  --hair:rgba(255,255,255,.07);--hair2:rgba(255,255,255,.13);
+  --team:var(--gold);
+  --rd:12px;--rs:8px;--sp:16px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --ink:var(--t1);--muted:var(--t2);--ln2:var(--hair);--pnl:var(--s1)
+}
+html,body{background:var(--bg0)}
+body{color:var(--t1);line-height:1.45}
+body::before{background:radial-gradient(900px 520px at 85% -10%,rgba(var(--ac-rgb)/.07),transparent 60%),linear-gradient(180deg,#0A1020,#070B16 85%)}
+body::after{opacity:.26}
+::selection{background:rgba(var(--ac-rgb)/.35)}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+
+/* ---------- superfícies: painel só com contraste, sem moldura ---------- */
+.pn,.db,.tile,.mc2,.bm2,.bids,.dvpool,.more2,.mgh,.shh{background:var(--s1);border:0;border-radius:var(--rd);box-shadow:inset 0 0 0 1px var(--hair)}
+.pn{padding:18px 20px}
+.pn>h2,.pn>.rowc>h2,.more2>summary,.dbh,.dbh>b,.dbh>h2{color:var(--t1);font:700 13px/1.2 var(--d);letter-spacing:.16em;text-transform:uppercase;border-bottom:0;display:flex;align-items:center;gap:10px}
+.pn>h2::before,.pn>.rowc>h2::before{content:"";width:3px;height:14px;border-radius:2px;background:var(--ac);flex:none}
+.pn>h2{margin:0 0 12px}
+.note,.pn .note{color:var(--t2);font-size:12.5px;line-height:1.5}
+.k,.tile .k,.hh .k,.hero2 .k{color:var(--t3);font:700 11px/1 var(--d);letter-spacing:.18em;text-transform:uppercase}
+.sub{color:var(--t3)}
+hr,.kvr{border-color:var(--hair)}
+.kvr{border-top:1px solid var(--hair)}
+
+/* ---------- botões ---------- */
+.play,.pn .play,.db .play,.dbb .play,button.play{background:var(--ac)!important;color:var(--on-ac)!important;border:0;border-radius:var(--rs)!important;font:800 14px var(--d);letter-spacing:.14em;text-transform:uppercase;box-shadow:0 6px 18px rgba(var(--ac-rgb)/.25)!important;transition:background .15s,transform .15s var(--ease),box-shadow .15s}
+.play:hover{background:var(--ac-hi)!important;filter:none;transform:translateY(-1px)}
+.play:active{transform:none;background:var(--ac-lo)!important}
+.play:disabled{opacity:.45;box-shadow:none!important;transform:none}
+.ghost{background:rgba(255,255,255,.035);border:0;box-shadow:inset 0 0 0 1px var(--hair2);color:var(--t1);border-radius:var(--rs);font:700 12px var(--d);letter-spacing:.12em;text-transform:uppercase;transition:background .15s,box-shadow .15s}
+.ghost:hover{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px rgba(var(--ac-rgb)/.7);color:#fff}
+.ghost:disabled{opacity:.4}
+.ghost.danger{box-shadow:inset 0 0 0 1px rgba(240,98,110,.55);color:#ffc9ce}
+
+/* ---------- abas e pílulas ---------- */
+.pills{gap:6px}
+.pill{background:transparent;border:0;box-shadow:inset 0 0 0 1px var(--hair2);color:var(--t2);border-radius:999px;font:700 12px var(--d);letter-spacing:.14em;text-transform:uppercase;padding:7px 16px;transition:background .15s,color .15s}
+.pill:hover{color:#fff;background:rgba(255,255,255,.06)}
+.pill[aria-pressed="true"],.pill.on{background:var(--ac);color:var(--on-ac);box-shadow:none}
+.pills.stk{background:linear-gradient(180deg,var(--bg0) 70%,transparent);padding:8px 0 10px}
+.mgr .pills.stk{background:rgba(8,13,25,.92);border-bottom:1px solid var(--hair);border-radius:0}
+
+/* ---------- navegação lateral ---------- */
+@media (min-width:1000px){
+  .nav{background:#0A1020;border-right:1px solid var(--hair);gap:2px;padding:14px 8px!important}
+  .nav::before{box-shadow:0 0 0 1px var(--hair2);margin-bottom:16px}
+  .nb{border-radius:10px;color:var(--t3);min-height:58px;transition:background .15s,color .15s}
+  .nb span{font:700 10px var(--d);letter-spacing:.16em}
+  .nb:hover{background:rgba(255,255,255,.05);color:var(--t1)}
+  .nb[aria-selected="true"]{background:rgba(var(--ac-rgb)/.12);color:#fff;box-shadow:none}
+  .nb[aria-selected="true"] svg{color:var(--ac);filter:none}
+  .nb[aria-selected="true"]::before{background:var(--ac);box-shadow:none;left:-8px;width:3px;top:20%;bottom:20%}
+  .nb:last-child{margin-top:auto;border-top:1px solid var(--hair);border-radius:0 0 10px 10px;padding-top:14px!important}
+}
+.hud .season{background:transparent;border:0;box-shadow:inset 0 0 0 1px var(--hair2);border-radius:999px}.hud .season b{color:var(--prestige)}
+.eyebrow,.hud .logo h1{color:var(--t3)}
+
+/* ---------- tabelas e listas sem moldura ---------- */
+.lines li,.rank li,.pl,.rowl,.mrow{border-color:var(--hair)}
+.rank li{background:transparent}
+.lk{color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.18)}.lk:hover{color:#fff;border-color:var(--ac)}
+.tag{background:rgba(255,255,255,.06);border:0;color:var(--t2);border-radius:5px;font:700 10px var(--d);letter-spacing:.1em}
+.chip{background:rgba(255,255,255,.06);border:0;border-radius:6px;color:var(--t2)}
+.mv.up,.st.up{color:var(--ok)}.mv.dn,.st.dn{color:var(--bad)}
+
+/* ---------- barras e indicadores ---------- */
+.ob{background:var(--ac);height:6px;border-radius:99px}
+.ob i{background:var(--info)!important;box-shadow:none}
+.od{background:rgba(255,255,255,.08)}.od i{background:var(--info)!important}.od i.o2{background:var(--ac)!important}
+.odds>div:first-child span:first-child{color:var(--info)}.odds>div:first-child span:last-child{color:var(--ac-hi)}
+.odds>div:first-child span:nth-child(2){color:var(--t3);font:700 10px var(--d);letter-spacing:.16em;text-transform:uppercase}
+.fm i{width:8px;height:8px;border-radius:50%}.fm i.w{background:var(--ok)}.fm i.l{background:var(--bad)}
+
+/* =====================================================================
+   JOGAR — central de comando
+   ===================================================================== */
+.hub{gap:18px}
+.hub .hh{align-items:flex-end;padding:2px 0 4px}
+.hub .hh b{font:800 44px/1 var(--d);font-style:normal;letter-spacing:.02em;text-transform:uppercase;margin:6px 0 4px}
+.hub .hh .hdt{color:var(--t3);font:600 11px var(--d);letter-spacing:.14em}
+.hub .hact .ghost{min-height:36px;padding:7px 14px}
+@media (min-width:1000px){
+  .hub{grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:20px 22px}
+  .hub>.hh{grid-column:1/-1}
+  .more2{max-height:none;overflow:visible;position:static;padding:16px 18px}
+  .hcol{gap:14px;position:sticky;top:12px}
+}
+.hero2{padding:20px 22px 20px;border-radius:14px;background:linear-gradient(180deg,rgb(var(--gold-rgb,226 103 112)/.13),transparent 55%),var(--s1);box-shadow:inset 0 0 0 1px var(--hair),inset 0 2px 0 var(--team)}
+.hero2 .k{color:var(--t2)}
+.vs{margin-top:16px;align-items:flex-start;gap:8px}
+.vs .tm{width:38%;gap:6px}
+.vs .tm b{font:800 21px/1.05 var(--d);letter-spacing:.03em}
+.vs .tm small{color:var(--t2);font:600 11.5px var(--d);letter-spacing:.1em;text-transform:uppercase}
+.vs .tm .crest.lg{--s:76px}
+.vs .tm .shield{width:86px;height:100px}
+.vsm{padding-top:26px}.vsm b{font:800 26px/1 var(--d);font-style:normal;color:var(--t3);letter-spacing:.1em}.vsm small{color:var(--t3);font:700 10px var(--d);letter-spacing:.16em;text-transform:uppercase;margin-top:4px}
+.vsm .cls{display:inline-block;margin-top:6px;padding:2px 8px;border-radius:999px;background:rgba(var(--prestige-rgb)/.15);color:var(--prestige);font:700 10px var(--d);letter-spacing:.14em;text-transform:uppercase;font-style:normal}
+.odds{margin-top:18px}
+.odds>div:first-child{font:800 20px/1 var(--d)}
+.ob{margin-top:8px}
+.hw{color:var(--t2);font:600 13px var(--b);margin:14px 0 0}
+.hbtn.play{margin-top:12px;min-height:46px;font-size:14px;width:100%}
+.hn{font:800 32px/1.05 var(--d);font-style:normal;letter-spacing:.03em}
+.spos{background:var(--prestige);color:#1a1400}
+
+/* indicadores de apoio: colunas lado a lado, sem caixas */
+.hub .tiles{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0;padding:4px 0}
+.hub .tile{background:transparent;box-shadow:none;border-radius:0;padding:2px 18px 2px 0;margin-right:18px;border-right:1px solid var(--hair)}
+.hub .tile:last-child{border-right:0;margin-right:0}
+.hub .tile ul{margin-top:10px;font-size:14px;line-height:1.75}
+.hub .tile li b{color:var(--t3);min-width:1.3em;white-space:nowrap;font:700 12px var(--d)}.hub .tile li b.num{color:var(--t2)}
+.hub .tile li>span:last-child{color:var(--t2)}
+.hub .tile p{color:var(--t2);font-size:13px;line-height:1.5}
+.hub .sqp,.hub .msum{background:var(--s1)}
+
+/* painel de detalhes (calendário, tabelas, resultados): sem rolagem interna */
+.more2>summary{font-size:13px;padding:2px 0}
+.dtabs{background:transparent;gap:6px;padding:10px 0 12px;margin:0 0 6px}
+.dtabs .pill{min-height:32px;padding:5px 14px}
+.more2 .pn{background:transparent;box-shadow:none;padding:12px 0 4px;border-top:1px solid var(--hair);border-radius:0;margin-bottom:6px}
+.more2 .pn>h2{font-size:12px;color:var(--t2)}
+.more2 .m{background:var(--s2);box-shadow:none;border:0;border-radius:10px;padding:11px 14px 9px;margin-bottom:8px}
+.more2 .m.mine{box-shadow:inset 0 0 0 1px rgba(var(--ac-rgb)/.6)}
+
+/* =====================================================================
+   PRÊMIO — arquivo de prestígio
+   ===================================================================== */
+.pz{display:grid;gap:22px;min-width:0}
+.pzh{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:28px;padding:26px 30px;border-radius:16px;overflow:hidden;background:radial-gradient(520px 220px at 12% 0%,rgba(var(--prestige-rgb)/.18),transparent 70%),linear-gradient(120deg,#1A1F2E,var(--s1) 62%);box-shadow:inset 0 0 0 1px rgba(var(--prestige-rgb)/.28)}
+.pzh .pzav{width:124px;height:124px;border-radius:50%;overflow:hidden;background:#182033;box-shadow:0 0 0 3px var(--prestige),0 0 0 8px rgba(var(--prestige-rgb)/.15)}
+.pzh .pzav img{width:100%;height:100%;object-fit:cover;object-position:50% 18%}.pzh .pzav svg{width:100%;height:100%;fill:#2a3654}
+.pzh .pk{color:var(--prestige);font:700 12px var(--d);letter-spacing:.2em;text-transform:uppercase}
+.pzh .pnm{font:800 52px/1 var(--d);letter-spacing:.02em;text-transform:uppercase;margin:6px 0 4px}.pzh .pnm .lk{font:inherit;border:0;color:#fff}
+.pzh .psb{color:var(--t2);font-size:14px}
+.pzh .pst{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.pzh .pst span{padding:5px 12px;border-radius:999px;background:rgba(var(--prestige-rgb)/.12);color:var(--prestige-hi);font:700 12px var(--d);letter-spacing:.1em;text-transform:uppercase}
+.pzh .pztr svg{width:96px;height:96px;color:var(--prestige);opacity:.95;filter:drop-shadow(0 6px 18px rgba(var(--prestige-rgb)/.35))}
+.pzg{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:22px;align-items:start}
+.pzg>aside{display:grid;gap:22px;min-width:0}
+.pzy{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.pzc{display:grid;grid-template-columns:46px 44px minmax(0,1fr);align-items:center;gap:12px;padding:12px 14px;background:var(--s2);border-radius:10px;transition:background .15s,transform .15s var(--ease)}
+.pzc:hover{background:var(--s3);transform:translateY(-1px)}
+.pzc .yy{font:800 18px var(--d);color:var(--prestige);letter-spacing:.04em}
+.pzc .mavr{width:44px;height:44px;border-width:0;box-shadow:0 0 0 2px rgba(var(--prestige-rgb)/.55)}
+.pzc b{display:block;font:700 15px var(--b);color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pzc b .lk{border:0;font:inherit}
+.pzc small{display:block;color:var(--t2);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pzc .pzr{color:var(--t3);font-size:11px}
+.pzm{display:grid;gap:0}
+.pzm div{display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--hair)}.pzm div:last-child{border-bottom:0}
+.pzm .n{font:800 15px var(--d);color:var(--t3);text-align:center}.pzm div:nth-child(1) .n{color:var(--prestige)}
+.pzm .c{font:800 22px var(--d);color:var(--prestige)}.pzm .c small{font:600 10px var(--d);color:var(--t3);letter-spacing:.12em;margin-left:4px}
+.pzm .lk{border:0;font:700 15px var(--b)}
+.pzf{display:grid;gap:0}
+.pzf div{padding:11px 0;border-bottom:1px solid var(--hair);font-size:14px}.pzf div:last-child{border-bottom:0}
+.pzf b{display:inline-block;min-width:74px;font:700 11px var(--d);letter-spacing:.16em;text-transform:uppercase;color:var(--prestige)}
+.pzf small{display:block;color:var(--t2);margin-top:2px;font-size:12.5px}
+.pn.win{background:radial-gradient(520px 220px at 12% 0%,rgba(var(--prestige-rgb)/.18),transparent 70%),linear-gradient(120deg,#1A1F2E,var(--s1) 62%);box-shadow:inset 0 0 0 1px rgba(var(--prestige-rgb)/.28);padding:22px 26px;grid-template-columns:112px minmax(0,1fr) 80px}
+.win .wav{width:112px;height:112px;border-color:var(--prestige)}.win .k{color:var(--prestige)}.win .wnm{font-size:44px}.win .wtr svg{color:var(--prestige);width:76px;height:76px}
+@media (max-width:1000px){.pzg{grid-template-columns:1fr}.pzh{grid-template-columns:auto minmax(0,1fr);padding:20px}.pzh .pztr{display:none}.pzh .pnm{font-size:38px}}
+@media (max-width:640px){.pzy{grid-template-columns:1fr}.pzh{grid-template-columns:1fr;justify-items:start;gap:14px}.pzh .pzav{width:96px;height:96px}.pzh .pnm{font-size:34px}}
+
+/* =====================================================================
+   LENDAS — ranking histórico
+   ===================================================================== */
+.lg4{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:22px;align-items:start;min-width:0}
+.lg4>aside{display:grid;gap:22px;min-width:0}
+.pod3{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px;align-items:end;margin-bottom:6px}
+.pc3{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:22px 12px 16px;border-radius:14px;background:var(--s2);color:inherit;font:inherit;cursor:pointer;border:0;transition:background .15s,transform .2s var(--ease)}
+.pc3:hover{background:var(--s3);transform:translateY(-2px)}
+.pc3 .pcn{position:absolute;top:10px;left:12px;font:800 15px var(--d);color:var(--t3)}
+.pc3 .av{width:76px;height:76px;border-radius:50%;overflow:hidden;background:#182033;box-shadow:0 0 0 3px var(--cc,var(--t3))}
+.pc3 .av img{width:100%;height:100%;object-fit:cover;object-position:50% 18%}.pc3 .av svg{width:100%;height:100%;fill:#2a3654}
+.pc3 b{font:800 22px/1.1 var(--d);letter-spacing:.03em;text-transform:uppercase;margin-top:8px;color:#fff}
+.pc3 small{color:var(--t2);font-size:12px}
+.pc3 .tt{color:var(--t2);font-size:12px;line-height:1.4;max-width:24ch}
+.pc3 .pt{font:800 32px/1 var(--d);color:var(--cc,var(--t1));margin-top:6px}.pc3 .pt i{display:block;font:600 10px var(--d);font-style:normal;letter-spacing:.14em;color:var(--t3);text-transform:uppercase}
+.pc3.p1{--cc:var(--prestige);padding-top:30px;background:radial-gradient(260px 160px at 50% 0%,rgba(var(--prestige-rgb)/.2),transparent 70%),var(--s2);box-shadow:inset 0 0 0 1px rgba(var(--prestige-rgb)/.35)}
+.pc3.p1 .av{width:100px;height:100px}.pc3.p1 b{font-size:28px}.pc3.p1 .pt{font-size:42px}
+.pc3.p2{--cc:#C3CBD8}.pc3.p3{--cc:#C98A54}
+.rkr{padding:10px 8px;border-bottom:1px solid var(--hair);border-radius:8px}
+.rkr:hover{background:rgba(255,255,255,.04)}
+.rkr .rpt{color:var(--prestige)}
+.rkr.top1 .rk{color:var(--prestige)}
+.rkr .rav{border:0;box-shadow:0 0 0 2px var(--hair2)}
+.recs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.rec{padding:14px;border-radius:10px;background:var(--s2)}
+.rec small{display:block;color:var(--t3);font:700 10px var(--d);letter-spacing:.16em;text-transform:uppercase}
+.rec b{display:block;font:800 28px/1.1 var(--d);color:var(--prestige);margin:4px 0 2px}
+.rec span{font-size:13px;color:var(--t1)}
+.yrl.one{grid-template-columns:1fr;gap:0}.yrl.one .yr{align-items:center;padding:8px 0}.yrl.one .yr .lg{color:var(--prestige)}
+@media (max-width:1000px){.lg4{grid-template-columns:1fr}}
+@media (max-width:640px){.pod3{grid-template-columns:1fr}.pc3.p1{order:-1}.recs{grid-template-columns:1fr}}
+
+/* =====================================================================
+   ELENCOS — ligas e times
+   ===================================================================== */
+.pn.tl{padding:16px 18px 10px}
+.pn.tl .rowc{margin-bottom:6px}
+.trh{grid-template-columns:26px 44px minmax(0,1fr) 64px 60px 120px;gap:12px;padding:11px 6px}
+.trh .trk{font:800 15px var(--d);color:var(--t3);text-align:center}
+.trh .trc .crest,.trh .trc .shield{width:38px;height:38px}
+.trn{font:700 17px var(--b);color:#fff}
+.trf{font:700 13px var(--d)}
+.trn{display:flex;align-items:center;gap:8px;min-width:0}.trn .tag{flex:none}.trn .lk{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tbtn{background:transparent;border:0;box-shadow:inset 0 0 0 1px var(--hair2);font-size:11px;letter-spacing:.12em}
+.trw{border-bottom:1px solid var(--hair)}.trw:hover{background:rgba(255,255,255,.025)}
+.trw.open{background:rgba(255,255,255,.03)}.trw.open .tbtn{box-shadow:inset 0 0 0 1px var(--ac);color:var(--ac)}
+.trw:nth-child(-n+3) .trk{color:var(--prestige)}
+.pn.tl.d2{background:transparent;box-shadow:none;padding:6px 4px 0;border-top:0}
+.pn.tl.d2 .trh{grid-template-columns:44px minmax(0,1fr) 64px 60px 110px;padding:8px 6px}
+.pn.tl.d2 .trn{font-size:15px;color:var(--t1)}
+.pn.tl.d2>h2{color:var(--t2)}
+@media (max-width:760px){.trh{grid-template-columns:22px 32px minmax(0,1fr) 44px 76px;gap:6px}.pn.tl.d2 .trh{grid-template-columns:32px minmax(0,1fr) 44px 76px}}
+
+/* =====================================================================
+   META — campeões, tiers, counters
+   ===================================================================== */
+.mth h2{font:800 34px var(--d);letter-spacing:.12em}.mth h2 span{color:var(--t3)}
+.mtl button{background:rgba(255,255,255,.05);border:0;border-bottom:2px solid transparent;border-radius:8px 8px 0 0;color:var(--t2)}
+.mtl button.on{background:rgba(var(--ac-rgb)/.14);border-color:var(--ac);color:#fff}
+.mtc h3{border-bottom:1px solid var(--hair);color:var(--t1)}
+.mtr{background:var(--s1);border:0;box-shadow:inset 0 0 0 1px var(--hair);border-radius:12px;padding:10px 14px;margin-bottom:6px;transition:background .15s,transform .15s var(--ease)}
+.mtr:hover{background:var(--s2);box-shadow:inset 0 0 0 1px var(--hair2);transform:translateX(2px)}
+.mtr.rt:hover{transform:translateX(-2px)}
+.mtr.on{background:linear-gradient(90deg,rgba(var(--ac-rgb)/.18),var(--s2) 70%);box-shadow:inset 0 0 0 1px rgba(var(--ac-rgb)/.75),inset 3px 0 0 var(--ac)}
+.mtr.rt.on{background:linear-gradient(270deg,rgba(var(--ac-rgb)/.18),var(--s2) 70%);box-shadow:inset 0 0 0 1px rgba(var(--ac-rgb)/.75),inset -3px 0 0 var(--ac)}
+.mtr img,.mtr>i{width:54px;height:54px}
+.mtr b{font-size:18px}
+.mtb{background:color-mix(in srgb,var(--tc) 22%,#0A0F24);box-shadow:none}
+.mth h2{color:var(--t1)}
+.mtm h2{color:#fff}
+.mtd{background:var(--s1);border:0;box-shadow:inset 0 0 0 1px var(--hair);border-radius:10px;color:var(--t1)}
+.mts{background:var(--s1);border:0;box-shadow:inset 0 0 0 1px var(--hair);border-radius:10px}
+.mttier{background:var(--s2);border:0;border-radius:999px}
+.kph div{background:var(--s1);border:0;box-shadow:inset 0 0 0 1px var(--hair);border-radius:8px}
+.kph em{color:var(--ac)}
+.kpb i b{background:var(--ac)}
+
+/* =====================================================================
+   JOGADOR / GESTÃO — fichas, treino, árvore
+   ===================================================================== */
+.cmp .pn,.mgr .pn{padding:16px 18px}
+.mgh{background:linear-gradient(100deg,var(--s3),var(--s1) 65%)!important}
+.cmp .cab div,.mgr .cab div{background:var(--s2);border:0;border-radius:10px}
+
+/* ---------- compatibilidade com telas de transmissão/aovivo: nada muda ---------- */
+
+/* ficha do jogador: identidade, indicadores sem caixa, treino em blocos, barras no padrão do sistema */
+.cab div{background:transparent;border:0;border-radius:0;box-shadow:none;padding:6px 4px;text-align:left}
+.cab b{color:var(--t1);font-size:28px}
+.cab small{color:var(--t3);font:700 10px var(--d);letter-spacing:.16em;text-transform:uppercase}
+.cab.ptsb div:first-child b{color:var(--ac)}
+.cmp .cab div,.mgr .cab div{background:var(--s2);border-radius:10px;padding:8px 12px;text-align:left}
+.ovb{height:6px;border-radius:99px;background:rgba(255,255,255,.09);overflow:hidden}.ovb i{background:var(--info);border-radius:99px}
+.pcSide .pn .ovb{height:8px!important}
+.pcTop{align-items:start;gap:16px;margin-bottom:16px}
+.pcTop>.pn{height:auto}
+.pcTop .ph h3{font:800 38px/1 var(--d);letter-spacing:.03em;text-transform:uppercase}
+.pcTop .ph small{display:block;color:var(--t2);margin-top:4px;font-size:13px}
+.pcTop .sub{margin:16px 0 8px;padding-top:14px;border-top:1px solid var(--hair);color:var(--t3);font:700 11px var(--d);letter-spacing:.18em;text-transform:uppercase}
+.pcTop .sub:first-of-type{border-top:0;padding-top:0}
+.pcTop .mrow{padding:12px 0;border-bottom:1px solid var(--hair);gap:12px}
+.pcTop .mrow:last-child{border-bottom:0}
+.pcTop .mrow .who small{color:var(--t2)}
+.pcTop .mrow .ghost{min-width:44px}
+.pn>.row .play{min-height:42px;padding:8px 20px}
+details.pn>summary{color:var(--t1)}
+.tnode.can .tnb{border-color:var(--ok);box-shadow:inset 0 0 0 3px rgba(8,13,25,.7),0 0 14px rgba(79,211,154,.5)}
+.tnode.own .tnb{border-color:var(--prestige);box-shadow:inset 0 0 0 3px rgba(8,13,25,.6),0 0 16px rgba(var(--prestige-rgb)/.6)}
+.tnb.sel{outline-color:var(--ac)}
+
+/* árvore de habilidades: mapa à esquerda, detalhe da habilidade à direita (conexões e estados preservados) */
+.tdia{max-width:none;margin:0;border-radius:12px;background:var(--s2);border:0;box-shadow:inset 0 0 0 1px var(--hair)}
+.tdet{margin-top:12px;border:0;border-radius:12px;background:var(--s2);box-shadow:inset 0 0 0 1px var(--hair)}
+.tdet.own{box-shadow:inset 0 0 0 1px rgba(var(--prestige-rgb)/.6)}.tdet.can{box-shadow:inset 0 0 0 1px rgba(79,211,154,.6)}
+.cab.ptsb{box-shadow:none;animation:none}
+@media (min-width:1000px){.tlay{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);gap:20px;align-items:start}.tlay .tdet{position:sticky;top:70px;margin-top:0}}
+@media (max-width:640px){.pc3,.pc3.p1{flex-direction:row;text-align:left;align-items:center;padding:12px 14px 12px 36px;gap:12px}.pc3 .av,.pc3.p1 .av{width:56px;height:56px;flex:none}.pc3 b,.pc3.p1 b{font-size:20px;margin:0}.pc3 .tt{display:none}.pc3 .pt,.pc3.p1 .pt{margin:0 0 0 auto;font-size:26px}.pc3 .pcn{top:50%;transform:translateY(-50%)}.pc3 small{display:block}}
+/*V4-END*/
 </style>
 
 <div class="wrap" id="app"></div>
@@ -5836,8 +6129,8 @@ function pcTreeHTML(f){
   const fxs=Object.keys(PBR).map(()=>'').join('');
   return `<section class="pn"><h2>Árvore de habilidades</h2><div class="cab${tp>0?' ptsb':''}" style="margin:0 0 10px;grid-template-columns:repeat(2,minmax(0,1fr))"><div><b class="num">${tp}</b><small>Pontos de habilidade</small></div><div><b class="num">${got}/${PERKS.length}</b><small>Aprendidas</small></div></div>
   <div class="pills" style="margin-bottom:8px">${tabs}</div><p class="note" style="margin:0 0 6px">${PBR[pcBr][0]} · ${PBR[pcBr][1]}. Comece pelo topo e desça: cada habilidade se liga às que têm a ver com ela. A última exige 2 das 3 ligadas.</p>
-  <div class="tdia" style="height:${H}px"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${lines}</svg>${nodes}</div>
-  <div class="tdet ${s0}"><div class="tdh"><span class="tdi">${PERKI[sel.id]||'✦'}</span><div><b>${esc(sel.n)}</b><small>${PBR[sel.br][0]} · custo ${sel.c} ponto${sel.c>1?'s':''} · nível ${sel.lv}${sel.pa.length?' · liga com '+sel.pa.map(i=>by(i).n).join(', '):' · ponto de partida'}</small></div></div><p>${esc(sel.d)}</p>${s0==='own'?'<span class="tag">Aprendida</span>':`<button class="${s0==='can'?'play':'ghost'}" data-act="pcLearn" data-v="${sel.id}"${s0==='can'?'':' disabled'}>${s0==='can'?'Aprender':esc(why)}</button>`}</div></section>`;
+  <div class="tlay"><div class="tdia" style="height:${H}px"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${lines}</svg>${nodes}</div>
+  <div class="tdet ${s0}"><div class="tdh"><span class="tdi">${PERKI[sel.id]||'✦'}</span><div><b>${esc(sel.n)}</b><small>${PBR[sel.br][0]} · custo ${sel.c} ponto${sel.c>1?'s':''} · nível ${sel.lv}${sel.pa.length?' · liga com '+sel.pa.map(i=>by(i).n).join(', '):' · ponto de partida'}</small></div></div><p>${esc(sel.d)}</p>${s0==='own'?'<span class="tag">Aprendida</span>':`<button class="${s0==='can'?'play':'ghost'}" data-act="pcLearn" data-v="${sel.id}"${s0==='can'?'':' disabled'}>${s0==='can'?'Aprender':esc(why)}</button>`}</div></div></section>`;
 }
 /* convocação do técnico (scrim ou torneio): na tela Jogar, na carreira e na caixa de e-mail */
 function ptHTML(inner){
@@ -7510,24 +7803,32 @@ function vSeason(){
   return h;
 }
 
-/* ---------- bola de ouro ---------- */
+/* ---------- bola de ouro: arquivo de prestígio (só apresentação; dados de S.pre / S.hist / S.hof) ---------- */
+const pzAll=()=>[...(S.pre||[]).map(x=>({y:x.y,top:x.top})),...S.hist.map(x=>({y:x.y,top:x.top}))].sort((a,b)=>b.y-a.y);
+const pzMost=()=>{const c={};pzAll().forEach(x=>{const n=x.top[0].n;c[n]=(c[n]||0)+1});return Object.entries(c).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]))};
+const pzCard=x=>{const w=x.top[0];return `<div class="pzc"><span class="yy num">${x.y}</span>${mav(w.n)}<span style="min-width:0"><b>${lk(w.n)}</b><small>${esc(w.team||'')}</small>${x.top.length>1?`<small class="pzr">${x.top.slice(1,4).map(t=>esc(t.n)).join(' · ')}</small>`:''}</span></div>`};
 function preHTML(){
-  if(!S.pre||!S.pre.length)return '';
-  return `<section class="pn prebx prl"><h2>Top 5 de 2011 a 2025</h2>${[...S.pre].reverse().map(x=>`<div class="rowl"><span class="lg num">${x.y}</span>${mav(x.top[0].n)}<span class="grow"><b>${lk(x.top[0].n)}</b> <small>${esc(x.top[0].team)}</small>${x.top.length>1?`<br><small>${x.top.slice(1).map(t=>lk(t.n)).join(' · ')}</small>`:''}</span></div>`).join('')}<p class="note">Seu ranking dos anos anteriores. Faker tem 4 prêmios de Melhor Jogador do Ano; Ruler e Chovy, 2 cada.</p></section>`;
+  const L=pzAll().filter(x=>!S.hist.some(h=>h.y===x.y));
+  if(!L.length)return '';
+  return `<section class="pn"><h2>Arquivo de vencedores · ${L[L.length-1].y}–${L[0].y}</h2><div class="pzy">${L.map(pzCard).join('')}</div></section>`;
 }
 function vBola(){
-  if(!S.hist.length)return `<p class="empty">Nenhuma temporada de 2026 em diante fechada ainda. Jogue até o Melhor Jogador do Ano para ver o top 10 do ano.</p><button class="ghost" data-act="tab" data-v="season">Ir para a temporada</button>`+preHTML();
+  const all=pzAll();
+  if(!all.length)return `<p class="empty">Nenhum prêmio registrado ainda.</p>`;
   const ys=S.hist.map(h=>h.y).reverse();
-  const cur=S.hist.find(h=>h.y===selYear)||S.hist[S.hist.length-1];
-  const w=cur.top[0];
-  let h=`<div class="pills">${ys.map(y=>`<button class="pill" aria-pressed="${y===cur.y}" data-act="year" data-v="${y}">${y}</button>`).join('')}</div>`;
-  h+=`<section class="pn win"><span class="wav">${phHas(w.n)?phImg(w.n):AVA}</span><div class="wtx"><small class="k">Melhor Jogador do Ano ${cur.y}</small><div class="wnm">${lk(w.n)}</div><div class="wsub">${esc(w.team)} · ${esc(w.lg)} · ${RN[w.role]} · OVR ${w.r}</div><div class="wch">${w.ch.map(c=>`<span class="chip">${esc(c)}</span>`).join('')}</div></div><span class="wtr">${troSvg('b')}</span></section>`;
-  h+=`<section class="pn"><h2>Top 10 de ${cur.y}</h2><div class="rkt">${cur.top.map((x,i)=>rkRow(i,x.n,`${esc(x.team)} · ${RN[x.role]||''}`,x.ch.length?x.ch.slice(0,3).map(esc).join(' · '):'',`+${x.pts}`,`nota ${x.sc}`)).join('')}</div></section>`;
-  const c=cur.champs;
-  h+=`<div class="bcol"><section class="pn"><h2>Campeões de ${cur.y}</h2><div class="rowl"><span class="grow"><b>Mundial</b> ${esc(c.wc)}<br><small>MVP ${lk(c.mvp)}</small></span></div><div class="rowl"><span class="grow"><b>MSI</b> ${esc(c.msi)}<br><small>MVP ${c.msiMvp?lk(c.msiMvp):'–'}</small></span></div><div class="rowl"><span class="grow"><b>Split 1</b><br><small>${c.s1.map(esc).join(' · ')}</small>${c.mv1?`<br><small>MVPs: ${c.mv1.map(esc).join(' · ')}</small>`:''}</span></div><div class="rowl"><span class="grow"><b>Split 2</b><br><small>${c.s2.map(esc).join(' · ')}</small>${c.mv2?`<br><small>MVPs: ${c.mv2.map(esc).join(' · ')}</small>`:''}</span></div></section>`;
-  return h+preHTML()+'</div>';
+  const cur=S.hist.length?(S.hist.find(h=>h.y===selYear)||S.hist[S.hist.length-1]):null;
+  const first=cur||all[0],w=first.top[0],hf=S.hof[w.n]||{},most=pzMost();
+  const chips=[hf.bd?`${hf.bd}× Melhor Jogador do Ano`:'',hf.wc?`${hf.wc}× Mundial`:'',hf.msi?`${hf.msi}× MSI`:'',hf.mvp?`${hf.mvp} MVP${hf.mvp>1?'s':''}`:''].filter(Boolean);
+  const sub=cur?`${esc(w.team)} · ${esc(w.lg)} · ${RN[w.role]} · OVR ${w.r}`:esc(w.team||'');
+  let h=`<div class="pz">${ys.length?`<div class="pills">${ys.map(y=>`<button class="pill" aria-pressed="${y===cur.y}" data-act="year" data-v="${y}">${y}</button>`).join('')}</div>`:''}`;
+  h+=`<section class="pzh"><span class="pzav">${phHas(w.n)?phImg(w.n):AVA}</span><div><div class="pk">Melhor Jogador do Ano · ${first.y}</div><div class="pnm">${lk(w.n)}</div><div class="psb">${sub}</div>${chips.length?`<div class="pst">${chips.map(c=>`<span>${c}</span>`).join('')}</div>`:''}${cur&&w.ch&&w.ch.length?`<div class="pst">${w.ch.map(c=>`<span style="background:rgba(255,255,255,.06);color:var(--t2)">${esc(c)}</span>`).join('')}</div>`:''}</div><span class="pztr">${troSvg('b')}</span></section>`;
+  h+=`<div class="pzg"><div style="display:grid;gap:22px;min-width:0">`;
+  if(cur)h+=`<section class="pn"><h2>Top 10 de ${cur.y}</h2><div class="rkt">${cur.top.map((x,i)=>rkRow(i,x.n,`${esc(x.team)} · ${RN[x.role]||''}`,x.ch.length?x.ch.slice(0,3).map(esc).join(' · '):'',`+${x.pts}`,`nota ${x.sc}`)).join('')}</div></section>`;
+  h+=preHTML()+`</div><aside>`;
+  if(cur){const c=cur.champs;h+=`<section class="pn"><h2>Campeões de ${cur.y}</h2><div class="pzf"><div><b>Mundial</b>${esc(c.wc)}<small>MVP ${lk(c.mvp)}</small></div><div><b>MSI</b>${esc(c.msi)}<small>MVP ${c.msiMvp?lk(c.msiMvp):'–'}</small></div><div><b>Split 1</b>${c.s1.map(esc).join(' · ')}${c.mv1?`<small>MVPs: ${c.mv1.map(esc).join(' · ')}</small>`:''}</div><div><b>Split 2</b>${c.s2.map(esc).join(' · ')}${c.mv2?`<small>MVPs: ${c.mv2.map(esc).join(' · ')}</small>`:''}</div></div></section>`}
+  h+=`<section class="pn"><h2>Mais premiados</h2><div class="pzm">${most.slice(0,6).map(([n,c],i)=>`<div><span class="n">${i+1}</span><span>${lk(n)}</span><span class="c num">${c}<small>${c>1?'PRÊMIOS':'PRÊMIO'}</small></span></div>`).join('')}</div></section>`;
+  return h+`</aside></div></div>`;
 }
-
 /* ---------- lendas ---------- */
 function ttCount(t){
   return{wc:t.tt.filter(x=>x.k==='Mundial').length,msi:t.tt.filter(x=>x.k==='MSI').length,lg:t.tt.filter(x=>x.k!=='Mundial'&&x.k!=='MSI').length};
@@ -7582,16 +7883,20 @@ function vHof(){
   let h=`<div class="pills stk">${[['rank','Ranking'],['wc','Mundial'],['msi','MSI'],['teams','Times'],['nat','Seleções'],['players','Jogadores']].map(([k,l])=>`<button class="pill" aria-pressed="${hofView===k}" data-act="hv" data-v="${k}">${l}</button>`).join('')}</div>`;
   if(hofView==='rank'){
     const r=hofRank().slice(0,10);
-    const rows=r.map((n,i)=>{
+    const info=n=>{
       const hh=S.hof[n],mv=S.mv[n],p=PM[n];
       const m=mv==='N'?'<span class="mv new">novo</span>':mv>0?`<span class="mv up">▲${mv}</span>`:mv<0?`<span class="mv dn">▼${-mv}</span>`:'';
       const tt=[hh.bd?`${hh.bd}× Melhor do Ano`:'',hh.wc?`${hh.wc}× Mundial`:'',hh.msi?`${hh.msi}× MSI`:'',hh.lg?`${hh.lg} liga${hh.lg>1?'s':''}`:'',hh.mvp?`${hh.mvp} MVP${hh.mvp>1?'s':''}`:''].filter(Boolean).join(' · ');
       const role=p?p.p.role:roleOf(n),c=natC(n);
-      return rkRow(i,n,`${p?esc(p.t.name):'aposentado'} · ${RN[role]||''}${c?' · '+natTxt(c):''} ${m}`,tt,Math.round(sc(hh)),'pts');
-    }).join('');
-    h+=`<section class="pn"><h2>Top 10 de todos os tempos</h2><div class="rkt">${rows}</div><p class="note">Pontos = Melhor Jogador do Ano/temporada (${PTS.join(' · ')}) + Mundial 6 + MSI 3 + MVP 1,5 + liga 0,5. Toque em um jogador para abrir a ficha.</p></section>`;
+      return{hh,tt,sub:`${p?esc(p.t.name):'aposentado'} · ${RN[role]||''}${c?' · '+natTxt(c):''} ${m}`};
+    };
+    const pod=r.slice(0,3).map((n,i)=>{const x=info(n);return `<button class="pc3 p${i+1}" data-act="player" data-v="${esc(n)}"><span class="pcn num">${i+1}</span><span class="av">${phHas(n)?phImg(n):AVA}</span><b>${esc(n)}</b><small>${x.sub}</small><span class="tt">${x.tt}</span><span class="pt num">${Math.round(sc(x.hh))}<i>pts</i></span></button>`}).join('');
+    const rows=r.slice(3).map((n,i)=>{const x=info(n);return rkRow(i+3,n,x.sub,x.tt,Math.round(sc(x.hh)),'pts')}).join('');
+    const top=k=>{let b=null;Object.keys(S.hof).forEach(n=>{if(!b||(S.hof[n][k]||0)>(S.hof[b][k]||0))b=n});return b&&S.hof[b][k]?{n:b,v:S.hof[b][k]}:null};
+    const rec=[['Melhor do Ano','bd'],['Mundiais','wc'],['MSI','msi'],['MVPs','mvp']].map(([l,k])=>{const t=top(k);return t?`<div class="rec"><small>${l}</small><b class="num">${t.v}</b><span>${lk(t.n)}</span></div>`:''}).join('');
     const bl=[...(S.pre||[]).map(x=>({y:x.y,n:x.top[0].n,team:x.top[0].team})),...S.hist.map(x=>({y:x.y,n:x.top[0].n,team:x.top[0].team}))].reverse();
-    h+=`<section class="pn"><h2>Melhor Jogador do Ano</h2><div class="yrl">${bl.map(x=>`<div class="yr"><span class="lg num">${x.y}</span>${mav(x.n)}<span class="grow"><b>${lk(x.n)}</b> <small>${esc(x.team)}</small></span></div>`).join('')}</div></section>`;
+    h+=`<div class="lg4"><section class="pn"><h2>Top 10 de todos os tempos</h2><div class="pod3">${pod}</div><div class="rkt">${rows}</div><p class="note">Pontos = Melhor Jogador do Ano/temporada (${PTS.join(' · ')}) + Mundial 6 + MSI 3 + MVP 1,5 + liga 0,5. Toque em um jogador para abrir a ficha.</p></section>
+    <aside>${rec?`<section class="pn"><h2>Recordes</h2><div class="recs">${rec}</div></section>`:''}<section class="pn"><h2>Melhor Jogador do Ano</h2><div class="yrl one">${bl.map(x=>`<div class="yr"><span class="lg num">${x.y}</span>${mav(x.n)}<span class="grow"><b>${lk(x.n)}</b> <small>${esc(x.team)}</small></span></div>`).join('')}</div></section></aside></div>`;
   }else if(hofView==='wc'||hofView==='msi'){
     h+=cupHistHTML(hofView);
   }else if(hofView==='nat'){
@@ -7622,14 +7927,14 @@ function vTeams(){
   }
   const ts=pmSort(S.teams.filter(t=>t.lg===selLg)).map(x=>x.t);
   h+=`<div class="row"><button class="ghost" data-act="league" data-v="${selLg}">Ficha da liga ${selLg}</button></div>`;
-  const cardF=t=>{
+  const cardF=(t,ix)=>{
     const f=r1(eff(t)-baseOvr(t)),op=OPENT.has(t.id);
-    return `<div class="trw${op?' open':''}"><div class="trh"><span class="trc">${crest(t)}</span><span class="trn">${tlk(t)}${t.est?' <span class="tag">estimado</span>':''} ${pmBadge(pmInfo(t))}</span><span class="trf">${f>0?`<span class="st up">▲${f.toFixed(1)}</span>`:f<0?`<span class="st dn">▼${(-f).toFixed(1)}</span>`:'<span class="st">estável</span>'}</span><span class="tro">${hx(Math.round(baseOvr(t)),'sm')}</span><button class="ghost tbtn" data-act="tOpen" data-v="${t.id}" aria-expanded="${op}">${op?'Ocultar elenco':'Ver elenco'}</button></div>${op?`<div class="trb">${fgrid(t.pl.map(p=>fcell({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f,team:t},`<span>${p.age} anos${p.age<=24?` · pot. ${Math.round(p.pot)}`:''}</span>${p.d?`<span>${p.d>0?'+':''}${p.d} na virada</span>`:''}`)).join(''))}</div>`:''}</div>`;
+    return `<div class="trw${op?' open':''}"><div class="trh">${ix!=null?`<span class="trk num">${ix+1}</span>`:''}<span class="trc">${crest(t)}</span><span class="trn">${tlk(t)}${t.est?' <span class="tag">estimado</span>':''} ${pmBadge(pmInfo(t))}</span><span class="trf">${f>0?`<span class="st up">▲${f.toFixed(1)}</span>`:f<0?`<span class="st dn">▼${(-f).toFixed(1)}</span>`:'<span class="st">estável</span>'}</span><span class="tro">${hx(Math.round(baseOvr(t)),'sm')}</span><button class="ghost tbtn" data-act="tOpen" data-v="${t.id}" aria-expanded="${op}">${op?'Ocultar elenco':'Ver elenco'}</button></div>${op?`<div class="trb">${fgrid(t.pl.map(p=>fcell({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f,team:t},`<span>${p.age} anos${p.age<=24?` · pot. ${Math.round(p.pot)}`:''}</span>${p.d?`<span>${p.d>0?'+':''}${p.d} na virada</span>`:''}`)).join(''))}</div>`:''}</div>`;
   };
   const allOpen=ts.length&&ts.every(t=>OPENT.has(t.id));
-  h+=`<section class="pn tl"><div class="rowc"><h2 style="margin:0">${selLg} · ${ts.length} times</h2><button class="ghost" data-act="tAll" data-v="${selLg}">${allOpen?'Ocultar todos os elencos':'Mostrar todos os elencos'}</button></div><div class="tls">${ts.map(cardF).join('')}</div></section>`;
+  h+=`<section class="pn tl"><div class="rowc"><h2 style="margin:0">${selLg} · ${ts.length} times</h2><button class="ghost" data-act="tAll" data-v="${selLg}">${allOpen?'Ocultar todos os elencos':'Mostrar todos os elencos'}</button></div><div class="tls">${ts.map((t,i)=>cardF(t,i)).join('')}</div></section>`;
   const t2=pmSort(D2L().filter(t=>t.lg===selLg)).map(x=>x.t);
-  if(t2.length)h+=`<section class="pn tl"><h2>Segunda divisão · ${selLg}</h2><div class="tls">${t2.map(cardF).join('')}</div><p class="note" style="margin:8px 0 0">Elencos da D2, na ordem do último Split 2. Quem subiu ou caiu aparece marcado.</p></section>`;
+  if(t2.length)h+=`<section class="pn tl d2"><h2>Segunda divisão · ${selLg}</h2><div class="tls">${t2.map(t=>cardF(t)).join('')}</div><p class="note" style="margin:8px 0 0">Elencos da D2, na ordem do último Split 2. Quem subiu ou caiu aparece marcado.</p></section>`;
   return h+`<p class="note">Elencos de 2026: os 19 times do Mundial seguem as listas divulgadas; os marcados como estimado são chutes meus. OVR e idades são notas minhas, não oficiais. O OVR sobe e cai com idade, potencial e desempenho; a seta mostra a forma atual, que também entra nas chances de vitória.</p>`;
 }
 
