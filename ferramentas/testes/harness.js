@@ -1,6 +1,6 @@
 const fs=require('fs'),vm=require('vm');
-function load(file){
-  const html=fs.readFileSync(file,'utf8');
+function load(file,patch){
+  let html=fs.readFileSync(file,'utf8'); if(patch)html=patch(html);      /* patch opcional: o teste ajusta o codigo em memoria (ex.: const -> var para sobrescrever funcoes) */
   const a=html.indexOf('<script>')+8,b=html.lastIndexOf('</script>');
   const noop=()=>{};
   const el=()=>({style:{},classList:{toggle:noop,add:noop,remove:noop},setAttribute:noop,getAttribute:()=>'',appendChild:noop,insertAdjacentHTML:noop,addEventListener:noop,querySelector:()=>null,querySelectorAll:()=>[],remove:noop,innerHTML:'',textContent:''});

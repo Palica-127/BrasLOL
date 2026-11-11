@@ -1,5 +1,5 @@
 const {load,run}=require('./harness.js');
-const ctx=load(require('path').join(__dirname,'..','..','index.html'));
+const ctx=load(require('path').join(__dirname,'..','..','index.html'),h=>h.replace('const mastOf=','var mastOf=').replace('const metaOf=','var metaOf='));
 ctx.__COMPS={en:['Ornn','Sejuani','Orianna','Samira','Nautilus'],pk:['Jayce','Nidalee','Xerath','Caitlyn','Karma'],pr:['Jax','Kindred','Azir','Jinx','Lulu'],sp:['Fiora',"Bel'Veth",'Ryze','Tristana','Janna'],sk:['Renekton','Lee Sin','LeBlanc','Draven','Pyke'],ne:['Gnar','Vi','Ahri',"Kai'Sa",'Thresh']};
 run(ctx,`S.opt=S.opt||{};S.opt.draft=1;S.opt.live=1;var __M=null;mgrMatch=function(){return __M};S.mgr={tid:3,dr:null,bench:[],acad:[]};
 var COMPS=__COMPS;
