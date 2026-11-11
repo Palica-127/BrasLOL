@@ -1263,6 +1263,10 @@ select option:checked,select option:hover{background:#2a3a8c;color:#fff}
 .mtd{width:100%;margin:8px 0 0;padding:12px 18px;background:rgba(10,15,36,.8);border:1px solid var(--sk-bd);font:600 14px var(--b)}
 .mts{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:8px;width:100%;padding:10px 14px;background:rgba(10,15,36,.8);border:1px solid var(--sk-bd)}
 .mts small{display:block;font:600 10px var(--b);color:var(--muted)}.mts b{font:700 18px var(--d)}.mtk{display:flex;justify-content:center;gap:4px;margin-top:3px}
+.kpf{width:100%;margin-top:10px;text-align:left}.kpf h4{font:700 12px var(--d);letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.kpb{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:10px}.kpb div small{display:block;font:600 10px var(--b);color:var(--muted)}.kpb i{display:block;height:5px;margin-top:3px;background:rgba(255,255,255,.1)}.kpb i b{display:block;height:100%;background:var(--gold,#c8aa6e)}
+.kph{display:grid;gap:6px}.kph div{display:grid;grid-template-columns:22px 1fr;gap:8px;padding:6px 8px;background:rgba(10,15,36,.6);border:1px solid var(--sk-bd)}.kph em{font:700 12px var(--d);font-style:normal;color:var(--gold,#c8aa6e)}.kph b{font:600 12px var(--b)}.kph small{display:block;font:400 11px/1.35 var(--b);color:var(--muted)}.kph span{float:right;font:600 10px var(--b);color:var(--muted)}
+
 @media (max-width:1000px){.mtg{grid-template-columns:1fr;gap:18px}.mtm{order:-1}.mth h2{font-size:24px}.mtl button{width:56px}}
 /* ---------- scrims e torneio na tela Jogar ---------- */
 .sqk{display:block;margin:14px 0 6px}
@@ -7297,11 +7301,18 @@ function vMetaCh(){
   <div class="mtg">
     <section class="mtc mtc1"><h3>Meta <small>Tier S e A · ${RNF[r]}</small></h3>${good.length?good.map(x=>row(x)).join(''):'<p class="note">Nenhum campeão em alta nesta rota.</p>'}</section>
     <section class="mtm"><div class="mtring t${sel.t}">${CHIMG[sel.c]?`<img src="${CHIMG[sel.c]}" alt="" draggable="false">`:`<i>${esc(chIni(sel.c))}</i>`}</div><div class="mttier">Tier <b class="t${sel.t}">${sel.t}</b></div><h2>${esc(sel.c)}</h2><small class="mtrl">${RNF[r]} · ${archL(sel.a)}${CHD[sel.c]?' · '+CHD[sel.c].t.slice(0,2).map(x=>TG[x]).join('/'):''}</small><p class="mtd">${TIERTX[sel.t]}</p>
-      <div class="mts">${st('Força no meta',(sel.v>0?'+':'')+Math.round(sel.v*100))}${st('Vitória estimada',(50+sel.v*12).toFixed(1).replace('.',',')+'%')}${p?st('Domínio de '+esc(p.n),Math.round(mastOf(p.n,sel.c)*100)):''}<div><small>Counters</small><span class="mtk">${ctr.length?ctr.map(c=>chTile(c,'sm')).join(''):'—'}</span></div></div></section>
+      <div class="mts">${st('Força no meta',(sel.v>0?'+':'')+Math.round(sel.v*100))}${st('Vitória estimada',(50+sel.v*12).toFixed(1).replace('.',',')+'%')}${p?st('Domínio de '+esc(p.n),Math.round(mastOf(p.n,sel.c)*100)):''}<div><small>Counters</small><span class="mtk">${ctr.length?ctr.map(c=>chTile(c,'sm')).join(''):'—'}</span></div></div>${chKitHtml(sel.c)}</section>
     <section class="mtc mtc2"><h3>Tier F e C <small>${RNF[r]}</small></h3>${bad.length?bad.map(x=>row(x,1)).join(''):'<p class="note">Nenhum campeão em baixa nesta rota.</p>'}</section>
   </div></div>`;
 }
 
+/* ficha de habilidades do kit + barras do perfil de combate (KITP, gerado dos kits do patch) */
+function chKitHtml(c){
+  const d=KITP[c];if(!d)return '';
+  const L=['Explosão','Controle','Sustentação','Mobilidade','Alcance'],bars=d.k.split('').map((v,i)=>`<div><small>${L[i]}</small><i><b style="width:${Math.round(+v/9*100)}%"></b></i></div>`).join('');
+  const hab=d.h.map(x=>`<div><em>${x[0]}</em><p style="margin:0"><b>${esc(x[1])}</b>${x[3]?`<span>${esc(String(x[3]))} s</span>`:''}<small>${esc(x[2])}</small></p></div>`).join('');
+  return `<div class="kpf"><h4>Perfil de combate</h4><div class="kpb">${bars}</div><h4>Habilidades</h4><div class="kph">${hab}</div></div>`;
+}
 /* ---------- tela Itens (dentro da aba Meta): preço, receita, atributos e passivas do patch ---------- */
 let metaV='ch',itQ='',itC='legendary',itSel=null,itSort='p';
 const ITC=[['all','Todos'],['legendary','Lendários'],['epic','Épicos'],['component','Componentes'],['boots','Botas'],['starter','Iniciais'],['consumable','Consumíveis'],['trinket','Amuletos']];

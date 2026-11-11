@@ -17,6 +17,7 @@ const r = JSON.parse(run(ctx, `(function(){
   out.burst=duelo({b:1,c:.35,s:.35,m:.35,r:.4},neutro,N);
   out.controle=duelo({b:.5,c:1,s:.35,m:.35,r:.4},neutro,N);
   out.mobilidade=duelo({b:.5,c:.35,s:.35,m:1,r:.4},neutro,N);
+  out.fichaAhri=chKitHtml('Ahri');out.fichaNada=chKitHtml('Inexistente');
   return JSON.stringify(out)})()`));
 T(r.semPerfil.length === 0, 'todos os campeoes do CHDATA tem perfil de kit' + (r.semPerfil.length ? ': ' + r.semPerfil.join(',') : ''));
 T(r.fora.length === 0, 'perfis dentro de 0..1');
@@ -25,4 +26,6 @@ T(Math.abs(r.base - .5) < .08, 'lados neutros: luta equilibrada (' + r.base.toFi
 T(r.burst > r.base + .03, 'explosao alta vence neutro (' + r.burst.toFixed(2) + ' vs base ' + r.base.toFixed(2) + ')');
 T(r.controle > r.base + .02, 'controle alto vence neutro (' + r.controle.toFixed(2) + ')');
 T(r.mobilidade > r.base - .02, 'mobilidade alta nao perde para neutro (' + r.mobilidade.toFixed(2) + ')');
+T(/Orbe da Ilusão/.test(r.fichaAhri) && /Perfil de combate/.test(r.fichaAhri), 'ficha do campeão mostra perfil e habilidades (Ahri: Orbe da Ilusão)');
+T(r.fichaNada === '', 'campeão sem kit: ficha vazia, sem erro');
 console.log(bad ? '\nHA FALHAS' : '\nTODOS OS TESTES PASSARAM'); process.exit(bad ? 1 : 0);
