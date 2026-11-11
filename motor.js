@@ -14,7 +14,7 @@ const ROSTERS = {
 };
 function createGame({ seed = 1, teams, loader, cap = 3600 } = {}) {
   const w = new World({ seed, loader, arena: { w: LAY.W, h: LAY.H } });
-  ECO.enable(w, { lanes: LAY.lanes() }); JG.enable(w); w.jungle.mul = { gold: 1.5, xp: 1.9 }; /* Bloco 10c (ESTIMADO): compensa o ritmo de limpeza da IA (~1,3 acampamento/min); calibrar com CAL_CLASSICO=1 */ STR.enable(w); w.respawn = true; w.supplies = true;
+  ECO.enable(w, { lanes: LAY.lanes() }); JG.enable(w); w.jungle.mul = { gold: 2.2, xp: 3.2 }; /* Bloco 10c (ESTIMADO): compensa o ritmo de limpeza da IA (~1,3 acampamento/min); calibrar com CAL_CLASSICO=1 */ STR.enable(w); w.respawn = true; w.supplies = true;
   const brains = createMatch(w, teams || [{ roster: ROSTERS.A }, { roster: ROSTERS.B }]);
   w.cap = cap; return { w, brains };
 }
@@ -3589,10 +3589,11 @@ class Strategy {
     this.roles = roles;
     this.group = this.groupLane(); this.waves();
   }
+  goalLane() { const g = this.b.goal; if (!g || (g.kind !== 'siege' && g.kind !== 'defend')) return null; return g.kind === 'siege' ? g.lane : g.where === 'nx' ? 'mid' : g.where; }      /* rota do cerco/defesa em curso: o split nao vai para la */
   pickSplitLane(p, op) {
     const b = this.b, t = this.w.t; let best = null;
     ['top', 'bot', 'mid'].forEach(id => {
-      if (id === this.group && id === 'mid') return;
+      if (id === this.group || id === this.goalLane()) return;      /* split na rota do proprio grupo nao e split (antes so o meio era excluido) */
       const T = b.frontTurret(id); if (!T) return;
       const foes = op.filter(e => dist(e.pos, T.pos) < 5200).length; if (foes) return;
       const sc = (p.role === 'top' && id === 'top' ? 0.6 : 0) + (p.role === 'adc' && id === 'bot' ? 0.5 : 0) - 0.5 * foes + (id === 'mid' ? -0.4 : 0) + this.w.rng.gauss('ia') * 0.03;
@@ -3604,7 +3605,7 @@ class Strategy {
   groupLane() {
     const b = this.b, w = this.w, t = w.t, g = b.goal;
     if (g && (g.kind === 'siege' || g.kind === 'defend')) { const ln = g.kind === 'siege' ? g.lane : g.where === 'nx' ? 'mid' : g.where; if (ln) { this.groupAt = t; this.groupCur = ln; return ln; } }
-    if (this.groupCur && t - this.groupAt < 40) return this.groupCur;
+    if (this.groupCur && t - this.groupAt < 40 && !(this.split && this.groupCur === this.splitLane)) return this.groupCur;      /* a retencao de 40 s nao vale se o grupo ficaria na rota do split */
     const S = w.structures, foe = 1 - b.team, TI = ['outer', 'inner', 'inhibTurret', 'inhibitor']; let best = 'mid', bs = -1;
     ['mid', 'top', 'bot'].forEach(id => { const L = S.lane(foe, id), own = S.lane(b.team, id), dead = TI.reduce((n, k) => n + (L[k].dead ? 1 : 0), 0), lost = TI.reduce((n, k) => n + (own[k].dead ? 1 : 0), 0); const sc = dead + lost * 0.6 + (id === 'mid' ? 0.35 : 0) - (id === this.splitLane && this.split ? 2 : 0); if (sc > bs) { bs = sc; best = id; } });
     this.groupCur = best; this.groupAt = t; return best;
