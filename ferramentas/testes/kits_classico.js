@@ -2,6 +2,7 @@
 const { load, run } = require('./harness.js');
 const path = require('path');
 const ctx = load(path.join(__dirname, '..', '..', 'index.html'));
+require('vm').runInContext(require('fs').readFileSync(path.join(__dirname, '..', '..', 'itens.js'), 'utf8'), ctx, { filename: 'itens.js' });
 let bad = 0; const T = (ok, m) => { console.log((ok ? 'OK  ' : 'FALHA ') + m); if (!ok) bad++; };
 const r = JSON.parse(run(ctx, `(function(){
   var out={}; var names=Object.keys(CHD);
@@ -27,5 +28,6 @@ T(r.burst > r.base + .03, 'explosao alta vence neutro (' + r.burst.toFixed(2) + 
 T(r.controle > r.base + .02, 'controle alto vence neutro (' + r.controle.toFixed(2) + ')');
 T(r.mobilidade > r.base - .02, 'mobilidade alta nao perde para neutro (' + r.mobilidade.toFixed(2) + ')');
 T(/Orbe da Ilusão/.test(r.fichaAhri) && /Perfil de combate/.test(r.fichaAhri), 'ficha do campeão mostra perfil e habilidades (Ahri: Orbe da Ilusão)');
+T(/Build sugerida/.test(r.fichaAhri) && /Capuz da Morte de Rabadon/.test(r.fichaAhri), 'ficha mostra a build sugerida (Ahri: Rabadon) com nomes vindos de itens.js');
 T(r.fichaNada === '', 'campeão sem kit: ficha vazia, sem erro');
 console.log(bad ? '\nHA FALHAS' : '\nTODOS OS TESTES PASSARAM'); process.exit(bad ? 1 : 0);

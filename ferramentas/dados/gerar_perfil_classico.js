@@ -2,13 +2,18 @@
 /* Gera o perfil de combate dos kits para o motor CLASSICO e o injeta no index.html (entre /*KITP-BEGIN*​/ e /*KITP-END*​/).
    Uso: node ferramentas/dados/gerar_perfil_classico.js [--dry]
    Entrada: kits (src/engine/champion/kits: 8 manuais + 165 rascunhos) e data/16.22.1/champions/*.json (textos pt_BR, alcance, recargas).
-   Saida em index.html: const KITP = { 'Nome do jogo': { k:'bcsmr' (cinco digitos 0-9), h:[[slot,nome,descricao,recarga],...] } }
+   Saida em index.html: const KITP = { 'Nome do jogo': { k:'bcsmr' (cinco digitos 0-9), h:[[slot,nome,descricao,recarga],...], b:[ids de item: botas, nucleo, finais] } }
    k = explosao, controle, sustentacao, mobilidade, alcance. Contagem de efeitos do kit ponderada pela recarga (nada de numeros inventados: so a estrutura dos kits e os dados do patch). */
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..', '..'), HTML = path.join(ROOT, 'index.html');
-const { KITS } = require(path.join(ROOT, 'src/engine/champion/kits'));
-const { createLoader } = require(path.join(ROOT, 'src/engine/data/loader'));
-const L = createLoader();
+const FONTES = path.join(__dirname, 'fontes'), DATA = path.join(ROOT, 'data', '16.22.1');
+const KITS = {}; require(path.join(FONTES, 'wave1.js')).forEach(k => { KITS[k.id] = k; });
+const AUTO = JSON.parse(fs.readFileSync(path.join(FONTES, 'auto.json'), 'utf8')); Object.keys(AUTO).forEach(id => { if (!KITS[id]) KITS[id] = AUTO[id]; });      /* rascunhos nunca substituem kit manual */
+const { BUILDS } = require(path.join(FONTES, 'curated.js'));
+const norm = x => String(x).toLowerCase().replace(/[^a-z0-9]/g, '');
+const LIST = JSON.parse(fs.readFileSync(path.join(DATA, 'champions.json'), 'utf8')), BY = {};
+LIST.forEach(c => { BY[norm(c.id)] = c.id; BY[norm(c.nome)] = c.id; });
+const L = { resolveId: n => BY[norm(n)] || null, champion: id => JSON.parse(fs.readFileSync(path.join(DATA, 'champions', id + '.json'), 'utf8')) };
 let html = fs.readFileSync(HTML, 'utf8');
 const names = [...html.matchAll(/(?:^|`)[0-4]\|([^|\n]+)\|/gm)].map(m => m[1]);       /* linhas do CHDATA do index.html (a 1a comeca depois do acento grave) */
 const HARD = { stun: 1, root: 1, snare: 1, knockup: 1, knockback: 0.9, suppress: 1.2, charm: 1, fear: 0.9, taunt: 0.9, sleep: 1, pull: 0.8, polymorph: 1, silence: 0.5, blind: 0.4, slow: 0.35, ground: 0.5 };
@@ -46,7 +51,8 @@ Object.keys(raw).forEach(nm => {
   ['Q', 'W', 'E', 'R'].forEach(sl => { const x = r.hab[sl]; if (x) h.push([sl, x.nome, cut(clean(x.descricao || x.tooltip), 150), (x.recarga && (x.recarga[0] === x.recarga[x.recarga.length - 1] ? x.recarga[0] : x.recarga[0] + '→' + x.recarga[x.recarga.length - 1])) || 0]); });
   const inf = r.ch.info || {}, mix = (kit, v) => Math.max(0, Math.min(9, Math.round(0.65 * kit + 0.35 * v)));       /* o kit automatico subestima alguns campeoes: mistura 35% com o info do Data Dragon */
   const bu = mix(dig(r.burst, M.burst), 9 * Math.max(inf.attack || 0, inf.magic || 0) / 10), su = mix(dig(r.sus, M.sus), 9 * (inf.defense || 0) / 10);
-  out[nm] = { k: '' + bu + dig(r.cc, M.cc) + su + dig(r.mob, M.mob) + Math.round(9 * r.range), h };
+  const bd = BUILDS[L.resolveId(nm)], build = bd ? [bd.b, ...bd.c, ...bd.f].filter((v, i, a) => v && a.indexOf(v) === i).slice(0, 7) : [];       /* botas + nucleo + finais (ESTIMADO, escritas a mao) */
+  out[nm] = { k: '' + bu + dig(r.cc, M.cc) + su + dig(r.mob, M.mob) + Math.round(9 * r.range), h, b: build };
 });
 const lit = 'const KITP=' + JSON.stringify(out) + ';';
 console.log('campeoes com perfil:', Object.keys(out).length, 'de', names.length, '| tamanho', Math.round(lit.length / 1024) + ' KB');
