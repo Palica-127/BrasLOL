@@ -6058,7 +6058,7 @@ function vMenu(){
     cur==='mgr'?`<button class="play" data-act="tab" data-v="mgr">${mt?'Abrir Gestão · '+esc(mt.name):'Escolher novo clube'}</button>`:ask==='mgr'?`<button class="ghost danger" data-act="menuGo" data-v="mgr">Confirmar: encerrar o modo atual</button>${cancel}`:`<button class="ghost" data-act="${cur==='sim'?'menuGo':'menuAsk'}" data-v="mgr">Começar</button>`);
   const pl=modeCard('Jogador','Viva a carreira de um pro player: atributos, energia, disputa de vaga, nota por temporada, propostas de clubes, metas e fama. Crie um do zero ou assuma um existente.',cur==='pc','user',['Atributos','Energia','Propostas','Fama'],
     cur==='pc'?`<button class="play" data-act="tab" data-v="pc">Abrir carreira · ${esc(S.pc.n)}</button>`:ask==='pc'?`<button class="ghost danger" data-act="menuGo" data-v="pcHome">Confirmar: encerrar o modo atual</button>${cancel}`:`<button class="ghost" data-act="${cur==='sim'?'menuGo':'menuAsk'}" data-v="${cur==='sim'?'pcHome':'pc'}">Começar</button>`);
-  const last=S.pc&&S.pc.ended?`<section class="pn"><h2>Última carreira</h2><p class="note" style="margin:0">${esc(S.pc.n)} encerrou a carreira em ${S.pc.ended}, com ${S.pc.hist.length} temporada${S.pc.hist.length===1?'':'s'} e fama ${S.pc.fame}.</p><div class="row" style="margin:10px 0 0"><button class="ghost" data-act="pcPdf">Baixar folder (PDF)</button></div></section>`:'';
+  const last=S.pc&&S.pc.ended?`<section class="pn"><h2>Última carreira</h2><p class="note" style="margin:0">${esc(S.pc.n)} encerrou a carreira em ${S.pc.ended}, com ${S.pc.hist.length} temporada${S.pc.hist.length===1?'':'s'} e fama ${S.pc.fame}.</p><div class="row" style="margin:10px 0 0"><button class="ghost" data-act="foPl" data-v="${esc(S.pc.n)}">Baixar folder (PDF)</button></div></section>`:'';
   return h+`<div class="mhome"><div class="mhero"><h2>Escolha seu modo</h2><p>O mundo é o mesmo nos três: ligas, D2, Mundial e Melhor Jogador do Ano. O que muda é o que você controla.</p></div><div class="mgrid">${sim+mg+pl}</div>${last}</div>`;
 }
 function pcListHTML(){
@@ -6160,7 +6160,7 @@ function vPc0(){
   let h=msg?`<div class="msg">${esc(msg)}</div>`:'';
   const f=pcFind();
   if(pc.ended||!f){
-    return h+`<section class="pn"><h2>Carreira encerrada</h2><p class="note" style="margin:0 0 10px">${esc(pc.n)} se aposentou em ${pc.ended||S.year}. Fama final: ${pc.fame}. Patrimônio: ${fmtM(pc.cash)}.</p><div class="row" style="margin:0"><button class="play" data-act="pcPdf">Baixar folder da carreira (PDF)</button><button class="ghost" data-act="tab" data-v="menu">Voltar ao Menu</button></div></section>`+pcHistHTML(pc)+pcLogHTML(pc);
+    return h+`<section class="pn"><h2>Carreira encerrada</h2><p class="note" style="margin:0 0 10px">${esc(pc.n)} se aposentou em ${pc.ended||S.year}. Fama final: ${pc.fame}. Patrimônio: ${fmtM(pc.cash)}.</p><div class="row" style="margin:0"><button class="play" data-act="foPl" data-v="${esc(pc.n)}">Baixar folder da carreira (PDF)</button><button class="ghost" data-act="tab" data-v="menu">Voltar ao Menu</button></div></section>`+pcHistHTML(pc)+pcLogHTML(pc);
   }
   const p=f.p,t=f.t;
   h+=`<div class="pcTop"><section class="pn"><div class="ph phf">${fut({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f,team:t},'big')}<div><h3>${esc(p.n)}</h3><small>${RN[p.role]} · ${p.age} anos · ${esc(t.name)}${t.d===2?' (D2)':''}</small><small>${f.bn?'<b style="color:#FF9AA8">Reserva</b>':'<b style="color:#00F5A0">Titular</b>'} · contrato ${pc.ctr} ano${pc.ctr===1?'':'s'} · ${fmtM(pc.sal)}/ano</small></div></div>
@@ -6216,7 +6216,8 @@ function pdfDoc(foot){
     }};
   return D;
 }
-/* imagens do folder: trofeus e logos ja estao embutidos no CSS (data URI); viram JPEG sobre o fundo do cartao e entram no PDF como DCT */
+/* imagens do folder: trofeus e logos ja estao embutidos no CSS (data URI); fotos vem de jogadores/*.webp. Tudo vira JPEG sobre o fundo do cartao e entra no PDF como DCT.
+   Se o navegador bloquear a leitura da imagem (ex.: foto em arquivo local), o folder sai sem ela. */
 const _pdfImgC={};
 function cssImgUrl(cls,pseudo){
   const e=document.createElement('span');e.className=cls;e.style.cssText='position:absolute;left:-9999px;width:10px;height:10px';document.body.appendChild(e);
@@ -6230,85 +6231,128 @@ function pdfImg(src,bg,tw){
     im.onerror=()=>res(null);im.src=src}));
 }
 const pdfTroSrc=k=>k==='b'?TRO_MJA:cssImgUrl('ti ti-'+k);
-async function pcFolder(){
-  const pc=S.pc;if(!pc)return null;
-  const hof=S.hof[pc.n]||{},hs=pc.hist||[],nat=natC(pc.n),natN=NATN[nat]||nat||'',tl=(S.pdb[pc.n]&&S.pdb[pc.n].tl)||[];
-  const role=hs.length?hs[hs.length-1].role:((S.pdb[pc.n]||{}).role||2);
-  const y0=pc.start||(hs[0]&&hs[0].y)||S.year,y1=pc.ended||S.year,GO='#D9B35F',GH='#F2D58C',MU='#8C97BD',PN='#141B33',BG='#0A0F1E';
-  /* trofeus do jogador (mesma fonte da estante da ficha) */
-  const lgK=s=>(/(LCK|LPL|LEC|LCS|CBLOL)/.exec(s||'')||[])[1];
-  const lastT=hs.length?ALLT().find(t=>t.name===hs[hs.length-1].team):null,defLg=lgK(lastT&&lastT.lg)||'LEC';
-  const byY=(a,b)=>(+a.y||0)-(+b.y||0),isMV=x=>/^MVP/.test(x.t),isBO=x=>x.t==='Bola de Ouro'||x.t==='Melhor Jogador do Ano';
-  const W=tl.filter(x=>x.t==='Mundial').sort(byY),M=tl.filter(x=>x.t==='MSI').sort(byY),Cp=tl.filter(x=>x.t==='Copa do Mundo de LoL').sort(byY);
-  const L=tl.filter(x=>x.t!=='Mundial'&&x.t!=='MSI'&&x.t!=='Copa do Mundo de LoL'&&!isMV(x)&&!isBO(x)&&!/^Top 5/.test(x.t)&&x.y!=='—').sort(byY);
-  const V=tl.filter(isMV).sort(byY),B=tl.filter(isBO).sort(byY),unk=Math.max(0,(hof.lg||0)-L.length);
-  const grp=[['Mundiais','w',W.map(x=>({y:x.y,k:'w'}))],['Melhor do Ano','b',B.map(x=>({y:x.y,k:'b'}))],['MSI','m',M.map(x=>({y:x.y,k:'m'}))],['Copa do Mundo','c',Cp.map(x=>({y:x.y,k:'c'}))],
-    ['Ligas','l',[...L.map(x=>({y:x.y,k:lgK(x.t)||defLg})),...Array(unk).fill(0).map(()=>({y:'-',k:defLg}))]],
-    ['MVPs','p',V.map(x=>({y:x.y,k:/Copa/.test(x.t)?'mvp-c':/Mundial/.test(x.t)?'mvp-w':/MSI/.test(x.t)?'mvp-m':'mvp-'+(lgK(x.t)||'LCK')}))]].filter(g=>g[2].length);
-  const total=grp.reduce((a,g)=>a+g[2].length,0),feat=grp.length?grp[0][2][0].k:null;
-  /* imagens */
+const foLgK=s=>(/(LCK|LPL|LEC|LCS|CBLOL)/.exec(s||'')||[])[1];
+/* monta o PDF a partir de uma descricao: {foot,eyebrow,title,line2,line3,hero:{kind,src},stats:[[v,l]x4],grp,clubs,cards:{title,items},table:{title,cols,rows,hl},end} */
+async function foBuild(o){
+  const GO='#D9B35F',GH='#F2D58C',MU='#8C97BD',PN='#141B33',C=PDFW/2;
+  const grp=o.grp||[],total=grp.reduce((a,g)=>a+g[2].length,0);
   const IM={};await Promise.all([...new Set(grp.flatMap(g=>g[2].map(x=>x.k)))].map(async k=>{IM[k]=await pdfImg(pdfTroSrc(k),PN,190)}));
-  const heroIm=feat?await pdfImg(pdfTroSrc(feat),PN,260):null;
-  const clubs=[];hs.forEach(x=>{const l=clubs[clubs.length-1];if(l&&l.t===x.team)l.b=x.y;else clubs.push({t:x.team,d:x.div,a:x.y,b:x.y})});
-  for(const c of clubs){const t=ALLT().find(z=>z.name===c.t),sl=t&&logoOf(slug(t.name));c.im=sl?await pdfImg(cssImgUrl('lg-'+sl,'::before'),BG,90):null}
-  const D=pdfDoc('Carreira de '+pc.n);D.page();const C=PDFW/2;
+  const hero=o.hero&&o.hero.src?await pdfImg(o.hero.src,PN,o.hero.kind==='photo'?360:260):null;
+  for(const c of o.clubs||[])c.im=c.src?await pdfImg(c.src,'#0A0F1E',90):null;
+  const D=pdfDoc(o.foot);D.page();
   /* capa */
-  D.text('BRASLOL  -  LEAGUE OF LEGENDS  -  CARREIRA PRO',C,84,9,{al:'c',c:GO,cs:3});
+  D.text(o.eyebrow,C,84,9,{al:'c',c:GO,cs:3});
   D.line(C-130,108,C-14,108,GO,.6);D.line(C+14,108,C+130,108,GO,.6);D.diamond(C,108,6,GO);
-  const nm=pc.n.toUpperCase();let fs=60;while(fs>20&&pdfTw(nm,fs,1,1)>PDFW-130)fs-=2;
+  const nm=o.title.toUpperCase();let fs=60;while(fs>20&&pdfTw(nm,fs,1,1)>PDFW-130)fs-=2;
   D.text(nm,C,180,fs,{al:'c',b:1,cs:1});
-  D.text((RNF[role]+(natN?'  -  '+natN:'')).toUpperCase(),C,210,12,{al:'c',c:'#5FDCE8',cs:3});
-  D.text(`${y0} - ${y1}  -  ${hs.length} temporada${hs.length===1?'':'s'}`,C,234,10,{al:'c',c:MU,cs:1});
-  /* destaque: trofeu maior ao centro, numeros nas laterais */
+  D.text(o.line2.toUpperCase(),C,210,12,{al:'c',c:'#5FDCE8',cs:3});
+  D.text(o.line3,C,234,10,{al:'c',c:MU,cs:1});
+  /* destaque: imagem ao centro (foto, logo ou troféu), números nas laterais */
   D.rect(54,254,PDFW-108,138,PN);D.rect(54,254,PDFW-108,2.5,GO);
-  if(heroIm){const hh=118,ww=Math.min(120,hh*heroIm.w/heroIm.h);D.img(heroIm,C-ww/2,262,ww,hh)}
-  else{D.diamond(C,323,34,GO);D.diamond(C,323,26,BG)}
-  const best=hs.filter(x=>x.rating!=null).sort((a,b)=>b.rating-a.rating)[0];
-  const st=(x,y,v,l)=>{D.text(v,x,y,26,{al:'c',b:1,c:GH});D.text(l.toUpperCase(),x,y+14,7.5,{al:'c',c:MU,cs:1.2})};
-  st(135,298,hs.length?Math.max(...hs.map(z=>z.ovr)):'-','OVR máximo');D.line(95,320,175,320,'#2A3358',.8);st(135,352,best?String(best.rating).replace('.',','):'-','Melhor nota'+(best?' ('+best.y+')':''));
-  st(460,298,pc.fame,'Fama final');D.line(420,320,500,320,'#2A3358',.8);st(460,352,fmtM(pc.cash),'Patrimônio');
+  if(hero){const bx=118,s=Math.min(bx/hero.w,bx/hero.h),w=hero.w*s,h=hero.h*s,y=262+(bx-h)/2;D.img(hero,C-w/2,y,w,h);if(o.hero.kind==='photo')D.stroke(C-w/2,y,w,h,GO,1.4)}
+  else{D.diamond(C,323,34,GO);D.diamond(C,323,26,'#0A0F1E')}
+  const st=(x,y,v,l)=>{const s=String(v),f=pdfTw(s,26,1)>150?20:26;D.text(s,x,y,f,{al:'c',b:1,c:GH});D.text(l.toUpperCase(),x,y+14,7.5,{al:'c',c:MU,cs:1.2})};
+  const S4=o.stats;
+  st(135,298,S4[0][0],S4[0][1]);D.line(95,320,175,320,'#2A3358',.8);st(135,352,S4[1][0],S4[1][1]);
+  st(460,298,S4[2][0],S4[2][1]);D.line(420,320,500,320,'#2A3358',.8);st(460,352,S4[3][0],S4[3][1]);
   D.y=404;
   const sec=t=>{D.need(44);D.y+=16;D.text(t.toUpperCase(),54,D.y,9,{c:GO,b:1,cs:2.5});D.line(54,D.y+7,PDFW-54,D.y+7,'#2A3358',.8);D.y+=20};
-  /* sala de trofeus */
+  /* sala de troféus */
   sec(`Sala de troféus  -  ${total}`);
   if(!grp.length){D.rect(54,D.y,PDFW-108,52,PN);D.text('Prateleira ainda vazia: os títulos vêm com o tempo.',C,D.y+30,10,{al:'c',c:MU});D.y+=64}
   grp.forEach(([lab,,items])=>{
     const per=6,rows=Math.ceil(items.length/per),h=Math.max(84,rows*82+10);D.need(h+10);
     const y=D.y;D.rect(54,y,PDFW-108,h,PN);D.rect(54,y,3,h,GO);
     D.text(lab.toUpperCase(),72,y+24,8.5,{b:1,c:MU,cs:1.5});D.text(items.length,72,y+60,34,{b:1,c:GH});
-    items.forEach((it,i)=>{const im=IM[it.k],r=Math.floor(i/per),cx=190+(i%per)*60+30,ty=y+10+r*82;
+    items.forEach((it,i)=>{const im=IM[it.k],r=Math.floor(i/per),cx=180+(i%per)*60+30,ty=y+10+r*82;
       if(im){const hh=it.k==='b'?64:58,ww=Math.min(54,hh*im.w/im.h),h2=ww*im.h/im.w;D.img(im,cx-ww/2,ty+(hh-h2)/2,ww,h2)}else D.diamond(cx,ty+28,14,GO);
       D.text(it.y,cx,ty+74,8.5,{al:'c',b:1,c:GH})});
     D.y+=h+10});
   /* clubes */
-  sec('Clubes');
-  if(!clubs.length){D.text('Carreira sem temporadas fechadas.',54,D.y,10,{c:MU});D.y+=20}
-  clubs.forEach(c=>{D.need(30);const y=D.y;
-    if(c.im){const s=Math.min(24/c.im.w,24/c.im.h);D.img(c.im,54+(24-c.im.w*s)/2,y-16+(24-c.im.h*s)/2,c.im.w*s,c.im.h*s)}else{D.rect(54,y-16,24,24,PN);D.text(ini(c.t),66,y-1,8,{al:'c',b:1,c:GH})}
-    D.text(D.fit(c.t+(c.d===2?' (D2)':''),340,12,1),88,y,12,{b:1});D.text(c.a===c.b?String(c.a):c.a+' - '+c.b,PDFW-54,y,10,{al:'r',c:MU});D.y+=30});
-  /* marcos em cartoes */
-  const gl=PGOALS.filter(g=>pc.goals[g[0]]).sort((a,b)=>pc.goals[a[0]]-pc.goals[b[0]]);
-  sec('Marcos da carreira');
-  if(!gl.length){D.text('Nenhuma meta de carreira cumprida.',54,D.y,10,{c:MU});D.y+=20}
-  const cw=(PDFW-108-12)/2;
-  gl.forEach((g,i)=>{if(i%2===0)D.need(54);const x=54+(i%2)*(cw+12),y=D.y;
-    D.rect(x,y,cw,46,PN);D.rect(x,y,3,46,i%3===0?GO:i%3===1?'#5FDCE8':'#C95F7A');
-    D.text(D.fit(g[1],cw-80,10.5,1),x+14,y+18,10.5,{b:1});D.text(D.fit(g[2],cw-28,7.5),x+14,y+33,7.5,{c:MU});
-    D.text(pc.goals[g[0]],x+cw-10,y+18,12,{al:'r',b:1,c:GH});if(i%2===1||i===gl.length-1)D.y+=54});
-  /* temporadas */
-  D.need(110);sec('Temporada a temporada');
-  const col=[['ANO',54,'l'],['CLUBE',96,'l'],['FUNÇÃO',262,'l'],['IDADE',362,'r'],['OVR',406,'r'],['NOTA',452,'r'],['PRÊMIO',541,'r']];
-  const row=(v,y,b,c)=>col.forEach(([,x,al],i)=>D.text(v[i],x,y,b?7.5:9.5,{al:al==='r'?'r':'l',b:b,c:c,cs:b?1.5:0}));
-  D.need(24);row(col.map(k=>k[0]),D.y,1,MU);D.y+=18;
-  hs.forEach((x,i)=>{D.need(20);if(i%2===0)D.rect(48,D.y-13,PDFW-96,19,'#101730');
-    row([x.y,D.fit(x.team+(x.div===2?' (D2)':''),160,9.5),RN[x.role]+(x.bn?' (res.)':''),x.age,x.ovr,x.rating!=null?String(x.rating).replace('.',','):'-',x.top===1?'Melhor do Ano':x.top>0?'Top '+x.top:'-'],D.y,0,x.top===1?GH:'#FFFFFF');D.y+=20});
-  D.need(30);D.y+=10;D.text(`Carreira encerrada em ${y1}.`,C,D.y,9,{al:'c',c:MU,cs:1});
+  if(o.clubs){
+    sec('Clubes');
+    if(!o.clubs.length){D.text('Sem temporadas registradas.',54,D.y,10,{c:MU});D.y+=20}
+    o.clubs.forEach(c=>{D.need(30);const y=D.y;
+      if(c.im){const s=Math.min(24/c.im.w,24/c.im.h);D.img(c.im,54+(24-c.im.w*s)/2,y-16+(24-c.im.h*s)/2,c.im.w*s,c.im.h*s)}else{D.rect(54,y-16,24,24,PN);D.text(ini(c.t),66,y-1,8,{al:'c',b:1,c:GH})}
+      D.text(D.fit(c.t+(c.d===2?' (D2)':''),340,12,1),88,y,12,{b:1});D.text(c.a===c.b?String(c.a):c.a+' - '+c.b,PDFW-54,y,10,{al:'r',c:MU});D.y+=30});
+  }
+  /* cartões (marcos, reconhecimentos, elenco) */
+  if(o.cards&&o.cards.items.length){
+    sec(o.cards.title);
+    const cw=(PDFW-108-12)/2,L=o.cards.items;
+    L.forEach((g,i)=>{if(i%2===0)D.need(54);const x=54+(i%2)*(cw+12),y=D.y;
+      D.rect(x,y,cw,46,PN);D.rect(x,y,3,46,i%3===0?GO:i%3===1?'#5FDCE8':'#C95F7A');
+      D.text(D.fit(g.h,cw-80,10.5,1),x+14,y+18,10.5,{b:1});D.text(D.fit(g.d,cw-28,7.5),x+14,y+33,7.5,{c:MU});
+      D.text(g.r,x+cw-10,y+18,12,{al:'r',b:1,c:GH});if(i%2===1||i===L.length-1)D.y+=54});
+  }
+  /* tabela */
+  if(o.table&&o.table.rows.length){
+    D.need(110);sec(o.table.title);
+    const col=o.table.cols;
+    const row=(v,y,b,c)=>col.forEach(([,x,al],i)=>D.text(v[i],x,y,b?7.5:9.5,{al:al==='r'?'r':'l',b:b,c:c,cs:b?1.5:0}));
+    D.need(24);row(col.map(k=>k[0]),D.y,1,MU);D.y+=18;
+    o.table.rows.forEach((r,i)=>{D.need(20);if(i%2===0)D.rect(48,D.y-13,PDFW-96,19,'#101730');row(r,D.y,0,o.table.hl&&o.table.hl[i]?GH:'#FFFFFF');D.y+=20});
+  }
+  D.need(30);D.y+=10;D.text(o.end,C,D.y,9,{al:'c',c:MU,cs:1});
   return D.build();
 }
-async function pcFolderDl(){
-  let u=null;try{u=await pcFolder()}catch(e){console.error(e)}if(!u)return false;
+/* ---- jogador (qualquer um: ativo, aposentado, lenda ou o seu criado) ---- */
+async function foPlayer(n){
+  const P=pmap()[n]||mExtra(n)||bnFind(n),d=S.pdb[n]||{seasons:[],tl:[],ret:null,debut:null,role:null},h=S.hof[n]||{pts:0,bd:0,wc:0,msi:0,lg:0,mvp:0};
+  const pc=S.pc&&S.pc.n===n?S.pc:null,ss=d.seasons||[],tl=d.tl||[];
+  const role=P?P.p.role:(d.role!=null?d.role:(pc&&pc.hist.length?pc.hist[pc.hist.length-1].role:null));
+  const nat=natC(n),natN=NATN[nat]||nat||'';
+  const rows=pc&&pc.hist.length?pc.hist.map(x=>({y:x.y,team:x.team,div:x.div,ovr:x.ovr,age:x.age,nota:x.rating!=null?String(x.rating).replace('.',','):'-',rk:x.top===1?'Melhor do Ano':x.top>0?'Top '+x.top:'-',jg:'-'}))
+    :ss.map(s=>({y:s.y,team:s.tm,ovr:s.r,age:s.age,nota:String(s.sc).replace('.',','),rk:s.pos===1?'Melhor do Ano':s.pos+'º',jg:s.gw+'-'+s.gl}));
+  /* troféus (mesma fonte da estante da ficha) */
+  const lastT=rows.length?ALLT().find(t=>t.name===rows[rows.length-1].team):null,defLg=foLgK(lastT&&lastT.lg)||foLgK(P&&P.t.lg)||'LEC';
+  const byY=(a,b)=>(+a.y||0)-(+b.y||0),isMV=x=>/^MVP/.test(x.t),isBO=x=>x.t==='Bola de Ouro'||x.t==='Melhor Jogador do Ano';
+  const W=tl.filter(x=>x.t==='Mundial').sort(byY),M=tl.filter(x=>x.t==='MSI').sort(byY),Cp=tl.filter(x=>x.t==='Copa do Mundo de LoL').sort(byY);
+  const L=tl.filter(x=>x.t!=='Mundial'&&x.t!=='MSI'&&x.t!=='Copa do Mundo de LoL'&&!isMV(x)&&!isBO(x)&&!/^Top 5/.test(x.t)&&x.y!=='—').sort(byY);
+  const V=tl.filter(isMV).sort(byY),B=tl.filter(isBO).sort(byY),unk=Math.max(0,(h.lg||0)-L.length);
+  const grp=[['Mundiais','w',W.map(x=>({y:x.y,k:'w'}))],['Melhor do Ano','b',B.map(x=>({y:x.y,k:'b'}))],['MSI','m',M.map(x=>({y:x.y,k:'m'}))],['Copa do Mundo','c',Cp.map(x=>({y:x.y,k:'c'}))],
+    ['Ligas','l',[...L.map(x=>({y:x.y,k:foLgK(x.t)||defLg})),...Array(unk).fill(0).map(()=>({y:'-',k:defLg}))]],
+    ['MVPs','p',V.map(x=>({y:x.y,k:/Copa/.test(x.t)?'mvp-c':/Mundial/.test(x.t)?'mvp-w':/MSI/.test(x.t)?'mvp-m':'mvp-'+(foLgK(x.t)||'LCK')}))]].filter(g=>g[2].length);
+  const feat=grp.length?grp[0][2][0].k:null;
+  const clubs=[];rows.forEach(x=>{const l=clubs[clubs.length-1];if(l&&l.t===x.team)l.b=x.y;else{const t=ALLT().find(z=>z.name===x.team),sl=t&&logoOf(slug(t.name));clubs.push({t:x.team,d:x.div,a:x.y,b:x.y,src:sl?cssImgUrl('lg-'+sl,'::before'):null})}});
+  const peak=Math.max(...rows.map(x=>x.ovr),P?P.p.r:0)||'-',bestPos=ss.length?Math.min(...ss.map(s=>s.pos)):null;
+  const best=pc?rows.filter(x=>x.nota!=='-').map(x=>x.nota).sort().pop():null;
+  const stats=pc?[[peak,'OVR máximo'],[best||'-','Melhor nota'],[pc.fame,'Fama final'],[fmtM(pc.cash),'Patrimônio']]
+    :rows.length?[[peak,'Pico de OVR'],[bestPos?bestPos+'º':'-','Melhor posição'],[Math.round(sc(h)),'Pontos de lenda'],[rows.length,'Temporadas']]
+      :[[peak,'Pico de OVR'],[h.bd||0,'Melhor do Ano'],[Math.round(sc(h)),'Pontos de lenda'],[h.wc||0,'Mundiais']];
+  const yrs=rows.length?rows[0].y:(d.debut||'');
+  const line3=P?`Ativo - ${P.t.name} - ${P.p.age} anos`:d.ret?`${yrs?yrs+' - ':''}${d.ret}  -  aposentado`:(d.note||'Lenda do ranking inicial');
+  let cards={title:'Reconhecimentos',items:tl.filter(x=>/^Top 5/.test(x.t)).sort(byY).map(x=>({h:'Top 5 do Melhor do Ano',d:(x.t.match(/\((\d)º\)/)||[])[0]?'Posição '+x.t.match(/\((\d)º\)/)[1]+'º'+(x.tm?' - '+x.tm:''):x.tm||'',r:x.y}))};
+  if(pc){const gl=PGOALS.filter(g=>pc.goals[g[0]]).sort((a,b)=>pc.goals[a[0]]-pc.goals[b[0]]);cards={title:'Marcos da carreira',items:gl.map(g=>({h:g[1],d:g[2],r:pc.goals[g[0]]}))}}
+  const hero=phHas(n)?{kind:'photo',src:'jogadores/'+phSlug(n)+'.webp'}:{kind:'tro',src:feat?pdfTroSrc(feat):null};
+  return foBuild({foot:'Ficha de '+n,eyebrow:pc?'BRASLOL  -  LEAGUE OF LEGENDS  -  CARREIRA PRO':'BRASLOL  -  LEAGUE OF LEGENDS  -  FICHA DO JOGADOR',title:n,
+    line2:(role!=null?RNF[role]:'Jogador')+(natN?'  -  '+natN:''),line3,hero,stats,grp,clubs:rows.length?clubs:null,cards,
+    table:{title:'Temporada a temporada',cols:[['ANO',54,'l'],['CLUBE',96,'l'],['OVR',300,'r'],['IDADE',346,'r'],['NOTA',392,'r'],['RANKING',470,'r'],['JOGOS',541,'r']],
+      rows:rows.map(x=>[x.y,D_fit(x.team+(x.div===2?' (D2)':''),190),x.ovr,x.age,x.nota,x.rk,x.jg]),hl:rows.map(x=>x.rk==='Melhor do Ano')},
+    end:pc&&pc.ended?`Carreira encerrada em ${pc.ended}.`:`Ficha gerada na temporada ${S.year}.`});
+}
+const D_fit=(s,w)=>pdfTw(s,9.5)<=w?s:(()=>{while(s.length>1&&pdfTw(s+'...',9.5)>w)s=s.slice(0,-1);return s+'...'})();
+/* ---- time ---- */
+async function foTeam(id){
+  const t=T(id),ex=legExtra(t),vc=viceList(t),bo=teamBolas(t),yh=t.yh||[];
+  const all=t.tt.concat(ex.c).sort((a,b)=>a.y-b.y),dl=foLgK(t.lg)||'LEC';
+  const grp=[['Mundiais','w',all.filter(x=>x.k==='Mundial').map(x=>({y:x.y,k:'w'}))],['Melhor do Ano','b',bo.map(x=>({y:x.y,k:'b'}))],['MSI','m',all.filter(x=>x.k==='MSI').map(x=>({y:x.y,k:'m'}))],
+    ['Ligas','l',all.filter(x=>x.k!=='Mundial'&&x.k!=='MSI').map(x=>({y:x.y,k:foLgK(x.k)||dl}))]].filter(g=>g[2].length);
+  const feat=grp.length?grp[0][2][0].k:null,sl=logoOf(slug(t.name));
+  const gw=yh.reduce((a,s)=>a+s.gw,0),gl=yh.reduce((a,s)=>a+s.gl,0);
+  const stats=[[Math.round(baseOvr(t)),'OVR atual'],[gw+gl?Math.round(100*gw/(gw+gl))+'%':'-','Aproveitamento'],[vc.length,'Vices (Mundial e MSI)'],[yh.length,'Temporadas jogadas']];
+  const cards={title:'Elenco atual',items:t.pl.map(p=>({h:p.n,d:RNF[p.role]+' - '+p.age+' anos',r:p.r}))};
+  const hero=sl?{kind:'logo',src:cssImgUrl('lg-'+sl,'::before')}:{kind:'tro',src:feat?pdfTroSrc(feat):null};
+  return foBuild({foot:'Ficha de '+t.name,eyebrow:'BRASLOL  -  LEAGUE OF LEGENDS  -  FICHA DO TIME',title:t.name,line2:t.lg+(t.d===2?'  -  2ª divisão':''),
+    line3:`OVR ${Math.round(baseOvr(t))}`+(pwPos(t)>0?`  -  power #${pwPos(t)}`:''),hero,stats,grp,clubs:null,cards,
+    table:{title:'Histórico por temporada',cols:[['ANO',54,'l'],['SPLIT 1',200,'r'],['MSI',290,'r'],['SPLIT 2',390,'r'],['MUNDIAL',480,'r'],['JOGOS',541,'r']],
+      rows:[...yh].reverse().map(s=>[s.y,s.s1?s.s1+'º':'-',CODE[s.msi]||'-',s.s2?s.s2+'º':'-',CODE[s.wc]||'-',s.gw+'-'+s.gl]),hl:[...yh].reverse().map(s=>s.wc==='C'||s.s1===1||s.s2===1)},
+    end:`Ficha gerada na temporada ${S.year}.`});
+}
+async function foDl(build,name){
+  let u=null;try{u=await build()}catch(e){console.error(e)}if(!u)return false;
   const b=new Blob([u],{type:'application/pdf'}),a=document.createElement('a');
-  a.href=URL.createObjectURL(b);a.download='Folder - '+S.pc.n.replace(/[\\/:*?"<>|]/g,'')+'.pdf';
+  a.href=URL.createObjectURL(b);a.download='Folder - '+String(name).replace(/[\\/:*?"<>|]/g,'')+'.pdf';
   document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},800);return true;
 }
 function pcHistHTML(pc){
@@ -8387,7 +8431,7 @@ function vPlayer(n){
   const avg=f=>ss.length?r1(ss.reduce((a,s)=>a+s[f],0)/ss.length):'–';
   const bestPos=ss.length?Math.min(...ss.map(s=>s.pos)):null;
   const peak=ss.length?Math.max(...ss.map(s=>s.r),P?P.p.r:0):(P?P.p.r:'–');
-  let o=`<div class="row"><button class="ghost" data-act="back">← Voltar</button></div>`;
+  let o=`<div class="row"><button class="ghost" data-act="back">← Voltar</button><button class="ghost" data-act="foPl" data-v="${esc(n)}">Baixar folder (PDF)</button></div>`;
   o+=`<div class="shr"><section class="pn shh shp"><div class="ph phf">${ovr?fut({n,r:ovr,role:role==null?2:role,age:P?P.p.age:null,f:P?P.p.f:0,team:P?P.t:null},'big'):'<span class="hx lg">–</span>'}<div><h3>${esc(n)}${h.bd?`<span class="balls" title="${h.bd} × Melhor Jogador do Ano">${'<i></i>'.repeat(Math.min(h.bd,8))}</span>`:''}</h3><small>${status}${natC(n)?' · '+esc(NATN[natC(n)]||natC(n)):''}</small>${cmdHTML(n)}</div></div>
   <div class="cnt"><div><b class="num">${h.bd}</b><small>Melhor do Ano</small></div><div><b class="num">${h.wc}</b><small>Mundiais</small></div><div><b class="num">${h.msi}</b><small>MSI</small></div><div><b class="num">${h.lg}</b><small>Ligas</small></div><div><b class="num">${(d.tl||[]).filter(x=>x.t==='Copa do Mundo de LoL').length}</b><small>Copas</small></div><div><b class="num">${h.mvp||0}</b><small>MVPs</small></div><div><b class="num">${r1(h.pts)}</b><small>Pontos</small></div></div></section>`;
   o+='<div class="shv">';
@@ -8419,7 +8463,7 @@ function vTeam(id){
   const gw=yh.reduce((a,s)=>a+s.gw,0),gl=yh.reduce((a,s)=>a+s.gl,0);
   const f=r1(eff(t)-baseOvr(t));
   const view=TV.some(x=>x[0]===tvw)?tvw:'el';
-  let o=`<div class="row"><button class="ghost" data-act="back">← Voltar</button></div>`;
+  let o=`<div class="row"><button class="ghost" data-act="back">← Voltar</button><button class="ghost" data-act="foTe" data-v="${t.id}">Baixar folder (PDF)</button></div>`;
   o+=`<div class="shr"><div class="pills stk">${TV.map(([k,l])=>`<button class="pill" aria-pressed="${view===k}" data-act="tvw" data-v="${k}">${l}</button>`).join('')}</div>`;
   o+=`<section class="pn shh"><div class="ph">${crest(t,'lg')}<div style="flex:1;min-width:0"><h3>${esc(t.name)}</h3><small>${llk(t.lg)}${t.d===2?' · 2ª divisão':''}${t.est?' · elenco estimado':''}<br>OVR ${Math.round(baseOvr(t))}${pwPos(t)>0?` · power #${pwPos(t)}`:''} · forma ${f>0?`<span class="st up">▲${f.toFixed(1)}</span>`:f<0?`<span class="st dn">▼${(-f).toFixed(1)}</span>`:'estável'}</small></div></div>
   <div class="cab"><div>${troSvg('w')}<b class="num">${c.wc}</b><small>Mundiais</small></div><div>${troSvg('m')}<b class="num">${c.msi}</b><small>MSI</small></div><div>${troSvg('l')}<b class="num">${c.lg}</b><small>Ligas</small></div></div>
@@ -8601,7 +8645,7 @@ function act(a,v){
   else if(a==='pcF'){const [k,x]=String(v).split('|');pcF[k]=k==='role'?+x:x}
   else if(a==='pcCreate'){if(pcCreate(pcF)){pcF.name='';menuV='home';tab='pc';msg='Carreira criada. Boa sorte!';save();top=true}}
   else if(a==='pcPick'){if(pcAdopt(v)){menuV='home';tab='pc';msg='Você assumiu a carreira de '+v+'.';save();top=true}}
-  else if(a==='pcPdf'){msg='Gerando o folder...';pcFolderDl().then(ok=>{msg=ok?'Folder da carreira baixado.':'Não foi possível gerar o folder.';render()})}
+  else if(a==='foPl'||a==='foTe'){msg='Gerando o folder...';foDl(()=>a==='foPl'?foPlayer(v):foTeam(+v),a==='foPl'?v:T(+v).name).then(ok=>{msg=ok?'Folder baixado.':'Não foi possível gerar o folder.';render()})}
   else if(a==='pcPlan'){S.pc.plan=v;save()}
   else if(a==='pcTree'){pcTreeOpen=!pcTreeOpen}
   else if(a==='pcPerkSel'){pcPerkSel=v}else if(a==='pcBr'){pcBr=v;pcPerkSel=null}
