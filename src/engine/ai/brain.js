@@ -49,7 +49,8 @@ function power(u) {
   return Math.sqrt(ehp * dps);
 }
 /* taxas do motor classico (CS por segundo e XP por segundo na rota) */
-const FARM_CS = { top: 0.17, mid: 0.17, adc: 0.19, support: 0.035 }, FARM_XP = { top: 4.2, mid: 4.2, adc: 4.0, support: 2.4 };
+const XK = 2.8;                          /* Bloco 10c (ESTIMADO): XP do farm classico; calibrar com ferramentas/balanceamento.js (CAL_CLASSICO=1) */
+const FARM_CS = { top: 0.17 * 1.75, mid: 0.17 * 2.1, adc: 0.19 * 2.5, support: 0.035 * 1.2 }, FARM_XP = { top: 4.2 * XK, mid: 4.2 * XK, adc: 5.0 * XK, support: 2.4 * XK };
 const isChamp = u => u.kind !== 'minion' && u.kind !== 'monster' && u.kind !== 'structure';
 
 class Brain {

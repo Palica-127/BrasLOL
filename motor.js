@@ -14,7 +14,7 @@ const ROSTERS = {
 };
 function createGame({ seed = 1, teams, loader, cap = 3600 } = {}) {
   const w = new World({ seed, loader, arena: { w: LAY.W, h: LAY.H } });
-  ECO.enable(w, { lanes: LAY.lanes() }); JG.enable(w); STR.enable(w); w.respawn = true; w.supplies = true;
+  ECO.enable(w, { lanes: LAY.lanes() }); JG.enable(w); w.jungle.mul = { gold: 1.5, xp: 1.9 }; /* Bloco 10c (ESTIMADO): compensa o ritmo de limpeza da IA (~1,3 acampamento/min); calibrar com CAL_CLASSICO=1 */ STR.enable(w); w.respawn = true; w.supplies = true;
   const brains = createMatch(w, teams || [{ roster: ROSTERS.A }, { roster: ROSTERS.B }]);
   w.cap = cap; return { w, brains };
 }
@@ -2371,7 +2371,7 @@ class Jungle {
       const tree = CAMP_TREE[kind], sum = (f) => tree.reduce((a, k) => a + (f(MON.spec(w.loader, k, 1)) || 0), 0);
       const sg = sum(x => x.gold) || 1, sx = sum(x => x.xp) || 1, L = Math.max(m.level, this.avgLevel()), f = (L - 1) / 17;
       const me = MON.spec(w.loader, m.name, 1);
-      gold = rw[0] * (1 + JUNGLE_RULE.goldScale * f) * me.gold / sg; xp = rw[1] * (1 + JUNGLE_RULE.xpScale * f) * me.xp / sx;
+      gold = (this.mul ? this.mul.gold : 1) * rw[0] * (1 + JUNGLE_RULE.goldScale * f) * me.gold / sg; xp = (this.mul ? this.mul.xp : 1) * rw[1] * (1 + JUNGLE_RULE.xpScale * f) * me.xp / sx;
     }
     const near = team === null ? [] : w.units.filter(x => x.kind !== 'minion' && x.kind !== 'monster' && !x.dead && x.team === team && dist(x.pos, m.pos) <= sp.xpRadius);
     if (near.length) near.forEach(x => { const q = xp * xpShare(near.length) * (rw && BIG.has(m.name) && isHunter(x) ? 1 + JUNGLE_RULE.hunterXp : 1); w.econ ? w.econ.grantXp(x, q, 'monster') : this.xpNoEcon(x, q); });
@@ -2783,7 +2783,8 @@ function power(u) {
   return Math.sqrt(ehp * dps);
 }
 /* taxas do motor classico (CS por segundo e XP por segundo na rota) */
-const FARM_CS = { top: 0.17, mid: 0.17, adc: 0.19, support: 0.035 }, FARM_XP = { top: 4.2, mid: 4.2, adc: 4.0, support: 2.4 };
+const XK = 2.8;                          /* Bloco 10c (ESTIMADO): XP do farm classico; calibrar com ferramentas/balanceamento.js (CAL_CLASSICO=1) */
+const FARM_CS = { top: 0.17 * 1.75, mid: 0.17 * 2.1, adc: 0.19 * 2.5, support: 0.035 * 1.2 }, FARM_XP = { top: 4.2 * XK, mid: 4.2 * XK, adc: 5.0 * XK, support: 2.4 * XK };
 const isChamp = u => u.kind !== 'minion' && u.kind !== 'monster' && u.kind !== 'structure';
 
 class Brain {

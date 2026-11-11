@@ -18,6 +18,7 @@ function simOne(seed, attrA, attrB, pool) {
   const mk = (nm, a) => ({ name: nm, style: 'ma', roster: ROLES.map(role => ({ name: pick(role), player: nm[0] + role, role, attrs: { lane: a, mec: a, macro: a, team: a, mental: a } })) });
   const CAP = (+process.env.CAL_CAP || 60) * 60;                 /* CAL_CAP=min limita a partida (afinacao rapida; metricas de duracao perdem sentido) */
   const g = M.createGame({ seed, teams: [mk('A', attrA), mk('B', attrB)], cap: CAP });
+  if (process.env.CAL_CLASSICO) g.w.econ.farmClassico = true;      /* mede o modo que o jogo usa (adapter.js): CS por tempo na rota */
   const w = g.w; while (w.winner() === null && w.t < CAP) w.run(10);
   const ev = t => w.log.filter(e => e.type === t);
   const per = ti => g.brains[ti].players.map(p => ({ cs: p.u.stat.cs || 0, k: p.u.stat.kills || 0, d: p.u.stat.deaths || 0, a: p.u.stat.assists || 0, gold: p.u.stat.goldEarned || 0, lv: p.u.level, dmg: p.u.stat.dmgDealt || 0, items: p.u.items.length }));

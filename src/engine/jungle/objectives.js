@@ -114,7 +114,7 @@ class Jungle {
       const tree = CAMP_TREE[kind], sum = (f) => tree.reduce((a, k) => a + (f(MON.spec(w.loader, k, 1)) || 0), 0);
       const sg = sum(x => x.gold) || 1, sx = sum(x => x.xp) || 1, L = Math.max(m.level, this.avgLevel()), f = (L - 1) / 17;
       const me = MON.spec(w.loader, m.name, 1);
-      gold = rw[0] * (1 + JUNGLE_RULE.goldScale * f) * me.gold / sg; xp = rw[1] * (1 + JUNGLE_RULE.xpScale * f) * me.xp / sx;
+      gold = (this.mul ? this.mul.gold : 1) * rw[0] * (1 + JUNGLE_RULE.goldScale * f) * me.gold / sg; xp = (this.mul ? this.mul.xp : 1) * rw[1] * (1 + JUNGLE_RULE.xpScale * f) * me.xp / sx;
     }
     const near = team === null ? [] : w.units.filter(x => x.kind !== 'minion' && x.kind !== 'monster' && !x.dead && x.team === team && dist(x.pos, m.pos) <= sp.xpRadius);
     if (near.length) near.forEach(x => { const q = xp * xpShare(near.length) * (rw && BIG.has(m.name) && isHunter(x) ? 1 + JUNGLE_RULE.hunterXp : 1); w.econ ? w.econ.grantXp(x, q, 'monster') : this.xpNoEcon(x, q); });

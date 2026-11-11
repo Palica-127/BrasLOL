@@ -8,7 +8,7 @@ const ROSTERS = {
 };
 function createGame({ seed = 1, teams, loader, cap = 3600 } = {}) {
   const w = new World({ seed, loader, arena: { w: LAY.W, h: LAY.H } });
-  ECO.enable(w, { lanes: LAY.lanes() }); JG.enable(w); STR.enable(w); w.respawn = true; w.supplies = true;
+  ECO.enable(w, { lanes: LAY.lanes() }); JG.enable(w); w.jungle.mul = { gold: 1.5, xp: 1.9 }; /* Bloco 10c (ESTIMADO): compensa o ritmo de limpeza da IA (~1,3 acampamento/min); calibrar com CAL_CLASSICO=1 */ STR.enable(w); w.respawn = true; w.supplies = true;
   const brains = createMatch(w, teams || [{ roster: ROSTERS.A }, { roster: ROSTERS.B }]);
   w.cap = cap; return { w, brains };
 }
