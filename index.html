@@ -1921,6 +1921,14 @@ details.pn>summary{color:var(--t1)}
 .cab.ptsb{box-shadow:none;animation:none}
 @media (min-width:1000px){.tlay{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);gap:20px;align-items:start}.tlay .tdet{position:sticky;top:70px;margin-top:0}}
 @media (max-width:640px){.pc3,.pc3.p1{flex-direction:row;text-align:left;align-items:center;padding:12px 14px 12px 36px;gap:12px}.pc3 .av,.pc3.p1 .av{width:56px;height:56px;flex:none}.pc3 b,.pc3.p1 b{font-size:20px;margin:0}.pc3 .tt{display:none}.pc3 .pt,.pc3.p1 .pt{margin:0 0 0 auto;font-size:26px}.pc3 .pcn{top:50%;transform:translateY(-50%)}.pc3 small{display:block}}
+
+/* Gestão: cartão da próxima partida sem adversário definido, e Jogar com colunas equilibradas */
+.dbvs.one{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 0;text-align:center}
+.dbvs.one b{font:800 22px var(--d);letter-spacing:.04em;text-transform:uppercase;margin-top:6px}
+.dbvs.one small{color:var(--t2);font:600 11.5px var(--d);letter-spacing:.12em;text-transform:uppercase}
+.dbvs.one .note{margin:6px 0 0;color:var(--t3)}
+.db .dbtm b{font:800 20px var(--d);letter-spacing:.03em}
+@media (min-width:1000px){.hub .more2 .pn:last-child{margin-bottom:0}.hub .hcol .tiles{padding:14px 18px;background:var(--s1);border-radius:var(--rd);box-shadow:inset 0 0 0 1px var(--hair)}.hub .hcol .tile{margin-right:14px;padding-right:14px}}
 /*V4-END*/
 </style>
 
@@ -6291,7 +6299,7 @@ function dbNextHTML(t,m){
   const nxt=!cur?'Virada de ano':sp?spLabel(sp):cur.l;
   const side=id=>{const x=T(id),s=stdOf(x);return `<div class="dbtm">${crest(x,'lg')}<b>${esc(x.name)}</b><small>${s?`${s.pos}º · ${s.w}V ${s.l}D`:'OVR '+Math.round(baseOvr(x))}</small></div>`};
   const vs=my?`<div class="dbvs">${side(my.a)}<span class="dbx">VS<small>${my.n===1?'MD1':'MD'+my.n}</small></span>${side(my.b)}</div>`
-    :`<div class="dbvs one">${crest(t,'lg')}<p class="note">${esc(nxt)}</p></div>`;
+    :`<div class="dbvs one">${crest(t,'lg')}<b>${esc(t.name)}</b><small>${stdOf(t)?stdOf(t).pos+'º · '+stdOf(t).w+'V '+stdOf(t).l+'D · ':''}OVR ${Math.round(baseOvr(t))}</small><p class="note">${esc(nxt)}${left>0?' · em '+left+' dia'+(left>1?'s':''):''}</p></div>`;
   const btn=left<=0?`<button class="ghost" data-act="mgrView" data-v="elenco">Elenco</button><button class="play" data-act="step">${dvNeeded()?'Jogar':sp?spBtn(sp):cur?(cur.k==='s1'||cur.k==='s2')?'Iniciar '+cur.l+' jogo a jogo':cur.b:'Abrir temporada '+(S.year+1)}</button>`
     :`<button class="ghost" data-act="day" data-v="1">+1 dia</button><button class="ghost" data-act="day" data-v="7">+1 semana</button><button class="play" data-act="dayTo">Simular até o jogo</button>`;
   return `<section class="db dbn"><div class="dbh"><h2>Próxima partida</h2><span>${esc(nxt)}<small>${left<=0?'Hoje':dTxt(ev)+' · em '+left+' dia'+(left>1?'s':'')}</small></span></div>${vs}<div class="dbb">${btn}</div></section>`;
