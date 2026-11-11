@@ -6184,8 +6184,9 @@ let _pdfCtx=null;
 function pdfTw(s,size,bold,cs){try{_pdfCtx=_pdfCtx||document.createElement('canvas').getContext('2d');_pdfCtx.font=(bold?'bold ':'')+size+'px Helvetica,Arial,sans-serif';return _pdfCtx.measureText(s).width+(cs||0)*s.length}catch(e){return s.length*size*.52+(cs||0)*s.length}}
 const pdfEsc=s=>String(s).replace(/[–—]/g,'-').replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/[^\x00-\xFF]/g,'?').replace(/([\\()])/g,'\\$1');
 function pdfDoc(foot){
-  const pages=[];let cur=null;
+  const pages=[],imgs=[];let cur=null;
   const D={y:0,
+    img(im,x,y,w,h){let i=imgs.indexOf(im);if(i<0)i=imgs.push(im)-1;cur.push(`q ${w.toFixed(2)} 0 0 ${h.toFixed(2)} ${x.toFixed(2)} ${(PDFH-y-h).toFixed(2)} cm /Im${i+1} Do Q`)},
     page(){cur=[];pages.push(cur);cur.push(`${pdfRgb('#0A0F1E')} rg 0 0 ${PDFW} ${PDFH} re f`);D.stroke(22,22,PDFW-44,PDFH-44,'#D9B35F',1.4);D.stroke(28,28,PDFW-56,PDFH-56,'#D9B35F',.4);D.y=66},
     rect(x,y,w,h,c){cur.push(`${pdfRgb(c)} rg ${x} ${PDFH-y-h} ${w} ${h} re f`)},
     stroke(x,y,w,h,c,lw){cur.push(`${pdfRgb(c)} RG ${lw} w ${x} ${PDFH-y-h} ${w} ${h} re S`)},
@@ -6204,7 +6205,8 @@ function pdfDoc(foot){
       objs[4]='<</Type/Font/Subtype/Type1/BaseFont/Helvetica-Bold/Encoding/WinAnsiEncoding>>';
       pages.forEach((a,i)=>{const cid=5+2*i,pid=6+2*i,st=a.join('\n');
         objs[cid]=`<</Length ${st.length}>>\nstream\n${st}\nendstream`;
-        objs[pid]=`<</Type/Page/Parent 2 0 R/MediaBox[0 0 ${PDFW} ${PDFH}]/Contents ${cid} 0 R/Resources<</Font<</F1 3 0 R/F2 4 0 R>>>>>>`;kids.push(pid+' 0 R')});
+        objs[pid]=`<</Type/Page/Parent 2 0 R/MediaBox[0 0 ${PDFW} ${PDFH}]/Contents ${cid} 0 R/Resources<</Font<</F1 3 0 R/F2 4 0 R>>/XObject<<${imgs.map((_,k)=>`/Im${k+1} ${5+2*n+k} 0 R`).join(' ')}>>>>>>`;kids.push(pid+' 0 R')});
+      imgs.forEach((m,k)=>{objs[5+2*n+k]=`<</Type/XObject/Subtype/Image/Width ${m.w}/Height ${m.h}/ColorSpace/DeviceRGB/BitsPerComponent 8/Filter/DCTDecode/Length ${m.d.length}>>\nstream\n${m.d}\nendstream`});
       objs[2]=`<</Type/Pages/Kids[${kids.join(' ')}]/Count ${n}>>`;
       let out='%PDF-1.4\n';const off=[];
       for(let i=1;i<objs.length;i++){off[i]=out.length;out+=`${i} 0 obj\n${objs[i]}\nendobj\n`}
@@ -6214,13 +6216,42 @@ function pdfDoc(foot){
     }};
   return D;
 }
-function pcFolder(){
+/* imagens do folder: trofeus e logos ja estao embutidos no CSS (data URI); viram JPEG sobre o fundo do cartao e entram no PDF como DCT */
+const _pdfImgC={};
+function cssImgUrl(cls,pseudo){
+  const e=document.createElement('span');e.className=cls;e.style.cssText='position:absolute;left:-9999px;width:10px;height:10px';document.body.appendChild(e);
+  const bg=getComputedStyle(e,pseudo||null).backgroundImage;e.remove();const m=/url\(["']?([^"')]+)["']?\)/.exec(bg||'');return m?m[1]:null;
+}
+function pdfImg(src,bg,tw){
+  if(!src)return Promise.resolve(null);
+  const k=src.length+':'+src.slice(-60)+bg+tw;
+  return _pdfImgC[k]||(_pdfImgC[k]=new Promise(res=>{const im=new Image();
+    im.onload=()=>{try{const s=Math.min(1,tw/im.naturalWidth),w=Math.max(1,Math.round(im.naturalWidth*s)),h=Math.max(1,Math.round(im.naturalHeight*s)),c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');x.fillStyle=bg;x.fillRect(0,0,w,h);x.drawImage(im,0,0,w,h);res({w,h,d:atob(c.toDataURL('image/jpeg',.92).split(',')[1])})}catch(e){res(null)}};
+    im.onerror=()=>res(null);im.src=src}));
+}
+const pdfTroSrc=k=>k==='b'?TRO_MJA:cssImgUrl('ti ti-'+k);
+async function pcFolder(){
   const pc=S.pc;if(!pc)return null;
-  const hof=S.hof[pc.n]||{},hs=pc.hist||[],nat=natC(pc.n),natN=NATN[nat]||nat||'';
+  const hof=S.hof[pc.n]||{},hs=pc.hist||[],nat=natC(pc.n),natN=NATN[nat]||nat||'',tl=(S.pdb[pc.n]&&S.pdb[pc.n].tl)||[];
   const role=hs.length?hs[hs.length-1].role:((S.pdb[pc.n]||{}).role||2);
-  const y0=pc.start||(hs[0]&&hs[0].y)||S.year,y1=pc.ended||S.year,GO='#D9B35F',GH='#F2D58C',MU='#8C97BD',PN='#141B33';
-  const D=pdfDoc('Carreira de '+pc.n);D.page();
-  const C=PDFW/2;
+  const y0=pc.start||(hs[0]&&hs[0].y)||S.year,y1=pc.ended||S.year,GO='#D9B35F',GH='#F2D58C',MU='#8C97BD',PN='#141B33',BG='#0A0F1E';
+  /* trofeus do jogador (mesma fonte da estante da ficha) */
+  const lgK=s=>(/(LCK|LPL|LEC|LCS|CBLOL)/.exec(s||'')||[])[1];
+  const lastT=hs.length?ALLT().find(t=>t.name===hs[hs.length-1].team):null,defLg=lgK(lastT&&lastT.lg)||'LEC';
+  const byY=(a,b)=>(+a.y||0)-(+b.y||0),isMV=x=>/^MVP/.test(x.t),isBO=x=>x.t==='Bola de Ouro'||x.t==='Melhor Jogador do Ano';
+  const W=tl.filter(x=>x.t==='Mundial').sort(byY),M=tl.filter(x=>x.t==='MSI').sort(byY),Cp=tl.filter(x=>x.t==='Copa do Mundo de LoL').sort(byY);
+  const L=tl.filter(x=>x.t!=='Mundial'&&x.t!=='MSI'&&x.t!=='Copa do Mundo de LoL'&&!isMV(x)&&!isBO(x)&&!/^Top 5/.test(x.t)&&x.y!=='—').sort(byY);
+  const V=tl.filter(isMV).sort(byY),B=tl.filter(isBO).sort(byY),unk=Math.max(0,(hof.lg||0)-L.length);
+  const grp=[['Mundiais','w',W.map(x=>({y:x.y,k:'w'}))],['Melhor do Ano','b',B.map(x=>({y:x.y,k:'b'}))],['MSI','m',M.map(x=>({y:x.y,k:'m'}))],['Copa do Mundo','c',Cp.map(x=>({y:x.y,k:'c'}))],
+    ['Ligas','l',[...L.map(x=>({y:x.y,k:lgK(x.t)||defLg})),...Array(unk).fill(0).map(()=>({y:'-',k:defLg}))]],
+    ['MVPs','p',V.map(x=>({y:x.y,k:/Copa/.test(x.t)?'mvp-c':/Mundial/.test(x.t)?'mvp-w':/MSI/.test(x.t)?'mvp-m':'mvp-'+(lgK(x.t)||'LCK')}))]].filter(g=>g[2].length);
+  const total=grp.reduce((a,g)=>a+g[2].length,0),feat=grp.length?grp[0][2][0].k:null;
+  /* imagens */
+  const IM={};await Promise.all([...new Set(grp.flatMap(g=>g[2].map(x=>x.k)))].map(async k=>{IM[k]=await pdfImg(pdfTroSrc(k),PN,190)}));
+  const heroIm=feat?await pdfImg(pdfTroSrc(feat),PN,260):null;
+  const clubs=[];hs.forEach(x=>{const l=clubs[clubs.length-1];if(l&&l.t===x.team)l.b=x.y;else clubs.push({t:x.team,d:x.div,a:x.y,b:x.y})});
+  for(const c of clubs){const t=ALLT().find(z=>z.name===c.t),sl=t&&logoOf(slug(t.name));c.im=sl?await pdfImg(cssImgUrl('lg-'+sl,'::before'),BG,90):null}
+  const D=pdfDoc('Carreira de '+pc.n);D.page();const C=PDFW/2;
   /* capa */
   D.text('BRASLOL  -  LEAGUE OF LEGENDS  -  CARREIRA PRO',C,84,9,{al:'c',c:GO,cs:3});
   D.line(C-130,108,C-14,108,GO,.6);D.line(C+14,108,C+130,108,GO,.6);D.diamond(C,108,6,GO);
@@ -6228,28 +6259,44 @@ function pcFolder(){
   D.text(nm,C,180,fs,{al:'c',b:1,cs:1});
   D.text((RNF[role]+(natN?'  -  '+natN:'')).toUpperCase(),C,210,12,{al:'c',c:'#5FDCE8',cs:3});
   D.text(`${y0} - ${y1}  -  ${hs.length} temporada${hs.length===1?'':'s'}`,C,234,10,{al:'c',c:MU,cs:1});
-  /* conquistas em numeros */
-  const gw=(PDFW-108-4*8)/5;
-  [['Ligas',hof.lg||0],['MSI',hof.msi||0],['Mundiais',hof.wc||0],['Top 10 do ano',hs.filter(x=>x.top>0).length],['Melhor do Ano',hof.bd||0]].forEach(([l,v],i)=>{
-    const x=54+i*(gw+8);D.rect(x,266,gw,88,PN);D.rect(x,266,gw,2.5,GO);
-    D.text(v,x+gw/2,320,38,{al:'c',b:1,c:v?GH:'#4A5478'});D.text(l.toUpperCase(),x+gw/2,342,7.5,{al:'c',c:MU,cs:1})});
-  const best=hs.filter(x=>x.rating!=null).sort((a,b)=>b.rating-a.rating)[0],sw=(PDFW-108-3*8)/4;
-  [['OVR máximo',hs.length?Math.max(...hs.map(x=>x.ovr)):'-'],['Melhor nota',best?String(best.rating).replace('.',',')+' ('+best.y+')':'-'],['Fama final',pc.fame],['Patrimônio',fmtM(pc.cash)]].forEach(([l,v],i)=>{
-    const x=54+i*(sw+8);D.rect(x,364,sw,52,PN);D.text(v,x+sw/2,392,15,{al:'c',b:1});D.text(l.toUpperCase(),x+sw/2,406,7,{al:'c',c:MU,cs:1})});
-  D.y=428;
-  const sec=t=>{D.need(44);D.y+=16;D.text(t.toUpperCase(),54,D.y,9,{c:GO,b:1,cs:2.5});D.line(54,D.y+7,PDFW-54,D.y+7,'#2A3358',.8);D.y+=24};
+  /* destaque: trofeu maior ao centro, numeros nas laterais */
+  D.rect(54,254,PDFW-108,138,PN);D.rect(54,254,PDFW-108,2.5,GO);
+  if(heroIm){const hh=118,ww=Math.min(120,hh*heroIm.w/heroIm.h);D.img(heroIm,C-ww/2,262,ww,hh)}
+  else{D.diamond(C,323,34,GO);D.diamond(C,323,26,BG)}
+  const best=hs.filter(x=>x.rating!=null).sort((a,b)=>b.rating-a.rating)[0];
+  const st=(x,y,v,l)=>{D.text(v,x,y,26,{al:'c',b:1,c:GH});D.text(l.toUpperCase(),x,y+14,7.5,{al:'c',c:MU,cs:1.2})};
+  st(135,298,hs.length?Math.max(...hs.map(z=>z.ovr)):'-','OVR máximo');D.line(95,320,175,320,'#2A3358',.8);st(135,352,best?String(best.rating).replace('.',','):'-','Melhor nota'+(best?' ('+best.y+')':''));
+  st(460,298,pc.fame,'Fama final');D.line(420,320,500,320,'#2A3358',.8);st(460,352,fmtM(pc.cash),'Patrimônio');
+  D.y=404;
+  const sec=t=>{D.need(44);D.y+=16;D.text(t.toUpperCase(),54,D.y,9,{c:GO,b:1,cs:2.5});D.line(54,D.y+7,PDFW-54,D.y+7,'#2A3358',.8);D.y+=20};
+  /* sala de trofeus */
+  sec(`Sala de troféus  -  ${total}`);
+  if(!grp.length){D.rect(54,D.y,PDFW-108,52,PN);D.text('Prateleira ainda vazia: os títulos vêm com o tempo.',C,D.y+30,10,{al:'c',c:MU});D.y+=64}
+  grp.forEach(([lab,,items])=>{
+    const per=6,rows=Math.ceil(items.length/per),h=Math.max(84,rows*82+10);D.need(h+10);
+    const y=D.y;D.rect(54,y,PDFW-108,h,PN);D.rect(54,y,3,h,GO);
+    D.text(lab.toUpperCase(),72,y+24,8.5,{b:1,c:MU,cs:1.5});D.text(items.length,72,y+60,34,{b:1,c:GH});
+    items.forEach((it,i)=>{const im=IM[it.k],r=Math.floor(i/per),cx=190+(i%per)*60+30,ty=y+10+r*82;
+      if(im){const hh=it.k==='b'?64:58,ww=Math.min(54,hh*im.w/im.h),h2=ww*im.h/im.w;D.img(im,cx-ww/2,ty+(hh-h2)/2,ww,h2)}else D.diamond(cx,ty+28,14,GO);
+      D.text(it.y,cx,ty+74,8.5,{al:'c',b:1,c:GH})});
+    D.y+=h+10});
   /* clubes */
-  const clubs=[];hs.forEach(x=>{const l=clubs[clubs.length-1];if(l&&l.t===x.team)l.b=x.y;else clubs.push({t:x.team,d:x.div,a:x.y,b:x.y})});
   sec('Clubes');
   if(!clubs.length){D.text('Carreira sem temporadas fechadas.',54,D.y,10,{c:MU});D.y+=20}
-  clubs.forEach(c=>{D.need(22);D.text(D.fit(c.t+(c.d===2?' (D2)':''),380,11,1),54,D.y,11,{b:1});D.text(c.a===c.b?String(c.a):c.a+' - '+c.b,PDFW-54,D.y,10,{al:'r',c:MU});D.y+=20});
-  /* marcos */
+  clubs.forEach(c=>{D.need(30);const y=D.y;
+    if(c.im){const s=Math.min(24/c.im.w,24/c.im.h);D.img(c.im,54+(24-c.im.w*s)/2,y-16+(24-c.im.h*s)/2,c.im.w*s,c.im.h*s)}else{D.rect(54,y-16,24,24,PN);D.text(ini(c.t),66,y-1,8,{al:'c',b:1,c:GH})}
+    D.text(D.fit(c.t+(c.d===2?' (D2)':''),340,12,1),88,y,12,{b:1});D.text(c.a===c.b?String(c.a):c.a+' - '+c.b,PDFW-54,y,10,{al:'r',c:MU});D.y+=30});
+  /* marcos em cartoes */
   const gl=PGOALS.filter(g=>pc.goals[g[0]]).sort((a,b)=>pc.goals[a[0]]-pc.goals[b[0]]);
   sec('Marcos da carreira');
   if(!gl.length){D.text('Nenhuma meta de carreira cumprida.',54,D.y,10,{c:MU});D.y+=20}
-  gl.forEach(g=>{D.need(34);D.diamond(60,D.y-3.5,3.5,GO);D.text(g[1],74,D.y,11,{b:1});D.text(pc.goals[g[0]],PDFW-54,D.y,10,{al:'r',b:1,c:GH});D.text(g[2],74,D.y+13,8.5,{c:MU});D.y+=32});
+  const cw=(PDFW-108-12)/2;
+  gl.forEach((g,i)=>{if(i%2===0)D.need(54);const x=54+(i%2)*(cw+12),y=D.y;
+    D.rect(x,y,cw,46,PN);D.rect(x,y,3,46,i%3===0?GO:i%3===1?'#5FDCE8':'#C95F7A');
+    D.text(D.fit(g[1],cw-80,10.5,1),x+14,y+18,10.5,{b:1});D.text(D.fit(g[2],cw-28,7.5),x+14,y+33,7.5,{c:MU});
+    D.text(pc.goals[g[0]],x+cw-10,y+18,12,{al:'r',b:1,c:GH});if(i%2===1||i===gl.length-1)D.y+=54});
   /* temporadas */
-  sec('Temporada a temporada');
+  D.need(110);sec('Temporada a temporada');
   const col=[['ANO',54,'l'],['CLUBE',96,'l'],['FUNÇÃO',262,'l'],['IDADE',362,'r'],['OVR',406,'r'],['NOTA',452,'r'],['PRÊMIO',541,'r']];
   const row=(v,y,b,c)=>col.forEach(([,x,al],i)=>D.text(v[i],x,y,b?7.5:9.5,{al:al==='r'?'r':'l',b:b,c:c,cs:b?1.5:0}));
   D.need(24);row(col.map(k=>k[0]),D.y,1,MU);D.y+=18;
@@ -6258,8 +6305,8 @@ function pcFolder(){
   D.need(30);D.y+=10;D.text(`Carreira encerrada em ${y1}.`,C,D.y,9,{al:'c',c:MU,cs:1});
   return D.build();
 }
-function pcFolderDl(){
-  const u=pcFolder();if(!u)return false;
+async function pcFolderDl(){
+  let u=null;try{u=await pcFolder()}catch(e){console.error(e)}if(!u)return false;
   const b=new Blob([u],{type:'application/pdf'}),a=document.createElement('a');
   a.href=URL.createObjectURL(b);a.download='Folder - '+S.pc.n.replace(/[\\/:*?"<>|]/g,'')+'.pdf';
   document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},800);return true;
@@ -8554,7 +8601,7 @@ function act(a,v){
   else if(a==='pcF'){const [k,x]=String(v).split('|');pcF[k]=k==='role'?+x:x}
   else if(a==='pcCreate'){if(pcCreate(pcF)){pcF.name='';menuV='home';tab='pc';msg='Carreira criada. Boa sorte!';save();top=true}}
   else if(a==='pcPick'){if(pcAdopt(v)){menuV='home';tab='pc';msg='Você assumiu a carreira de '+v+'.';save();top=true}}
-  else if(a==='pcPdf'){msg=pcFolderDl()?'Folder da carreira baixado.':'Não há carreira para exportar.'}
+  else if(a==='pcPdf'){msg='Gerando o folder...';pcFolderDl().then(ok=>{msg=ok?'Folder da carreira baixado.':'Não foi possível gerar o folder.';render()})}
   else if(a==='pcPlan'){S.pc.plan=v;save()}
   else if(a==='pcTree'){pcTreeOpen=!pcTreeOpen}
   else if(a==='pcPerkSel'){pcPerkSel=v}else if(a==='pcBr'){pcBr=v;pcPerkSel=null}
