@@ -41,7 +41,7 @@ if (!isMainThread) {
   parentPort.postMessage({ done: true });
 } else {
   const N = +process.argv[2] || 1000, label = process.argv[3] || 'base', attrA = +process.argv[4] || 70, attrB = +process.argv[5] || 70;
-  const nw = Math.min(os.cpus().length - 1 || 1, 30), seeds = Array.from({ length: N }, (_, i) => 1000 + i), res = [], errs = []; let done = 0, t0 = Date.now();
+  const nw = Math.min(os.cpus().length - 1 || 1, 30), seeds = Array.from({ length: N }, (_, i) => (+process.env.CAL_SEED0 || 1000) + i), res = [], errs = []; let done = 0, t0 = Date.now();
   const chunks = Array.from({ length: nw }, (_, i) => seeds.filter((_, k) => k % nw === i));
   chunks.forEach(sd => {
     const wk = new Worker(__filename, { workerData: { seeds: sd, attrA, attrB } });

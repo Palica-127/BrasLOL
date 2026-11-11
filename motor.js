@@ -2783,7 +2783,8 @@ function power(u) {
   return Math.sqrt(ehp * dps);
 }
 /* taxas do motor classico (CS por segundo e XP por segundo na rota) */
-const XK = 2.8;                          /* Bloco 10c (ESTIMADO): XP do farm classico; calibrar com ferramentas/balanceamento.js (CAL_CLASSICO=1) */
+const XK = (typeof process !== 'undefined' && process.env && +process.env.CAL_XP) || 3.3;      /* Bloco 10c (ESTIMADO): XP do farm classico; CAL_XP so existe no Node (varredura) */
+const GANK_TH = (typeof process !== 'undefined' && process.env && +process.env.CAL_GTH) || 0.65, GANK_CD = (typeof process !== 'undefined' && process.env && +process.env.CAL_GCD) || 100;      /* Bloco 10c: limiar e recarga do gank (varredura) */
 const FARM_CS = { top: 0.17 * 1.75, mid: 0.17 * 2.1, adc: 0.19 * 2.5, support: 0.035 * 1.2 }, FARM_XP = { top: 4.2 * XK, mid: 4.2 * XK, adc: 5.0 * XK, support: 2.4 * XK };
 const isChamp = u => u.kind !== 'minion' && u.kind !== 'monster' && u.kind !== 'structure';
 
@@ -3125,7 +3126,7 @@ class Brain {
         const sc = 0.12 + st.gank + 0.5 * (1 - tgt.hp / tgt.hpMax) + 0.1 * ally.length + 0.015 * u.level - 0.012 * eta + 0.1 * w.rng.gauss('ia') * p.par.noise * 3 - (this.underEnemyTurret(tgt.pos) ? 0.6 : 0);
         if (!best || sc > best.sc) best = { sc, tgt, id };
       });
-      if (best && best.sc > 0.55) { p.gankUntil = w.t + 14; p.gankCd = w.t + 70; p.gankT = best.tgt; this.stats.ganks++; w.emit('gank', { id: u.id, lane: best.id }); }
+      if (best && best.sc > GANK_TH) { p.gankUntil = w.t + 14; p.gankCd = w.t + GANK_CD; p.gankT = best.tgt; this.stats.ganks++; w.emit('gank', { id: u.id, lane: best.id }); }
     }
     if (w.t < p.gankUntil && p.gankT && !p.gankT.dead) { p.mode = 'gank'; u.ai.focus = p.gankT; if (dist(u.pos, p.gankT.pos) > Math.max(u.stats.range, 500) + 200) { this.go(u, p.gankT.pos, 100); return; } AI.decide(w, u); return; }
     u.ai.jungle.route = u.level < 2 ? ['gromp', 'wolves', 'raptors', 'krugs'] : ['blue', 'gromp', 'wolves', 'raptors', 'red', 'krugs'];
