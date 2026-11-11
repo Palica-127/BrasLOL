@@ -20,7 +20,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   await send('Page.navigate', { url: HTML }); await sleep(2500);
   const shot = async name => { const r = await send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: true }); fs.writeFileSync(path.join(OUT, name + '.png'), Buffer.from(r.result.data, 'base64')); console.log('ok', name); };
   const steps = STEPS || [['menu', '']];
-  for (const [name, js] of steps) { if (js) await ev(js); await sleep(700); await shot(name); }
+  for (const [name, js] of steps) { if (js) { const v = await ev(js); if (typeof v === 'string' && v) console.log('  ->', v); } await sleep(700); await shot(name); }
   ws.close(); proc.kill();
   try { fs.rmSync(udd, { recursive: true, force: true }); } catch (e) {}
   process.exit(0);
