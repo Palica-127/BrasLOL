@@ -6058,7 +6058,7 @@ function vMenu(){
     cur==='mgr'?`<button class="play" data-act="tab" data-v="mgr">${mt?'Abrir Gestão · '+esc(mt.name):'Escolher novo clube'}</button>`:ask==='mgr'?`<button class="ghost danger" data-act="menuGo" data-v="mgr">Confirmar: encerrar o modo atual</button>${cancel}`:`<button class="ghost" data-act="${cur==='sim'?'menuGo':'menuAsk'}" data-v="mgr">Começar</button>`);
   const pl=modeCard('Jogador','Viva a carreira de um pro player: atributos, energia, disputa de vaga, nota por temporada, propostas de clubes, metas e fama. Crie um do zero ou assuma um existente.',cur==='pc','user',['Atributos','Energia','Propostas','Fama'],
     cur==='pc'?`<button class="play" data-act="tab" data-v="pc">Abrir carreira · ${esc(S.pc.n)}</button>`:ask==='pc'?`<button class="ghost danger" data-act="menuGo" data-v="pcHome">Confirmar: encerrar o modo atual</button>${cancel}`:`<button class="ghost" data-act="${cur==='sim'?'menuGo':'menuAsk'}" data-v="${cur==='sim'?'pcHome':'pc'}">Começar</button>`);
-  const last=S.pc&&S.pc.ended?`<section class="pn"><h2>Última carreira</h2><p class="note" style="margin:0">${esc(S.pc.n)} encerrou a carreira em ${S.pc.ended}, com ${S.pc.hist.length} temporada${S.pc.hist.length===1?'':'s'} e fama ${S.pc.fame}.</p></section>`:'';
+  const last=S.pc&&S.pc.ended?`<section class="pn"><h2>Última carreira</h2><p class="note" style="margin:0">${esc(S.pc.n)} encerrou a carreira em ${S.pc.ended}, com ${S.pc.hist.length} temporada${S.pc.hist.length===1?'':'s'} e fama ${S.pc.fame}.</p><div class="row" style="margin:10px 0 0"><button class="ghost" data-act="pcPdf">Baixar folder (PDF)</button></div></section>`:'';
   return h+`<div class="mhome"><div class="mhero"><h2>Escolha seu modo</h2><p>O mundo é o mesmo nos três: ligas, D2, Mundial e Melhor Jogador do Ano. O que muda é o que você controla.</p></div><div class="mgrid">${sim+mg+pl}</div>${last}</div>`;
 }
 function pcListHTML(){
@@ -6160,7 +6160,7 @@ function vPc0(){
   let h=msg?`<div class="msg">${esc(msg)}</div>`:'';
   const f=pcFind();
   if(pc.ended||!f){
-    return h+`<section class="pn"><h2>Carreira encerrada</h2><p class="note" style="margin:0 0 10px">${esc(pc.n)} se aposentou em ${pc.ended||S.year}. Fama final: ${pc.fame}. Patrimônio: ${fmtM(pc.cash)}.</p><div class="row" style="margin:0"><button class="ghost" data-act="tab" data-v="menu">Voltar ao Menu</button></div></section>`+pcHistHTML(pc)+pcLogHTML(pc);
+    return h+`<section class="pn"><h2>Carreira encerrada</h2><p class="note" style="margin:0 0 10px">${esc(pc.n)} se aposentou em ${pc.ended||S.year}. Fama final: ${pc.fame}. Patrimônio: ${fmtM(pc.cash)}.</p><div class="row" style="margin:0"><button class="play" data-act="pcPdf">Baixar folder da carreira (PDF)</button><button class="ghost" data-act="tab" data-v="menu">Voltar ao Menu</button></div></section>`+pcHistHTML(pc)+pcLogHTML(pc);
   }
   const p=f.p,t=f.t;
   h+=`<div class="pcTop"><section class="pn"><div class="ph phf">${fut({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f,team:t},'big')}<div><h3>${esc(p.n)}</h3><small>${RN[p.role]} · ${p.age} anos · ${esc(t.name)}${t.d===2?' (D2)':''}</small><small>${f.bn?'<b style="color:#FF9AA8">Reserva</b>':'<b style="color:#00F5A0">Titular</b>'} · contrato ${pc.ctr} ano${pc.ctr===1?'':'s'} · ${fmtM(pc.sal)}/ano</small></div></div>
@@ -6176,6 +6176,93 @@ function vPc0(){
   /* metas */
   h+=`<details class="pn det"><summary>Metas de carreira (${Object.keys(pc.goals).length}/${PGOALS.length})</summary>${PGOALS.map(([id,l,d])=>`<div class="mrow" style="grid-template-columns:28px minmax(0,1fr)"><span class="num" style="font-size:20px">${pc.goals[id]?'✓':'·'}</span><span class="who"><b${pc.goals[id]?' style="color:#00F5A0"':''}>${l}</b><small>${d}${pc.goals[id]?' · '+pc.goals[id]:''}</small></span></div>`).join('')}</details>`;
   return h+pcHistHTML(pc)+`<section class="pn"><div class="row" style="margin:0"><button class="ghost" data-act="player" data-v="${esc(p.n)}">Ver ficha pública</button></div></section>`;
+}
+/* ---------- folder da carreira em PDF: gerado aqui mesmo (PDF 1.4 minimo, fontes Helvetica padrao, sem bibliotecas) ---------- */
+const PDFW=595,PDFH=842;
+const pdfRgb=h=>[1,3,5].map(i=>(parseInt(h.substr(i,2),16)/255).toFixed(3)).join(' ');
+let _pdfCtx=null;
+function pdfTw(s,size,bold,cs){try{_pdfCtx=_pdfCtx||document.createElement('canvas').getContext('2d');_pdfCtx.font=(bold?'bold ':'')+size+'px Helvetica,Arial,sans-serif';return _pdfCtx.measureText(s).width+(cs||0)*s.length}catch(e){return s.length*size*.52+(cs||0)*s.length}}
+const pdfEsc=s=>String(s).replace(/[–—]/g,'-').replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/[^\x00-\xFF]/g,'?').replace(/([\\()])/g,'\\$1');
+function pdfDoc(foot){
+  const pages=[];let cur=null;
+  const D={y:0,
+    page(){cur=[];pages.push(cur);cur.push(`${pdfRgb('#0A0F1E')} rg 0 0 ${PDFW} ${PDFH} re f`);D.stroke(22,22,PDFW-44,PDFH-44,'#D9B35F',1.4);D.stroke(28,28,PDFW-56,PDFH-56,'#D9B35F',.4);D.y=66},
+    rect(x,y,w,h,c){cur.push(`${pdfRgb(c)} rg ${x} ${PDFH-y-h} ${w} ${h} re f`)},
+    stroke(x,y,w,h,c,lw){cur.push(`${pdfRgb(c)} RG ${lw} w ${x} ${PDFH-y-h} ${w} ${h} re S`)},
+    line(x1,y1,x2,y2,c,lw){cur.push(`${pdfRgb(c)} RG ${lw} w ${x1} ${PDFH-y1} m ${x2} ${PDFH-y2} l S`)},
+    diamond(cx,cy,r,c){cur.push(`${pdfRgb(c)} rg ${cx} ${PDFH-cy+r} m ${cx+r} ${PDFH-cy} l ${cx} ${PDFH-cy-r} l ${cx-r} ${PDFH-cy} l h f`)},
+    text(s,x,y,size,o){o=o||{};s=String(s);const cs=o.cs||0,w=pdfTw(s,size,o.b,cs);let px=x;if(o.al==='c')px=x-w/2;else if(o.al==='r')px=x-w;
+      cur.push(`BT /${o.b?'F2':'F1'} ${size} Tf ${cs} Tc ${pdfRgb(o.c||'#FFFFFF')} rg ${px.toFixed(2)} ${(PDFH-y).toFixed(2)} Td (${pdfEsc(s)}) Tj ET`)},
+    fit(s,w,size,b){s=String(s);if(pdfTw(s,size,b)<=w)return s;while(s.length>1&&pdfTw(s+'...',size,b)>w)s=s.slice(0,-1);return s+'...'},
+    need(h){if(D.y+h>PDFH-62)D.page()},
+    build(){
+      const n=pages.length;
+      pages.forEach((a,i)=>{cur=a;D.text(`BRASLOL  -  ${foot}  -  ${i+1}/${n}`,PDFW/2,PDFH-40,7.5,{al:'c',c:'#8C97BD',cs:1})});
+      const objs=[],kids=[];
+      objs[1]='<</Type/Catalog/Pages 2 0 R>>';
+      objs[3]='<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Encoding/WinAnsiEncoding>>';
+      objs[4]='<</Type/Font/Subtype/Type1/BaseFont/Helvetica-Bold/Encoding/WinAnsiEncoding>>';
+      pages.forEach((a,i)=>{const cid=5+2*i,pid=6+2*i,st=a.join('\n');
+        objs[cid]=`<</Length ${st.length}>>\nstream\n${st}\nendstream`;
+        objs[pid]=`<</Type/Page/Parent 2 0 R/MediaBox[0 0 ${PDFW} ${PDFH}]/Contents ${cid} 0 R/Resources<</Font<</F1 3 0 R/F2 4 0 R>>>>>>`;kids.push(pid+' 0 R')});
+      objs[2]=`<</Type/Pages/Kids[${kids.join(' ')}]/Count ${n}>>`;
+      let out='%PDF-1.4\n';const off=[];
+      for(let i=1;i<objs.length;i++){off[i]=out.length;out+=`${i} 0 obj\n${objs[i]}\nendobj\n`}
+      const xr=out.length;
+      out+=`xref\n0 ${objs.length}\n0000000000 65535 f \n`+off.slice(1).map(x=>String(x).padStart(10,'0')+' 00000 n \n').join('')+`trailer\n<</Size ${objs.length}/Root 1 0 R>>\nstartxref\n${xr}\n%%EOF`;
+      const u=new Uint8Array(out.length);for(let i=0;i<out.length;i++)u[i]=out.charCodeAt(i)&255;return u;
+    }};
+  return D;
+}
+function pcFolder(){
+  const pc=S.pc;if(!pc)return null;
+  const hof=S.hof[pc.n]||{},hs=pc.hist||[],nat=natC(pc.n),natN=NATN[nat]||nat||'';
+  const role=hs.length?hs[hs.length-1].role:((S.pdb[pc.n]||{}).role||2);
+  const y0=pc.start||(hs[0]&&hs[0].y)||S.year,y1=pc.ended||S.year,GO='#D9B35F',GH='#F2D58C',MU='#8C97BD',PN='#141B33';
+  const D=pdfDoc('Carreira de '+pc.n);D.page();
+  const C=PDFW/2;
+  /* capa */
+  D.text('BRASLOL  -  LEAGUE OF LEGENDS  -  CARREIRA PRO',C,84,9,{al:'c',c:GO,cs:3});
+  D.line(C-130,108,C-14,108,GO,.6);D.line(C+14,108,C+130,108,GO,.6);D.diamond(C,108,6,GO);
+  const nm=pc.n.toUpperCase();let fs=60;while(fs>20&&pdfTw(nm,fs,1,1)>PDFW-130)fs-=2;
+  D.text(nm,C,180,fs,{al:'c',b:1,cs:1});
+  D.text((RNF[role]+(natN?'  -  '+natN:'')).toUpperCase(),C,210,12,{al:'c',c:'#5FDCE8',cs:3});
+  D.text(`${y0} - ${y1}  -  ${hs.length} temporada${hs.length===1?'':'s'}`,C,234,10,{al:'c',c:MU,cs:1});
+  /* conquistas em numeros */
+  const gw=(PDFW-108-4*8)/5;
+  [['Ligas',hof.lg||0],['MSI',hof.msi||0],['Mundiais',hof.wc||0],['Top 10 do ano',hs.filter(x=>x.top>0).length],['Melhor do Ano',hof.bd||0]].forEach(([l,v],i)=>{
+    const x=54+i*(gw+8);D.rect(x,266,gw,88,PN);D.rect(x,266,gw,2.5,GO);
+    D.text(v,x+gw/2,320,38,{al:'c',b:1,c:v?GH:'#4A5478'});D.text(l.toUpperCase(),x+gw/2,342,7.5,{al:'c',c:MU,cs:1})});
+  const best=hs.filter(x=>x.rating!=null).sort((a,b)=>b.rating-a.rating)[0],sw=(PDFW-108-3*8)/4;
+  [['OVR máximo',hs.length?Math.max(...hs.map(x=>x.ovr)):'-'],['Melhor nota',best?String(best.rating).replace('.',',')+' ('+best.y+')':'-'],['Fama final',pc.fame],['Patrimônio',fmtM(pc.cash)]].forEach(([l,v],i)=>{
+    const x=54+i*(sw+8);D.rect(x,364,sw,52,PN);D.text(v,x+sw/2,392,15,{al:'c',b:1});D.text(l.toUpperCase(),x+sw/2,406,7,{al:'c',c:MU,cs:1})});
+  D.y=428;
+  const sec=t=>{D.need(44);D.y+=16;D.text(t.toUpperCase(),54,D.y,9,{c:GO,b:1,cs:2.5});D.line(54,D.y+7,PDFW-54,D.y+7,'#2A3358',.8);D.y+=24};
+  /* clubes */
+  const clubs=[];hs.forEach(x=>{const l=clubs[clubs.length-1];if(l&&l.t===x.team)l.b=x.y;else clubs.push({t:x.team,d:x.div,a:x.y,b:x.y})});
+  sec('Clubes');
+  if(!clubs.length){D.text('Carreira sem temporadas fechadas.',54,D.y,10,{c:MU});D.y+=20}
+  clubs.forEach(c=>{D.need(22);D.text(D.fit(c.t+(c.d===2?' (D2)':''),380,11,1),54,D.y,11,{b:1});D.text(c.a===c.b?String(c.a):c.a+' - '+c.b,PDFW-54,D.y,10,{al:'r',c:MU});D.y+=20});
+  /* marcos */
+  const gl=PGOALS.filter(g=>pc.goals[g[0]]).sort((a,b)=>pc.goals[a[0]]-pc.goals[b[0]]);
+  sec('Marcos da carreira');
+  if(!gl.length){D.text('Nenhuma meta de carreira cumprida.',54,D.y,10,{c:MU});D.y+=20}
+  gl.forEach(g=>{D.need(34);D.diamond(60,D.y-3.5,3.5,GO);D.text(g[1],74,D.y,11,{b:1});D.text(pc.goals[g[0]],PDFW-54,D.y,10,{al:'r',b:1,c:GH});D.text(g[2],74,D.y+13,8.5,{c:MU});D.y+=32});
+  /* temporadas */
+  sec('Temporada a temporada');
+  const col=[['ANO',54,'l'],['CLUBE',96,'l'],['FUNÇÃO',262,'l'],['IDADE',362,'r'],['OVR',406,'r'],['NOTA',452,'r'],['PRÊMIO',541,'r']];
+  const row=(v,y,b,c)=>col.forEach(([,x,al],i)=>D.text(v[i],x,y,b?7.5:9.5,{al:al==='r'?'r':'l',b:b,c:c,cs:b?1.5:0}));
+  D.need(24);row(col.map(k=>k[0]),D.y,1,MU);D.y+=18;
+  hs.forEach((x,i)=>{D.need(20);if(i%2===0)D.rect(48,D.y-13,PDFW-96,19,'#101730');
+    row([x.y,D.fit(x.team+(x.div===2?' (D2)':''),160,9.5),RN[x.role]+(x.bn?' (res.)':''),x.age,x.ovr,x.rating!=null?String(x.rating).replace('.',','):'-',x.top===1?'Melhor do Ano':x.top>0?'Top '+x.top:'-'],D.y,0,x.top===1?GH:'#FFFFFF');D.y+=20});
+  D.need(30);D.y+=10;D.text(`Carreira encerrada em ${y1}.`,C,D.y,9,{al:'c',c:MU,cs:1});
+  return D.build();
+}
+function pcFolderDl(){
+  const u=pcFolder();if(!u)return false;
+  const b=new Blob([u],{type:'application/pdf'}),a=document.createElement('a');
+  a.href=URL.createObjectURL(b);a.download='Folder - '+S.pc.n.replace(/[\\/:*?"<>|]/g,'')+'.pdf';
+  document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},800);return true;
 }
 function pcHistHTML(pc){
   if(!pc.hist.length)return'';
@@ -8467,6 +8554,7 @@ function act(a,v){
   else if(a==='pcF'){const [k,x]=String(v).split('|');pcF[k]=k==='role'?+x:x}
   else if(a==='pcCreate'){if(pcCreate(pcF)){pcF.name='';menuV='home';tab='pc';msg='Carreira criada. Boa sorte!';save();top=true}}
   else if(a==='pcPick'){if(pcAdopt(v)){menuV='home';tab='pc';msg='Você assumiu a carreira de '+v+'.';save();top=true}}
+  else if(a==='pcPdf'){msg=pcFolderDl()?'Folder da carreira baixado.':'Não há carreira para exportar.'}
   else if(a==='pcPlan'){S.pc.plan=v;save()}
   else if(a==='pcTree'){pcTreeOpen=!pcTreeOpen}
   else if(a==='pcPerkSel'){pcPerkSel=v}else if(a==='pcBr'){pcBr=v;pcPerkSel=null}
