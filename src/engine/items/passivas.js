@@ -94,7 +94,7 @@ function onDealDamage(w, src, dst, info) {
   }
   if (owns(src, ID.RAVENOUS)) {
     const it = cat[ID.RAVENOUS], a = calc(it, 'PrimaryDamage', src, 0.8 * src.stats.ad.total);
-    w.foes(src).filter(x => x !== dst && dist(x.pos, dst.pos) <= dv(it, 'CleaverRadius') + x.radius).forEach(x => item(w, src, x, a, 'physical'));
+    w.foes(src).filter(x => x !== dst && dist(x.pos, dst.pos) <= dv(it, 'CleaveRadius') + x.radius).forEach(x => item(w, src, x, a, 'physical'));
   }
   if (owns(src, ID.TRINITY)) {
     const it = cat[ID.TRINITY]; src.buffs = src.buffs.filter(b => b.tag !== 'trinityMS');
