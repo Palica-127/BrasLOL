@@ -3173,6 +3173,8 @@ function lvCm0(s,kind,n){
   if(kind==='split')return 1+.06*c.X;
   return 1;
 }
+const LVESC=.72;/* Bloco 10c (ESTIMADO): chance base de escapar de uma perseguicao (antes .62) */
+const LVLET=.17;/* Bloco 10c (ESTIMADO): letalidade das lutas (antes .20 dava ~1,35 abate/min; alvo 0,75-1,15) */
 const LVTY={f:.035,e:.04,s:.025,o:.015};/* peso da vantagem de tipo de composição por situação */
 /* ---------- Fearless Draft (MD3 e MD5) ----------
    Campeão usado por QUALQUER time em mapa anterior da série fica bloqueado para os DOIS times até o fim da série (regra Fearless oficial).
@@ -3222,6 +3224,8 @@ const JGC=[
  {n:'Acuâminas',sp:55,re:135,gd:50,xp:25,cl:16,v:.55},
  {n:'Rubrivira',sp:55,re:300,gd:85,xp:45,cl:24,v:1,bf:'rd'},
  {n:'Krugues',sp:67,re:135,gd:50,xp:25,cl:18,v:.6}];
+/* Bloco 10c (ESTIMADO): o caçador limpa ~0,65 acampamento/min; o multiplicador compensa para chegar a nivel/ouro/CS de selva proximos de uma liga profissional */
+const JGM={gd:1.7,xp:2.6,cs:9};
 const JGS={sp:175,re:150,gd:55,xp:55,cl:9,n:'Aronguejo',nodes:['r2','r6']};
 const JGB={bl:{n:'Azuporã',dur:120,pw:.03},rd:{n:'Rubrivira',dur:120,pw:.04}};
 const DRT=[['inf','Infernal'],['mon','Montanha'],['oce','Oceano'],['nuv','Nuvem'],['hex','Hextec'],['qui','Químico']];
@@ -3233,12 +3237,12 @@ function lvCampDone(P){
   const s=P.s,sec=LV.sec,i=P.cl.i;P.cl=null;
   if(i>=6){
     const k=i-6;if(LV.cr[k]>sec){LV.jc[s].lost++;return}
-    LV.cr[k]=sec+JGS.re;P.gt+=JGS.gd;P.xp+=JGS.xp;P.cs+=4;P.bf.sc=sec+60;LV.jc[s].cr++;
+    LV.cr[k]=sec+JGS.re;P.gt+=JGS.gd*JGM.gd;P.xp+=JGS.xp*JGM.xp;P.cs+=JGM.cs/2;P.bf.sc=sec+60;LV.jc[s].cr++;
     lvSayOnce('cr'+s+k,40,`${lvNick(P)} abate o ${JGS.n} e ganha a velocidade do rio.`,s,'obj');return;
   }
   const cm=LV.cm[lvBlue(s)?'b':'r'],c=JGC[i];
   if(cm[i]>sec){LV.jc[s].lost++;return}
-  cm[i]=sec+c.re;P.cs+=4;P.gt+=c.gd;P.xp+=c.xp;LV.jc[s].cl++;
+  cm[i]=sec+c.re;P.cs+=JGM.cs;P.gt+=c.gd*JGM.gd;P.xp+=c.xp*JGM.xp;LV.jc[s].cl++;
   if(c.bf){P.bf[c.bf]=sec+JGB[c.bf].dur;LV.jc[s].bf++}
 }
 /* invasores limpam o acampamento rival: o dono perde ouro, experiência e o buff */
@@ -3892,8 +3896,8 @@ const LVSTY={
   re:{n:'Reativo',agg:-.25,gank:-.05,roam:-.05,obj:0,inv:-.15,split:0,def:.35,fight:.02}};
 const LVSTK=['ag','ma','es','ca','re'];
 const LVST={farm:'Farmando',clear:'Farmando',rot:'Rotacionando',gank:'Realizando gank',fight:'Lutando',retreat:'Recuando',recall:'Recuando',ward:'Controlando visão',stage:'Controlando visão',obj:'Fazendo objetivo',invade:'Invadindo jungle',defend:'Defendendo torre',press:'Pressionando rota',siege:'Pressionando rota',hunt:'Invadindo jungle',base:'Na base',dead:'Morto'};
-const LVRW=[.95,1,1.1,1.25,.65],LVEXP=[.85,.8,1,1.3,1.1],LVDPS=[.9,.8,1.15,1.4,.5],LVSP=[.8,.6,.85,1.2,.35],LVRCS=[.17,0,.17,.19,.035],LVXPR=[4.2,1.9,4.2,4.0,2.4];
-const LVOBN={g:'as Larvas do Vazio',h:'o Arauto',d:'o Dragão',b:'o Barão',e:'o Dragão Ancião'},LVOBT={g:70,h:110,d:100,b:190,e:210},LVOBV={g:.62,h:.66,d:.70,b:1,e:1.05};
+const LVRW=[.95,1,1.1,1.25,.65],LVEXP=[.85,.8,1,1.3,1.1],LVDPS=[.9,.8,1.15,1.4,.5],LVSP=[.8,.6,.85,1.2,.35],LVRCS=[.41,0,.51,.49,.12],LVXPR=[5.3,3.0,5.3,5.0,4]/* Bloco 10c (ESTIMADO): CS ~8-9/min nas rotas (antes 3-4: a CS exibida ficava irreal) e XP para nivel final ~14 */;
+const LVOBN={g:'as Larvas do Vazio',h:'o Arauto',d:'o Dragão',b:'o Barão',e:'o Dragão Ancião'},LVOBT={g:70,h:110,d:100,b:190,e:210},LVOBV={g:.62,h:.66,d:.70,b:.8,e:1.05};
 const LVTWH=[110,150,170,120],LVNXH=160,LVNEXH=200;
 const lvOrd=()=>Math.random()<.5?['me','op']:['op','me'];
 const lvLive=s=>LV.pp[s].filter(P=>LV.kd[s][P.r].dead<=LV.sec);
@@ -4203,7 +4207,7 @@ function lvBrawl(x,y,A,B,o){
       if(!flee[i]&&rd>=1&&p[i]/p[j]<thr[i])flee[i]=true;
       if(flee[i]){
         liv(i).forEach(m=>{
-          const esc=clamp(.62+.3*m.hp+(m.P.r===3||m.P.r===2?.06:0)+(liv(i).length<=2?.1:0)-.25*(p[j]/Math.max(p[i],.01)>2?1:0),.15,.93);
+          const esc=clamp(LVESC+.3*m.hp+(m.P.r===3||m.P.r===2?.06:0)+(liv(i).length<=2?.1:0)-.25*(p[j]/Math.max(p[i],.01)>2?1:0),.15,.93);
           const ch=flee[j]?[]:liv(j);
           if(!ch.length||Math.random()<esc)m.fl=true;
           else{const k=lvWp(ch,q=>LVDPS[q.P.r]*q.pw);m.dead=true;m.ke={t:t+.8+Math.random()*1.5,k,as:[]};evs.push(m)}
@@ -4215,7 +4219,7 @@ function lvBrawl(x,y,A,B,o){
     (Math.random()<.5?[0,1]:[1,0]).forEach(i=>{
       if(flee[i])return;
       const j=1-i,tg=liv(j);if(!tg.length||!snap[i].length)return;
-      let dmg=q[i]*noise[i]*(rd===0&&o.eng===i?1.18*(side[i][0]?lvCm(side[i][0].P.s,'eng'):1):1)*.2*(.8+.4*Math.random());
+      let dmg=q[i]*noise[i]*(rd===0&&o.eng===i?1.18*(side[i][0]?lvCm(side[i][0].P.s,'eng'):1):1)*LVLET*(.8+.4*Math.random());
       if(flee[j])dmg*=.5;
       let guard=0;
       while(dmg>.01&&guard++<12){
