@@ -1021,6 +1021,7 @@ h1{letter-spacing:.02em}
 .dbcg span.past{color:#5f6789}.dbcg span.ev{background:rgba(255,255,255,.1);box-shadow:inset 0 -2px 0 #fff}.dbcg span.td{background:#fff;color:#0a0f24;font-weight:800}
 .dblg{display:flex;justify-content:center;gap:16px;margin:10px 0 0;padding-top:8px;border-top:1px solid rgba(255,255,255,.1);font:700 10px var(--d);letter-spacing:.12em;text-transform:uppercase;color:#aab4d4}
 .dblg i{display:inline-block;width:9px;height:9px;margin-right:6px;border-radius:50%;vertical-align:-1px}.dblg i.td{background:#fff}.dblg i.ev{background:rgba(255,255,255,.25);box-shadow:inset 0 -2px 0 #fff}
+.dbsub{display:block;margin:2px 0 4px;font:700 10.5px var(--d);letter-spacing:.14em;text-transform:uppercase;color:#8c97bd}
 .dbnews{display:grid;grid-template-columns:36px 1fr;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08)}.dbnews:last-child{border-bottom:0}
 .dbav{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);color:#dfe4f4}.dbav svg{width:18px;height:18px}
 .dbnews small{font:700 11px var(--d);letter-spacing:.06em;color:#8c97bd}.dbnews p{margin:2px 0 0;font-size:13.5px;line-height:1.35}
@@ -1557,7 +1558,7 @@ body::after{opacity:.32;filter:grayscale(.35) brightness(.8)}
 .trw{border-bottom:1px solid var(--ln2)}.trw:last-child{border-bottom:0}
 .trh{display:grid;grid-template-columns:40px minmax(0,1fr) 70px 54px 130px;align-items:center;gap:12px;padding:8px 6px}
 .trh .trc .crest,.trh .trc .shield{width:34px;height:34px}
-.trn{min-width:0;font:700 16px var(--b);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.trn .lk{font:inherit}
+.trn{min-width:0;font:700 16px var(--b);line-height:1.2;overflow-wrap:anywhere}.trn .tag{display:inline-block;vertical-align:middle}.trn .lk{font:inherit}
 .trf{text-align:right;font-size:13px}.tov{display:flex;justify-content:center}
 .tbtn{min-height:32px;padding:5px 10px;font-size:12px;justify-self:end;width:100%}
 .trw.open{background:rgba(255,255,255,.025)}.trw.open .tbtn{border-color:var(--gold);color:var(--gold)}
@@ -6324,9 +6325,9 @@ function dbCalHTML(){
   for(let d=1;d<=n;d++)cells.push(`<span class="${d===x.d?'td':''}${evs[d]?' ev':''}${base+d<td?' past':''}"${evs[d]?` title="${esc(evs[d])}"`:''}>${d}</span>`);
   return `<section class="db dbcal"><div class="dbh"><h2>Calendário</h2></div><p class="dbm">${MESF[x.m]} ${S.year}</p><div class="dbcg">${DSEM.map(s=>`<b>${s}</b>`).join('')}${cells.join('')}</div><p class="dblg"><span><i class="td"></i>Hoje</span><span><i class="ev"></i>Compromisso</span></p></section>`;
 }
-function dbNewsHTML(){
+function dbNewsHTML(m){
   const L=(S.hl||[]).slice(0,4);
-  return `<section class="db dbnw"><div class="dbh"><h2>Notícias</h2></div>${L.length?L.map(x=>`<article class="dbnews"><span class="dbav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h13v14H6a2 2 0 0 1-2-2z"/><path d="M17 9h3v8a2 2 0 0 1-2 2"/><path d="M7 9h7M7 13h7M7 16h4"/></svg></span><div><small>BrasLOL News · ${x.y}</small><p>${esc(x.t)}</p></div></article>`).join(''):'<p class="note">Sem novidades por enquanto.</p>'}</section>`;
+  return `<section class="db dbnw"><div class="dbh"><h2>Notícias</h2></div>${L.length?L.map(x=>`<article class="dbnews"><span class="dbav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h13v14H6a2 2 0 0 1-2-2z"/><path d="M17 9h3v8a2 2 0 0 1-2 2"/><path d="M7 9h7M7 13h7M7 16h4"/></svg></span><div><small>BrasLOL News · ${x.y}</small><p>${esc(x.t)}</p></div></article>`).join(''):(m&&m.log&&m.log.length?`<small class="dbsub">Diário do clube</small><ul class="lines">${m.log.slice(0,4).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:'<p class="note">Sem novidades por enquanto.</p>')}</section>`;
 }
 function dbTableHTML(t){
   const sp=S.season.sp;let rows,head,sub;
@@ -6341,7 +6342,7 @@ function dbTableHTML(t){
   return `<section class="db dbtab"><div class="dbh"><h2>Tabela</h2><span>${head}<small>${sub}</small></span></div><div class="dbrs">${rows}</div></section>`;
 }
 function dbHTML(t,m){
-  return `<div class="dbg">${dbNextHTML(t,m)}${dbTeamHTML(t,m)}${dbCashHTML(t,m)}${dbCalHTML()}${dbNewsHTML()}${dbTableHTML(t)}</div>`;
+  return `<div class="dbg">${dbNextHTML(t,m)}${dbTeamHTML(t,m)}${dbCashHTML(t,m)}${dbCalHTML()}${dbNewsHTML(m)}${dbTableHTML(t)}</div>`;
 }
 function inicioHTML(t,m){
   const sp=S.season.sp,mid=t.id,cur=PHASES[S.phase];
@@ -7899,7 +7900,7 @@ function vHof(){
       const role=p?p.p.role:roleOf(n),c=natC(n);
       return{hh,tt,sub:`${p?esc(p.t.name):'aposentado'} · ${RN[role]||''}${c?' · '+natTxt(c):''} ${m}`};
     };
-    const pod=r.slice(0,3).map((n,i)=>{const x=info(n);return `<button class="pc3 p${i+1}" data-act="player" data-v="${esc(n)}"><span class="pcn num">${i+1}</span><span class="av">${phHas(n)?phImg(n):AVA}</span><b>${esc(n)}</b><small>${x.sub}</small><span class="tt">${x.tt}</span><span class="pt num">${Math.round(sc(x.hh))}<i>pts</i></span></button>`}).join('');
+    const pod=r.slice(0,3).map((n,i)=>{const x=info(n);return `<button class="pc3 p${i+1}" data-act="player" data-v="${esc(n)}"><span class="pcn num">${i+1}</span><span class="av">${phHas(n)?phImg(n):AVA}</span><b>${esc(n)}</b><small>${x.sub}</small><span class="tt">${x.tt.split(' · ').map(q=>`<span style="white-space:nowrap">${q}</span>`).join(' · ')}</span><span class="pt num">${Math.round(sc(x.hh))}<i>pts</i></span></button>`}).join('');
     const rows=r.slice(3).map((n,i)=>{const x=info(n);return rkRow(i+3,n,x.sub,x.tt,Math.round(sc(x.hh)),'pts')}).join('');
     const top=k=>{let b=null;Object.keys(S.hof).forEach(n=>{if(!b||(S.hof[n][k]||0)>(S.hof[b][k]||0))b=n});return b&&S.hof[b][k]?{n:b,v:S.hof[b][k]}:null};
     const rec=[['Melhor do Ano','bd'],['Mundiais','wc'],['MSI','msi'],['MVPs','mvp']].map(([l,k])=>{const t=top(k);return t?`<div class="rec"><small>${l}</small><b class="num">${t.v}</b><span>${lk(t.n)}</span></div>`:''}).join('');
