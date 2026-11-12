@@ -550,6 +550,15 @@ h1{letter-spacing:.02em}
   .toast{left:50%}
 }
 @media (min-width:1500px){.wrap{max-width:1400px}#app.wrap{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* ajustes: caixas em colunas que se completam (sem buracos entre linhas) */
+#app.wrap>.setw{grid-column:1/-1;width:100%}
+.setcols{column-count:1;column-gap:20px}
+.setcols>.pn{break-inside:avoid;display:block;width:100%;margin:0 0 14px}
+.setcols>.pn .sset:first-of-type{border-top:0}
+.setcols>.pn>h2{font:700 15px var(--d);letter-spacing:.16em;color:var(--ink);margin:0 0 8px;padding:6px 0 0}.setcols>.pn.mod .row{margin-top:4px!important}
+@media (min-width:900px){.setcols{column-count:2}}
+@media (min-width:1500px){.setcols{column-count:3}}
 @media (max-width:420px){.fut{width:124px;height:178px}.fut .fo{font-size:31px;left:17px;top:22px}.fut .fr{left:17px;top:53px}.fut .fn{left:16px;top:70px}.fut .fs{left:15px;top:86px;width:22px;height:26px}.fut .fa{width:66px;height:78px;right:14px;top:18px}.fut .fnm{top:104px;font-size:16px}.fut .fst{top:128px;font-size:13px}.fut.big{width:150px;height:216px}.fut.big .fo{font-size:38px;left:20px;top:26px}.fut.big .fr{left:20px;top:64px;font-size:14px}.fut.big .fn{left:19px;top:85px;font-size:12px}.fut.big .fs{left:18px;top:104px;width:26px;height:32px}.fut.big .fa{right:17px;top:22px;width:80px;height:94px}.fut.big .fnm{top:128px;font-size:20px}.fut.big .fst{top:158px;font-size:16px}}
 .cal{padding-top:12px}
 .cdate{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:12px}
@@ -8647,7 +8656,7 @@ const vProf=()=>prof?(prof.k==='p'?vPlayer(prof.id):prof.k==='l'?vLeague(prof.id
 function vSet(){
   if(dHof===null)dHof=hofRank().map(n=>`${n},${r1(S.hof[n].pts)}`).join('\n');
   const mt=mgrT();
-  return `${msg?`<div class="msg">${esc(msg)}</div>`:''}
+  return `<div class="setw">${msg?`<div class="msg">${esc(msg)}</div>`:''}<div class="setcols">
   ${slotsHTML()}
   <section class="pn cmp mod"><h2>Modo atual</h2><p class="note" style="margin:0 0 6px">${modeNow()==='mgr'?'Treinador'+(mgrT()?' · '+esc(mgrT().name):''):modeNow()==='pc'?'Jogador · '+esc(S.pc.n):'Simulador'}. </p><div class="row" style="margin:0"><button class="ghost" data-act="tab" data-v="menu">Trocar de modo</button><button class="ghost" data-act="ttlOpen">Menu inicial</button></div></section>
   <section class="pn cmp"><button class="sgb" data-act="setg" data-v="jog" aria-expanded="${!!setOpen.jog}">Jogabilidade<span>▾</span></button>${setOpen.jog?`<div class="sset"><h3>Draft de campeões</h3><p class="note" style="margin:0 0 10px">Bans e picks automáticos no dia do jogo. No modo jogador, você escolhe o campeão a partir do 2º mapa; domínio e força do campeão mudam as chances (até 7% por mapa). Desligado: começa direto.</p><div class="pills" style="margin:0">${[[1,'Ligado'],[0,'Desligado']].map(([k,l])=>`<button class="pill" aria-pressed="${(draftOn()?1:0)===k}" data-act="draftOpt" data-v="${k}">${l}</button>`).join('')}</div></div>
@@ -8666,7 +8675,7 @@ function vSet(){
   <textarea id="t-bk" aria-label="Backup" placeholder="Cole aqui um backup para carregar">${esc(dBackup)}</textarea>
   <div class="row" style="margin:10px 0 0"><button class="ghost" data-act="copy">Gerar e copiar backup</button><button class="ghost" data-act="loadBk">Carregar backup</button></div><div class="row" style="margin:10px 0 0"><label class="ghost" style="cursor:pointer">Carregar de arquivo<input id="bk-file" type="file" accept=".json,text/plain" style="display:none"></label></div></div>
   <div class="sset"><h3>Recomeçar</h3><p class="note" style="margin:0 0 10px">Apaga o que foi simulado e volta ao Mundial 2026 no ponto real: Suíço encerrado e quartas de final prestes a começar (TES×IG, Gen.G×LYON, DK×BLG, T1×KC).</p>
-  ${askReset?`<div class="row" style="margin:0"><button class="ghost danger" data-act="resetOk">Confirmar e apagar tudo</button><button class="ghost" data-act="resetNo">Cancelar</button></div>`:`<button class="ghost" data-act="reset">Reiniciar simulador</button>`}</div>`:''}</section>`;
+  ${askReset?`<div class="row" style="margin:0"><button class="ghost danger" data-act="resetOk">Confirmar e apagar tudo</button><button class="ghost" data-act="resetNo">Cancelar</button></div>`:`<button class="ghost" data-act="reset">Reiniciar simulador</button>`}</div>`:''}</section></div></div>`;
 }
 
 const BGART=['Ahri','Jinx','LeeSin','Yasuo','Viego','Azir','Zed','Ezreal','Kaisa','Sylas','Akali','Lux','Ryze','Thresh','Orianna','Vi','Ekko','Jhin','Aurora','Varus','Kalista','Ambessa'];
