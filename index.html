@@ -6247,12 +6247,14 @@ const perkSvg=(id,cl)=>`<svg class="${cl||'gl'}" viewBox="0 0 24 24" aria-hidden
 function pcTreeBg(br){
   let sd=br.charCodeAt(0)*977;const R=()=>(sd=(sd*16807)%2147483647)/2147483647,W=400,HH=1300,f=n=>n.toFixed(1);
   const gl=(k,x,y,sc,rot,st,sw,op)=>`<g transform="translate(${x} ${y}) rotate(${rot||0}) scale(${sc}) translate(-12 -12)" fill="none" stroke="${st}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" opacity="${op}"><path d="${PGL[k]}"/></g>`;
+  const im=(src,x,y,w,h,op,rot,extra)=>`<image href="${src}" x="${f(x-w/2)}" y="${f(y-h/2)}" width="${w}" height="${h}" opacity="${op}"${rot?` transform="rotate(${rot} ${x} ${y})"`:''} preserveAspectRatio="xMidYMid meet"${extra||''}/>`;
   let o=`<svg class="tart" viewBox="0 0 ${W} ${HH}" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>`;
   if(br==='c'){
     o+=`<linearGradient id="bgc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b0d1b"/><stop offset=".5" stop-color="#1a0810"/><stop offset="1" stop-color="#3d1408"/></linearGradient><radialGradient id="bgcg" cx=".5" cy="1" r=".6"><stop offset="0" stop-color="#ff7a3c" stop-opacity=".45"/><stop offset="1" stop-color="#ff7a3c" stop-opacity="0"/></radialGradient></defs><rect width="${W}" height="${HH}" fill="url(#bgc)"/><rect y="700" width="${W}" height="600" fill="url(#bgcg)"/>`;
     o+=`<circle cx="200" cy="600" r="150" fill="none" stroke="#ff6b7d" stroke-opacity=".16" stroke-width="1.5" stroke-dasharray="3 9"/><circle cx="200" cy="600" r="215" fill="none" stroke="#ff6b7d" stroke-opacity=".10" stroke-width="1"/>`;
-    o+=gl('sword',200,600,19,-8,'#ff6b7d',.1,.34)+`<g transform="translate(400 0) scale(-1 1)">${gl('sword',200,600,19,-8,'#ff6b7d',.1,.34)}</g>`;
-    o+=gl('skull',200,1010,6,0,'#ff9a6b',.2,.16)+gl('flame',60,300,5,0,'#ff9a6b',.2,.14)+gl('flame',345,860,5,0,'#ff9a6b',.2,.14);
+    o+=`<defs><filter id="tmc" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1.15 0.9 0.2 0 -0.05  0.25 0.3 0.05 0 0  0.15 0.15 0.05 0 0  0 0 0 1 0"/></filter><filter id="tmg"><feGaussianBlur stdDeviation="14"/></filter></defs>`;
+    o+=im('fundos/mapa.webp',200,610,400,400,.32,-5,' filter="url(#tmg)"')+im('fundos/mapa.webp',200,610,380,380,.4,-5,' filter="url(#tmc)"');
+    o+=gl('sword',58,230,5,-25,'#ff9a6b',.2,.22)+gl('sword',342,230,5,25,'#ff9a6b',.2,.22)+gl('skull',200,1040,5,0,'#ff9a6b',.2,.16);
     for(let i=0;i<46;i++)o+=`<circle cx="${f(R()*W)}" cy="${f(R()*HH)}" r="${f(.6+R()*1.9)}" fill="#ffb36b" opacity="${f(.12+R()*.45)}"/>`;
     o+=`<path d="M0 1300V1190L40 1150 70 1180 120 1110 170 1170 220 1120 270 1175 320 1130 370 1170 400 1140V1300Z" fill="#0d0509" opacity=".85"/>`;
   }else if(br==='e'){
@@ -6262,17 +6264,21 @@ function pcTreeBg(br){
     o+=`<polyline points="${pts.map(q=>f(q[0])+','+f(q[1])).join(' ')}" fill="none" stroke="#5fdce8" stroke-opacity=".28" stroke-width="1"/>`+pts.map(q=>`<circle cx="${f(q[0])}" cy="${f(q[1])}" r="3" fill="#5fdce8" opacity=".6"/>`).join('');
     for(const r of [60,110,170,230])o+=`<circle cx="200" cy="650" r="${r}" fill="none" stroke="#5fdce8" stroke-opacity="${r>150?.14:.22}" stroke-width="1.2"${r%110===0?' stroke-dasharray="4 8"':''}/>`;
     for(let i=0;i<48;i++){const a=i*Math.PI/24,l=i%4===0?16:8;o+=`<line x1="${f(200+Math.cos(a)*230)}" y1="${f(650+Math.sin(a)*230)}" x2="${f(200+Math.cos(a)*(230+l))}" y2="${f(650+Math.sin(a)*(230+l))}" stroke="#5fdce8" stroke-opacity=".25"/>`}
-    o+=gl('compass',200,650,9,0,'#5fdce8',.14,.3)+gl('book',200,1090,10,0,'#5fdce8',.14,.22)+gl('bulb',70,300,4,-12,'#9aeef5',.25,.18)+gl('flask',335,950,4,14,'#9aeef5',.25,.18);
+    o+=gl('compass',200,650,6,0,'#5fdce8',.14,.3)+gl('book',200,1120,8,0,'#5fdce8',.14,.2);
+    o+=`<defs><filter id="tmr"><feGaussianBlur stdDeviation="10"/></filter></defs>`;
+    for(const [src,x,y,w,r] of [['runa-cometa',70,330,130,-14],['runa-fluxo',335,500,120,10],['runa-gelo',66,880,130,-6],['runa-aery',338,1040,120,8]])o+=im('fundos/'+src+'.webp',x,y,w+34,w+34,.32,r,' filter="url(#tmr)"')+im('fundos/'+src+'.webp',x,y,w,w,.5,r);
     o+=`<ellipse cx="200" cy="650" rx="260" ry="70" fill="none" stroke="#9aeef5" stroke-opacity=".18" transform="rotate(-18 200 650)"/><circle cx="${f(200+Math.cos(2.4)*260*.95)}" cy="${f(650-Math.sin(2.4)*70*.9-70)}" r="5" fill="#9aeef5" opacity=".5"/>`;
   }else{
     o+=`<linearGradient id="bgp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2d2108"/><stop offset=".6" stop-color="#150f04"/><stop offset="1" stop-color="#2d1e06"/></linearGradient><linearGradient id="bgpb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a8" stop-opacity=".30"/><stop offset="1" stop-color="#ffe9a8" stop-opacity="0"/></linearGradient><radialGradient id="bgpg" cx=".5" cy="1" r=".55"><stop offset="0" stop-color="#ffc857" stop-opacity=".4"/><stop offset="1" stop-color="#ffc857" stop-opacity="0"/></radialGradient></defs><rect width="${W}" height="${HH}" fill="url(#bgp)"/>`;
     o+=`<polygon points="150,0 250,0 380,900 20,900" fill="url(#bgpb)" opacity=".5"/><polygon points="60,0 110,0 240,1100 -40,1100" fill="url(#bgpb)" opacity=".4"/><polygon points="290,0 340,0 460,1100 180,1100" fill="url(#bgpb)" opacity=".4"/>`;
-    o+=`<rect y="760" width="${W}" height="540" fill="url(#bgpg)"/>`+gl('trophy',200,560,19,0,'#ffc857',.1,.34)+gl('star',60,260,4,-12,'#ffe9a8',.25,.2)+gl('star',345,420,5,12,'#ffe9a8',.25,.2)+gl('coin',65,980,4,0,'#ffe9a8',.25,.2)+gl('mega',340,1010,5,-10,'#ffe9a8',.2,.2);
+    o+=`<rect y="760" width="${W}" height="540" fill="url(#bgpg)"/>`+gl('star',60,260,4,-12,'#ffe9a8',.25,.2)+gl('star',345,420,5,12,'#ffe9a8',.25,.2)+gl('coin',65,980,4,0,'#ffe9a8',.25,.2)+gl('mega',340,1010,5,-10,'#ffe9a8',.2,.2);
     const cc=['#ffc857','#fff','#ff8aa1','#7ee0ff'];
     for(let i=0;i<54;i++)o+=`<rect x="${f(R()*W)}" y="${f(R()*HH)}" width="${f(3+R()*4)}" height="${f(2+R()*3)}" fill="${cc[i%4]}" opacity="${f(.15+R()*.4)}" transform="rotate(${f(R()*180)} ${f(R()*W)} ${f(R()*HH)})"/>`;
+    const tro=(src,x,yb,w,h)=>`<g><g transform="translate(0 ${2*yb}) scale(1 -1)" opacity=".16"><image href="trofeus/${src}.png" x="${x-w/2}" y="${yb-h}" width="${w}" height="${h}"/></g><image href="trofeus/${src}.png" x="${x-w/2}" y="${yb-h}" width="${w}" height="${h}" style="filter:drop-shadow(0 0 14px rgba(255,200,87,.6))"/></g>`;
+    o+=tro('m',58,520,52,106)+tro('c',344,380,52,97)+tro('w',344,980,70,104);
     o+=`<ellipse cx="200" cy="1270" rx="240" ry="46" fill="#ffc857" opacity=".18"/><ellipse cx="200" cy="1262" rx="170" ry="30" fill="none" stroke="#ffe9a8" stroke-opacity=".3"/>`;
   }
-  return o+`</svg>`;
+  return o+`<rect width="${W}" height="${HH}" fill="#070b1c" opacity=".3"/></svg>`;
 }
 let pcPerkSel=null,pcBr='c';
 function pcTreeHTML(f){
