@@ -1950,7 +1950,7 @@ details.pn>summary{color:var(--t1)}
 .tnode small{letter-spacing:.12em;color:#FFE27A}.tnode.lock small{color:#69739e;letter-spacing:.04em}
 @keyframes tnp2{50%{filter:drop-shadow(0 0 3px rgba(0,245,160,.35))}}
 @media (prefers-reduced-motion:reduce){.tnode.can{animation:none}}
-.pcTop{align-items:stretch}.pcSide,.pcCol{gap:16px}.plist{max-height:340px;overflow-y:auto;overflow-x:hidden;padding-right:4px}.plist .pool{grid-template-columns:30px minmax(0,1fr) 34px auto}.pcCol .pool .who small{display:block}.pcPl{display:flex;flex-direction:column}.pcPl .ph{margin-bottom:12px}.pcPl .ph h3{font-size:28px;overflow-wrap:break-word}.pcPl .cab{margin-top:auto}.pcCol{justify-content:flex-start}.pcsub{margin:0 0 8px}.pcsub .tag{margin-left:4px}.pcCol{display:flex;flex-direction:column;gap:8px;min-width:0}.pcCol .pn{margin:0}.pcHab>.pn{margin-bottom:8px}
+.pcTop{align-items:stretch}.pcSide,.pcCol{gap:16px}.pgrid{max-height:230px;overflow-y:auto;padding-right:3px;display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:6px}.pg{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 3px;border-radius:8px;background:rgba(255,255,255,.03)}.pg .ct{width:38px;height:38px;border-radius:8px}.pg b{font-size:12px}.pg .ovb{width:100%;height:5px!important}.pg .mt{position:absolute;top:3px;right:5px;font:700 9px var(--b);font-style:normal}.pg .mt.up{color:#00F5A0}.pg .mt.dn{color:#FF5C8A}.pcPl{display:flex;flex-direction:column}.pcPl .ph{margin-bottom:12px}.pcPl .ph h3{font-size:28px;overflow-wrap:break-word}.pcPl .cab{margin-top:auto}.pcCol{justify-content:flex-start}.pcsub{margin:0 0 8px}.pcsub .tag{margin-left:4px}.pcCol{display:flex;flex-direction:column;gap:8px;min-width:0}.pcCol .pn{margin:0}.pcHab>.pn{margin-bottom:8px}
 .tdi{width:54px;height:54px;flex:none;display:grid;place-items:center;font-size:0;color:var(--bc,#FFE27A);clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:linear-gradient(160deg,var(--bc,#FFE27A),rgba(var(--gl,255,226,122),.25));position:relative}
 .tdi::before{content:"";position:absolute;inset:3px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:radial-gradient(circle at 50% 28%,#223066,#080c22 75%)}
 .tdi .gl{width:28px;height:28px}
@@ -5723,10 +5723,10 @@ const PERKS=[
 
  {id:'e1',br:'e',n:'Dedicado',d:'+20% de XP no treino semanal.',c:1,lv:2,pa:[],r:0,x:50,fx:{xpw:.2}},
  {id:'e4',br:'e',n:'Rato de VOD',d:'+2 de Macro.',c:1,lv:4,pa:['e1'],r:1,x:30,at:[2,2]},
- {id:'e5',br:'e',n:'Caderno de campeões',d:'Treino de pool gasta 5 a menos de energia.',c:1,lv:4,pa:['e1'],r:1,x:70,fx:{poolc:5}},
+ {id:'e5',br:'e',n:'Caderno de campeões',d:'O programa Pool gasta 5 a menos de energia por semana.',c:1,lv:4,pa:['e1'],r:1,x:70,fx:{poolc:5}},
  {id:'e6',br:'e',n:'Leitor de jogo',d:'+1% de vitória em cada mapa.',c:2,lv:7,pa:['e4'],r:2,x:14,fx:{adj:.01}},
  {id:'e3',br:'e',n:'Analista',d:'+25% de XP em partidas, scrims e torneios.',c:2,lv:7,pa:['e4'],r:2,x:38,fx:{xpm:.25}},
- {id:'e2',br:'e',n:'Polivalente',d:'Treino de pool rende +2% por campeão e gasta 10 a menos de energia.',c:2,lv:7,pa:['e5'],r:2,x:62,fx:{poolg:.02,poolc:10}},
+ {id:'e2',br:'e',n:'Polivalente',d:'O programa Pool rende +2% por campeão e gasta 10 a menos de energia.',c:2,lv:7,pa:['e5'],r:2,x:62,fx:{poolg:.02,poolc:10}},
  {id:'e7',br:'e',n:'Banco de dados',d:'O programa Pool treina 1 campeão extra por semana.',c:2,lv:7,pa:['e5'],r:2,x:86,fx:{pooln:1}},
  {id:'e8',br:'e',n:'Estrategista',d:'+2 de Equipe.',c:2,lv:10,pa:['e6','e3'],r:3,x:26,at:[3,2]},
  {id:'e9',br:'e',n:'Professor',d:'Mais +15% de XP no treino semanal.',c:2,lv:10,pa:['e3','e2'],r:3,x:50,fx:{xpw:.15}},
@@ -5765,7 +5765,7 @@ const PERKS=[
  {id:'e15',br:'e',n:'Laboratório de composições',d:'O programa Pool treina mais 2 campeões por semana.',c:3,lv:30,pa:['e12'],r:6,x:38,fx:{pooln:2}},
  {id:'e16',br:'e',n:'Metodologia própria',d:'+5% de todo o XP que você ganha.',c:3,lv:35,pa:['e13'],r:6,x:62,fx:{xpa:.05}},
  {id:'e17',br:'e',n:'Teoria avançada',d:'+3 de Equipe e +1% de vitória por mapa.',c:3,lv:35,pa:['e13'],r:6,x:86,at:[3,3],fx:{adj:.01}},
- {id:'e18',br:'e',n:'Escola de campeões',d:'Pool: +3% por campeão e 5 a menos de energia.',c:3,lv:50,pa:['e14','e15'],r:7,x:26,fx:{poolg:.03,poolc:5}},
+ {id:'e18',br:'e',n:'Escola de campeões',d:'Programa Pool: +3% por campeão e 5 a menos de energia.',c:3,lv:50,pa:['e14','e15'],r:7,x:26,fx:{poolg:.03,poolc:5}},
  {id:'e19',br:'e',n:'Aprendiz acelerado',d:'+8% de todo o XP que você ganha.',c:3,lv:50,pa:['e15','e16'],r:7,x:50,fx:{xpa:.08}},
  {id:'e20',br:'e',n:'Visão de jogo',d:'+2% de vitória por mapa e "Buscar o jogo" acerta mais 6%.',c:3,lv:55,pa:['e16','e17'],r:7,x:74,fx:{adj:.02,bold:.06}},
  {id:'e21',br:'e',n:'Professor Doutor',d:'+25% de XP no treino semanal e +15% em partidas. Exige 2 das 3 ligadas.',c:4,lv:70,pa:['e18','e19','e20'],need:2,r:8,x:50,fx:{xpw:.25,xpm:.15}},
@@ -5871,7 +5871,8 @@ function pcWeek(){
   pcGain(xp);
   const fo=pc.focus==null?2:pc.focus;
   if(P.fx&&pc.at[fo]<pcCap())pcXp(fo,Math.round(P.fx*fac));
-  pc.en=clamp(pc.en-Math.round(P.en*(P.en>0?Math.max(.4,1-pcFx('tcost')):1))+28+pcFx('en'),0,100);pc.rest=0;
+  const en0=P.en>0?Math.max(5,P.en-(pc.plan==='p'?pcFx('poolc'):0)):P.en;
+  pc.en=clamp(pc.en-Math.round(en0*(en0>0?Math.max(.4,1-pcFx('tcost')):1))+28+pcFx('en'),0,100);pc.rest=0;
   const ref=pcRef(f),drift=ref?clamp((f.p.r-ref.r)*.1,-.2,.5):.2;
   pcTrust((tired?-1.2:P.tr)+drift);
   let pl=null;
@@ -6009,11 +6010,6 @@ function pcSpend(i){
   pc.pts--;pc.at[i]++;upI=i;pcSync();pcLog(`gasta 1 ponto em ${ATL[i]} (${pc.at[i]}).`);msg=`${ATL[i]} sobe para ${pc.at[i]}.`;
 }
 function pcRest(){const pc=S.pc;if(pc.rest){msg='Você já descansou nesta semana.';return}pc.rest=1;pc.en=Math.min(100,pc.en+25);msg='Você descansou (+25 de energia).'}
-function pcPoolTrain(c){
-  const pc=S.pc,cost=Math.max(10,30-pcFx('poolc')),gain=.04+pcFx('poolg');if(pc.en<cost){msg='Energia baixa.';return}
-  const v=pc.pool[c]||0;if(mastOf(pc.n,c)>=1){msg='Domínio máximo.';return}
-  pc.en-=cost;pc.pool[c]=Math.min(1,v+gain);pcGain(10);msg=`Treino de pool: ${c} +${Math.round(gain*100)}%.`;
-}
 const PGOALS=[
  ['t1','Estreia como titular','Jogue como titular em qualquer divisão.',(f,o)=>!f.bn,3],
  ['d1','Titular na elite','Seja titular de um time da D1.',(f,o)=>!f.bn&&f.t.d!==2,6],
@@ -6328,8 +6324,8 @@ function vPc0(){
   if(pc.ev){const e=PEV[pc.ev];h+=`<section class="pn"><h2>Evento</h2><p class="note" style="margin:0 0 10px">${esc(e.t)}</p><div class="row" style="margin:0">${e.o.map(([l,k])=>`<button class="ghost" data-act="pcEv" data-v="${k}">${l}</button>`).join('')}</div></section>`}
   h+=ptHTML();
   /* pool */
-  const pl=CH[p.role].map(([c,a])=>({c,a,v:Math.round(mastOf(pc.n,c)*100),m:metaOf(c)}));
-  let poolH=`<details class="pn det" open><summary>Pool de campeões</summary><p class="note" style="margin:0 0 8px">Todos os 8 campeões da função aparecem aqui. Cada treino de pool gasta ${Math.max(10,30-pcFx('poolc'))} de energia e dá +${Math.round((.04+pcFx('poolg'))*100)}% de domínio em um campeão. Quanto melhor sua pool no meta atual (${esc(metaName())}), mais forma você carrega.</p><div class="plist">${pl.map(x=>`<div class="pool"><span class="ct sm" style="--h:${hs(x.c)%360}"><b>${esc(chIni(x.c))}</b></span><span class="who"><b>${esc(x.c)}</b><small>${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}</small></span><b class="num">${x.v}</b><button class="ghost" data-act="pcPool" data-v="${esc(x.c)}"${pc.en<Math.max(10,30-pcFx('poolc'))||x.v>=100?' disabled':''}>${x.v>=100?'máx':'+'+Math.round((.04+pcFx('poolg'))*100)+'%'}</button></div>`).join('')}</div></details>`;
+  const pl=CH[p.role].map(([c,a])=>({c,a,v:Math.round(mastOf(pc.n,c)*100),m:metaOf(c)})).sort((x,y)=>y.v-x.v);
+  let poolH=`<details class="pn det" open><summary>Pool de campeões</summary><p class="note" style="margin:0 0 8px">Domínio dos campeões da função (▲ meta a favor, ▼ contra). Sobe sozinho no programa Pool do treino (+${Math.round((.03+pcFx('poolg'))*100)}% em ${5+pcFx('pooln')} campeões por semana). Quanto melhor sua pool no meta atual (${esc(metaName())}), mais forma você carrega.</p><div class="pgrid">${pl.map(x=>`<div class="pg" title="${esc(x.c)} · ${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}">${chTile(x.c)}<b class="num">${x.v}%</b>${pcBar(x.v,100)}${x.m>=.2?'<i class="mt up">▲</i>':x.m<=-.2?'<i class="mt dn">▼</i>':''}</div>`).join('')}</div></details>`;
   /* ofertas */
   if(pc.offers&&pc.offers.length){h+=`<section class="pn"><h2>Propostas</h2><p class="note" style="margin:0 0 8px">${pcPlayOk()?'Janela aberta: dá para assinar agora.':'Janela fechada: as propostas voltam a valer antes do próximo split.'}</p>${pc.offers.map((o,i)=>{const nt=ALLT().find(x=>x.name===o.tn);return `<div class="mrow" style="grid-template-columns:minmax(0,1fr) auto auto"><span class="who"><b>${o.ren?'Renovar com ':''}${nt?tlk(nt):esc(o.tn)}${nt&&nt.d===2?' <span class="tag">D2</span>':''}</b><small>${o.k==='T'?'Como titular':'Como reserva'} · ${o.yrs} ano${o.yrs>1?'s':''} · ${fmtM(o.sal)}/ano</small></span><button class="ghost" data-act="pcOffer" data-v="${i}"${pcPlayOk()?'':' disabled'}>${o.ren?'Renovar':'Assinar'}</button><button class="ghost" data-act="pcNo" data-v="${i}">Recusar</button></div>`}).join('')}</section>`}
   /* metas */
@@ -8825,7 +8821,6 @@ function act(a,v){
   else if(a==='pcFocus'){S.pc.focus=+v;save()}
   else if(a==='pcSpend'){pcSpend(+v);save()}
   else if(a==='pcRest'){pcRest();save()}
-  else if(a==='pcPool'){pcPoolTrain(v);save()}
   else if(a==='pcOffer'){pcAccept(+v);save()}
   else if(a==='pcNo'){pcDecline(+v);save()}
   else if(a==='pcEv'){pcEv(v);save()}
