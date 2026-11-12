@@ -1950,13 +1950,13 @@ details.pn>summary{color:var(--t1)}
 .tnode small{letter-spacing:.12em;color:#FFE27A}.tnode.lock small{color:#69739e;letter-spacing:.04em}
 @keyframes tnp2{50%{filter:drop-shadow(0 0 3px rgba(0,245,160,.35))}}
 @media (prefers-reduced-motion:reduce){.tnode.can{animation:none}}
-.pcsub{margin:0 0 8px}.pcsub .tag{margin-left:4px}.pcCol{display:flex;flex-direction:column;gap:8px;min-width:0}.pcCol .pn{margin:0}.pcHab>.pn{margin-bottom:8px}
+.pcTop{align-items:stretch}.pcSide,.pcCol{gap:16px}.plist{max-height:340px;overflow-y:auto;overflow-x:hidden;padding-right:4px}.plist .pool{grid-template-columns:30px minmax(0,1fr) 34px auto}.pcCol .pool .who small{display:block}.pcPl{display:flex;flex-direction:column}.pcPl .ph{margin-bottom:12px}.pcPl .ph h3{font-size:28px;overflow-wrap:break-word}.pcPl .cab{margin-top:auto}.pcCol{justify-content:flex-start}.pcsub{margin:0 0 8px}.pcsub .tag{margin-left:4px}.pcCol{display:flex;flex-direction:column;gap:8px;min-width:0}.pcCol .pn{margin:0}.pcHab>.pn{margin-bottom:8px}
 .tdi{width:54px;height:54px;flex:none;display:grid;place-items:center;font-size:0;color:var(--bc,#FFE27A);clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:linear-gradient(160deg,var(--bc,#FFE27A),rgba(var(--gl,255,226,122),.25));position:relative}
 .tdi::before{content:"";position:absolute;inset:3px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:radial-gradient(circle at 50% 28%,#223066,#080c22 75%)}
 .tdi .gl{width:28px;height:28px}
 
 /* árvore: sem sobreposição (mais altura entre linhas, rótulos com fundo) e arte de fundo por ramo */
-.tbg{opacity:1;pointer-events:none}.tln{z-index:0}
+.tart{pointer-events:none}.tln{z-index:0}
 .tnode{width:22%;transform:translate(-50%,-29px);z-index:1}
 .tnode b{background:rgba(7,11,28,.78);padding:1px 5px;border-radius:6px;font-size:11px;line-height:1.15;margin-top:4px}
 .tnode small{background:rgba(7,11,28,.7);padding:0 5px;border-radius:6px;margin-top:2px}
@@ -6211,11 +6211,11 @@ function pcTrustTxt(f){
 }
 function pcLvHTML(){
   const pc=S.pc,need=pcNeed(pc.lv),max=pc.lv>=PCLV;
-  return `<section class="pn"><h2>Nível ${pc.lv}${max?' <span class="tag">máx</span>':''}</h2>${pcBar(max?1:pc.xl,max?1:need)}<p class="note" style="margin:6px 0 0">${max?'Nível máximo.':`${pc.xl} / ${need} de XP para o nível ${pc.lv+1}.`} Todo nível dá 1 ponto de status (2 a cada 5 níveis) e, nos níveis pares, 1 ponto de habilidade para a árvore (2 a cada 5 níveis). No nível 99 os pontos de status sobram e podem virar habilidade (3 por 1). XP vem de partidas, treino semanal, scrims, torneios, eventos e metas.</p></section>`;
+  return `<section class="pn"><h2>Nível ${pc.lv}${max?' <span class="tag">máx</span>':''}</h2>${pcBar(max?1:pc.xl,max?1:need)}<p class="note" style="margin:6px 0 0">${max?'Nível máximo.':`${pc.xl} / ${need} de XP para o nível ${pc.lv+1}.`} Cada nível dá 1 ponto de status e, nos pares, 1 de habilidade (o dobro a cada 5 níveis). No nível 99, status vira habilidade (3 por 1).</p></section>`;
 }
 function pcTrustHTML(f){
   const pc=S.pc,tr=Math.round(pc.tr);
-  return `<section class="pn"><h2>Confiança do técnico</h2><div class="cab"><div><b class="num">${tr}%</b><small>${f.bn?'Reserva':'Titular'}</small></div></div><div style="position:relative;margin:2px 0 8px"><div class="ovb" style="height:9px"><i style="width:${tr}%"></i></div><u style="position:absolute;left:70%;top:-3px;bottom:-3px;width:2px;background:#FFE27A" title="70%: promoção a titular"></u><u style="position:absolute;left:15%;top:-3px;bottom:-3px;width:2px;background:#FF5C8A" title="15%: risco de banco"></u></div><p class="note" style="margin:0 0 6px">${esc(pcTrustTxt(f))}</p><p class="note" style="margin:0">Sobe com boas notas nas séries oficiais, treino semanal, scrims e torneios do técnico. Cai com notas ruins, cansaço e convites recusados.</p></section>`;
+  return `<section class="pn"><h2>Confiança do técnico</h2><div class="cab"><div><b class="num">${tr}%</b><small>${f.bn?'Reserva':'Titular'}</small></div></div><div style="position:relative;margin:2px 0 8px"><div class="ovb" style="height:9px"><i style="width:${tr}%"></i></div><u style="position:absolute;left:70%;top:-3px;bottom:-3px;width:2px;background:#FFE27A" title="70%: promoção a titular"></u><u style="position:absolute;left:15%;top:-3px;bottom:-3px;width:2px;background:#FF5C8A" title="15%: risco de banco"></u></div><p class="note" style="margin:0 0 6px">${esc(pcTrustTxt(f))}</p><p class="note" style="margin:0">Sobe com boas notas, treino, scrims e torneios; cai com notas ruins, cansaço e convites recusados.</p></section>`;
 }
 function pcTrainHTML(f){
   const pc=S.pc,fo=pc.focus==null?2:pc.focus,wk=pc.wk,dl=7-(((pcAbs()-pc.wd)%7)+7)%7;
@@ -6251,7 +6251,7 @@ const perkSvg=(id,cl)=>`<svg class="${cl||'gl'}" viewBox="0 0 24 24" aria-hidden
 function pcTreeBg(br){
   let sd=br.charCodeAt(0)*977;const R=()=>(sd=(sd*16807)%2147483647)/2147483647,W=400,HH=1300,f=n=>n.toFixed(1);
   const gl=(k,x,y,sc,rot,st,sw,op)=>`<g transform="translate(${x} ${y}) rotate(${rot||0}) scale(${sc}) translate(-12 -12)" fill="none" stroke="${st}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" opacity="${op}"><path d="${PGL[k]}"/></g>`;
-  let o=`<svg class="tbg" viewBox="0 0 ${W} ${HH}" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>`;
+  let o=`<svg class="tart" viewBox="0 0 ${W} ${HH}" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>`;
   if(br==='c'){
     o+=`<linearGradient id="bgc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b0d1b"/><stop offset=".5" stop-color="#1a0810"/><stop offset="1" stop-color="#3d1408"/></linearGradient><radialGradient id="bgcg" cx=".5" cy="1" r=".6"><stop offset="0" stop-color="#ff7a3c" stop-opacity=".45"/><stop offset="1" stop-color="#ff7a3c" stop-opacity="0"/></radialGradient></defs><rect width="${W}" height="${HH}" fill="url(#bgc)"/><rect y="700" width="${W}" height="600" fill="url(#bgcg)"/>`;
     o+=`<circle cx="200" cy="600" r="150" fill="none" stroke="#ff6b7d" stroke-opacity=".16" stroke-width="1.5" stroke-dasharray="3 9"/><circle cx="200" cy="600" r="215" fill="none" stroke="#ff6b7d" stroke-opacity=".10" stroke-width="1"/>`;
@@ -6285,12 +6285,12 @@ function pcTreeHTML(f){
   const sel=selX&&selX.br===pcBr?selX:(P.find(x=>pcPerkSt(x)==='can')||P[0]),s0=pcPerkSt(sel);
   const got=PERKS.filter(x=>pc.perks[x.id]).length,gb=P.filter(x=>pc.perks[x.id]).length;
   const why=s0==='own'?'Aprendida':pc.lv<sel.lv?`Requer nível ${sel.lv}`:s0==='lock'?(sel.need?`Requer ${sel.need} das ${sel.pa.length} ligadas`:`Requer ${by(sel.pa[0]).n}${sel.pa.length>1?' ou '+by(sel.pa[1]).n:''}`):`Faltam ${sel.c-tp} ponto${sel.c-tp>1?'s':''}`;
-  const H=1320,Y=r=>3.5+r*9.8;
+  const H=1380,Y=r=>3.5+r*10;
   let lines='';
   P.forEach(x=>x.pa.forEach(pid=>{const q=by(pid),lit=pc.perks[pid]&&pc.perks[x.id],half=pc.perks[pid]&&!pc.perks[x.id],y1=Y(q.r),y2=Y(x.r),ym=(y1+y2)/2;lines+=`<path d="M${q.x} ${y1} C${q.x} ${ym} ${x.x} ${ym} ${x.x} ${y2}" class="${lit?'on':half?'half':''}"/>`}));
   let nodes='';
   P.forEach(x=>{const k=pcPerkSt(x);nodes+=`<div class="tnode ${k}${x.r===4||x.r>=8?' cap':''}" style="left:${x.x}%;top:${Y(x.r)}%"><button class="tnb${x.id===sel.id?' sel':''}" data-act="pcPerkSel" data-v="${x.id}" aria-label="${esc(x.n)}">${perkSvg(x.id)}</button>${k==='own'?'<i class="tok">✓</i>':''}<b>${esc(x.n)}</b><small>${k==='own'?'aprendida':k==='lock'&&pc.lv<x.lv?'nível '+x.lv:k==='lock'?'bloqueada':'◆'.repeat(x.c)}</small></div>`});
-  const div=`<div class="tdiv" style="top:${(Y(4)+Y(5))/2}%"><span>Lendas</span></div>`;
+  const div=`<div class="tdiv" style="top:${Y(4)+(Y(5)-Y(4))*.75}%"><span>Lendas</span></div>`;
   const tabs=Object.keys(PBR).map(b=>{const n=PERKS.filter(x=>x.br===b&&pc.perks[x.id]).length;return `<button class="pill" aria-pressed="${pcBr===b}" data-act="pcBr" data-v="${b}">${PBR[b][0]} <small>${n}/22</small></button>`}).join('');
   const fxs=Object.keys(PBR).map(()=>'').join('');
   return `<section class="pn"><h2>Árvore de habilidades</h2><div class="cab${tp>0?' ptsb':''}" style="margin:0 0 10px;grid-template-columns:repeat(2,minmax(0,1fr))"><div><b class="num">${tp}</b><small>Pontos de habilidade</small></div><div><b class="num">${got}/${PERKS.length}</b><small>Aprendidas</small></div></div>
@@ -6322,20 +6322,20 @@ function vPc0(){
   const tp0=pc.tp||0,pt0=pc.pts||0;
   const sub=`<div class="pills pcsub"><button class="pill" aria-pressed="${pcSub==='car'}" data-act="pcSub" data-v="car">Carreira</button><button class="pill" aria-pressed="${pcSub==='hab'}" data-act="pcSub" data-v="hab">Habilidades${tp0+pt0>0?` <span class="tag">${tp0} hab · ${pt0} status</span>`:''}</button></div>`;
   if(pcSub==='hab')return h+sub+`<div class="pcHab">${pcTreeHTML(f)}<div class="pcTop">${pcStatusHTML(f)}${pcInvHTML()}</div></div>`;
-  h+=sub+`<div class="pcTop"><section class="pn"><div class="ph phf">${fut({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f,team:t},'big')}<div><h3>${esc(p.n)}</h3><small>${RN[p.role]} · ${p.age} anos · ${esc(t.name)}${t.d===2?' (D2)':''}</small><small>${f.bn?'<b style="color:#FF9AA8">Reserva</b>':'<b style="color:#00F5A0">Titular</b>'} · contrato ${pc.ctr} ano${pc.ctr===1?'':'s'} · ${fmtM(pc.sal)}/ano</small></div></div>
+  h+=sub+`<div class="pcTop"><section class="pn pcPl"><div class="ph phf">${fut({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f,team:t},'big')}<div><h3>${esc(p.n)}</h3><small>${RN[p.role]} · ${p.age} anos · ${esc(t.name)}${t.d===2?' (D2)':''}</small><small>${f.bn?'<b style="color:#FF9AA8">Reserva</b>':'<b style="color:#00F5A0">Titular</b>'} · contrato ${pc.ctr} ano${pc.ctr===1?'':'s'} · ${fmtM(pc.sal)}/ano</small></div></div>
   <div class="cab"><div><b class="num">${pc.fame}</b><small>Fama</small></div><div><b class="num" style="font-size:22px">${fmtM(pc.cash).replace('US$ ','')}</b><small>Patrimônio (US$)</small></div><div><b class="num" style="font-size:20px">${p.pot>=92?"Lendário":p.pot>=88?"Elite":p.pot>=84?"Alto":"Médio"}</b><small>Olheiros: potencial</small></div></div></section><div class="pcSide">${pcLvHTML()}${pcTrustHTML(f)}</div></div>`;
   /* evento */
   if(pc.ev){const e=PEV[pc.ev];h+=`<section class="pn"><h2>Evento</h2><p class="note" style="margin:0 0 10px">${esc(e.t)}</p><div class="row" style="margin:0">${e.o.map(([l,k])=>`<button class="ghost" data-act="pcEv" data-v="${k}">${l}</button>`).join('')}</div></section>`}
   h+=ptHTML();
   /* pool */
   const pl=CH[p.role].map(([c,a])=>({c,a,v:Math.round(mastOf(pc.n,c)*100),m:metaOf(c)}));
-  let poolH=`<details class="pn det"><summary>Pool de campeões</summary><p class="note" style="margin:0 0 8px">Todos os 8 campeões da função aparecem aqui. Cada treino de pool gasta ${Math.max(10,30-pcFx('poolc'))} de energia e dá +${Math.round((.04+pcFx('poolg'))*100)}% de domínio em um campeão. Quanto melhor sua pool no meta atual (${esc(metaName())}), mais forma você carrega.</p>${pl.map(x=>`<div class="pool"><span class="ct sm" style="--h:${hs(x.c)%360}"><b>${esc(chIni(x.c))}</b></span><span class="who"><b>${esc(x.c)}</b><small>${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}</small></span><b class="num">${x.v}</b><button class="ghost" data-act="pcPool" data-v="${esc(x.c)}"${pc.en<Math.max(10,30-pcFx('poolc'))||x.v>=100?' disabled':''}>${x.v>=100?'máx':'+'+Math.round((.04+pcFx('poolg'))*100)+'%'}</button></div>`).join('')}</details>`;
+  let poolH=`<details class="pn det" open><summary>Pool de campeões</summary><p class="note" style="margin:0 0 8px">Todos os 8 campeões da função aparecem aqui. Cada treino de pool gasta ${Math.max(10,30-pcFx('poolc'))} de energia e dá +${Math.round((.04+pcFx('poolg'))*100)}% de domínio em um campeão. Quanto melhor sua pool no meta atual (${esc(metaName())}), mais forma você carrega.</p><div class="plist">${pl.map(x=>`<div class="pool"><span class="ct sm" style="--h:${hs(x.c)%360}"><b>${esc(chIni(x.c))}</b></span><span class="who"><b>${esc(x.c)}</b><small>${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}</small></span><b class="num">${x.v}</b><button class="ghost" data-act="pcPool" data-v="${esc(x.c)}"${pc.en<Math.max(10,30-pcFx('poolc'))||x.v>=100?' disabled':''}>${x.v>=100?'máx':'+'+Math.round((.04+pcFx('poolg'))*100)+'%'}</button></div>`).join('')}</div></details>`;
   /* ofertas */
   if(pc.offers&&pc.offers.length){h+=`<section class="pn"><h2>Propostas</h2><p class="note" style="margin:0 0 8px">${pcPlayOk()?'Janela aberta: dá para assinar agora.':'Janela fechada: as propostas voltam a valer antes do próximo split.'}</p>${pc.offers.map((o,i)=>{const nt=ALLT().find(x=>x.name===o.tn);return `<div class="mrow" style="grid-template-columns:minmax(0,1fr) auto auto"><span class="who"><b>${o.ren?'Renovar com ':''}${nt?tlk(nt):esc(o.tn)}${nt&&nt.d===2?' <span class="tag">D2</span>':''}</b><small>${o.k==='T'?'Como titular':'Como reserva'} · ${o.yrs} ano${o.yrs>1?'s':''} · ${fmtM(o.sal)}/ano</small></span><button class="ghost" data-act="pcOffer" data-v="${i}"${pcPlayOk()?'':' disabled'}>${o.ren?'Renovar':'Assinar'}</button><button class="ghost" data-act="pcNo" data-v="${i}">Recusar</button></div>`}).join('')}</section>`}
   /* metas */
   const goalH=`<details class="pn det"><summary>Metas de carreira (${Object.keys(pc.goals).length}/${PGOALS.length})</summary>${PGOALS.map(([id,l,d])=>`<div class="mrow" style="grid-template-columns:28px minmax(0,1fr)"><span class="num" style="font-size:20px">${pc.goals[id]?'✓':'·'}</span><span class="who"><b${pc.goals[id]?' style="color:#00F5A0"':''}>${l}</b><small>${d}${pc.goals[id]?' · '+pc.goals[id]:''}</small></span></div>`).join('')}</details>`;
   h+=`<div class="pcTop">${pcTrainHTML(f)}<div class="pcCol">${poolH}${goalH}</div></div>`;
-  return h+pcHistHTML(pc)+`<section class="pn"><div class="row" style="margin:0"><button class="ghost" data-act="player" data-v="${esc(p.n)}">Ver ficha pública</button></div></section>`;
+  return h+pcHistHTML(pc);
 }
 /* ---------- folder da carreira em PDF: gerado aqui mesmo (PDF 1.4 minimo, fontes Helvetica padrao, sem bibliotecas) ---------- */
 const PDFW=595,PDFH=842;

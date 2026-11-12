@@ -139,7 +139,7 @@ run(ctx,`CH[rl].forEach(function(x){S.pc.pool[x[0]]=1});S.pc.en=100;pcWeek();`);
 ok(J('S.pc.wk.pl.length===0'),'treino de pool ignora campeões já em 100%');
 ok(run(ctx,'pcTreeHTML(pcFind())').includes('tdia')&&run(ctx,'pcTreeHTML(pcFind())').includes('<path d="M'),'árvore em losango com ligações');
 run(ctx,`pcBr='e';`);ok(run(ctx,'pcTreeHTML(pcFind())').includes('Estudioso'),'troca de ramo');run(ctx,`pcBr='c';`);
-run(ctx,'pcSub="hab";');ok(run(ctx,'vPc()').includes('tdia')&&run(ctx,'vPc()').includes('tbg'),'sub-aba Habilidades mostra a árvore com fundo');run(ctx,'pcSub="car";');ok(!run(ctx,'vPc()').includes('tdia')&&run(ctx,'vPc()').includes('pcsub'),'sub-aba Carreira não mostra a árvore');
+run(ctx,'pcSub="hab";');ok(run(ctx,'vPc()').includes('tdia')&&run(ctx,'vPc()').includes('tart'),'sub-aba Habilidades mostra a árvore com fundo');run(ctx,'pcSub="car";');ok(!run(ctx,'vPc()').includes('tdia')&&run(ctx,'vPc()').includes('pcsub'),'sub-aba Carreira não mostra a árvore');
 
 /* ---- telas ---- */
 for(const e of ['vPc()','pcSummary()','mailHTML()','pcTreeHTML(pcFind())','pcTrainHTML(pcFind())','pcTrustHTML(pcFind())','pcLvHTML()','pcStatusHTML(pcFind())','pcInvHTML()']){
