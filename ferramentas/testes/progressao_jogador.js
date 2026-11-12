@@ -16,13 +16,13 @@ ok(J('pcFind().bn')===true,'começa como reserva');
 run(ctx,`var pts0=S.pc.pts||0;pcGain(pcNeed(1));`);
 ok(J('S.pc.lv')===2&&J('S.pc.pts')===J('pts0')+1,'XP suficiente sobe o nível 1->2 e dá 1 ponto de status');
 run(ctx,`pcGain(10000000);`);
-ok(J('S.pc.lv')===60,'nível máximo 60');
+ok(J('S.pc.lv')===100,'nível máximo 100');
 run(ctx,`S.pc.lv=4;S.pc.xl=0;S.pc.pts=0;pcGain(pcNeed(4));`);
 ok(J('S.pc.lv')===5&&J('S.pc.pts')===2,'nível 5 dá 2 pontos');
 
 /* ---- árvore em losango: nível mínimo, ligações, custo e efeitos ---- */
-ok(J('PERKS.length')===33&&J('PERKS.every(function(x){return x.pa.every(function(i){return PERKS.some(function(y){return y.id===i})})})'),'33 habilidades (11 por ramo) e todas as ligações apontam para habilidades que existem');
-ok(J('["c","e","p"].every(function(b){return PERKS.filter(function(x){return x.br===b}).map(function(x){return x.r}).sort().join()==="0,1,1,2,2,2,2,3,3,3,4"})'),'cada ramo tem o formato 1-2-4-3-1');
+ok(J('PERKS.length')===66&&J('PERKS.every(function(x){return x.pa.every(function(i){return PERKS.some(function(y){return y.id===i})})})'),'66 habilidades (22 por ramo) e todas as ligações apontam para habilidades que existem');
+ok(J('["c","e","p"].every(function(b){return PERKS.filter(function(x){return x.br===b}).map(function(x){return x.r}).sort().join()==="0,1,1,2,2,2,2,3,3,3,4,5,5,6,6,6,6,7,7,7,8,9"})'),'cada ramo tem o formato 1-2-4-3-1 + 2-4-3-1-1');
 run(ctx,`S.pc.lv=3;S.pc.tp=9;S.pc.perks={};pcLearn('c4');`);
 ok(J('!S.pc.perks.c4'),'habilidade de nível 4 bloqueada no nível 3 e sem a ligada');
 run(ctx,`pcLearn('c1');`);
@@ -152,6 +152,29 @@ ok(J('[S.pc.lv>=1,S.pc.tr>0,S.pc.plan,typeof S.pc.perks]').join()==='true,true,n
 
 /* ---- virada de ano com o sistema novo ---- */
 try{run(ctx,`pcYear();`);ok(true,'pcYear roda')}catch(e){ok(false,'pcYear -> '+e.message)}
+
+/* ---- troca 3:1 (nível 99), investimentos e segunda metade da árvore ---- */
+run(ctx,`S.pc.lv=98;S.pc.pts=9;S.pc.tp=0;pcSwap(false);`);
+ok(J('[S.pc.pts,S.pc.tp].join()')==='9,0','antes do nível 99 a troca não funciona');
+run(ctx,`S.pc.lv=99;pcSwap(false);`);
+ok(J('[S.pc.pts,S.pc.tp].join()')==='6,1','nível 99: 3 de status viram 1 de habilidade');
+run(ctx,`pcSwap(true);`);
+ok(J('[S.pc.pts,S.pc.tp].join()')==='0,3','"trocar tudo" converte de 3 em 3');
+run(ctx,`S.pc.pts=2;pcSwap(true);`);
+ok(J('[S.pc.pts,S.pc.tp].join()')==='2,3','com menos de 3 pontos de status não troca');
+run(ctx,`S.pc.cash=0.1;S.pc.inv={};pcInvBuy('ic');`);
+ok(J('!S.pc.inv.ic')===true,'investimento sem dinheiro é recusado');
+run(ctx,`S.pc.cash=5;pcInvBuy('ic');`);
+ok(J('S.pc.inv.ic')===1&&Math.abs(J('S.pc.cash')-4.6)<.05,'investimento cobra o dinheiro e sobe de nível');
+ok(Math.abs(J('pcFx("xpw")')-0.08)<1e-9,'Treinador particular dá +8% de XP semanal');
+run(ctx,`S.pc.cash=50;S.pc.bt=0;S.pc.tp=0;pcBuyPts('t');pcBuyPts('t');`);
+ok(J('S.pc.tp')===2&&J('S.pc.bt')===2&&J('S.pc.cash')<50,'compra de pontos de habilidade com dinheiro');
+run(ctx,`S.pc.perks={c11:1};S.pc.lv=20;S.pc.tp=5;pcLearn('c12');`);
+ok(J('S.pc.perks.c12')===1,'2ª metade: Instinto assassino (nível 20) sai do nó final c11');
+run(ctx,`S.pc.perks={};S.pc.lv=100;S.pc.tp=9;pcLearn('c12');`);
+ok(J('!S.pc.perks.c12')===true,'2ª metade exige o nó final da 1ª');
+run(ctx,`S.pc.perks={};S.pc.cap=80;var cp0=pcCap();S.pc.perks={e22:1};`);
+ok(J('pcCap()')===J('cp0')+2,'Onisciente (+2 de teto) aumenta o limite de atributo');
 
 console.log(falhas?`\n${falhas} falha(s)`:'\ntudo certo');
 process.exit(falhas?1:0);

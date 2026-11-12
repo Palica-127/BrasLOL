@@ -5625,8 +5625,8 @@ const PEV={
 };
 function pcXp(i,n){
   const pc=S.pc;pc.xp[i]+=n;
-  while(pc.xp[i]>=70&&pc.at[i]<Math.min(99,pc.cap)){pc.xp[i]-=70;pc.at[i]++;pcLog(`${ATL[i]} sobe para ${pc.at[i]}.`)}
-  if(pc.at[i]>=Math.min(99,pc.cap))pc.xp[i]=Math.min(pc.xp[i],69);
+  while(pc.xp[i]>=70&&pc.at[i]<pcCap()){pc.xp[i]-=70;pc.at[i]++;pcLog(`${ATL[i]} sobe para ${pc.at[i]}.`)}
+  if(pc.at[i]>=pcCap())pc.xp[i]=Math.min(pc.xp[i],69);
   pcSync();
 }
 function pcEv(k){
@@ -5634,9 +5634,9 @@ function pcEv(k){
   const fm=d=>{pc.fame=clamp(pc.fame+d,0,100)};
   let t='';
   const gp=(n)=>{pc.pts=(pc.pts||0)+n};
-  if(e==='stream'){if(k==='a'){fm(4);pc.en=Math.max(0,pc.en-30);pc.cash=r1(pc.cash+.2);t='Stream de sucesso: mais fama, menos energia.'}else{pc.en=Math.min(100,pc.en+12);t='Você descansou.'}}
+  if(e==='stream'){if(k==='a'){fm(4);pc.en=Math.max(0,pc.en-30);pc.cash=r1(pc.cash+.2*(1+pcFx('inc')));t='Stream de sucesso: mais fama, menos energia.'}else{pc.en=Math.min(100,pc.en+12);t='Você descansou.'}}
   else if(e==='rival'){if(k==='a'){fm(3);pc.at[4]=Math.max(38,pc.at[4]-1);t='A resposta viralizou, mas a cabeça pesou (−1 Mental).'}else{pcXp(4,30);pcGain(40);t='Você ignorou e treinou a cabeça (+XP de Mental e +40 de XP).'}}
-  else if(e==='sponsor'){if(k==='a'){pc.cash=r1(pc.cash+.5);fm(-1);t='Patrocínio fechado: +US$ 0,5 mi.'}else{fm(1);t='Você recusou e ganhou respeito.'}}
+  else if(e==='sponsor'){if(k==='a'){pc.cash=r1(pc.cash+.5*(1+pcFx('inc')));fm(-1);t='Patrocínio fechado: +US$ 0,5 mi.'}else{fm(1);t='Você recusou e ganhou respeito.'}}
   else if(e==='scrim'){if(k==='a'){pc.en=Math.max(0,pc.en-20);pcXp(2,34);pcGain(50);t='Scrim puxado: +XP de Macro e +50 de XP.'}else{pc.en=Math.min(100,pc.en+10);t='Você pulou o scrim.'}}
   else if(e==='vod'){if(k==='a'){pcXp(3,30);pcGain(80);t='Revisão útil: +XP de Equipe e +80 de XP.'}else t='Você dispensou a revisão.'}
   pcSync();pcLog(t);msg=t;
@@ -5657,7 +5657,7 @@ function pcPts(n,why){const pc=S.pc;pc.pts=(pc.pts||0)+n;pcLog(`+${n} ponto${n>1
 /* ---------- nível, árvore de habilidades, treino semanal, confiança do técnico e testes (modo jogador) ----------
    XP (partidas, treino semanal, scrims, torneios, eventos) sobe o nível; cada nível dá pontos para gastar em status (+1 atributo) e
    características (3 ramos de 3). A vaga de titular não é pedida: o técnico decide pela confiança (desempenho em jogos, treinos e testes). */
-const PCLV=60,pcNeed=lv=>220+70*lv;
+const PCLV=100,pcNeed=lv=>Math.round(150+30*lv+.2*lv*lv),PC_XPB=1.2;/* PC_XPB: bônus geral de XP (+20%) */
 const pcAbs=()=>S.year*365+(S.day||1);
 const pcPerk=id=>!!(S.pc&&S.pc.perks&&S.pc.perks[id]);
 const PBR={c:['Competidor','Decide jogos'],e:['Estudioso','Evolui mais rápido'],p:['Profissional','Vida de atleta']};
@@ -5700,9 +5700,82 @@ const PERKS=[
  {id:'p9',br:'p',n:'Comunicação',d:'+2 de Equipe.',c:2,lv:10,pa:['p6','p2'],r:3,x:26,at:[3,2]},
  {id:'p3',br:'p',n:'Cara do time',d:'Fama rende mais 25% e as propostas pagam 5% a mais.',c:2,lv:10,pa:['p2','p7'],r:3,x:50,fx:{fame:.25,sal:.05}},
  {id:'p10',br:'p',n:'Agente esperto',d:'As propostas de contrato pagam mais 10%.',c:2,lv:10,pa:['p7','p8'],r:3,x:74,fx:{sal:.10}},
- {id:'p11',br:'p',n:'Ídolo do Clube',d:'Confiança do técnico sobe 20% mais, fama +25% e propostas +5%. Exige 2 das 3 habilidades ligadas.',c:3,lv:15,pa:['p9','p3','p10'],need:2,r:4,x:50,fx:{trp:.2,fame:.25,sal:.05}}
+ {id:'p11',br:'p',n:'Ídolo do Clube',d:'Confiança do técnico sobe 20% mais, fama +25% e propostas +5%. Exige 2 das 3 habilidades ligadas.',c:3,lv:15,pa:['p9','p3','p10'],need:2,r:4,x:50,fx:{trp:.2,fame:.25,sal:.05}},
+
+ /* ---- 2ª metade (linhas 5 a 9): sai do nó final de cada ramo e exige nível alto. Chaves novas: cap (teto de potencial), xpa (todo XP), mil (ponto de habilidade a cada 10 níveis),
+    lkp (chance de ponto de status extra por nível), rtl (nota nas derrotas), rts (nota da temporada), inc (renda), dis (desconto nos investimentos), tcost (menos energia no treino) ---- */
+ {id:'c12',br:'c',n:'Instinto assassino',d:'+8% de abates nos mapas e "Buscar o jogo" acerta mais 5%.',c:2,lv:20,pa:['c11'],r:5,x:30,fx:{pk:.08,bold:.05}},
+ {id:'c13',br:'c',n:'Muralha de ferro',d:'8% menos mortes nos mapas e +1% de vitória por mapa.',c:2,lv:20,pa:['c11'],r:5,x:70,fx:{pd:.08,adj:.01}},
+ {id:'c14',br:'c',n:'Teamfight perfeita',d:'+3 de Equipe e +5% de abates.',c:3,lv:30,pa:['c12'],r:6,x:14,at:[3,3],fx:{pk:.05}},
+ {id:'c15',br:'c',n:'Lane dominante',d:'+3 de Lane e +1% de vitória por mapa.',c:3,lv:30,pa:['c12'],r:6,x:38,at:[0,3],fx:{adj:.01}},
+ {id:'c16',br:'c',n:'Macro de Challenger',d:'+3 de Macro e +1% de vitória por mapa.',c:3,lv:35,pa:['c13'],r:6,x:62,at:[2,3],fx:{adj:.01}},
+ {id:'c17',br:'c',n:'Sangue gelado',d:'+3 de Mental e "Buscar o jogo" acerta mais 8%.',c:3,lv:35,pa:['c13'],r:6,x:86,at:[4,3],fx:{bold:.08}},
+ {id:'c18',br:'c',n:'Gene clutch',d:'+0,4 de nota nas vitórias e +0,3 nas derrotas.',c:3,lv:50,pa:['c14','c15'],r:7,x:26,fx:{rtw:.4,rtl:.3}},
+ {id:'c19',br:'c',n:'Pesadelo do rival',d:'+12% de abates e 8% menos mortes nos mapas.',c:3,lv:50,pa:['c15','c16'],r:7,x:50,fx:{pk:.12,pd:.08}},
+ {id:'c20',br:'c',n:'Mentalidade de campeão',d:'+2% de vitória por mapa e +2 no teto de potencial dos atributos.',c:3,lv:55,pa:['c16','c17'],r:7,x:74,fx:{adj:.02,cap:2}},
+ {id:'c21',br:'c',n:'Rei da Rota',d:'+3% de vitória por mapa e +0,3 de nota nas vitórias. Exige 2 das 3 ligadas.',c:4,lv:70,pa:['c18','c19','c20'],need:2,r:8,x:50,fx:{adj:.03,rtw:.3}},
+ {id:'c22',br:'c',n:'Imortal do Rift',d:'+3% de vitória por mapa, +10% de abates, 10% menos mortes e +0,5 na nota da temporada.',c:5,lv:90,pa:['c21'],r:9,x:50,fx:{adj:.03,pk:.1,pd:.1,rts:.5}},
+
+ {id:'e12',br:'e',n:'Mentor-sombra',d:'+15% de XP no treino semanal.',c:2,lv:20,pa:['e11'],r:5,x:30,fx:{xpw:.15}},
+ {id:'e13',br:'e',n:'Mente fotográfica',d:'+15% de XP em partidas e Pool rende +1% por campeão.',c:2,lv:20,pa:['e11'],r:5,x:70,fx:{xpm:.15,poolg:.01}},
+ {id:'e14',br:'e',n:'Arquivo de replays',d:'+3 de Macro e +10% de XP no treino semanal.',c:3,lv:30,pa:['e12'],r:6,x:14,at:[2,3],fx:{xpw:.10}},
+ {id:'e15',br:'e',n:'Laboratório de composições',d:'O programa Pool treina mais 2 campeões por semana.',c:3,lv:30,pa:['e12'],r:6,x:38,fx:{pooln:2}},
+ {id:'e16',br:'e',n:'Metodologia própria',d:'+5% de todo o XP que você ganha.',c:3,lv:35,pa:['e13'],r:6,x:62,fx:{xpa:.05}},
+ {id:'e17',br:'e',n:'Teoria avançada',d:'+3 de Equipe e +1% de vitória por mapa.',c:3,lv:35,pa:['e13'],r:6,x:86,at:[3,3],fx:{adj:.01}},
+ {id:'e18',br:'e',n:'Escola de campeões',d:'Pool: +3% por campeão e 5 a menos de energia.',c:3,lv:50,pa:['e14','e15'],r:7,x:26,fx:{poolg:.03,poolc:5}},
+ {id:'e19',br:'e',n:'Aprendiz acelerado',d:'+8% de todo o XP que você ganha.',c:3,lv:50,pa:['e15','e16'],r:7,x:50,fx:{xpa:.08}},
+ {id:'e20',br:'e',n:'Visão de jogo',d:'+2% de vitória por mapa e "Buscar o jogo" acerta mais 6%.',c:3,lv:55,pa:['e16','e17'],r:7,x:74,fx:{adj:.02,bold:.06}},
+ {id:'e21',br:'e',n:'Professor Doutor',d:'+25% de XP no treino semanal e +15% em partidas. Exige 2 das 3 ligadas.',c:4,lv:70,pa:['e18','e19','e20'],need:2,r:8,x:50,fx:{xpw:.25,xpm:.15}},
+ {id:'e22',br:'e',n:'Onisciente',d:'+12% de todo o XP, +2 no teto de potencial e +1 ponto de habilidade a cada 10 níveis.',c:5,lv:90,pa:['e21'],r:9,x:50,fx:{xpa:.12,cap:2,mil:1}},
+
+ {id:'p12',br:'p',n:'Contrato blindado',d:'Salário e prêmios rendem 15% mais.',c:2,lv:20,pa:['p11'],r:5,x:30,fx:{inc:.15}},
+ {id:'p13',br:'p',n:'Marca pessoal',d:'Fama rende mais 20% e a renda sobe 10%.',c:2,lv:20,pa:['p11'],r:5,x:70,fx:{fame:.2,inc:.10}},
+ {id:'p14',br:'p',n:'Fisioterapeuta',d:'Recupera +8 de energia por semana e o treino cansa 10% menos.',c:3,lv:30,pa:['p12'],r:6,x:14,fx:{en:8,tcost:.10}},
+ {id:'p15',br:'p',n:'Investidor',d:'Os investimentos do Patrimônio custam 15% menos.',c:3,lv:30,pa:['p12'],r:6,x:38,fx:{dis:.15}},
+ {id:'p16',br:'p',n:'Patrocinadores',d:'A renda sobe mais 15%.',c:3,lv:35,pa:['p13'],r:6,x:62,fx:{inc:.15}},
+ {id:'p17',br:'p',n:'Influenciador',d:'Fama rende mais 25% e a confiança do técnico sobe 10% mais.',c:3,lv:35,pa:['p13'],r:6,x:86,fx:{fame:.25,trp:.10}},
+ {id:'p18',br:'p',n:'Rotina de campeão',d:'O treino cansa 15% menos e recupera +6 de energia por semana.',c:3,lv:50,pa:['p14','p15'],r:7,x:26,fx:{tcost:.15,en:6}},
+ {id:'p19',br:'p',n:'Mercado aquecido',d:'As propostas pagam 15% a mais e os investimentos custam 10% menos.',c:3,lv:50,pa:['p15','p16'],r:7,x:50,fx:{sal:.15,dis:.10}},
+ {id:'p20',br:'p',n:'Embaixador',d:'Fama rende mais 30% e a confiança do técnico sobe e cai 15% melhor.',c:3,lv:55,pa:['p16','p17'],r:7,x:74,fx:{fame:.3,trp:.15,trn:.15}},
+ {id:'p21',br:'p',n:'Lenda viva',d:'A renda sobe 25%, as propostas pagam 15% a mais e +0,3 na nota da temporada. Exige 2 das 3 ligadas.',c:4,lv:70,pa:['p18','p19','p20'],need:2,r:8,x:50,fx:{inc:.25,sal:.15,rts:.3}},
+ {id:'p22',br:'p',n:'Eterno',d:'Chance de 25% de ganhar um ponto de status extra a cada nível, treino 10% mais leve e +0,3 na nota da temporada.',c:5,lv:90,pa:['p21'],r:9,x:50,fx:{lkp:.25,tcost:.10,rts:.3}}
 ];
-const pcFx=k=>{const pc=S.pc;if(!pc||!pc.perks)return 0;return PERKS.reduce((a,x)=>a+(pc.perks[x.id]&&x.fx&&x.fx[k]||0),0)};
+/* investimentos do Patrimônio: o dinheiro da carreira vira vantagem. Níveis somam efeitos como as habilidades; custo em US$ mi por nível */
+const INV=[
+ {id:'ic',n:'Treinador particular',ic:'🧑‍🏫',d:'+8% de XP no treino semanal por nível.',cost:[.4,.9,1.8,3.5,6],fx:{xpw:.08}},
+ {id:'ia',n:'Analista de desempenho',ic:'📊',d:'+8% de XP em partidas, scrims e torneios por nível.',cost:[.5,1.1,2.2,4],fx:{xpm:.08}},
+ {id:'ig',n:'Gaming house',ic:'🏠',d:'+3 de energia recuperada por semana por nível.',cost:[.6,1.5,3.5],fx:{en:3}},
+ {id:'im',n:'Equipe médica e psicólogo',ic:'🩺',d:'A confiança do técnico cai 8% menos por nível e o treino cansa 4% menos.',cost:[.5,1.2,2.6],fx:{trn:.08,tcost:.04}},
+ {id:'ii',n:'Assessoria de imprensa',ic:'📰',d:'Fama rende 8% mais por nível.',cost:[.5,1.2,2.6],fx:{fame:.08}},
+ {id:'is',n:'Equipe de streaming',ic:'🎥',d:'+6% de renda por nível (salário, patrocínios e prêmios).',cost:[.7,1.6,3.2],fx:{inc:.06}}
+];
+const INV_PT_MAX=12,INV_ST_MAX=20;
+const invPtCost=n=>Math.round((2.5+1.6*n)*10)/10,invStCost=n=>Math.round((.5+.2*n)*10)/10;
+const pcFx=k=>{const pc=S.pc;if(!pc)return 0;let a=0;if(pc.perks)PERKS.forEach(x=>{if(pc.perks[x.id]&&x.fx&&x.fx[k])a+=x.fx[k]});if(pc.inv)INV.forEach(x=>{const l=pc.inv[x.id]||0;if(l&&x.fx[k])a+=x.fx[k]*l});return a};
+function pcCap(){const pc=S.pc;return Math.min(99,pc.cap+Math.round(pcFx('cap')))}
+const pcDis=()=>Math.max(.4,1-pcFx('dis'));
+function pcInvCost(x){const pc=S.pc,l=(pc.inv&&pc.inv[x.id])||0;return l>=x.cost.length?null:Math.round(x.cost[l]*pcDis()*100)/100}
+function pcInvBuy(id){
+  const pc=S.pc,x=INV.find(z=>z.id===id);if(!x)return;pcEnsure();
+  const c=pcInvCost(x);if(c==null){msg=`${x.n} já está no máximo.`;return}
+  if(pc.cash<c){msg=`${x.n} custa ${fmtM(c)}; você tem ${fmtM(pc.cash)}.`;return}
+  pc.cash=r1(pc.cash-c);pc.inv[id]=(pc.inv[id]||0)+1;pcLog(`investe ${fmtM(c)} em ${x.n} (nível ${pc.inv[id]}).`);msg=`${x.n} no nível ${pc.inv[id]}.`;
+}
+function pcBuyPts(kind){
+  const pc=S.pc;pcEnsure();const t=kind==='t',n=t?pc.bt:pc.bs,mx=t?INV_PT_MAX:INV_ST_MAX;
+  if(n>=mx){msg=`Você já comprou o máximo de pontos de ${t?'habilidade':'status'}.`;return}
+  const c=Math.round((t?invPtCost(n):invStCost(n))*pcDis()*100)/100;
+  if(pc.cash<c){msg=`O próximo ponto custa ${fmtM(c)}; você tem ${fmtM(pc.cash)}.`;return}
+  pc.cash=r1(pc.cash-c);if(t){pc.bt++;pc.tp=(pc.tp||0)+1}else{pc.bs++;pc.pts=(pc.pts||0)+1}
+  pcLog(`compra 1 ponto de ${t?'habilidade':'status'} por ${fmtM(c)}.`);msg=`+1 ponto de ${t?'habilidade':'status'} (${fmtM(c)}).`;
+}
+/* nível 99+: pontos de status viram habilidade, 3 por 1 */
+function pcSwap(all){
+  const pc=S.pc;pcEnsure();if(pc.lv<99){msg='A troca abre no nível 99.';return}
+  const k=all?Math.floor((pc.pts||0)/3):((pc.pts||0)>=3?1:0);
+  if(!k){msg='Troca: 3 pontos de status por 1 de habilidade. Você tem menos de 3.';return}
+  pc.pts-=3*k;pc.tp=(pc.tp||0)+k;pc.sw=(pc.sw||0)+k;pcLog(`troca ${3*k} pontos de status por ${k} de habilidade.`);msg=`${3*k} de status viraram ${k} ponto${k>1?'s':''} de habilidade.`;
+}
 /* estado de um nó: own aprendida · lock (nível ou pré-requisito) · can (dá para aprender) · cost (faltam pontos) */
 function pcPerkSt(x){
   const pc=S.pc;if(pc.perks[x.id])return'own';
@@ -5718,17 +5791,18 @@ function pcEnsure(){
   if(pc.tr==null)pc.tr=f&&f.bn?35:60;
   if(!pc.plan)pc.plan='n';
   if(!pc.perks)pc.perks={};
+  if(!pc.inv)pc.inv={};if(pc.bt==null)pc.bt=0;if(pc.bs==null)pc.bs=0;
   if(pc.tp==null){let e=0;for(let l=2;l<=pc.lv;l++)e+=l%5===0?2:l%2===0?1:0;PERKS.forEach(x=>{if(pc.perks[x.id])e-=x.c});pc.tp=Math.max(0,e)}
   if(pc.wd==null)pc.wd=pcAbs();
   if(pc.test===undefined)pc.test=null;
   if(pc.tcd==null)pc.tcd=0;
 }
 function pcGain(n,mult){
-  const pc=S.pc;if(!pc)return 0;pcEnsure();n=Math.round(n*(mult||1));if(n<=0)return 0;
+  const pc=S.pc;if(!pc)return 0;pcEnsure();n=Math.round(n*(mult||1)*PC_XPB*(1+pcFx('xpa')));if(n<=0)return 0;
   pc.xt=(pc.xt||0)+n;
   if(pc.lv>=PCLV){pc.xl=0;return n}
   pc.xl+=n;let up=0;
-  while(pc.lv<PCLV&&pc.xl>=pcNeed(pc.lv)){pc.xl-=pcNeed(pc.lv);pc.lv++;const k=pc.lv%5===0?2:1,h=pc.lv%5===0?2:pc.lv%2===0?1:0;pc.pts=(pc.pts||0)+k;pc.tp=(pc.tp||0)+h;up++;pcLog(`sobe para o nível ${pc.lv} (+${k} ponto${k>1?'s':''} de status${h?` e +${h} de habilidade`:''}).`)}
+  while(pc.lv<PCLV&&pc.xl>=pcNeed(pc.lv)){pc.xl-=pcNeed(pc.lv);pc.lv++;const k=pc.lv%5===0?2:1,h=pc.lv%5===0?2:pc.lv%2===0?1:0;let k2=k,h2=h;if(Math.random()<pcFx('lkp'))k2++;if(pc.lv%10===0)h2+=Math.round(pcFx('mil'));pc.pts=(pc.pts||0)+k2;pc.tp=(pc.tp||0)+h2;up++;pcLog(`sobe para o nível ${pc.lv} (+${k2} ponto${k2>1?'s':''} de status${h2?` e +${h2} de habilidade`:''}).`)}
   if(up)pc.lvf=pc.lv;
   return n;
 }
@@ -5753,8 +5827,8 @@ function pcWeek(){
   const xp=P.xp*fac*(.9+Math.random()*.2);
   pcGain(xp);
   const fo=pc.focus==null?2:pc.focus;
-  if(P.fx&&pc.at[fo]<Math.min(99,pc.cap))pcXp(fo,Math.round(P.fx*fac));
-  pc.en=clamp(pc.en-P.en+28+pcFx('en'),0,100);pc.rest=0;
+  if(P.fx&&pc.at[fo]<pcCap())pcXp(fo,Math.round(P.fx*fac));
+  pc.en=clamp(pc.en-Math.round(P.en*(P.en>0?Math.max(.4,1-pcFx('tcost')):1))+28+pcFx('en'),0,100);pc.rest=0;
   const ref=pcRef(f),drift=ref?clamp((f.p.r-ref.r)*.1,-.2,.5):.2;
   pcTrust((tired?-1.2:P.tr)+drift);
   let pl=null;
@@ -5888,7 +5962,7 @@ function ptFmEnd(){
 let upI=-1;
 function pcSpend(i){
   const pc=S.pc;if(!(pc.pts>0)){msg='Sem pontos de atributo.';return}
-  if(pc.at[i]>=Math.min(99,pc.cap)){msg=`${ATL[i]} chegou ao limite de potencial.`;return}
+  if(pc.at[i]>=pcCap()){msg=`${ATL[i]} chegou ao limite de potencial.`;return}
   pc.pts--;pc.at[i]++;upI=i;pcSync();pcLog(`gasta 1 ponto em ${ATL[i]} (${pc.at[i]}).`);msg=`${ATL[i]} sobe para ${pc.at[i]}.`;
 }
 function pcRest(){const pc=S.pc;if(pc.rest){msg='Você já descansou nesta semana.';return}pc.rest=1;pc.en=Math.min(100,pc.en+25);msg='Você descansou (+25 de energia).'}
@@ -5916,7 +5990,7 @@ function pcYear(){
   const p=f.p,t=f.t,o=S.season.perf[p.n],y=t.yh[t.yh.length-1],a=S.season.ach[p.n]||{lg:[],msi:'',wc:'',mv:[]};
   /* crescimento anual dos atributos */
   const d=ageDelta(p)*.5;
-  pc.at=pc.at.map(v=>clamp(Math.round(v+d+g()*.7),38,Math.min(99,pc.cap)));
+  pc.at=pc.at.map(v=>clamp(Math.round(v+d+g()*.7),38,pcCap()));
   const bh=S.hist[S.hist.length-1],ix=bh?bh.top.findIndex(x=>x.n===p.n):-1;
   let rating=null;
   if(!f.bn&&!o){const c=t.cs0||t.cs||{},ps=[c.s1,c.s2].filter(Boolean);if(ps.length){const bn=ps.reduce((a,b)=>a+b,0)/ps.length;rating=clamp(r1(6.8-(bn-4)*.25),3,10)}}
@@ -5926,11 +6000,12 @@ function pcYear(){
     rating=clamp(r1(6.3+(ev-pc.r0)*.3+bon),3,10);
     if(pc.mr&&pc.mr.length){const ma=pc.mr.reduce((a,b)=>a+b,0)/pc.mr.length;rating=clamp(r1(.5*rating+.5*ma),3,10)}
   }
+  if(rating!=null&&pcFx('rts'))rating=clamp(r1(rating+pcFx('rts')),3,10);
   pc.mr=[];
   const trophies=(a.lg||[]).length+(a.msi==='C'?1:0)+(a.wc==='C'?2:0);
   pc.fame=clamp(Math.round(pc.fame+(rating!=null?(rating-6)*3:-1)+trophies*4+(ix>=0?5:0)),0,100);
   if(rating!=null&&rating>=7)pcGain(rating>=8.5?160:rating>=8?120:70);
-  pc.cash=r1(pc.cash+pc.sal);pc.ctr--;
+  pc.cash=r1(pc.cash+pc.sal*(1+pcFx('inc')));pc.ctr--;
   pcSync();pc.r0=p.r;pc.cap=Math.max(pc.cap,p.pot+2);
   pc.hist.push({y:S.year,team:t.name,div:t.d===2?2:1,role:p.role,ovr:p.r,age:p.age,rating,bn:f.bn,titles:trophies,top:ix>=0?ix+1:0});
   pcLog(`temporada fechada no ${t.name}: ${rating!=null?'nota '+String(rating).replace('.',','):'no banco'}; OVR ${p.r}.`);
@@ -6093,7 +6168,7 @@ function pcTrustTxt(f){
 }
 function pcLvHTML(){
   const pc=S.pc,need=pcNeed(pc.lv),max=pc.lv>=PCLV;
-  return `<section class="pn"><h2>Nível ${pc.lv}${max?' <span class="tag">máx</span>':''}</h2>${pcBar(max?1:pc.xl,max?1:need)}<p class="note" style="margin:6px 0 0">${max?'Nível máximo.':`${pc.xl} / ${need} de XP para o nível ${pc.lv+1}.`} Todo nível dá 1 ponto de status (2 a cada 5 níveis) e, nos níveis pares, 1 ponto de habilidade para a árvore (2 a cada 5 níveis). XP vem de partidas, treino semanal, scrims, torneios, eventos e metas.</p></section>`;
+  return `<section class="pn"><h2>Nível ${pc.lv}${max?' <span class="tag">máx</span>':''}</h2>${pcBar(max?1:pc.xl,max?1:need)}<p class="note" style="margin:6px 0 0">${max?'Nível máximo.':`${pc.xl} / ${need} de XP para o nível ${pc.lv+1}.`} Todo nível dá 1 ponto de status (2 a cada 5 níveis) e, nos níveis pares, 1 ponto de habilidade para a árvore (2 a cada 5 níveis). No nível 99 os pontos de status sobram e podem virar habilidade (3 por 1). XP vem de partidas, treino semanal, scrims, torneios, eventos e metas.</p></section>`;
 }
 function pcTrustHTML(f){
   const pc=S.pc,tr=Math.round(pc.tr);
@@ -6110,11 +6185,19 @@ function pcTrainHTML(f){
   ${wk?`<p class="note" style="margin:0">Última semana: programa ${PTRN[wk.plan].n.toLowerCase()}, +${wk.xp} de XP${wk.tired?' (cansado, rendeu metade)':''}.${wk.pl&&wk.pl.length?' Treinou: '+wk.pl.map(esc).join(', ')+'.':wk.plan==='p'&&!wk.tired?' Todos os campeões da função já estão em 100%.':''}</p>`:''}</section>`;
 }
 let pcTreeOpen=false;
+function pcInvHTML(){
+  const pc=S.pc;pcEnsure();const dis=Math.round(pcFx('dis')*100);
+  const row=x=>{const l=pc.inv[x.id]||0,c=pcInvCost(x),mx=x.cost.length;return `<div class="mrow" style="grid-template-columns:34px minmax(0,1fr) auto"><span class="num" style="font-size:22px;text-align:center">${x.ic}</span><span class="who"><b>${x.n} <small style="opacity:.7">· nível ${l}/${mx}</small></b><small>${x.d}</small>${pcBar(l,mx)}</span><button class="ghost" data-act="pcInv" data-v="${x.id}"${c==null||pc.cash<c?' disabled':''}>${c==null?'Máx.':fmtM(c)}</button></div>`};
+  const pt=(kind,lab,n,mx,c)=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr) auto"><span class="num" style="font-size:22px;text-align:center">${kind==='t'?'🧬':'💪'}</span><span class="who"><b>${lab} <small style="opacity:.7">· ${n}/${mx} comprados</small></b><small>${kind==='t'?'Um ponto para a árvore de habilidades. O preço sobe a cada compra.':'Um ponto de atributo. O preço sobe a cada compra.'}</small></span><button class="ghost" data-act="pcBuy" data-v="${kind}"${n>=mx||pc.cash<c?' disabled':''}>${n>=mx?'Máx.':fmtM(c)}</button></div>`;
+  const ct=Math.round(invPtCost(pc.bt)*pcDis()*100)/100,cs=Math.round(invStCost(pc.bs)*pcDis()*100)/100;
+  return `<section class="pn"><h2>Investimentos</h2><div class="cab" style="margin:0 0 8px;grid-template-columns:repeat(2,minmax(0,1fr))"><div><b class="num" style="font-size:22px">${fmtM(pc.cash).replace('US$ ','')}</b><small>Patrimônio (US$)</small></div><div><b class="num">${dis}%</b><small>Desconto (habilidades)</small></div></div><p class="note" style="margin:0 0 6px">O salário e os prêmios que você junta viram vantagem: contrate uma equipe ou compre pontos direto.</p>${INV.map(row).join('')}${pt('t','Mentoria lendária',pc.bt,INV_PT_MAX,ct)}${pt('s','Camp de treinamento',pc.bs,INV_ST_MAX,cs)}</section>`;
+}
 function pcStatusHTML(f){
   const pc=S.pc,pts=pc.pts||0,fo=pc.focus==null?2:pc.focus,p=f.p;
   return `<section class="pn"><h2>Status</h2><div class="cab${pts>0?' ptsb':''}" style="margin:0 0 8px"><div><b class="num">${pts}</b><small>Pontos de status</small></div><div><b class="num">${pc.lv}</b><small>Nível</small></div></div>
-  <p class="note" style="margin:0 0 6px">Cada ponto vale +1 no atributo (limite: seu potencial, ${Math.min(99,pc.cap)}). O atributo em foco no treino semanal também ganha progresso lento.</p>
-  ${ATL.map((l,i)=>`<div class="mrow${i===upI?' upfl':''}" style="grid-template-columns:34px minmax(0,1fr) auto"><span class="hx t${tier(pc.at[i])} sm">${pc.at[i]}</span><span class="who"><b>${l}${fo===i?' <span class="tag">foco</span>':''} <small style="opacity:.7">· peso ${Math.round(PCW[p.role][i]*100)}%</small></b><small>${ATD[i]}</small>${pcBar(pc.xp[i],70)}</span><button class="ghost" data-act="pcSpend" data-v="${i}"${pts>0&&pc.at[i]<Math.min(99,pc.cap)?'':' disabled'}>+1</button></div>`).join('')}</section>`;
+  ${pc.lv>=99?`<div class="row" style="margin:0 0 8px"><button class="${pts>=3?'play':'ghost'}" data-act="pcSwap" data-v="1"${pts>=3?'':' disabled'}>Trocar 3 de status por 1 de habilidade</button><button class="ghost" data-act="pcSwap" data-v="all"${pts>=3?'':' disabled'}>Trocar tudo (${Math.floor(pts/3)})</button></div>`:`<p class="note" style="margin:0 0 6px">No nível 99 você poderá trocar pontos de status por habilidade (3 por 1).</p>`}
+  <p class="note" style="margin:0 0 6px">Cada ponto vale +1 no atributo (limite: seu potencial, ${pcCap()}). O atributo em foco no treino semanal também ganha progresso lento.</p>
+  ${ATL.map((l,i)=>`<div class="mrow${i===upI?' upfl':''}" style="grid-template-columns:34px minmax(0,1fr) auto"><span class="hx t${tier(pc.at[i])} sm">${pc.at[i]}</span><span class="who"><b>${l}${fo===i?' <span class="tag">foco</span>':''} <small style="opacity:.7">· peso ${Math.round(PCW[p.role][i]*100)}%</small></b><small>${ATD[i]}</small>${pcBar(pc.xp[i],70)}</span><button class="ghost" data-act="pcSpend" data-v="${i}"${pts>0&&pc.at[i]<pcCap()?'':' disabled'}>+1</button></div>`).join('')}</section>`;
 }
 function pcTreeBtnHTML(){
   const tp=S.pc.tp||0;
@@ -6122,7 +6205,10 @@ function pcTreeBtnHTML(){
 }
 const PERKI={c1:'❄️',c4:'⚔️',c5:'⚡',c6:'🩸',c2:'🎯',c7:'🌀',c8:'🛡️',c9:'🗺️',c3:'🔥',c10:'🧊',c11:'👑',
  e1:'📘',e4:'📼',e5:'📓',e6:'👁️',e3:'🔍',e2:'🧩',e7:'🗃️',e8:'♟️',e9:'🎓',e10:'📚',e11:'🧠',
- p1:'💤',p4:'🧘',p5:'🤝',p6:'🌙',p2:'📣',p7:'📸',p8:'💼',p9:'💬',p3:'⭐',p10:'🕴️',p11:'🏆'};
+ p1:'💤',p4:'🧘',p5:'🤝',p6:'🌙',p2:'📣',p7:'📸',p8:'💼',p9:'💬',p3:'⭐',p10:'🕴️',p11:'🏆',
+ c12:'🗡️',c13:'🧱',c14:'💥',c15:'🛤️',c16:'🧭',c17:'🥶',c18:'⏱️',c19:'👻',c20:'🦾',c21:'🔱',c22:'♾️',
+ e12:'🦉',e13:'📸',e14:'🎞️',e15:'🧪',e16:'📐',e17:'🔬',e18:'🏫',e19:'🚀',e20:'🔭',e21:'🧑‍🔬',e22:'🌌',
+ p12:'📝',p13:'🏷️',p14:'💆',p15:'📈',p16:'🤑',p17:'📱',p18:'🌅',p19:'🛒',p20:'🌍',p21:'🐐',p22:'🪐'};
 let pcPerkSel=null,pcBr='c';
 function pcTreeHTML(f){
   const pc=S.pc,tp=pc.tp||0,P=PERKS.filter(x=>x.br===pcBr),by=id=>PERKS.find(x=>x.id===id);
@@ -6130,15 +6216,15 @@ function pcTreeHTML(f){
   const sel=selX&&selX.br===pcBr?selX:(P.find(x=>pcPerkSt(x)==='can')||P[0]),s0=pcPerkSt(sel);
   const got=PERKS.filter(x=>pc.perks[x.id]).length,gb=P.filter(x=>pc.perks[x.id]).length;
   const why=s0==='own'?'Aprendida':pc.lv<sel.lv?`Requer nível ${sel.lv}`:s0==='lock'?(sel.need?`Requer ${sel.need} das ${sel.pa.length} ligadas`:`Requer ${by(sel.pa[0]).n}${sel.pa.length>1?' ou '+by(sel.pa[1]).n:''}`):`Faltam ${sel.c-tp} ponto${sel.c-tp>1?'s':''}`;
-  const H=450,Y=r=>7+r*20.5;
+  const H=900,Y=r=>4+r*9.6;
   let lines='';
   P.forEach(x=>x.pa.forEach(pid=>{const q=by(pid),lit=pc.perks[pid]&&pc.perks[x.id],half=pc.perks[pid]&&!pc.perks[x.id];lines+=`<line x1="${q.x}" y1="${Y(q.r)}" x2="${x.x}" y2="${Y(x.r)}" class="${lit?'on':half?'half':''}"/>`}));
   let nodes='';
-  P.forEach(x=>{const k=pcPerkSt(x);nodes+=`<div class="tnode ${k}${x.r===4?' cap':''}" style="left:${x.x}%;top:${Y(x.r)}%"><button class="tnb${x.id===sel.id?' sel':''}" data-act="pcPerkSel" data-v="${x.id}" aria-label="${esc(x.n)}"><span>${PERKI[x.id]||'✦'}</span>${k==='own'?'<i class="tok">✓</i>':''}</button><b>${esc(x.n)}</b><small>${k==='own'?'aprendida':k==='lock'&&pc.lv<x.lv?'nível '+x.lv:k==='lock'?'bloqueada':x.c+' pt'+(x.c>1?'s':'')}</small></div>`});
-  const tabs=Object.keys(PBR).map(b=>{const n=PERKS.filter(x=>x.br===b&&pc.perks[x.id]).length;return `<button class="pill" aria-pressed="${pcBr===b}" data-act="pcBr" data-v="${b}">${PBR[b][0]} <small>${n}/11</small></button>`}).join('');
+  P.forEach(x=>{const k=pcPerkSt(x);nodes+=`<div class="tnode ${k}${x.r===4||x.r>=8?' cap':''}" style="left:${x.x}%;top:${Y(x.r)}%"><button class="tnb${x.id===sel.id?' sel':''}" data-act="pcPerkSel" data-v="${x.id}" aria-label="${esc(x.n)}"><span>${PERKI[x.id]||'✦'}</span>${k==='own'?'<i class="tok">✓</i>':''}</button><b>${esc(x.n)}</b><small>${k==='own'?'aprendida':k==='lock'&&pc.lv<x.lv?'nível '+x.lv:k==='lock'?'bloqueada':x.c+' pt'+(x.c>1?'s':'')}</small></div>`});
+  const tabs=Object.keys(PBR).map(b=>{const n=PERKS.filter(x=>x.br===b&&pc.perks[x.id]).length;return `<button class="pill" aria-pressed="${pcBr===b}" data-act="pcBr" data-v="${b}">${PBR[b][0]} <small>${n}/22</small></button>`}).join('');
   const fxs=Object.keys(PBR).map(()=>'').join('');
   return `<section class="pn"><h2>Árvore de habilidades</h2><div class="cab${tp>0?' ptsb':''}" style="margin:0 0 10px;grid-template-columns:repeat(2,minmax(0,1fr))"><div><b class="num">${tp}</b><small>Pontos de habilidade</small></div><div><b class="num">${got}/${PERKS.length}</b><small>Aprendidas</small></div></div>
-  <div class="pills" style="margin-bottom:8px">${tabs}</div><p class="note" style="margin:0 0 6px">${PBR[pcBr][0]} · ${PBR[pcBr][1]}. Comece pelo topo e desça: cada habilidade se liga às que têm a ver com ela. A última exige 2 das 3 ligadas.</p>
+  <div class="pills" style="margin-bottom:8px">${tabs}</div><p class="note" style="margin:0 0 6px">${PBR[pcBr][0]} · ${PBR[pcBr][1]}. Comece pelo topo e desça: cada habilidade se liga às que têm a ver com ela. O nó grande do meio fecha a 1ª metade; a 2ª metade (nível 20 a 90) sai dele e é bem mais cara.</p>
   <div class="tlay"><div class="tdia" style="height:${H}px"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${lines}</svg>${nodes}</div>
   <div class="tdet ${s0}"><div class="tdh"><span class="tdi">${PERKI[sel.id]||'✦'}</span><div><b>${esc(sel.n)}</b><small>${PBR[sel.br][0]} · custo ${sel.c} ponto${sel.c>1?'s':''} · nível ${sel.lv}${sel.pa.length?' · liga com '+sel.pa.map(i=>by(i).n).join(', '):' · ponto de partida'}</small></div></div><p>${esc(sel.d)}</p>${s0==='own'?'<span class="tag">Aprendida</span>':`<button class="${s0==='can'?'play':'ghost'}" data-act="pcLearn" data-v="${sel.id}"${s0==='can'?'':' disabled'}>${s0==='can'?'Aprender':esc(why)}</button>`}</div></div></section>`;
 }
@@ -6167,7 +6253,7 @@ function vPc0(){
   <div class="cab"><div><b class="num">${pc.fame}</b><small>Fama</small></div><div><b class="num" style="font-size:22px">${fmtM(pc.cash).replace('US$ ','')}</b><small>Patrimônio (US$)</small></div><div><b class="num" style="font-size:20px">${p.pot>=92?"Lendário":p.pot>=88?"Elite":p.pot>=84?"Alto":"Médio"}</b><small>Olheiros: potencial</small></div></div></section><div class="pcSide">${pcLvHTML()}${pcTrustHTML(f)}</div></div>`;
   /* evento */
   if(pc.ev){const e=PEV[pc.ev];h+=`<section class="pn"><h2>Evento</h2><p class="note" style="margin:0 0 10px">${esc(e.t)}</p><div class="row" style="margin:0">${e.o.map(([l,k])=>`<button class="ghost" data-act="pcEv" data-v="${k}">${l}</button>`).join('')}</div></section>`}
-  h+=ptHTML()+`<div class="pcTop">${pcTrainHTML(f)}${pcStatusHTML(f)}</div>`+pcTreeBtnHTML()+(pcTreeOpen?pcTreeHTML(f):'');
+  h+=ptHTML()+`<div class="pcTop">${pcTrainHTML(f)}${pcStatusHTML(f)}</div>`+pcTreeBtnHTML()+(pcTreeOpen?pcTreeHTML(f):'')+pcInvHTML();
   /* pool */
   const pl=CH[p.role].map(([c,a])=>({c,a,v:Math.round(mastOf(pc.n,c)*100),m:metaOf(c)}));
   h+=`<details class="pn det"><summary>Pool de campeões</summary><p class="note" style="margin:0 0 8px">Todos os 8 campeões da função aparecem aqui. Cada treino de pool gasta ${Math.max(10,30-pcFx('poolc'))} de energia e dá +${Math.round((.04+pcFx('poolg'))*100)}% de domínio em um campeão. Quanto melhor sua pool no meta atual (${esc(metaName())}), mais forma você carrega.</p>${pl.map(x=>`<div class="pool"><span class="ct sm" style="--h:${hs(x.c)%360}"><b>${esc(chIni(x.c))}</b></span><span class="who"><b>${esc(x.c)}</b><small>${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}</small></span><b class="num">${x.v}</b><button class="ghost" data-act="pcPool" data-v="${esc(x.c)}"${pc.en<Math.max(10,30-pcFx('poolc'))||x.v>=100?' disabled':''}>${x.v>=100?'máx':'+'+Math.round((.04+pcFx('poolg'))*100)+'%'}</button></div>`).join('')}</details>`;
@@ -6434,7 +6520,7 @@ function lvPosture(k){
 function pcGameEnd(win){
   const f=pcFind(),pc=S.pc,p=f.p,role=p.role;
   const sk0=LV.kd&&LV.kd.me[role]?LV.kd.me[role]:{k:0,d:0,a:0},kb=[3.2,3.5,3.8,3.8,3.2][role];
-  const rt=clamp(r1(6+LV.ps+(win?.7+pcFx('rtw'):-.5)+(mastOf(pc.n,LV.ch)-.5)*1.2+g()*.5+clamp(((sk0.k+sk0.a*.45)-sk0.d*1.1-kb)*.1,-1.2,1.2)),3,10);
+  const rt=clamp(r1(6+LV.ps+(win?.7+pcFx('rtw'):-.5+pcFx('rtl'))+(mastOf(pc.n,LV.ch)-.5)*1.2+g()*.5+clamp(((sk0.k+sk0.a*.45)-sk0.d*1.1-kb)*.1,-1.2,1.2)),3,10);
   const sk=LV.kd&&LV.kd.me[role]?LV.kd.me[role]:{k:0,d:0,a:0},k=sk.k,d=sk.d,a=sk.a;
   LV.gr.push({c:LV.ch,rt,k,d,a,win});LV.used.push(LV.ch);
   LV.log.unshift({m:LV.sec|0,t:`Sua nota no mapa: ${String(rt).replace('.',',')} (${k}/${d}/${a}) com ${LV.ch}.`,k:'end'});
@@ -8658,6 +8744,7 @@ function act(a,v){
   else if(a==='pcTree'){pcTreeOpen=!pcTreeOpen}
   else if(a==='pcPerkSel'){pcPerkSel=v}else if(a==='pcBr'){pcBr=v;pcPerkSel=null}
   else if(a==='pcLearn'){pcLearn(v);save()}
+  else if(a==='pcInv'){pcInvBuy(v);save()}else if(a==='pcBuy'){pcBuyPts(v);save()}else if(a==='pcSwap'){pcSwap(v==='all');save()}
   else if(a==='ptPlay'){if(ptStart(false))top=true;save()}
   else if(a==='ptSim'){ptStart(true);save()}
   else if(a==='ptNo'){ptNo();save()}
