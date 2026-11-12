@@ -1922,6 +1922,38 @@ details.pn>summary{color:var(--t1)}
 .tdet.own{box-shadow:inset 0 0 0 1px rgba(var(--prestige-rgb)/.6)}.tdet.can{box-shadow:inset 0 0 0 1px rgba(79,211,154,.6)}
 .cab.ptsb{box-shadow:none;animation:none}
 @media (min-width:1000px){.tlay{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);gap:20px;align-items:start}.tlay .tdet{position:sticky;top:70px;margin-top:0}}
+/* árvore de habilidades em estilo RPG: nós hexagonais com aro, ícones de traço, ligações curvas que brilham e divisor das Lendas */
+.tb-c{--bc:#FF6B7D;--gl:255,107,125}.tb-e{--bc:#5FDCE8;--gl:95,220,232}.tb-p{--bc:#FFC857;--gl:255,200,87}
+.tdia{background:radial-gradient(90% 40% at 50% 0%,rgba(var(--gl),.14),transparent 70%),radial-gradient(90% 40% at 50% 100%,rgba(var(--gl),.10),transparent 70%),repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 38px),repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 38px),#070b1c;box-shadow:inset 0 0 0 1px rgba(var(--gl),.28),inset 0 0 40px rgba(0,0,0,.6);overflow:hidden}
+.tdia path{fill:none;stroke:rgba(140,150,200,.28);stroke-width:2.5;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.tdia path.half{stroke:rgba(var(--gl),.65);stroke-dasharray:5 7}
+.tdia path.on{stroke:var(--bc);stroke-width:3.5;filter:drop-shadow(0 0 4px rgba(var(--gl),.9))}
+.tdiv{position:absolute;left:0;right:0;height:0;border-top:1px solid rgba(255,226,122,.45);pointer-events:none}.tdiv span{position:absolute;left:50%;top:0;transform:translate(-50%,-50%);padding:2px 12px;background:#070b1c;border:1px solid rgba(255,226,122,.5);border-radius:99px;font:800 10px var(--b);letter-spacing:.3em;text-transform:uppercase;color:#FFE27A}
+.tnode{filter:drop-shadow(0 2px 3px rgba(0,0,0,.7))}
+.tnb{width:58px;height:58px;border:0;border-radius:0;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:linear-gradient(160deg,var(--bc),rgba(var(--gl),.25));color:var(--bc);box-shadow:none;animation:none;transition:transform .15s}
+.tnb::before{content:"";position:absolute;inset:3px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:radial-gradient(circle at 50% 28%,#223066,#080c22 75%)}
+.tnb .gl,.tdi .gl{position:relative;width:27px;height:27px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 3px rgba(var(--gl),.7))}
+.tnb:hover{transform:scale(1.08)}
+.tnode.cost .tnb{background:linear-gradient(160deg,rgba(var(--gl),.7),rgba(var(--gl),.2));box-shadow:none}.tnode.cost .tnb .gl{opacity:.85}
+.tnode.lock .tnb{opacity:1;filter:none;background:#2c3354;color:#69739e}.tnode.lock .tnb::before{background:#0b1024}.tnode.lock .tnb .gl{filter:none}
+.tnode.lock b{color:#8a93bb}
+.tnode.can{filter:drop-shadow(0 0 8px rgba(0,245,160,.7));animation:tnp2 1.8s ease-in-out infinite}
+.tnode.can .tnb{background:linear-gradient(160deg,#00F5A0,rgba(0,245,160,.3));box-shadow:none;animation:none}
+.tnode.own{filter:drop-shadow(0 0 9px rgba(var(--gl),.85))}
+.tnode.own .tnb{background:linear-gradient(160deg,#fff4c2,var(--bc) 45%,rgba(var(--gl),.5));color:#fff;box-shadow:none}
+.tnode.own .tnb::before{background:radial-gradient(circle at 50% 30%,rgba(var(--gl),.75),rgba(var(--gl),.18) 80%),#080c22}
+.tnode.cap .tnb{width:78px;height:78px;border:0;background:linear-gradient(160deg,#FFE27A,#b88a1e)}.tnode.cap .tnb .gl{width:34px;height:34px}.tnode.cap{transform:translate(-50%,-39px)}
+.tnode.cap.lock .tnb{background:#4a4a5e}.tnode.cap.own .tnb{background:linear-gradient(160deg,#fff4c2,#FFE27A 50%,#b88a1e)}
+.tnb.sel{outline:0;background:#fff!important}
+.tok{position:absolute;left:50%;margin-left:12px;top:-6px;width:20px;height:20px;border-radius:50%;background:#FFE27A;color:#2a1d05;font:800 12px/20px var(--b);font-style:normal;z-index:2;box-shadow:0 0 6px rgba(255,226,122,.8)}
+.tnode.cap .tok{margin-left:20px}
+.tnode small{letter-spacing:.12em;color:#FFE27A}.tnode.lock small{color:#69739e;letter-spacing:.04em}
+@keyframes tnp2{50%{filter:drop-shadow(0 0 3px rgba(0,245,160,.35))}}
+@media (prefers-reduced-motion:reduce){.tnode.can{animation:none}}
+.tdi{width:54px;height:54px;flex:none;display:grid;place-items:center;font-size:0;color:var(--bc,#FFE27A);clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:linear-gradient(160deg,var(--bc,#FFE27A),rgba(var(--gl,255,226,122),.25));position:relative}
+.tdi::before{content:"";position:absolute;inset:3px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:radial-gradient(circle at 50% 28%,#223066,#080c22 75%)}
+.tdi .gl{width:28px;height:28px}
+
 @media (max-width:640px){.pc3,.pc3.p1{flex-direction:row;text-align:left;align-items:center;padding:12px 14px 12px 36px;gap:12px}.pc3 .av,.pc3.p1 .av{width:56px;height:56px;flex:none}.pc3 b,.pc3.p1 b{font-size:20px;margin:0}.pc3 .tt{display:none}.pc3 .pt,.pc3.p1 .pt{margin:0 0 0 auto;font-size:26px}.pc3 .pcn{top:50%;transform:translateY(-50%)}.pc3 small{display:block}}
 
 /* Gestão: cartão da próxima partida sem adversário definido, e Jogar com colunas equilibradas */
@@ -6203,12 +6235,10 @@ function pcTreeBtnHTML(){
   const tp=S.pc.tp||0;
   return `<section class="pn"><div class="row" style="margin:0"><button class="${tp>0?'play':'ghost'}" data-act="pcTree">${pcTreeOpen?'Fechar árvore de habilidades':'Abrir árvore de habilidades'} · ${tp} ponto${tp===1?'':'s'}</button></div></section>`;
 }
-const PERKI={c1:'❄️',c4:'⚔️',c5:'⚡',c6:'🩸',c2:'🎯',c7:'🌀',c8:'🛡️',c9:'🗺️',c3:'🔥',c10:'🧊',c11:'👑',
- e1:'📘',e4:'📼',e5:'📓',e6:'👁️',e3:'🔍',e2:'🧩',e7:'🗃️',e8:'♟️',e9:'🎓',e10:'📚',e11:'🧠',
- p1:'💤',p4:'🧘',p5:'🤝',p6:'🌙',p2:'📣',p7:'📸',p8:'💼',p9:'💬',p3:'⭐',p10:'🕴️',p11:'🏆',
- c12:'🗡️',c13:'🧱',c14:'💥',c15:'🛤️',c16:'🧭',c17:'🥶',c18:'⏱️',c19:'👻',c20:'🦾',c21:'🔱',c22:'♾️',
- e12:'🦉',e13:'📸',e14:'🎞️',e15:'🧪',e16:'📐',e17:'🔬',e18:'🏫',e19:'🚀',e20:'🔭',e21:'🧑‍🔬',e22:'🌌',
- p12:'📝',p13:'🏷️',p14:'💆',p15:'📈',p16:'🤑',p17:'📱',p18:'🌅',p19:'🛒',p20:'🌍',p21:'🐐',p22:'🪐'};
+/* ícones das habilidades: traços de 24x24, um glifo por habilidade */
+const PGL={"sword":"M14 10L4 20M11 17l-3-3M17 3h4v4L11 17l-4-4L17 3z","dagger":"M12 2l3 9-3 3-3-3 3-9zM12 14v4M8 18h8M12 18v4","shield":"M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z","bolt":"M13 2L4 14h7l-1 8 9-12h-7l1-8z","target":"M12 3a9 9 0 100 18 9 9 0 000-18zM12 8a4 4 0 100 8 4 4 0 000-8zM12 11.2a.8.8 0 100 1.6.8.8 0 000-1.6z","eye":"M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12zM12 9a3 3 0 100 6 3 3 0 000-6z","book":"M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2V5zM4 19a2 2 0 012-2h13","bulb":"M9 18h6M10 21h4M12 3a6 6 0 00-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0012 3z","heart":"M12 21s-8-5-8-11a4.5 4.5 0 018-2.8A4.5 4.5 0 0120 10c0 6-8 11-8 11z","coin":"M12 3a9 9 0 100 18 9 9 0 000-18zM14.5 9.5c-.5-1-1.5-1.5-2.5-1.5-1.4 0-2.5.8-2.5 2s1 1.7 2.5 2 2.5.8 2.5 2-1.1 2-2.5 2c-1 0-2-.5-2.5-1.5M12 6.5V8M12 16v1.5","star":"M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3z","crown":"M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5L3 8z","flame":"M12 2c1 4 6 6 6 12a6 6 0 01-12 0c0-3 2-4 3-6 1 1 1 2 1 3 2-2 2-5 2-9z","snow":"M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7M9 4l3 2 3-2M9 20l3-2 3 2","moon":"M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z","zzz":"M4 6h6l-6 6h6M13 10h5l-5 5h5","clock":"M12 3a9 9 0 100 18 9 9 0 000-18zM12 7v5l3.5 2","map":"M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2V6zM9 4v14M15 6v14","skull":"M12 3a8 8 0 00-5 14.2V20h3v-2h4v2h3v-2.8A8 8 0 0012 3zM9 11a1.6 1.6 0 100 3.2A1.6 1.6 0 009 11zM15 11a1.6 1.6 0 100 3.2 1.6 1.6 0 000-3.2z","trophy":"M7 4h10v5a5 5 0 01-10 0V4zM7 6H4v2a3 3 0 003 3M17 6h3v2a3 3 0 01-3 3M12 14v4M8 21h8M9 18h6","mega":"M3 10v4h4l8 5V5L7 10H3zM18 9a4 4 0 010 6","camera":"M4 8h3l2-3h6l2 3h3v11H4V8zM12 10a3.5 3.5 0 100 7 3.5 3.5 0 000-7z","chart":"M4 20V4M4 20h16M8 16v-4M12 16V8M16 16v-6","flask":"M9 3h6M10 3v6l-5 9a2 2 0 002 3h10a2 2 0 002-3l-5-9V3M8 15h8","cog":"M12 9a3 3 0 100 6 3 3 0 000-6zM12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2","drop":"M12 3s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z","refresh":"M20 11a8 8 0 00-14-4M4 4v4h4M4 13a8 8 0 0014 4M20 20v-4h-4","fist":"M7 11V6a2 2 0 014 0v-1a2 2 0 014 0v1a2 2 0 014 0v6c0 5-3 9-8 9s-8-3-8-8v-3a2 2 0 014 0z","wall":"M3 6h18v4H3zM3 14h18v4H3zM9 6v4M15 10v4M9 14v4","lane":"M4 20L20 4M20 4h-6M20 4v6M4 20l3-8M4 20l8-3","compass":"M12 3a9 9 0 100 18 9 9 0 000-18zM15.5 8.5l-2 5-5 2 2-5 5-2z","ghost":"M5 21V11a7 7 0 0114 0v10l-3-2-2 2-2-2-2 2-2-2-3 2zM9.5 11h.01M14.5 11h.01","trident":"M12 3v18M6 4v5a6 6 0 0012 0V4M8 21h8","infinity":"M7 8a4 4 0 100 8c4 0 6-8 10-8a4 4 0 110 8c-4 0-6-8-10-8z","film":"M3 5h18v14H3zM3 9h18M3 15h18M8 5v14M16 5v14","doc":"M6 3h9l4 4v14H6V3zM14 3v5h5M9 12h7M9 16h7","search":"M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-5-5","db":"M4 6c0-2 16-2 16 0v12c0 2-16 2-16 0V6zM4 12c0 2 16 2 16 0","school":"M2 9l10-5 10 5-10 5L2 9zM6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5","rocket":"M12 2c4 2 6 6 6 10l-3 3H9l-3-3c0-4 2-8 6-10zM12 10a1.5 1.5 0 100 3 1.5 1.5 0 000-3zM9 18l-2 4M15 18l2 4","planet":"M12 7a5 5 0 100 10 5 5 0 000-10zM3 14c0-3 18-9 18-5s-12 9-18 5z","pulse":"M2 12h5l2-6 4 12 2-6h7","link":"M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3A4 4 0 0011 18.7l1-1","tag":"M3 12V4h8l10 10-8 8L3 12zM7.5 8.5h.01","cart":"M3 4h3l2 12h11l2-8H7M9 20h.01M18 20h.01","trend":"M3 17l6-6 4 4 8-8M15 7h6v6","phone":"M8 2h8a1 1 0 011 1v18a1 1 0 01-1 1H8a1 1 0 01-1-1V3a1 1 0 011-1zM11 18h2","globe":"M12 3a9 9 0 100 18 9 9 0 000-18zM3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18","sunrise":"M12 6V3M5 12H2M22 12h-3M7 7L5 5M17 7l2-2M6 18a6 6 0 0112 0M3 18h18","cross":"M9 3h6v6h6v6h-6v6H9v-6H3V9h6V3z","chat":"M4 5h16v11H9l-5 4V5z","hourglass":"M6 3h12M6 21h12M7 3c0 5 5 6 5 9s-5 4-5 9M17 3c0 5-5 6-5 9s5 4 5 9"};
+const PERKG={"c1":"snow","c4":"sword","c5":"bolt","c6":"drop","c2":"target","c7":"refresh","c8":"fist","c9":"map","c3":"flame","c10":"bulb","c11":"crown","e1":"book","e4":"film","e5":"doc","e6":"eye","e3":"search","e2":"cog","e7":"db","e8":"compass","e9":"school","e10":"book","e11":"bulb","p1":"moon","p4":"pulse","p5":"link","p6":"zzz","p2":"mega","p7":"camera","p8":"doc","p9":"chat","p3":"star","p10":"tag","p11":"trophy","c12":"dagger","c13":"wall","c14":"sword","c15":"lane","c16":"compass","c17":"snow","c18":"clock","c19":"ghost","c20":"fist","c21":"trident","c22":"infinity","e12":"ghost","e13":"camera","e14":"film","e15":"flask","e16":"chart","e17":"search","e18":"book","e19":"rocket","e20":"eye","e21":"school","e22":"planet","p12":"doc","p13":"tag","p14":"cross","p15":"trend","p16":"coin","p17":"phone","p18":"sunrise","p19":"cart","p20":"globe","p21":"flame","p22":"hourglass"};
+const perkSvg=(id,cl)=>`<svg class="${cl||'gl'}" viewBox="0 0 24 24" aria-hidden="true"><path d="${PGL[PERKG[id]]||PGL.star}"/></svg>`;
 let pcPerkSel=null,pcBr='c';
 function pcTreeHTML(f){
   const pc=S.pc,tp=pc.tp||0,P=PERKS.filter(x=>x.br===pcBr),by=id=>PERKS.find(x=>x.id===id);
@@ -6218,15 +6248,16 @@ function pcTreeHTML(f){
   const why=s0==='own'?'Aprendida':pc.lv<sel.lv?`Requer nível ${sel.lv}`:s0==='lock'?(sel.need?`Requer ${sel.need} das ${sel.pa.length} ligadas`:`Requer ${by(sel.pa[0]).n}${sel.pa.length>1?' ou '+by(sel.pa[1]).n:''}`):`Faltam ${sel.c-tp} ponto${sel.c-tp>1?'s':''}`;
   const H=900,Y=r=>4+r*9.6;
   let lines='';
-  P.forEach(x=>x.pa.forEach(pid=>{const q=by(pid),lit=pc.perks[pid]&&pc.perks[x.id],half=pc.perks[pid]&&!pc.perks[x.id];lines+=`<line x1="${q.x}" y1="${Y(q.r)}" x2="${x.x}" y2="${Y(x.r)}" class="${lit?'on':half?'half':''}"/>`}));
+  P.forEach(x=>x.pa.forEach(pid=>{const q=by(pid),lit=pc.perks[pid]&&pc.perks[x.id],half=pc.perks[pid]&&!pc.perks[x.id],y1=Y(q.r),y2=Y(x.r),ym=(y1+y2)/2;lines+=`<path d="M${q.x} ${y1} C${q.x} ${ym} ${x.x} ${ym} ${x.x} ${y2}" class="${lit?'on':half?'half':''}"/>`}));
   let nodes='';
-  P.forEach(x=>{const k=pcPerkSt(x);nodes+=`<div class="tnode ${k}${x.r===4||x.r>=8?' cap':''}" style="left:${x.x}%;top:${Y(x.r)}%"><button class="tnb${x.id===sel.id?' sel':''}" data-act="pcPerkSel" data-v="${x.id}" aria-label="${esc(x.n)}"><span>${PERKI[x.id]||'✦'}</span>${k==='own'?'<i class="tok">✓</i>':''}</button><b>${esc(x.n)}</b><small>${k==='own'?'aprendida':k==='lock'&&pc.lv<x.lv?'nível '+x.lv:k==='lock'?'bloqueada':x.c+' pt'+(x.c>1?'s':'')}</small></div>`});
+  P.forEach(x=>{const k=pcPerkSt(x);nodes+=`<div class="tnode ${k}${x.r===4||x.r>=8?' cap':''}" style="left:${x.x}%;top:${Y(x.r)}%"><button class="tnb${x.id===sel.id?' sel':''}" data-act="pcPerkSel" data-v="${x.id}" aria-label="${esc(x.n)}">${perkSvg(x.id)}</button>${k==='own'?'<i class="tok">✓</i>':''}<b>${esc(x.n)}</b><small>${k==='own'?'aprendida':k==='lock'&&pc.lv<x.lv?'nível '+x.lv:k==='lock'?'bloqueada':'◆'.repeat(x.c)}</small></div>`});
+  const div=`<div class="tdiv" style="top:${(Y(4)+Y(5))/2}%"><span>Lendas</span></div>`;
   const tabs=Object.keys(PBR).map(b=>{const n=PERKS.filter(x=>x.br===b&&pc.perks[x.id]).length;return `<button class="pill" aria-pressed="${pcBr===b}" data-act="pcBr" data-v="${b}">${PBR[b][0]} <small>${n}/22</small></button>`}).join('');
   const fxs=Object.keys(PBR).map(()=>'').join('');
   return `<section class="pn"><h2>Árvore de habilidades</h2><div class="cab${tp>0?' ptsb':''}" style="margin:0 0 10px;grid-template-columns:repeat(2,minmax(0,1fr))"><div><b class="num">${tp}</b><small>Pontos de habilidade</small></div><div><b class="num">${got}/${PERKS.length}</b><small>Aprendidas</small></div></div>
   <div class="pills" style="margin-bottom:8px">${tabs}</div><p class="note" style="margin:0 0 6px">${PBR[pcBr][0]} · ${PBR[pcBr][1]}. Comece pelo topo e desça: cada habilidade se liga às que têm a ver com ela. O nó grande do meio fecha a 1ª metade; a 2ª metade (nível 20 a 90) sai dele e é bem mais cara.</p>
-  <div class="tlay"><div class="tdia" style="height:${H}px"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${lines}</svg>${nodes}</div>
-  <div class="tdet ${s0}"><div class="tdh"><span class="tdi">${PERKI[sel.id]||'✦'}</span><div><b>${esc(sel.n)}</b><small>${PBR[sel.br][0]} · custo ${sel.c} ponto${sel.c>1?'s':''} · nível ${sel.lv}${sel.pa.length?' · liga com '+sel.pa.map(i=>by(i).n).join(', '):' · ponto de partida'}</small></div></div><p>${esc(sel.d)}</p>${s0==='own'?'<span class="tag">Aprendida</span>':`<button class="${s0==='can'?'play':'ghost'}" data-act="pcLearn" data-v="${sel.id}"${s0==='can'?'':' disabled'}>${s0==='can'?'Aprender':esc(why)}</button>`}</div></div></section>`;
+  <div class="tlay"><div class="tdia tb-${pcBr}" style="height:${H}px"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${lines}</svg>${div}${nodes}</div>
+  <div class="tdet ${s0}"><div class="tdh"><span class="tdi tb-${sel.br}">${perkSvg(sel.id)}</span><div><b>${esc(sel.n)}</b><small>${PBR[sel.br][0]} · custo ${sel.c} ponto${sel.c>1?'s':''} · nível ${sel.lv}${sel.pa.length?' · liga com '+sel.pa.map(i=>by(i).n).join(', '):' · ponto de partida'}</small></div></div><p>${esc(sel.d)}</p>${s0==='own'?'<span class="tag">Aprendida</span>':`<button class="${s0==='can'?'play':'ghost'}" data-act="pcLearn" data-v="${sel.id}"${s0==='can'?'':' disabled'}>${s0==='can'?'Aprender':esc(why)}</button>`}</div></div></section>`;
 }
 /* convocação do técnico (scrim ou torneio): na tela Jogar, na carreira e na caixa de e-mail */
 function ptHTML(inner){
