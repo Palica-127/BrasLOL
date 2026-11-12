@@ -1928,7 +1928,6 @@ details.pn>summary{color:var(--t1)}
 .tdia path{fill:none;stroke:rgba(140,150,200,.28);stroke-width:2.5;stroke-linecap:round;vector-effect:non-scaling-stroke}
 .tdia path.half{stroke:rgba(var(--gl),.65);stroke-dasharray:5 7}
 .tdia path.on{stroke:var(--bc);stroke-width:3.5;filter:drop-shadow(0 0 4px rgba(var(--gl),.9))}
-.tdiv{position:absolute;left:0;right:0;height:0;border-top:1px solid rgba(255,226,122,.45);pointer-events:none}.tdiv span{position:absolute;left:50%;top:0;transform:translate(-50%,-50%);padding:2px 12px;background:#070b1c;border:1px solid rgba(255,226,122,.5);border-radius:99px;font:800 10px var(--b);letter-spacing:.3em;text-transform:uppercase;color:#FFE27A}
 .tnode{filter:drop-shadow(0 2px 3px rgba(0,0,0,.7))}
 .tnb{width:58px;height:58px;border:0;border-radius:0;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:linear-gradient(160deg,var(--bc),rgba(var(--gl),.25));color:var(--bc);box-shadow:none;animation:none;transition:transform .15s}
 .tnb::before{content:"";position:absolute;inset:3px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:radial-gradient(circle at 50% 28%,#223066,#080c22 75%)}
@@ -1962,8 +1961,15 @@ details.pn>summary{color:var(--t1)}
 .tnode small{background:rgba(7,11,28,.7);padding:0 5px;border-radius:6px;margin-top:2px}
 .tnode.cap{width:30%;transform:translate(-50%,-39px)}
 .tnode:hover{z-index:3}
+.tdiv{position:absolute;left:0;right:0;height:0;pointer-events:none;z-index:1;--g:rgba(255,226,122,.55);filter:grayscale(.75) brightness(.8)}
+.tdiv.open{--g:rgba(255,226,122,.95);filter:drop-shadow(0 0 8px rgba(255,226,122,.55))}
+.tdiv::before{content:"";position:absolute;left:4%;right:4%;top:-1px;height:2px;background:linear-gradient(90deg,transparent,var(--g) 16%,var(--g) 84%,transparent)}
+.tdiv .dm{position:absolute;top:-4px;width:8px;height:8px;background:var(--g);transform:rotate(45deg)}.tdiv .dm.l{left:calc(4% - 2px)}.tdiv .dm.r{right:calc(4% - 2px)}
+.tdiv span{position:absolute;left:50%;top:0;transform:translate(-50%,-50%);display:block;padding:2px;background:linear-gradient(180deg,#fff0b0,#c99a2a 55%,#7a5a12);clip-path:polygon(0 50%,12px 0,calc(100% - 12px) 0,100% 50%,calc(100% - 12px) 100%,12px 100%)}
+.tdiv span em{display:flex;align-items:center;gap:8px;padding:5px 26px;background:linear-gradient(180deg,#201d12,#0a0906);clip-path:polygon(0 50%,11px 0,calc(100% - 11px) 0,100% 50%,calc(100% - 11px) 100%,11px 100%);font:800 11px var(--b);font-style:normal;letter-spacing:.3em;text-transform:uppercase;color:#FFE27A;white-space:nowrap}
+.tdiv span em .gl{width:16px;height:16px;stroke-width:2;filter:none;position:static}
+.tdiv span em small{font:700 8px var(--b);letter-spacing:.14em;color:#b9a769;background:none;padding:0;margin:0 0 0 2px;border-left:1px solid rgba(255,226,122,.3);padding-left:8px}
 .tdia{overflow:hidden}
-.tdiv{z-index:1}
 
 @media (max-width:640px){.pc3,.pc3.p1{flex-direction:row;text-align:left;align-items:center;padding:12px 14px 12px 36px;gap:12px}.pc3 .av,.pc3.p1 .av{width:56px;height:56px;flex:none}.pc3 b,.pc3.p1 b{font-size:20px;margin:0}.pc3 .tt{display:none}.pc3 .pt,.pc3.p1 .pt{margin:0 0 0 auto;font-size:26px}.pc3 .pcn{top:50%;transform:translateY(-50%)}.pc3 small{display:block}}
 
@@ -6245,40 +6251,13 @@ const perkSvg=(id,cl)=>`<svg class="${cl||'gl'}" viewBox="0 0 24 24" aria-hidden
 
 /* fundo ilustrado de cada ramo da árvore (SVG gerado, sem arquivos): arena, observatório e palco */
 function pcTreeBg(br){
+  /* fundo de cada ramo: degradê do tema + splash art de um campeão que combina (Draven, Ryze, Seraphine), bem suave, com fade nas bordas; poucos detalhes soltos */
   let sd=br.charCodeAt(0)*977;const R=()=>(sd=(sd*16807)%2147483647)/2147483647,W=400,HH=1300,f=n=>n.toFixed(1);
-  const gl=(k,x,y,sc,rot,st,sw,op)=>`<g transform="translate(${x} ${y}) rotate(${rot||0}) scale(${sc}) translate(-12 -12)" fill="none" stroke="${st}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" opacity="${op}"><path d="${PGL[k]}"/></g>`;
-  const im=(src,x,y,w,h,op,rot,extra)=>`<image href="${src}" x="${f(x-w/2)}" y="${f(y-h/2)}" width="${w}" height="${h}" opacity="${op}"${rot?` transform="rotate(${rot} ${x} ${y})"`:''} preserveAspectRatio="xMidYMid meet"${extra||''}/>`;
-  let o=`<svg class="tart" viewBox="0 0 ${W} ${HH}" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>`;
-  if(br==='c'){
-    o+=`<linearGradient id="bgc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b0d1b"/><stop offset=".5" stop-color="#1a0810"/><stop offset="1" stop-color="#3d1408"/></linearGradient><radialGradient id="bgcg" cx=".5" cy="1" r=".6"><stop offset="0" stop-color="#ff7a3c" stop-opacity=".45"/><stop offset="1" stop-color="#ff7a3c" stop-opacity="0"/></radialGradient></defs><rect width="${W}" height="${HH}" fill="url(#bgc)"/><rect y="700" width="${W}" height="600" fill="url(#bgcg)"/>`;
-    o+=`<circle cx="200" cy="600" r="150" fill="none" stroke="#ff6b7d" stroke-opacity=".16" stroke-width="1.5" stroke-dasharray="3 9"/><circle cx="200" cy="600" r="215" fill="none" stroke="#ff6b7d" stroke-opacity=".10" stroke-width="1"/>`;
-    o+=`<defs><filter id="tmc" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1.15 0.9 0.2 0 -0.05  0.25 0.3 0.05 0 0  0.15 0.15 0.05 0 0  0 0 0 1 0"/></filter><filter id="tmg"><feGaussianBlur stdDeviation="14"/></filter></defs>`;
-    o+=im('fundos/mapa.webp',200,610,400,400,.32,-5,' filter="url(#tmg)"')+im('fundos/mapa.webp',200,610,380,380,.4,-5,' filter="url(#tmc)"');
-    o+=gl('sword',58,230,5,-25,'#ff9a6b',.2,.22)+gl('sword',342,230,5,25,'#ff9a6b',.2,.22)+gl('skull',200,1040,5,0,'#ff9a6b',.2,.16);
-    for(let i=0;i<46;i++)o+=`<circle cx="${f(R()*W)}" cy="${f(R()*HH)}" r="${f(.6+R()*1.9)}" fill="#ffb36b" opacity="${f(.12+R()*.45)}"/>`;
-    o+=`<path d="M0 1300V1190L40 1150 70 1180 120 1110 170 1170 220 1120 270 1175 320 1130 370 1170 400 1140V1300Z" fill="#0d0509" opacity=".85"/>`;
-  }else if(br==='e'){
-    o+=`<linearGradient id="bge" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#04122b"/><stop offset=".55" stop-color="#071b38"/><stop offset="1" stop-color="#03101f"/></linearGradient><radialGradient id="bgeg" cx=".5" cy=".48" r=".5"><stop offset="0" stop-color="#5fdce8" stop-opacity=".22"/><stop offset="1" stop-color="#5fdce8" stop-opacity="0"/></radialGradient></defs><rect width="${W}" height="${HH}" fill="url(#bge)"/><rect width="${W}" height="${HH}" fill="url(#bgeg)"/>`;
-    for(let i=0;i<80;i++)o+=`<circle cx="${f(R()*W)}" cy="${f(R()*HH)}" r="${f(.5+R()*1.5)}" fill="${R()>.7?'#5fdce8':'#fff'}" opacity="${f(.15+R()*.55)}"/>`;
-    const pts=Array.from({length:7},(_,i)=>[40+R()*320,60+i*40+R()*30]);
-    o+=`<polyline points="${pts.map(q=>f(q[0])+','+f(q[1])).join(' ')}" fill="none" stroke="#5fdce8" stroke-opacity=".28" stroke-width="1"/>`+pts.map(q=>`<circle cx="${f(q[0])}" cy="${f(q[1])}" r="3" fill="#5fdce8" opacity=".6"/>`).join('');
-    for(const r of [60,110,170,230])o+=`<circle cx="200" cy="650" r="${r}" fill="none" stroke="#5fdce8" stroke-opacity="${r>150?.14:.22}" stroke-width="1.2"${r%110===0?' stroke-dasharray="4 8"':''}/>`;
-    for(let i=0;i<48;i++){const a=i*Math.PI/24,l=i%4===0?16:8;o+=`<line x1="${f(200+Math.cos(a)*230)}" y1="${f(650+Math.sin(a)*230)}" x2="${f(200+Math.cos(a)*(230+l))}" y2="${f(650+Math.sin(a)*(230+l))}" stroke="#5fdce8" stroke-opacity=".25"/>`}
-    o+=gl('compass',200,650,6,0,'#5fdce8',.14,.3)+gl('book',200,1120,8,0,'#5fdce8',.14,.2);
-    o+=`<defs><filter id="tmr"><feGaussianBlur stdDeviation="10"/></filter></defs>`;
-    for(const [src,x,y,w,r] of [['runa-cometa',70,330,130,-14],['runa-fluxo',335,500,120,10],['runa-gelo',66,880,130,-6],['runa-aery',338,1040,120,8]])o+=im('fundos/'+src+'.webp',x,y,w+34,w+34,.32,r,' filter="url(#tmr)"')+im('fundos/'+src+'.webp',x,y,w,w,.5,r);
-    o+=`<ellipse cx="200" cy="650" rx="260" ry="70" fill="none" stroke="#9aeef5" stroke-opacity=".18" transform="rotate(-18 200 650)"/><circle cx="${f(200+Math.cos(2.4)*260*.95)}" cy="${f(650-Math.sin(2.4)*70*.9-70)}" r="5" fill="#9aeef5" opacity=".5"/>`;
-  }else{
-    o+=`<linearGradient id="bgp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2d2108"/><stop offset=".6" stop-color="#150f04"/><stop offset="1" stop-color="#2d1e06"/></linearGradient><linearGradient id="bgpb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a8" stop-opacity=".30"/><stop offset="1" stop-color="#ffe9a8" stop-opacity="0"/></linearGradient><radialGradient id="bgpg" cx=".5" cy="1" r=".55"><stop offset="0" stop-color="#ffc857" stop-opacity=".4"/><stop offset="1" stop-color="#ffc857" stop-opacity="0"/></radialGradient></defs><rect width="${W}" height="${HH}" fill="url(#bgp)"/>`;
-    o+=`<polygon points="150,0 250,0 380,900 20,900" fill="url(#bgpb)" opacity=".5"/><polygon points="60,0 110,0 240,1100 -40,1100" fill="url(#bgpb)" opacity=".4"/><polygon points="290,0 340,0 460,1100 180,1100" fill="url(#bgpb)" opacity=".4"/>`;
-    o+=`<rect y="760" width="${W}" height="540" fill="url(#bgpg)"/>`+gl('star',60,260,4,-12,'#ffe9a8',.25,.2)+gl('star',345,420,5,12,'#ffe9a8',.25,.2)+gl('coin',65,980,4,0,'#ffe9a8',.25,.2)+gl('mega',340,1010,5,-10,'#ffe9a8',.2,.2);
-    const cc=['#ffc857','#fff','#ff8aa1','#7ee0ff'];
-    for(let i=0;i<54;i++)o+=`<rect x="${f(R()*W)}" y="${f(R()*HH)}" width="${f(3+R()*4)}" height="${f(2+R()*3)}" fill="${cc[i%4]}" opacity="${f(.15+R()*.4)}" transform="rotate(${f(R()*180)} ${f(R()*W)} ${f(R()*HH)})"/>`;
-    const tro=(src,x,yb,w,h)=>`<g><g transform="translate(0 ${2*yb}) scale(1 -1)" opacity=".16"><image href="trofeus/${src}.png" x="${x-w/2}" y="${yb-h}" width="${w}" height="${h}"/></g><image href="trofeus/${src}.png" x="${x-w/2}" y="${yb-h}" width="${w}" height="${h}" style="filter:drop-shadow(0 0 14px rgba(255,200,87,.6))"/></g>`;
-    o+=tro('m',58,520,52,106)+tro('c',344,380,52,97)+tro('w',344,980,70,104);
-    o+=`<ellipse cx="200" cy="1270" rx="240" ry="46" fill="#ffc857" opacity=".18"/><ellipse cx="200" cy="1262" rx="170" ry="30" fill="none" stroke="#ffe9a8" stroke-opacity=".3"/>`;
-  }
-  return o+`<rect width="${W}" height="${HH}" fill="#070b1c" opacity=".3"/></svg>`;
+  const T={c:{a:'#3b0d1b',b:'#1a0810',c:'#3d1408',img:'draven',op:.3,pt:'#ffb36b'},e:{a:'#04122b',b:'#071b38',c:'#03101f',img:'ryze',op:.3,pt:'#9aeef5'},p:{a:'#2d2108',b:'#150f04',c:'#2d1e06',img:'seraphine',op:.26,pt:'#ffe9a8'}}[br];
+  let o=`<svg class="tart" viewBox="0 0 ${W} ${HH}" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="bg${br}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${T.a}"/><stop offset=".5" stop-color="${T.b}"/><stop offset="1" stop-color="${T.c}"/></linearGradient><linearGradient id="fd${br}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".25" stop-color="#fff"/><stop offset=".75" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><mask id="mk${br}"><rect x="-20" y="300" width="440" height="686" fill="url(#fd${br})"/></mask></defs><rect width="${W}" height="${HH}" fill="url(#bg${br})"/>`;
+  o+=`<g mask="url(#mk${br})"><image href="fundos/${T.img}.webp" x="-20" y="300" width="440" height="686" preserveAspectRatio="xMidYMid meet" opacity="${T.op}" style="filter:saturate(.75)"/></g>`;
+  for(let i=0;i<40;i++)o+=`<circle cx="${f(R()*W)}" cy="${f(R()*HH)}" r="${f(.5+R()*1.4)}" fill="${T.pt}" opacity="${f(.1+R()*.3)}"/>`;
+  return o+`</svg>`;
 }
 let pcPerkSel=null,pcBr='c';
 function pcTreeHTML(f){
@@ -6287,12 +6266,13 @@ function pcTreeHTML(f){
   const sel=selX&&selX.br===pcBr?selX:(P.find(x=>pcPerkSt(x)==='can')||P[0]),s0=pcPerkSt(sel);
   const got=PERKS.filter(x=>pc.perks[x.id]).length,gb=P.filter(x=>pc.perks[x.id]).length;
   const why=s0==='own'?'Aprendida':pc.lv<sel.lv?`Requer nível ${sel.lv}`:s0==='lock'?(sel.need?`Requer ${sel.need} das ${sel.pa.length} ligadas`:`Requer ${by(sel.pa[0]).n}${sel.pa.length>1?' ou '+by(sel.pa[1]).n:''}`):`Faltam ${sel.c-tp} ponto${sel.c-tp>1?'s':''}`;
-  const H=1380,Y=r=>3.5+r*10;
+  const H=1440,Y=r=>3.5+r*9.6+(r>=5?3.5:0);
   let lines='';
   P.forEach(x=>x.pa.forEach(pid=>{const q=by(pid),lit=pc.perks[pid]&&pc.perks[x.id],half=pc.perks[pid]&&!pc.perks[x.id],y1=Y(q.r),y2=Y(x.r),ym=(y1+y2)/2;lines+=`<path d="M${q.x} ${y1} C${q.x} ${ym} ${x.x} ${ym} ${x.x} ${y2}" class="${lit?'on':half?'half':''}"/>`}));
   let nodes='';
   P.forEach(x=>{const k=pcPerkSt(x);nodes+=`<div class="tnode ${k}${x.r===4||x.r>=8?' cap':''}" style="left:${x.x}%;top:${Y(x.r)}%"><button class="tnb${x.id===sel.id?' sel':''}" data-act="pcPerkSel" data-v="${x.id}" aria-label="${esc(x.n)}">${perkSvg(x.id)}</button>${k==='own'?'<i class="tok">✓</i>':''}<b>${esc(x.n)}</b><small>${k==='own'?'aprendida':k==='lock'&&pc.lv<x.lv?'nível '+x.lv:k==='lock'?'bloqueada':'◆'.repeat(x.c)}</small></div>`});
-  const div=`<div class="tdiv" style="top:${Y(4)+(Y(5)-Y(4))*.75}%"><span>Lendas</span></div>`;
+  const gate=pc.perks[{c:'c11',e:'e11',p:'p11'}[pcBr]];
+  const div=`<div class="tdiv${gate?' open':''}" style="top:${Y(4)+(Y(5)-Y(4))*.65}%"><i class="dm l"></i><i class="dm r"></i><span><em><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><path d="${PGL.crown}"/></svg>Lendas<small>${gate?'portal aberto':'nível 20+'}</small></em></span></div>`;
   const tabs=Object.keys(PBR).map(b=>{const n=PERKS.filter(x=>x.br===b&&pc.perks[x.id]).length;return `<button class="pill" aria-pressed="${pcBr===b}" data-act="pcBr" data-v="${b}">${PBR[b][0]} <small>${n}/22</small></button>`}).join('');
   const fxs=Object.keys(PBR).map(()=>'').join('');
   return `<section class="pn"><h2>Árvore de habilidades</h2><div class="cab${tp>0?' ptsb':''}" style="margin:0 0 10px;grid-template-columns:repeat(2,minmax(0,1fr))"><div><b class="num">${tp}</b><small>Pontos de habilidade</small></div><div><b class="num">${got}/${PERKS.length}</b><small>Aprendidas</small></div></div>
