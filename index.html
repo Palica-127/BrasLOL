@@ -6191,6 +6191,10 @@ function pdfDoc(foot){
     rect(x,y,w,h,c){cur.push(`${pdfRgb(c)} rg ${x} ${PDFH-y-h} ${w} ${h} re f`)},
     stroke(x,y,w,h,c,lw){cur.push(`${pdfRgb(c)} RG ${lw} w ${x} ${PDFH-y-h} ${w} ${h} re S`)},
     line(x1,y1,x2,y2,c,lw){cur.push(`${pdfRgb(c)} RG ${lw} w ${x1} ${PDFH-y1} m ${x2} ${PDFH-y2} l S`)},
+    /* silhueta igual a do cartao (AVA: viewBox 80x96) dentro de uma caixa x,y,w,h */
+    avatar(x,y,w,h){D.rect(x,y,w,h,'#182033');const s=Math.min(w/80,h/96),ox=x+(w-80*s)/2,oy=y+(h-96*s)/2,X=v=>(ox+v*s).toFixed(2),Y=v=>(PDFH-(oy+v*s)).toFixed(2),k=.5523*20;
+      cur.push(`${pdfRgb('#2A3654')} rg ${X(60)} ${Y(28)} m ${X(60)} ${Y(28-k)} ${X(40+k)} ${Y(8)} ${X(40)} ${Y(8)} c ${X(40-k)} ${Y(8)} ${X(20)} ${Y(28-k)} ${X(20)} ${Y(28)} c ${X(20)} ${Y(28+k)} ${X(40-k)} ${Y(48)} ${X(40)} ${Y(48)} c ${X(40+k)} ${Y(48)} ${X(60)} ${Y(28+k)} ${X(60)} ${Y(28)} c f`);
+      cur.push(`${pdfRgb('#2A3654')} rg ${X(4)} ${Y(96)} m ${X(4)} ${Y(66)} ${X(20)} ${Y(54)} ${X(40)} ${Y(54)} c ${X(60)} ${Y(54)} ${X(76)} ${Y(66)} ${X(76)} ${Y(96)} c h f`)},
     diamond(cx,cy,r,c){cur.push(`${pdfRgb(c)} rg ${cx} ${PDFH-cy+r} m ${cx+r} ${PDFH-cy} l ${cx} ${PDFH-cy-r} l ${cx-r} ${PDFH-cy} l h f`)},
     text(s,x,y,size,o){o=o||{};s=String(s);const cs=o.cs||0,w=pdfTw(s,size,o.b,cs);let px=x;if(o.al==='c')px=x-w/2;else if(o.al==='r')px=x-w;
       cur.push(`BT /${o.b?'F2':'F1'} ${size} Tf ${cs} Tc ${pdfRgb(o.c||'#FFFFFF')} rg ${px.toFixed(2)} ${(PDFH-y).toFixed(2)} Td (${pdfEsc(s)}) Tj ET`)},
@@ -6250,13 +6254,14 @@ async function foBuild(o){
   /* destaque: imagem ao centro (foto, logo ou troféu), números nas laterais */
   D.rect(54,254,PDFW-108,138,PN);D.rect(54,254,PDFW-108,2.5,GO);
   if(hero){const bx=118,s=Math.min(bx/hero.w,bx/hero.h),w=hero.w*s,h=hero.h*s,y=262+(bx-h)/2;D.img(hero,C-w/2,y,w,h);if(o.hero.kind==='photo')D.stroke(C-w/2,y,w,h,GO,1.4)}
+  else if(o.hero&&o.hero.kind==='avatar'){D.avatar(C-49,262,98,118);D.stroke(C-49,262,98,118,GO,1.4)}
   else{D.diamond(C,323,34,GO);D.diamond(C,323,26,'#0A0F1E')}
   const st=(x,y,v,l)=>{const s=String(v),f=pdfTw(s,26,1)>150?20:26;D.text(s,x,y,f,{al:'c',b:1,c:GH});D.text(l.toUpperCase(),x,y+14,7.5,{al:'c',c:MU,cs:1.2})};
   const S4=o.stats;
   st(135,298,S4[0][0],S4[0][1]);D.line(95,320,175,320,'#2A3358',.8);st(135,352,S4[1][0],S4[1][1]);
   st(460,298,S4[2][0],S4[2][1]);D.line(420,320,500,320,'#2A3358',.8);st(460,352,S4[3][0],S4[3][1]);
   D.y=404;
-  const sec=t=>{D.need(44);D.y+=16;D.text(t.toUpperCase(),54,D.y,9,{c:GO,b:1,cs:2.5});D.line(54,D.y+7,PDFW-54,D.y+7,'#2A3358',.8);D.y+=20};
+  const sec=(t,keep)=>{D.need(Math.max(72,Math.min(keep||0,600)+40));D.y+=26;D.diamond(58,D.y-3,3.5,GO);D.text(t.toUpperCase(),68,D.y,9.5,{c:GO,b:1,cs:2.5});D.line(54,D.y+9,PDFW-54,D.y+9,GO,.5);D.line(54,D.y+11,PDFW-54,D.y+11,'#2A3358',.6);D.y+=28};
   /* sala de troféus */
   sec(`Sala de troféus  -  ${total}`);
   if(!grp.length){D.rect(54,D.y,PDFW-108,52,PN);D.text('Prateleira ainda vazia: os títulos vêm com o tempo.',C,D.y+30,10,{al:'c',c:MU});D.y+=64}
@@ -6270,11 +6275,14 @@ async function foBuild(o){
     D.y+=h+10});
   /* clubes */
   if(o.clubs){
-    sec('Clubes');
+    sec('Clubes  -  '+o.clubs.length,Math.ceil(o.clubs.length/2)*50);
     if(!o.clubs.length){D.text('Sem temporadas registradas.',54,D.y,10,{c:MU});D.y+=20}
-    o.clubs.forEach(c=>{D.need(30);const y=D.y;
-      if(c.im){const s=Math.min(24/c.im.w,24/c.im.h);D.img(c.im,54+(24-c.im.w*s)/2,y-16+(24-c.im.h*s)/2,c.im.w*s,c.im.h*s)}else{D.rect(54,y-16,24,24,PN);D.text(ini(c.t),66,y-1,8,{al:'c',b:1,c:GH})}
-      D.text(D.fit(c.t+(c.d===2?' (D2)':''),340,12,1),88,y,12,{b:1});D.text(c.a===c.b?String(c.a):c.a+' - '+c.b,PDFW-54,y,10,{al:'r',c:MU});D.y+=30});
+    const cw2=(PDFW-108-12)/2,CL=o.clubs;
+    CL.forEach((c,i)=>{if(i%2===0)D.need(50);const x=54+(i%2)*(cw2+12),y=D.y;
+      D.rect(x,y,cw2,42,PN);D.rect(x,y,3,42,i%3===0?GO:i%3===1?'#5FDCE8':'#C95F7A');
+      if(c.im){const s=Math.min(26/c.im.w,26/c.im.h);D.img(c.im,x+12+(26-c.im.w*s)/2,y+8+(26-c.im.h*s)/2,c.im.w*s,c.im.h*s)}else{D.rect(x+12,y+8,26,26,'#0A0F1E');D.text(ini(c.t),x+25,y+25,8,{al:'c',b:1,c:GH})}
+      D.text(D.fit(c.t+(c.d===2?' (D2)':''),cw2-62,10.5,1),x+48,y+19,10.5,{b:1});D.text(c.a===c.b?String(c.a):c.a+' - '+c.b,x+48,y+32,8,{c:MU});
+      if(i%2===1||i===CL.length-1)D.y+=50});
   }
   /* cartões (marcos, reconhecimentos, elenco) */
   if(o.cards&&o.cards.items.length){
@@ -6324,7 +6332,7 @@ async function foPlayer(n){
   const line3=P?`Ativo - ${P.t.name} - ${P.p.age} anos`:d.ret?`${yrs?yrs+' - ':''}${d.ret}  -  aposentado`:(d.note||'Lenda do ranking inicial');
   let cards={title:'Reconhecimentos',items:tl.filter(x=>/^Top 5/.test(x.t)).sort(byY).map(x=>({h:'Top 5 do Melhor do Ano',d:(x.t.match(/\((\d)º\)/)||[])[0]?'Posição '+x.t.match(/\((\d)º\)/)[1]+'º'+(x.tm?' - '+x.tm:''):x.tm||'',r:x.y}))};
   if(pc){const gl=PGOALS.filter(g=>pc.goals[g[0]]).sort((a,b)=>pc.goals[a[0]]-pc.goals[b[0]]);cards={title:'Marcos da carreira',items:gl.map(g=>({h:g[1],d:g[2],r:pc.goals[g[0]]}))}}
-  const hero=phHas(n)?{kind:'photo',src:'jogadores/'+phSlug(n)+'.webp'}:{kind:'tro',src:feat?pdfTroSrc(feat):null};
+  const hero=phHas(n)?{kind:'photo',src:'jogadores/'+phSlug(n)+'.webp'}:{kind:'avatar'};
   return foBuild({foot:'Ficha de '+n,eyebrow:pc?'BRASLOL  -  LEAGUE OF LEGENDS  -  CARREIRA PRO':'BRASLOL  -  LEAGUE OF LEGENDS  -  FICHA DO JOGADOR',title:n,
     line2:(role!=null?RNF[role]:'Jogador')+(natN?'  -  '+natN:''),line3,hero,stats,grp,clubs:rows.length?clubs:null,cards,
     table:{title:'Temporada a temporada',cols:[['ANO',54,'l'],['CLUBE',96,'l'],['OVR',300,'r'],['IDADE',346,'r'],['NOTA',392,'r'],['RANKING',470,'r'],['JOGOS',541,'r']],
