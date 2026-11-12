@@ -1209,7 +1209,7 @@ select option:checked,select option:hover{background:#2a3a8c;color:#fff}
 }
 /* ---------- meta ---------- */
 .tdia{position:relative;max-width:680px;margin:0 auto 10px;border-radius:14px;background:radial-gradient(120% 90% at 50% 0%,rgba(255,226,122,.08),transparent 60%),radial-gradient(100% 70% at 50% 100%,rgba(255,226,122,.07),transparent 60%),rgba(6,9,34,.55);border:1px solid rgba(130,150,255,.2)}
-.tdia svg{position:absolute;inset:0;width:100%;height:100%}
+.tdia>svg{position:absolute;inset:0;width:100%;height:100%}
 .tdia line{stroke:rgba(130,150,255,.3);stroke-width:3;stroke-linecap:round;vector-effect:non-scaling-stroke}.tdia line.half{stroke:rgba(255,226,122,.55);stroke-dasharray:6 6}.tdia line.on{stroke:#FFE27A;stroke-width:4;filter:drop-shadow(0 0 4px rgba(255,226,122,.8))}
 .tnode{position:absolute;transform:translate(-50%,-26px);width:25%;display:flex;flex-direction:column;align-items:center;text-align:center}
 .tnode b{text-shadow:0 1px 3px #000,0 0 6px #000;margin-top:5px;font:700 11px/1.1 var(--b);max-width:100%;overflow-wrap:anywhere}.tnode small{font:600 10px var(--b);color:var(--muted)}
@@ -1950,9 +1950,20 @@ details.pn>summary{color:var(--t1)}
 .tnode small{letter-spacing:.12em;color:#FFE27A}.tnode.lock small{color:#69739e;letter-spacing:.04em}
 @keyframes tnp2{50%{filter:drop-shadow(0 0 3px rgba(0,245,160,.35))}}
 @media (prefers-reduced-motion:reduce){.tnode.can{animation:none}}
+.pcsub{margin:0 0 8px}.pcsub .tag{margin-left:4px}.pcCol{display:flex;flex-direction:column;gap:8px;min-width:0}.pcCol .pn{margin:0}.pcHab>.pn{margin-bottom:8px}
 .tdi{width:54px;height:54px;flex:none;display:grid;place-items:center;font-size:0;color:var(--bc,#FFE27A);clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:linear-gradient(160deg,var(--bc,#FFE27A),rgba(var(--gl,255,226,122),.25));position:relative}
 .tdi::before{content:"";position:absolute;inset:3px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:radial-gradient(circle at 50% 28%,#223066,#080c22 75%)}
 .tdi .gl{width:28px;height:28px}
+
+/* árvore: sem sobreposição (mais altura entre linhas, rótulos com fundo) e arte de fundo por ramo */
+.tbg{opacity:1;pointer-events:none}.tln{z-index:0}
+.tnode{width:22%;transform:translate(-50%,-29px);z-index:1}
+.tnode b{background:rgba(7,11,28,.78);padding:1px 5px;border-radius:6px;font-size:11px;line-height:1.15;margin-top:4px}
+.tnode small{background:rgba(7,11,28,.7);padding:0 5px;border-radius:6px;margin-top:2px}
+.tnode.cap{width:30%;transform:translate(-50%,-39px)}
+.tnode:hover{z-index:3}
+.tdia{overflow:hidden}
+.tdiv{z-index:1}
 
 @media (max-width:640px){.pc3,.pc3.p1{flex-direction:row;text-align:left;align-items:center;padding:12px 14px 12px 36px;gap:12px}.pc3 .av,.pc3.p1 .av{width:56px;height:56px;flex:none}.pc3 b,.pc3.p1 b{font-size:20px;margin:0}.pc3 .tt{display:none}.pc3 .pt,.pc3.p1 .pt{margin:0 0 0 auto;font-size:26px}.pc3 .pcn{top:50%;transform:translateY(-50%)}.pc3 small{display:block}}
 
@@ -6216,7 +6227,7 @@ function pcTrainHTML(f){
   <div class="row" style="margin:10px 0"><button class="ghost" data-act="pcRest"${pc.rest?' disabled':''}>Descansar hoje (+25)</button></div>
   ${wk?`<p class="note" style="margin:0">Última semana: programa ${PTRN[wk.plan].n.toLowerCase()}, +${wk.xp} de XP${wk.tired?' (cansado, rendeu metade)':''}.${wk.pl&&wk.pl.length?' Treinou: '+wk.pl.map(esc).join(', ')+'.':wk.plan==='p'&&!wk.tired?' Todos os campeões da função já estão em 100%.':''}</p>`:''}</section>`;
 }
-let pcTreeOpen=false;
+let pcSub='car';
 function pcInvHTML(){
   const pc=S.pc;pcEnsure();const dis=Math.round(pcFx('dis')*100);
   const row=x=>{const l=pc.inv[x.id]||0,c=pcInvCost(x),mx=x.cost.length;return `<div class="mrow" style="grid-template-columns:34px minmax(0,1fr) auto"><span class="num" style="font-size:22px;text-align:center">${x.ic}</span><span class="who"><b>${x.n} <small style="opacity:.7">· nível ${l}/${mx}</small></b><small>${x.d}</small>${pcBar(l,mx)}</span><button class="ghost" data-act="pcInv" data-v="${x.id}"${c==null||pc.cash<c?' disabled':''}>${c==null?'Máx.':fmtM(c)}</button></div>`};
@@ -6231,14 +6242,42 @@ function pcStatusHTML(f){
   <p class="note" style="margin:0 0 6px">Cada ponto vale +1 no atributo (limite: seu potencial, ${pcCap()}). O atributo em foco no treino semanal também ganha progresso lento.</p>
   ${ATL.map((l,i)=>`<div class="mrow${i===upI?' upfl':''}" style="grid-template-columns:34px minmax(0,1fr) auto"><span class="hx t${tier(pc.at[i])} sm">${pc.at[i]}</span><span class="who"><b>${l}${fo===i?' <span class="tag">foco</span>':''} <small style="opacity:.7">· peso ${Math.round(PCW[p.role][i]*100)}%</small></b><small>${ATD[i]}</small>${pcBar(pc.xp[i],70)}</span><button class="ghost" data-act="pcSpend" data-v="${i}"${pts>0&&pc.at[i]<pcCap()?'':' disabled'}>+1</button></div>`).join('')}</section>`;
 }
-function pcTreeBtnHTML(){
-  const tp=S.pc.tp||0;
-  return `<section class="pn"><div class="row" style="margin:0"><button class="${tp>0?'play':'ghost'}" data-act="pcTree">${pcTreeOpen?'Fechar árvore de habilidades':'Abrir árvore de habilidades'} · ${tp} ponto${tp===1?'':'s'}</button></div></section>`;
-}
 /* ícones das habilidades: traços de 24x24, um glifo por habilidade */
 const PGL={"sword":"M14 10L4 20M11 17l-3-3M17 3h4v4L11 17l-4-4L17 3z","dagger":"M12 2l3 9-3 3-3-3 3-9zM12 14v4M8 18h8M12 18v4","shield":"M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z","bolt":"M13 2L4 14h7l-1 8 9-12h-7l1-8z","target":"M12 3a9 9 0 100 18 9 9 0 000-18zM12 8a4 4 0 100 8 4 4 0 000-8zM12 11.2a.8.8 0 100 1.6.8.8 0 000-1.6z","eye":"M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12zM12 9a3 3 0 100 6 3 3 0 000-6z","book":"M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2V5zM4 19a2 2 0 012-2h13","bulb":"M9 18h6M10 21h4M12 3a6 6 0 00-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0012 3z","heart":"M12 21s-8-5-8-11a4.5 4.5 0 018-2.8A4.5 4.5 0 0120 10c0 6-8 11-8 11z","coin":"M12 3a9 9 0 100 18 9 9 0 000-18zM14.5 9.5c-.5-1-1.5-1.5-2.5-1.5-1.4 0-2.5.8-2.5 2s1 1.7 2.5 2 2.5.8 2.5 2-1.1 2-2.5 2c-1 0-2-.5-2.5-1.5M12 6.5V8M12 16v1.5","star":"M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3z","crown":"M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5L3 8z","flame":"M12 2c1 4 6 6 6 12a6 6 0 01-12 0c0-3 2-4 3-6 1 1 1 2 1 3 2-2 2-5 2-9z","snow":"M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7M9 4l3 2 3-2M9 20l3-2 3 2","moon":"M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z","zzz":"M4 6h6l-6 6h6M13 10h5l-5 5h5","clock":"M12 3a9 9 0 100 18 9 9 0 000-18zM12 7v5l3.5 2","map":"M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2V6zM9 4v14M15 6v14","skull":"M12 3a8 8 0 00-5 14.2V20h3v-2h4v2h3v-2.8A8 8 0 0012 3zM9 11a1.6 1.6 0 100 3.2A1.6 1.6 0 009 11zM15 11a1.6 1.6 0 100 3.2 1.6 1.6 0 000-3.2z","trophy":"M7 4h10v5a5 5 0 01-10 0V4zM7 6H4v2a3 3 0 003 3M17 6h3v2a3 3 0 01-3 3M12 14v4M8 21h8M9 18h6","mega":"M3 10v4h4l8 5V5L7 10H3zM18 9a4 4 0 010 6","camera":"M4 8h3l2-3h6l2 3h3v11H4V8zM12 10a3.5 3.5 0 100 7 3.5 3.5 0 000-7z","chart":"M4 20V4M4 20h16M8 16v-4M12 16V8M16 16v-6","flask":"M9 3h6M10 3v6l-5 9a2 2 0 002 3h10a2 2 0 002-3l-5-9V3M8 15h8","cog":"M12 9a3 3 0 100 6 3 3 0 000-6zM12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2","drop":"M12 3s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z","refresh":"M20 11a8 8 0 00-14-4M4 4v4h4M4 13a8 8 0 0014 4M20 20v-4h-4","fist":"M7 11V6a2 2 0 014 0v-1a2 2 0 014 0v1a2 2 0 014 0v6c0 5-3 9-8 9s-8-3-8-8v-3a2 2 0 014 0z","wall":"M3 6h18v4H3zM3 14h18v4H3zM9 6v4M15 10v4M9 14v4","lane":"M4 20L20 4M20 4h-6M20 4v6M4 20l3-8M4 20l8-3","compass":"M12 3a9 9 0 100 18 9 9 0 000-18zM15.5 8.5l-2 5-5 2 2-5 5-2z","ghost":"M5 21V11a7 7 0 0114 0v10l-3-2-2 2-2-2-2 2-2-2-3 2zM9.5 11h.01M14.5 11h.01","trident":"M12 3v18M6 4v5a6 6 0 0012 0V4M8 21h8","infinity":"M7 8a4 4 0 100 8c4 0 6-8 10-8a4 4 0 110 8c-4 0-6-8-10-8z","film":"M3 5h18v14H3zM3 9h18M3 15h18M8 5v14M16 5v14","doc":"M6 3h9l4 4v14H6V3zM14 3v5h5M9 12h7M9 16h7","search":"M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-5-5","db":"M4 6c0-2 16-2 16 0v12c0 2-16 2-16 0V6zM4 12c0 2 16 2 16 0","school":"M2 9l10-5 10 5-10 5L2 9zM6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5","rocket":"M12 2c4 2 6 6 6 10l-3 3H9l-3-3c0-4 2-8 6-10zM12 10a1.5 1.5 0 100 3 1.5 1.5 0 000-3zM9 18l-2 4M15 18l2 4","planet":"M12 7a5 5 0 100 10 5 5 0 000-10zM3 14c0-3 18-9 18-5s-12 9-18 5z","pulse":"M2 12h5l2-6 4 12 2-6h7","link":"M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3A4 4 0 0011 18.7l1-1","tag":"M3 12V4h8l10 10-8 8L3 12zM7.5 8.5h.01","cart":"M3 4h3l2 12h11l2-8H7M9 20h.01M18 20h.01","trend":"M3 17l6-6 4 4 8-8M15 7h6v6","phone":"M8 2h8a1 1 0 011 1v18a1 1 0 01-1 1H8a1 1 0 01-1-1V3a1 1 0 011-1zM11 18h2","globe":"M12 3a9 9 0 100 18 9 9 0 000-18zM3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18","sunrise":"M12 6V3M5 12H2M22 12h-3M7 7L5 5M17 7l2-2M6 18a6 6 0 0112 0M3 18h18","cross":"M9 3h6v6h6v6h-6v6H9v-6H3V9h6V3z","chat":"M4 5h16v11H9l-5 4V5z","hourglass":"M6 3h12M6 21h12M7 3c0 5 5 6 5 9s-5 4-5 9M17 3c0 5-5 6-5 9s5 4 5 9"};
 const PERKG={"c1":"snow","c4":"sword","c5":"bolt","c6":"drop","c2":"target","c7":"refresh","c8":"fist","c9":"map","c3":"flame","c10":"bulb","c11":"crown","e1":"book","e4":"film","e5":"doc","e6":"eye","e3":"search","e2":"cog","e7":"db","e8":"compass","e9":"school","e10":"book","e11":"bulb","p1":"moon","p4":"pulse","p5":"link","p6":"zzz","p2":"mega","p7":"camera","p8":"doc","p9":"chat","p3":"star","p10":"tag","p11":"trophy","c12":"dagger","c13":"wall","c14":"sword","c15":"lane","c16":"compass","c17":"snow","c18":"clock","c19":"ghost","c20":"fist","c21":"trident","c22":"infinity","e12":"ghost","e13":"camera","e14":"film","e15":"flask","e16":"chart","e17":"search","e18":"book","e19":"rocket","e20":"eye","e21":"school","e22":"planet","p12":"doc","p13":"tag","p14":"cross","p15":"trend","p16":"coin","p17":"phone","p18":"sunrise","p19":"cart","p20":"globe","p21":"flame","p22":"hourglass"};
 const perkSvg=(id,cl)=>`<svg class="${cl||'gl'}" viewBox="0 0 24 24" aria-hidden="true"><path d="${PGL[PERKG[id]]||PGL.star}"/></svg>`;
+
+/* fundo ilustrado de cada ramo da árvore (SVG gerado, sem arquivos): arena, observatório e palco */
+function pcTreeBg(br){
+  let sd=br.charCodeAt(0)*977;const R=()=>(sd=(sd*16807)%2147483647)/2147483647,W=400,HH=1300,f=n=>n.toFixed(1);
+  const gl=(k,x,y,sc,rot,st,sw,op)=>`<g transform="translate(${x} ${y}) rotate(${rot||0}) scale(${sc}) translate(-12 -12)" fill="none" stroke="${st}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" opacity="${op}"><path d="${PGL[k]}"/></g>`;
+  let o=`<svg class="tbg" viewBox="0 0 ${W} ${HH}" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>`;
+  if(br==='c'){
+    o+=`<linearGradient id="bgc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b0d1b"/><stop offset=".5" stop-color="#1a0810"/><stop offset="1" stop-color="#3d1408"/></linearGradient><radialGradient id="bgcg" cx=".5" cy="1" r=".6"><stop offset="0" stop-color="#ff7a3c" stop-opacity=".45"/><stop offset="1" stop-color="#ff7a3c" stop-opacity="0"/></radialGradient></defs><rect width="${W}" height="${HH}" fill="url(#bgc)"/><rect y="700" width="${W}" height="600" fill="url(#bgcg)"/>`;
+    o+=`<circle cx="200" cy="600" r="150" fill="none" stroke="#ff6b7d" stroke-opacity=".16" stroke-width="1.5" stroke-dasharray="3 9"/><circle cx="200" cy="600" r="215" fill="none" stroke="#ff6b7d" stroke-opacity=".10" stroke-width="1"/>`;
+    o+=gl('sword',200,600,19,-8,'#ff6b7d',.1,.34)+`<g transform="translate(400 0) scale(-1 1)">${gl('sword',200,600,19,-8,'#ff6b7d',.1,.34)}</g>`;
+    o+=gl('skull',200,1010,6,0,'#ff9a6b',.2,.16)+gl('flame',60,300,5,0,'#ff9a6b',.2,.14)+gl('flame',345,860,5,0,'#ff9a6b',.2,.14);
+    for(let i=0;i<46;i++)o+=`<circle cx="${f(R()*W)}" cy="${f(R()*HH)}" r="${f(.6+R()*1.9)}" fill="#ffb36b" opacity="${f(.12+R()*.45)}"/>`;
+    o+=`<path d="M0 1300V1190L40 1150 70 1180 120 1110 170 1170 220 1120 270 1175 320 1130 370 1170 400 1140V1300Z" fill="#0d0509" opacity=".85"/>`;
+  }else if(br==='e'){
+    o+=`<linearGradient id="bge" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#04122b"/><stop offset=".55" stop-color="#071b38"/><stop offset="1" stop-color="#03101f"/></linearGradient><radialGradient id="bgeg" cx=".5" cy=".48" r=".5"><stop offset="0" stop-color="#5fdce8" stop-opacity=".22"/><stop offset="1" stop-color="#5fdce8" stop-opacity="0"/></radialGradient></defs><rect width="${W}" height="${HH}" fill="url(#bge)"/><rect width="${W}" height="${HH}" fill="url(#bgeg)"/>`;
+    for(let i=0;i<80;i++)o+=`<circle cx="${f(R()*W)}" cy="${f(R()*HH)}" r="${f(.5+R()*1.5)}" fill="${R()>.7?'#5fdce8':'#fff'}" opacity="${f(.15+R()*.55)}"/>`;
+    const pts=Array.from({length:7},(_,i)=>[40+R()*320,60+i*40+R()*30]);
+    o+=`<polyline points="${pts.map(q=>f(q[0])+','+f(q[1])).join(' ')}" fill="none" stroke="#5fdce8" stroke-opacity=".28" stroke-width="1"/>`+pts.map(q=>`<circle cx="${f(q[0])}" cy="${f(q[1])}" r="3" fill="#5fdce8" opacity=".6"/>`).join('');
+    for(const r of [60,110,170,230])o+=`<circle cx="200" cy="650" r="${r}" fill="none" stroke="#5fdce8" stroke-opacity="${r>150?.14:.22}" stroke-width="1.2"${r%110===0?' stroke-dasharray="4 8"':''}/>`;
+    for(let i=0;i<48;i++){const a=i*Math.PI/24,l=i%4===0?16:8;o+=`<line x1="${f(200+Math.cos(a)*230)}" y1="${f(650+Math.sin(a)*230)}" x2="${f(200+Math.cos(a)*(230+l))}" y2="${f(650+Math.sin(a)*(230+l))}" stroke="#5fdce8" stroke-opacity=".25"/>`}
+    o+=gl('compass',200,650,9,0,'#5fdce8',.14,.3)+gl('book',200,1090,10,0,'#5fdce8',.14,.22)+gl('bulb',70,300,4,-12,'#9aeef5',.25,.18)+gl('flask',335,950,4,14,'#9aeef5',.25,.18);
+    o+=`<ellipse cx="200" cy="650" rx="260" ry="70" fill="none" stroke="#9aeef5" stroke-opacity=".18" transform="rotate(-18 200 650)"/><circle cx="${f(200+Math.cos(2.4)*260*.95)}" cy="${f(650-Math.sin(2.4)*70*.9-70)}" r="5" fill="#9aeef5" opacity=".5"/>`;
+  }else{
+    o+=`<linearGradient id="bgp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2d2108"/><stop offset=".6" stop-color="#150f04"/><stop offset="1" stop-color="#2d1e06"/></linearGradient><linearGradient id="bgpb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a8" stop-opacity=".30"/><stop offset="1" stop-color="#ffe9a8" stop-opacity="0"/></linearGradient><radialGradient id="bgpg" cx=".5" cy="1" r=".55"><stop offset="0" stop-color="#ffc857" stop-opacity=".4"/><stop offset="1" stop-color="#ffc857" stop-opacity="0"/></radialGradient></defs><rect width="${W}" height="${HH}" fill="url(#bgp)"/>`;
+    o+=`<polygon points="150,0 250,0 380,900 20,900" fill="url(#bgpb)" opacity=".5"/><polygon points="60,0 110,0 240,1100 -40,1100" fill="url(#bgpb)" opacity=".4"/><polygon points="290,0 340,0 460,1100 180,1100" fill="url(#bgpb)" opacity=".4"/>`;
+    o+=`<rect y="760" width="${W}" height="540" fill="url(#bgpg)"/>`+gl('trophy',200,560,19,0,'#ffc857',.1,.34)+gl('star',60,260,4,-12,'#ffe9a8',.25,.2)+gl('star',345,420,5,12,'#ffe9a8',.25,.2)+gl('coin',65,980,4,0,'#ffe9a8',.25,.2)+gl('mega',340,1010,5,-10,'#ffe9a8',.2,.2);
+    const cc=['#ffc857','#fff','#ff8aa1','#7ee0ff'];
+    for(let i=0;i<54;i++)o+=`<rect x="${f(R()*W)}" y="${f(R()*HH)}" width="${f(3+R()*4)}" height="${f(2+R()*3)}" fill="${cc[i%4]}" opacity="${f(.15+R()*.4)}" transform="rotate(${f(R()*180)} ${f(R()*W)} ${f(R()*HH)})"/>`;
+    o+=`<ellipse cx="200" cy="1270" rx="240" ry="46" fill="#ffc857" opacity=".18"/><ellipse cx="200" cy="1262" rx="170" ry="30" fill="none" stroke="#ffe9a8" stroke-opacity=".3"/>`;
+  }
+  return o+`</svg>`;
+}
 let pcPerkSel=null,pcBr='c';
 function pcTreeHTML(f){
   const pc=S.pc,tp=pc.tp||0,P=PERKS.filter(x=>x.br===pcBr),by=id=>PERKS.find(x=>x.id===id);
@@ -6246,7 +6285,7 @@ function pcTreeHTML(f){
   const sel=selX&&selX.br===pcBr?selX:(P.find(x=>pcPerkSt(x)==='can')||P[0]),s0=pcPerkSt(sel);
   const got=PERKS.filter(x=>pc.perks[x.id]).length,gb=P.filter(x=>pc.perks[x.id]).length;
   const why=s0==='own'?'Aprendida':pc.lv<sel.lv?`Requer nível ${sel.lv}`:s0==='lock'?(sel.need?`Requer ${sel.need} das ${sel.pa.length} ligadas`:`Requer ${by(sel.pa[0]).n}${sel.pa.length>1?' ou '+by(sel.pa[1]).n:''}`):`Faltam ${sel.c-tp} ponto${sel.c-tp>1?'s':''}`;
-  const H=900,Y=r=>4+r*9.6;
+  const H=1320,Y=r=>3.5+r*9.8;
   let lines='';
   P.forEach(x=>x.pa.forEach(pid=>{const q=by(pid),lit=pc.perks[pid]&&pc.perks[x.id],half=pc.perks[pid]&&!pc.perks[x.id],y1=Y(q.r),y2=Y(x.r),ym=(y1+y2)/2;lines+=`<path d="M${q.x} ${y1} C${q.x} ${ym} ${x.x} ${ym} ${x.x} ${y2}" class="${lit?'on':half?'half':''}"/>`}));
   let nodes='';
@@ -6256,7 +6295,7 @@ function pcTreeHTML(f){
   const fxs=Object.keys(PBR).map(()=>'').join('');
   return `<section class="pn"><h2>Árvore de habilidades</h2><div class="cab${tp>0?' ptsb':''}" style="margin:0 0 10px;grid-template-columns:repeat(2,minmax(0,1fr))"><div><b class="num">${tp}</b><small>Pontos de habilidade</small></div><div><b class="num">${got}/${PERKS.length}</b><small>Aprendidas</small></div></div>
   <div class="pills" style="margin-bottom:8px">${tabs}</div><p class="note" style="margin:0 0 6px">${PBR[pcBr][0]} · ${PBR[pcBr][1]}. Comece pelo topo e desça: cada habilidade se liga às que têm a ver com ela. O nó grande do meio fecha a 1ª metade; a 2ª metade (nível 20 a 90) sai dele e é bem mais cara.</p>
-  <div class="tlay"><div class="tdia tb-${pcBr}" style="height:${H}px"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${lines}</svg>${div}${nodes}</div>
+  <div class="tlay"><div class="tdia tb-${pcBr}" style="height:${H}px">${pcTreeBg(pcBr)}<svg class="tln" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${lines}</svg>${div}${nodes}</div>
   <div class="tdet ${s0}"><div class="tdh"><span class="tdi tb-${sel.br}">${perkSvg(sel.id)}</span><div><b>${esc(sel.n)}</b><small>${PBR[sel.br][0]} · custo ${sel.c} ponto${sel.c>1?'s':''} · nível ${sel.lv}${sel.pa.length?' · liga com '+sel.pa.map(i=>by(i).n).join(', '):' · ponto de partida'}</small></div></div><p>${esc(sel.d)}</p>${s0==='own'?'<span class="tag">Aprendida</span>':`<button class="${s0==='can'?'play':'ghost'}" data-act="pcLearn" data-v="${sel.id}"${s0==='can'?'':' disabled'}>${s0==='can'?'Aprender':esc(why)}</button>`}</div></div></section>`;
 }
 /* convocação do técnico (scrim ou torneio): na tela Jogar, na carreira e na caixa de e-mail */
@@ -6280,18 +6319,22 @@ function vPc0(){
     return h+`<section class="pn"><h2>Carreira encerrada</h2><p class="note" style="margin:0 0 10px">${esc(pc.n)} se aposentou em ${pc.ended||S.year}. Fama final: ${pc.fame}. Patrimônio: ${fmtM(pc.cash)}.</p><div class="row" style="margin:0"><button class="play" data-act="foPl" data-v="${esc(pc.n)}">Baixar folder da carreira (PDF)</button><button class="ghost" data-act="tab" data-v="menu">Voltar ao Menu</button></div></section>`+pcHistHTML(pc)+pcLogHTML(pc);
   }
   const p=f.p,t=f.t;
-  h+=`<div class="pcTop"><section class="pn"><div class="ph phf">${fut({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f,team:t},'big')}<div><h3>${esc(p.n)}</h3><small>${RN[p.role]} · ${p.age} anos · ${esc(t.name)}${t.d===2?' (D2)':''}</small><small>${f.bn?'<b style="color:#FF9AA8">Reserva</b>':'<b style="color:#00F5A0">Titular</b>'} · contrato ${pc.ctr} ano${pc.ctr===1?'':'s'} · ${fmtM(pc.sal)}/ano</small></div></div>
+  const tp0=pc.tp||0,pt0=pc.pts||0;
+  const sub=`<div class="pills pcsub"><button class="pill" aria-pressed="${pcSub==='car'}" data-act="pcSub" data-v="car">Carreira</button><button class="pill" aria-pressed="${pcSub==='hab'}" data-act="pcSub" data-v="hab">Habilidades${tp0+pt0>0?` <span class="tag">${tp0} hab · ${pt0} status</span>`:''}</button></div>`;
+  if(pcSub==='hab')return h+sub+`<div class="pcHab">${pcTreeHTML(f)}<div class="pcTop">${pcStatusHTML(f)}${pcInvHTML()}</div></div>`;
+  h+=sub+`<div class="pcTop"><section class="pn"><div class="ph phf">${fut({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f,team:t},'big')}<div><h3>${esc(p.n)}</h3><small>${RN[p.role]} · ${p.age} anos · ${esc(t.name)}${t.d===2?' (D2)':''}</small><small>${f.bn?'<b style="color:#FF9AA8">Reserva</b>':'<b style="color:#00F5A0">Titular</b>'} · contrato ${pc.ctr} ano${pc.ctr===1?'':'s'} · ${fmtM(pc.sal)}/ano</small></div></div>
   <div class="cab"><div><b class="num">${pc.fame}</b><small>Fama</small></div><div><b class="num" style="font-size:22px">${fmtM(pc.cash).replace('US$ ','')}</b><small>Patrimônio (US$)</small></div><div><b class="num" style="font-size:20px">${p.pot>=92?"Lendário":p.pot>=88?"Elite":p.pot>=84?"Alto":"Médio"}</b><small>Olheiros: potencial</small></div></div></section><div class="pcSide">${pcLvHTML()}${pcTrustHTML(f)}</div></div>`;
   /* evento */
   if(pc.ev){const e=PEV[pc.ev];h+=`<section class="pn"><h2>Evento</h2><p class="note" style="margin:0 0 10px">${esc(e.t)}</p><div class="row" style="margin:0">${e.o.map(([l,k])=>`<button class="ghost" data-act="pcEv" data-v="${k}">${l}</button>`).join('')}</div></section>`}
-  h+=ptHTML()+`<div class="pcTop">${pcTrainHTML(f)}${pcStatusHTML(f)}</div>`+pcTreeBtnHTML()+(pcTreeOpen?pcTreeHTML(f):'')+pcInvHTML();
+  h+=ptHTML();
   /* pool */
   const pl=CH[p.role].map(([c,a])=>({c,a,v:Math.round(mastOf(pc.n,c)*100),m:metaOf(c)}));
-  h+=`<details class="pn det"><summary>Pool de campeões</summary><p class="note" style="margin:0 0 8px">Todos os 8 campeões da função aparecem aqui. Cada treino de pool gasta ${Math.max(10,30-pcFx('poolc'))} de energia e dá +${Math.round((.04+pcFx('poolg'))*100)}% de domínio em um campeão. Quanto melhor sua pool no meta atual (${esc(metaName())}), mais forma você carrega.</p>${pl.map(x=>`<div class="pool"><span class="ct sm" style="--h:${hs(x.c)%360}"><b>${esc(chIni(x.c))}</b></span><span class="who"><b>${esc(x.c)}</b><small>${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}</small></span><b class="num">${x.v}</b><button class="ghost" data-act="pcPool" data-v="${esc(x.c)}"${pc.en<Math.max(10,30-pcFx('poolc'))||x.v>=100?' disabled':''}>${x.v>=100?'máx':'+'+Math.round((.04+pcFx('poolg'))*100)+'%'}</button></div>`).join('')}</details>`;
+  let poolH=`<details class="pn det"><summary>Pool de campeões</summary><p class="note" style="margin:0 0 8px">Todos os 8 campeões da função aparecem aqui. Cada treino de pool gasta ${Math.max(10,30-pcFx('poolc'))} de energia e dá +${Math.round((.04+pcFx('poolg'))*100)}% de domínio em um campeão. Quanto melhor sua pool no meta atual (${esc(metaName())}), mais forma você carrega.</p>${pl.map(x=>`<div class="pool"><span class="ct sm" style="--h:${hs(x.c)%360}"><b>${esc(chIni(x.c))}</b></span><span class="who"><b>${esc(x.c)}</b><small>${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}</small></span><b class="num">${x.v}</b><button class="ghost" data-act="pcPool" data-v="${esc(x.c)}"${pc.en<Math.max(10,30-pcFx('poolc'))||x.v>=100?' disabled':''}>${x.v>=100?'máx':'+'+Math.round((.04+pcFx('poolg'))*100)+'%'}</button></div>`).join('')}</details>`;
   /* ofertas */
   if(pc.offers&&pc.offers.length){h+=`<section class="pn"><h2>Propostas</h2><p class="note" style="margin:0 0 8px">${pcPlayOk()?'Janela aberta: dá para assinar agora.':'Janela fechada: as propostas voltam a valer antes do próximo split.'}</p>${pc.offers.map((o,i)=>{const nt=ALLT().find(x=>x.name===o.tn);return `<div class="mrow" style="grid-template-columns:minmax(0,1fr) auto auto"><span class="who"><b>${o.ren?'Renovar com ':''}${nt?tlk(nt):esc(o.tn)}${nt&&nt.d===2?' <span class="tag">D2</span>':''}</b><small>${o.k==='T'?'Como titular':'Como reserva'} · ${o.yrs} ano${o.yrs>1?'s':''} · ${fmtM(o.sal)}/ano</small></span><button class="ghost" data-act="pcOffer" data-v="${i}"${pcPlayOk()?'':' disabled'}>${o.ren?'Renovar':'Assinar'}</button><button class="ghost" data-act="pcNo" data-v="${i}">Recusar</button></div>`}).join('')}</section>`}
   /* metas */
-  h+=`<details class="pn det"><summary>Metas de carreira (${Object.keys(pc.goals).length}/${PGOALS.length})</summary>${PGOALS.map(([id,l,d])=>`<div class="mrow" style="grid-template-columns:28px minmax(0,1fr)"><span class="num" style="font-size:20px">${pc.goals[id]?'✓':'·'}</span><span class="who"><b${pc.goals[id]?' style="color:#00F5A0"':''}>${l}</b><small>${d}${pc.goals[id]?' · '+pc.goals[id]:''}</small></span></div>`).join('')}</details>`;
+  const goalH=`<details class="pn det"><summary>Metas de carreira (${Object.keys(pc.goals).length}/${PGOALS.length})</summary>${PGOALS.map(([id,l,d])=>`<div class="mrow" style="grid-template-columns:28px minmax(0,1fr)"><span class="num" style="font-size:20px">${pc.goals[id]?'✓':'·'}</span><span class="who"><b${pc.goals[id]?' style="color:#00F5A0"':''}>${l}</b><small>${d}${pc.goals[id]?' · '+pc.goals[id]:''}</small></span></div>`).join('')}</details>`;
+  h+=`<div class="pcTop">${pcTrainHTML(f)}<div class="pcCol">${poolH}${goalH}</div></div>`;
   return h+pcHistHTML(pc)+`<section class="pn"><div class="row" style="margin:0"><button class="ghost" data-act="player" data-v="${esc(p.n)}">Ver ficha pública</button></div></section>`;
 }
 /* ---------- folder da carreira em PDF: gerado aqui mesmo (PDF 1.4 minimo, fontes Helvetica padrao, sem bibliotecas) ---------- */
@@ -8772,7 +8815,7 @@ function act(a,v){
   else if(a==='pcPick'){if(pcAdopt(v)){menuV='home';tab='pc';msg='Você assumiu a carreira de '+v+'.';save();top=true}}
   else if(a==='foPl'||a==='foTe'){msg='Gerando o folder...';foDl(()=>a==='foPl'?foPlayer(v):foTeam(+v),a==='foPl'?v:T(+v).name).then(ok=>{msg=ok?'Folder baixado.':'Não foi possível gerar o folder.';render()})}
   else if(a==='pcPlan'){S.pc.plan=v;save()}
-  else if(a==='pcTree'){pcTreeOpen=!pcTreeOpen}
+  else if(a==='pcSub'){pcSub=v}
   else if(a==='pcPerkSel'){pcPerkSel=v}else if(a==='pcBr'){pcBr=v;pcPerkSel=null}
   else if(a==='pcLearn'){pcLearn(v);save()}
   else if(a==='pcInv'){pcInvBuy(v);save()}else if(a==='pcBuy'){pcBuyPts(v);save()}else if(a==='pcSwap'){pcSwap(v==='all');save()}

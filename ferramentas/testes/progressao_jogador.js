@@ -137,12 +137,12 @@ run(ctx,`S.pc.plan='p';S.pc.en=100;S.pc.pool={};var rl=pcFind().p.role;pcWeek();
 ok(J('S.pc.wk.pl.length===5&&S.pc.wk.pl.every(function(c){return (S.pc.pool[c]||0)>0})'),'treino de pool: 5 campeões aleatórios ganham domínio');
 run(ctx,`CH[rl].forEach(function(x){S.pc.pool[x[0]]=1});S.pc.en=100;pcWeek();`);
 ok(J('S.pc.wk.pl.length===0'),'treino de pool ignora campeões já em 100%');
-run(ctx,`pcTreeOpen=true;`);ok(run(ctx,'pcTreeHTML(pcFind())').includes('tdia')&&run(ctx,'pcTreeHTML(pcFind())').includes('<path d="M'),'árvore em losango com ligações');
+ok(run(ctx,'pcTreeHTML(pcFind())').includes('tdia')&&run(ctx,'pcTreeHTML(pcFind())').includes('<path d="M'),'árvore em losango com ligações');
 run(ctx,`pcBr='e';`);ok(run(ctx,'pcTreeHTML(pcFind())').includes('Estudioso'),'troca de ramo');run(ctx,`pcBr='c';`);
-ok(run(ctx,'vPc()').includes('Fechar árvore de habilidades'),'botão abre a árvore');
+run(ctx,'pcSub="hab";');ok(run(ctx,'vPc()').includes('tdia')&&run(ctx,'vPc()').includes('tbg'),'sub-aba Habilidades mostra a árvore com fundo');run(ctx,'pcSub="car";');ok(!run(ctx,'vPc()').includes('tdia')&&run(ctx,'vPc()').includes('pcsub'),'sub-aba Carreira não mostra a árvore');
 
 /* ---- telas ---- */
-for(const e of ['vPc()','pcSummary()','mailHTML()','pcTreeHTML(pcFind())','pcTrainHTML(pcFind())','pcTrustHTML(pcFind())','pcLvHTML()','pcStatusHTML(pcFind())','pcTreeBtnHTML()']){
+for(const e of ['vPc()','pcSummary()','mailHTML()','pcTreeHTML(pcFind())','pcTrainHTML(pcFind())','pcTrustHTML(pcFind())','pcLvHTML()','pcStatusHTML(pcFind())','pcInvHTML()']){
   try{const x=run(ctx,e);ok(String(x).length>40,'renderiza '+e)}catch(err){ok(false,'renderiza '+e+' -> '+err.message)}
 }
 
