@@ -2331,6 +2331,9 @@ details.pn>summary{color:var(--t1)}
 .mxs.vs{font-size:10px;letter-spacing:.1em}
 @media (max-width:620px){.m.mx{display:block;width:auto;margin-right:0}}
 .pbch .ti{width:84px!important;height:118px!important}.pbch b{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:24px}.pbch small{font-size:12px}.pbch{width:230px;gap:10px}.pbch .crest{--s:84px}.pbch .shield{width:84px;height:98px}.pbch b.q{font-size:64px}
+/* bandeiras das seleções: círculo, com a parte principal da bandeira no centro */
+.crest.flag{width:var(--s)!important;height:var(--s)!important;border-radius:50%!important;overflow:hidden;box-shadow:0 0 0 2px rgba(255,255,255,.28),0 2px 6px rgba(0,0,0,.5)!important}
+.crest.flag .flg{object-fit:cover;object-position:var(--fp,50%) 50%;transform:scale(1.02)}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -8449,6 +8452,7 @@ const LOGOALIAS={'royal-never-give-up':'royal-club','star-horn-royal-club':'roya
 const logoOf=sl0=>{let sl=LOGOALIAS[sl0]||sl0;if(LOGOS.has(sl))return sl;let b='';LOGOS.forEach(x=>{if((sl.startsWith(x+'-')||x.startsWith(sl+'-'))&&x.length>b.length&&(sl.startsWith(x+'-')||!b))b=x});return b};
 let SEEDM=null;
 const crestSd=(t,c)=>crest(t,c);
+const sdTxt=t=>SEEDM&&SEEDM[t.id]?`<em class="lseed">${SEEDM[t.id]}º ${esc(t.lg)}</em>`:'';
 /* seed regional do time no evento global em andamento, ex.: 2º LCK */
 const liveSeed=t=>{for(const k of['fs','msi','wc']){const tr=S.season[k];if(!tr||tr.champ!=null||!tr.teams||!tr.teams.includes(t.id))continue;const m=evSeedMap(S.season,k),v=m&&m[t.id];if(v)return `<em class="lseed">${v}º ${esc(t.lg)}</em>`}return ''};
 const crest=(t,c='')=>{
@@ -8655,7 +8659,7 @@ function matchHTML(m,i,fx){
   const rvt=rvTxt(A,B),lab=(m.cl?'Clássico · ':'')+(rvt?rvt+' · ':'')+pnT+(m.real?'Resultado real · ':'')+(m.sw?m.sw+' · ':'')+(m.n===1?'Jogo único':'MD'+m.n);
   const tip=`${pa}% x ${pb}% · ${m.n===1?'jogo único':Math.round(m.qa*100)+'% por jogo'} · ${m.d>=0?'+':''}${m.d.toFixed(1)} OVR`;
   return `<div class="m mx${fx?' fx':''}${mgrT()&&(m.a===S.mgr.tid||m.b===S.mgr.tid)?' mine':''}" style="--i:${i}" title="${tip}">${up?'<span class="zb">Zebra</span>':''}
-  <div class="mxr"><span class="mxt ${r?(aw?'win':'lose'):''}">${crest(A,'sm')}<span class="mxn">${tlk(A)}</span><i class="mxp">${pa}%</i></span><span class="mxs num${r?'':' vs'}">${r?`${r.wa}<i>–</i>${r.wb}`:'vs'}</span><span class="mxt b ${r?(bw?'win':'lose'):''}">${crest(B,'sm')}<span class="mxn">${tlk(B)}</span><i class="mxp">${pb}%</i></span></div>
+  <div class="mxr"><span class="mxt ${r?(aw?'win':'lose'):''}">${crest(A,'sm')}${sdTxt(A)}<span class="mxn">${tlk(A)}</span><i class="mxp">${pa}%</i></span><span class="mxs num${r?'':' vs'}">${r?`${r.wa}<i>–</i>${r.wb}`:'vs'}</span><span class="mxt b ${r?(bw?'win':'lose'):''}">${crest(B,'sm')}${sdTxt(B)}<span class="mxn">${tlk(B)}</span><i class="mxp">${pb}%</i></span></div>
   <div class="mxb"><i style="width:${pa}%"></i></div>
   <div class="mxl">${lab.replace(/ · $/,'')}</div></div>`;
 }
@@ -8731,6 +8735,11 @@ function bracketCore(ko,T,tlk,crest,isMe){
   return `<div class="brk"><div class="brkin">${colHTML}</div></div>`;
 }
 function tourHTML(tour,kind,title,yr,mode){
+  const prev=SEEDM;
+  if(!prev){const k={fs:'fs',mpi:'msi',msi:'msi',wpi:'wc',wc:'wc'}[kind];try{SEEDM=k&&S.season?evSeedMap(S.season,k):null}catch(e){SEEDM=null}}
+  try{return tourHTML0(tour,kind,title,yr,mode)}finally{SEEDM=prev}
+}
+function tourHTML0(tour,kind,title,yr,mode){
   if(!tour)return'';
   if(mode==='brk')return tour.de||tour.stages.some(st=>!st.swiss)?`<section class="pn"><h2>${title} ${yr||S.year}</h2>${bracketHTML(tour,kind)}</section>`:'';
   let h=`<section class="pn"><h2>${title} ${yr||S.year}</h2>`;
@@ -9358,7 +9367,9 @@ function vTeams(){
 const natHue=c=>{let h=0;for(const x of c)h=(h*37+x.charCodeAt(0))%360;return h};
 /* seleção = bandeira (sem o nome); o nome fica no título e no rótulo de acessibilidade */
 const nlk=(c,cl='md')=>`<button class="lk nlk" data-act="nation" data-v="${c}" title="${esc(NATN[c]||c)}" aria-label="${esc(NATN[c]||c)}">${natCrest(c,'flag '+cl)}</button>`;
-const natCrest=(c,cl='')=>{const i=ISO2[c];return `<span class="crest ${cl}" style="--h:${natHue(c)}" aria-hidden="true">${i?`<img class="flg" src="flags/${i.toLowerCase()}.svg" alt="" loading="lazy" onerror="this.remove()">`:''}${esc(c)}</span>`};
+/* bandeiras com o símbolo principal fora do centro: onde centralizar o recorte circular */
+const FLGPOS={us:30,au:28,nz:28,my:28,cl:22,ph:22,uy:22,gr:22,cz:28,tw:28,cn:26,sg:25,hk:50,kr:50,tr:40,ie:50};
+const natCrest=(c,cl='')=>{const i=ISO2[c];return `<span class="crest ${cl}" style="--h:${natHue(c)}" aria-hidden="true">${i?`<img class="flg" style="--fp:${FLGPOS[i.toLowerCase()]||50}%" src="flags/${i.toLowerCase()}.svg" alt="" loading="lazy" onerror="this.remove()">`:''}${esc(c)}</span>`};
 function natActive(c){return S.teams.flatMap(t=>t.pl.filter(p=>natC(p.n)===c).map(p=>({p,t})))}
 function natXI(c){
   const a=natActive(c),pl=[];
