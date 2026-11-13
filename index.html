@@ -8466,7 +8466,7 @@ const logoOf=sl0=>{let sl=LOGOALIAS[sl0]||sl0;if(LOGOS.has(sl))return sl;let b='
 let SEEDM=null;
 const crestSd=(t,c)=>crest(t,c);
 /* partidas do Suíço: o campanha dos dois times (V-D) em destaque, com o que está em jogo */
-const swChip=m=>{if(!m.sw)return'';const [w,l]=m.sw.split('-').map(Number),k=w===2&&l===2?'dec':w===2?'q':l===2?'x':'';
+const swChip=m=>{if(!m.sw||!/^\d+-\d+$/.test(m.sw))return'';const [w,l]=m.sw.split('-').map(Number),k=w===2&&l===2?'dec':w===2?'q':l===2?'x':'';
   return `<div class="mxk${k?' '+k:''}"><b class="num">${w}–${l}</b><span>${w===2&&l===2?'Decisiva':w===2?'Vale classificação':l===2?'Vale eliminação':w+l===0?'Abertura':'Em disputa'}</span></div>`};
 let SEEDON=false;
 const sdTxt=t=>SEEDON&&SEEDM&&SEEDM[t.id]?`<em class="lseed">${SEEDM[t.id]}º ${esc(t.lg)}</em>`:'';
@@ -8673,7 +8673,7 @@ function matchHTML(m,i,fx){
   const aw=r&&r.w===m.a,bw=r&&r.w===m.b;
   const up=r&&((aw&&m.pa<.3)||(bw&&m.pa>.7));
   const pnT=m.pn&&r&&m.pn.dr?`draft ${m.pn.raw>0?'favoreceu você':m.pn.raw<0?'favoreceu o rival':'equilibrado'} (${(Math.abs(m.pn.raw)*100).toFixed(1).replace('.',',')}%) · `:m.pn&&r?(m.pn.raw>0?`seu plano ${planName(m.pn.me)} venceu ${planName(m.pn.op)} · `:m.pn.raw<0?`${planName(m.pn.op)} do rival superou seu ${planName(m.pn.me)} · `:`planos iguais (${planName(m.pn.me)}) · `):'';
-  const rvt=rvTxt(A,B),lab=(m.cl?'Clássico · ':'')+(rvt?rvt+' · ':'')+pnT+(m.real?'Resultado real · ':'')+(m.n===1?'Jogo único':'MD'+m.n);
+  const rvt=rvTxt(A,B),lab=(m.cl?'Clássico · ':'')+(rvt?rvt+' · ':'')+pnT+(m.real?'Resultado real · ':'')+(m.sw&&!/^\d+-\d+$/.test(m.sw)?m.sw+' · ':'')+(m.n===1?'Jogo único':'MD'+m.n);
   const tip=`${pa}% x ${pb}% · ${m.n===1?'jogo único':Math.round(m.qa*100)+'% por jogo'} · ${m.d>=0?'+':''}${m.d.toFixed(1)} OVR`;
   return `<div class="m mx${fx?' fx':''}${mgrT()&&(m.a===S.mgr.tid||m.b===S.mgr.tid)?' mine':''}" style="--i:${i}" title="${tip}">${up?'<span class="zb">Zebra</span>':''}${swChip(m)}
   <div class="mxr"><span class="mxt ${r?(aw?'win':'lose'):''}">${crest(A,'sm')}${sdTxt(A)}<span class="mxn">${tlk(A)}</span><i class="mxp">${pa}%</i></span><span class="mxs num${r?'':' vs'}">${r?`${r.wa}<i>–</i>${r.wb}`:'vs'}</span><span class="mxt b ${r?(bw?'win':'lose'):''}">${crest(B,'sm')}${sdTxt(B)}<span class="mxn">${tlk(B)}</span><i class="mxp">${pb}%</i></span></div>
