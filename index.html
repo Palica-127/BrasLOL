@@ -8571,13 +8571,13 @@ function evMenuHTML(){
 function evBack(){return `<div class="row" style="margin:0 0 10px"><button class="ghost" data-act="tab" data-v="season">← Voltar ao jogo</button><button class="ghost" data-act="evT">Escolher outro evento</button></div>`}
 function d2Bracket(r){
   const CW=140,CH=62,GX=70,CHW=230,X=c=>c*(CW+GX),H=190;
-  const row=(n,sc,w)=>`<div class="br${w?' w':' l'}">${crest({name:n},'sm')}<span class="bn">${esc(n)}</span><b class="bs num">${sc}</b></div>`;
-  const card=(m,c,y,fin)=>`<div class="pbc${fin?' fin':''}" style="left:${X(c)}px;top:${y}px;width:${CW}px"><div class="bm2">${row(m.a,m.wa,m.w===m.a)}${row(m.b,m.wb,m.w===m.b)}</div></div>`;
+  const row=(n,sc,w,pend)=>!n?`<div class="br tba"><span class="bc"></span><span class="bn">A definir</span><b class="bs">–</b></div>`:`<div class="br${pend?'':w?' w':' l'}">${crest({name:n},'sm')}<span class="bn">${esc(n)}</span><b class="bs num">${pend?'0':sc}</b></div>`;
+  const card=(m,c,y,fin)=>{m=m||{a:null,b:null,w:null};const p=!m.w;return `<div class="pbc${fin?' fin':''}${p&&m.a&&m.b?' pend':''}" style="left:${X(c)}px;top:${y}px;width:${CW}px"><div class="bm2">${row(m.a,m.wa,m.w===m.a,p)}${row(m.b,m.wb,m.w===m.b,p)}</div></div>`};
   const hd=(c,t,g)=>`<div class="pbh${g?' g':' wi'}" style="left:${X(c)}px;top:0;width:${CW}px">${t}</div>`;
   const ln=(c1,y1,c2,y2)=>{const x1=X(c1)+CW,x2=X(c2),xm=x1+(x2-x1)/2;return `<path class="on" d="M${x1} ${y1+CH/2}H${xm}V${y2+CH/2}H${x2}"/>`};
   const E=ln(0,36,1,77)+ln(0,118,1,77);
   const W=X(2)+CHW-20;
-  return `<div class="pbw"><div class="pbk" style="width:${W}px;height:${H}px"><svg class="pbl" width="${W}" height="${H}" aria-hidden="true">${E}</svg>${hd(0,'Semifinais · MD5')}${hd(1,'Final · MD5')}${hd(2,'Campeão',1)}${card(r.sf[0],0,36)}${card(r.sf[1],0,118)}${card(r.f,1,77,1)}<div class="pbch" style="left:${X(2)-20}px;top:108px;transform:translateY(-50%)"><small>Campeão</small>${crest({name:r.champ},'md')}<b>${esc(r.champ)}</b></div></div></div>`;
+  return `<div class="pbw"><div class="pbk" style="width:${W}px;height:${H}px"><svg class="pbl" width="${W}" height="${H}" aria-hidden="true">${E}</svg>${hd(0,'Semifinais · MD5')}${hd(1,'Final · MD5')}${hd(2,'Campeão',1)}${card(r.sf[0],0,36)}${card(r.sf[1],0,118)}${card(r.f,1,77,1)}<div class="pbch" style="left:${X(2)-20}px;top:108px;transform:translateY(-50%)"><small>Campeão</small>${r.champ?`${crest({name:r.champ},'md')}<b>${esc(r.champ)}</b>`:'<b class="q">?</b>'}</div></div></div>`;
 }
 function evD2HTML(y,tag,lg){
   const d=evData(y),nm={s1:'Etapa 1',s2:'Etapa 2',s3:'Etapa 3'}[tag],ttl=`${lg} D2 · ${nm} ${y}`;
@@ -9115,6 +9115,10 @@ function topBracketHTML(cur,defT,opn){
   const recent=k=>bd[k]!=null&&d-bd[k]<=BRK_DAYS;
   let key='',live=false;
   {const pt=cur&&phTour(cur),T0=pt&&A[pt];if(pt&&BRN[pt]&&T0&&T0.champ==null&&((T0.stages&&T0.stages.some(st=>st.ms.some(m=>m.res)))||daysLeft()<=0)){key=pt;live=true}}
+  let d2live=null;
+  {const sp=A.sp;if(!key&&f.d2&&sp&&sp.d2&&sp.lg===f.lg&&(sp.stage==='sf'||sp.stage==='fin')){
+    const dm=m=>m?{a:T(m.a).name,b:T(m.b).name,wa:m.res?m.res.wa:'',wb:m.res?m.res.wb:'',w:m.res?T(m.res.w).name:null}:null;
+    const sf=sp.stage==='sf'?sp.cur:sp.sf;d2live={sf:[dm(sf[0]),dm(sf[1])],f:sp.stage==='fin'?dm(sp.cur[0]):null,champ:null};key=sp.tag;live=true}}
   if(!key){
     const c=['s1','fs','mpi','s2','msi','wpi','s3','wc'].filter(recent);
     if(c.length)key=c.sort((x,y)=>bd[x]-bd[y])[c.length-1];
@@ -9123,9 +9127,9 @@ function topBracketHTML(cur,defT,opn){
   let body='',nm='';
   if(BRN[key]){const t=A[key];if(!t)return'';body=tourHTML(t,key,BRN[key],0,'brk');nm=BRN[key]}
   else{
-    if(A.sp&&A.sp.tag===key)return'';
+    if(!d2live&&A.sp&&A.sp.tag===key)return'';
     nm=`${{s1:'Etapa 1',s2:'Etapa 2',s3:'Etapa 3'}[key]} · ${f.lg}${f.d2?' D2':''}`;
-    if(f.d2){const r=A.d2r&&A.d2r[key]&&A.d2r[key].find(x=>x.lg===f.lg);if(r)body=`<section class="pn"><h2>${nm} ${S.year}</h2>${d2Bracket(r)}</section>`}
+    if(f.d2){const r=d2live||(A.d2r&&A.d2r[key]&&A.d2r[key].find(x=>x.lg===f.lg));if(r)body=`<section class="pn"><h2>${nm} ${S.year}</h2>${d2Bracket(r)}</section>`}
     else{const r=A.res&&A.res[key]&&A.res[key].find(x=>x.lg===f.lg);if(r&&r.br)body=`<section class="pn"><h2>${nm} ${S.year}</h2>${poBracketHTML(r.br,false,f.lg)}</section>`}
   }
   if(!body||!body.trim())return'';
