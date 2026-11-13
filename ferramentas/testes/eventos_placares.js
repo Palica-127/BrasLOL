@@ -18,3 +18,8 @@ console.log(run(ctx,`(function(){
  act('evO','s1');ok(/LCK/.test(evMenuHTML()),'ligas');act('evY','1');ok(evM.y===evYears()[1],'ano anterior');
  render();
  return 'ev por ano ~'+Math.round(sz/1024)+'KB | '+html.join(' ')+' | PROBLEMAS: '+(bad.length?bad.join(' || '):'nenhum')})()`));
+console.log(run(ctx,`(function(){var bad=[];function ok(c,m){if(!c)bad.push(m)}
+ ok(nextCup(2027)===2030&&nextCup(2026)===2026&&nextCup(2031)===2034,'nextCup');
+ S.year=2027;evM={y:2027,o:''};ok(/Próxima em 2030/.test(evMenuHTML()),'menu mostra próxima copa');
+ act('evGo','2027|cup|');ok(/próxima será em 2030/.test(vEvents()),'tela da copa');
+ return 'copa: '+(bad.length?bad.join(' || '):'ok')})()`));
