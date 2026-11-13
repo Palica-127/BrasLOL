@@ -2250,6 +2250,18 @@ details.pn>summary{color:var(--t1)}
 .psi{display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:10px;align-items:center;text-align:left;padding:9px 12px;border-radius:10px;border:0;cursor:pointer;color:inherit;background:rgba(255,255,255,.045);box-shadow:inset 0 0 0 1px rgba(150,165,255,.18)}
 .psi:hover,.psi:focus-visible{background:rgba(255,200,87,.1);box-shadow:inset 0 0 0 1px rgba(255,200,87,.5)}
 .psi .pst{font:700 10px var(--d);letter-spacing:.12em;text-transform:uppercase;color:#9fb0ff}.psi b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.psi small{opacity:.7;white-space:nowrap}
+/* troféus dos resumos (Mundiais, MSI, Ligas): ícone alinhado à esquerda, junto do número e do texto */
+.cab .ti{margin:0 0 6px}.cab svg{margin:0 0 4px}
+
+/* resumo de títulos: ícone ao lado do número, tudo alinhado e responsivo */
+.trt{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.trt>div{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:10px;align-items:center;padding:10px 12px;border-radius:12px;background:linear-gradient(135deg,rgba(255,200,87,.09),rgba(255,255,255,.025));box-shadow:inset 0 0 0 1px rgba(255,200,87,.2)}
+.trt .tic{grid-row:1/3;display:flex;align-items:center;justify-content:center;width:36px;height:48px}
+.trt .tic .ti,.trt .tic svg{width:32px;height:44px;margin:0;filter:drop-shadow(0 3px 4px rgba(0,0,0,.5)) drop-shadow(0 0 8px rgba(255,214,102,.25))}
+.trt b{font:800 30px/1 var(--d);color:var(--t1);align-self:end;text-align:left}
+.trt small{font:700 10px var(--d);letter-spacing:.14em;text-transform:uppercase;color:var(--t3);align-self:start;margin-top:3px;text-align:left}
+.trt .off{opacity:.55}.trt .off .tic{filter:grayscale(1)}
+@media (max-width:560px){.trt{grid-template-columns:1fr}.trt>div{padding:8px 12px}}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -8539,6 +8551,7 @@ function favHTML(){
     return `<div class="fav"><b>${lg}</b><span>${ts.map(t=>`${tlk(t)} <small class="num">${Math.round(eff(t))}</small>`).join(' · ')}</span></div>`;
   }).join('')}</section>`;
 }
+const troTiles=a=>`<div class="trt">${a.map(([k,v,l])=>`<div class="${v?'on':'off'}"><span class="tic">${troSvg(k)}</span><b class="num">${v}</b><small>${l}</small></div>`).join('')}</div>`;
 const celeHTML=()=>cele?`<section class="cele">${confHTML()}${/^Melhor Jogador/.test(cele.k)?troSvg('b'):'<svg viewBox="0 0 48 64" aria-hidden="true"><use href="#tr-w"/></svg>'}<small>${esc(cele.k)}</small><b>${esc(cele.n)}</b><span>${esc(cele.s||'')}</span><button class="ghost" data-act="celeX">Fechar</button></section>`:'';
 function mgrSummary(){
   const m=S.mgr,mt=mgrT();mEnsure();
@@ -9239,7 +9252,7 @@ function vLegacy(key){
   const others=names.filter(x=>x!==name);
   let o=`<div class="row"><button class="ghost" data-act="back">← Voltar</button></div>`;
   o+=`<section class="pn"><div class="ph">${crest({name},'lg')}<div style="flex:1;min-width:0"><h3>${esc(name)}</h3><small>Time lendário · fora da simulação${others.length?' · também: '+others.map(esc).join(', '):''}</small></div></div>
-  <div class="cab"><div>${troSvg('w')}<b class="num">${cw.length}</b><small>Mundiais</small></div><div>${troSvg('m')}<b class="num">${cm.length}</b><small>MSI</small></div><div>${troSvg('l')}<b class="num">${vi.length}</b><small>Vices</small></div></div></section>`;
+  ${troTiles([['w',cw.length,'Mundiais'],['m',cm.length,'MSI'],['l',vi.length,'Vices']])}</section>`;
   const lgr=(k,t,it,cl)=>it.length?`<div class="sh-t"><span>${t}</span><b class="num">${it.length}</b></div>${shelfRow(k,it.map(x=>({y:x.y,lg:x.k,l:`${cl?'Vice ':''}${x.k} ${x.y}${x.as!==name?' · '+x.as:''}`})),cl)}`:`<div class="sh-t sh0"><span>${t}</span><b class="num">0</b></div>`;
   o+=`<section class="pn"><h2>Estante de troféus</h2><div class="sub">Campeão</div>${lgr('w','Mundiais',cw,'')}${lgr('m','MSI',cm,'')}<div class="sub">Vice</div>${lgr('w','Mundiais',vi.filter(x=>x.k==='Mundial'),'vice')}${lgr('m','MSI',vi.filter(x=>x.k==='MSI'),'vice')}</section>`;
   const bl=legBolas(key);
@@ -9348,7 +9361,7 @@ function vLeague(lg){
   const crestL=`<img class="lglogo" src="ligas/${lg.toLowerCase()}.webp" alt="" aria-hidden="true" width="66" height="47" onerror="this.outerHTML='<span class=&quot;crest lg&quot; style=&quot;--h:${LGH[lg]}&quot;>${lg.slice(0,4)}</span>'">`;
   let o=`<div class="row"><button class="ghost" data-act="back">← Voltar</button></div>`;
   o+=`<section class="pn"><div class="ph">${crestL}<div style="flex:1;min-width:0"><h3>${lg}</h3><small>${LGN[lg]} · ${ts.length} times · ${SLOTS[lg]} vaga${SLOTS[lg]>1?'s':''} no Mundial · OVR médio ${Math.round(avg)}</small></div></div>
-  <div class="cab"><div>${troSvg('w')}<b class="num">${wcs.length}</b><small>Mundiais</small></div><div>${troSvg('m')}<b class="num">${msis.length}</b><small>MSI</small></div><div>${troSvg('l')}<b class="num">${lgt.length}</b><small>Títulos da liga</small></div></div></section>`;
+  ${troTiles([['w',wcs.length,'Mundiais'],['m',msis.length,'MSI'],['l',lgt.length,'Títulos da liga']])}</section>`;
   o+=`<section class="pn"><h2>Times</h2>${rows.map(({t,c,i:pi},i)=>`<div class="pl" style="grid-template-columns:30px minmax(0,1fr) auto"><span class="pos num" style="font-size:20px">${i+1}</span><span><span class="nm2">${tlk(t)}</span>${pmBadge(pi)}<br><small>${pi.pos&&!pi.d2?'Split 2 passado: '+pi.pos+'º · ':''}${c.wc} Mundial · ${c.msi} MSI · ${c.lg} ligas</small></span>${hx(Math.round(baseOvr(t)),'sm')}</div>`).join('')}<p class="note">A ordem segue a classificação do último Split 2, com os recém-subidos no fim. Quem subiu ou caiu aparece marcado.</p></section>`;
   {const d2=pmSort(D2L().filter(t=>t.lg===lg)).map(x=>x.t),ph=(S.promoH||[]).filter(x=>x.lg===lg).slice(-4).reverse();
   if(d2.length)o+=`<section class="pn"><h2>Segunda divisão · ${lg}</h2><p class="note" style="margin:0 0 8px">Segunda divisão real da região. No fim do ano, o campeão do Split 2 da D2 enfrenta o último colocado da ${lg} num play-off melhor de 5: quem vencer fica na elite. Dá para assumir um clube da D2 no modo carreira.</p>${d2.map((t,i)=>`<div class="pl" style="grid-template-columns:30px minmax(0,1fr) auto"><span class="pos num" style="font-size:20px">${i+1}</span><span class="nm2" style="display:flex;align-items:center;gap:8px">${crest(t,'sm')}${tlk(t)}${pmBadge(pmInfo(t))}${S.mgr&&S.mgr.tid===t.id?'<span class="tag">seu time</span>':''}</span>${hx(Math.round(baseOvr(t)),'sm')}</div>`).join('')}${ph.length?`<div class="sub">Acessos recentes</div>${ph.map(x=>`<div class="trp"><span class="y num">${x.y}</span><span><b>${x.held?'Play-off: '+esc(x.down)+' fica':'Sobe: '+esc(x.up)}</b><small>${x.held?'Vence '+esc(x.up):'Desce: '+esc(x.down)}${x.sc?' · '+x.sc:''}${x.tag?' · Split '+x.tag.slice(1):''}</small></span></div>`).join('')}`:''}</section>`}
@@ -9426,7 +9439,7 @@ function vTeam(id){
   let o=`<div class="row"><button class="ghost" data-act="back">← Voltar</button><button class="ghost" data-act="foTe" data-v="${t.id}">Baixar folder (PDF)</button></div>`;
   o+=`<div class="shr"><div class="pills stk">${TV.map(([k,l])=>`<button class="pill" aria-pressed="${view===k}" data-act="tvw" data-v="${k}">${l}</button>`).join('')}</div>`;
   o+=`<section class="pn shh"><div class="ph">${crest(t,'lg')}<div style="flex:1;min-width:0"><h3>${esc(t.name)}</h3><small>${llk(t.lg)}${t.d===2?' · 2ª divisão':''}${t.est?' · elenco estimado':''}<br>OVR ${Math.round(baseOvr(t))}${pwPos(t)>0?` · power #${pwPos(t)}`:''} · forma ${f>0?`<span class="st up">▲${f.toFixed(1)}</span>`:f<0?`<span class="st dn">▼${(-f).toFixed(1)}</span>`:'estável'}</small></div></div>
-  <div class="cab"><div>${troSvg('w')}<b class="num">${c.wc}</b><small>Mundiais</small></div><div>${troSvg('m')}<b class="num">${c.msi}</b><small>MSI</small></div><div>${troSvg('l')}<b class="num">${c.lg}</b><small>Ligas</small></div></div>
+  ${troTiles([['w',c.wc,'Mundiais'],['m',c.msi,'MSI'],['l',c.lg,'Ligas']])}
   <div class="kv kv4"><div><small>Vices</small><b class="num">${vc.length}</b></div><div><small>Melhor do Ano</small><b class="num">${bo.length}</b></div><div><small>Anos</small><b class="num">${yh.length}</b></div><div><small>Aprov.</small><b class="num">${gw+gl?Math.round(100*gw/(gw+gl))+'%':'—'}</b></div></div></section>`;
   {const mt=mgrT();if(mt&&mt!==t){const q=sqS(),pend=q.out.some(x=>x.o===t.id),bl=sqBlk(mt)===t.id;
     o+=`<section class="pn sqreq"><div><b>Scrim</b><small>${bl?'Próximo adversário oficial: não dá para treinar contra ele.':pend?'Pedido enviado. A resposta chega na caixa de e-mail.':`Qualquer clube pode ser convidado, mas não é obrigado a aceitar (${Math.round(sqOdds(mt,t)*100)}% de chance).`}</small></div><button class="ghost" data-act="sqAsk" data-v="${t.id}" ${pend||bl?'disabled':''}>${pend?'Pedido enviado':'Pedir scrim'}</button></section>`}}
