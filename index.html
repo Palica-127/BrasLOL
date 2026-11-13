@@ -2331,10 +2331,9 @@ details.pn>summary{color:var(--t1)}
 .mxs.vs{font-size:10px;letter-spacing:.1em}
 @media (max-width:620px){.m.mx{display:block;width:auto;margin-right:0}}
 .pbch .ti{width:84px!important;height:118px!important}.pbch b{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:24px}.pbch small{font-size:12px}.pbch{width:230px;gap:10px}.pbch .crest{--s:84px}.pbch .shield{width:84px;height:98px}.pbch b.q{font-size:64px}
-/* bandeiras das seleções: círculo totalmente preenchido pela bandeira (sem anel colorido), com brilho suave */
-.crest.flag,.crest:has(>.flg){width:var(--s)!important;height:var(--s)!important;border:0!important;padding:0!important;border-radius:50%!important;overflow:hidden;background:#1a2236!important;font-size:0!important;box-shadow:0 2px 6px rgba(0,0,0,.45)!important}
-.crest.flag .flg,.crest .flg{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;object-position:var(--fp,50%) 50%;transform:scale(1.12)}
-.crest.flag::after,.crest:has(>.flg)::after{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,0) 45%)}
+/* bandeiras das seleções: a própria bolinha é a bandeira (fundo CSS), preenchendo o círculo inteiro */
+.crest.fbg{width:var(--s)!important;height:var(--s)!important;border:0!important;padding:0!important;border-radius:50%!important;overflow:hidden;background:#1a2236 var(--fu) var(--fp,50%) 50%/cover no-repeat!important;font-size:0!important;color:transparent!important;box-shadow:0 2px 6px rgba(0,0,0,.45)!important}
+.crest.fbg::after{display:none!important}
 .nlk,.nlk:hover{text-decoration:none!important;border:0!important}
 </style>
 
@@ -8643,8 +8642,8 @@ function vEvents(){
   if(e.k==='cup')return h+(e.y===S.year&&S.season.cup?cupHTML():`<p class="empty">${CUPY(e.y)?'Sem registro da Copa do Mundo de '+e.y+'.':'Não há Copa do Mundo em '+e.y+'. A próxima será em '+nextCup(e.y)+'.'}</p>`);
   const M={fs:['fs','First Stand'],msi:['msi','MSI'],wc:['wc','Mundial']}[e.k];
   const sm=d?evSeedMap(d,e.k):null;SEEDM=sm;let main='',pi='';
-  try{main=d&&d[M[0]]?tourHTML(d[M[0]],M[0],M[1],e.y):'';
-  pi=e.k==='msi'&&d&&d.mpi?tourHTML(d.mpi,'mpi','MSI · Play-In',e.y):e.k==='wc'&&d&&d.wpi?tourHTML(d.wpi,'wpi','Mundial · Play-In',e.y):''}finally{SEEDM=null}
+  try{main=d&&d[M[0]]?tourHTML(d[M[0]],M[0],M[1],e.y,'ev'):'';
+  pi=e.k==='msi'&&d&&d.mpi?tourHTML(d.mpi,'mpi','MSI · Play-In',e.y,'ev'):e.k==='wc'&&d&&d.wpi?tourHTML(d.wpi,'wpi','Mundial · Play-In',e.y,'ev'):''}finally{SEEDM=null}
   if(main||pi)return h+main+pi;
   const hh=S.hist.find(z=>z.y===e.y),c=hh&&hh.champs;
   const cn=c?{fs:c.fs,msi:c.msi,wc:c.wc}[e.k]:'';
@@ -8758,20 +8757,22 @@ function tourHTML0(tour,kind,title,yr,mode){
     const fin=tour.stages[tour.stages.length-1].ms[0];
     h+=`<div class="crown"><small>${tour.pi?'Classificado':'Campeão'}</small><b>${esc(T(tour.champ).name)}</b><span>${tour.pi?'Decisão':'Final'}: ${esc(T(fin.res.w).name)} ${Math.max(fin.res.wa,fin.res.wb)}-${Math.min(fin.res.wa,fin.res.wb)} ${esc(T(loserOf(fin)).name)} · MVP ${lk(tour.mvp)}</span></div>`;
   }
-  const info=mode==='info',full=info||!!brkO[kind],sw=!!brkO[kind+'s'];
+  const ev=mode==='ev',info=mode==='info'||ev,full=info||!!brkO[kind],sw=!!brkO[kind+'s'];
   const tb=`<button class="ghost brkb top" data-act="brk" data-v="${kind}">${full?'Esconder bracket':'Ver bracket e resultados'}</button>`;
-  if(!info){h+=tb;
+  if(ev)h+=bracketHTML(tour,kind);
+  else if(!info){h+=tb;
   if(full)h+=bracketHTML(tour,kind)}
   const sub=(st,si,fx)=>{const pend=st.ms.some(m=>!m.res);return `<div class="sub">${pend?'Próximos jogos · ':''}${st.name}</div>`+st.ms.map((m,i)=>matchHTML(m,i,fx)).join('')};
   const L=[...tour.stages].map((st,si)=>({st,si,fx:lastPlayed&&lastPlayed.k===kind&&lastPlayed.si===si,pend:st.ms.some(m=>!m.res)})).reverse();
   let shown=0;
-  L.filter(x=>x.pend||x.fx).forEach(x=>{shown++;h+=sub(x.st,x.si,x.fx)});
+  if(!ev)L.filter(x=>x.pend||x.fx).forEach(x=>{shown++;h+=sub(x.st,x.si,x.fx)});
   if(tour.rec){
     h+=swissHTML(tour);
-    h+=`<button class="ghost brkb" data-act="brk" data-v="${kind}s">${sw?'Esconder resultados do Suíço':'Ver resultados do Suíço'}</button>`;
-    if(sw)L.filter(x=>x.st.swiss&&!x.pend&&!x.fx).forEach(x=>{h+=sub(x.st,x.si,false)});
+    if(!ev)h+=`<button class="ghost brkb" data-act="brk" data-v="${kind}s">${sw?'Esconder resultados do Suíço':'Ver resultados do Suíço'}</button>`;
+    if(sw&&!ev)L.filter(x=>x.st.swiss&&!x.pend&&!x.fx).forEach(x=>{h+=sub(x.st,x.si,false)});
   }
-  if(full)L.filter(x=>!x.st.swiss&&!x.pend&&!x.fx).forEach(x=>{h+=sub(x.st,x.si,false)});
+  if(full&&!ev)L.filter(x=>!x.st.swiss&&!x.pend&&!x.fx).forEach(x=>{h+=sub(x.st,x.si,false)});
+  if(ev)return h+'</section>';
   if(!shown&&!tour.rec&&tour.champ==null&&!full)h+=`<p class="note" style="margin:6px 0">Sem jogos pendentes agora.</p>`;
   if(!full)return h+'</section>';
   return h+`<p class="note">A chance de cada jogo vem da diferença de OVR entre os times, somando forma dos jogadores e momento do time. A chance da série é a soma de todos os jogos possíveis, então o favorito se firma mais em melhor de 5. Zebra é vitória de quem tinha menos de 30%.</p></section>`;
@@ -9381,7 +9382,7 @@ const natHue=c=>{let h=0;for(const x of c)h=(h*37+x.charCodeAt(0))%360;return h}
 const nlk=(c,cl='md')=>`<button class="lk nlk" data-act="nation" data-v="${c}" title="${esc(NATN[c]||c)}" aria-label="${esc(NATN[c]||c)}">${natCrest(c,'flag '+cl)}</button>`;
 /* bandeiras com o símbolo principal fora do centro: onde centralizar o recorte circular */
 const FLGPOS={us:30,au:28,nz:28,my:28,cl:22,ph:22,uy:22,gr:22,cz:28,tw:28,cn:26,sg:25,hk:50,kr:50,tr:40,ie:50};
-const natCrest=(c,cl='')=>{const i=ISO2[c];return `<span class="crest ${cl}" style="--h:${natHue(c)}" aria-hidden="true">${i?`<img class="flg" style="--fp:${FLGPOS[i.toLowerCase()]||50}%" src="flags/${i.toLowerCase()}.svg" alt="" loading="lazy" onerror="this.remove()">`:''}${esc(c)}</span>`};
+const natCrest=(c,cl='')=>{const i=ISO2[c];return `<span class="crest ${cl}${i?' fbg':''}" style="--h:${natHue(c)}${i?`;--fu:url(flags/${i.toLowerCase()}.svg);--fp:${FLGPOS[i.toLowerCase()]||50}%`:''}" aria-hidden="true">${esc(c)}</span>`};
 function natActive(c){return S.teams.flatMap(t=>t.pl.filter(p=>natC(p.n)===c).map(p=>({p,t})))}
 function natXI(c){
   const a=natActive(c),pl=[];
