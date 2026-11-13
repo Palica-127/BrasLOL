@@ -2333,6 +2333,8 @@ details.pn>summary{color:var(--t1)}
 .mxs.vs{font-size:10px;letter-spacing:.1em}
 @media (max-width:620px){.m.mx{display:block;width:auto;margin-right:0}}
 .pbch .ti{width:84px!important;height:118px!important}.pbch b{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:24px}.pbch small{font-size:12px}.pbch{width:230px;gap:10px}.pbch .crest{--s:84px}.pbch .shield{width:84px;height:98px}.pbch b.q{font-size:64px}
+/* cartões grandes do bracket de eliminação simples */
+.pbc.big .br{height:auto;padding:0 12px;gap:10px}.pbc.big .br .bn{font-size:15px}.pbc.big .br .crest,.pbc.big .br .shield{width:32px;height:32px;--s:32px}.pbc.big .br .bs{min-width:30px;height:26px;font-size:15px}.pbc.big .br.tba .bc{width:28px;height:28px}
 /* bandeiras das seleções: a própria bolinha é a bandeira (fundo CSS), preenchendo o círculo inteiro */
 .crest.fbg{width:var(--s)!important;height:var(--s)!important;border:0!important;padding:0!important;border-radius:50%!important;overflow:hidden;background:#1a2236 var(--fu) var(--fp,50%) 50%/cover no-repeat!important;font-size:0!important;color:transparent!important;box-shadow:0 2px 6px rgba(0,0,0,.45)!important}
 .crest.fbg::after{display:none!important}
@@ -8717,7 +8719,41 @@ function deBracketHTML(tour,kind){
   const TRO={wc:'w',msi:'m',fs:'m'},champ=brChamp(cw,TRO[kind]?{k:TRO[kind]}:null,X(L.pos.gf[0]+1)-20,L.pos.gf[1]+CH/2);
   return `<div class="pbw de"><div class="pbk" style="width:${W}px;height:${L.H}px"><svg class="pbl" width="${W}" height="${L.H}" aria-hidden="true">${E}</svg>${lanes}${heads}${cards}${champ}</div></div>`;
 }
-function bracketHTML(tour,kind){if(tour.de)return deBracketHTML(tour,kind);return bracketCore(tour.stages.filter(st=>!st.swiss),T,tlk,t=>crestSd(t,'sm'),id=>mgrT()&&S.mgr.tid===id)}
+/* bracket de eliminação simples (Mundial): mesmo desenho das outras, com cartões maiores, caminho do vencedor aceso e campeão ao lado da final */
+function koBracketHTML(ko,T,tlk,crest,isMe,champId,tro){
+  if(!ko.length)return'';
+  let n=ko[0].ms.length;const cols=[];
+  for(let c=0;n>=1;c++,n=Math.floor(n/2)){
+    cols.push({name:n===1?'Final':n===2?'Semifinais':n===4?'Quartas':n===8?'Oitavas':'Rodada '+(c+1),n,st:ko[c]});
+    if(n===1)break;
+  }
+  const CW=236,CH=86,GX=70,GAP=28,TOP=46,CHW=240,X=c=>c*(CW+GX),win=m=>m&&m.res?m.res.w:null;
+  const ys=cols.map(()=>[]);
+  for(let j=0;j<cols[0].n;j++)ys[0][j]=TOP+j*(CH+GAP);
+  for(let c=1;c<cols.length;c++)for(let j=0;j<cols[c].n;j++)ys[c][j]=(ys[c-1][2*j]+ys[c-1][2*j+1])/2;
+  const H=TOP+cols[0].n*CH+(cols[0].n-1)*GAP+24,W=X(cols.length)+CHW-20;
+  const row=(id,sc,m)=>{
+    if(id==null)return `<div class="br tba"><span class="bc"></span><span class="bn">A definir</span><b class="bs">–</b></div>`;
+    const t=T(id),r=m&&m.res,w=r&&r.w===id;
+    return `<div class="br${r?(w?' w':' l'):''}${isMe(id)?' me':''}">${crest(t)}<span class="bn">${tlk(t)}</span><b class="bs num">${r?sc:'0'}</b></div>`;
+  };
+  let cards='',heads='',E='';
+  cols.forEach((cl,c)=>{
+    heads+=`<div class="pbh ${c===cols.length-1?'g':'wi'}" style="left:${X(c)}px;top:0;width:${CW}px">${cl.name}</div>`;
+    for(let j=0;j<cl.n;j++){
+      const m=cl.st&&cl.st.ms[j];let a=null,b=null;
+      if(m){a=m.a;b=m.b}else if(c>0){const p=cols[c-1].st&&cols[c-1].st.ms;a=p?win(p[2*j]):null;b=p?win(p[2*j+1]):null}
+      const r=m&&m.res,fin=c===cols.length-1;
+      cards+=`<div class="pbc big${m&&!r?' pend':''}${fin?' fin':''}" style="left:${X(c)}px;top:${ys[c][j]}px;width:${CW}px;height:${CH}px"><div class="bm2">${row(a,r?r.wa:0,m)}${row(b,r?r.wb:0,m)}</div></div>`;
+      if(c>0)[2*j,2*j+1].forEach(k=>{const pm=cols[c-1].st&&cols[c-1].st.ms[k],x1=X(c-1)+CW,x2=X(c),xm=x1+(x2-x1)/2;E+=`<path d="M${x1} ${ys[c-1][k]+CH/2}H${xm}V${ys[c][j]+CH/2}H${x2}"${pm&&pm.res?' class="on"':''}/>`});
+    }
+  });
+  const fy=ys[cols.length-1][0]+CH/2,cw=champId!=null?T(champId):null;
+  const champ=brChamp(cw,tro||null,X(cols.length)-20,fy);
+  const lane=`<div class="pbn t" style="left:${X(0)-10}px;top:${TOP-14}px;width:${X(cols.length-1)+CW-X(0)+20}px;height:${H-TOP-2}px"></div>`;
+  return `<div class="pbw"><div class="pbk" style="width:${W}px;height:${H}px"><svg class="pbl" width="${W}" height="${H}" aria-hidden="true">${E}</svg>${lane}${heads}${cards}${champ}</div></div>`;
+}
+function bracketHTML(tour,kind){if(tour.de)return deBracketHTML(tour,kind);return koBracketHTML(tour.stages.filter(st=>!st.swiss),T,tlk,t=>crestSd(t,'sm'),id=>mgrT()&&S.mgr.tid===id,tour.champ,kind==='wc'?{k:'w'}:kind==='msi'||kind==='fs'?{k:'m'}:null)}
 function bracketCore(ko,T,tlk,crest,isMe){
   if(!ko.length)return'';
   let n=ko[0].ms.length;const cols=[];
