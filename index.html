@@ -2819,7 +2819,7 @@ function mgrSeasonEnd(){
   const ach=d2m?(y.s2===1?5:(y.s2&&y.s2<=2)?3:(y.s2&&y.s2<=4)?1:0):y.wc==='C'?5:y.wc==='F'?4:y.wc==='SF'?3:y.wc==='QF'?2:y.wc==='G'?1:0;
   const lp=p=>p===1?3:p===2?1.5:p&&p<=4?.5:0;
   const gate=IM()*(d2m?4:10),spons=IM()*Math.max(0,baseOvr(t)-(d2m?62:70))*(d2m?.6:1),prize=d2m?IM()*(lp(y.s1)+lp(y.s2))*.6:IM()*(lp(y.s1)+lp(y.s2)+(({C:4,F:2.5,SF:1,QF:.3,G:0})[y.msi]||0)+(({C:10,F:6,SF:4,QF:2.5,G:.5})[y.wc]||0)),income=gate+spons+prize;
-  mEnsure();const pay=payOn()?r1(payroll(t)):0,fixo=d2m?(payOn()?4:7):payOn()?8:14,up=r1(AC_UP[m.acLv]+CT_UP[m.ct]),net=r1(income-pay-fixo-up);
+  mEnsure();const pay=payOn()?r1(payroll(t)):0,fixo=d2m?(payOn()?4:7):payOn()?8:14,up=r1(AC_UP[m.acLv]+CT_UP[m.ct]),bon=r1(t.pl.concat(m.bench).filter(p=>p.cl==='bon').reduce((a,p)=>a+salOf(p)*.8,0)*((y.s1===1||y.s2===1||y.wc==='C')?1:0)),net=r1(income-pay-fixo-up-bon);
   m.cash=r1(m.cash+net);
   const best=Math.min(y.s1||99,y.s2||99);
   let d=(ach-m.goal)*9+(ach===5?8:0)+(best===1?8:best<=4?4:0);
@@ -2827,8 +2827,8 @@ function mgrSeasonEnd(){
   if(m.cash<0){m.cash=0;d-=10;note=' Caixa negativo: diretoria irritada.'}
   if(d<0)d*=SM();
   m.sat=clamp(Math.round(m.sat+d),0,100);
-  m.hist.push({y:S.year,income:r1(income),gate:r1(gate),spons:r1(spons),prize:r1(prize),fixo,pay,up,net,cashEnd:m.cash,goal:m.goal,ach,sat:m.sat,wc:y.wc});
-  m.log.unshift(`${S.year}: ${d2m?`D2: ${y.s1||'-'}º no Split 1 e ${y.s2||'-'}º no Split 2`:y.wc==='C'?'campeão do Mundial':y.wc==='-'?'fora do Mundial':'Mundial: '+CODE[y.wc]}; saldo ${net>=0?'+':''}${fmtM(net)}; confiança ${m.sat}%.${note}`);
+  m.hist.push({y:S.year,income:r1(income),gate:r1(gate),spons:r1(spons),prize:r1(prize),fixo,pay,up,bon,net,cashEnd:m.cash,goal:m.goal,ach,sat:m.sat,wc:y.wc});
+  m.log.unshift(`${S.year}: ${d2m?`D2: ${y.s1||'-'}º no Split 1 e ${y.s2||'-'}º no Split 2`:y.wc==='C'?'campeão do Mundial':y.wc==='-'?'fora do Mundial':'Mundial: '+CODE[y.wc]}; saldo ${net>=0?'+':''}${fmtM(net)}${bon?` (inclui ${fmtM(bon)} de bônus por título)`:''}; confiança ${m.sat}%.${note}`);
   m.fa.forEach(p=>{if(S.pdb[p.n])S.pdb[p.n].ret=S.year});
   mAch();
   m.rep=clamp((m.rep==null?50:m.rep)+(ach>=m.goal?4+2*(ach-m.goal):-4+ (ach-m.goal)),0,100);
@@ -2992,7 +2992,7 @@ function mBaseYear(){
     const f=mFind(p.n);if(!f)continue;
     const w=S.teams.filter(x=>x!==t&&x.pl[p.role].r<p.r);
     const buyer=pick(w.length?w:S.teams.filter(x=>x!==t));
-    m.offers.push({n:p.n,to:buyer.id,price:r1(mvOf(p)*(1.1+Math.random()*.4)*(f.k==='acad'?.85:1))});
+    m.offers.push({n:p.n,to:buyer.id,price:r1(mvOf(p)*(1.1+Math.random()*.4)*(f.k==='acad'?.85:1)*(p.cl==='mul'?1.6:1))});
   }
 }
 function mgrSell(name,price,buyerId){
@@ -3111,13 +3111,15 @@ function mMidYear(){
   for(let k=0;k<2&&cand.length;k++){
     const p=cand.splice(Math.floor(Math.random()*cand.length),1)[0],f=mFind(p.n);if(!f)continue;
     const w=S.teams.filter(x=>x!==t&&x.pl[p.role].r<p.r),buyer=pick(w.length?w:S.teams.filter(x=>x!==t));
-    m.offers.push({n:p.n,to:buyer.id,price:r1(mvOf(p)*(1.1+Math.random()*.4)*(f.k==='acad'?.85:1))});
+    m.offers.push({n:p.n,to:buyer.id,price:r1(mvOf(p)*(1.1+Math.random()*.4)*(f.k==='acad'?.85:1)*(p.cl==='mul'?1.6:1))});
   }
   mlog(`${S.year}: janela de meio de ano aberta, com novos agentes livres e propostas.`);
 }
-function mCtr(p,y){p.ctr=y;p.exp=false}
+function mCtr(p,y){p.ctr=y;p.exp=false;p.cl=''}
 const NEG=[['Oferta baixa',.7,.5],['Oferta justa',1,.85],['Oferta alta',1.35,1]];
-const renFee=(p,l)=>S.mgr.cheat?0:r1(mvOf(p)*.3*PM()*NEG[l][1]);
+/* cláusulas de contrato na renovação: custo da renovação, efeito durante o contrato */
+const CLS={'':['Sem cláusula',1,'Contrato padrão.'],mul:['Multa de rescisão',1.1,'Renovação 10% mais cara; propostas de outros clubes por ele pagam 60% a mais.'],bon:['Bônus por título',.8,'Renovação 20% mais barata; paga um bônus de salário se o time ganhar liga ou Mundial.'],lib:['Contrato curto',.65,'Renovação 35% mais barata, mas só por 1 ano: precisa renegociar todo ano.']};
+const renFee=(p,l)=>S.mgr.cheat?0:r1(mvOf(p)*.3*PM()*NEG[l][1]*CLS[S.mgr.rc||''][1]);
 function mgrRenew(v){
   const m=S.mgr;mEnsure();
   const [name,ls]=String(v).split('|'),l=+ls||1;
@@ -3127,11 +3129,11 @@ function mgrRenew(v){
   if(m.cash<fee){msg='Sem caixa';return}
   const ok=m.cheat||Math.random()<NEG[l][2]+((m.mor==null?60:m.mor)-60)/400;
   if(!ok){m.cash=r1(m.cash-fee*.2);mlog(`${S.year}: ${f.p.n} recusou a ${NEG[l][0].toLowerCase()}.`);msg=`${f.p.n} recusou a proposta. Tente uma oferta melhor.`;return}
-  m.cash=r1(m.cash-fee);mCtr(f.p,f.p.age>=30?2:3);
-  mlog(`${S.year}: renovou ${f.p.n} por ${f.p.ctr} anos (${fmtM(fee)}).`);
+  const cl=m.rc||'';m.cash=r1(m.cash-fee);mCtr(f.p,cl==='lib'?1:f.p.age>=30?2:3);f.p.cl=cl;
+  mlog(`${S.year}: renovou ${f.p.n} por ${f.p.ctr} ano${f.p.ctr>1?'s':''} (${fmtM(fee)})${cl?'; cláusula: '+CLS[cl][0].toLowerCase():''}.`);
   msg=`${f.p.n} aceitou e renovou o contrato.`;
 }
-const renUI=(p,open)=>open?more('Negociar',NEG.map(([n],l)=>mb('mgrRenew',p.n+'|'+l,n+' '+fmtM(renFee(p,l)).replace('US$ ',''),true,'')).join('')):mb('mgrRenew',p.n,'Janela fechada',false,'');
+const renUI=(p,open)=>open?more('Negociar',Object.keys(CLS).map(k=>mb('mgrCl',k,(S.mgr.rc||'')===k?'● '+CLS[k][0]:CLS[k][0],true,'')).join('')+`<small class="note" style="flex-basis:100%">${esc(CLS[S.mgr.rc||''][2])}</small>`+NEG.map(([n],l)=>mb('mgrRenew',p.n+'|'+l,n+' '+fmtM(renFee(p,l)).replace('US$ ',''),true,'')).join('')):mb('mgrRenew',p.n,'Janela fechada',false,'');
 /* quem não renovar até o início do Split 1 vai embora */
 function mExpire(){
   const m=S.mgr,t=mgrT();if(!m||!t)return;
@@ -6087,7 +6089,9 @@ function pcYear(){
   const trophies=(a.lg||[]).length+(a.msi==='C'?1:0)+(a.wc==='C'?2:0);
   {const dF=(rating!=null?(rating-6)*3:-1)+trophies*4+(ix>=0?5:0);pcFame(dF)}
   if(rating!=null&&rating>=7)pcGain(rating>=8.5?160:rating>=8?120:70);
-  pc.cash=r1(pc.cash+pc.sal*(1+pcFx('inc')));pc.ctr--;
+  pc.cash=r1(pc.cash+pc.sal*(1+pcFx('inc')));
+  if(pc.cl==='bon'&&trophies>0){const bb=r1(pc.sal*.8*trophies);pc.cash=r1(pc.cash+bb);pcLog(`recebe bônus por título do contrato: ${fmtM(bb)}.`)}
+  pc.ctr--;
   pcSync();pc.r0=p.r;pc.cap=Math.max(pc.cap,p.pot+2);
   pc.hist.push({y:S.year,team:t.name,div:t.d===2?2:1,role:p.role,ovr:p.r,age:p.age,rating,bn:f.bn,titles:trophies,top:ix>=0?ix+1:0});
   pcLog(`temporada fechada no ${t.name}: ${rating!=null?'nota '+String(rating).replace('.',','):'no banco'}; OVR ${p.r}.`);
@@ -6175,19 +6179,20 @@ function pcOffers(){
     if(p.r>=st.r-1)kind='T';else if(tier===1&&p.r>=st.r-8&&p.r>=70)kind='R';
     if(!kind)return;
     const base=salOf(p)*(tier?1.35:.9)*(1+pc.fame/180)*(kind==='R'?.6:1)*(1+pcFx('sal'));
-    L.push({tn:t.name,k:kind,sal:Math.max(.2,r1(base)),yrs:1+Math.floor(Math.random()*3),pr:baseOvr(t)});
+    const rr=Math.random(),cl=rr<.45?'':rr<.75?'bon':'con',cm=cl==='bon'?.85:cl==='con'?.9:1;
+    L.push({tn:t.name,k:kind,sal:Math.max(.2,r1(base*cm)),yrs:1+Math.floor(Math.random()*3),pr:baseOvr(t),cl});
   });
   L.sort((a,b)=>b.pr-a.pr);
   const pick_=[...L.slice(0,2),...shuffle(L.slice(2)).slice(0,2)];
   /* a renovação chega logo; as propostas dos outros clubes entram na caixa de e-mail aos poucos, ao longo dos dias */
-  pc.pend=pick_.map(x=>({tn:x.tn,k:x.k,sal:x.sal,yrs:x.yrs}));
+  pc.pend=pick_.map(x=>({tn:x.tn,k:x.k,sal:x.sal,yrs:x.yrs,cl:x.cl}));
   pc.offers=[{tn:f.t.name,k:f.bn?'R':'T',sal:r1(Math.max(pc.sal,salOf(p))*1.1),yrs:2,ren:true}];
 }
 function pcDecline(i){const pc=S.pc,o=pc.offers&&pc.offers[i];if(!o)return;pc.offers=pc.offers.filter((_,j)=>j!==i);pcLog(`recusa a proposta do ${o.tn}.`);msg='Proposta recusada.'}
 function pcAccept(i){
   const pc=S.pc,o=pc.offers[i],f=pcFind();if(!o||!f)return;
   if(!pcPlayOk()){msg='A janela de transferências está fechada.';return}
-  if(o.ren){pc.sal=o.sal;pc.ctr=o.yrs;pcLog(`renova com o ${o.tn} por ${o.yrs} ano${o.yrs>1?'s':''}.`);msg='Contrato renovado.';pc.offers=pc.offers.filter((_,j)=>j!==i);return}
+  if(o.ren){pc.sal=o.sal;pc.ctr=o.yrs;pc.cl=o.cl||'';pcLog(`renova com o ${o.tn} por ${o.yrs} ano${o.yrs>1?'s':''}.`);msg='Contrato renovado.';pc.offers=pc.offers.filter((_,j)=>j!==i);return}
   const nt=ALLT().find(t=>t.name===o.tn);if(!nt)return;
   const p=f.p,role=p.role,ot=f.t;
   if(f.bn)ot.bn.splice(ot.bn.indexOf(p),1);else ot.pl[role]=fillSlot(ot,role).p;
@@ -6195,7 +6200,7 @@ function pcAccept(i){
   if(o.k==='T'){const old=nt.pl[role];nt.pl[role]=p;nt.bn.push(old)}else nt.bn.push(p);
   nt.bn.sort((a,b)=>b.r-a.r);while(nt.bn.length>3){const w=nt.bn.pop();if(w.pc)nt.bn.unshift(w)}
   if(pc.test){ptSwapOut();pc.test=null}
-  pd(p.n).role=role;pc.sal=o.sal;pc.ctr=o.yrs;pc.offers=[];pc.pend=[];pc.tr=o.k==='T'?60:35;
+  pd(p.n).role=role;pc.sal=o.sal;pc.ctr=o.yrs;pc.offers=[];pc.pend=[];pc.tr=(o.k==='T'?60:35)+(o.cl==='con'?20:0);pc.cl=o.cl||'';
   pcLog(`assina com o ${nt.name} (${o.k==='T'?'titular':'reserva'}) por ${o.yrs} ano${o.yrs>1?'s':''}, salário ${fmtM(o.sal)}.`);
   news(`${p.n} deixa o ${ot.name} e assina com o ${nt.name}.`);
   msg=`Você assinou com o ${nt.name}.`;
@@ -6417,7 +6422,7 @@ function vPc0(){
   const pl=CH[p.role].map(([c,a])=>({c,a,v:Math.round(mastOf(pc.n,c)*100),m:metaOf(c)})).sort((x,y)=>y.v-x.v);
   let poolH=`<details class="pn det" open><summary>Pool de campeões</summary><p class="note" style="margin:0 0 8px">Domínio dos campeões da função (▲ meta a favor, ▼ contra). Sobe sozinho no programa Pool do treino (+${Math.round((.03+pcFx('poolg'))*100)}% em ${5+pcFx('pooln')} campeões por semana). Quanto melhor sua pool no meta atual (${esc(metaName())}), mais forma você carrega.</p><div class="pgrid">${pl.map(x=>`<div class="pg" title="${esc(x.c)} · ${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}">${chTile(x.c)}<b class="num">${x.v}%</b>${pcBar(x.v,100)}${x.m>=.2?'<i class="mt up">▲</i>':x.m<=-.2?'<i class="mt dn">▼</i>':''}</div>`).join('')}</div></details>`;
   /* ofertas */
-  if(pc.offers&&pc.offers.length){h+=`<section class="pn"><h2>Propostas</h2><p class="note" style="margin:0 0 8px">${pcPlayOk()?'Janela aberta: dá para assinar agora.':'Janela fechada: as propostas voltam a valer antes do próximo split.'}</p>${pc.offers.map((o,i)=>{const nt=ALLT().find(x=>x.name===o.tn);return `<div class="mrow" style="grid-template-columns:minmax(0,1fr) auto auto"><span class="who"><b>${o.ren?'Renovar com ':''}${nt?tlk(nt):esc(o.tn)}${nt&&nt.d===2?' <span class="tag">D2</span>':''}</b><small>${o.k==='T'?'Como titular':'Como reserva'} · ${o.yrs} ano${o.yrs>1?'s':''} · ${fmtM(o.sal)}/ano</small></span><button class="ghost" data-act="pcOffer" data-v="${i}"${pcPlayOk()?'':' disabled'}>${o.ren?'Renovar':'Assinar'}</button><button class="ghost" data-act="pcNo" data-v="${i}">Recusar</button></div>`}).join('')}</section>`}
+  if(pc.offers&&pc.offers.length){h+=`<section class="pn"><h2>Propostas</h2><p class="note" style="margin:0 0 8px">${pcPlayOk()?'Janela aberta: dá para assinar agora.':'Janela fechada: as propostas voltam a valer antes do próximo split.'}</p>${pc.offers.map((o,i)=>{const nt=ALLT().find(x=>x.name===o.tn);return `<div class="mrow" style="grid-template-columns:minmax(0,1fr) auto auto"><span class="who"><b>${o.ren?'Renovar com ':''}${nt?tlk(nt):esc(o.tn)}${nt&&nt.d===2?' <span class="tag">D2</span>':''}</b><small>${o.k==='T'?'Como titular':'Como reserva'} · ${o.yrs} ano${o.yrs>1?'s':''} · ${fmtM(o.sal)}/ano${o.cl==='bon'?' · bônus de título: 80% do salário por título':o.cl==='con'?' · garantia de confiança inicial (+20)':''}</small></span><button class="ghost" data-act="pcOffer" data-v="${i}"${pcPlayOk()?'':' disabled'}>${o.ren?'Renovar':'Assinar'}</button><button class="ghost" data-act="pcNo" data-v="${i}">Recusar</button></div>`}).join('')}</section>`}
   /* metas */
   const goalH=`<details class="pn det"><summary>Metas de carreira (${Object.keys(pc.goals).length}/${PGOALS.length})</summary>${PGOALS.map(([id,l,d])=>`<div class="mrow" style="grid-template-columns:28px minmax(0,1fr)"><span class="num" style="font-size:20px">${pc.goals[id]?'✓':'·'}</span><span class="who"><b${pc.goals[id]?' style="color:#00F5A0"':''}>${l}</b><small>${d}${pc.goals[id]?' · '+pc.goals[id]:''}</small></span></div>`).join('')}</details>`;
   h+=`<div class="pcTop">${pcTrainHTML(f)}<div class="pcCol">${poolH}${goalH}</div></div>`;
@@ -8996,6 +9001,7 @@ function act0(a,v){
   else if(a==='mgrBuy'){mgrBuy(v);mAch();save()}
   else if(a==='mgrSign'){mgrSign(v);save()}
   else if(a==='mgrSell'){mgrSell(v);mAch();save()}
+  else if(a==='mgrCl'){if(S.mgr&&CLS[v]){S.mgr.rc=v;save()}}
   else if(a==='mgrRenew'){mgrRenew(v);save()}
   else if(a==='mgrLoan'){mgrLoan(v);save()}
   else if(a==='mgrPromote'){mgrPromote(v);mAch();save()}
