@@ -2244,6 +2244,12 @@ details.pn>summary{color:var(--t1)}
 .rk{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:99px;font:700 10px var(--d);letter-spacing:.08em;text-transform:uppercase;vertical-align:middle}.rk.r1{background:rgba(0,245,160,.15);color:#7dffcf}.rk.r2{background:rgba(255,200,87,.15);color:#ffd978}.rk.r3{background:rgba(255,92,138,.16);color:#ff9db9}
 .ihist{margin:8px 0 0}.ihist .up{color:#7dffcf;font-weight:700}.ihist .dn{color:#ff9db9;font-weight:700}
 @media (max-width:560px){.icard{grid-template-columns:36px minmax(0,1fr)}.icard button{grid-column:1/-1}}
+
+/* busca na ficha */
+.psw{position:relative;margin:0 0 10px}.psw .search{width:100%}.psr{display:grid;gap:4px;margin-top:6px}.psr:empty{display:none}
+.psi{display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:10px;align-items:center;text-align:left;padding:9px 12px;border-radius:10px;border:0;cursor:pointer;color:inherit;background:rgba(255,255,255,.045);box-shadow:inset 0 0 0 1px rgba(150,165,255,.18)}
+.psi:hover,.psi:focus-visible{background:rgba(255,200,87,.1);box-shadow:inset 0 0 0 1px rgba(255,200,87,.5)}
+.psi .pst{font:700 10px var(--d);letter-spacing:.12em;text-transform:uppercase;color:#9fb0ff}.psi b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.psi small{opacity:.7;white-space:nowrap}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -9356,7 +9362,7 @@ function vLeague(lg){
 function openProf(k,id){
   if(tab==='prof'&&prof)pstack.push(prof);else{pstack=[];prevTab=tab}
   if(k==='t')tvw='el';
-  prof={k,id};tab='prof';
+  prof={k,id};tab='prof';psQ='';
 }
 function poolHTML(n,role,tm){
   if(role==null||!CH[role])return'';
@@ -9445,7 +9451,29 @@ function vTeam(id){
   }
   return o+'</div></div>';
 }
-const vProf=()=>prof?(prof.k==='p'?vPlayer(prof.id):prof.k==='l'?vLeague(prof.id):prof.k==='n'?vNation(prof.id):prof.k==='h'?vLegacy(prof.id):vTeam(prof.id)):'';
+/* busca na ficha: acha qualquer jogador (ativo, aposentado ou reserva) ou time (D1 e D2) pelo nome, sem acento e sem diferenciar maiúscula */
+let psQ='';
+const psNorm=x=>String(x).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+function psResults(){
+  const q=psNorm(psQ.trim());if(!q)return[];
+  const out=[],pm=pmap();
+  const score=n=>{const x=psNorm(n),i=x.indexOf(q);return i<0?-1:x===q?0:i===0?1:/\s/.test(x.slice(0,i+1)[i-1]||'')?2:3};
+  ALLT().forEach(t=>{const sc=score(t.name);if(sc>=0)out.push({k:'t',id:t.id,n:t.name,sub:`${t.lg}${t.d===2?' · D2':''}`,sc:sc+.5,o:baseOvr(t)})});
+  const seen=new Set();
+  Object.keys(pm).concat(Object.keys(S.pdb||{}),Object.keys(S.hof||{})).forEach(n=>{
+    if(seen.has(n))return;seen.add(n);const sc=score(n);if(sc<0)return;
+    const f=pm[n],d=S.pdb&&S.pdb[n];
+    out.push({k:'p',id:n,n,sub:f?`${RN[f.p.role]} · ${f.t.name}`:`${d&&d.role!=null?RN[d.role]+' · ':''}${d&&d.ret?'aposentado':'sem time'}`,sc,o:f?f.p.r:0});
+  });
+  return out.sort((a,b)=>a.sc-b.sc||b.o-a.o).slice(0,10);
+}
+function psHTML(){
+  const r=psResults();
+  if(!psQ.trim())return'';
+  return r.length?r.map(x=>`<button class="psi" data-act="${x.k==='p'?'player':'team'}" data-v="${esc(String(x.id))}"><span class="pst">${x.k==='p'?'Jogador':'Time'}</span><b>${esc(x.n)}</b><small>${esc(x.sub)}</small></button>`).join(''):`<p class="note" style="margin:6px 4px">Nada encontrado para "${esc(psQ.trim())}".</p>`;
+}
+const vProf0=()=>prof?(prof.k==='p'?vPlayer(prof.id):prof.k==='l'?vLeague(prof.id):prof.k==='n'?vNation(prof.id):prof.k==='h'?vLegacy(prof.id):vTeam(prof.id)):'';
+const vProf=()=>`<div class="psw"><input id="psq" class="search" type="search" autocomplete="off" placeholder="Buscar jogador ou time pelo nome" value="${esc(psQ)}" aria-label="Buscar jogador ou time"><div id="psr" class="psr">${psHTML()}</div></div>`+vProf0();
 
 /* ---------- ajustes ---------- */
 function vSet(){
@@ -9713,6 +9741,7 @@ document.addEventListener('input',e=>{
   else if(e.target.id==='pc-q'){pcQ=e.target.value;const l=document.querySelector('#pc-list');if(l)l.innerHTML=pcListHTML()}
   else if(e.target.id==='mgr-q'){mgrQ=e.target.value;const l=document.querySelector('#mlist');if(l)l.innerHTML=mlistHTML()}
   else if(e.target.id==='dv-q'){if(DV){DV.q=e.target.value;const g=document.querySelector('#dfgrid');if(g)g.innerHTML=dfGridHTML()}}
+  else if(e.target.id==='psq'){psQ=e.target.value;const l=document.querySelector('#psr');if(l)l.innerHTML=psHTML()}
   else if(e.target.id==='q'){qStr=e.target.value;const l=document.querySelector('#plist');if(l)l.innerHTML=plistHTML()}
 });
 if(!S)freshGame();else{fixLPL();fixRoster();fixNatFix();ensureD2();fixNat();fixNatFix();if(!S.lh)applyLeagueHist();if(!S.lh2)applyLeagueHist2();if(!S.lh3)applyLeagueHist3();save()}
