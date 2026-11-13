@@ -2810,7 +2810,7 @@ function mgrStart(tid){
   const t=T(tid),old=S.mgr;
   /* legado do técnico: demissão/troca de clube não apaga a história; os passos anteriores ficam em m.past */
   const past=old?(old.past||[]).concat(old.hist&&old.hist.length?[{tn:old.tn||'Clube anterior',from:old.since,to:old.hist[old.hist.length-1].y,hist:old.hist,fired:!!old.fired}]:[]):[];
-  S.mgr={past,tn:t.name,rep:old&&old.rep!=null?old.rep:undefined,tid,cash:t.d===2?6:12,sat:65,goal:goalFor(t),since:S.year,hist:[],log:[`Contratado pelo ${t.name} em ${S.year}.`],fa:genFA(),fired:false,acLv:1,ct:0,bench:[],loan:[],offers:[]};S.mgr.fa=genFA();mEnsure();
+  S.mgr={past,tn:t.name,rep:old&&old.rep!=null?old.rep:undefined,tid,cash:t.d===2?6:12,sat:65,goal:goalFor(t),since:S.year,hist:[],log:[`Contratado pelo ${t.name} em ${S.year}.`],fa:genFA(),fired:false,acLv:1,ct:0,bench:[],loan:[],offers:[]};S.mgr.fa=genFA();mEnsure();sgInit();
 }
 function mgrSeasonEnd(){
   const m=S.mgr,t=mgrT();if(!m||!t)return;
@@ -2834,10 +2834,23 @@ function mgrSeasonEnd(){
   m.rep=clamp((m.rep==null?50:m.rep)+(ach>=m.goal?4+2*(ach-m.goal):-4+ (ach-m.goal)),0,100);
   if(m.sat<25){m.rep=clamp(m.rep-15,0,100);m.fired=true;m.tid=null;m.log.unshift(`${S.year}: demitido pela diretoria.`)}
 }
+/* metas por split: a diretoria cobra o resultado de cada split; a confiança varia durante o ano */
+function sgTarget(m,t,k){const base=t.d===2?3:[6,5,4,3,2][clamp(m.goal,0,4)];return k==='s2'?Math.max(1,base-1):base}
+function sgInit(){const m=S.mgr,t=mgrT();if(!m||!t)return;m.sg={s1:{t:sgTarget(m,t,'s1'),r:null},s2:{t:sgTarget(m,t,'s2'),r:null}}}
+function sgEnd(k){
+  const m=S.mgr,t=mgrT();if(!m||!t||m.cheat)return;if(!m.sg)sgInit();if(!m.sg[k]||m.sg[k].r!=null)return;
+  const pos=(t.cs&&t.cs[k])||0;if(!pos)return;
+  const g=m.sg[k],ok=pos<=g.t,nm=k==='s1'?'Split 1':'Split 2';
+  g.r=pos;g.ok=ok;
+  if(ok){m.sat=clamp(m.sat+4,0,100);m.cash=r1(m.cash+IM()*.5);m.mor=Math.min(100,(m.mor==null?60:m.mor)+1);mlog(`${S.year}: meta do ${nm} cumprida (${pos}º, pedia top ${g.t}): confiança +4, bônus ${fmtM(IM()*.5)}.`);msg=`A diretoria gostou do ${nm}: ${pos}º lugar.`}
+  else{m.sat=clamp(Math.round(m.sat-5*SM()),0,100);mlog(`${S.year}: meta do ${nm} falhou (${pos}º, pedia top ${g.t}): confiança −5.`);msg=`A diretoria queria top ${g.t} no ${nm} e você ficou em ${pos}º.${m.sat<40?' A paciência está acabando.':''}`}
+  if(m.sat<30)mlog(`${S.year}: aviso da diretoria: mais um ano ruim e você será demitido.`);
+}
+const sgTxt=m=>{if(!m||!m.sg)return '';return ['s1','s2'].map(k=>{const g=m.sg[k];return `${k==='s1'?'Split 1':'Split 2'}: top ${g.t}${g.r!=null?(g.ok?` ✓ (${g.r}º)`:` ✗ (${g.r}º)`):''}`}).join(' · ')};
 function mgrNewYear(){
   const m=S.mgr,t=mgrT();if(!m)return;
   m.fa=genFA();
-  if(t){m.goal=Math.min(4,goalFor(t)+((m.rep||50)>=80?1:0));m.log.unshift(`${S.year}: janela aberta. Meta da diretoria: ${goalTxt(m,t)}.`);mBaseYear()}
+  if(t){m.goal=Math.min(4,goalFor(t)+((m.rep||50)>=80?1:0));m.log.unshift(`${S.year}: janela aberta. Meta da diretoria: ${goalTxt(m,t)}.`);mBaseYear();sgInit()}
   m.log=m.log.slice(0,30);
 }
 function canBuy(p,t){
@@ -3059,8 +3072,8 @@ function elencoHTML(t,m,pay,lastH){
   return h;
 }
 function finHTML(t,m){
-  const on=payOn(),ovr=baseOvr(t),pr=payroll(t),up=r1(AC_UP[m.acLv||1]+CT_UP[m.ct||0]),fx=on?8:14;
-  const gate=IM()*10,sp=IM()*Math.max(0,ovr-70),sure=gate+sp,est=sure-(on?pr:0)-fx-up;
+  const on=payOn(),ovr=baseOvr(t),pr=payroll(t),up=r1(AC_UP[m.acLv||1]+CT_UP[m.ct||0]),d2=t.d===2,fx=d2?(on?4:7):on?8:14;
+  const gate=IM()*(d2?4:10),sp=IM()*Math.max(0,ovr-(d2?62:70))*(d2?.6:1),sure=gate+sp,est=sure-(on?pr:0)-fx-up;
   const row=(l,v,c)=>`<div class="rowl"><span class="grow">${l}</span><b class="num ${c||''}">${v}</b></div>`;
   let h=`<section class="pn"><h2>Finanças</h2><div class="kv"><div><small>Caixa</small><b class="num">${m.cheat?'∞':fmtM(m.cash)}</b></div><div><small>Folha por ano</small><b class="num">${on?fmtM(pr):'desligada'}</b></div><div><small>Resultado garantido</small><b class="num ${est>=0?'up':'dn'}">${est>=0?'+':''}${fmtM(est)}</b></div></div><p class="note" style="margin:8px 0 0">O resultado garantido não conta prêmios de campanha (Split, MSI e Mundial), que entram no fim da temporada. A folha salarial pode ser ligada ou desligada em Ajustes.</p></section>`;
   h+=`<section class="pn"><h2>Projeção da próxima temporada</h2>${row('Bilheteria e jogos',fmtM(gate))}${row('Patrocínio (cresce com o OVR do time)',fmtM(sp))}${on?row('Folha salarial','−'+fmtM(pr),'dn'):''}${row('Custos fixos do clube','−'+fmtM(fx),'dn')}${row('Academia e Centro de treino','−'+fmtM(up),'dn')}${row('Resultado sem prêmios',(est>=0?'+':'')+fmtM(est),est>=0?'up':'dn')}</section>`;
@@ -6794,7 +6807,7 @@ function vMgr(){
   h+=`<div class="mgr"><section class="pn mgh"><div class="mh1"><div class="ph">${crest(t,'lg')}<div style="flex:1;min-width:0"><h3>${esc(t.name)}</h3><small>${t.lg} · OVR ${Math.round(baseOvr(t))} · ${rankOfTeam(t)}º do jogo</small></div></div></div>
   <div class="mh2"><div class="cab"><div><b class="num" style="font-size:22px">${m.cheat?'∞':fmtM(m.cash).replace('US$ ','')}</b><small>Caixa (US$)</small></div><div><b class="num" style="font-size:22px">${m.sat}%</b><small>Confiança</small></div></div>
   <div class="ovb" style="height:7px;margin-top:8px"><i style="width:${m.sat}%"></i></div></div>
-  <div class="mh3"><p class="note"><b>Meta da diretoria:</b> ${goalTxt(m,t)}.</p>
+  <div class="mh3"><p class="note"><b>Meta da diretoria:</b> ${goalTxt(m,t)}.</p>${m.sg?`<p class="note"><b>Metas por split:</b> ${sgTxt(m)}.</p>`:''}
   <p class="note" style="margin-top:4px">${m.cheat?'<b style="color:var(--gold)">Cheats ligados</b>: verba infinita e janela sempre aberta.':open?'Janela de transferências <b style="color:var(--ok)">aberta</b>. Fecha quando você iniciar o próximo split.':'Janela fechada. Ela abre na virada de ano e de novo entre o MSI e o Split 2.'}</p><div class="row" style="margin:10px 0 0"><button class="ghost" data-act="cheat">${m.cheat?'Desligar cheats':'Ligar cheats'}</button></div></div></section>`;
   h+=`<div class="pills stk">${[['inicio','Início'],['elenco','Elenco'],['base','Base'],['mercado','Mercado'],['fin','Finanças'],['livres','Livres'],['ach','Troféus']].map(([k,l])=>`<button class="pill" aria-pressed="${mgrView===k}" data-act="mgrView" data-v="${k}">${l}</button>`).join('')}</div>`;
   mEnsure();
@@ -7248,6 +7261,7 @@ function step(){
   else if(p.k==='wf'&&S.season.wc&&S.season.wc.champ!=null)cele={k:'Campeão do Mundial '+S.year,n:T(S.season.wc.champ).name,s:'MVP '+S.season.wc.mvp};
   else if(p.k==='aw')cele={k:'Melhor Jogador do Ano '+S.year,n:S.hist[S.hist.length-1].top[0].n,s:S.hist[S.hist.length-1].top[0].team};
   else if(S.season.cup&&S.season.cup.champ!=null&&p.g===5)cele={k:'Campeão da Copa do Mundo '+S.year,n:CT(S.season.cup.champ).name,s:'MVP '+S.season.cup.mvp};
+  if(mgrT()&&(p.k==='s1'||p.k==='s2'))sgEnd(p.k);
   S.phase++;fixPhase();
   if(S.pc)pcTick();
   if(S.phase===4&&mgrT())mMidYear();
