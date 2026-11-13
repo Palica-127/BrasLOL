@@ -2147,7 +2147,7 @@ details.pn>summary{color:var(--t1)}
 
 /* bracket dos playoffs em tela cheia: chave superior em cima, inferior embaixo, grande final à direita, com conectores */
 .pbs{padding:14px 16px;grid-column:1/-1;width:100%;box-sizing:border-box}
-.pbw{overflow-x:auto;padding-bottom:8px}
+.pbw{overflow-x:auto;overflow-y:hidden;padding:12px 0 8px}
 .pbk{position:relative}
 .pbl{position:absolute;left:0;top:0;pointer-events:none}
 .pbl path{fill:none;stroke:rgba(150,165,255,.35);stroke-width:1.5}
@@ -2859,7 +2859,7 @@ const brChamp=(t,tro,x,cy)=>`<div class="pbch${t?'':' ph'}" style="left:${x}px;t
 function poBracketHTML(po,live,lg){
   if(!po)return '';
   const pm=po.pm,mid=myTid(),Wn=m=>m&&m.res?m.res.w:null,Ln=m=>m&&m.res?(m.res.w===m.a?m.b:m.a):null;
-  const CW=140,CH=62,GX=26,X=c=>c*(CW+GX);
+  const CW=140,CH=62,GX=54,X=c=>c*(CW+GX);
   const row=(id,m,tba)=>{
     if(id==null)return `<div class="br tba"><span class="bc"></span><span class="bn">${tba||'A definir'}</span><b class="bs">–</b></div>`;
     const t=T(id),r=m&&m.res,w=r&&r.w===id,sc=r?(id===m.a?r.wa:r.wb):'0';
@@ -8558,7 +8558,7 @@ function evMenuHTML(){
 }
 function evBack(){return `<div class="row" style="margin:0 0 10px"><button class="ghost" data-act="tab" data-v="season">← Voltar ao jogo</button><button class="ghost" data-act="evT">Escolher outro evento</button></div>`}
 function d2Bracket(r){
-  const CW=140,CH=62,GX=26,X=c=>c*(CW+GX),H=190;
+  const CW=140,CH=62,GX=54,X=c=>c*(CW+GX),H=190;
   const row=(n,sc,w)=>`<div class="br${w?' w':' l'}">${crest({name:n},'sm')}<span class="bn">${esc(n)}</span><b class="bs num">${sc}</b></div>`;
   const card=(m,c,y,fin)=>`<div class="pbc${fin?' fin':''}" style="left:${X(c)}px;top:${y}px;width:${CW}px"><div class="bm2">${row(m.a,m.wa,m.w===m.a)}${row(m.b,m.wb,m.w===m.b)}</div></div>`;
   const hd=(c,t,g)=>`<div class="pbh${g?' g':' wi'}" style="left:${X(c)}px;top:0;width:${CW}px">${t}</div>`;
@@ -8648,7 +8648,7 @@ const DELAY={
 };
 function deBracketHTML(tour,kind){
   const sp=DESPEC[tour.de.fmt],L=DELAY[tour.de.fmt],mid=mgrT()?S.mgr.tid:null;
-  const CW=140,CH=62,GX=26,X=c=>c*(CW+GX);
+  const CW=140,CH=62,GX=54,X=c=>c*(CW+GX);
   const src=s=>{if(s[0]==='s')return tour.de.seeds[+s.slice(1)];const m=deM(tour,s.slice(1));return m&&m.res?(s[0]==='w'?m.res.w:loserOf(m)):null};
   const row=(id,sc,m,r)=>{
     if(id==null)return `<div class="br tba"><span class="bc"></span><span class="bn">A definir</span><b class="bs">–</b></div>`;
