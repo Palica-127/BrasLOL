@@ -2329,7 +2329,7 @@ details.pn>summary{color:var(--t1)}
 .mxs{min-width:34px;align-self:center;font-size:20px}
 .mxs.vs{font-size:10px;letter-spacing:.1em}
 @media (max-width:620px){.m.mx{display:block;width:auto;margin-right:0}}
-.pbch .ti{width:34px!important;height:48px!important}.pbch b{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pbch{width:140px}
+.pbch .ti{width:84px!important;height:118px!important}.pbch b{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:24px}.pbch small{font-size:12px}.pbch{width:230px;gap:10px}.pbch .crest{--s:84px}.pbch .shield{width:84px;height:98px}.pbch b.q{font-size:64px}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -2868,7 +2868,7 @@ const brChamp=(t,tro,x,cy)=>`<div class="pbch${t?'':' ph'}" style="left:${x}px;t
 function poBracketHTML(po,live,lg){
   if(!po)return '';
   const pm=po.pm,mid=myTid(),Wn=m=>m&&m.res?m.res.w:null,Ln=m=>m&&m.res?(m.res.w===m.a?m.b:m.a):null;
-  const CW=140,CH=62,GX=70,X=c=>c*(CW+GX);
+  const CW=140,CH=62,GX=70,CHW=230,X=c=>c*(CW+GX);
   const row=(id,m,tba)=>{
     if(id==null)return `<div class="br tba"><span class="bc"></span><span class="bn">${tba||'A definir'}</span><b class="bs">–</b></div>`;
     const t=T(id),r=m&&m.res,w=r&&r.w===id,sc=r?(id===m.a?r.wa:r.wb):'0';
@@ -2894,8 +2894,8 @@ function poBracketHTML(po,live,lg){
   ln('s1','wf');ln('s2','wf');ln('wf','gf');ln('l1','ls');ln('l2','ls');ln('ls','lf');ln('lf','gf');
   const lanes=`<div class="pbn t" style="left:${X(0)-10}px;top:-8px;width:${X(2)+CW+20}px;height:206px"></div><div class="pbn b" style="left:${X(1)-10}px;top:202px;width:${X(3)+CW-X(1)+20}px;height:200px"></div>`;
   const gm=pm.gf,gw=gm&&gm.res?T(gm.res.w):null;
-  const champ=brChamp(gw,{k:'l',lg:lg||''},X(5),pos.gf[1]+CH/2);
-  return `<div class="pbw"><div class="pbk" style="width:${X(5)+CW}px;height:410px"><svg class="pbl" width="${X(5)+CW}" height="410" aria-hidden="true">${E.join('')}</svg>${lanes}${heads}${cards}${champ}</div></div>`;
+  const champ=brChamp(gw,{k:'l',lg:lg||''},X(5)-20,pos.gf[1]+CH/2);
+  return `<div class="pbw"><div class="pbk" style="width:${X(5)+CHW}px;height:410px"><svg class="pbl" width="${X(5)+CHW}" height="410" aria-hidden="true">${E.join('')}</svg>${lanes}${heads}${cards}${champ}</div></div>`;
 }
 function closeLeague(lg,tag,st,po){
   const pm=po.pm,fm=pm.gf;
@@ -8567,14 +8567,14 @@ function evMenuHTML(){
 }
 function evBack(){return `<div class="row" style="margin:0 0 10px"><button class="ghost" data-act="tab" data-v="season">← Voltar ao jogo</button><button class="ghost" data-act="evT">Escolher outro evento</button></div>`}
 function d2Bracket(r){
-  const CW=140,CH=62,GX=70,X=c=>c*(CW+GX),H=190;
+  const CW=140,CH=62,GX=70,CHW=230,X=c=>c*(CW+GX),H=190;
   const row=(n,sc,w)=>`<div class="br${w?' w':' l'}">${crest({name:n},'sm')}<span class="bn">${esc(n)}</span><b class="bs num">${sc}</b></div>`;
   const card=(m,c,y,fin)=>`<div class="pbc${fin?' fin':''}" style="left:${X(c)}px;top:${y}px;width:${CW}px"><div class="bm2">${row(m.a,m.wa,m.w===m.a)}${row(m.b,m.wb,m.w===m.b)}</div></div>`;
   const hd=(c,t,g)=>`<div class="pbh${g?' g':' wi'}" style="left:${X(c)}px;top:0;width:${CW}px">${t}</div>`;
   const ln=(c1,y1,c2,y2)=>{const x1=X(c1)+CW,x2=X(c2),xm=x1+(x2-x1)/2;return `<path class="on" d="M${x1} ${y1+CH/2}H${xm}V${y2+CH/2}H${x2}"/>`};
   const E=ln(0,36,1,77)+ln(0,118,1,77);
-  const W=X(2)+CW;
-  return `<div class="pbw"><div class="pbk" style="width:${W}px;height:${H}px"><svg class="pbl" width="${W}" height="${H}" aria-hidden="true">${E}</svg>${hd(0,'Semifinais · MD5')}${hd(1,'Final · MD5')}${hd(2,'Campeão',1)}${card(r.sf[0],0,36)}${card(r.sf[1],0,118)}${card(r.f,1,77,1)}<div class="pbch" style="left:${X(2)}px;top:108px;transform:translateY(-50%);width:${CW}px"><small>Campeão</small>${crest({name:r.champ},'md')}<b>${esc(r.champ)}</b></div></div></div>`;
+  const W=X(2)+CHW-20;
+  return `<div class="pbw"><div class="pbk" style="width:${W}px;height:${H}px"><svg class="pbl" width="${W}" height="${H}" aria-hidden="true">${E}</svg>${hd(0,'Semifinais · MD5')}${hd(1,'Final · MD5')}${hd(2,'Campeão',1)}${card(r.sf[0],0,36)}${card(r.sf[1],0,118)}${card(r.f,1,77,1)}<div class="pbch" style="left:${X(2)-20}px;top:108px;transform:translateY(-50%)"><small>Campeão</small>${crest({name:r.champ},'md')}<b>${esc(r.champ)}</b></div></div></div>`;
 }
 function evD2HTML(y,tag,lg){
   const d=evData(y),nm={s1:'Etapa 1',s2:'Etapa 2',s3:'Etapa 3'}[tag],ttl=`${lg} D2 · ${nm} ${y}`;
@@ -8657,7 +8657,7 @@ const DELAY={
 };
 function deBracketHTML(tour,kind){
   const sp=DESPEC[tour.de.fmt],L=DELAY[tour.de.fmt],mid=mgrT()?S.mgr.tid:null;
-  const CW=140,CH=62,GX=70,X=c=>c*(CW+GX);
+  const CW=140,CH=62,GX=70,CHW=230,X=c=>c*(CW+GX);
   const src=s=>{if(s[0]==='s')return tour.de.seeds[+s.slice(1)];const m=deM(tour,s.slice(1));return m&&m.res?(s[0]==='w'?m.res.w:loserOf(m)):null};
   const row=(id,sc,m,r)=>{
     if(id==null)return `<div class="br tba"><span class="bc"></span><span class="bn">A definir</span><b class="bs">–</b></div>`;
@@ -8672,8 +8672,8 @@ function deBracketHTML(tour,kind){
   const heads=L.heads.map(([c,y,t,k])=>`<div class="pbh ${k}" style="left:${X(c)}px;top:${y}px">${t}</div>`).join('');
   const E=L.links.map(([a,b])=>{const [c1,y1]=L.pos[a],[c2,y2]=L.pos[b],x1=X(c1)+CW,x2=X(c2),xm=x1+(x2-x1)/2,m=deM(tour,a);return `<path d="M${x1} ${y1+CH/2}H${xm}V${y2+CH/2}H${x2}"${m&&m.res?' class="on"':''}/>`}).join('');
   const lanes=L.lanes.map(([c1,y,c2,h],i)=>`<div class="pbn ${i?'b':'t'}" style="left:${X(c1)-10}px;top:${y}px;width:${X(c2)+CW-X(c1)+20}px;height:${h}px"></div>`).join('');
-  const W=X(L.pos.gf[0]+1)+CW,cw=tour.champ!=null?T(tour.champ):null;
-  const TRO={wc:'w',msi:'m',fs:'m'},champ=brChamp(cw,TRO[kind]?{k:TRO[kind]}:null,X(L.pos.gf[0]+1),L.pos.gf[1]+CH/2);
+  const W=X(L.pos.gf[0]+1)+CHW,cw=tour.champ!=null?T(tour.champ):null;
+  const TRO={wc:'w',msi:'m',fs:'m'},champ=brChamp(cw,TRO[kind]?{k:TRO[kind]}:null,X(L.pos.gf[0]+1)-20,L.pos.gf[1]+CH/2);
   return `<div class="pbw de"><div class="pbk" style="width:${W}px;height:${L.H}px"><svg class="pbl" width="${W}" height="${L.H}" aria-hidden="true">${E}</svg>${lanes}${heads}${cards}${champ}</div></div>`;
 }
 function bracketHTML(tour,kind){if(tour.de)return deBracketHTML(tour,kind);return bracketCore(tour.stages.filter(st=>!st.swiss),T,tlk,t=>crestSd(t,'sm'),id=>mgrT()&&S.mgr.tid===id)}
