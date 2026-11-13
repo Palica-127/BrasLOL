@@ -5906,6 +5906,16 @@ function pcPickNem(){
   if(!pc.nem)pc.nem=C[C.length-1].n;
   pc.fc={};pc.nemV=2;
 }
+/* marca registrada: o campeão mais pickado, com mais vitórias e que mais decidiu (finais e último mapa de série).
+   Pontos = picks + 10 x taxa de vitória (mín. 3 picks) + 2 x jogos decisivos + 3 x vitórias decisivas. Sem partidas ainda, vale o maior domínio. */
+function pcSigScore(c){const x=S.pc.cs&&S.pc.cs[c];if(!x||!x.p)return 0;return x.p+(x.p>=3?10*x.w/x.p:0)+2*x.d+3*x.dw}
+function pcSigUpdate(pl){
+  const pc=S.pc;if(!pc||!pl||!pl.length)return;
+  const sc=c=>pcSigScore(c)*100+((pl.find(x=>x.c===c)||{v:0}).v)/100;
+  let best=null;pl.forEach(x=>{if(pcSigScore(x.c)>0&&(!best||sc(x.c)>sc(best)))best=x.c});
+  if(best){if(!pc.sig||pc.sig===best||sc(best)>sc(pc.sig))pc.sig=best;return}
+  if(pl[0].v>0){const cur=pc.sig&&pl.find(x=>x.c===pc.sig);if(!cur||cur.v<pl[0].v)pc.sig=pl[0].c}
+}
 function pcEnsure(){
   const pc=S.pc;if(!pc)return;
   if(pc.nem&&pc.nemV!==2)pc.nem=null;/* nêmesis antigo (escolhido sem a regra de frequência) é refeito uma vez */
@@ -6468,9 +6478,8 @@ function vPc0(){
   h+=ptHTML();h+=pcNemHTML(f);h+=pcRetHTML(f);
   /* pool */
   const pl=CH[p.role].map(([c,a])=>({c,a,v:Math.round(mastOf(pc.n,c)*100),m:metaOf(c)})).sort((x,y)=>y.v-x.v);
-  /* marca registrada: o campeão de maior domínio (mantém o atual enquanto ninguém o ultrapassar) */
-  if(pl.length&&pl[0].v>0){const cur=pc.sig&&pl.find(x=>x.c===pc.sig);if(!cur||cur.v<pl[0].v)pc.sig=pl[0].c}
-  let poolH=`<details class="pn det" open><summary>Pool de campeões</summary><p class="note" style="margin:0 0 8px">Domínio dos campeões da função (▲ meta a favor, ▼ contra). Sobe sozinho no programa Pool do treino (+${Math.round((.03+pcFx('poolg'))*100)}% em ${5+pcFx('pooln')} campeões por semana). Quanto melhor sua pool no meta atual (${esc(metaName())}), mais forma você carrega. Borda dourada: 100% de domínio. Borda roxa brilhante: sua marca registrada.</p><div class="pgrid">${pl.map(x=>`<div class="pg${x.v>=100?' max':''}${pc.sig===x.c?' sig':''}" title="${esc(x.c)} · ${archL(x.a)}${pc.sig===x.c?' · marca registrada':''}${x.v>=100?' · domínio máximo':''}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}">${chTile(x.c)}<b class="num">${x.v}%</b>${pcBar(x.v,100)}${x.m>=.2?'<i class="mt up">▲</i>':x.m<=-.2?'<i class="mt dn">▼</i>':''}</div>`).join('')}</div></details>`;
+  pcSigUpdate(pl);
+  let poolH=`<details class="pn det" open><summary>Pool de campeões</summary><p class="note" style="margin:0 0 8px">Domínio dos campeões da função (▲ meta a favor, ▼ contra). Sobe sozinho no programa Pool do treino (+${Math.round((.03+pcFx('poolg'))*100)}% em ${5+pcFx('pooln')} campeões por semana). Quanto melhor sua pool no meta atual (${esc(metaName())}), mais forma você carrega. Borda dourada: 100% de domínio. Borda roxa brilhante: sua marca registrada, o campeão mais pickado, com mais vitórias e mais decisivo em finais e último mapa de série.</p><div class="pgrid">${pl.map(x=>`<div class="pg${x.v>=100?' max':''}${pc.sig===x.c?' sig':''}" title="${esc(x.c)} · ${archL(x.a)}${pc.sig===x.c?' · marca registrada':''}${pc.cs&&pc.cs[x.c]?` · ${pc.cs[x.c].p} jogos, ${pc.cs[x.c].w} vitórias, ${pc.cs[x.c].dw}/${pc.cs[x.c].d} decisivos`:''}${x.v>=100?' · domínio máximo':''}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}">${chTile(x.c)}<b class="num">${x.v}%</b>${pcBar(x.v,100)}${x.m>=.2?'<i class="mt up">▲</i>':x.m<=-.2?'<i class="mt dn">▼</i>':''}</div>`).join('')}</div></details>`;
   /* ofertas */
   if(pc.offers&&pc.offers.length){h+=`<section class="pn"><h2>Propostas</h2><p class="note" style="margin:0 0 8px">${pcPlayOk()?'Janela aberta: dá para assinar agora.':'Janela fechada: as propostas voltam a valer antes do próximo split.'}</p>${pc.offers.map((o,i)=>{const nt=ALLT().find(x=>x.name===o.tn);return `<div class="mrow" style="grid-template-columns:minmax(0,1fr) auto auto"><span class="who"><b>${o.ren?'Renovar com ':''}${nt?tlk(nt):esc(o.tn)}${nt&&nt.d===2?' <span class="tag">D2</span>':''}</b><small>${o.k==='T'?'Como titular':'Como reserva'} · ${o.yrs} ano${o.yrs>1?'s':''} · ${fmtM(o.sal)}/ano${o.cl==='bon'?' · bônus de título: 80% do salário por título':o.cl==='con'?' · garantia de confiança inicial (+20)':''}</small></span><button class="ghost" data-act="pcOffer" data-v="${i}"${pcPlayOk()?'':' disabled'}>${o.ren?'Renovar':'Assinar'}</button><button class="ghost" data-act="pcNo" data-v="${i}">Recusar</button></div>`}).join('')}</section>`}
   /* metas */
@@ -6745,6 +6754,11 @@ function pcMatchEnd(){
   const fm=S.season.fm,test=!!(fm&&fm.k==='pt'),cup=!!(fm&&fm.k==='cup');
   const avg=r1(LV.gr.reduce((s,x)=>s+x.rt,0)/LV.gr.length),won=LV.me>LV.op,nt=String(avg).replace('.',',');
   if(test){pc.tAvg=avg;return}
+  /* estatísticas por campeão (base da marca registrada): picks, vitórias e jogos decisivos (finais e o último mapa da série) */
+  {const ph=PHASES[S.phase],sp=S.season.sp,fin=!!((ph&&(ph.k==='m2'||ph.k==='wf'))||(sp&&(sp.stage==='fin'||sp.stage==='po'))),n=LV.m.n;
+   pc.cs=pc.cs||{};
+   LV.gr.forEach((x,i)=>{if(!x.c)return;const c=pc.cs[x.c]||(pc.cs[x.c]={p:0,w:0,d:0,dw:0});c.p++;if(x.win)c.w++;
+     if(fin||(n>=3&&LV.gr.length===n&&i===n-1)){c.d++;if(x.win)c.dw++}})}
   pc.mr=(pc.mr||[]).concat(avg).slice(-60);
   if(avg>=8.5)pcFame(1);
   pcGain(30+(won?24:0)+Math.max(0,avg-6)*12,1+pcFx('xpm'));
