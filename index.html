@@ -1968,6 +1968,12 @@ details.pn>summary{color:var(--t1)}
 @keyframes tnp2{50%{filter:drop-shadow(0 0 3px rgba(0,245,160,.35))}}
 @media (prefers-reduced-motion:reduce){.tnode.can{animation:none}}
 .pcTop{align-items:stretch}.pcSide,.pcCol{gap:16px}.pgrid{max-height:230px;overflow-y:auto;padding-right:3px;display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:6px}.pg{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 3px;border-radius:8px;background:rgba(255,255,255,.03)}.pg .ct{width:38px;height:38px;border-radius:8px}
+.nem{background:radial-gradient(120% 120% at 50% 0%,rgba(255,90,110,.10),transparent 60%),var(--s2,transparent)}
+.nvs{display:flex;align-items:center;justify-content:center;gap:clamp(10px,4vw,40px);flex-wrap:wrap;margin:6px 0 14px}
+.nsd{display:flex;flex-direction:column;align-items:center;gap:6px}.nsd small{font:700 11px var(--b);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.nmid{display:flex;flex-direction:column;align-items:center;gap:4px}.nmid>b{font:800 30px var(--d,inherit);letter-spacing:.12em;color:#ff6b7d;text-shadow:0 0 14px rgba(255,90,110,.6)}
+.nrec{display:flex;gap:6px;align-items:baseline;font-size:24px}.nrec i{font-style:normal;font-weight:800}.nrec .up{color:#00F5A0}.nrec .dn{color:#ff6b7d}.nrec em{font-style:normal;color:var(--muted)}.nmid small{font:600 10px var(--b);color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.nst{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}.nst>div{background:rgba(255,255,255,.04);border-radius:10px;padding:8px 10px}.nst small{display:block;font:600 10px var(--b);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}.nst b{font-size:17px}.nst em{font-style:normal;color:var(--muted)}.nst .up{color:#00F5A0}.nst .dn{color:#ff6b7d}
 .pg.max{box-shadow:0 0 0 2px #ffc857,0 0 10px rgba(255,200,87,.45);background:rgba(255,200,87,.07)}
 .pg.sig{box-shadow:0 0 0 2px #b46bff,0 0 14px rgba(180,107,255,.85);background:rgba(180,107,255,.10);animation:sigp 2.6s ease-in-out infinite}
 .pg.sig.max{box-shadow:0 0 0 2px #b46bff,0 0 0 4px #ffc857,0 0 16px rgba(180,107,255,.85)}
@@ -5918,8 +5924,8 @@ function pcSigUpdate(pl){
 }
 function pcEnsure(){
   const pc=S.pc;if(!pc)return;
-  if(pc.nem&&pc.nemV!==2)pc.nem=null;/* nêmesis antigo (escolhido sem a regra de frequência) é refeito uma vez */
-  if(!pc.nem&&!pc.ended&&S.teams&&S.teams.length)pcPickNem();
+  if(pc.nem&&(pc.nemV!==2||!(pc.hist||[]).length))pc.nem=null;/* nêmesis antigo (escolhido sem a regra de frequência) é refeito uma vez */
+  if(!pc.nem&&!pc.ended&&(pc.hist||[]).length&&S.teams&&S.teams.length)pcPickNem();
   const f=(pc.lv==null||pc.tr==null)?pcFind():null;
   if(pc.lv==null){pc.lv=f?clamp(Math.round((f.p.r-58)/2.2)+1,1,24):1;pc.xl=0;pc.xt=0}
   if(pc.tr==null)pc.tr=f&&f.bn?35:60;
@@ -6215,9 +6221,18 @@ function pcTourStart(){const pc=S.pc,f=pcFind();if(!pc||pc.ended||!f||f.p.age<30
 function pcTourCancel(){const pc=S.pc;if(!pc||!pc.tour)return;pc.tour=null;pcLog('desiste da turnê e continua jogando.');msg='Você decidiu continuar jogando.'}
 let pcRetAsk=false;
 function pcNemHTML(f){
-  const pc=S.pc;if(!pc.nem)return '';
-  const P=pzFind(pc.nem),h=pc.nemH||{w:0,l:0};
-  return `<section class="pn"><h2>Nêmesis</h2><p class="note" style="margin:0">Seu rival da temporada é ${lk(pc.nem)}${P?` (${esc(P.t.name)}, OVR ${P.p.r})`:''}. Termine o ano com nota melhor que a dele para ganhar fama. Histórico: ${h.w} vitória${h.w===1?'':'s'} x ${h.l} derrota${h.l===1?'':'s'}.</p></section>`;
+  const pc=S.pc;if(!pc.nem||!(pc.hist||[]).length)return '';
+  const P=pzFind(pc.nem);if(!P)return '';
+  const h=pc.nemH||{w:0,l:0},me=f.p,mt=f.t;
+  const pf=n=>{const o=S.season.perf&&S.season.perf[n];return o&&o.w?r1(o.s/o.w):null},a=pf(me.n),b=pf(pc.nem);
+  const d=me.r-P.p.r,lead=a!=null&&b!=null?(a>b?'up':a<b?'dn':''):'';
+  const tx=a!=null&&b!=null?(a>b?'Você está à frente nesta temporada':a<b?'Ele está à frente nesta temporada':'Empatados nesta temporada'):'Temporada em andamento';
+  return `<section class="pn nem"><h2>Nêmesis</h2>
+  <div class="nvs"><div class="nsd">${fut({n:me.n,r:me.r,role:me.role,age:me.age,f:me.f,team:mt})}<small>Você</small></div>
+  <div class="nmid"><b>VS</b><span class="nrec num"><i class="up">${h.w}</i><em>–</em><i class="dn">${h.l}</i></span><small>duelos vencidos</small></div>
+  <div class="nsd">${fut({n:P.p.n,r:P.p.r,role:P.p.role,age:P.p.age,f:P.p.f,team:P.t})}<small>${esc(P.t.name)}</small></div></div>
+  <div class="nst"><div><small>Diferença de OVR</small><b class="num ${d>=0?'up':'dn'}">${d>=0?'+':''}${d}</b></div><div><small>Nota na temporada</small><b class="num ${lead}">${a!=null?String(a).replace('.',','):'–'} <em>x</em> ${b!=null?String(b).replace('.',','):'–'}</b></div><div><small>Prêmio</small><b>+3 de fama</b></div></div>
+  <p class="note" style="margin:10px 0 0">${tx}. Termine o ano com nota melhor que a dele para ganhar fama. O rival é escolhido entre quem você mais enfrenta, com peso maior para MSI e Mundial.</p></section>`;
 }
 const pzFind=n=>{for(const t of S.teams.concat(S.d2||[])){const p=t.pl.find(x=>x.n===n);if(p)return{p,t}}return null};
 function pcRetHTML(f){
