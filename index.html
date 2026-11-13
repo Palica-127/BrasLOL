@@ -1999,6 +1999,7 @@ details.pn>summary{color:var(--t1)}
 <script>
 const SLOTK=['lol-bola-de-ouro-v6','lol-bola-de-ouro-v6-s2','lol-bola-de-ouro-v6-s3'];
 let SLOT=0;try{SLOT=Math.min(2,Math.max(0,+localStorage.getItem('lol-slot')||0))}catch(e){}
+try{document.documentElement.lang='pt-BR'}catch(e){}
 let KEY=SLOTK[SLOT];
 const LGS=['LCK','LPL','LEC','LCS','LCP','CBLOL'];
 const SLOTS={LCK:4,LPL:4,LEC:3,LCS:2,LCP:2,CBLOL:1};
@@ -2806,8 +2807,10 @@ function genFA(){
   return out;
 }
 function mgrStart(tid){
-  const t=T(tid);
-  S.mgr={tid,cash:t.d===2?6:12,sat:65,goal:goalFor(t),since:S.year,hist:[],log:[`Contratado pelo ${t.name} em ${S.year}.`],fa:genFA(),fired:false,acLv:1,ct:0,bench:[],loan:[],offers:[]};S.mgr.fa=genFA();mEnsure();
+  const t=T(tid),old=S.mgr;
+  /* legado do técnico: demissão/troca de clube não apaga a história; os passos anteriores ficam em m.past */
+  const past=old?(old.past||[]).concat(old.hist&&old.hist.length?[{tn:old.tn||'Clube anterior',from:old.since,to:old.hist[old.hist.length-1].y,hist:old.hist,fired:!!old.fired}]:[]):[];
+  S.mgr={past,tn:t.name,rep:old&&old.rep!=null?old.rep:undefined,tid,cash:t.d===2?6:12,sat:65,goal:goalFor(t),since:S.year,hist:[],log:[`Contratado pelo ${t.name} em ${S.year}.`],fa:genFA(),fired:false,acLv:1,ct:0,bench:[],loan:[],offers:[]};S.mgr.fa=genFA();mEnsure();
 }
 function mgrSeasonEnd(){
   const m=S.mgr,t=mgrT();if(!m||!t)return;
@@ -2995,7 +2998,7 @@ function mgrSell(name,price,buyerId){
   buyer.pl[p.role]=p;pd(p.n).role=p.role;
   m.fa.push({...out,f:0,d:0});m.fa=m.fa.slice(-16);
   m.cash=r1(m.cash+price);if(p.home&&price>=10)m.homeSale=true;
-  m.offers=m.offers.filter(o=>o.n!==name);if(m.listed)delete m.listed[name];
+  m.offers=m.offers.filter(o=>o.n!==name);if(m.listed)delete m.listed[name];if(m.tp)delete m.tp[name];
   mlog(`${S.year}: vendeu ${p.n} (OVR ${p.r}) ao ${buyer.name} por ${fmtM(price)}${f.k==='pl'?`; ${rp.n} assume a vaga`:''}.`);
   msg=`${p.n} foi vendido ao ${buyer.name} por ${fmtM(price)}.`;
   return true;
@@ -5844,8 +5847,14 @@ function pcPerkSt(x){
   return (pc.tp||0)>=x.c?'can':'cost';
 }
 const PTRN={l:{n:'Leve',d:'Poupa energia; XP baixo.',xp:32,en:10,fx:9,tr:.4},n:{n:'Normal',d:'Equilíbrio entre XP e desgaste.',xp:57,en:22,fx:16,tr:1.1},i:{n:'Intenso',d:'Muito XP e a melhor impressão no técnico, mas cansa.',xp:92,en:38,fx:30,tr:1.8},p:{n:'Pool',d:'Treina 5 campeões aleatórios da sua função que ainda não estão em 100% (+3% cada, mais com a árvore). XP baixo.',xp:25,en:20,fx:0,tr:.7},d:{n:'Folga',d:'Recupera bastante energia; quase sem XP.',xp:9,en:-25,fx:0,tr:0}};
+function pcPickNem(){
+  const pc=S.pc,f=pcFind();if(!pc||!f||pc.ended)return;
+  const c=S.teams.filter(t=>t!==f.t).map(t=>t.pl[f.p.role]).filter(Boolean).sort((a,b)=>b.r-a.r).slice(0,4);
+  if(c.length)pc.nem=pick(c).n;
+}
 function pcEnsure(){
   const pc=S.pc;if(!pc)return;
+  if(!pc.nem&&!pc.ended&&S.teams&&S.teams.length)pcPickNem();
   const f=(pc.lv==null||pc.tr==null)?pcFind():null;
   if(pc.lv==null){pc.lv=f?clamp(Math.round((f.p.r-58)/2.2)+1,1,24):1;pc.xl=0;pc.xt=0}
   if(pc.tr==null)pc.tr=f&&f.bn?35:60;
@@ -6059,6 +6068,8 @@ function pcYear(){
     if(pc.mr&&pc.mr.length){const ma=pc.mr.reduce((a,b)=>a+b,0)/pc.mr.length;rating=clamp(r1(.5*rating+.5*ma),3,10)}
   }
   if(rating!=null&&pcFx('rts'))rating=clamp(r1(rating+pcFx('rts')),3,10);
+  /* nêmesis: o melhor da sua função em outro time; superá-lo na nota da temporada rende fama */
+  if(pc.nem){const no=S.season.perf[pc.nem];if(o&&no&&no.w&&o.w){const me=o.s/o.w,he=no.s/no.w;pc.nemH=pc.nemH||{w:0,l:0};if(me>he){pc.nemH.w++;pcFame(3);pcLog(`supera o nêmesis ${pc.nem} na temporada (${r1(me)} x ${r1(he)}).`)}else{pc.nemH.l++;pcLog(`perde para o nêmesis ${pc.nem} na temporada (${r1(me)} x ${r1(he)}).`)}}pc.nem=null}
   pc.mr=[];
   const trophies=(a.lg||[]).length+(a.msi==='C'?1:0)+(a.wc==='C'?2:0);
   {const dF=(rating!=null?(rating-6)*3:-1)+trophies*4+(ix>=0?5:0);pcFame(dF)}
@@ -6077,6 +6088,37 @@ function pcYear(){
   }
   /* renovação automática do contrato */
   if(pc.ctr<=0){pc.ctr=1;pcLog('contrato renovado por mais um ano nas mesmas condições.')}
+}
+/* ---------- conquistas globais (valem para todos os slots e modos; guardadas à parte) ---------- */
+const CONQ=[
+ ['t1','Primeira temporada','Feche a primeira temporada de um jogo.',()=>S.hist.length>=1],
+ ['t10','Dez anos de LoL','Feche 10 temporadas em um mesmo jogo.',()=>S.hist.length>=10],
+ ['pl50','Em ascensão','Chegue ao nível 50 no modo Jogador.',()=>S.pc&&S.pc.lv>=50],
+ ['pl100','Nível máximo','Chegue ao nível 100 no modo Jogador.',()=>S.pc&&S.pc.lv>=100],
+ ['pk20','Especialista','Aprenda 20 habilidades na árvore.',()=>S.pc&&Object.keys(S.pc.perks||{}).length>=20],
+ ['fm80','Ídolo','Chegue a 80 de fama.',()=>S.pc&&S.pc.fame>=80],
+ ['tour','Adeus aos palcos','Faça a turnê de despedida.',()=>S.pc&&S.pc.tourDone],
+ ['leg','Lenda viva','Encerre uma carreira com legado Lenda ou superior.',()=>S.pc&&S.pc.leg&&S.pc.leg.v>=90],
+ ['nem','Caçador de nêmesis','Supere seu nêmesis 3 vezes.',()=>S.pc&&S.pc.nemH&&S.pc.nemH.w>=3],
+ ['mgwc','Técnico campeão','Seja campeão do Mundial como técnico.',()=>S.mgr&&((S.mgr.past||[]).flatMap(x=>x.hist).concat(S.mgr.hist||[])).some(x=>x.wc==='C')],
+ ['mg3','Cumpridor de metas','Cumpra 3 metas da diretoria.',()=>S.mgr&&((S.mgr.past||[]).flatMap(x=>x.hist).concat(S.mgr.hist||[])).filter(x=>x.ach>=x.goal).length>=3],
+ ['fired','Aprendendo com o erro','Seja demitido pela diretoria e volte a treinar.',()=>S.mgr&&(S.mgr.past||[]).some(x=>x.fired)],
+ ['riv','Clássico eterno','Veja uma rivalidade chegar a 4 jogos equilibrados.',()=>Object.values(S.rv||{}).some(r=>r&&r.n>=4&&Math.abs(Object.values(r.w).reduce((a,b)=>a-b,0))<=2&&Object.keys(r.w).length>=2)]
+];
+const CQK='lol-conq';
+function conqLoad(){try{return JSON.parse(localStorage.getItem(CQK))||{}}catch(e){return{}}}
+function conqCheck(){
+  let got=null;
+  try{
+    if(!S)return;
+    const u=conqLoad();
+    CONQ.forEach(([id,n,d,fn])=>{if(!u[id]){let ok=false;try{ok=!!fn()}catch(e){}if(ok){u[id]=S.year;got=n}}});
+    if(got){localStorage.setItem(CQK,JSON.stringify(u));msg='🏆 Conquista desbloqueada: '+got+'.'}
+  }catch(e){}
+}
+function conqHTML(){
+  const u=conqLoad(),n=CONQ.filter(x=>u[x[0]]).length;
+  return `<section class="pn"><h2>Conquistas</h2><p class="note" style="margin:0 0 8px">${n} de ${CONQ.length} desbloqueadas. Valem para todos os salvamentos e modos.</p>${CONQ.map(([id,t,d])=>`<div class="pl"><span class="nm2">${u[id]?'🏆':'🔒'} <b>${esc(t)}</b><small style="display:block;color:var(--muted)">${esc(d)}</small></span><span class="tag" style="margin:0">${u[id]?u[id]:'bloqueada'}</span></div>`).join('')}</section>`;
 }
 /* legado: resumo da carreira inteira (fama, títulos, prêmios, metas) */
 function pcLegacy(pc){
@@ -6097,6 +6139,12 @@ function pcRetireNow(tour){
 function pcTourStart(){const pc=S.pc,f=pcFind();if(!pc||pc.ended||!f||f.p.age<30||pc.tour)return;pc.tour=S.year;pcLog('anuncia a turnê de despedida: esta será a última temporada.');msg='Turnê anunciada: sua fama cresce mais nesta temporada e a carreira termina no fim dela.'}
 function pcTourCancel(){const pc=S.pc;if(!pc||!pc.tour)return;pc.tour=null;pcLog('desiste da turnê e continua jogando.');msg='Você decidiu continuar jogando.'}
 let pcRetAsk=false;
+function pcNemHTML(f){
+  const pc=S.pc;if(!pc.nem)return '';
+  const P=pzFind(pc.nem),h=pc.nemH||{w:0,l:0};
+  return `<section class="pn"><h2>Nêmesis</h2><p class="note" style="margin:0">Seu rival da temporada é ${lk(pc.nem)}${P?` (${esc(P.t.name)}, OVR ${P.p.r})`:''}. Termine o ano com nota melhor que a dele para ganhar fama. Histórico: ${h.w} vitória${h.w===1?'':'s'} x ${h.l} derrota${h.l===1?'':'s'}.</p></section>`;
+}
+const pzFind=n=>{for(const t of S.teams){const p=t.pl.find(x=>x.n===n);if(p)return{p,t}}return null};
 function pcRetHTML(f){
   const pc=S.pc,p=f.p;if(p.age<30&&!pc.tour)return '';
   if(pc.tour)return `<section class="pn"><h2>Turnê de despedida</h2><p class="note" style="margin:0 0 10px">Esta é a sua última temporada. A fama cresce 40% mais rápido e a carreira termina no fim dela, com bônus de legado.</p><div class="row" style="margin:0"><button class="ghost" data-act="pcTourX">Desistir e continuar jogando</button></div></section>`;
@@ -6351,7 +6399,7 @@ function vPc0(){
   <div class="cab"><div><b class="num">${pc.fame}</b><small>Fama</small></div><div><b class="num" style="font-size:22px">${fmtM(pc.cash).replace('US$ ','')}</b><small>Patrimônio (US$)</small></div><div><b class="num" style="font-size:20px">${p.pot>=92?"Lendário":p.pot>=88?"Elite":p.pot>=84?"Alto":"Médio"}</b><small>Olheiros: potencial</small></div></div></section><div class="pcSide">${pcLvHTML()}${pcTrustHTML(f)}</div></div>`;
   /* evento */
   if(pc.ev){const e=PEV[pc.ev];h+=`<section class="pn"><h2>Evento</h2><p class="note" style="margin:0 0 10px">${esc(e.t)}</p><div class="row" style="margin:0">${e.o.map(([l,k])=>`<button class="ghost" data-act="pcEv" data-v="${k}">${l}</button>`).join('')}</div></section>`}
-  h+=ptHTML();h+=pcRetHTML(f);
+  h+=ptHTML();h+=pcNemHTML(f);h+=pcRetHTML(f);
   /* pool */
   const pl=CH[p.role].map(([c,a])=>({c,a,v:Math.round(mastOf(pc.n,c)*100),m:metaOf(c)})).sort((x,y)=>y.v-x.v);
   let poolH=`<details class="pn det" open><summary>Pool de campeões</summary><p class="note" style="margin:0 0 8px">Domínio dos campeões da função (▲ meta a favor, ▼ contra). Sobe sozinho no programa Pool do treino (+${Math.round((.03+pcFx('poolg'))*100)}% em ${5+pcFx('pooln')} campeões por semana). Quanto melhor sua pool no meta atual (${esc(metaName())}), mais forma você carrega.</p><div class="pgrid">${pl.map(x=>`<div class="pg" title="${esc(x.c)} · ${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}">${chTile(x.c)}<b class="num">${x.v}%</b>${pcBar(x.v,100)}${x.m>=.2?'<i class="mt up">▲</i>':x.m<=-.2?'<i class="mt dn">▼</i>':''}</div>`).join('')}</div></details>`;
@@ -6785,9 +6833,15 @@ function mlistHTML(){
   if(!rows.length)return '<p class="empty">Nenhum jogador encontrado.</p>';
   return rows.map(({p,x})=>{const c=canBuy(p,x);return `<div class="mrow">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${esc(x.name)} · ${p.age} anos</small></span>${S.mgr.cheat?`<button class="buy" data-act="mgrBuy" data-v="${esc(p.n)}"${c.ok?'':' disabled'}>Contratar</button>`:`<button class="buy" data-act="mgrNeg" data-v="${esc(p.n)}"${c.ok?'':' disabled'}>${c.ok?(NG===p.n?'Fechar':'Propor'):c.why}</button>`}</div>${NG===p.n&&c.ok?bidsHTML(p,c):''}`}).join('');
 }
+function coachLegHTML(m){
+  const st=(m.past||[]).concat(m.hist&&m.hist.length?[{tn:m.tn||(mgrT()&&mgrT().name)||'Clube atual',from:m.since,to:m.hist[m.hist.length-1].y,hist:m.hist,now:!m.fired}]:[]);
+  if(!st.length)return '';
+  const all=st.flatMap(x=>x.hist),ti=all.filter(x=>x.wc==='C').length,go=all.filter(x=>x.ach>=x.goal).length;
+  return `<section class="pn"><h2>Legado como técnico</h2><p class="note" style="margin:0 0 8px">${all.length} temporada${all.length===1?'':'s'} · ${ti} Mundial${ti===1?'':'is'} · ${go} meta${go===1?'':'s'} cumprida${go===1?'':'s'} · reputação ${m.rep==null?50:Math.round(m.rep)}</p>${st.map(x=>`<div class="pl"><span class="nm2">${esc(x.tn)}</span><span class="tag" style="margin:0">${x.from}–${x.to} · ${x.hist.length} temp.${x.fired?' · demitido':''}</span></div>`).join('')}</section>`;
+}
 function logHTML(m){
-  if(!m.log.length)return '';
-  return `<section class="pn"><h2>Diário</h2><ul class="lines">${m.log.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section>`;
+  if(!m.log.length&&!(m.past&&m.past.length))return coachLegHTML(m);
+  return coachLegHTML(m)+`<section class="pn"><h2>Diário</h2><ul class="lines">${m.log.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section>`;
 }
 
 
@@ -8287,7 +8341,7 @@ const mav=n=>`<span class="mavr">${phHas(n)?phImg(n):AVA}</span>`;
 const rkRow=(i,n,sub,tt,pt,sf)=>`<button class="rkr${i<3?' top'+(i+1):''}" data-act="player" data-v="${esc(n)}"><span class="rk num">${i+1}</span><span class="rav">${phHas(n)?phImg(n):AVA}</span><span class="rnm"><b>${esc(n)}</b><small>${sub}</small></span><span class="rtt">${tt||''}</span><span class="rpt num">${pt}${sf?`<small>${sf}</small>`:''}</span></button>`;
 function vHof(){
   const PM=pmap();
-  let h=`<div class="pills stk">${[['rank','Ranking'],['wc','Mundial'],['msi','MSI'],['teams','Times'],['cl','Clássicos'],['nat','Seleções'],['players','Jogadores']].map(([k,l])=>`<button class="pill" aria-pressed="${hofView===k}" data-act="hv" data-v="${k}">${l}</button>`).join('')}</div>`;
+  let h=`<div class="pills stk">${[['rank','Ranking'],['wc','Mundial'],['msi','MSI'],['teams','Times'],['cl','Clássicos'],['cq','Conquistas'],['nat','Seleções'],['players','Jogadores']].map(([k,l])=>`<button class="pill" aria-pressed="${hofView===k}" data-act="hv" data-v="${k}">${l}</button>`).join('')}</div>`;
   if(hofView==='rank'){
     const r=hofRank().slice(0,10);
     const info=n=>{
@@ -8308,6 +8362,8 @@ function vHof(){
     h+=cupHistHTML(hofView);
   }else if(hofView==='nat'){
     h+=natRankHTML();
+  }else if(hofView==='cq'){
+    h+=conqHTML();
   }else if(hofView==='cl'){
     const rv=Object.entries(S.rv||{}).filter(([k,r])=>r&&r.n>=2).map(([k,r])=>{const [a,b]=k.split('|'),x=r.w[a]||0,y=r.w[b]||0;return{a,b,n:r.n,x,y,eq:Math.abs(x-y)}}).sort((p,q)=>(q.n-q.eq*1.5)-(p.n-p.eq*1.5)).slice(0,12);
     const tm=nm=>S.teams.find(t=>t.name===nm);
@@ -8739,7 +8795,7 @@ function vSet(){
   <textarea id="t-hof" aria-label="Ranking histórico">${esc(dHof)}</textarea><div class="row" style="margin:10px 0 0"><button class="ghost" data-act="applyHof">Aplicar ranking</button></div></div>
   <div class="sset"><h3>Backup do progresso</h3><p class="note" style="margin:0 0 8px">O progresso fica salvo neste navegador. Para levar para outro aparelho, gere o backup e cole lá.</p>
   <textarea id="t-bk" aria-label="Backup" placeholder="Cole aqui um backup para carregar">${esc(dBackup)}</textarea>
-  <div class="row" style="margin:10px 0 0"><button class="ghost" data-act="copy">Gerar e copiar backup</button><button class="ghost" data-act="loadBk">Carregar backup</button></div><div class="row" style="margin:10px 0 0"><label class="ghost" style="cursor:pointer">Carregar de arquivo<input id="bk-file" type="file" accept=".json,text/plain" style="display:none"></label></div></div>
+  <div class="row" style="margin:10px 0 0"><button class="ghost" data-act="copy">Gerar e copiar backup</button><button class="ghost" data-act="dlBk">Baixar arquivo</button><button class="ghost" data-act="loadBk">Carregar backup</button></div><div class="row" style="margin:10px 0 0"><label class="ghost" style="cursor:pointer">Carregar de arquivo<input id="bk-file" type="file" accept=".json,text/plain" style="display:none"></label></div></div>
   <div class="sset"><h3>Recomeçar</h3><p class="note" style="margin:0 0 10px">Apaga o que foi simulado e volta ao Mundial 2026 no ponto real: Suíço encerrado e quartas de final prestes a começar (TES×IG, Gen.G×LYON, DK×BLG, T1×KC).</p>
   ${askReset?`<div class="row" style="margin:0"><button class="ghost danger" data-act="resetOk">Confirmar e apagar tudo</button><button class="ghost" data-act="resetNo">Cancelar</button></div>`:`<button class="ghost" data-act="reset">Reiniciar simulador</button>`}</div>`:''}</section></div></div></div>`;
 }
@@ -8794,7 +8850,7 @@ function render(){
 
 /* ---------- ações ---------- */
 function act(a,v){
-  try{act0(a,v)}catch(e){
+  try{act0(a,v);conqCheck()}catch(e){
     console.error(e);
     /* erro inesperado: volta ao último estado salvo em vez de deixar o jogo travado/corrompido */
     try{const o=load();if(o){S=o;fixLPL();fixRoster();fixNatFix();ensureD2();fixNat();if(S.pc&&S.pc.sw)ptSwapOut()}}catch(e2){}
@@ -8858,6 +8914,9 @@ function act0(a,v){
     });
     if(Object.keys(nh).length){S.hof=nh;S.mv={};dHof=null;msg='Ranking histórico atualizado.';save()}
     else msg='Nenhuma linha válida. Use o formato Nome,pontos.';
+  }
+  else if(a==='dlBk'){
+    try{const b=new Blob([JSON.stringify(S)],{type:'application/json'}),u=URL.createObjectURL(b),l=document.createElement('a');l.href=u;l.download='braslol-backup-'+S.year+'.json';document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);msg='Arquivo de backup baixado.'}catch(e){msg='Não foi possível baixar o arquivo.'}
   }
   else if(a==='copy'){
     dBackup=JSON.stringify(S);msg='Backup gerado abaixo.';
