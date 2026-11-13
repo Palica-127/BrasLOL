@@ -2302,6 +2302,25 @@ details.pn>summary{color:var(--t1)}
 .pbch b{font-size:16px}.pbch b.q{font-size:30px;color:rgba(255,200,87,.5)}
 .pbch.ph .ti{opacity:.3;filter:grayscale(1)}.pbch.ph small{opacity:.6}
 .pbc.fin{animation:none}.pbc.fin .bm2{box-shadow:inset 0 0 0 1px rgba(255,200,87,.7),0 0 30px rgba(255,200,87,.3)}
+
+/* partidas: cartão minimalista (nome, placar e uma barra fina de chances) */
+.m.mx{background:rgba(255,255,255,.03);border:0;border-radius:12px;padding:12px 16px 10px;margin-bottom:8px;box-shadow:none}
+.m.mx.mine{box-shadow:inset 0 0 0 1px rgba(41,217,230,.5)}
+.m.mx .mxr{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:14px}
+.mxt{display:flex;align-items:center;gap:10px;min-width:0;font:600 15px var(--b);color:rgba(255,255,255,.92)}
+.mxt.b{flex-direction:row-reverse;text-align:right}
+.mxn{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mx .lk{border:0!important;box-shadow:none!important;text-decoration:none!important;font:inherit;text-transform:none;letter-spacing:0;color:inherit}
+.mxp{font:600 12px var(--d);font-style:normal;color:rgba(255,255,255,.4);margin-left:auto}.mxt.b .mxp{margin-left:0;margin-right:auto}
+.mxs{min-width:56px;text-align:center;font:800 22px var(--d);color:#fff}.mxs i{opacity:.4;font-style:normal;margin:0 3px}
+.mxs.vs{font:700 11px var(--d);letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.mxt.win .mxn{font-weight:800;color:#fff}.mxt.lose{opacity:.45}
+.mxb{height:3px;border-radius:2px;background:rgba(224,71,91,.6);margin:10px 0 7px;overflow:hidden}.mxb i{display:block;height:100%;background:#4d8dff}
+.mxl{text-align:center;font:600 10px var(--d);letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.36)}
+.mx .zb{top:8px;right:12px;border-radius:6px;font-size:9px;padding:1px 6px}
+@media (max-width:520px){.m.mx{padding:10px 12px 8px}.mxt{font-size:13px;gap:7px}.mxs{font-size:18px;min-width:44px}.m.mx .mxr{gap:8px}}
+.mxs,.mxp,.mxt{line-height:1}.mxs.vs{padding-top:0}.mxt .mxn{line-height:1.2}
+.pbch .ti{width:34px!important;height:48px!important}.pbch b{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pbch{width:168px}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -2835,7 +2854,8 @@ function poMake(po,r){
 /* guarda só o necessário para desenhar o bracket depois (resultados anteriores) */
 function poSer(po){const o={s:po.s,pk:po.pk,pm:{}};Object.keys(po.pm).forEach(k=>{const m=po.pm[k];o.pm[k]={a:m.a,b:m.b,n:m.n,res:m.res?{wa:m.res.wa,wb:m.res.wb,w:m.res.w}:null}});return o}
 const poRows=['q1','q2','s1','s2','wf','l1','l2','ls','lf','gf'];
-const brChamp=(t,tro,x,y,ph)=>`<div class="pbch${t?'':' ph'}" style="left:${x}px;top:${y}px">${tro?troSvg(tro.k,tro.lg):''}<small>Campeão</small>${t?`${crestSd(t,'md')}<b>${esc(t.name)}</b>`:'<b class="q">?</b>'}</div>`;
+/* o bloco do campeão cresce de baixo para cima, sempre acima do cabeçalho da grande final (hy), sem sobrepor */
+const brChamp=(t,tro,x,hy,H,side)=>`<div class="pbch${t?'':' ph'}" style="left:${x}px;${side?`top:${hy}px`:`bottom:${H-hy+10}px`}">${tro?troSvg(tro.k,tro.lg):''}<small>Campeão</small>${t?`${crestSd(t,'sm')}<b>${esc(t.name)}</b>`:'<b class="q">?</b>'}</div>`;
 function poBracketHTML(po,live,lg){
   if(!po)return '';
   const pm=po.pm,mid=myTid(),Wn=m=>m&&m.res?m.res.w:null,Ln=m=>m&&m.res?(m.res.w===m.a?m.b:m.a):null;
@@ -2845,7 +2865,7 @@ function poBracketHTML(po,live,lg){
     const t=T(id),r=m&&m.res,w=r&&r.w===id,sc=r?(id===m.a?r.wa:r.wb):'0';
     return `<div class="br${r?(w?' w':' l'):''}${id===mid?' me':''}">${crest(t,'sm')}<span class="bn">${tlk(t)}</span><b class="bs num">${sc}</b></div>`;
   };
-  const pos={q1:[0,36],q2:[0,118],s1:[1,36],s2:[1,118],wf:[2,77],l1:[2,246],l2:[2,328],ls:[3,287],lf:[4,287],gf:[5,182]};
+  const pos={q1:[0,36],q2:[0,118],s1:[1,36],s2:[1,118],wf:[2,77],l1:[1,246],l2:[1,328],ls:[2,287],lf:[3,287],gf:[4,182]};
   const card=(k,a,b,ta,tb)=>{const m=pm[k],A=m?m.a:a,B=m?m.b:b,[c,y]=pos[k];
     return `<div class="pbc${m&&!m.res?' pend':''}${k==='gf'?' fin':''}" style="left:${X(c)}px;top:${y}px"><div class="bm2">${row(A,m,ta)}${row(B,m,tb)}</div></div>`};
   const hd=(c,y,t,g)=>`<div class="pbh${g?' g':y>100?' lo':' wi'}" style="left:${X(c)}px;top:${y}px">${t}</div>`;
@@ -2858,14 +2878,14 @@ function poBracketHTML(po,live,lg){
     card('lf',Wn(pm.ls),Ln(pm.wf),'Vencedor da semifinal','Perdedor da final Winner'),
     card('gf',Wn(pm.wf),Wn(pm.lf),'Campeão da Winner','Campeão da Loser')].join('');
   const heads=hd(0,0,'Winner · Quartas')+hd(1,0,'Winner · Semifinais')+hd(2,0,'Winner · Final')
-    +hd(2,210,'Loser · Rodada 1')+hd(3,210,'Loser · Semifinal')+hd(4,210,'Loser · Final')+hd(5,148,'Grande final',1);
+    +hd(1,210,'Loser · Rodada 1')+hd(2,210,'Loser · Semifinal')+hd(3,210,'Loser · Final')+hd(4,148,'Grande final',1);
   /* conectores */
   const E=[];const ln=(a,b,d)=>{const [c1,y1]=pos[a],[c2,y2]=pos[b],x1=X(c1)+CW,x2=X(c2),xm=x1+(x2-x1)/2,ya=y1+CH/2,yb=y2+CH/2,on=pm[a]&&pm[a].res;E.push(`<path d="M${x1} ${ya}H${xm}V${yb}H${x2}"${on?' class="on"':''}/>`)};
   [['q1'],['q2']].forEach(([q])=>{const w=Wn(pm[q]);if(w==null||!pm.s1)return;ln(q,(pm.s1.a===w||pm.s1.b===w)?'s1':'s2')});
   ln('s1','wf');ln('s2','wf');ln('wf','gf');ln('l1','ls');ln('l2','ls');ln('ls','lf');ln('lf','gf');
-  const lanes=`<div class="pbn t" style="left:${X(0)-10}px;top:-8px;width:${X(2)+CW+20}px;height:206px"></div><div class="pbn b" style="left:${X(2)-10}px;top:202px;width:${X(4)+CW-X(2)+20}px;height:200px"></div>`;
+  const lanes=`<div class="pbn t" style="left:${X(0)-10}px;top:-8px;width:${X(2)+CW+20}px;height:206px"></div><div class="pbn b" style="left:${X(1)-10}px;top:202px;width:${X(3)+CW-X(1)+20}px;height:200px"></div>`;
   const gm=pm.gf,gw=gm&&gm.res?T(gm.res.w):null;
-  const champ=brChamp(gw,{k:'l',lg:lg||''},X(5),2);
+  const champ=brChamp(gw,{k:'l',lg:lg||''},X(5),150,410,1);
   return `<div class="pbw"><div class="pbk" style="width:${X(5)+CW}px;height:410px"><svg class="pbl" width="${X(5)+CW}" height="410" aria-hidden="true">${E.join('')}</svg>${lanes}${heads}${cards}${champ}</div></div>`;
 }
 function closeLeague(lg,tag,st,po){
@@ -8601,11 +8621,12 @@ function matchHTML(m,i,fx){
   const aw=r&&r.w===m.a,bw=r&&r.w===m.b;
   const up=r&&((aw&&m.pa<.3)||(bw&&m.pa>.7));
   const pnT=m.pn&&r&&m.pn.dr?`draft ${m.pn.raw>0?'favoreceu você':m.pn.raw<0?'favoreceu o rival':'equilibrado'} (${(Math.abs(m.pn.raw)*100).toFixed(1).replace('.',',')}%) · `:m.pn&&r?(m.pn.raw>0?`seu plano ${planName(m.pn.me)} venceu ${planName(m.pn.op)} · `:m.pn.raw<0?`${planName(m.pn.op)} do rival superou seu ${planName(m.pn.me)} · `:`planos iguais (${planName(m.pn.me)}) · `):'';
-  const rvt=rvTxt(A,B),lab=(m.cl?'Clássico · ':'')+(rvt?rvt+' · ':'')+pnT+(m.real?'Resultado real · ':'')+(m.sw?m.sw+' · ':'')+(m.n===1?'Jogo único':'MD'+m.n+' · '+Math.round(m.qa*100)+'% por jogo');
-  return `<div class="m${fx?' fx':''}${mgrT()&&(m.a===S.mgr.tid||m.b===S.mgr.tid)?' mine':''}" style="--i:${i}">${up?'<span class="zb">Zebra</span>':''}
-  <div class="mt"><span class="tn ${r?(aw?'win':'lose'):''}">${crestSd(A,'sm')}${tlk(A)}</span><span class="sc num">${r?`${r.wa}<i>–</i>${r.wb}`:'<em>VS</em>'}</span><span class="tn b ${r?(bw?'win':'lose'):''}">${crestSd(B,'sm')}${tlk(B)}</span></div>
-  <div class="od"><i style="width:${pa}%"></i><i class="o2" style="width:${pb}%"></i></div>
-  <div class="ol"><b class="num">${pa}%</b><span>${lab} · ${m.d>=0?'+':''}${m.d.toFixed(1)} OVR</span><b class="num">${pb}%</b></div></div>`;
+  const rvt=rvTxt(A,B),lab=(m.cl?'Clássico · ':'')+(rvt?rvt+' · ':'')+pnT+(m.real?'Resultado real · ':'')+(m.sw?m.sw+' · ':'')+(m.n===1?'Jogo único':'MD'+m.n);
+  const tip=`${pa}% x ${pb}% · ${m.n===1?'jogo único':Math.round(m.qa*100)+'% por jogo'} · ${m.d>=0?'+':''}${m.d.toFixed(1)} OVR`;
+  return `<div class="m mx${fx?' fx':''}${mgrT()&&(m.a===S.mgr.tid||m.b===S.mgr.tid)?' mine':''}" style="--i:${i}" title="${tip}">${up?'<span class="zb">Zebra</span>':''}
+  <div class="mxr"><span class="mxt ${r?(aw?'win':'lose'):''}">${crestSd(A,'sm')}<span class="mxn">${tlk(A)}</span><i class="mxp">${pa}%</i></span><span class="mxs num${r?'':' vs'}">${r?`${r.wa}<i>–</i>${r.wb}`:'vs'}</span><span class="mxt b ${r?(bw?'win':'lose'):''}">${crestSd(B,'sm')}<span class="mxn">${tlk(B)}</span><i class="mxp">${pb}%</i></span></div>
+  <div class="mxb"><i style="width:${pa}%"></i></div>
+  <div class="mxl">${lab.replace(/ · $/,'')}</div></div>`;
 }
 function swissHTML(tour){
   const rows=[...tour.teams].sort((a,b)=>{const x=tour.rec[a],y=tour.rec[b];return y.w-x.w||x.l-y.l||eff(T(b))-eff(T(a))});
@@ -8643,7 +8664,7 @@ function deBracketHTML(tour,kind){
   const E=L.links.map(([a,b])=>{const [c1,y1]=L.pos[a],[c2,y2]=L.pos[b],x1=X(c1)+CW,x2=X(c2),xm=x1+(x2-x1)/2,m=deM(tour,a);return `<path d="M${x1} ${y1+CH/2}H${xm}V${y2+CH/2}H${x2}"${m&&m.res?' class="on"':''}/>`}).join('');
   const lanes=L.lanes.map(([c1,y,c2,h],i)=>`<div class="pbn ${i?'b':'t'}" style="left:${X(c1)-10}px;top:${y}px;width:${X(c2)+CW-X(c1)+20}px;height:${h}px"></div>`).join('');
   const W=X(5>L.pos.gf[0]?L.pos.gf[0]:L.pos.gf[0])+CW,cw=tour.champ!=null?T(tour.champ):null;
-  const TRO={wc:'w',msi:'m',fs:'m'},champ=brChamp(cw,TRO[kind]?{k:TRO[kind]}:null,X(L.pos.gf[0]),L.champY);
+  const TRO={wc:'w',msi:'m',fs:'m'},champ=brChamp(cw,TRO[kind]?{k:TRO[kind]}:null,X(L.pos.gf[0]),L.heads.find(h=>h[3]==='g')[1],L.H);
   return `<div class="pbw de"><div class="pbk" style="width:${W}px;height:${L.H}px"><svg class="pbl" width="${W}" height="${L.H}" aria-hidden="true">${E}</svg>${lanes}${heads}${cards}${champ}</div></div>`;
 }
 function bracketHTML(tour,kind){if(tour.de)return deBracketHTML(tour,kind);return bracketCore(tour.stages.filter(st=>!st.swiss),T,tlk,t=>crestSd(t,'sm'),id=>mgrT()&&S.mgr.tid===id)}
@@ -9098,7 +9119,7 @@ function topBracketHTML(cur,defT,opn){
   }
   if(!body||!body.trim())return'';
   const left=live?'':`<p class="note" style="margin:0 0 8px">Campeão decidido. A bracket fica aqui só para visualização por mais ${Math.max(0,BRK_DAYS-(d-bd[key]))} dia${BRK_DAYS-(d-bd[key])===1?'':'s'}.</p>`;
-  return `<details class="pn det more2 dtop"${opn} ontoggle="detOpen=this.open"><summary>Bracket · ${nm} ${S.year}</summary>${left}${body}</details>`;
+  return `<details class="pn det more2 dtop" open><summary>Bracket · ${nm} ${S.year}</summary>${left}${body}</details>`;
 }
 function vSeason(){
   fixNat();fixPhase();
@@ -9751,6 +9772,15 @@ function applyTheme(){
     st.setProperty('--gold',g);st.setProperty('--gold-hi',hi);st.setProperty('--gold-lo',lo);st.setProperty('--gold-rgb',r.join(' '));st.setProperty('--glow',`rgba(${r.join(',')},.22)`);
   }catch(e){}
 }
+/* brackets do menu Jogar: reduzidas para caber inteiras na largura do quadro, sem rolagem lateral */
+function fitBrackets(){
+  try{document.querySelectorAll('.dtop .pbw,.pbs .pbw').forEach(w=>{
+    const k=w.firstElementChild;if(!k)return;k.style.zoom='';w.style.overflowX='hidden';
+    const cw=parseFloat(k.style.width)||k.scrollWidth,av=w.clientWidth;
+    if(av>0&&cw>av)k.style.zoom=(av/cw).toFixed(3);
+  })}catch(e){}
+}
+window.addEventListener('resize',fitBrackets);document.addEventListener('toggle',fitBrackets,true);
 function render(){
   applyTheme();
   bgArt();
@@ -9761,6 +9791,7 @@ function render(){
   const ap=document.querySelector('#app');ap.className='wrap'+(animNext?' enter':'');animNext=false;
   if(LOAD&&Date.now()-LOAD.t0>LDMS+1500){setTimeout(ldEnd,0)}
   ap.innerHTML=DEFS+header()+v+nav()+(msg&&tab!=='mgr'&&tab!=='set'?`<div class="toast" role="status">${esc(msg)}</div>`:'')+(DV?vDraft():'')+(LV&&!(DV&&DV.lv)?vLive():'')+(LOAD?vLoad():'');
+  fitBrackets();
 }
 
 /* ---------- ações ---------- */
