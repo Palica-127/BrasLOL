@@ -26,8 +26,8 @@ const out=run(ctx,`(function(){
    if(A.msi&&A.msi.de&&!seen.msi){seen.msi=1;ok(A.msi.teams.length===8,'bracket MSI '+A.msi.teams.length);ok(A.msi.teams.indexOf(A.mpi.champ)>=0,'vencedor do play-in fora da bracket')}
    if(A.wQ&&!seen.wq){seen.wq=1;var w=A.wQ;ok(w.all.length===19,'Mundial '+w.all.length);ok(w.playin.length===4,'WPI '+w.playin.length);ok(w.direct.length===15,'direto '+w.direct.length);
      var ids2=w.all.map(function(x){return x.id});ok(new Set(ids2).size===19,'Mundial repete time');
-     ok(w.playin.every(function(x){return w.direct.indexOf(x)<0&&x.seed>1&&x.id!==w.msiChamp&&T(x.id).lg!==T(w.msiChamp).lg}),'play-in inelegível');
-     LGS.forEach(function(lg){var n=w.all.filter(function(x){return x.lg===lg}).length;var ex=(lg===T(w.msiChamp).lg?COMP.msiChampRegion:0)+(lg===T(w.msiVice).lg?COMP.msiViceRegion:0);ok(n===COMP.wcSlots[lg]+ex,'vagas '+lg+' '+n+' esperado '+(COMP.wcSlots[lg]+ex))});
+     ok(w.playin.every(function(x){return w.direct.indexOf(x)<0&&x.seed>1&&x.id!==w.msiChamp&&T(x.id).lg!==T(w.msiChamp).lg}),'play-in inelegível');ok(new Set(w.playin.map(function(x){return x.lg})).size===4,'play-in repete região');ok(Object.keys(w.slots).reduce(function(a,k){return a+w.slots[k]},0)===Object.keys(COMP.wcSlots).reduce(function(a,k){return a+COMP.wcSlots[k]},0),'total de vagas muda');
+     LGS.forEach(function(lg){var n=w.all.filter(function(x){return x.lg===lg}).length;var ex=(lg===T(w.msiChamp).lg?COMP.msiChampRegion:0)+(lg===T(w.msiVice).lg?COMP.msiViceRegion:0);ok(n===w.slots[lg]+ex,'vagas '+lg+' '+n+' esperado '+(w.slots[lg]+ex))});
      var pos=A.rank['s3'+T(w.msiChamp).lg].indexOf(w.msiChamp);
      ok((pos>=0&&pos<COMP.playoffTop)===!w.perdeuVaga,'condição de playoffs do campeão do MSI');
      ok(w.all.some(function(x){return x.id===w.msiChamp})===(pos<COMP.playoffTop),'vaga do campeão do MSI')}

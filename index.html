@@ -3078,10 +3078,25 @@ const COMP={
   wcPlayIn:4,wcSwiss:16,                                   /* Play-In (4 times, 1 passa) e Suíço (16 times) */
   msiChampSlot:true,                                       /* campeão do MSI: vaga garantida se estiver nos playoffs do Split 3 */
   msiChampRegion:1,msiViceRegion:1,                        /* vagas extras da região do campeão e da região do vice */
+  playIn:{seed:.6,rank:.4},                                  /* Play-In do Mundial: nota de fraqueza = 60% seed + 40% posição no power ranking; sem repetir região */
+  slotDyn:{years:3,minYears:2,lead:1.25,min:2,max:4},      /* vagas dinâmicas no Mundial: a região dominante nos últimos anos ganha +1 vaga e a pior perde 1 (mínimo 2) */
   playoffTop:6,                                            /* quem entra nos playoffs do split (condição da vaga do campeão do MSI) */
   fmt:{fs:'de8',mpi:'de4',msi:'de8',wpi:'de4'}             /* formato de cada fase: eliminação dupla com 8 ou 4 times */
 };
-const SLOTS=COMP.wcSlots;
+/* vagas regulares no Mundial: base fixa (como no LoL Pro) + ajuste pelo desempenho das regiões em MSI e Mundial nos últimos anos */
+function wcSlotsNow(){
+  const D=COMP.slotDyn,base={...COMP.wcSlots},P={C:5,F:3,SF:1.5,QF:.5,G:0},co={},yrs=new Set();
+  LGS.forEach(lg=>co[lg]=0);
+  S.teams.forEach(t=>(t.yh||[]).forEach(h=>{if(h.y>=S.year-D.years&&h.y<S.year){yrs.add(h.y);co[t.lg]+=(P[h.wc]||0)+.5*(P[h.msi]||0)}}));
+  if(yrs.size<D.minYears)return base;
+  const sc=lg=>co[lg]/base[lg],ord=LGS.slice().sort((a,b)=>sc(b)-sc(a));
+  const top=ord[0],second=ord[1];
+  if(!(sc(top)>0)||sc(top)<sc(second)*D.lead||base[top]>=D.max)return base;
+  const low=ord.slice().reverse().find(lg=>lg!==top&&base[lg]>D.min);
+  if(!low)return base;
+  base[top]++;base[low]--;return base;
+}
+const SLOTS=new Proxy({},{get:(_,k)=>wcSlotsNow()[k]});
 const KNM={fs:'First Stand',mpi:'MSI · Play-In',msi:'MSI',wpi:'Mundial · Play-In',wc:'Mundial'};
 /* eliminação dupla por tabela: cada partida diz de onde vêm seus dois times (sN = seed N, wX = vencedor de X, lX = perdedor de X) */
 const DESPEC={
@@ -3184,11 +3199,11 @@ function worldsQual(){
   const msi=S.season.msi,mc=msi&&msi.champ!=null?msi.champ:null;
   const vice=msi&&mc!=null?+Object.keys(msi.elim).find(id=>msi.elim[id]==='Final'):null;
   const mcLg=mc!=null?T(mc).lg:null,vLg=vice!=null&&!isNaN(vice)?T(vice).lg:null;
-  const all=[],log=[];
+  const all=[],log=[],slots=wcSlotsNow();
   LGS.forEach(lg=>{
     const rk=regRank('s3',lg),ch=[];
     const take=(why,ex)=>{const id=rk.find(x=>!ch.some(c=>c.id===x)&&x!==ex);if(id!=null)ch.push({id,lg,why})};
-    rk.slice(0,COMP.wcSlots[lg]).forEach(id=>ch.push({id,lg,why:'regular'}));
+    rk.slice(0,slots[lg]).forEach(id=>ch.push({id,lg,why:'regular'}));
     if(lg===mcLg){
       const pos=rk.indexOf(mc),inPO=pos>=0&&pos<COMP.playoffTop;
       for(let k=0;k<COMP.msiChampRegion;k++){
@@ -3201,19 +3216,24 @@ function worldsQual(){
     ch.sort((a,b)=>rk.indexOf(a.id)-rk.indexOf(b.id));
     ch.forEach((c,i)=>{c.seed=i+1;all.push(c)});
   });
-  const wcN=Object.values(COMP.wcSlots).reduce((a,b)=>a+b,0)+(COMP.msiChampRegion+COMP.msiViceRegion);
+  const wcN=Object.values(slots).reduce((a,b)=>a+b,0)+(COMP.msiChampRegion+COMP.msiViceRegion);
   if(all.length!==wcN)throw new Error(`Mundial com ${all.length} equipes (esperado ${wcN})`);
-  /* Play-In: seeds mais baixos primeiro; empate pela força (do mais fraco ao mais forte) e depois pela campanha no Split 3 */
+  /* Play-In: nota de fraqueza = 60% seed + 40% posição no power ranking (maior = mais fraco); nunca duas equipes da mesma região */
   const el=all.filter(c=>c.seed>1&&c.lg!==mcLg&&c.id!==mc);
-  el.sort((a,b)=>b.seed-a.seed||eff(T(a.id))-eff(T(b.id))||regRank('s3',b.lg).indexOf(b.id)-regRank('s3',a.lg).indexOf(a.id)||LGS.indexOf(a.lg)-LGS.indexOf(b.lg));
-  const pin=el.slice(0,COMP.wcPlayIn);
+  const mxS=Math.max(...all.map(c=>c.seed)),nT=Math.max(2,S.teams.length),PI=COMP.playIn;
+  const wk=c=>PI.seed*(c.seed-1)/Math.max(1,mxS-1)+PI.rank*(pwPos(T(c.id))-1)/(nT-1);
+  el.sort((a,b)=>wk(b)-wk(a)||eff(T(a.id))-eff(T(b.id))||LGS.indexOf(a.lg)-LGS.indexOf(b.lg));
+  const pin=[];
+  el.forEach(c=>{if(pin.length<COMP.wcPlayIn&&!pin.some(x=>x.lg===c.lg))pin.push(c)});
+  el.forEach(c=>{if(pin.length<COMP.wcPlayIn&&!pin.includes(c))pin.push(c)});
   if(pin.length!==COMP.wcPlayIn)throw new Error('Play-In do Mundial sem equipes elegíveis suficientes');
   const direct=all.filter(c=>!pin.includes(c));
-  return{all,direct,playin:pin,msiChamp:mc,msiVice:vice,perdeuVaga:log.some(x=>x.t==='perdeu')};
+  return{all,direct,playin:pin,slots,msiChamp:mc,msiVice:vice,perdeuVaga:log.some(x=>x.t==='perdeu')};
 }
 function startWorldsQ(){
   const q=worldsQual();
-  S.season.wQ={all:q.all.map(x=>({...x})),direct:q.direct.map(x=>({...x})),playin:q.playin.map(x=>({...x})),msiChamp:q.msiChamp,msiVice:q.msiVice,perdeuVaga:q.perdeuVaga};
+  S.season.wQ={slots:q.slots,all:q.all.map(x=>({...x})),direct:q.direct.map(x=>({...x})),playin:q.playin.map(x=>({...x})),msiChamp:q.msiChamp,msiVice:q.msiVice,perdeuVaga:q.perdeuVaga};
+  LGS.forEach(lg=>{const d=q.slots[lg]-COMP.wcSlots[lg];if(d)news(`${lg} ${d>0?'ganha':'perde'} uma vaga regular no Mundial ${S.year} (${q.slots[lg]}), pelo desempenho recente das regiões.`,S.year)});
   const pin=q.playin.slice().sort((a,b)=>a.seed-b.seed||eff(T(b.id))-eff(T(a.id)));
   S.season.wpi=deNew(pin.map(x=>x.id),COMP.fmt.wpi,'wpi');
   S.season.wpi.pi=1;
