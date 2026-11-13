@@ -2284,6 +2284,16 @@ details.pn>summary{color:var(--t1)}
 .cws .sdb{position:absolute;right:-6px;bottom:-5px;box-shadow:0 0 0 2px #0b101c}.sdb.in{margin-right:2px;vertical-align:middle}
 
 .evx{grid-column:1/-1;display:block;width:100%;max-width:980px;margin:0 auto}.evx>.pn{margin-bottom:14px}
+
+.evlg2{margin:0 0 8px 40px}.evlg2 small{display:block;margin:2px 0 6px;font:700 10px var(--d);letter-spacing:.12em;text-transform:uppercase;color:#8a93a6}.evlg2 button{display:inline-block;margin:0 6px 6px 0;padding:6px 9px;border-radius:8px;border:1px solid rgba(150,165,255,.2);background:rgba(255,255,255,.04);color:#cfd6ee;font:700 11px var(--d);letter-spacing:.06em;cursor:pointer}.evlg2 button:hover{background:rgba(255,200,87,.2);border-color:rgba(255,200,87,.6);color:#fff}
+.d2b{display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px;align-items:center;margin:10px 0 16px;position:relative}
+.d2col{display:grid;gap:20px}.d2c{padding:8px;border-radius:10px;background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(150,165,255,.18)}
+.d2c small{display:block;margin:0 0 6px;font:700 10px var(--d);letter-spacing:.12em;text-transform:uppercase;color:#8a93a6}
+.d2c .br{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:7px;margin-bottom:3px;background:rgba(255,255,255,.05)}.d2c .br .bn{flex:1;min-width:0;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.d2c .br .bs{min-width:24px;text-align:center;padding:1px 6px;border-radius:5px;background:rgba(255,255,255,.1)}
+.d2c .br.w{background:rgba(0,245,160,.12)}.d2c .br.w .bs{background:#ffc857;color:#14141c}.d2c .br.l{opacity:.65}
+.d2c.champ{text-align:center;background:linear-gradient(180deg,rgba(255,200,87,.2),rgba(255,200,87,.05));box-shadow:inset 0 0 0 1px rgba(255,200,87,.5)}.d2c.champ b{display:block;font:800 22px var(--d);color:#ffd978}.d2c.champ span{display:block;margin-top:4px;font-size:12px;opacity:.75}
+.d2col.mid::before,.d2col.mid::after{content:"";position:absolute;top:25%;bottom:25%;width:26px;border:2px solid rgba(150,165,255,.3);border-width:2px 0 2px 2px;left:calc(33.33% - 26px)}
+@media (max-width:640px){.d2b{grid-template-columns:1fr}.d2col.mid::before,.d2col.mid::after{display:none}}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -2958,7 +2968,7 @@ function spStep(){
   }
   if(sp.stage==='po'){play(sp.cur[0]);(S.season.pom=S.season.pom||{})[sp.tag+sp.lg]=sp.cur[0];sp.last=sp.cur;S.season.sp=null;lastPlayed={k:'sp'};return}
   const fm=sp.cur[0];play(fm);
-  if(sp.d2)closeD2(sp.lg,sp.tag,spOrder(sp).map(id=>({t:T(id)})),sp.sf[0],sp.sf[1],fm);
+  if(sp.d2)closeD2(sp.lg,sp.tag,spOrder(sp).map(id=>({t:T(id),w:sp.rec[id].w,l:sp.rec[id].l})),sp.sf[0],sp.sf[1],fm);
   else{const r=closeLeague(sp.lg,sp.tag,spOrder(sp).map(id=>({t:T(id)})),sp.sf[0],sp.sf[1],fm);
   const res=S.season.res[sp.tag];res.push(r);res.sort((a,b)=>LGS.indexOf(a.lg)-LGS.indexOf(b.lg))}
   const po=poMine(sp);
@@ -3335,7 +3345,7 @@ function awards(){
       mv1:r.s1.map(x=>`${x.lg}: ${x.mvp}`),mv2:r.s2.map(x=>`${x.lg}: ${x.mvp}`),mv3:(r.s3||[]).map(x=>`${x.lg}: ${x.mvp}`),
       fs:fst&&fst.champ!=null?T(fst.champ).name:'',fsv:vOf(fst),
       msi:T(msi.champ).name,msiMvp:msi.mvp,wc:T(wc.champ).name,mvp:wc.mvp,wcv:vOf(wc),msiv:vOf(msi)},comp:compRec(),
-    ev:JSON.parse(JSON.stringify({seeds:{fs:evSeedMap(S.season,'fs'),msi:evSeedMap(S.season,'msi'),wc:evSeedMap(S.season,'wc')},res:S.season.res,fs:S.season.fs,mpi:S.season.mpi,msi:S.season.msi,wpi:S.season.wpi,wc:S.season.wc}))});
+    ev:JSON.parse(JSON.stringify({d2r:S.season.d2r||{},seeds:{fs:evSeedMap(S.season,'fs'),msi:evSeedMap(S.season,'msi'),wc:evSeedMap(S.season,'wc')},res:S.season.res,fs:S.season.fs,mpi:S.season.mpi,msi:S.season.msi,wpi:S.season.wpi,wc:S.season.wc}))});
   S.hist.forEach((h,i)=>{if(i<S.hist.length-EV_KEEP)delete h.ev});
   selYear=S.year;
 }
@@ -7646,6 +7656,9 @@ function closeD2(lg,tag,st,m1,m2,fm){
   const n=order.length;
   order.forEach((t,i)=>{t.cs=t.cs||{};t.cs[tag]=i+1;t.cs[tag+'d']=2;perf(t,[3,1.5,.5,.5,-.5,-1][i]??-1,1);t.mom=clamp(.55*t.mom+1.2*(1-2*i/(n-1))+(i===0?.5:0),-3,3);t.hot=0});
   champ.d2t=(champ.d2t||0)+1;
+  const dm=m=>({a:T(m.a).name,b:T(m.b).name,wa:m.res.wa,wb:m.res.wb,w:T(m.res.w).name});
+  const D=S.season.d2r=S.season.d2r||{};
+  D[tag]=(D[tag]||[]).filter(x=>x.lg!==lg).concat([{lg,champ:champ.name,runner:runner.name,third:third.map(t=>t.name),sf:[dm(m1),dm(m2)],f:dm(fm),tab:st.map(r=>[r.t.name,r.w,r.l])}]);
   return{lg,champ:champ.name,cid:champ.id,runner:runner.name};
 }
 function runD2(lg,tag){
@@ -8491,7 +8504,7 @@ function evMenuHTML(){
       if(k==='cup'&&m.y!==S.year)return;
       const st=evState(m.y,g),open=reg&&m.o===k;
       h+=`<li class="${st}${open?' open':''}"><button data-act="${reg?'evO':'evGo'}" data-v="${reg?k:m.y+'|'+k+'|'}"><i class="evd"></i><span><b>${n}</b><small>${sub}</small></span>${reg?'<em>›</em>':''}</button>`;
-      if(open)h+=`<div class="evlg">${LGS.map(lg=>`<button data-act="evGo" data-v="${m.y}|${k}|${lg}">${lg}</button>`).join('')}</div>`;
+      if(open)h+=`<div class="evlg">${LGS.map(lg=>`<button data-act="evGo" data-v="${m.y}|${k}|${lg}">${lg}</button>`).join('')}</div><div class="evlg2"><small>Segunda divisão</small>${LGS.map(lg=>`<button data-act="evGo" data-v="${m.y}|${k}|${lg}:2">${lg} D2</button>`).join('')}</div>`;
       h+='</li>';
     });
     h+='</ul></div>';
@@ -8499,7 +8512,20 @@ function evMenuHTML(){
   return h+'</div>';
 }
 function evBack(){return `<div class="row" style="margin:0 0 10px"><button class="ghost" data-act="tab" data-v="season">← Voltar ao jogo</button><button class="ghost" data-act="evT">Escolher outro evento</button></div>`}
+function d2Bracket(r){
+  const row=(n,sc,w)=>`<div class="br${w===null?'':w?' w':' l'}">${crest({name:n},'sm')}<span class="bn">${esc(n)}</span><b class="bs num">${sc}</b></div>`;
+  const card=(m,lab)=>`<div class="d2c"><small>${lab}</small>${row(m.a,m.wa,m.w===m.a)}${row(m.b,m.wb,m.w===m.b)}</div>`;
+  return `<div class="d2b"><div class="d2col">${card(r.sf[0],'Semifinal 1 · 1º x 4º')}${card(r.sf[1],'Semifinal 2 · 2º x 3º')}</div><div class="d2col mid">${card(r.f,'Final')}</div><div class="d2col end"><div class="d2c champ"><small>Campeão</small><b>${esc(r.champ)}</b><span>acesso ao play-off contra o último da D1</span></div></div></div>`;
+}
+function evD2HTML(y,tag,lg){
+  const d=evData(y),nm={s1:'Etapa 1',s2:'Etapa 2',s3:'Etapa 3'}[tag],ttl=`${lg} D2 · ${nm} ${y}`;
+  const r=d&&d.d2r&&d.d2r[tag]&&d.d2r[tag].find(x=>x.lg===lg);
+  if(!r)return `<section class="pn"><h2>${ttl}</h2><p class="note" style="margin:0">${y===S.year?'Ainda não foi disputada.':'Sem registro desta etapa da segunda divisão.'}</p></section>`;
+  const tb=r.tab&&r.tab.length&&r.tab[0][1]!=null?`<div class="sub">Fase de grupos</div><div class="grp">${r.tab.map((x,i)=>`<div class="gr${i<4?' q':''}"><span>${esc(x[0])}</span><span class="num">${x[1]}-${x[2]}</span></div>`).join('')}</div>`:'';
+  return `<section class="pn"><h2>${ttl}</h2><div class="crown"><small>Campeão</small><b>${esc(r.champ)}</b><span>vice ${esc(r.runner)} · 3º/4º ${r.third.map(esc).join(', ')}</span></div><div class="sub">Playoffs · melhor de 5</div>${d2Bracket(r)}${tb}</section>`;
+}
 function evSplitHTML(y,tag,lg){
+  if(/:2$/.test(lg))return evD2HTML(y,tag,lg.slice(0,-2));
   const d=evData(y),nm={s1:'Etapa 1',s2:'Etapa 2',s3:'Etapa 3'}[tag];
   const r=d&&d.res&&d.res[tag]&&d.res[tag].find(x=>x.lg===lg);
   const ttl=`${lg} · ${nm} ${y}`;
@@ -8515,7 +8541,7 @@ function evSplitHTML(y,tag,lg){
 function vEvents(){
   const e=evSel;if(!e)return evBack()+'<p class="empty">Escolha um evento no menu do topo.</p>';
   const d=evData(e.y);let h=evBack();
-  h+=`<section class="pn evh"><small class="k">Eventos e placares</small><h2>${(EVM.find(x=>x[0]===e.k)||[])[1]||''} ${e.lg?'· '+e.lg+' ':''}${e.y}</h2></section>`;
+  h+=`<section class="pn evh"><small class="k">Eventos e placares</small><h2>${(EVM.find(x=>x[0]===e.k)||[])[1]||''} ${e.lg?'· '+e.lg.replace(':2',' D2')+' ':''}${e.y}</h2></section>`;
   if(e.k==='s1'||e.k==='s2'||e.k==='s3')return h+evSplitHTML(e.y,e.k,e.lg);
   if(e.k==='cup')return h+(S.season.cup?cupHTML():'<p class="empty">Sem Copa do Mundo nesta temporada.</p>');
   const M={fs:['fs','First Stand'],msi:['msi','MSI'],wc:['wc','Mundial']}[e.k];
