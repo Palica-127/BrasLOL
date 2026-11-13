@@ -2290,6 +2290,8 @@ details.pn>summary{color:var(--t1)}
 .evx .rowl .pbw{zoom:1;margin-top:12px}.evx .pn>.pbw{zoom:1.25}.evx .brk{zoom:1.2}.evx .pbw,.evx .brk{overflow-x:auto}
 @media (max-width:760px){.evx .rowl .pbw{zoom:.85}.evx .pn>.pbw{zoom:.95}.evx .brk{zoom:1}}
 .evtop{grid-column:1/-1;width:100%}.evtop>.det{margin-bottom:14px}
+.evx .pbw.de{zoom:1}@media (max-width:760px){.evx .pbw.de{zoom:.8}}
+.pbc .cws{margin-right:7px}.pbc .cws .sdb{right:-7px;bottom:-6px;min-width:13px;height:13px;font-size:8px;line-height:13px}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -8585,23 +8587,37 @@ function swissHTML(tour){
     return `<div class="gr${r.w===3?' q':''}${r.l===3?' x':''}${mgrT()&&id===S.mgr.tid?' mine':''}"><span>${SEEDM&&SEEDM[id]?`<i class="sdb in" title="Seed regional ${SEEDM[id]}">${SEEDM[id]}</i> `:''}${tlk(T(id))}</span><span class="pips">${'<i></i>'.repeat(r.w)}${'<i class="l"></i>'.repeat(r.l)}<span class="num" style="margin-left:6px">${r.w}-${r.l}</span></span></div>`;
   }).join('')}</div><p class="note" style="margin:0 0 4px">Três vitórias classificam e três derrotas eliminam. Jogos que decidem classificação ou eliminação são melhor de 3.</p>`;
 }
+/* bracket de eliminação dupla no mesmo desenho das ligas: chave Winner em cima, Loser embaixo, grande final à direita, com conectores */
+const DELAY={
+  de8:{H:560,pos:{u1:[0,36],u2:[0,118],u3:[0,200],u4:[0,282],us1:[1,77],us2:[1,241],uf:[2,159],lb1:[1,396],lb2:[1,478],lb3:[2,396],lb4:[2,478],lb5:[3,437],lbf:[4,437],gf:[5,300]},
+    heads:[[0,0,'Winner · Quartas','wi'],[1,0,'Winner · Semifinais','wi'],[2,0,'Winner · Final','wi'],[1,360,'Loser · Rodada 1','lo'],[2,360,'Loser · Rodada 2','lo'],[3,360,'Loser · Semifinal','lo'],[4,360,'Loser · Final','lo'],[5,0,'Grande final','g']],
+    links:[['u1','us1'],['u2','us1'],['u3','us2'],['u4','us2'],['us1','uf'],['us2','uf'],['uf','gf'],['lb1','lb3'],['lb2','lb4'],['lb3','lb5'],['lb4','lb5'],['lb5','lbf'],['lbf','gf']],
+    lanes:[[0,-8,3,350],[1,352,4,230]],champY:210},
+  de4:{H:390,pos:{u1:[0,36],u2:[0,118],uf:[1,77],lb1:[1,246],lbf:[2,246],gf:[3,160]},
+    heads:[[0,0,'Winner · Rodada 1','wi'],[1,0,'Winner · Final','wi'],[1,210,'Loser · Rodada 1','lo'],[2,210,'Loser · Final','lo'],[3,0,'Grande final','g']],
+    links:[['u1','uf'],['u2','uf'],['uf','gf'],['lb1','lbf'],['lbf','gf']],
+    lanes:[[0,-8,2,206],[1,202,3,180]],champY:100}
+};
 function deBracketHTML(tour){
-  const sp=DESPEC[tour.de.fmt],win=m=>m&&m.res?m.res.w:null;
-  const row=(id,sc,m)=>{
+  const sp=DESPEC[tour.de.fmt],L=DELAY[tour.de.fmt],mid=mgrT()?S.mgr.tid:null;
+  const CW=168,CH=62,GX=36,X=c=>c*(CW+GX);
+  const src=s=>{if(s[0]==='s')return tour.de.seeds[+s.slice(1)];const m=deM(tour,s.slice(1));return m&&m.res?(s[0]==='w'?m.res.w:loserOf(m)):null};
+  const row=(id,sc,m,r)=>{
     if(id==null)return `<div class="br tba"><span class="bc"></span><span class="bn">A definir</span><b class="bs">–</b></div>`;
-    const t=T(id),r=m&&m.res,w=r&&r.w===id,mine=mgrT()&&S.mgr.tid===id;
-    return `<div class="br${r?(w?' w':' l'):''}${mine?' me':''}">${crestSd(t,'sm')}<span class="bn">${tlk(t)}</span><b class="bs num">${r?sc:'0'}</b></div>`;
+    const t=T(id),w=r&&r.w===id;
+    return `<div class="br${r?(w?' w':' l'):''}${id===mid?' me':''}">${crestSd(t,'sm')}<span class="bn">${tlk(t)}</span><b class="bs num">${r?sc:'0'}</b></div>`;
   };
-  const cols=sp.r.map((ids,ri)=>{
-    const st=tour.stages[ri];
-    const cards=ids.map(id=>{
-      const m=st&&st.ms.find(x=>x.k===id),r=m&&m.res;
-      const lab=id[0]==='u'?'Superior':id[0]==='l'?'Inferior':'Final';
-      return `<div class="bsl"><div style="width:100%"><small class="k" style="display:block;margin:0 0 2px">${lab}</small><div class="bm2${m&&!r?' pend':''}">${row(m?m.a:null,r?r.wa:0,m)}${row(m?m.b:null,r?r.wb:0,m)}</div></div></div>`;
-    }).join('');
-    return `<div class="bcol"><div class="bh">${sp.nm[ri]}</div><div class="bbody">${cards}</div></div>`;
+  const cards=Object.keys(L.pos).map(id=>{
+    const m=deM(tour,id),r=m&&m.res,[c,y]=L.pos[id],ab=sp.m[id].map(src);
+    const A=m?m.a:ab[0],B=m?m.b:ab[1];
+    return `<div class="pbc${m&&!r?' pend':''}${id==='gf'?' fin':''}" style="left:${X(c)}px;top:${y}px"><div class="bm2">${row(A,r?r.wa:0,m,r)}${row(B,r?r.wb:0,m,r)}</div></div>`;
   }).join('');
-  return `<div class="brk debk"><div class="brkin">${cols}</div></div>`;
+  const heads=L.heads.map(([c,y,t,k])=>`<div class="pbh ${k}" style="left:${X(c)}px;top:${y}px">${t}</div>`).join('');
+  const E=L.links.map(([a,b])=>{const [c1,y1]=L.pos[a],[c2,y2]=L.pos[b],x1=X(c1)+CW,x2=X(c2),xm=x1+(x2-x1)/2,m=deM(tour,a);return `<path d="M${x1} ${y1+CH/2}H${xm}V${y2+CH/2}H${x2}"${m&&m.res?' class="on"':''}/>`}).join('');
+  const lanes=L.lanes.map(([c1,y,c2,h],i)=>`<div class="pbn ${i?'b':'t'}" style="left:${X(c1)-10}px;top:${y}px;width:${X(c2)+CW-X(c1)+20}px;height:${h}px"></div>`).join('');
+  const W=X(5>L.pos.gf[0]?L.pos.gf[0]:L.pos.gf[0])+CW,cw=tour.champ!=null?T(tour.champ):null;
+  const champ=cw?`<div class="pbch" style="left:${X(L.pos.gf[0])}px;top:${L.champY}px"><small>Campeão</small>${crestSd(cw,'md')}<b>${esc(cw.name)}</b></div>`:'';
+  return `<div class="pbw de"><div class="pbk" style="width:${W}px;height:${L.H}px"><svg class="pbl" width="${W}" height="${L.H}" aria-hidden="true">${E}</svg>${lanes}${heads}${cards}${champ}</div></div>`;
 }
 function bracketHTML(tour){if(tour.de)return deBracketHTML(tour);return bracketCore(tour.stages.filter(st=>!st.swiss),T,tlk,t=>crestSd(t,'sm'),id=>mgrT()&&S.mgr.tid===id)}
 function bracketCore(ko,T,tlk,crest,isMe){
@@ -9039,16 +9055,23 @@ function vSeason(){
   SEC.push(['cal','Calendário',d]);
   if(S.season.sp)SEC.push(['sp',S.season.sp.lg,spHTML()]);
   const gk=cur?cur.g:0;
-  [['cup','Copa',cupHTML()],['wc','Mundial',tourHTML(S.season.wc,'wc','Mundial')],['wpi','Play-In Mundial',tourHTML(S.season.wpi,'wpi','Mundial · Play-In')],['s3','Split 3',splitHTML('s3','Split 3')],['msi','MSI',tourHTML(S.season.msi,'msi','MSI')],['mpi','Play-In MSI',tourHTML(S.season.mpi,'mpi','MSI · Play-In')],['s2','Split 2',splitHTML('s2','Split 2')],['fs','First Stand',tourHTML(S.season.fs,'fs','First Stand')],['s1','Split 1',splitHTML('s1','Split 1')]].forEach(x=>{if(x[2]&&x[2].trim())SEC.push(x)});
-  const defK=S.season.sp?'sp':gk===7?'cup':cur&&phTour(cur)?phTour(cur):cur&&isSplitK(cur.k)?cur.k:'cal';
-  let sk=detT;if(!SEC.some(x=>x[0]===sk))sk=SEC.some(x=>x[0]===defK)?defK:'cal';
-  if(lastPlayed&&!detT&&['wc','msi','cup','fs','mpi','wpi'].includes(lastPlayed.k)&&SEC.some(x=>x[0]===lastPlayed.k))sk=lastPlayed.k;
-  const det=`<details class="pn det more2"${lastPlayed||detOpen||(typeof innerWidth!=='undefined'&&innerWidth>=1000)?' open':''} ontoggle="detOpen=this.open"><summary>Detalhes: calendário, tabelas e resultados</summary><div class="pills dtabs">${SEC.map(x=>`<button class="pill" aria-pressed="${x[0]===sk}" data-act="dtab" data-v="${x[0]}">${x[1]}</button>`).join('')}</div>${SEC.find(x=>x[0]===sk)[2]}</details>`;
+  const TOPK=['wc','wpi','s3','msi','mpi','s2','fs','s1'],TOP=[];
+  [['wc','Mundial',tourHTML(S.season.wc,'wc','Mundial')],['wpi','Play-In Mundial',tourHTML(S.season.wpi,'wpi','Mundial · Play-In')],['s3','Split 3',splitHTML('s3','Split 3')],['msi','MSI',tourHTML(S.season.msi,'msi','MSI')],['mpi','Play-In MSI',tourHTML(S.season.mpi,'mpi','MSI · Play-In')],['s2','Split 2',splitHTML('s2','Split 2')],['fs','First Stand',tourHTML(S.season.fs,'fs','First Stand')],['s1','Split 1',splitHTML('s1','Split 1')]].forEach(x=>{if(x[2]&&x[2].trim())TOP.push(x)});
+  const cupS=cupHTML();if(cupS&&cupS.trim())SEC.push(['cup','Copa',cupS]);
+  const defS=S.season.sp?'sp':gk===7?'cup':'cal';
+  let sk=SEC.some(x=>x[0]===detT)?detT:SEC.some(x=>x[0]===defS)?defS:'cal';
+  const defT=cur&&phTour(cur)?phTour(cur):cur&&isSplitK(cur.k)?cur.k:'';
+  let tk=TOP.some(x=>x[0]===detT)?detT:TOP.some(x=>x[0]===defT)?defT:(TOP[0]?TOP[0][0]:'');
+  if(lastPlayed&&!detT&&['wc','msi','fs','mpi','wpi'].includes(lastPlayed.k)&&TOP.some(x=>x[0]===lastPlayed.k))tk=lastPlayed.k;
+  const opn=lastPlayed||detOpen||(typeof innerWidth!=='undefined'&&innerWidth>=1000)?' open':'';
+  const mkDet=(L,k,tt,cls)=>`<details class="pn det more2 ${cls}"${opn} ontoggle="detOpen=this.open"><summary>${tt}</summary><div class="pills dtabs">${L.map(x=>`<button class="pill" aria-pressed="${x[0]===k}" data-act="dtab" data-v="${x[0]}">${x[1]}</button>`).join('')}</div>${L.find(x=>x[0]===k)[2]}</details>`;
+  const det=mkDet(SEC,sk,'Calendário e jogos do momento','dside');
+  const detTop=TOP.length?mkDet(TOP,tk,'Brackets e resultados','dtop'):'';
   let un='';
   if(mgrT())un+=sqHTML()+mgrSummary();
   if(pcAct()&&pcFind())un+=pcSummary();
   if(S.season.sp&&S.season.sp.po&&S.season.sp.stage!=='rr'){plRelink(S.season.sp);h+=`<section class="pn pbs"><h2>Playoffs · ${S.season.sp.lg} ${spName(S.season.sp)}</h2>${poBracketHTML(S.season.sp.po,true)}</section>`}
-  h+=`<div class="evtop">${det}</div>`+hubHTML(cur,'',un);
+  h+=`<div class="evtop">${detTop}</div>`+hubHTML(cur,det,un);
   if(!cur){const t=S.hist[S.hist.length-1];h+=`<section class="pn"><h2>Melhor Jogador do Ano ${S.year}</h2><div class="crown"><small>Vencedor</small><b>${esc(t.top[0].n)}</b><span>${esc(t.top[0].team)} · nota ${t.top[0].sc}</span></div><div class="row"><button class="ghost" data-act="tab" data-v="bola">Ver top 10 do ano</button><button class="ghost" data-act="tab" data-v="hof">Ver lendas</button></div></section>`}
   if((S.phase===0||S.phase===PHI('s3'))&&!S.season.sp)h+=flHTML();
   if(S.phase===0&&!S.hist.length)h+=`<p class="empty">Cada temporada tem três splits, o First Stand, o MSI e o Mundial com Play-In e fase suíça. Você joga fase por fase e vê as chances de cada partida antes de simular. Toque em qualquer nome para abrir a ficha.</p>`;
