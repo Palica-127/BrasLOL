@@ -2320,6 +2320,15 @@ details.pn>summary{color:var(--t1)}
 .mx .zb{top:8px;right:12px;border-radius:6px;font-size:9px;padding:1px 6px}
 @media (max-width:520px){.m.mx{padding:10px 12px 8px}.mxt{font-size:13px;gap:7px}.mxs{font-size:18px;min-width:44px}.m.mx .mxr{gap:8px}}
 .mxs,.mxp,.mxt{line-height:1}.mxs.vs{padding-top:0}.mxt .mxn{line-height:1.2}
+/* cartoes de partida compactos, estilo placar: escudo em cima, nome embaixo, duas colunas */
+.m.mx{display:inline-block;vertical-align:top;box-sizing:border-box;width:48.5%;margin:0 1.5% 8px 0;padding:12px 10px 9px}
+.m.mx .mxr{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:6px;align-items:start}
+.mxt,.mxt.b{flex-direction:column;align-items:center;justify-content:flex-start;gap:6px;text-align:center;font-size:13px}
+.mxt .mxn{max-width:100%;white-space:normal;line-height:1.15;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mxt .mxp,.mxt.b .mxp{margin:0;order:3;font-size:11px}
+.mxs{min-width:34px;align-self:center;font-size:20px}
+.mxs.vs{font-size:10px;letter-spacing:.1em}
+@media (max-width:620px){.m.mx{display:block;width:auto;margin-right:0}}
 .pbch .ti{width:34px!important;height:48px!important}.pbch b{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pbch{width:140px}
 </style>
 
@@ -2859,7 +2868,7 @@ const brChamp=(t,tro,x,cy)=>`<div class="pbch${t?'':' ph'}" style="left:${x}px;t
 function poBracketHTML(po,live,lg){
   if(!po)return '';
   const pm=po.pm,mid=myTid(),Wn=m=>m&&m.res?m.res.w:null,Ln=m=>m&&m.res?(m.res.w===m.a?m.b:m.a):null;
-  const CW=140,CH=62,GX=54,X=c=>c*(CW+GX);
+  const CW=140,CH=62,GX=70,X=c=>c*(CW+GX);
   const row=(id,m,tba)=>{
     if(id==null)return `<div class="br tba"><span class="bc"></span><span class="bn">${tba||'A definir'}</span><b class="bs">–</b></div>`;
     const t=T(id),r=m&&m.res,w=r&&r.w===id,sc=r?(id===m.a?r.wa:r.wb):'0';
@@ -8558,7 +8567,7 @@ function evMenuHTML(){
 }
 function evBack(){return `<div class="row" style="margin:0 0 10px"><button class="ghost" data-act="tab" data-v="season">← Voltar ao jogo</button><button class="ghost" data-act="evT">Escolher outro evento</button></div>`}
 function d2Bracket(r){
-  const CW=140,CH=62,GX=54,X=c=>c*(CW+GX),H=190;
+  const CW=140,CH=62,GX=70,X=c=>c*(CW+GX),H=190;
   const row=(n,sc,w)=>`<div class="br${w?' w':' l'}">${crest({name:n},'sm')}<span class="bn">${esc(n)}</span><b class="bs num">${sc}</b></div>`;
   const card=(m,c,y,fin)=>`<div class="pbc${fin?' fin':''}" style="left:${X(c)}px;top:${y}px;width:${CW}px"><div class="bm2">${row(m.a,m.wa,m.w===m.a)}${row(m.b,m.wb,m.w===m.b)}</div></div>`;
   const hd=(c,t,g)=>`<div class="pbh${g?' g':' wi'}" style="left:${X(c)}px;top:0;width:${CW}px">${t}</div>`;
@@ -8648,7 +8657,7 @@ const DELAY={
 };
 function deBracketHTML(tour,kind){
   const sp=DESPEC[tour.de.fmt],L=DELAY[tour.de.fmt],mid=mgrT()?S.mgr.tid:null;
-  const CW=140,CH=62,GX=54,X=c=>c*(CW+GX);
+  const CW=140,CH=62,GX=70,X=c=>c*(CW+GX);
   const src=s=>{if(s[0]==='s')return tour.de.seeds[+s.slice(1)];const m=deM(tour,s.slice(1));return m&&m.res?(s[0]==='w'?m.res.w:loserOf(m)):null};
   const row=(id,sc,m,r)=>{
     if(id==null)return `<div class="br tba"><span class="bc"></span><span class="bn">A definir</span><b class="bs">–</b></div>`;
