@@ -2885,6 +2885,7 @@ function mgrStart(tid){
   /* legado do técnico: demissão/troca de clube não apaga a história; os passos anteriores ficam em m.past */
   const past=old?(old.past||[]).concat(old.hist&&old.hist.length?[{tn:old.tn||'Clube anterior',from:old.since,to:old.hist[old.hist.length-1].y,hist:old.hist,fired:!!old.fired}]:[]):[];
   S.mgr={past,tn:t.name,rep:old&&old.rep!=null?old.rep:undefined,tid,cash:t.d===2?6:12,sat:65,goal:goalFor(t),since:S.year,hist:[],log:[`Contratado pelo ${t.name} em ${S.year}.`],fa:genFA(),fired:false,acLv:1,ct:0,bench:[],loan:[],offers:[]};S.mgr.fa=genFA();mEnsure();sgInit();
+  S.mgr.ach=Object.assign({},S.mach||{},old&&old.ach||{});
 }
 function mgrSeasonEnd(){
   const m=S.mgr,t=mgrT();if(!m||!t)return;
@@ -2895,6 +2896,8 @@ function mgrSeasonEnd(){
   const gate=IM()*(d2m?4:10),spons=IM()*Math.max(0,baseOvr(t)-(d2m?62:70))*(d2m?.6:1),prize=d2m?IM()*(lp(y.s1)+lp(y.s2))*.6:IM()*(lp(y.s1)+lp(y.s2)+(({C:4,F:2.5,SF:1,QF:.3,G:0})[y.msi]||0)+(({C:10,F:6,SF:4,QF:2.5,G:.5})[y.wc]||0)),income=gate+spons+prize;
   mEnsure();const pay=payOn()?r1(payroll(t)):0,fixo=d2m?(payOn()?4:7):payOn()?8:14,up=r1(AC_UP[m.acLv]+CT_UP[m.ct]),bon=r1(t.pl.concat(m.bench).filter(p=>p.cl==='bon').reduce((a,p)=>a+salOf(p)*.8,0)*((y.s1===1||y.s2===1||y.wc==='C')?1:0)),net=r1(income-pay-fixo-up-bon);
   m.cash=r1(m.cash+net);
+  {const tp=t.pl.concat(m.bench).filter(p=>p.cl==='tit');
+   tp.forEach(p=>{if(m.bench.includes(p)){m.mor=Math.max(0,(m.mor==null?60:m.mor)-4);mlog(`${S.year}: ${p.n} reclama por seguir no banco apesar da promessa de titularidade (moral −4).`)}else m.mor=Math.min(100,(m.mor==null?60:m.mor)+1)})}
   const best=Math.min(y.s1||99,y.s2||99);
   let d=(ach-m.goal)*9+(ach===5?8:0)+(best===1?8:best<=4?4:0);
   let note='';
@@ -3192,7 +3195,7 @@ function mMidYear(){
 function mCtr(p,y){p.ctr=y;p.exp=false;p.cl=''}
 const NEG=[['Oferta baixa',.7,.5],['Oferta justa',1,.85],['Oferta alta',1.35,1]];
 /* cláusulas de contrato na renovação: custo da renovação, efeito durante o contrato */
-const CLS={'':['Sem cláusula',1,'Contrato padrão.'],mul:['Multa de rescisão',1.1,'Renovação 10% mais cara; propostas de outros clubes por ele pagam 60% a mais.'],bon:['Bônus por título',.8,'Renovação 20% mais barata; paga um bônus de salário se o time ganhar liga ou Mundial.'],lib:['Contrato curto',.65,'Renovação 35% mais barata, mas só por 1 ano: precisa renegociar todo ano.']};
+const CLS={'':['Sem cláusula',1,'Contrato padrão.'],mul:['Multa de rescisão',1.1,'Renovação 10% mais cara; propostas de outros clubes por ele pagam 60% a mais.'],bon:['Bônus por título',.8,'Renovação 20% mais barata; paga um bônus de salário se o time ganhar liga ou Mundial.'],lib:['Contrato curto',.65,'Renovação 35% mais barata, mas só por 1 ano: precisa renegociar todo ano.'],tit:['Promessa de titularidade',.85,'Renovação 15% mais barata. Se ele terminar o ano no banco, a moral do elenco cai 4; como titular, dá +1.']};
 const renFee=(p,l)=>S.mgr.cheat?0:r1(mvOf(p)*.3*PM()*NEG[l][1]*CLS[S.mgr.rc||''][1]);
 function mgrRenew(v){
   const m=S.mgr;mEnsure();
@@ -3245,7 +3248,7 @@ const ACH=[
 function mAch(){
   const m=S.mgr,t=mgrT();if(!m||!t||m.cheat)return;
   m.ach=m.ach||{};
-  ACH.forEach(([id,nm,d,f])=>{if(!m.ach[id]){let ok=false;try{ok=f(m,t)}catch(e){}if(ok){m.ach[id]=S.year;mlog(`${S.year}: conquista desbloqueada: ${nm}.`);news(`Conquista do técnico: ${nm}.`);msg=`Conquista desbloqueada: ${nm}!`}}});
+  ACH.forEach(([id,nm,d,f])=>{if(!m.ach[id]){let ok=false;try{ok=f(m,t)}catch(e){}if(ok){m.ach[id]=S.year;(S.mach=S.mach||{})[id]=S.year;mlog(`${S.year}: conquista desbloqueada: ${nm}.`);news(`Conquista do técnico: ${nm}.`);msg=`Conquista desbloqueada: ${nm}!`}}});
 }
 function achHTML(m){
   m.ach=m.ach||{};
@@ -9031,7 +9034,7 @@ function act0(a,v){
   else if(a==='dayTo'){advDay(999);save()}
   else if(a==='auto'){autoToggle()}
   else if(a==='fl'){S.opt=S.opt||{};S.opt.fl=v;save()}
-  else if(a==='all'){const c5=PHASES[S.phase]&&PHASES[S.phase].g===5;CUPSIM=1;try{while(S.phase<PHASES.length&&(c5||PHASES[S.phase].g<5))step()}finally{CUPSIM=0}lastPlayed=null;S.day=evDay();tab='bola';save();top=true}
+  else if(a==='all'){const c5=PHASES[S.phase]&&PHASES[S.phase].g===5;CUPSIM=1;try{let n=0,st=0,ph=S.phase,yr=S.year;while(S.phase<PHASES.length&&(c5||PHASES[S.phase].g<5)&&n++<400){step();if(S.phase===ph&&S.year===yr){if(++st>3)break}else{st=0;ph=S.phase;yr=S.year}}}finally{CUPSIM=0}lastPlayed=null;S.day=evDay();tab='bola';save();top=true}
   else if(a==='year'){selYear=+v}
   else if(a==='brk'){brkO[v]=!brkO[v];detOpen=true}
   else if(a==='dtab'){detT=v;detOpen=true;lastPlayed=null}
