@@ -2234,6 +2234,16 @@ details.pn>summary{color:var(--t1)}
 @media (max-width:900px){.dfpl{height:220px}.dfbn{width:44px;height:44px}.dfwt{min-width:120px}}
 /* bracket de eliminação dupla: colunas mais largas para caber o nome dos times; rola na horizontal em telas estreitas */
 .debk .bcol{flex:0 0 190px;min-width:190px}.debk .bsl{min-height:84px}
+
+/* patrimônio: cartões de negócio, estrutura e atalhos */
+.pinv .isub{margin:16px 0 8px;font:800 13px var(--d);letter-spacing:.14em;text-transform:uppercase;color:#ffc857}.pinv .isub small{display:block;margin-top:2px;font:500 12px var(--b);letter-spacing:0;text-transform:none;color:var(--t3,#8a93a6)}
+.ilist{display:grid;gap:8px}.icard{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.035);box-shadow:inset 0 0 0 1px rgba(150,165,255,.16)}
+.icard .iic{font-size:26px;text-align:center}.icard .who b{display:block}.icard .who small{display:block;opacity:.75}.icard .who em{display:block;margin-top:3px;font:600 11px var(--d);font-style:normal;letter-spacing:.08em;text-transform:uppercase;color:#9fb0ff}
+.icard.act{box-shadow:inset 0 0 0 1px rgba(255,200,87,.55),0 0 18px rgba(255,200,87,.12);background:linear-gradient(90deg,rgba(255,200,87,.09),rgba(255,255,255,.02))}.icard.mx{opacity:.75}
+.ipips{display:flex;gap:4px;margin:6px 0 2px}.ipips i{width:16px;height:6px;border-radius:3px;background:rgba(255,255,255,.12)}.ipips i.on{background:linear-gradient(90deg,#ffc857,#ff9f43);box-shadow:0 0 8px rgba(255,200,87,.45)}
+.rk{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:99px;font:700 10px var(--d);letter-spacing:.08em;text-transform:uppercase;vertical-align:middle}.rk.r1{background:rgba(0,245,160,.15);color:#7dffcf}.rk.r2{background:rgba(255,200,87,.15);color:#ffd978}.rk.r3{background:rgba(255,92,138,.16);color:#ff9db9}
+.ihist{margin:8px 0 0}.ihist .up{color:#7dffcf;font-weight:700}.ihist .dn{color:#ff9db9;font-weight:700}
+@media (max-width:560px){.icard{grid-template-columns:36px minmax(0,1fr)}.icard button{grid-column:1/-1}}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -4127,7 +4137,7 @@ const JGC=[
  {n:'Rubrivira',sp:55,re:300,gd:85,xp:45,cl:24,v:1,bf:'rd'},
  {n:'Krugues',sp:67,re:135,gd:50,xp:25,cl:18,v:.6}];
 /* Bloco 10c (ESTIMADO): o caçador limpa ~0,65 acampamento/min; o multiplicador compensa para chegar a nivel/ouro/CS de selva proximos de uma liga profissional */
-const JGM={gd:1.7,xp:2.6,cs:6};/* cs exibido do cacador: ~55 aos 8 min (antes 9 por acampamento passava de 80) */
+const JGM={gd:1.7,xp:2.6,cs:7.2};/* cs exibido do cacador: ~55 aos 8 min (antes 9 por acampamento passava de 80) */
 const JGS={sp:175,re:150,gd:55,xp:55,cl:9,n:'Aronguejo',nodes:['r2','r6']};
 const JGB={bl:{n:'Azuporã',dur:120,pw:.03},rd:{n:'Rubrivira',dur:120,pw:.04}};
 const DRT=[['inf','Infernal'],['mon','Montanha'],['oce','Oceano'],['nuv','Nuvem'],['hex','Hextec'],['qui','Químico']];
@@ -4798,7 +4808,7 @@ const LVSTY={
   re:{n:'Reativo',agg:-.25,gank:-.05,roam:-.05,obj:0,inv:-.15,split:0,def:.35,fight:.02}};
 const LVSTK=['ag','ma','es','ca','re'];
 const LVST={farm:'Farmando',clear:'Farmando',rot:'Rotacionando',gank:'Realizando gank',fight:'Lutando',retreat:'Recuando',recall:'Recuando',ward:'Controlando visão',stage:'Controlando visão',obj:'Fazendo objetivo',invade:'Invadindo jungle',defend:'Defendendo torre',press:'Pressionando rota',siege:'Pressionando rota',hunt:'Invadindo jungle',base:'Na base',dead:'Morto'};
-const LVRW=[.95,1,1.1,1.25,.65],LVEXP=[.85,.8,1,1.3,1.1],LVDPS=[.9,.8,1.15,1.4,.5],LVSP=[.8,.6,.85,1.2,.35],LVRCS=[.41,0,.51,.49,.12],LVCSF=[.6,1,.52,.62,.55]/* fator so do CS exibido: ~8/min aos 8 min (antes passava de 110); o ouro por farm segue igual */,LVXPR=[5.3,1.9,5.3,5.0,4]/* Bloco 10c (ESTIMADO): CS ~8-9/min nas rotas (antes 3-4: a CS exibida ficava irreal) e XP para nivel final ~14 */;
+const LVRW=[.95,1,1.1,1.25,.65],LVEXP=[.85,.8,1,1.3,1.1],LVDPS=[.9,.8,1.15,1.4,.5],LVSP=[.8,.6,.85,1.2,.35],LVRCS=[.41,0,.51,.49,.12],LVCSF=[.69,1,.57,.68,.55]/* fator so do CS exibido: ~8/min aos 8 min (antes passava de 110); o ouro por farm segue igual */,LVXPR=[5.3,1.9,5.3,5.0,4]/* Bloco 10c (ESTIMADO): CS ~8-9/min nas rotas (antes 3-4: a CS exibida ficava irreal) e XP para nivel final ~14 */;
 const LVOBN={g:'as Larvas do Vazio',h:'o Arauto',d:'o Dragão',b:'o Barão',e:'o Dragão Ancião'},LVOBT={g:70,h:110,d:100,b:190,e:210},LVOBV={g:.62,h:.66,d:.70,b:.8,e:1.05};
 const LVTWH=[110,150,170,120],LVNXH=160,LVNEXH=200;
 const lvOrd=()=>Math.random()<.5?['me','op']:['op','me'];
@@ -4979,6 +4989,8 @@ function lvEco(P,dt){
       const cs=LVRCS[P.r]*dt*k*(.9+.2*(P.lv<6?0:1))*((LV.bb&&LV.bb.s===P.s&&LV.bb.until>sec)||(LV.elder&&LV.elder.s===P.s&&LV.elder.until>sec)?1.35:1);const cf=LVCSF[P.r];P.cs+=cs*cf;P.gt+=cs*22;xp=LVXPR[P.r]*k;
     }
   }else if(P.r===1&&P.cl&&P.cl.t>sec){xp=LVXPR[1]}
+  /* depois dos 14 min o time passa mais tempo em objetivo e em rotação, mas ondas e acampamentos continuam sendo limpos nas laterais: o farm não para */
+  if(sec>=840&&P.r!==4&&P.hp>0&&P.st!=='base'&&!(P.go.k==='farm'&&P.r!==1)){const q=(P.r===1?.04:.07)*dt;P.cs+=q;P.gt+=q*16}
   P.xp+=xp*dt;
   while(P.lv<18&&P.xp>=lvXpN(P.lv)){P.xp-=lvXpN(P.lv);P.lv++}
   P.hp=Math.min(1,P.hp+(P.st==='base'?.12:.0035*(1+.12*lvDrN(P.s,'oce')))*dt);
@@ -6250,6 +6262,14 @@ const PCLV=100,pcNeed=lv=>Math.round(150+30*lv+.2*lv*lv),PC_XPB=1.2;/* PC_XPB: b
 const pcAbs=()=>S.year*365+(S.day||1);
 const pcPerk=id=>!!(S.pc&&S.pc.perks&&S.pc.perks[id]);
 const PBR={c:['Competidor','Decide jogos'],e:['Estudioso','Evolui mais rápido'],p:['Profissional','Vida de atleta']};
+/* cada árvore gasta o seu próprio tipo de ponto de habilidade; os pontos chegam em rodízio: Competidor, Estudioso, Profissional, e de novo */
+const PBK=['c','e','p'];
+function pcTpAdd(k){
+  const pc=S.pc;if(!pc.tb)pc.tb={c:0,e:0,p:0};const got=[];
+  for(let i=0;i<k;i++){const b=PBK[(pc.tn||0)%3];pc.tb[b]=(pc.tb[b]||0)+1;pc.tn=(pc.tn||0)+1;pc.tp=(pc.tp||0)+1;got.push(b)}
+  return got;
+}
+const pcTpTxt=got=>{const c={};got.forEach(b=>c[b]=(c[b]||0)+1);return PBK.filter(b=>c[b]).map(b=>`${c[b]} de ${PBR[b][0]}`).join(' e ')};
 /* Árvore em losango (11 nós por ramo, como um RPG): r = linha (0 topo ... 4 base), x = posição horizontal em %, pa = pré-requisitos (basta um; o nó final exige `need`),
    c = custo, lv = nível mínimo, at = [atributo, pontos] (aplicado ao aprender), fx = efeitos somados por pcFx().
    Chaves: bold (acerto de "Buscar o jogo"), rtw (nota nas vitórias), pk/pd (abates/mortes), adj (vitória por mapa), xpw/xpm (XP semanal/de partidas),
@@ -6350,12 +6370,46 @@ function pcInvBuy(id){
   if(pc.cash<c){msg=`${x.n} custa ${fmtM(c)}; você tem ${fmtM(pc.cash)}.`;return}
   pc.cash=r1(pc.cash-c);pc.inv[id]=(pc.inv[id]||0)+1;pcLog(`investe ${fmtM(c)} em ${x.n} (nível ${pc.inv[id]}).`);msg=`${x.n} no nível ${pc.inv[id]}.`;
 }
+/* negócios: o dinheiro entra agora e volta com lucro (ou prejuízo) quando o prazo acaba, no fim da temporada. Até 3 ao mesmo tempo, um de cada tipo */
+const VENT_MAX=3;
+const VENT=[
+ {id:'fi',n:'Renda fixa',ic:'🏦',rk:'Risco baixo',cost:1,yrs:1,d:'Rende pouco, mas é garantido: 1,07× em 1 temporada.',out:()=>({m:1.07})},
+ {id:'cn',n:'Canal próprio',ic:'🎥',rk:'Risco baixo',cost:1.5,yrs:2,d:'Rende mais quanto maior a sua fama (de 1,15× a 2×) e ainda dá +3 de fama ao terminar.',out:pc=>({m:1.15+pc.fame/100*.85,fame:3})},
+ {id:'ac',n:'Academia de LoL',ic:'🎓',rk:'Risco médio',cost:3,yrs:3,d:'Forma novos talentos: retorno de 1,7× a 2,1× e +1 ponto de habilidade ao terminar.',out:()=>({m:1.7+Math.random()*.4,tp:1})},
+ {id:'pf',n:'Marca de periféricos',ic:'🖱️',rk:'Risco alto',cost:4,yrs:2,d:'Pode quebrar (25%: volta 0,2×), render bem (50%: 1,5×) ou explodir (25%: 3,4× e +2 de fama).',out:()=>{const r=Math.random();return r<.25?{m:.2,bad:1}:r<.75?{m:1.5}:{m:3.4,fame:2}}},
+ {id:'og',n:'Organização amadora',ic:'🏟️',rk:'Risco médio',cost:8,yrs:4,d:'Longo prazo: retorno entre 1,4× e 4× e +4 de fama.',out:()=>({m:1.4+Math.random()*2.6,fame:4})}
+];
+const pcVentCost=v=>Math.round(v.cost*pcDis()*100)/100;
+function pcVentBuy(id){
+  const pc=S.pc,v=VENT.find(z=>z.id===id);if(!v)return;pcEnsure();pc.vn=pc.vn||[];
+  if(pc.vn.some(x=>x.id===id)){msg=`${v.n} já está em andamento.`;return}
+  if(pc.vn.length>=VENT_MAX){msg=`Você já tem ${VENT_MAX} negócios em andamento.`;return}
+  const c=pcVentCost(v);if(pc.cash<c){msg=`${v.n} pede ${fmtM(c)}; você tem ${fmtM(pc.cash)}.`;return}
+  pc.cash=r1(pc.cash-c);pc.vn.push({id,left:v.yrs,stake:c});pcLog(`abre o negócio ${v.n} com ${fmtM(c)}.`);msg=`${v.n} aberto: resultado em ${v.yrs} temporada${v.yrs>1?'s':''}.`;
+}
+function pcVentTick(){
+  const pc=S.pc;if(!pc||!pc.vn||!pc.vn.length)return;
+  const rest=[];
+  pc.vn.forEach(x=>{
+    const v=VENT.find(z=>z.id===x.id);if(!v)return;
+    x.left--;if(x.left>0){rest.push(x);return}
+    const o=v.out(pc),ret=r1(x.stake*o.m),res=r1(ret-x.stake);
+    pc.cash=r1(pc.cash+ret);
+    if(o.fame)pcFame(o.fame);
+    let tx=`${v.n}: investiu ${fmtM(x.stake)} e recebeu ${fmtM(ret)} (${res>=0?'lucro':'prejuízo'} de ${fmtM(Math.abs(res))}).`;
+    if(o.tp){const gt=pcTpAdd(o.tp);tx+=` Ganhou +${pcTpTxt(gt)} de habilidade.`}
+    pcLog(tx.charAt(0).toLowerCase()+tx.slice(1));
+    pc.vh=(pc.vh||[]).concat([{y:S.year,id:v.id,stake:x.stake,ret,bad:!!o.bad}]).slice(-6);
+    news(`${pc.n} ${o.bad?'perde dinheiro':'lucra'} com ${v.n}: ${fmtM(ret)} de retorno.`);
+  });
+  pc.vn=rest;
+}
 function pcBuyPts(kind){
   const pc=S.pc;pcEnsure();const t=kind==='t',n=t?pc.bt:pc.bs,mx=t?INV_PT_MAX:INV_ST_MAX;
   if(n>=mx){msg=`Você já comprou o máximo de pontos de ${t?'habilidade':'status'}.`;return}
   const c=Math.round((t?invPtCost(n):invStCost(n))*pcDis()*100)/100;
   if(pc.cash<c){msg=`O próximo ponto custa ${fmtM(c)}; você tem ${fmtM(pc.cash)}.`;return}
-  pc.cash=r1(pc.cash-c);if(t){pc.bt++;pc.tp=(pc.tp||0)+1}else{pc.bs++;pc.pts=(pc.pts||0)+1}
+  pc.cash=r1(pc.cash-c);if(t){pc.bt++;pcTpAdd(1)}else{pc.bs++;pc.pts=(pc.pts||0)+1}
   pcLog(`compra 1 ponto de ${t?'habilidade':'status'} por ${fmtM(c)}.`);msg=`+1 ponto de ${t?'habilidade':'status'} (${fmtM(c)}).`;
 }
 /* nível 99+: pontos de status viram habilidade, 3 por 1 */
@@ -6363,14 +6417,14 @@ function pcSwap(all){
   const pc=S.pc;pcEnsure();if(pc.lv<99){msg='A troca abre no nível 99.';return}
   const k=all?Math.floor((pc.pts||0)/3):((pc.pts||0)>=3?1:0);
   if(!k){msg='Troca: 3 pontos de status por 1 de habilidade. Você tem menos de 3.';return}
-  pc.pts-=3*k;pc.tp=(pc.tp||0)+k;pc.swp=(pc.swp||0)+k;pcLog(`troca ${3*k} pontos de status por ${k} de habilidade.`);msg=`${3*k} de status viraram ${k} ponto${k>1?'s':''} de habilidade.`;
+  pc.pts-=3*k;pcTpAdd(k);pc.swp=(pc.swp||0)+k;pcLog(`troca ${3*k} pontos de status por ${k} de habilidade.`);msg=`${3*k} de status viraram ${k} ponto${k>1?'s':''} de habilidade.`;
 }
 /* estado de um nó: own aprendida · lock (nível ou pré-requisito) · can (dá para aprender) · cost (faltam pontos) */
 function pcPerkSt(x){
   const pc=S.pc;if(pc.perks[x.id])return'own';
   const got=x.pa.filter(i=>pc.perks[i]).length;
   if(pc.lv<x.lv||(x.pa.length&&got<(x.need||1)))return'lock';
-  return (pc.tp||0)>=x.c?'can':'cost';
+  return ((pc.tb&&pc.tb[x.br])||0)>=x.c?'can':'cost';
 }
 const PTRN={l:{n:'Leve',d:'Poupa energia; XP baixo.',xp:32,en:10,fx:9,tr:.4},n:{n:'Normal',d:'Equilíbrio entre XP e desgaste.',xp:57,en:22,fx:16,tr:1.1},i:{n:'Intenso',d:'Muito XP e a melhor impressão no técnico, mas cansa.',xp:92,en:38,fx:30,tr:1.8},p:{n:'Pool',d:'Treina 5 campeões aleatórios da sua função que ainda não estão em 100% (+3% cada, mais com a árvore). XP baixo.',xp:25,en:20,fx:0,tr:.7},d:{n:'Folga',d:'Recupera bastante energia; quase sem XP.',xp:9,en:-25,fx:0,tr:0}};
 /* nêmesis: jogador da mesma função que você enfrenta com frequência. MSI e Mundial pesam 3x, Copa 2x, liga 1x;
@@ -6413,6 +6467,7 @@ function pcEnsure(){
   if(!pc.perks)pc.perks={};
   if(!pc.inv)pc.inv={};if(pc.bt==null)pc.bt=0;if(pc.bs==null)pc.bs=0;
   if(pc.tp==null){let e=0;for(let l=2;l<=pc.lv;l++)e+=l%5===0?2:l%2===0?1:0;PERKS.forEach(x=>{if(pc.perks[x.id])e-=x.c});pc.tp=Math.max(0,e)}
+  if(!pc.tb){const n=pc.tp||0;pc.tb={c:0,e:0,p:0};pc.tp=0;pc.tn=0;pcTpAdd(n)}
   if(pc.wd==null)pc.wd=pcAbs();
   if(pc.test===undefined)pc.test=null;
   if(pc.tcd==null)pc.tcd=0;
@@ -6422,7 +6477,7 @@ function pcGain(n,mult){
   pc.xt=(pc.xt||0)+n;
   if(pc.lv>=PCLV){pc.xl=0;return n}
   pc.xl+=n;let up=0;
-  while(pc.lv<PCLV&&pc.xl>=pcNeed(pc.lv)){pc.xl-=pcNeed(pc.lv);pc.lv++;const k=pc.lv%5===0?2:pc.lv%4===0?0:1,h=pc.lv%5===0?2:pc.lv%2===0?1:0;let k2=k,h2=h;if(Math.random()<pcFx('lkp'))k2++;if(pc.lv%10===0)h2+=Math.round(pcFx('mil'));pc.pts=(pc.pts||0)+k2;pc.tp=(pc.tp||0)+h2;up++;pcLog(`sobe para o nível ${pc.lv} (+${k2} ponto${k2>1?'s':''} de status${h2?` e +${h2} de habilidade`:''}).`)}
+  while(pc.lv<PCLV&&pc.xl>=pcNeed(pc.lv)){pc.xl-=pcNeed(pc.lv);pc.lv++;const k=pc.lv%5===0?2:pc.lv%4===0?0:1,h=pc.lv%5===0?2:pc.lv%2===0?1:0;let k2=k,h2=h;if(Math.random()<pcFx('lkp'))k2++;if(pc.lv%10===0)h2+=Math.round(pcFx('mil'));pc.pts=(pc.pts||0)+k2;const gt=h2?pcTpAdd(h2):[];up++;pcLog(`sobe para o nível ${pc.lv} (+${k2} ponto${k2>1?'s':''} de status${h2?` e +${pcTpTxt(gt)} em habilidade`:''}).`)}
   if(up)pc.lvf=pc.lv;
   return n;
 }
@@ -6613,6 +6668,7 @@ function pcYear(){
   {const dF=(rating!=null?(rating-6)*3:-1)+trophies*4+(ix>=0?5:0);pcFame(dF)}
   if(rating!=null&&rating>=7)pcGain(rating>=8.5?160:rating>=8?120:70);
   pc.cash=r1(pc.cash+pc.sal*(1+pcFx('inc')));
+  pcVentTick();
   if(pc.cl==='bon'&&trophies>0){const bb=r1(pc.sal*.8*trophies);pc.cash=r1(pc.cash+bb);pcLog(`recebe bônus por título do contrato: ${fmtM(bb)}.`)}
   pc.ctr--;
   pcSync();pc.r0=p.r;pc.cap=Math.max(pc.cap,p.pot+2);
@@ -6842,8 +6898,8 @@ function pcLearn(id){
   const st=pcPerkSt(d);
   if(pc.lv<d.lv){msg=`${d.n} pede nível ${d.lv}.`;return}
   if(st==='lock'){msg=d.need?`${d.n} pede ${d.need} das habilidades ligadas.`:`${d.n} pede uma habilidade ligada antes.`;return}
-  if((pc.tp||0)<d.c){msg=`${d.n} custa ${d.c} ponto${d.c>1?'s':''} de habilidade.`;return}
-  pc.tp-=d.c;pc.perks[id]=1;
+  if(((pc.tb&&pc.tb[d.br])||0)<d.c){msg=`${d.n} custa ${d.c} ponto${d.c>1?'s':''} de ${PBR[d.br][0]}; você tem ${(pc.tb&&pc.tb[d.br])||0}.`;return}
+  pc.tb[d.br]-=d.c;pc.tp-=d.c;pc.perks[id]=1;
   if(d.at){pc.at[d.at[0]]=Math.min(99,pc.at[d.at[0]]+d.at[1]);pc.cap=Math.max(pc.cap,pc.at[d.at[0]]);pcSync()}
   pcLog(`aprende a habilidade ${d.n}.`);msg=`${d.n} aprendida.`;
 }
@@ -6861,7 +6917,7 @@ function pcTrustTxt(f){
 }
 function pcLvHTML(){
   const pc=S.pc,need=pcNeed(pc.lv),max=pc.lv>=PCLV;
-  return `<section class="pn"><h2>Nível ${pc.lv}${max?' <span class="tag">máx</span>':''}</h2>${pcBar(max?1:pc.xl,max?1:need)}<p class="note" style="margin:6px 0 0">${max?'Nível máximo.':`${pc.xl} / ${need} de XP para o nível ${pc.lv+1}.`} Cada nível dá 1 ponto de status (nenhum nos múltiplos de 4, o dobro a cada 5 níveis) e, nos pares, 1 de habilidade (o dobro a cada 5 níveis). No nível 99, status vira habilidade (3 por 1).</p></section>`;
+  return `<section class="pn"><h2>Nível ${pc.lv}${max?' <span class="tag">máx</span>':''}</h2>${pcBar(max?1:pc.xl,max?1:need)}<p class="note" style="margin:6px 0 0">${max?'Nível máximo.':`${pc.xl} / ${need} de XP para o nível ${pc.lv+1}.`} Cada nível dá 1 ponto de status (nenhum nos múltiplos de 4, o dobro a cada 5 níveis) e, nos pares, 1 de habilidade (o dobro a cada 5 níveis). Os pontos de habilidade vêm em rodízio: Competidor, Estudioso e Profissional, cada árvore só gasta o seu. No nível 99, status vira habilidade (3 por 1).</p></section>`;
 }
 function pcTrustHTML(f){
   const pc=S.pc,tr=Math.round(pc.tr);
@@ -6879,11 +6935,18 @@ function pcTrainHTML(f){
 }
 let pcSub='car';
 function pcInvHTML(){
-  const pc=S.pc;pcEnsure();const dis=Math.round(pcFx('dis')*100);
-  const row=x=>{const l=pc.inv[x.id]||0,c=pcInvCost(x),mx=x.cost.length;return `<div class="mrow" style="grid-template-columns:34px minmax(0,1fr) auto"><span class="num" style="font-size:22px;text-align:center">${x.ic}</span><span class="who"><b>${x.n} <small style="opacity:.7">· nível ${l}/${mx}</small></b><small>${x.d}</small>${pcBar(l,mx)}</span><button class="ghost" data-act="pcInv" data-v="${x.id}"${c==null||pc.cash<c?' disabled':''}>${c==null?'Máx.':fmtM(c)}</button></div>`};
-  const pt=(kind,lab,n,mx,c)=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr) auto"><span class="num" style="font-size:22px;text-align:center">${kind==='t'?'🧬':'💪'}</span><span class="who"><b>${lab} <small style="opacity:.7">· ${n}/${mx} comprados</small></b><small>${kind==='t'?'Um ponto para a árvore de habilidades. O preço sobe a cada compra.':'Um ponto de atributo. O preço sobe a cada compra.'}</small></span><button class="ghost" data-act="pcBuy" data-v="${kind}"${n>=mx||pc.cash<c?' disabled':''}>${n>=mx?'Máx.':fmtM(c)}</button></div>`;
+  const pc=S.pc;pcEnsure();const dis=Math.round(pcFx('dis')*100);pc.vn=pc.vn||[];
+  const pips=(l,mx)=>`<span class="ipips">${Array.from({length:mx},(_,i)=>`<i class="${i<l?'on':''}"></i>`).join('')}</span>`;
+  const lvl=['Básico','Bom','Pro','Elite','Lendário'];
+  const row=x=>{const l=pc.inv[x.id]||0,c=pcInvCost(x),mx=x.cost.length;return `<div class="icard${l>=mx?' mx':''}"><span class="iic">${x.ic}</span><span class="who"><b>${x.n}</b><small>${x.d}</small>${pips(l,mx)}<em>${l?lvl[Math.min(l-1,4)]+' · nível '+l+'/'+mx:'Não contratado'}</em></span><button class="${c!=null&&pc.cash>=c?'play':'ghost'}" data-act="pcInv" data-v="${x.id}"${c==null||pc.cash<c?' disabled':''}>${c==null?'Máx.':(l?'Melhorar · ':'Contratar · ')+fmtM(c)}</button></div>`};
+    const ven=VENT.map(v=>{const on=pc.vn.find(x=>x.id===v.id),c=pcVentCost(v),can=!on&&pc.vn.length<VENT_MAX&&pc.cash>=c;return `<div class="icard${on?' act':''}"><span class="iic">${v.ic}</span><span class="who"><b>${v.n} <small class="rk r${v.rk.endsWith('baixo')?1:v.rk.endsWith('médio')?2:3}">${v.rk}</small></b><small>${v.d}</small><em>${on?`${on.left} temporada${on.left>1?'s':''} para o resultado · investido ${fmtM(on.stake)}`:`Prazo: ${v.yrs} temporada${v.yrs>1?'s':''}`}</em></span><button class="${can?'play':'ghost'}" data-act="pcVent" data-v="${v.id}"${can?'':' disabled'}>${on?'Em andamento':fmtM(c)}</button></div>`}).join('');
+  const vh=(pc.vh||[]).slice().reverse().map(h=>{const v=VENT.find(z=>z.id===h.id);return `<li><b class="num">${h.y}</b> · ${v?v.n:h.id}: ${fmtM(h.stake)} viraram ${fmtM(h.ret)} <span class="${h.ret>=h.stake?'up':'dn'}">${h.ret>=h.stake?'+':'−'}${fmtM(Math.abs(r1(h.ret-h.stake)))}</span></li>`}).join('');
+  const pt=(kind,lab,n,mx,c,ic,dsc)=>`<div class="icard"><span class="iic">${ic}</span><span class="who"><b>${lab}</b><small>${dsc}</small>${pips(n,Math.min(mx,12))}<em>${n}/${mx} comprados</em></span><button class="${n<mx&&pc.cash>=c?'play':'ghost'}" data-act="pcBuy" data-v="${kind}"${n>=mx||pc.cash<c?' disabled':''}>${n>=mx?'Máx.':fmtM(c)}</button></div>`;
   const ct=Math.round(invPtCost(pc.bt)*pcDis()*100)/100,cs=Math.round(invStCost(pc.bs)*pcDis()*100)/100;
-  return `<section class="pn"><h2>Investimentos</h2><div class="cab" style="margin:0 0 8px;grid-template-columns:repeat(2,minmax(0,1fr))"><div><b class="num" style="font-size:22px">${fmtM(pc.cash).replace('US$ ','')}</b><small>Patrimônio (US$)</small></div><div><b class="num">${dis}%</b><small>Desconto (habilidades)</small></div></div><p class="note" style="margin:0 0 6px">O salário e os prêmios que você junta viram vantagem: contrate uma equipe ou compre pontos direto.</p>${INV.map(row).join('')}${pt('t','Mentoria lendária',pc.bt,INV_PT_MAX,ct)}${pt('s','Camp de treinamento',pc.bs,INV_ST_MAX,cs)}</section>`;
+  return `<section class="pn pinv"><h2>Patrimônio</h2><div class="cab" style="margin:0 0 10px;grid-template-columns:repeat(3,minmax(0,1fr))"><div><b class="num" style="font-size:22px">${fmtM(pc.cash).replace('US$ ','')}</b><small>Caixa (US$ mi)</small></div><div><b class="num">${pc.vn.length}/${VENT_MAX}</b><small>Negócios ativos</small></div><div><b class="num">${dis}%</b><small>Desconto</small></div></div>
+  <h3 class="isub">Negócios <small>o dinheiro volta com lucro ou prejuízo no fim da temporada</small></h3><div class="ilist">${ven}</div>${vh?`<ul class="lines ihist">${vh}</ul>`:''}
+  <h3 class="isub">Estrutura pessoal <small>vantagens permanentes que crescem por nível</small></h3><div class="ilist">${INV.map(row).join('')}</div>
+  <h3 class="isub">Atalhos <small>compre pontos direto, o preço sobe a cada compra</small></h3><div class="ilist">${pt('t','Mentoria lendária',pc.bt,INV_PT_MAX,ct,'🧬','Um ponto de habilidade, entregue no rodízio das árvores.')}${pt('s','Camp de treinamento',pc.bs,INV_ST_MAX,cs,'💪','Um ponto de atributo para distribuir.')}</div></section>`;
 }
 function pcStatusHTML(f){
   const pc=S.pc,pts=pc.pts||0,fo=pc.focus==null?2:pc.focus,p=f.p;
@@ -6909,11 +6972,11 @@ function pcTreeBg(br){
 }
 let pcPerkSel=null,pcBr='c';
 function pcTreeHTML(f){
-  const pc=S.pc,tp=pc.tp||0,P=PERKS.filter(x=>x.br===pcBr),by=id=>PERKS.find(x=>x.id===id);
+  const pc=S.pc,tp=(pc.tb&&pc.tb[pcBr])||0,P=PERKS.filter(x=>x.br===pcBr),by=id=>PERKS.find(x=>x.id===id);
   const selX=by(pcPerkSel);
   const sel=selX&&selX.br===pcBr?selX:(P.find(x=>pcPerkSt(x)==='can')||P[0]),s0=pcPerkSt(sel);
   const got=PERKS.filter(x=>pc.perks[x.id]).length,gb=P.filter(x=>pc.perks[x.id]).length;
-  const why=s0==='own'?'Aprendida':pc.lv<sel.lv?`Requer nível ${sel.lv}`:s0==='lock'?(sel.need?`Requer ${sel.need} das ${sel.pa.length} ligadas`:`Requer ${by(sel.pa[0]).n}${sel.pa.length>1?' ou '+by(sel.pa[1]).n:''}`):`Faltam ${sel.c-tp} ponto${sel.c-tp>1?'s':''}`;
+  const why=s0==='own'?'Aprendida':pc.lv<sel.lv?`Requer nível ${sel.lv}`:s0==='lock'?(sel.need?`Requer ${sel.need} das ${sel.pa.length} ligadas`:`Requer ${by(sel.pa[0]).n}${sel.pa.length>1?' ou '+by(sel.pa[1]).n:''}`):`Faltam ${sel.c-tp} ponto${sel.c-tp>1?'s':''} de ${PBR[pcBr][0]}`;
   const H=1440,Y=r=>3.5+r*9.6+(r>=5?3.5:0);
   let lines='';
   P.forEach(x=>x.pa.forEach(pid=>{const q=by(pid),lit=pc.perks[pid]&&pc.perks[x.id],half=pc.perks[pid]&&!pc.perks[x.id],y1=Y(q.r),y2=Y(x.r),ym=(y1+y2)/2;lines+=`<path d="M${q.x} ${y1} C${q.x} ${ym} ${x.x} ${ym} ${x.x} ${y2}" class="${lit?'on':half?'half':''}"/>`}));
@@ -6921,10 +6984,10 @@ function pcTreeHTML(f){
   P.forEach(x=>{const k=pcPerkSt(x);nodes+=`<div class="tnode ${k}${x.r===4||x.r>=8?' cap':''}" style="left:${x.x}%;top:${Y(x.r)}%"><button class="tnb${x.id===sel.id?' sel':''}" data-act="pcPerkSel" data-v="${x.id}" aria-label="${esc(x.n)}">${perkSvg(x.id)}</button>${k==='own'?'<i class="tok">✓</i>':''}<b>${esc(x.n)}</b><small>${k==='own'?'aprendida':k==='lock'&&pc.lv<x.lv?'nível '+x.lv:k==='lock'?'bloqueada':'◆'.repeat(x.c)}</small></div>`});
   const gate=pc.perks[{c:'c11',e:'e11',p:'p11'}[pcBr]];
   const div=`<div class="tdiv${gate?' open':''}" style="top:${Y(4)+(Y(5)-Y(4))*.65}%"><i class="dm l"></i><i class="dm r"></i><span><em><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><path d="${PGL.crown}"/></svg>Lendas<small>${gate?'portal aberto':'nível 20+'}</small></em></span></div>`;
-  const tabs=Object.keys(PBR).map(b=>{const n=PERKS.filter(x=>x.br===b&&pc.perks[x.id]).length;return `<button class="pill" aria-pressed="${pcBr===b}" data-act="pcBr" data-v="${b}">${PBR[b][0]} <small>${n}/22</small></button>`}).join('');
+  const tabs=Object.keys(PBR).map(b=>{const n=PERKS.filter(x=>x.br===b&&pc.perks[x.id]).length;return `<button class="pill" aria-pressed="${pcBr===b}" data-act="pcBr" data-v="${b}">${PBR[b][0]} <small>${n}/22 · ${(pc.tb&&pc.tb[b])||0} pt</small></button>`}).join('');
   const fxs=Object.keys(PBR).map(()=>'').join('');
-  return `<section class="pn"><h2>Árvore de habilidades</h2><div class="cab${tp>0?' ptsb':''}" style="margin:0 0 10px;grid-template-columns:repeat(2,minmax(0,1fr))"><div><b class="num">${tp}</b><small>Pontos de habilidade</small></div><div><b class="num">${got}/${PERKS.length}</b><small>Aprendidas</small></div></div>
-  <div class="pills" style="margin-bottom:8px">${tabs}</div><p class="note" style="margin:0 0 6px">${PBR[pcBr][0]} · ${PBR[pcBr][1]}. Comece pelo topo e desça: cada habilidade se liga às que têm a ver com ela. O nó grande do meio fecha a 1ª metade; a 2ª metade (nível 20 a 90) sai dele e é bem mais cara.</p>
+  return `<section class="pn"><h2>Árvore de habilidades</h2><div class="cab${(pc.tp||0)>0?' ptsb':''}" style="margin:0 0 10px;grid-template-columns:repeat(2,minmax(0,1fr))"><div><b class="num">${tp}</b><small>Pontos de ${PBR[pcBr][0]}</small></div><div><b class="num">${got}/${PERKS.length}</b><small>Aprendidas</small></div></div>
+  <div class="pills" style="margin-bottom:8px">${tabs}</div><p class="note" style="margin:0 0 6px">${PBR[pcBr][0]} · ${PBR[pcBr][1]}. Cada árvore gasta o seu próprio tipo de ponto (Competidor, Estudioso, Profissional), que você ganha em rodízio a cada nível par. Comece pelo topo e desça: cada habilidade se liga às que têm a ver com ela. O nó grande do meio fecha a 1ª metade; a 2ª metade (nível 20 a 90) sai dele e é bem mais cara.</p>
   <div class="tlay"><div class="tdia tb-${pcBr}" style="height:${H}px">${pcTreeBg(pcBr)}<svg class="tln" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${lines}</svg>${div}${nodes}</div>
   <div class="tdet ${s0}"><div class="tdh"><span class="tdi tb-${sel.br}">${perkSvg(sel.id)}</span><div><b>${esc(sel.n)}</b><small>${PBR[sel.br][0]} · custo ${sel.c} ponto${sel.c>1?'s':''} · nível ${sel.lv}${sel.pa.length?' · liga com '+sel.pa.map(i=>by(i).n).join(', '):' · ponto de partida'}</small></div></div><p>${esc(sel.d)}</p>${s0==='own'?'<span class="tag">Aprendida</span>':`<button class="${s0==='can'?'play':'ghost'}" data-act="pcLearn" data-v="${sel.id}"${s0==='can'?'':' disabled'}>${s0==='can'?'Aprender':esc(why)}</button>`}</div></div></section>`;
 }
@@ -9555,7 +9618,7 @@ function act0(a,v){
   else if(a==='pcSub'){pcSub=v}
   else if(a==='pcPerkSel'){pcPerkSel=v}else if(a==='pcBr'){pcBr=v;pcPerkSel=null}
   else if(a==='pcLearn'){pcLearn(v);save()}
-  else if(a==='pcInv'){pcInvBuy(v);save()}else if(a==='pcBuy'){pcBuyPts(v);save()}else if(a==='pcTour'){pcTourStart();save()}else if(a==='pcTourX'){pcTourCancel();save()}else if(a==='pcRetAsk'){pcRetAsk=true}else if(a==='pcRetNow'){pcRetAsk=false;pcRetireNow(false);save()}else if(a==='pcSwap'){pcSwap(v==='all');save()}
+  else if(a==='pcInv'){pcInvBuy(v);save()}else if(a==='pcVent'){pcVentBuy(v);save()}else if(a==='pcBuy'){pcBuyPts(v);save()}else if(a==='pcTour'){pcTourStart();save()}else if(a==='pcTourX'){pcTourCancel();save()}else if(a==='pcRetAsk'){pcRetAsk=true}else if(a==='pcRetNow'){pcRetAsk=false;pcRetireNow(false);save()}else if(a==='pcSwap'){pcSwap(v==='all');save()}
   else if(a==='ptPlay'){if(ptStart(false))top=true;save()}
   else if(a==='ptSim'){ptStart(true);save()}
   else if(a==='ptNo'){ptNo();save()}

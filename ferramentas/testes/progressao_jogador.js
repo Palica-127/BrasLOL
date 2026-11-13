@@ -23,7 +23,7 @@ ok(J('S.pc.lv')===5&&J('S.pc.pts')===2,'nível 5 dá 2 pontos');
 /* ---- árvore em losango: nível mínimo, ligações, custo e efeitos ---- */
 ok(J('PERKS.length')===66&&J('PERKS.every(function(x){return x.pa.every(function(i){return PERKS.some(function(y){return y.id===i})})})'),'66 habilidades (22 por ramo) e todas as ligações apontam para habilidades que existem');
 ok(J('["c","e","p"].every(function(b){return PERKS.filter(function(x){return x.br===b}).map(function(x){return x.r}).sort().join()==="0,1,1,2,2,2,2,3,3,3,4,5,5,6,6,6,6,7,7,7,8,9"})'),'cada ramo tem o formato 1-2-4-3-1 + 2-4-3-1-1');
-run(ctx,`S.pc.lv=3;S.pc.tp=9;S.pc.perks={};pcLearn('c4');`);
+run(ctx,`S.pc.lv=3;S.pc.tp=9;S.pc.tb={c:9,e:0,p:0};S.pc.perks={};pcLearn('c4');`);
 ok(J('!S.pc.perks.c4'),'habilidade de nível 4 bloqueada no nível 3 e sem a ligada');
 run(ctx,`pcLearn('c1');`);
 ok(J('S.pc.perks.c1')===1&&J('S.pc.tp')===8,'aprende a raiz c1 por 1 ponto');
@@ -35,14 +35,14 @@ run(ctx,`pcLearn('c7');`);
 ok(J('!S.pc.perks.c7'),'Outplay pede Reflexos afiados (ligação), não basta ter Duelista');
 run(ctx,`pcLearn('c2');pcLearn('c2');`);
 ok(J('S.pc.perks.c2')===1&&J('S.pc.tp')===5,'Decisivo (ligado a Duelista) custa 2 e não cobra duas vezes');
-run(ctx,`S.pc.lv=15;S.pc.tp=20;pcLearn('c11');`);
+run(ctx,`S.pc.lv=15;S.pc.tp=20;S.pc.tb={c:20,e:0,p:0};pcLearn('c11');`);
 ok(J('!S.pc.perks.c11'),'Lenda do Rift exige 2 das 3 habilidades ligadas');
 run(ctx,`pcLearn('c5');pcLearn('c7');pcLearn('c3');pcLearn('c11');`);
 ok(J('!S.pc.perks.c11')===true||J('S.pc.perks.c3')===1,'Carregador exige Decisivo ou Outplay');
 run(ctx,`S.pc.perks.c9=1;S.pc.perks.c3=1;pcLearn('c11');`);
 ok(J('S.pc.perks.c11')===1,'com 2 ligadas a Lenda do Rift libera');
 ok(J('Math.abs(pcFx("adj")-0.02)<1e-9&&Math.abs(pcFx("bold")-0.15)<1e-9&&Math.abs(pcFx("pk")-0.12)<1e-9'),'efeitos somam (vitória/mapa, buscar o jogo, abates)');
-run(ctx,`S.pc.perks={};S.pc.at[1]=60;S.pc.tp=5;S.pc.lv=7;pcLearn('c1');pcLearn('c5');`);
+run(ctx,`S.pc.perks={};S.pc.at[1]=60;S.pc.tp=5;S.pc.tb={c:5,e:0,p:0};S.pc.lv=7;pcLearn('c1');pcLearn('c5');`);
 ok(J('S.pc.at[1]')===62,'Reflexos afiados +2 de Mecânica e o OVR é recalculado');
 run(ctx,`S.pc.perks={};S.pc.pts=1;`);
 run(ctx,`var a0=S.pc.at[1];S.pc.pts=1;pcSpend(1);`);
@@ -131,7 +131,7 @@ run(ctx,`S.pc.test=null;ptNew('s');S.pc.test.ax=pcAbs()-1;var trE=S.pc.tr;ptLife
 ok(J('S.pc.test===null&&S.pc.tr<trE')===true,'convite expirado derruba a confiança');
 
 /* ---- pontos separados e treino de pool ---- */
-run(ctx,`S.pc.lv=1;S.pc.xl=0;S.pc.pts=0;S.pc.tp=0;pcGain(pcNeed(1));`);
+run(ctx,`S.pc.lv=1;S.pc.xl=0;S.pc.pts=0;S.pc.tp=0;S.pc.tb={c:0,e:0,p:0};pcGain(pcNeed(1));`);
 ok(J('S.pc.lv===2&&S.pc.pts===1&&S.pc.tp===1'),'nível 2: 1 ponto de status e 1 de habilidade, separados');
 run(ctx,`S.pc.plan='p';S.pc.en=100;S.pc.pool={};var rl=pcFind().p.role;pcWeek();`);
 ok(J('S.pc.wk.pl.length===5&&S.pc.wk.pl.every(function(c){return (S.pc.pool[c]||0)>0})'),'treino de pool: 5 campeões aleatórios ganham domínio');
@@ -154,7 +154,7 @@ ok(J('[S.pc.lv>=1,S.pc.tr>0,S.pc.plan,typeof S.pc.perks]').join()==='true,true,n
 try{run(ctx,`pcYear();`);ok(true,'pcYear roda')}catch(e){ok(false,'pcYear -> '+e.message)}
 
 /* ---- troca 3:1 (nível 99), investimentos e segunda metade da árvore ---- */
-run(ctx,`S.pc.lv=98;S.pc.pts=9;S.pc.tp=0;pcSwap(false);`);
+run(ctx,`S.pc.lv=98;S.pc.pts=9;S.pc.tp=0;S.pc.tb={c:0,e:0,p:0};pcSwap(false);`);
 ok(J('[S.pc.pts,S.pc.tp].join()')==='9,0','antes do nível 99 a troca não funciona');
 run(ctx,`S.pc.lv=99;pcSwap(false);`);
 ok(J('[S.pc.pts,S.pc.tp].join()')==='6,1','nível 99: 3 de status viram 1 de habilidade');
@@ -167,11 +167,11 @@ ok(J('!S.pc.inv.ic')===true,'investimento sem dinheiro é recusado');
 run(ctx,`S.pc.cash=5;pcInvBuy('ic');`);
 ok(J('S.pc.inv.ic')===1&&Math.abs(J('S.pc.cash')-4.6)<.05,'investimento cobra o dinheiro e sobe de nível');
 ok(Math.abs(J('pcFx("xpw")')-0.08)<1e-9,'Treinador particular dá +8% de XP semanal');
-run(ctx,`S.pc.cash=50;S.pc.bt=0;S.pc.tp=0;pcBuyPts('t');pcBuyPts('t');`);
+run(ctx,`S.pc.cash=50;S.pc.bt=0;S.pc.tp=0;S.pc.tb={c:0,e:0,p:0};pcBuyPts('t');pcBuyPts('t');`);
 ok(J('S.pc.tp')===2&&J('S.pc.bt')===2&&J('S.pc.cash')<50,'compra de pontos de habilidade com dinheiro');
-run(ctx,`S.pc.perks={c11:1};S.pc.lv=20;S.pc.tp=5;pcLearn('c12');`);
+run(ctx,`S.pc.perks={c11:1};S.pc.lv=20;S.pc.tp=5;S.pc.tb={c:5,e:0,p:0};pcLearn('c12');`);
 ok(J('S.pc.perks.c12')===1,'2ª metade: Instinto assassino (nível 20) sai do nó final c11');
-run(ctx,`S.pc.perks={};S.pc.lv=100;S.pc.tp=9;pcLearn('c12');`);
+run(ctx,`S.pc.perks={};S.pc.lv=100;S.pc.tp=9;S.pc.tb={c:9,e:0,p:0};pcLearn('c12');`);
 ok(J('!S.pc.perks.c12')===true,'2ª metade exige o nó final da 1ª');
 run(ctx,`S.pc.perks={};S.pc.cap=80;var cp0=pcCap();S.pc.perks={e22:1};`);
 ok(J('pcCap()')===J('cp0')+2,'Onisciente (+2 de teto) aumenta o limite de atributo');
@@ -189,6 +189,24 @@ run(ctx,`ALLT().forEach(function(t){t.pl.forEach(function(p){if(p.pc){p.age=38}}
 ok(J('(function(){var f=pcFind();return f&&f.p.age})()')===38,'jogador ativo aos 38 não é aposentado sozinho');
 run(ctx,`S.pc.tour=S.year;pcRetireNow(true);`);
 ok(J('S.pc.ended')===J('S.year')&&J('S.pc.leg.v>0')===true&&J('S.pc.tourDone')===true,'aposentadoria gera legado e marca a turnê');
+
+/* ---- pontos de habilidade em rodízio por árvore ---- */
+run(ctx,`S.pc.perks={};S.pc.tp=0;S.pc.tb={c:0,e:0,p:0};S.pc.tn=0;pcTpAdd(5);`);
+ok(J('[S.pc.tb.c,S.pc.tb.e,S.pc.tb.p,S.pc.tp].join()')==='2,2,1,5','5 pontos entram em rodízio: Competidor, Estudioso, Profissional...');
+run(ctx,`S.pc.lv=7;S.pc.tb={c:0,e:3,p:0};S.pc.tp=3;pcLearn('c1');`);
+ok(J('!!S.pc.perks.c1')===false,'ponto de outra árvore não paga habilidade do Competidor');
+run(ctx,`pcLearn('e1');`);
+ok(J('S.pc.perks.e1')===1&&J('[S.pc.tb.e,S.pc.tp].join()')==='2,2','habilidade do Estudioso gasta ponto de Estudioso');
+/* ---- negócios do Patrimônio ---- */
+run(ctx,`S.pc.cash=10;S.pc.vn=[];pcVentBuy('fi');`);
+ok(J('S.pc.cash')<10&&J('S.pc.vn.length')===1,'negócio abre e cobra o dinheiro');
+run(ctx,`var c1=S.pc.cash;pcVentTick();`);
+ok(J('S.pc.vn.length')===0&&J('S.pc.cash')>J('c1'),'renda fixa paga no fim do prazo, com lucro');
+run(ctx,`S.pc.cash=20;S.pc.vn=[];pcVentBuy('ac');pcVentBuy('ac');pcVentBuy('fi');pcVentBuy('cn');pcVentBuy('pf');`);
+ok(J('S.pc.vn.length')===3,'no máximo 3 negócios e sem repetir o mesmo');
+run(ctx,`var tp0=S.pc.tp;pcVentTick();pcVentTick();pcVentTick();`);
+ok(J('S.pc.vn.length')===0&&J('S.pc.tp')===J('tp0')+1,'a Academia entrega +1 ponto de habilidade ao terminar');
+ok(J('pcInvHTML().length>500'),'tela de Patrimônio renderiza');
 
 console.log(falhas?`\n${falhas} falha(s)`:'\ntudo certo');
 process.exit(falhas?1:0);
