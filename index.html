@@ -9673,7 +9673,7 @@ function act0(a,v){
   if(['tab','player','team','lteam','nation','back','step','all'].includes(a))animNext=true;
   let top=false;
   if(!/^ev/.test(a))evM=null;
-  if(a==='evT'){evM=evM?null:{y:evSel?evSel.y:S.year,o:''}}
+  if(a==='evT'){evM=evM?null:{y:S.year,o:''}}
   else if(a==='evY'){const ys=evYears(),i=ys.indexOf(evM.y)+ +v;if(i>=0&&i<ys.length)evM.y=ys[i];evM.o=''}
   else if(a==='evO'){evM.o=evM.o===v?'':v}
   else if(a==='evGo'){const [y,k,lg]=String(v).split('|');evSel={y:+y,k,lg};evM=null;if(['fs','msi','wc'].includes(k)){brkO[k]=true;brkO[k+'s']=true;brkO.mpi=true;brkO.wpi=true}prof=null;pstack=[];tab='events';top=true}
