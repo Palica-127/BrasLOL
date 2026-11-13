@@ -2974,6 +2974,31 @@ function spStart(tag){
   S.season.sp={tag,lg,d2,rounds:roundRobin(shuffle(ids.slice())),ri:0,rec,stage:'rr',cur:null,last:[],sf:null};
   spPrep();
 }
+/* o jogador (ou técnico) mudou de liga com o split em andamento: a liga antiga é simulada de uma vez, o resultado já sorteado da liga nova é desfeito e o split passa a ser jogado na liga nova */
+function spRelocate(nt){
+  const sp=S.season&&S.season.sp;if(!sp||!nt)return;
+  const d2=nt.d===2;if(sp.lg===nt.lg&&!!sp.d2===d2)return;
+  const tag=sp.tag,label=`${nt.lg} ${splitNm(tag)}`,byName=n=>ALLT().find(t=>t.name===n);
+  const rm=(arr,f)=>{for(let i=arr.length-1;i>=0;i--)if(f(arr[i])){arr.splice(i,1);return}};
+  if(!d2){
+    const R=S.season.res[tag]||[],r=R.find(x=>x.lg===nt.lg);
+    if(r){
+      const c=T(r.cid),ru=byName(r.runner);
+      if(c){rm(c.tt,x=>x.k===label&&x.y===S.year);c.pl.forEach(p=>{const a=achOf(p.n);rm(a.lg,x=>x===label);const h=hofOf(p.n);h.lg=Math.max(0,(h.lg||0)-1);rm(pd(p.n).tl,x=>x.y===S.year&&x.t===label)})}
+      if(ru)ru.pl.forEach(p=>{const a=achOf(p.n);a.lgf=Math.max(0,a.lgf-1)});
+      if(r.mvp){const a=achOf(r.mvp),k='MVP '+label;rm(a.mv,x=>x===k);const h=hofOf(r.mvp);h.mvp=Math.max(0,(h.mvp||0)-1);rm(pd(r.mvp).tl,x=>x.y===S.year&&x.t===k)}
+      S.season.res[tag]=R.filter(x=>x!==r);
+    }
+  }else{
+    const D=S.season.d2r&&S.season.d2r[tag],r=D&&D.find(x=>x.lg===nt.lg);
+    if(r){const c=byName(r.champ);if(c)c.d2t=Math.max(0,(c.d2t||0)-1);S.season.d2r[tag]=D.filter(x=>x!==r)}
+  }
+  if(sp.d2)runD2(sp.lg,tag);
+  else{const r=runLeagueFull(sp.lg,tag),res=S.season.res[tag]=S.season.res[tag]||[];res.push(r);res.sort((a,b)=>LGS.indexOf(a.lg)-LGS.indexOf(b.lg))}
+  const ids=(d2?D2L():S.teams).filter(t=>t.lg===nt.lg).map(t=>t.id),rec={};ids.forEach(i=>rec[i]={w:0,l:0});
+  S.season.sp={tag,lg:nt.lg,d2,rounds:roundRobin(shuffle(ids.slice())),ri:0,rec,stage:'rr',cur:null,last:[],sf:null};
+  spPrep();
+}
 function plPrepare(sp){
   const po=sp.po;
   if(sp.r===1){
@@ -6918,6 +6943,7 @@ function pcAccept(i){
   pd(p.n).role=role;pc.sal=o.sal;pc.ctr=o.yrs;pc.offers=[];pc.pend=[];pc.tr=(o.k==='T'?60:35)+(o.cl==='con'?20:0);pc.cl=o.cl||'';
   pcLog(`assina com o ${nt.name} (${o.k==='T'?'titular':'reserva'}) por ${o.yrs} ano${o.yrs>1?'s':''}, salário ${fmtM(o.sal)}.`);
   news(`${p.n} deixa o ${ot.name} e assina com o ${nt.name}.`);
+  spRelocate(nt);
   msg=`Você assinou com o ${nt.name}.`;
 }
 function pcCheck(){
