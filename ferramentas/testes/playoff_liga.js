@@ -26,3 +26,7 @@ ok(b.pk,'escolha registrada');
 ok(b.done&&b.br&&b.champ,'liga encerra com campeão e bracket');
 ok(b.html>500,'bracket renderiza');
 console.log(pass+' ok, '+fail+' falhas');
+/* 3. recarregar o save entre as rodadas (JSON) não pode quebrar a chave */
+const c=JSON.parse(run(ctx,`(function(){var o={};try{S.season.res={};spStart('t');var sp=S.season.sp,z=0;while(sp.stage==='rr'&&z++<100)spStep();var k=0;CUPSIM=1;while(S.season.sp&&k++<10){S=JSON.parse(JSON.stringify(S));spStep()}CUPSIM=0;o.ok=!S.season.sp}catch(e){o.err=String(e)}return JSON.stringify(o)})()`));
+ok(c.ok&&!c.err,'chave sobrevive a salvar/carregar entre as rodadas '+(c.err||''));
+console.log(pass+' ok, '+fail+' falhas');
