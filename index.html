@@ -3233,10 +3233,10 @@ function worldsQual(){
   const direct=all.filter(c=>!pin.includes(c));
   return{all,direct,playin:pin,slots,msiChamp:mc,msiVice:vice,perdeuVaga:log.some(x=>x.t==='perdeu')};
 }
-function startWorldsQ(){
+function startWorldsQ(quiet){
   const q=worldsQual();
   S.season.wQ={slots:q.slots,all:q.all.map(x=>({...x})),direct:q.direct.map(x=>({...x})),playin:q.playin.map(x=>({...x})),msiChamp:q.msiChamp,msiVice:q.msiVice,perdeuVaga:q.perdeuVaga};
-  LGS.forEach(lg=>{const d=q.slots[lg]-COMP.wcSlots[lg];if(d)news(`${lg} ${d>0?'ganha':'perde'} uma vaga regular no Mundial ${S.year} (${q.slots[lg]}), pelo desempenho recente das regiões.`,S.year)});
+  if(!quiet)LGS.forEach(lg=>{const d=q.slots[lg]-COMP.wcSlots[lg];if(d)news(`${lg} ${d>0?'ganha':'perde'} uma vaga regular no Mundial ${S.year} (${q.slots[lg]}), pelo desempenho recente das regiões.`,S.year)});
   const pin=q.playin.slice().sort((a,b)=>a.seed-b.seed||eff(T(b.id))-eff(T(a.id)));
   S.season.wpi=deNew(pin.map(x=>x.id),COMP.fmt.wpi,'wpi');
   S.season.wpi.pi=1;
@@ -8370,7 +8370,15 @@ function cupLB(p){
   if(p.k[1]==='k'){const st=c.stages[c.stages.length-1];if(st)return{...p,l:'Copa do Mundo · '+st.name,b:st.final?'Jogar a final e o 3º lugar':`Jogar ${st.name.toLowerCase()} da Copa`}}
   return p;
 }
+/* saves feitos antes da regra nova: Play-In do Mundial com região repetida e ainda sem jogos é refeito */
+function fixWQ(){
+  const A=S.season;
+  if(!A||!A.wQ||!A.wpi||A.wpi.champ!=null||A.wc||(A.wpi.stages||[]).some(st=>st.ms.some(m=>m.res)))return;
+  const r=A.wQ.playin.map(x=>x.lg);
+  if(new Set(r).size<r.length){try{startWorldsQ(true)}catch(e){}}
+}
 function fixPhase(){
+  fixWQ();
   const p=PHASES[S.phase];
   if(p&&p.g===7){
     const c=S.season.cup;
@@ -9166,6 +9174,7 @@ function topBracketHTML(cur,defT,opn){
   return `<details class="pn det more2 dtop" open><summary>Bracket · ${nm} ${S.year}</summary>${left}${body}</details>`;
 }
 function vSeason(){
+  fixWQ();
   fixNat();fixPhase();
   const cur=cupLB(PHASES[S.phase]);
   let h=celeHTML();
