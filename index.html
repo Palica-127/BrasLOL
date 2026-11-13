@@ -2262,6 +2262,28 @@ details.pn>summary{color:var(--t1)}
 .trt small{font:700 10px var(--d);letter-spacing:.14em;text-transform:uppercase;color:var(--t3);align-self:start;margin-top:3px;text-align:left}
 .trt .off{opacity:.55}.trt .off .tic{filter:grayscale(1)}
 @media (max-width:560px){.trt{grid-template-columns:1fr}.trt>div{padding:8px 12px}}
+
+/* menu Eventos e placares */
+.evm{position:relative;flex:1;display:flex;justify-content:center}
+.evb{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;border:1px solid rgba(255,200,87,.45);background:linear-gradient(180deg,rgba(255,200,87,.16),rgba(255,200,87,.05));color:#ffd978;font:800 12px var(--d);letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.evb:hover,.evb[aria-expanded="true"]{background:rgba(255,200,87,.24)}.evb span{font-size:11px}
+.evp{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);z-index:70;width:min(330px,calc(100vw - 28px));padding:10px;border-radius:14px;background:#0b101c;border:1px solid rgba(150,165,255,.28);box-shadow:0 18px 40px rgba(0,0,0,.65)}
+.evy{display:flex;align-items:center;justify-content:space-between;margin:0 0 8px;padding:2px 2px 8px;border-bottom:1px solid rgba(150,165,255,.15)}.evy b{font:800 22px var(--d);letter-spacing:.06em;color:#fff}.evy .ghost{min-width:40px;padding:6px 12px}
+.evl{list-style:none;margin:0;padding:0;position:relative}
+.evl li{position:relative}.evl li::before{content:"";position:absolute;left:17px;top:30px;bottom:-12px;width:2px;background:rgba(150,165,255,.25)}.evl li:last-child::before{display:none}
+.evl li>button{display:flex;align-items:center;gap:12px;width:100%;padding:9px 10px;border:0;border-radius:10px;background:transparent;color:#fff;text-align:left;cursor:pointer}
+.evl li>button:hover,.evl li.open>button{background:rgba(255,255,255,.07)}
+.evl li>button span{flex:1}.evl li>button b{display:block;font:700 16px var(--b)}.evl li>button small{display:block;font:700 10px var(--d);letter-spacing:.1em;text-transform:uppercase;color:#8a93a6}.evl em{font-style:normal;color:#8a93a6;font-size:18px}.evl li.open em{transform:rotate(90deg)}
+.evd{width:15px;height:15px;border-radius:50%;flex:0 0 15px;margin:0 3px;background:#0b101c;box-shadow:inset 0 0 0 2px rgba(150,165,255,.4)}
+.evl li.ok .evd{background:#fff;box-shadow:0 0 0 3px #0b101c,0 0 0 4px #fff}.evl li.now .evd{background:#ff4b55;box-shadow:0 0 0 3px #0b101c,0 0 0 5px #ff4b55}
+.evlg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:2px 0 8px 40px}.evlg button{padding:9px 4px;border-radius:8px;border:1px solid rgba(150,165,255,.25);background:rgba(255,255,255,.05);color:#fff;font:800 13px var(--d);letter-spacing:.08em;cursor:pointer}.evlg button:hover{background:rgba(255,200,87,.2);border-color:rgba(255,200,87,.6)}
+.evh h2{margin:2px 0 0}
+@media (max-width:560px){.evb{padding:8px 12px;font-size:11px;letter-spacing:.1em}.hud{flex-wrap:wrap}.evm{order:3;flex:1 0 100%}}
+
+.cws{position:relative;display:inline-flex;flex:0 0 auto}.sdb{display:inline-block;min-width:15px;height:15px;padding:0 3px;border-radius:8px;background:#ffc857;color:#14141c;font:800 9px/15px var(--d);text-align:center;font-style:normal;letter-spacing:0}
+.cws .sdb{position:absolute;right:-6px;bottom:-5px;box-shadow:0 0 0 2px #0b101c}.sdb.in{margin-right:2px;vertical-align:middle}
+
+.evx{grid-column:1/-1;display:block;width:100%;max-width:980px;margin:0 auto}.evx>.pn{margin-bottom:14px}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -2481,7 +2503,7 @@ let S=load();
 let STARTED=null;try{STARTED=JSON.parse(localStorage.getItem('lol-started'))}catch(e){}
 if(!Array.isArray(STARTED)){STARTED=[0,1,2].map(i=>{try{return !!localStorage.getItem(SLOTK[i])}catch(e){return false}});try{localStorage.setItem('lol-started',JSON.stringify(STARTED))}catch(e){}}
 const startMark=i=>{STARTED[i]=true;try{localStorage.setItem('lol-started',JSON.stringify(STARTED))}catch(e){}};
-let cele=null,mgrQ='',mgrView='inicio',mgrRole=0,mgrPick=0,askEnd=false,animNext=true,tab='season',selYear=null,selLg='LCK',msg='',askReset=false,dHof=null,dBackup='',lastPlayed=null,detOpen=false,detT='',brkO={};
+let cele=null,mgrQ='',mgrView='inicio',mgrRole=0,mgrPick=0,askEnd=false,animNext=true,tab='season',selYear=null,selLg='LCK',msg='',askReset=false,dHof=null,dBackup='',lastPlayed=null,detOpen=false,detT='',brkO={},evM=null,evSel=null;
 let tvw='el';
 let prof=null,pstack=[],prevTab='season',hofView='rank',pf='all',qStr='';
 
@@ -3262,6 +3284,7 @@ function compRec(){
       all:q?q.all.map(x=>({n:nm(x.id),lg:x.lg,seed:x.seed,why:x.why})):[],perdeuVaga:q?!!q.perdeuVaga:false}
   };
 }
+const EV_KEEP=6;
 function awards(){
   const rows=[];
   S.teams.forEach(t=>t.pl.forEach(p=>{
@@ -3311,7 +3334,9 @@ function awards(){
     champs:{s1:r.s1.map(x=>`${x.lg}: ${x.champ}`),s2:r.s2.map(x=>`${x.lg}: ${x.champ}`),s3:(r.s3||[]).map(x=>`${x.lg}: ${x.champ}`),
       mv1:r.s1.map(x=>`${x.lg}: ${x.mvp}`),mv2:r.s2.map(x=>`${x.lg}: ${x.mvp}`),mv3:(r.s3||[]).map(x=>`${x.lg}: ${x.mvp}`),
       fs:fst&&fst.champ!=null?T(fst.champ).name:'',fsv:vOf(fst),
-      msi:T(msi.champ).name,msiMvp:msi.mvp,wc:T(wc.champ).name,mvp:wc.mvp,wcv:vOf(wc),msiv:vOf(msi)},comp:compRec()});
+      msi:T(msi.champ).name,msiMvp:msi.mvp,wc:T(wc.champ).name,mvp:wc.mvp,wcv:vOf(wc),msiv:vOf(msi)},comp:compRec(),
+    ev:JSON.parse(JSON.stringify({seeds:{fs:evSeedMap(S.season,'fs'),msi:evSeedMap(S.season,'msi'),wc:evSeedMap(S.season,'wc')},res:S.season.res,fs:S.season.fs,mpi:S.season.mpi,msi:S.season.msi,wpi:S.season.wpi,wc:S.season.wc}))});
+  S.hist.forEach((h,i)=>{if(i<S.hist.length-EV_KEEP)delete h.ev});
   selYear=S.year;
 }
 
@@ -8335,6 +8360,8 @@ const slug=n=>n.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[
 const LOGOALIAS={'royal-never-give-up':'royal-club','star-horn-royal-club':'royal-club','samsung-white':'samsung-galaxy','sk-telecom-t1':'t1','skt':'t1','g2-esports':'g2','damwon-gaming':'dplus-kia','dwg-kia':'dplus-kia','bilibili-gaming':'blg','kingzone-dragonx':'drx','gen-g-academy':'gen-g-global-academy','gen-g-esports':'gen-g'};
 /* nome de time sem logo proprio (versao antiga do nome, filial etc.): usa o logo da organizacao quando o nome dela e o comeco do nome do time, ou o contrario */
 const logoOf=sl0=>{let sl=LOGOALIAS[sl0]||sl0;if(LOGOS.has(sl))return sl;let b='';LOGOS.forEach(x=>{if((sl.startsWith(x+'-')||x.startsWith(sl+'-'))&&x.length>b.length&&(sl.startsWith(x+'-')||!b))b=x});return b};
+let SEEDM=null;
+const crestSd=(t,c)=>SEEDM&&SEEDM[t.id]?`<span class="cws">${crest(t,c)}<i class="sdb" title="Seed regional ${SEEDM[t.id]}">${SEEDM[t.id]}</i></span>`:crest(t,c);
 const crest=(t,c='')=>{
   if(typeof t.id==='string'&&ISO2[t.id])return natCrest(t.id,'flag '+c);
   const sl=logoOf(slug(t.name));
@@ -8435,10 +8462,76 @@ const IC={
 const ico=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">${IC[k]}</svg>`;
 
 function header(){
-  return `<div class="hud"><div class="logo">${ico('trophy')}<div><div class="eyebrow">LoL · Carreira pro</div><h1>BrasLOL</h1></div></div><div class="season"><small>Temporada</small><b class="num">${S.year}</b></div></div>`;
+  return `<div class="hud"><div class="logo">${ico('trophy')}<div><div class="eyebrow">LoL · Carreira pro</div><h1>BrasLOL</h1></div></div>${evMenuHTML()}<div class="season"><small>Temporada</small><b class="num">${S.year}</b></div></div>`;
 }
+/* ---------- eventos e placares: menu no topo (época → etapa → liga) e tela de resultados ---------- */
+const EVM=[['s1','Etapa 1','Evento da regional',0,1],['fs','First Stand','Evento da global',1,0],['s2','Etapa 2','Evento da regional',2,1],['msi','MSI','Evento da global',3,0],['s3','Etapa 3','Evento da regional',4,1],['wc','Mundial','Evento da global',5,0],['cup','Copa do Mundo','Evento de seleções',7,0]];
+const evYears=()=>[S.year,...S.hist.map(h=>h.y)].filter((y,i,a)=>a.indexOf(y)===i).sort((a,b)=>b-a);
+function evSeedMap(d,k){
+  if(d.seeds)return d.seeds[k]||null;
+  const q=k==='fs'?d.fsQ:k==='msi'?d.mQ&&d.mQ.all:d.wQ&&d.wQ.all;
+  if(!q||!q.length)return null;const o={};q.forEach(x=>{o[x.id]=x.seed});return o;
+}
+function evData(y){
+  if(y===S.year)return S.season;
+  const h=S.hist.find(x=>x.y===y);return h&&h.ev?h.ev:null;
+}
+function evState(y,g){
+  if(y!==S.year)return 'ok';
+  const p=PHASES[S.phase],cg=p?p.g:99;
+  return cg>g?'ok':cg===g?'now':'next';
+}
+function evMenuHTML(){
+  const m=evM;
+  let h=`<div class="evm"><button class="evb" data-act="evT" aria-expanded="${!!m}">Eventos e placares <span>▾</span></button>`;
+  if(m){
+    const ys=evYears(),i=Math.max(0,ys.indexOf(m.y));
+    h+=`<div class="evp" role="menu"><div class="evy"><button class="ghost" data-act="evY" data-v="1"${i>=ys.length-1?' disabled':''} aria-label="Temporada anterior">‹</button><b class="num">${m.y}</b><button class="ghost" data-act="evY" data-v="-1"${i<=0?' disabled':''} aria-label="Próxima temporada">›</button></div><ul class="evl">`;
+    EVM.forEach(([k,n,sub,g,reg])=>{
+      if(k==='cup'&&m.y!==S.year)return;
+      const st=evState(m.y,g),open=reg&&m.o===k;
+      h+=`<li class="${st}${open?' open':''}"><button data-act="${reg?'evO':'evGo'}" data-v="${reg?k:m.y+'|'+k+'|'}"><i class="evd"></i><span><b>${n}</b><small>${sub}</small></span>${reg?'<em>›</em>':''}</button>`;
+      if(open)h+=`<div class="evlg">${LGS.map(lg=>`<button data-act="evGo" data-v="${m.y}|${k}|${lg}">${lg}</button>`).join('')}</div>`;
+      h+='</li>';
+    });
+    h+='</ul></div>';
+  }
+  return h+'</div>';
+}
+function evBack(){return `<div class="row" style="margin:0 0 10px"><button class="ghost" data-act="tab" data-v="season">← Voltar ao jogo</button><button class="ghost" data-act="evT">Escolher outro evento</button></div>`}
+function evSplitHTML(y,tag,lg){
+  const d=evData(y),nm={s1:'Etapa 1',s2:'Etapa 2',s3:'Etapa 3'}[tag];
+  const r=d&&d.res&&d.res[tag]&&d.res[tag].find(x=>x.lg===lg);
+  const ttl=`${lg} · ${nm} ${y}`;
+  if(!r){
+    const ph=PHASES[S.phase];
+    if(y===S.year&&S.season.sp&&S.season.sp.lg===lg&&ph&&ph.k===tag)return `<section class="pn"><h2>${ttl}</h2><p class="note" style="margin:0">Em andamento. Veja a tabela abaixo.</p></section>`+spHTML();
+    const h=S.hist.find(z=>z.y===y),ch=h&&h.champs&&h.champs[tag]&&h.champs[tag].find(z=>z.startsWith(lg+':'));
+    if(ch)return `<section class="pn"><h2>${ttl}</h2><div class="crown"><small>Campeão</small><b>${esc(ch.slice(lg.length+2))}</b><span>Os detalhes e o bracket dessa temporada não foram salvos.</span></div></section>`;
+    return `<section class="pn"><h2>${ttl}</h2><p class="note" style="margin:0">${y===S.year?'Ainda não foi disputada.':'Sem registro desta etapa.'}</p></section>`;
+  }
+  return `<section class="pn"><h2>${ttl}</h2><div class="rowl"><span class="grow"><b>${tlk(T(r.cid))}</b> campeão<br><small>vice ${esc(r.runner)} · ${r.real?esc(r.note):`final ${r.score} (${r.fp}% de chance) · 3º/4º ${r.third.map(esc).join(', ')}`}<br>MVP ${lk(r.mvp)}</small>${r.br?poBracketHTML(r.br):''}</span></div></section>`;
+}
+function vEvents(){
+  const e=evSel;if(!e)return evBack()+'<p class="empty">Escolha um evento no menu do topo.</p>';
+  const d=evData(e.y);let h=evBack();
+  h+=`<section class="pn evh"><small class="k">Eventos e placares</small><h2>${(EVM.find(x=>x[0]===e.k)||[])[1]||''} ${e.lg?'· '+e.lg+' ':''}${e.y}</h2></section>`;
+  if(e.k==='s1'||e.k==='s2'||e.k==='s3')return h+evSplitHTML(e.y,e.k,e.lg);
+  if(e.k==='cup')return h+(S.season.cup?cupHTML():'<p class="empty">Sem Copa do Mundo nesta temporada.</p>');
+  const M={fs:['fs','First Stand'],msi:['msi','MSI'],wc:['wc','Mundial']}[e.k];
+  const sm=d?evSeedMap(d,e.k):null;SEEDM=sm;let main='',pi='';
+  try{main=d&&d[M[0]]?tourHTML(d[M[0]],M[0],M[1],e.y):'';
+  pi=e.k==='msi'&&d&&d.mpi?tourHTML(d.mpi,'mpi','MSI · Play-In',e.y):e.k==='wc'&&d&&d.wpi?tourHTML(d.wpi,'wpi','Mundial · Play-In',e.y):''}finally{SEEDM=null}
+  if(sm&&(main||pi))h+=`<p class="note" style="margin:0 0 8px"><i class="sdb in">1</i> O número junto ao logo é o seed regional do time (posição na liga que o classificou).</p>`;
+  if(main||pi)return h+main+pi;
+  const hh=S.hist.find(z=>z.y===e.y),c=hh&&hh.champs;
+  const cn=c?{fs:c.fs,msi:c.msi,wc:c.wc}[e.k]:'';
+  if(cn)return h+`<section class="pn"><div class="crown"><small>Campeão</small><b>${esc(cn)}</b><span>Os detalhes e o bracket dessa temporada não foram salvos.</span></div></section>`;
+  return h+`<p class="empty">${e.y===S.year?'Este torneio ainda não começou.':'Sem registro deste torneio.'}</p>`;
+}
+
 function nav(){
-  const cur=tab==='prof'?prevTab:tab;
+  const cur=tab==='prof'?prevTab:tab==='events'?'season':tab;
   const L=[['season','Jogar','play'],['meta','Meta','eye'],['bola','Prêmio','trophy'],['hof','Lendas','star'],['teams','Elencos','users'],['set','Ajustes','gear']];
   if(S.mgr)L.splice(5,0,['mgr','Gestão','brief']);
   else if(pcAct())L.splice(5,0,['pc','Jogador','user']);
@@ -8454,7 +8547,7 @@ function matchHTML(m,i,fx){
   const pnT=m.pn&&r&&m.pn.dr?`draft ${m.pn.raw>0?'favoreceu você':m.pn.raw<0?'favoreceu o rival':'equilibrado'} (${(Math.abs(m.pn.raw)*100).toFixed(1).replace('.',',')}%) · `:m.pn&&r?(m.pn.raw>0?`seu plano ${planName(m.pn.me)} venceu ${planName(m.pn.op)} · `:m.pn.raw<0?`${planName(m.pn.op)} do rival superou seu ${planName(m.pn.me)} · `:`planos iguais (${planName(m.pn.me)}) · `):'';
   const rvt=rvTxt(A,B),lab=(m.cl?'Clássico · ':'')+(rvt?rvt+' · ':'')+pnT+(m.real?'Resultado real · ':'')+(m.sw?m.sw+' · ':'')+(m.n===1?'Jogo único':'MD'+m.n+' · '+Math.round(m.qa*100)+'% por jogo');
   return `<div class="m${fx?' fx':''}${mgrT()&&(m.a===S.mgr.tid||m.b===S.mgr.tid)?' mine':''}" style="--i:${i}">${up?'<span class="zb">Zebra</span>':''}
-  <div class="mt"><span class="tn ${r?(aw?'win':'lose'):''}">${crest(A,'sm')}${tlk(A)}</span><span class="sc num">${r?`${r.wa}<i>–</i>${r.wb}`:'<em>VS</em>'}</span><span class="tn b ${r?(bw?'win':'lose'):''}">${crest(B,'sm')}${tlk(B)}</span></div>
+  <div class="mt"><span class="tn ${r?(aw?'win':'lose'):''}">${crestSd(A,'sm')}${tlk(A)}</span><span class="sc num">${r?`${r.wa}<i>–</i>${r.wb}`:'<em>VS</em>'}</span><span class="tn b ${r?(bw?'win':'lose'):''}">${crestSd(B,'sm')}${tlk(B)}</span></div>
   <div class="od"><i style="width:${pa}%"></i><i class="o2" style="width:${pb}%"></i></div>
   <div class="ol"><b class="num">${pa}%</b><span>${lab} · ${m.d>=0?'+':''}${m.d.toFixed(1)} OVR</span><b class="num">${pb}%</b></div></div>`;
 }
@@ -8462,7 +8555,7 @@ function swissHTML(tour){
   const rows=[...tour.teams].sort((a,b)=>{const x=tour.rec[a],y=tour.rec[b];return y.w-x.w||x.l-y.l||eff(T(b))-eff(T(a))});
   return `<div class="sub">Tabela do Suíço</div><div class="grp">${rows.map(id=>{
     const r=tour.rec[id];
-    return `<div class="gr${r.w===3?' q':''}${r.l===3?' x':''}${mgrT()&&id===S.mgr.tid?' mine':''}"><span>${tlk(T(id))}</span><span class="pips">${'<i></i>'.repeat(r.w)}${'<i class="l"></i>'.repeat(r.l)}<span class="num" style="margin-left:6px">${r.w}-${r.l}</span></span></div>`;
+    return `<div class="gr${r.w===3?' q':''}${r.l===3?' x':''}${mgrT()&&id===S.mgr.tid?' mine':''}"><span>${SEEDM&&SEEDM[id]?`<i class="sdb in" title="Seed regional ${SEEDM[id]}">${SEEDM[id]}</i> `:''}${tlk(T(id))}</span><span class="pips">${'<i></i>'.repeat(r.w)}${'<i class="l"></i>'.repeat(r.l)}<span class="num" style="margin-left:6px">${r.w}-${r.l}</span></span></div>`;
   }).join('')}</div><p class="note" style="margin:0 0 4px">Três vitórias classificam e três derrotas eliminam. Jogos que decidem classificação ou eliminação são melhor de 3.</p>`;
 }
 function deBracketHTML(tour){
@@ -8470,7 +8563,7 @@ function deBracketHTML(tour){
   const row=(id,sc,m)=>{
     if(id==null)return `<div class="br tba"><span class="bc"></span><span class="bn">A definir</span><b class="bs">–</b></div>`;
     const t=T(id),r=m&&m.res,w=r&&r.w===id,mine=mgrT()&&S.mgr.tid===id;
-    return `<div class="br${r?(w?' w':' l'):''}${mine?' me':''}">${crest(t,'sm')}<span class="bn">${tlk(t)}</span><b class="bs num">${r?sc:'0'}</b></div>`;
+    return `<div class="br${r?(w?' w':' l'):''}${mine?' me':''}">${crestSd(t,'sm')}<span class="bn">${tlk(t)}</span><b class="bs num">${r?sc:'0'}</b></div>`;
   };
   const cols=sp.r.map((ids,ri)=>{
     const st=tour.stages[ri];
@@ -8483,7 +8576,7 @@ function deBracketHTML(tour){
   }).join('');
   return `<div class="brk debk"><div class="brkin">${cols}</div></div>`;
 }
-function bracketHTML(tour){if(tour.de)return deBracketHTML(tour);return bracketCore(tour.stages.filter(st=>!st.swiss),T,tlk,t=>crest(t,'sm'),id=>mgrT()&&S.mgr.tid===id)}
+function bracketHTML(tour){if(tour.de)return deBracketHTML(tour);return bracketCore(tour.stages.filter(st=>!st.swiss),T,tlk,t=>crestSd(t,'sm'),id=>mgrT()&&S.mgr.tid===id)}
 function bracketCore(ko,T,tlk,crest,isMe){
   if(!ko.length)return'';
   let n=ko[0].ms.length;const cols=[];
@@ -8515,9 +8608,9 @@ function bracketCore(ko,T,tlk,crest,isMe){
   }).join('');
   return `<div class="brk"><div class="brkin">${colHTML}</div></div>`;
 }
-function tourHTML(tour,kind,title){
+function tourHTML(tour,kind,title,yr){
   if(!tour)return'';
-  let h=`<section class="pn"><h2>${title} ${S.year}</h2>`;
+  let h=`<section class="pn"><h2>${title} ${yr||S.year}</h2>`;
   if(tour.champ!=null){
     const fin=tour.stages[tour.stages.length-1].ms[0];
     h+=`<div class="crown"><small>${tour.pi?'Classificado':'Campeão'}</small><b>${esc(T(tour.champ).name)}</b><span>${tour.pi?'Decisão':'Final'}: ${esc(T(fin.res.w).name)} ${Math.max(fin.res.wa,fin.res.wb)}-${Math.min(fin.res.wa,fin.res.wb)} ${esc(T(loserOf(fin)).name)} · MVP ${lk(tour.mvp)}</span></div>`;
@@ -8919,11 +9012,11 @@ function vSeason(){
   SEC.push(['cal','Calendário',d]);
   if(S.season.sp)SEC.push(['sp',S.season.sp.lg,spHTML()]);
   const gk=cur?cur.g:0;
-  [['cup','Copa',cupHTML()],['wc','Mundial',tourHTML(S.season.wc,'wc','Mundial')],['wpi','Play-In Mundial',tourHTML(S.season.wpi,'wpi','Mundial · Play-In')],['s3','Split 3',splitHTML('s3','Split 3')],['msi','MSI',tourHTML(S.season.msi,'msi','MSI')],['mpi','Play-In MSI',tourHTML(S.season.mpi,'mpi','MSI · Play-In')],['s2','Split 2',splitHTML('s2','Split 2')],['fs','First Stand',tourHTML(S.season.fs,'fs','First Stand')],['s1','Split 1',splitHTML('s1','Split 1')]].forEach(x=>{if(x[2]&&x[2].trim())SEC.push(x)});
+  [['cup','Copa',cupHTML()]].forEach(x=>{if(x[2]&&x[2].trim())SEC.push(x)});
   const defK=S.season.sp?'sp':gk===7?'cup':cur&&phTour(cur)?phTour(cur):cur&&isSplitK(cur.k)?cur.k:'cal';
   let sk=detT;if(!SEC.some(x=>x[0]===sk))sk=SEC.some(x=>x[0]===defK)?defK:'cal';
   if(lastPlayed&&!detT&&['wc','msi','cup','fs','mpi','wpi'].includes(lastPlayed.k)&&SEC.some(x=>x[0]===lastPlayed.k))sk=lastPlayed.k;
-  const det=`<details class="pn det more2"${lastPlayed||detOpen||(typeof innerWidth!=='undefined'&&innerWidth>=1000)?' open':''} ontoggle="detOpen=this.open"><summary>Detalhes: calendário, tabelas e resultados</summary><div class="pills dtabs">${SEC.map(x=>`<button class="pill" aria-pressed="${x[0]===sk}" data-act="dtab" data-v="${x[0]}">${x[1]}</button>`).join('')}</div>${SEC.find(x=>x[0]===sk)[2]}</details>`;
+  const det=`<details class="pn det more2"${lastPlayed||detOpen||(typeof innerWidth!=='undefined'&&innerWidth>=1000)?' open':''} ontoggle="detOpen=this.open"><summary>Calendário e jogos do momento</summary><div class="pills dtabs">${SEC.map(x=>`<button class="pill" aria-pressed="${x[0]===sk}" data-act="dtab" data-v="${x[0]}">${x[1]}</button>`).join('')}</div>${SEC.find(x=>x[0]===sk)[2]}</details>`;
   let un='';
   if(mgrT())un+=sqHTML()+mgrSummary();
   if(pcAct()&&pcFind())un+=pcSummary();
@@ -9558,7 +9651,7 @@ function render(){
   fixNat();
   try{document.body.classList.toggle('ttlon',!!TITLE)}catch(e){}
   if(TITLE){const a=document.querySelector('#app');a.className='';a.innerHTML=DEFS+titleHTML();return}
-  const v={season:vSeason,bola:vBola,hof:vHof,teams:vTeams,set:vSet,prof:vProf,mgr:vMgr,menu:vMenu,pc:vPc,meta:vMeta}[tab]();
+  const v={season:vSeason,bola:vBola,hof:vHof,teams:vTeams,set:vSet,prof:vProf,mgr:vMgr,menu:vMenu,pc:vPc,meta:vMeta,events:()=>`<div class="evx">${vEvents()}</div>`}[tab]();
   const ap=document.querySelector('#app');ap.className='wrap'+(animNext?' enter':'');animNext=false;
   if(LOAD&&Date.now()-LOAD.t0>LDMS+1500){setTimeout(ldEnd,0)}
   ap.innerHTML=DEFS+header()+v+nav()+(msg&&tab!=='mgr'&&tab!=='set'?`<div class="toast" role="status">${esc(msg)}</div>`:'')+(DV?vDraft():'')+(LV&&!(DV&&DV.lv)?vLive():'')+(LOAD?vLoad():'');
@@ -9579,7 +9672,12 @@ function act0(a,v){
   if(AUTO&&a!=='auto')autoStop();
   if(['tab','player','team','lteam','nation','back','step','all'].includes(a))animNext=true;
   let top=false;
-  if(a==='tab'){detT='';tab=v;askReset=false;askEnd=false;lastPlayed=null;prof=null;pstack=[]}
+  if(!/^ev/.test(a))evM=null;
+  if(a==='evT'){evM=evM?null:{y:evSel?evSel.y:S.year,o:''}}
+  else if(a==='evY'){const ys=evYears(),i=ys.indexOf(evM.y)+ +v;if(i>=0&&i<ys.length)evM.y=ys[i];evM.o=''}
+  else if(a==='evO'){evM.o=evM.o===v?'':v}
+  else if(a==='evGo'){const [y,k,lg]=String(v).split('|');evSel={y:+y,k,lg};evM=null;if(['fs','msi','wc'].includes(k)){brkO[k]=true;brkO[k+'s']=true;brkO.mpi=true;brkO.wpi=true}prof=null;pstack=[];tab='events';top=true}
+  else if(a==='tab'){detT='';tab=v;askReset=false;askEnd=false;lastPlayed=null;prof=null;pstack=[]}
   else if(a==='step'){detT='';if(daysLeft()>0){msg='Ainda não é dia de jogo. Avance o calendário.'}else if(dvNeeded()){dvOpen();top=true}else if(lvNeeded()){lvOpen();top=true}else{step();sndAfter();save();top=true}}
   else if(a==='dvBan'||a==='dvPick'){if(DV){const [r,c]=String(v).split('|'),t=SEQ[DV.i];if(t&&t[1]===DV.us&&!dvTaken(c)&&!(a==='dvPick'&&dvLk(c,DV.us))){
     if(a==='dvBan'&&t[0]==='ban'){DV.bans[DV.us].push(c);DV.i++;dvAdv()}
@@ -9722,7 +9820,7 @@ function act0(a,v){
   render();
   if(top)window.scrollTo(0,0);
 }
-document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-act]');if(b)act(b.dataset.act,b.dataset.v)});
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-act]');if(b)act(b.dataset.act,b.dataset.v);else if(evM&&!(e.target.closest&&e.target.closest('.evm'))){evM=null;render()}});
 /* atalhos: 1-9 trocam de aba; N = próximo evento; D = +1 dia; W = +1 semana (desligados em campos de texto e com partida ao vivo) */
 document.addEventListener('keydown',e=>{
   if(e.ctrlKey||e.metaKey||e.altKey||e.repeat)return;
