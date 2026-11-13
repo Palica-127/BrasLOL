@@ -2332,9 +2332,10 @@ details.pn>summary{color:var(--t1)}
 @media (max-width:620px){.m.mx{display:block;width:auto;margin-right:0}}
 .pbch .ti{width:84px!important;height:118px!important}.pbch b{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:24px}.pbch small{font-size:12px}.pbch{width:230px;gap:10px}.pbch .crest{--s:84px}.pbch .shield{width:84px;height:98px}.pbch b.q{font-size:64px}
 /* bandeiras das seleções: círculo totalmente preenchido pela bandeira (sem anel colorido), com brilho suave */
-.crest.flag,.crest:has(>.flg){width:var(--s)!important;height:var(--s)!important;border:0!important;padding:0!important;border-radius:50%!important;overflow:hidden;background:#1a2236!important;font-size:0!important;box-shadow:0 0 0 1.5px rgba(255,255,255,.3),0 2px 6px rgba(0,0,0,.5)!important}
+.crest.flag,.crest:has(>.flg){width:var(--s)!important;height:var(--s)!important;border:0!important;padding:0!important;border-radius:50%!important;overflow:hidden;background:#1a2236!important;font-size:0!important;box-shadow:0 2px 6px rgba(0,0,0,.45)!important}
 .crest.flag .flg,.crest .flg{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;object-position:var(--fp,50%) 50%;transform:scale(1.12)}
-.crest.flag::after,.crest:has(>.flg)::after{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.28),rgba(255,255,255,0) 48%),radial-gradient(circle at 50% 50%,rgba(0,0,0,0) 62%,rgba(0,0,0,.22))}
+.crest.flag::after,.crest:has(>.flg)::after{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,0) 45%)}
+.nlk,.nlk:hover{text-decoration:none!important}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -8461,7 +8462,8 @@ const LOGOALIAS={'royal-never-give-up':'royal-club','star-horn-royal-club':'roya
 const logoOf=sl0=>{let sl=LOGOALIAS[sl0]||sl0;if(LOGOS.has(sl))return sl;let b='';LOGOS.forEach(x=>{if((sl.startsWith(x+'-')||x.startsWith(sl+'-'))&&x.length>b.length&&(sl.startsWith(x+'-')||!b))b=x});return b};
 let SEEDM=null;
 const crestSd=(t,c)=>crest(t,c);
-const sdTxt=t=>SEEDM&&SEEDM[t.id]?`<em class="lseed">${SEEDM[t.id]}º ${esc(t.lg)}</em>`:'';
+let SEEDON=false;
+const sdTxt=t=>SEEDON&&SEEDM&&SEEDM[t.id]?`<em class="lseed">${SEEDM[t.id]}º ${esc(t.lg)}</em>`:'';
 /* seed regional do time no evento global em andamento, ex.: 2º LCK */
 const liveSeed=t=>{for(const k of['fs','msi','wc']){const tr=S.season[k];if(!tr||tr.champ!=null||!tr.teams||!tr.teams.includes(t.id))continue;const m=evSeedMap(S.season,k),v=m&&m[t.id];if(v)return `<em class="lseed">${v}º ${esc(t.lg)}</em>`}return ''};
 const crest=(t,c='')=>{
@@ -8745,8 +8747,8 @@ function bracketCore(ko,T,tlk,crest,isMe){
 }
 function tourHTML(tour,kind,title,yr,mode){
   const prev=SEEDM;
-  if(!prev){const k={fs:'fs',mpi:'msi',msi:'msi',wpi:'wc',wc:'wc'}[kind];try{SEEDM=k&&S.season?evSeedMap(S.season,k):null}catch(e){SEEDM=null}}
-  try{return tourHTML0(tour,kind,title,yr,mode)}finally{SEEDM=prev}
+  if(!prev){const k={fs:'fs',mpi:'msi',msi:'msi',wpi:'wc',wc:'wc'}[kind];try{SEEDM=k&&S.season?evSeedMap(S.season,k):null;SEEDON=!!SEEDM}catch(e){SEEDM=null}}
+  try{return tourHTML0(tour,kind,title,yr,mode)}finally{SEEDM=prev;SEEDON=false}
 }
 function tourHTML0(tour,kind,title,yr,mode){
   if(!tour)return'';
