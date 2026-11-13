@@ -2066,8 +2066,8 @@ details.pn>summary{color:var(--t1)}
 
 /* brackets: cartões mais largos (nomes inteiros), placar em pílula, vencedor em destaque, conectores finos e final em dourado */
 .brk{padding:4px 2px 10px}
-.brkin{gap:24px;min-width:0;width:100%}
-.bcol{flex:1 1 168px;min-width:168px;width:auto}
+.brkin{gap:16px;min-width:max-content;width:100%}
+.bcol{flex:1 1 136px;min-width:136px;width:auto}
 .bh{background:none;color:var(--muted);padding:0 2px 8px;margin:0 0 12px;border-bottom:2px solid var(--hair);border-radius:0;font:700 11px/1 var(--d);letter-spacing:.18em}
 .bcol:last-child .bh{color:#ffc857;border-bottom-color:rgba(255,200,87,.6)}
 .bp::after{right:-12px;width:12px;border-color:rgba(150,165,255,.32);border-radius:0 8px 8px 0}
@@ -2088,7 +2088,7 @@ details.pn>summary{color:var(--t1)}
 /* playoffs das ligas (winner/loser) */
 .pob{display:flex;flex-direction:column;gap:6px;margin-top:10px}
 .pobh{font:700 11px var(--d);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:12px 0 2px;padding-bottom:6px;border-bottom:1px solid var(--hair)}
-.pob .bcol{flex:1 1 150px;min-width:150px}.pob .bsl{min-height:96px}
+.pob .bcol{flex:1 1 0;min-width:0;width:0}.pob .bsl{min-height:96px}
 .pob .brkin{gap:14px}
 .pob .bcol.gld .bh{color:#ffc857;border-bottom-color:rgba(255,200,87,.6)}
 .pob .bcol:last-child .bh{color:var(--muted);border-bottom-color:var(--hair)}.pob .bcol.gld:last-child .bh{color:#ffc857;border-bottom-color:rgba(255,200,87,.6)}
@@ -2117,6 +2117,26 @@ details.pn>summary{color:var(--t1)}
 .zleg{display:flex;flex-wrap:wrap;gap:6px 14px;margin:8px 0 0;font:600 12px var(--b);color:var(--mut,#8a93a6)}
 .zleg span:before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:currentColor}
 .zleg .zg:before{background:#00F5A0}.zleg .zo:before{background:#FF9F43}.zleg .zr:before{background:#FF5C8A}
+
+.gr .gt{display:flex;align-items:center;gap:8px;min-width:0}
+.tbb{display:inline-flex;align-items:center;gap:8px;text-align:left}
+
+.gr .gn{font-style:normal;flex:none;width:22px;text-align:right;color:var(--mut,#8a93a6)}
+.tbb{text-decoration:none!important;border-bottom:0!important}
+.tbb .shield,.tbb .crest{flex:none;width:24px;height:24px;--s:24px;filter:none}
+.tbb .shield.real::before{background-size:contain}
+.tbb span{border-bottom:1px solid rgba(255,255,255,.18)}
+
+/* bracket cabe no painel (sem rolagem lateral): colunas flexíveis, escudo e placar menores */
+.brkin{min-width:0;width:100%;gap:14px}
+.bcol{flex:1 1 0;min-width:0;width:0;overflow:visible}
+.bm2 .br{gap:6px;padding-left:6px;padding-right:6px}
+.bm2 .br .shield,.bm2 .br .crest{width:20px;height:20px;--s:20px}
+.bm2 .br .bn,.bm2 .br .bn .lk{font-size:11.5px;letter-spacing:0}
+.bm2 .br .bs{min-width:22px;height:22px;font-size:12px}
+.br.tba .bc{width:20px;height:20px}
+.bbody,.bsl,.bm2,.bm2 .br{min-width:0}
+.bm2 .br .bn{flex:1 1 0}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -2794,10 +2814,10 @@ function spHTML(){
   const sp=S.season.sp,mid=myTid(),ord=spOrder(sp);
   const fx=lastPlayed&&lastPlayed.k==='sp';
   let h=`<section class="pn"><h2>${sp.lg} · ${spName(sp)}</h2><p class="note" style="margin:0 0 8px">${sp.stage==='rr'?(sp.d2?'Fase de grupos: todos contra todos, ida e volta. Os 4 primeiros vão aos playoffs.':'Fase de grupos: todos contra todos, ida e volta. Os 6 primeiros vão aos playoffs (chave de vencedores e perdedores); 1º e 2º já entram nas semifinais da Winner.'):sp.stage==='pl'?'Playoffs em dupla eliminação: perder na Winner leva à Loser; perder na Loser elimina. Quem vence a final da Winner e a final da Loser faz a grande final.':sp.stage==='po'?'Play-off de acesso em melhor de 5: o último da primeira divisão enfrenta o campeão da segunda. Quem vencer fica ou sobe; a mudança só vale depois da série.':'Playoffs: semifinais e final em melhor de 5.'}</p>`;
-  h+=`<div class="grp">${ord.map((id,i)=>{const r=sp.rec[id];return `<div class="gr${sp.d2?(i<4?' q':''):(i<2?' zg':i<6?' zo':i===ord.length-1?' zr':'')}${id===mid?' mine':''}"><span>${i+1}. ${tlk(T(id))}</span><span class="num">${r.w}-${r.l}</span></div>`}).join('')}</div>${sp.d2?'':'<div class="zleg"><span class="zg">Semifinal da Winner</span><span class="zo">Quartas da Winner</span><span class="zr">Play-off de rebaixamento</span></div>'}`;
+  h+=`<div class="grp">${ord.map((id,i)=>{const r=sp.rec[id];return `<div class="gr${sp.d2?(i<4?' q':''):(i<2?' zg':i<6?' zo':i===ord.length-1?' zr':'')}${id===mid?' mine':''}"><span class="gt"><i class="gn">${i+1}</i>${tbl(T(id))}</span><span class="num">${r.w}-${r.l}</span></div>`}).join('')}</div>${sp.d2?'':'<div class="zleg"><span class="zg">Semifinal da Winner</span><span class="zo">Quartas da Winner</span><span class="zr">Play-off de rebaixamento</span></div>'}`;
   h+=(sp.ask?`<div class="sub">Você é o 1º colocado: escolha seu adversário na semifinal da Winner</div><div class="poa">${sp.ask.map(id=>{const x=T(id),pp=mk(T(mid),x,5);return `<button class="poac" data-act="spPick" data-v="${id}">${crest(x,'md')}<b>${esc(x.name)}</b><small>OVR ${Math.round(baseOvr(x))} · ${Math.round(pp.pa*100)}% de chance de vencer</small></button>`}).join('')}</div>`:'')+`<div class="sub">Próximos jogos · ${sp.stage==='rr'?`rodada ${sp.ri+1}`:sp.stage==='pl'?POR[sp.r].toLowerCase():sp.stage==='sf'?'semifinais':sp.stage==='po'?'play-off de acesso (MD5)':'final'}</div>${spMatches(sp.cur,false)}`;
   if(sp.last&&sp.last.length){const o=!!brkO.sp||fx;h+=`<button class="ghost brkb" data-act="brk" data-v="sp">${brkO.sp?'Esconder resultados':'Ver resultados anteriores'}</button>`;if(o)h+=`<div class="sub">Resultados anteriores</div>${spMatches(sp.last,fx)}`}
-  h+=`<div class="row" style="margin:12px 0 0">${sp.stage==='rr'?'<button class="ghost" data-act="spRR">Simular o resto da fase de grupos</button>':''}<button class="ghost" data-act="spAll">Simular o resto do split</button></div>${sp.po?`<button class="ghost brkb" data-act="brk" data-v="spb">${brkO.spb?'Esconder bracket':'Ver bracket dos playoffs'}</button>${brkO.spb?poBracketHTML(sp.po,true):''}`:''}</section>`;
+  h+=`<div class="row" style="margin:12px 0 0">${sp.stage==='rr'?'<button class="ghost" data-act="spRR">Simular o resto da fase de grupos</button>':''}<button class="ghost" data-act="spAll">Simular o resto do split</button></div>${sp.po?`<div class="sub">Bracket dos playoffs</div>${poBracketHTML(sp.po,true)}`:''}</section>`;
   return h;
 }
 
@@ -8031,6 +8051,8 @@ const roleOf=n=>{const d=S.pdb&&S.pdb[n];return d&&d.role!=null?d.role:2};
 const fcell=(o,cap='',pos=0,cls='')=>`<div class="fcell">${pos?`<span class="frk num">${pos}</span>`:''}${fut(o,cls)}${cap?`<div class="fcap">${cap}</div>`:''}</div>`;
 const fgrid=h=>`<div class="fgrid">${h}</div>`;
 const lk=n=>{const c=natC(n);return `<button class="lk" data-act="player" data-v="${esc(n)}">${esc(n)}</button>${S.inj&&S.inj[n]?'<span class="inj" title="Lesionado">LES</span>':''}${c?`<button class="nat" data-act="nation" data-v="${c}" title="${esc(NATN[c]||c)}">${natTxt(c)}</button>`:''}`};
+/* time na tabela: logo pequeno + nome */
+const tbl=t=>`<button class="lk tbb" data-act="team" data-v="${t.id}">${crest(t,'xs')}<span>${esc(t.name)}</span></button>`;
 const tlk=t=>`<button class="lk" data-act="team" data-v="${t.id}">${esc(t.name)}</button>`;
 const IC={
  play:'<path d="M8 5v14l11-7z"/>',
@@ -8135,7 +8157,7 @@ function tourHTML(tour,kind,title){
 }
 function splitHTML(tag,title){
   const r=S.season.res[tag];if(!r)return'';
-  return `<section class="pn"><h2>${title} ${S.year}</h2>${r.map(x=>`<div class="rowl"><span class="lg">${llk(x.lg)}</span><span class="grow"><b>${tlk(T(x.cid))}</b> campeão<br><small>vice ${esc(x.runner)} · ${x.real?esc(x.note):`final ${x.score} (${x.fp}% de chance) · 3º/4º ${x.third.map(esc).join(', ')}`}<br>MVP ${lk(x.mvp)}${x.br?` · <button class="lkb" data-act="brk" data-v="b${tag}${x.lg}">${brkO['b'+tag+x.lg]?'esconder bracket':'ver bracket'}</button>`:''}</small>${x.br&&brkO['b'+tag+x.lg]?poBracketHTML(x.br):''}</span></div>`).join('')}</section>`;
+  return `<section class="pn"><h2>${title} ${S.year}</h2>${r.map(x=>`<div class="rowl"><span class="lg">${llk(x.lg)}</span><span class="grow"><b>${tlk(T(x.cid))}</b> campeão<br><small>vice ${esc(x.runner)} · ${x.real?esc(x.note):`final ${x.score} (${x.fp}% de chance) · 3º/4º ${x.third.map(esc).join(', ')}`}<br>MVP ${lk(x.mvp)}</small>${x.br?poBracketHTML(x.br):''}</span></div>`).join('')}</section>`;
 }
 const flHTML=()=>mgrT()?'':`<section class="pn"><h2>Liga acompanhada rodada a rodada</h2><div class="pills" style="margin:0">${LGS.map(l=>`<button class="pill" aria-pressed="${((S.opt&&S.opt.fl)||'LCK')===l}" data-act="fl" data-v="${l}">${l}</button>`).join('')}</div><p class="note">Essa liga é jogada rodada por rodada; as outras são simuladas por inteiro no início do split.</p></section>`;
 function favHTML(){
