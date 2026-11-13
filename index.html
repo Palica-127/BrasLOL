@@ -2197,7 +2197,7 @@ function newState(){
   return{year:2026,phase:0,teams,hof:{},pdb,hist:[],pre:[],season:freshSeason(),mv:{},off:[]};
 }
 function load(){try{const j=localStorage.getItem(KEY);return j?JSON.parse(j):null}catch(e){return null}}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));return true}catch(e){msg='⚠ Não foi possível salvar (armazenamento cheio ou bloqueado). Baixe um backup nos Ajustes para não perder o progresso.';return false}}
 let S=load();
 /* slots já iniciados pelo menu inicial; na primeira execução desta versão, saves antigos contam como iniciados */
 let STARTED=null;try{STARTED=JSON.parse(localStorage.getItem('lol-started'))}catch(e){}
@@ -2834,7 +2834,7 @@ function mgrSeasonEnd(){
 function mgrNewYear(){
   const m=S.mgr,t=mgrT();if(!m)return;
   m.fa=genFA();
-  if(t){m.goal=Math.min(5,goalFor(t)+((m.rep||50)>=80?1:0));m.log.unshift(`${S.year}: janela aberta. Meta da diretoria: ${goalTxt(m,t)}.`);mBaseYear()}
+  if(t){m.goal=Math.min(4,goalFor(t)+((m.rep||50)>=80?1:0));m.log.unshift(`${S.year}: janela aberta. Meta da diretoria: ${goalTxt(m,t)}.`);mBaseYear()}
   m.log=m.log.slice(0,30);
 }
 function canBuy(p,t){
@@ -2895,7 +2895,7 @@ function mgrSign(name){
   const k=m.fa.findIndex(p=>p.n===name);if(k<0)return;
   const p=m.fa[k],fee=m.cheat?0:r1(mvOf(p)*.6*PM());
   if(m.cash-fee<0){msg='Sem caixa';return}
-  m.fa.splice(k,1);m.bench.push(p);mCtr(p,3);
+  m.fa.splice(k,1);p.bought=S.year;p.paid=fee;m.bench.push(p);mCtr(p,3);
   const d=pd(p.n);d.role=p.role;d.debut=S.year+1;if(p.nat)d.nat=p.nat;
   m.cash=r1(m.cash-fee);
   mlog(`${S.year}: contratou ${p.n} (OVR ${p.r}) como agente livre; foi para as reservas.`);
@@ -2942,7 +2942,7 @@ function mFind(n){
   i=m.acad.findIndex(p=>p.n===n);if(i>=0)return{k:'acad',i,p:m.acad[i]};
   return null;
 }
-const sellPrice=f=>r1(mvOf(f.p)*(f.k==='acad'?.6:f.k==='bench'?.85:.9));
+const sellPrice=f=>{const v=r1(mvOf(f.p)*(f.k==='acad'?.6:f.k==='bench'?.85:.9));return f.p.bought===S.year&&f.p.paid!=null?Math.min(v,f.p.paid):v};
 function mExtra(n){
   const m=S.mgr,t=mgrT();if(!m||!t)return null;
   const p=(m.bench||[]).concat(m.acad||[]).find(x=>x.n===n);
@@ -2987,6 +2987,7 @@ function mgrSell(name,price,buyerId){
   if(f.k==='pl'){rp=bestRep(f.p.role);if(!rp){msg='Sem reserva na posição';return false}}
   const p=f.p;
   if(price==null)price=sellPrice(f);
+  else if(p.bought===S.year&&p.paid!=null)price=Math.min(price,p.paid);
   let buyer=buyerId!=null?S.teams[buyerId]:null;
   if(!buyer||buyer===t){const w=S.teams.filter(x=>x!==t&&x.pl[p.role].r<p.r);buyer=pick(w.length?w:S.teams.filter(x=>x!==t))}
   if(f.k==='pl'){dropFrom(rp);t.pl[f.i]=rp;pd(rp.n).role=rp.role}else dropFrom(p);
@@ -5690,7 +5691,7 @@ function pcXp(i,n){
 }
 function pcEv(k){
   const pc=S.pc,e=pc.ev;if(!e)return;pc.ev=null;
-  const fm=d=>{pc.fame=clamp(pc.fame+d,0,100)};
+  const fm=d=>pcFame(d);
   let t='';
   const gp=(n)=>{pc.pts=(pc.pts||0)+n};
   if(e==='stream'){if(k==='a'){fm(4);pc.en=Math.max(0,pc.en-30);pc.cash=r1(pc.cash+.2*(1+pcFx('inc')));t='Stream de sucesso: mais fama, menos energia.'}else{pc.en=Math.min(100,pc.en+12);t='Você descansou.'}}
@@ -5833,7 +5834,7 @@ function pcSwap(all){
   const pc=S.pc;pcEnsure();if(pc.lv<99){msg='A troca abre no nível 99.';return}
   const k=all?Math.floor((pc.pts||0)/3):((pc.pts||0)>=3?1:0);
   if(!k){msg='Troca: 3 pontos de status por 1 de habilidade. Você tem menos de 3.';return}
-  pc.pts-=3*k;pc.tp=(pc.tp||0)+k;pc.sw=(pc.sw||0)+k;pcLog(`troca ${3*k} pontos de status por ${k} de habilidade.`);msg=`${3*k} de status viraram ${k} ponto${k>1?'s':''} de habilidade.`;
+  pc.pts-=3*k;pc.tp=(pc.tp||0)+k;pc.swp=(pc.swp||0)+k;pcLog(`troca ${3*k} pontos de status por ${k} de habilidade.`);msg=`${3*k} de status viraram ${k} ponto${k>1?'s':''} de habilidade.`;
 }
 /* estado de um nó: own aprendida · lock (nível ou pré-requisito) · can (dá para aprender) · cost (faltam pontos) */
 function pcPerkSt(x){
@@ -6058,7 +6059,7 @@ function pcYear(){
   if(rating!=null&&pcFx('rts'))rating=clamp(r1(rating+pcFx('rts')),3,10);
   pc.mr=[];
   const trophies=(a.lg||[]).length+(a.msi==='C'?1:0)+(a.wc==='C'?2:0);
-  pc.fame=clamp(Math.round(pc.fame+(rating!=null?(rating-6)*3:-1)+trophies*4+(ix>=0?5:0)),0,100);
+  {const dF=(rating!=null?(rating-6)*3:-1)+trophies*4+(ix>=0?5:0);pcFame(dF)}
   if(rating!=null&&rating>=7)pcGain(rating>=8.5?160:rating>=8?120:70);
   pc.cash=r1(pc.cash+pc.sal*(1+pcFx('inc')));pc.ctr--;
   pcSync();pc.r0=p.r;pc.cap=Math.max(pc.cap,p.pot+2);
@@ -6066,7 +6067,7 @@ function pcYear(){
   pcLog(`temporada fechada no ${t.name}: ${rating!=null?'nota '+String(rating).replace('.',','):'no banco'}; OVR ${p.r}.`);
   /* metas */
   const wc=S.season.wc,msi=S.season.msi,ctx={msi:!!(msi&&msi.teams.includes(t.id)),wc:!!(wc&&wc.teams.includes(t.id)),lg:(a.lg||[]).length>0,top10:ix>=0,wcc:a.wc==='C',bola:ix===0};
-  PGOALS.forEach(([id,l,dsc,fn,fm])=>{if(!pc.goals[id]&&fn(f,ctx)){pc.goals[id]=S.year;pc.fame=clamp(pc.fame+fm,0,100);pcGain(120);pcLog(`meta cumprida: ${l} (+120 de XP).`)}});
+  PGOALS.forEach(([id,l,dsc,fn,fm])=>{if(!pc.goals[id]&&fn(f,ctx)){pc.goals[id]=S.year;pcFame(fm);pcGain(120);pcLog(`meta cumprida: ${l} (+120 de XP).`)}});
   /* renovação automática do contrato */
   if(pc.ctr<=0){pc.ctr=1;pcLog('contrato renovado por mais um ano nas mesmas condições.')}
 }
@@ -6101,7 +6102,8 @@ function pcAccept(i){
   nt.bn=nt.bn||[];
   if(o.k==='T'){const old=nt.pl[role];nt.pl[role]=p;nt.bn.push(old)}else nt.bn.push(p);
   nt.bn.sort((a,b)=>b.r-a.r);while(nt.bn.length>3){const w=nt.bn.pop();if(w.pc)nt.bn.unshift(w)}
-  pd(p.n).role=role;pc.sal=o.sal;pc.ctr=o.yrs;pc.offers=[];pc.pend=[];
+  if(pc.test){ptSwapOut();pc.test=null}
+  pd(p.n).role=role;pc.sal=o.sal;pc.ctr=o.yrs;pc.offers=[];pc.pend=[];pc.tr=o.k==='T'?60:35;
   pcLog(`assina com o ${nt.name} (${o.k==='T'?'titular':'reserva'}) por ${o.yrs} ano${o.yrs>1?'s':''}, salário ${fmtM(o.sal)}.`);
   news(`${p.n} deixa o ${ot.name} e assina com o ${nt.name}.`);
   msg=`Você assinou com o ${nt.name}.`;
@@ -6837,7 +6839,7 @@ function bnPlayer(t,role,yr){
   return{n,role,r,pot:clamp(r+4+Math.floor(Math.random()*9)+(star?6:0),r,95),age,f:0,d:0,nat};
 }
 function ensureBn(t){
-  t.bn=(t.bn||[]).filter(p=>p.age<=31);
+  t.bn=(t.bn||[]).filter(p=>p.age<=31||p.pc);
   while(t.bn.length<2){const have=t.bn.map(p=>p.role),rs=[0,1,2,3,4].filter(r=>!have.includes(r));t.bn.push(bnPlayer(t,pick(rs)))}
 }
 function fillSlot(t,role){
@@ -6848,8 +6850,10 @@ function fillSlot(t,role){
 /* Migração única: aplica os elencos novos (D1 e D2) em saves antigos, só onde o jogador antigo ainda está no lugar */
 const RVOLD={"KT Rolster":[[["PerfecT",82,23],["Cuzz",83,27],["Bdd",84,28],["Aiming",83,27],["Ghost",81,26]],[["PerfecT",82,23],["Cuzz",83,27],["Bdd",84,28],["Jiwoo",81,24],["Effort",79,26]]],"BNK FearX":[[["Clear",82,24],["Raptor",81,22],["VicLa",83,25],["Diable",84,23],["Kellin",82,27]],[["Clear",82,24],["Raptor",81,22],["VicLa",83,25],["Taeyoon",80,26],["Kellin",82,27]]],"Nongshim RedForce":[[["Kingen",83,27],["Sponge",83,26],["Scout",86,28],["Taeyoon",80,26],["Lehends",82,31]],[["Kingen",83,27],["Sponge",83,26],["Scout",86,28],["Diable",84,23],["Lehends",82,31]]],"DRX":[[["Rich",81,26],["Vincenzo",82,21],["ucal",80,27],["Jiwoo",81,24],["Andil",78,22]],[["Frog",80,24],["Willer",80,25],["ucal",80,27],["Aiming",83,27],["Andil",78,22]]],"BRION":[[["Casting",80,22],["GIDEON",80,22],["Fisher",83,21],["Teddy",83,29],["Namgung",82,20]],[["Casting",80,22],["GIDEON",80,22],["Roamer",82,26],["Teddy",83,29],["Namgung",82,20]]],"Weibo Gaming":[[["Zika",83,25],["JieJie",85,26],["Xiaohu",86,28],["Elk",88,25],["Erha",82,24]],[["Zika",83,25],["Xiaohao",81,26],["Xiaohu",86,28],["Elk",88,25],["Jwei",80,24]]],"EDward Gaming":[[["Zdz",79,25],["Xiaohao",81,26],["Angel",81,20],["Leave",81,24],["Jwei",80,24]],[["Zdz",79,25],["JieJie",85,26],["BullDoG",80,26],["Leave",81,24],["Parukia",78,22]]],"LGD Gaming":[[["sasi",83,25],["Heng",85,23],["Tangyuan",84,24],["Shaoye",84,25],["ycx",83,23]],[["Burdol",82,24],["Heng",85,23],["Tangyuan",84,24],["Shaoye",84,25],["Crisp",80,23]]],"LNG Esports":[[["sheer",79,24],["Croco",77,24],["BullDoG",80,26],["1xn",80,27],["LE Sup",81,24]],[["sheer",79,24],["Weiwei",78,23],["Nia",80,24],["1xn",80,27],["ycx",83,23]]],"Ninjas in Pyjamas":[[["HOYA",80,26],["Guwon",78,20],["Care",79,24],["Assum",78,20],["NIP Sup",82,22]],[["HOYA",80,26],["Guwon",78,20],["Care",79,24],["Photic",78,24],["Fengyue",80,23]]],"Team WE":[[["Cube",79,27],["Monki",80,20],["Karis",82,20],["About",82,21],["Yaoyao",82,25]],[["Cube",79,27],["Monki",80,20],["Karis",82,20],["About",82,21],["Erha",82,24]]],"TT Gaming":[[["Keshi",77,23],["Junhao",76,24],["Heru",79,23],["Ryan3",80,20],["Feather",79,26]],[["Keshi",77,23],["Junhao",76,24],["Heru",79,23],["Ahn",78,22],["Feather",79,26]]],"NAVI":[[["Maynter",80,24],["Rhilech",80,24],["Poby",80,23],["Hans SamD",81,25],["Parus",79,24]],[["Maynter",80,24],["Rhilech",80,24],["Poby",80,23],["SamD",81,25],["Parus",79,24]]],"Shifters":[[["Rooster",80,27],["Sheo",80,24],["nuc",81,24],["Paduck",81,26],["Stend",80,22]],[["Rooster",80,27],["Boukada",80,24],["nuc",81,24],["Paduck",81,26],["Trymbi",79,25]]],"SoftBank HAWKS":[[["Evi",77,20],["Van",79,20],["Aria",77,25],["Marble",78,23],["Vsta",76,20]],[["Evi",77,20],["Van1",79,20],["Aria",77,25],["Marble",78,23],["Vsta",76,20]]],"GAM Esports":[[["Kiaya",79,26],["Draktharr",79,26],["Aress",77,26],["Artemis",80,22],["Taki",80,23]],[["Kiaya",79,26],["Draktharr",79,26],["Gloryy",77,24],["Artemis",80,22],["Taki",80,23]]],"DetonatioN FocusMe":[[["DF Top",75,25],["DF Jng",75,23],["DF Mid",73,26],["DF Adc",76,27],["DF Sup",74,20]],[["Momo",75,25],["Citrus",76,23],["Fisher",80,21],["Kakkun",76,26],["Woody",74,22]]],"Ground Zero Gaming":[[["1Jiang",77,20],["Husha",75,20],["GZG Mid",74,26],["Betty",78,26],["Kaiwing",77,26]],[["1Jiang",77,20],["Husha",75,20],["Uniboy",76,24],["Betty",78,26],["Kaiwing",77,26]]],"Vivo Keyd Stars":[[["ZekaS",79,23],["Disamis",80,27],["Mireu",79,22],["Jeskla",78,22],["Scamber",80,27]],[["ZekaS",79,23],["Disamis",80,27],["Mireu",79,22],["Ceo",78,22],["Scamber",80,27]]]};
 function fixRoster(){
-  if(!S||S.rv>=1)return;
-  S.rv=1;
+  if(!S||S.rosterV)return;
+  S.rosterV=1;
+  if(S.rv&&typeof S.rv==='object')return;
+  const rvDone=S.rv===1;S.rv={};if(rvDone)return;
   const mg=S.mgr&&S.mgr.tid,pool={};
   const mk=(n,role,r,age,t)=>{
     if(pool[n]){const p=pool[n];p.role=role;if(S.pdb[n])S.pdb[n].role=role;return p}
@@ -7807,7 +7811,7 @@ function slotInfo(i){
 function slotsHTML(){
   return `<section class="pn cmp"><h2>Salvamentos</h2><p class="note" style="margin:0 0 4px">3 carreiras independentes neste navegador; a atual é salva ao trocar.</p>${[0,1,2].map(i=>{
     const inf=i===SLOT?{y:S.year,h:S.hist.length,t:mgrT()?mgrT().name:null}:slotInfo(i);
-    return `<div class="pr" style="grid-template-columns:minmax(0,1fr) auto auto"><span class="who"><b>Slot ${i+1}${i===SLOT?' · em uso':''}</b><small>${inf?`${inf.y} · ${inf.h} temporada${inf.h===1?'':'s'} fechada${inf.h===1?'':'s'}${inf.t?' · treinador do '+esc(inf.t):''}`:'vazio'}</small></span>${i===SLOT?'<span></span>':`<button class="mini" data-act="slot" data-v="${i}">${inf?'Carregar':'Novo jogo'}</button>`}${inf&&askSlot===i?`<button class="mini sell" data-act="slotDel" data-v="${i}">Confirmar</button>`:inf?`<button class="mini sell" data-act="slotAsk" data-v="${i}">Apagar</button>`:'<span></span>'}</div>`}).join('')}</section>`;
+    return `<div class="pr" style="grid-template-columns:minmax(0,1fr) auto auto"><span class="who"><b>Slot ${i+1}${i===SLOT?' · em uso':''}</b><small>${inf?`${inf.y} · ${inf.h} temporada${inf.h===1?'':'s'} fechada${inf.h===1?'':'s'}${inf.t?' · treinador do '+esc(inf.t):''}`:'vazio'}</small></span>${i===SLOT?'<span></span>':`<button class="mini" data-act="slot" data-v="${i}">${inf?'Carregar':'Novo jogo'}</button>`}${inf&&askSlot===i?`<button class="mini sell" data-act="slotDel" data-v="${i}">Confirmar</button>`:inf&&i!==SLOT?`<button class="mini sell" data-act="slotAsk" data-v="${i}">Apagar</button>`:'<span></span>'}</div>`}).join('')}</section>`;
 }
 function fixLPL(){
   if(S.teams.some(t=>t.name==='Oh My God'||t.name==='Ultra Prime')&&!S.mgr&&S.year===2026&&S.phase===0){const o=S.opt;freshGame();if(o)S.opt=o;save()}
@@ -8731,6 +8735,15 @@ function render(){
 
 /* ---------- ações ---------- */
 function act(a,v){
+  try{act0(a,v)}catch(e){
+    console.error(e);
+    /* erro inesperado: volta ao último estado salvo em vez de deixar o jogo travado/corrompido */
+    try{const o=load();if(o){S=o;fixLPL();fixRoster();fixNatFix();ensureD2();fixNat();if(S.pc&&S.pc.sw)ptSwapOut()}}catch(e2){}
+    try{lvDone()}catch(e4){LV=null}msg='⚠ Ocorreu um erro e a última ação foi desfeita (estado restaurado do último salvamento).';
+    try{render()}catch(e3){}
+  }
+}
+function act0(a,v){
   msg='';
   if(AUTO&&a!=='auto')autoStop();
   if(['tab','player','team','lteam','nation','back','step','all'].includes(a))animNext=true;
@@ -8795,7 +8808,7 @@ function act(a,v){
     try{
       const o=JSON.parse(dBackup);
       if(!o||!o.teams||!o.hof||!o.year||!o.pdb)throw 0;
-      S=o;save();dHof=null;dBackup='';msg='Backup carregado.';
+      S=o;fixLPL();fixRoster();fixNatFix();ensureD2();fixNat();fixNatFix();if(!S.lh)applyLeagueHist();if(!S.lh2)applyLeagueHist2();if(!S.lh3)applyLeagueHist3();if(S.season&&S.season.fm&&(S.season.fm.k==='cup'||S.season.fm.k==='pt'))S.season.fm=null;if(S.pc&&S.pc.sw)ptSwapOut();save();dHof=null;dBackup='';msg='Backup carregado.';
     }catch(e){msg='Backup inválido. Cole o texto completo gerado por esta versão do simulador.'}
   }
   else if(a==='mgrStart'){S.pc=null;menuV='home';menuAsk=null;mgrStart(+mgrPick);tab='mgr';msg='Você assumiu o '+mgrT().name+'.';save()}

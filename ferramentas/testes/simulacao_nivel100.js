@@ -35,10 +35,10 @@ function sim(nome,opts){
     const lv=J('S.pc.lv');saida.lv[ano]=lv;
     if(lv>=100)saida.ano100=ano;
   }
-  const r=J(`(function(){var pc=S.pc,gasto=0;PERKS.forEach(function(x){if(pc.perks[x.id])gasto+=x.c});return {lv:pc.lv,tpLivre:pc.tp,gasto:gasto,total:gasto+pc.tp-(pc.bt||0),status:pc.pts,sw:pc.sw||0,perks:Object.keys(pc.perks).length}})()`);
+  const r=J(`(function(){var pc=S.pc,gasto=0;PERKS.forEach(function(x){if(pc.perks[x.id])gasto+=x.c});return {lv:pc.lv,tpLivre:pc.tp,gasto:gasto,total:gasto+pc.tp-(pc.bt||0),status:pc.pts,sw:pc.swp||0,perks:Object.keys(pc.perks).length}})()`);
   /* troca no nível 99+: tudo que sobrou de status vira habilidade */
   run(ctx,`pcSwap(true)`);
-  const t=J(`(function(){var pc=S.pc;return {tp:pc.tp,sw:pc.sw||0,pts:pc.pts}})()`);
+  const t=J(`(function(){var pc=S.pc;return {tp:pc.tp,sw:pc.swp||0,pts:pc.pts}})()`);
   Object.assign(saida,{nivelFinal:r.lv},r,{lv:saida.lv,trocados:t.sw,tpAposTroca:t.tp});
   return saida;
 }
