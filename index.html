@@ -2280,6 +2280,8 @@ details.pn>summary{color:var(--t1)}
 .evh h2{margin:2px 0 0}
 @media (max-width:560px){.evb{padding:8px 12px;font-size:11px;letter-spacing:.1em}.hud{flex-wrap:wrap}.evm{order:3;flex:1 0 100%}}
 
+.mxk{display:flex;justify-content:center;align-items:center;gap:8px;margin:0 0 8px}.mxk b{font:800 15px var(--d);letter-spacing:.06em;padding:3px 12px;border-radius:999px;background:rgba(150,165,255,.16);color:#dfe5ff}.mxk span{font:700 10px var(--d);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.mxk.q b{background:rgba(0,245,160,.18);color:#00F5A0}.mxk.q span{color:#7be8bf}.mxk.x b{background:rgba(255,92,138,.2);color:#ff7fa3}.mxk.x span{color:#ff9fb8}.mxk.dec b{background:rgba(255,200,87,.22);color:#ffc857}.mxk.dec span{color:#ffd98a}
 .lseed{display:block;font:800 11px var(--d);font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:#ffc857;margin:-2px 0 2px}
 .cws{position:relative;display:inline-flex;flex:0 0 auto}.sdb{display:inline-block;min-width:15px;height:15px;padding:0 3px;border-radius:8px;background:#ffc857;color:#14141c;font:800 9px/15px var(--d);text-align:center;font-style:normal;letter-spacing:0}
 .cws .sdb{position:absolute;right:-6px;bottom:-5px;box-shadow:0 0 0 2px #0b101c}.sdb.in{margin-right:2px;vertical-align:middle}
@@ -8461,6 +8463,9 @@ const LOGOALIAS={'royal-never-give-up':'royal-club','star-horn-royal-club':'roya
 const logoOf=sl0=>{let sl=LOGOALIAS[sl0]||sl0;if(LOGOS.has(sl))return sl;let b='';LOGOS.forEach(x=>{if((sl.startsWith(x+'-')||x.startsWith(sl+'-'))&&x.length>b.length&&(sl.startsWith(x+'-')||!b))b=x});return b};
 let SEEDM=null;
 const crestSd=(t,c)=>crest(t,c);
+/* partidas do Suíço: o campanha dos dois times (V-D) em destaque, com o que está em jogo */
+const swChip=m=>{if(!m.sw)return'';const [w,l]=m.sw.split('-').map(Number),k=w===2&&l===2?'dec':w===2?'q':l===2?'x':'';
+  return `<div class="mxk${k?' '+k:''}"><b class="num">${w}–${l}</b><span>${w===2&&l===2?'Decisiva':w===2?'Vale classificação':l===2?'Vale eliminação':w+l===0?'Abertura':'Em disputa'}</span></div>`};
 let SEEDON=false;
 const sdTxt=t=>SEEDON&&SEEDM&&SEEDM[t.id]?`<em class="lseed">${SEEDM[t.id]}º ${esc(t.lg)}</em>`:'';
 /* seed regional do time no evento global em andamento, ex.: 2º LCK */
@@ -8666,9 +8671,9 @@ function matchHTML(m,i,fx){
   const aw=r&&r.w===m.a,bw=r&&r.w===m.b;
   const up=r&&((aw&&m.pa<.3)||(bw&&m.pa>.7));
   const pnT=m.pn&&r&&m.pn.dr?`draft ${m.pn.raw>0?'favoreceu você':m.pn.raw<0?'favoreceu o rival':'equilibrado'} (${(Math.abs(m.pn.raw)*100).toFixed(1).replace('.',',')}%) · `:m.pn&&r?(m.pn.raw>0?`seu plano ${planName(m.pn.me)} venceu ${planName(m.pn.op)} · `:m.pn.raw<0?`${planName(m.pn.op)} do rival superou seu ${planName(m.pn.me)} · `:`planos iguais (${planName(m.pn.me)}) · `):'';
-  const rvt=rvTxt(A,B),lab=(m.cl?'Clássico · ':'')+(rvt?rvt+' · ':'')+pnT+(m.real?'Resultado real · ':'')+(m.sw?m.sw+' · ':'')+(m.n===1?'Jogo único':'MD'+m.n);
+  const rvt=rvTxt(A,B),lab=(m.cl?'Clássico · ':'')+(rvt?rvt+' · ':'')+pnT+(m.real?'Resultado real · ':'')+(m.n===1?'Jogo único':'MD'+m.n);
   const tip=`${pa}% x ${pb}% · ${m.n===1?'jogo único':Math.round(m.qa*100)+'% por jogo'} · ${m.d>=0?'+':''}${m.d.toFixed(1)} OVR`;
-  return `<div class="m mx${fx?' fx':''}${mgrT()&&(m.a===S.mgr.tid||m.b===S.mgr.tid)?' mine':''}" style="--i:${i}" title="${tip}">${up?'<span class="zb">Zebra</span>':''}
+  return `<div class="m mx${fx?' fx':''}${mgrT()&&(m.a===S.mgr.tid||m.b===S.mgr.tid)?' mine':''}" style="--i:${i}" title="${tip}">${up?'<span class="zb">Zebra</span>':''}${swChip(m)}
   <div class="mxr"><span class="mxt ${r?(aw?'win':'lose'):''}">${crest(A,'sm')}${sdTxt(A)}<span class="mxn">${tlk(A)}</span><i class="mxp">${pa}%</i></span><span class="mxs num${r?'':' vs'}">${r?`${r.wa}<i>–</i>${r.wb}`:'vs'}</span><span class="mxt b ${r?(bw?'win':'lose'):''}">${crest(B,'sm')}${sdTxt(B)}<span class="mxn">${tlk(B)}</span><i class="mxp">${pb}%</i></span></div>
   <div class="mxb"><i style="width:${pa}%"></i></div>
   <div class="mxl">${lab.replace(/ · $/,'')}</div></div>`;
@@ -8762,7 +8767,7 @@ function tourHTML0(tour,kind,title,yr,mode){
   if(ev)h+=bracketHTML(tour,kind);
   else if(!info){h+=tb;
   if(full)h+=bracketHTML(tour,kind)}
-  const sub=(st,si,fx)=>{const pend=st.ms.some(m=>!m.res);return `<div class="sub">${pend?'Próximos jogos · ':''}${st.name}</div>`+st.ms.map((m,i)=>matchHTML(m,i,fx)).join('')};
+  const sub=(st,si,fx)=>{const pend=st.ms.some(m=>!m.res);return `<div class="sub">${pend?'Próximos jogos · ':''}${st.name}</div>`+(st.swiss?st.ms.slice().sort((a,b)=>{const f=m=>{const [w,l]=(m.sw||'0-0').split('-').map(Number);return[w-l,w]},x=f(a),y=f(b);return y[0]-x[0]||y[1]-x[1]}):st.ms).map((m,i)=>matchHTML(m,i,fx)).join('')};
   const L=[...tour.stages].map((st,si)=>({st,si,fx:lastPlayed&&lastPlayed.k===kind&&lastPlayed.si===si,pend:st.ms.some(m=>!m.res)})).reverse();
   let shown=0;
   if(!ev)L.filter(x=>x.pend||x.fx).forEach(x=>{shown++;h+=sub(x.st,x.si,x.fx)});
