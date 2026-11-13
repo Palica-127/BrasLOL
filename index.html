@@ -657,7 +657,7 @@ h1{letter-spacing:.02em}
 .br .bs{font:800 14px var(--d);min-width:14px;text-align:right}
 .br.w{background:rgba(0,240,160,.08)}.br.w .bs{color:var(--acc)}
 .br.l{opacity:.5}.br.me .bn{color:var(--acc)}
-.br.tbd .bn{color:var(--muted);font-weight:600}.br.tbd .bs{color:var(--muted)}
+.br.tba .bn{color:var(--muted);font-weight:600}.br.tba .bs{color:var(--muted)}
 .br .bc{width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(130,150,255,.35);flex:none}
 .br .crest,.br .shield{flex:none}
 /* compacto */
@@ -2063,6 +2063,52 @@ details.pn>summary{color:var(--t1)}
 .db .dbtm b{font:800 20px var(--d);letter-spacing:.03em}
 @media (min-width:1000px){.hub .more2 .pn:last-child{margin-bottom:0}.hub .hcol .tiles{padding:14px 18px;background:var(--s1);border-radius:var(--rd);box-shadow:inset 0 0 0 1px var(--hair)}.hub .hcol .tile{margin-right:14px;padding-right:14px}}
 /*V4-END*/
+
+/* brackets: cartões mais largos (nomes inteiros), placar em pílula, vencedor em destaque, conectores finos e final em dourado */
+.brk{padding:4px 2px 10px}
+.brkin{gap:24px;min-width:0;width:100%}
+.bcol{flex:1 1 168px;min-width:168px;width:auto}
+.bh{background:none;color:var(--muted);padding:0 2px 8px;margin:0 0 12px;border-bottom:2px solid var(--hair);border-radius:0;font:700 11px/1 var(--d);letter-spacing:.18em}
+.bcol:last-child .bh{color:#ffc857;border-bottom-color:rgba(255,200,87,.6)}
+.bp::after{right:-12px;width:12px;border-color:rgba(150,165,255,.32);border-radius:0 8px 8px 0}
+.bcol.nx .bsl::before{left:-12px;width:12px;border-top-color:rgba(150,165,255,.32)}
+.bsl{min-height:124px}
+.bm2{background:var(--s1);border:0;border-left:3px solid var(--hair);border-radius:10px;box-shadow:inset 0 0 0 1px var(--hair),0 2px 8px rgba(0,0,0,.25)}
+.bm2.pend{border-left-color:var(--acc)}
+.bcol:last-child .bm2{border-left-color:#ffc857;box-shadow:inset 0 0 0 1px rgba(255,200,87,.45),0 0 18px rgba(255,200,87,.14)}
+.br{gap:8px;padding:7px 9px;min-height:40px}
+.br .bn{font:700 13px var(--b);letter-spacing:.01em}
+.br .bs{display:grid;place-items:center;min-width:26px;height:26px;padding:0 4px;border-radius:7px;background:rgba(255,255,255,.07);font:800 14px var(--d);text-align:center}
+.br.w{background:linear-gradient(90deg,rgba(0,245,160,.12),rgba(0,245,160,.03))}.br.w .bn{color:#fff}.br.w .bs{background:var(--acc);color:#04120d}
+.br.l{opacity:.55}.br.l .bs{background:transparent}
+.br.me .bn{color:var(--acc)}
+.br.tba .bc{width:24px;height:24px;border:1.5px dashed rgba(255,255,255,.28);border-radius:50%;background:transparent}
+.br.tba .bn{font-style:italic;font-weight:600}.br.tba .bs{background:transparent}
+
+/* playoffs das ligas (winner/loser) */
+.pob{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.pobh{font:700 11px var(--d);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:12px 0 2px;padding-bottom:6px;border-bottom:1px solid var(--hair)}
+.pob .bcol{flex:1 1 150px;min-width:150px}.pob .bsl{min-height:96px}
+.pob .brkin{gap:14px}
+.pob .bcol.gld .bh{color:#ffc857;border-bottom-color:rgba(255,200,87,.6)}
+.pob .bcol:last-child .bh{color:var(--muted);border-bottom-color:var(--hair)}.pob .bcol.gld:last-child .bh{color:#ffc857;border-bottom-color:rgba(255,200,87,.6)}
+.pob .bcol:last-child .bm2{border-left-color:var(--hair);box-shadow:inset 0 0 0 1px var(--hair),0 2px 8px rgba(0,0,0,.25)}.pob .bcol.gld .bm2{border-left-color:#ffc857;box-shadow:inset 0 0 0 1px rgba(255,200,87,.4),0 0 14px rgba(255,200,87,.1)}
+.poa{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:6px 0 12px}
+.poac{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 10px;background:var(--s2);border:1px solid var(--hair);border-radius:10px;color:inherit;cursor:pointer;text-align:center}.poac:hover{border-color:var(--acc)}.poac b{font:700 15px var(--b)}.poac small{font:600 11px var(--b);color:var(--muted)}
+.lkb{background:none;border:0;padding:0;color:var(--acc);font:inherit;cursor:pointer;text-decoration:underline}
+
+/* lista de times: o nome nunca é espremido pelos selos (estimado, play-off); os selos descem para a linha de baixo se faltar espaço */
+.trn{display:flex;flex-wrap:wrap;align-items:center;gap:3px 8px;overflow-wrap:normal}
+.trn .lk{overflow-wrap:normal;word-break:normal;text-align:left;white-space:normal;max-width:100%}
+.trn .tag,.trn .pmb{white-space:nowrap}
+
+/* clássicos: confronto em uma linha — time, placar, time, selo */
+.clr{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:4px 14px;align-items:center;padding:12px 0;border-top:1px solid var(--ln,rgba(255,255,255,.08))}
+.clr:first-of-type{border-top:0}
+.clt{display:flex;align-items:center;gap:10px;min-width:0;font:700 15px var(--b)}
+.clt.r{justify-content:flex-end;text-align:right}
+.clx{font-size:20px;color:var(--gold,#C8AA6E);white-space:nowrap}
+.cln{grid-column:1/-1;justify-self:center;margin:0}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -2555,11 +2601,59 @@ function giveMVP(label,champ,runner){
 
 /* ---------- splits ---------- */
 const vOf=tr=>{if(!tr||!tr.elim)return'';const id=Object.keys(tr.elim).find(k=>tr.elim[k]==='Final');return id!=null?T(+id).name:''};
-function closeLeague(lg,tag,st,m1,m2,fm){
-  const top=st.slice(0,4).map(r=>r.t);
-  const third=[T(loserOf(m1)),T(loserOf(m2))].sort((a,b)=>top.indexOf(a)-top.indexOf(b));
-  const champ=T(fm.res.w),runner=T(loserOf(fm));
-  const order=[champ,runner,...third,...st.slice(4).map(r=>r.t)];
+/* ---------- playoffs das ligas: 6 times, chave dos vencedores (winner) e dos perdedores (loser) ----------
+   Quartas da Winner: 3º x 6º e 4º x 5º. Semis da Winner: 1º escolhe entre os dois vencedores das quartas; o 2º pega o outro.
+   Os dois que perdem nas quartas vão à Loser e esperam os dois perdedores das semis da Winner (rodada 1 da Loser, sem repetir confronto).
+   Depois: Loser semifinal, final da Loser (contra o perdedor da final da Winner) e grande final. */
+const POR=['Quartas da Winner','Semifinais da Winner','Final da Winner · Loser rodada 1','Semifinal da Loser','Final da Loser','Grande final'];
+const poW=m=>m.res.w,poL=m=>loserOf(m);
+function poNew(top){return{s:top.map(t=>t.id),pm:{},pk:null}}
+function poOpts(po){return[poW(po.pm.q1),poW(po.pm.q2)]}
+function poAIPick(po){const o=poOpts(po);return eff(T(o[0]))<=eff(T(o[1]))?o[0]:o[1]}
+function poMake(po,r){
+  const pm=po.pm,M=(a,b,n)=>mk(T(a),T(b),n);
+  if(r===0){pm.q1=M(po.s[2],po.s[5],3);pm.q2=M(po.s[3],po.s[4],3);return[pm.q1,pm.q2]}
+  if(r===1){const o=poOpts(po),w=po.pk==null?poAIPick(po):po.pk,x=o[0]===w?o[1]:o[0];po.pk=w;pm.s1=M(po.s[0],w,5);pm.s2=M(po.s[1],x,5);return[pm.s1,pm.s2]}
+  if(r===2){
+    const semiOf=id=>(pm.s1.a===id||pm.s1.b===id)?pm.s1:pm.s2;
+    pm.wf=M(poW(pm.s1),poW(pm.s2),5);
+    pm.l1=M(poL(pm.q1),poL(semiOf(poW(pm.q2))),3);
+    pm.l2=M(poL(pm.q2),poL(semiOf(poW(pm.q1))),3);
+    return[pm.wf,pm.l1,pm.l2];
+  }
+  if(r===3){pm.ls=M(poW(pm.l1),poW(pm.l2),5);return[pm.ls]}
+  if(r===4){pm.lf=M(poW(pm.ls),poL(pm.wf),5);return[pm.lf]}
+  pm.gf=M(poW(pm.wf),poW(pm.lf),5);return[pm.gf];
+}
+/* guarda só o necessário para desenhar o bracket depois (resultados anteriores) */
+function poSer(po){const o={s:po.s,pk:po.pk,pm:{}};Object.keys(po.pm).forEach(k=>{const m=po.pm[k];o.pm[k]={a:m.a,b:m.b,n:m.n,res:m.res?{wa:m.res.wa,wb:m.res.wb,w:m.res.w}:null}});return o}
+const poRows=['q1','q2','s1','s2','wf','l1','l2','ls','lf','gf'];
+function poBracketHTML(po,live){
+  if(!po)return '';
+  const pm=po.pm,mid=myTid(),W=m=>m&&m.res?m.res.w:null,L=m=>m&&m.res?(m.res.w===m.a?m.b:m.a):null;
+  const row=(id,m,tba)=>{
+    if(id==null)return `<div class="br tba"><span class="bc"></span><span class="bn">${tba||'A definir'}</span><b class="bs">–</b></div>`;
+    const t=T(id),r=m&&m.res,w=r&&r.w===id,sc=r?(id===m.a?r.wa:r.wb):'0';
+    return `<div class="br${r?(w?' w':' l'):''}${id===mid?' me':''}">${crest(t,'sm')}<span class="bn">${tlk(t)}</span><b class="bs num">${sc}</b></div>`;
+  };
+  const card=(m,a,b,ta,tb,n)=>{const A=m?m.a:a,B=m?m.b:b;return `<div class="bsl"><div class="bm2${m&&!m.res?' pend':''}">${row(A,m,ta)}${row(B,m,tb)}</div></div>`};
+  const col=(name,cards,gold)=>`<div class="bcol${gold?' gld':''}"><div class="bh">${name}</div><div class="bbody">${cards.join('')}</div></div>`;
+  const wq=col('Quartas',[card(pm.q1,po.s[2],po.s[5]),card(pm.q2,po.s[3],po.s[4])]);
+  const ws=col('Semifinais',[card(pm.s1,po.s[0],pm.s1?null:po.pk,null,'Vencedor das quartas'),card(pm.s2,po.s[1],null,null,'Vencedor das quartas')]);
+  const wf=col('Final',[card(pm.wf,W(pm.s1),W(pm.s2),'Vencedor da semi 1','Vencedor da semi 2')],true);
+  const l1=col('Rodada 1',[card(pm.l1,L(pm.q1),null,'Perdedor da quarta 1','Perdedor de uma semi'),card(pm.l2,L(pm.q2),null,'Perdedor da quarta 2','Perdedor de uma semi')]);
+  const ls=col('Semifinal',[card(pm.ls,W(pm.l1),W(pm.l2),'Vencedor da rodada 1','Vencedor da rodada 1')]);
+  const lf=col('Final',[card(pm.lf,W(pm.ls),L(pm.wf),'Vencedor da semifinal','Perdedor da final Winner')],true);
+  const gf=col('Decisão do título',[card(pm.gf,W(pm.wf),W(pm.lf),'Campeão da Winner','Campeão da Loser')],true);
+  return `<div class="pob"><div class="pobh">Chave dos vencedores</div><div class="brk"><div class="brkin">${wq}${ws}${wf}</div></div><div class="pobh">Chave dos perdedores</div><div class="brk"><div class="brkin">${l1}${ls}${lf}</div></div><div class="pobh">Grande final</div><div class="brk"><div class="brkin">${gf}</div></div></div>`;
+}
+function closeLeague(lg,tag,st,po){
+  const pm=po.pm,fm=pm.gf;
+  const champ=T(poW(pm.gf)),runner=T(poL(pm.gf));
+  const third=[T(poL(pm.lf)),T(poL(pm.ls))];
+  const idx=t=>st.findIndex(r=>r.t===t);
+  const l56=[T(poL(pm.l1)),T(poL(pm.l2))].sort((a,b)=>idx(a)-idx(b));
+  const order=[champ,runner,...third,...l56,...st.slice(6).map(r=>r.t)];
   S.season.rank[tag+lg]=order.map(t=>t.id);
   const n=order.length;
   order.forEach((t,i)=>{
@@ -2574,7 +2668,7 @@ function closeLeague(lg,tag,st,m1,m2,fm){
   const mvp=giveMVP('MVP '+label,champ,runner);
   const fp=fm.res.w===fm.a?fm.pa:1-fm.pa;
   return{lg,champ:champ.name,cid:champ.id,runner:runner.name,third:third.map(t=>t.name),mvp,
-    score:`${Math.max(fm.res.wa,fm.res.wb)}-${Math.min(fm.res.wa,fm.res.wb)}`,fp:Math.round(fp*100)};
+    score:`${Math.max(fm.res.wa,fm.res.wb)}-${Math.min(fm.res.wa,fm.res.wb)}`,fp:Math.round(fp*100),br:poSer(po)};
 }
 function runLeagueFull(lg,tag){
   const ts=S.teams.filter(t=>t.lg===lg);
@@ -2584,11 +2678,9 @@ function runLeagueFull(lg,tag){
     rec.get(w).w++;rec.get(loserOf(m)).l++;
   }
   const st=[...rec.values()].sort((x,y)=>y.w-x.w||Math.random()-.5);
-  const top=st.slice(0,4).map(r=>r.t);
-  const ser=(a,b)=>{const m=mk(a,b,5);play(m);return m};
-  const m1=ser(top[0],top[3]),m2=ser(top[1],top[2]);
-  const fm=ser(T(m1.res.w),T(m2.res.w));
-  return closeLeague(lg,tag,st,m1,m2,fm);
+  const po=poNew(st.slice(0,6).map(r=>r.t));
+  for(let r=0;r<6;r++)poMake(po,r).forEach(m=>play(m));
+  return closeLeague(lg,tag,st,po);
 }
 function runSplit(tag){
   S.teams.forEach(t=>{t.mom*=.9;t.hot=0});rollInj();
@@ -2623,6 +2715,26 @@ function spStart(tag){
   S.season.sp={tag,lg,d2,rounds:roundRobin(shuffle(ids.slice())),ri:0,rec,stage:'rr',cur:null,last:[],sf:null};
   spPrep();
 }
+function plPrepare(sp){
+  const po=sp.po;
+  if(sp.r===1){
+    if(po.s[0]===myTid()&&!CUPSIM){sp.ask=poOpts(po);sp.cur=[];return}
+    po.pk=poAIPick(po);
+  }
+  sp.cur=poMake(po,sp.r);
+}
+function plPick(id){const sp=S.season.sp;if(!sp||!sp.ask||!sp.ask.includes(id))return;sp.po.pk=id;sp.ask=null;sp.cur=poMake(sp.po,sp.r);msg=`Você escolheu enfrentar o ${T(id).name}.`}
+function plStep(sp){
+  if(sp.ask){if(CUPSIM){sp.po.pk=poAIPick(sp.po);sp.ask=null;sp.cur=poMake(sp.po,sp.r)}else{msg='Escolha seu adversário da semifinal da Winner.';return}}
+  sp.cur.forEach(m=>play(m));sp.last=sp.cur;lastPlayed={k:'sp'};
+  if(sp.r<5){sp.r++;plPrepare(sp);return}
+  const fm=sp.po.pm.gf;
+  const r=closeLeague(sp.lg,sp.tag,spOrder(sp).map(id=>({t:T(id)})),sp.po);
+  const res=S.season.res[sp.tag];res.push(r);res.sort((a,b)=>LGS.indexOf(a.lg)-LGS.indexOf(b.lg));
+  const po=poMine(sp);
+  if(po){sp.stage='po';sp.last=[fm];sp.cur=[po];lastPlayed={k:'sp'};return}
+  S.season.sp=null;lastPlayed=null;
+}
 function spStep(){
   const sp=S.season.sp;
   if(sp.stage==='rr'){
@@ -2630,8 +2742,10 @@ function spStep(){
     sp.last=sp.cur;sp.ri++;lastPlayed={k:'sp'};
     if(sp.ri<sp.rounds.length){spPrep();return}
     const o=spOrder(sp);
+    if(!sp.d2){sp.stage='pl';sp.po=poNew(o.slice(0,6).map(id=>T(id)));sp.r=0;sp.ask=null;sp.cur=poMake(sp.po,0);return}
     sp.stage='sf';sp.cur=[mk(T(o[0]),T(o[3]),5),mk(T(o[1]),T(o[2]),5)];return;
   }
+  if(sp.stage==='pl'){plStep(sp);return}
   if(sp.stage==='sf'){
     sp.cur.forEach(m=>play(m));sp.sf=sp.cur;sp.last=sp.cur;lastPlayed={k:'sp'};
     sp.stage='fin';sp.cur=[mk(T(sp.sf[0].res.w),T(sp.sf[1].res.w),5)];return;
@@ -2660,8 +2774,8 @@ function poMine(sp){
   return poMk(pr);
 }
 const spName=sp=>sp.tag==='s1'?'Split 1':'Split 2';
-const spLabel=sp=>`${sp.lg} ${spName(sp)} · ${sp.stage==='rr'?`rodada ${sp.ri+1} de ${sp.rounds.length}`:sp.stage==='sf'?'semifinais':sp.stage==='po'?'play-off de acesso':'final'}`;
-const spBtn=sp=>sp.stage==='rr'?`Jogar rodada ${sp.ri+1}`:sp.stage==='sf'?'Jogar as semifinais':sp.stage==='po'?'Jogar o play-off de acesso':'Jogar a final';
+const spLabel=sp=>`${sp.lg} ${spName(sp)} · ${sp.stage==='rr'?`rodada ${sp.ri+1} de ${sp.rounds.length}`:sp.stage==='pl'?POR[sp.r].toLowerCase():sp.stage==='sf'?'semifinais':sp.stage==='po'?'play-off de acesso':'final'}`;
+const spBtn=sp=>sp.stage==='rr'?`Jogar rodada ${sp.ri+1}`:sp.stage==='pl'?(sp.ask?'Escolher adversário':'Jogar: '+POR[sp.r].toLowerCase()):sp.stage==='sf'?'Jogar as semifinais':sp.stage==='po'?'Jogar o play-off de acesso':'Jogar a final';
 const cmpRow=m=>{const r=m.res;return `<div class="cm"><span class="${r&&r.w===m.a?'w':''}">${tlk(T(m.a))}</span><b class="num">${r?`${r.wa}–${r.wb}`:'vs'}</b><span class="b ${r&&r.w===m.b?'w':''}">${tlk(T(m.b))}</span></div>`};
 function spMatches(ms,fx){
   const mid=myTid();
@@ -2671,11 +2785,11 @@ function spMatches(ms,fx){
 function spHTML(){
   const sp=S.season.sp,mid=myTid(),ord=spOrder(sp);
   const fx=lastPlayed&&lastPlayed.k==='sp';
-  let h=`<section class="pn"><h2>${sp.lg} · ${spName(sp)}</h2><p class="note" style="margin:0 0 8px">${sp.stage==='rr'?'Fase de grupos: todos contra todos, ida e volta. Os 4 primeiros vão aos playoffs.':sp.stage==='po'?'Play-off de acesso em melhor de 5: o último da primeira divisão enfrenta o campeão da segunda. Quem vencer fica ou sobe; a mudança só vale depois da série.':'Playoffs: semifinais e final em melhor de 5.'}</p>`;
-  h+=`<div class="grp">${ord.map((id,i)=>{const r=sp.rec[id];return `<div class="gr${i<4?' q':''}${id===mid?' mine':''}"><span>${i+1}. ${tlk(T(id))}</span><span class="num">${r.w}-${r.l}</span></div>`}).join('')}</div>`;
-  h+=`<div class="sub">Próximos jogos · ${sp.stage==='rr'?`rodada ${sp.ri+1}`:sp.stage==='sf'?'semifinais':sp.stage==='po'?'play-off de acesso (MD5)':'final'}</div>${spMatches(sp.cur,false)}`;
+  let h=`<section class="pn"><h2>${sp.lg} · ${spName(sp)}</h2><p class="note" style="margin:0 0 8px">${sp.stage==='rr'?(sp.d2?'Fase de grupos: todos contra todos, ida e volta. Os 4 primeiros vão aos playoffs.':'Fase de grupos: todos contra todos, ida e volta. Os 6 primeiros vão aos playoffs (chave de vencedores e perdedores); 1º e 2º já entram nas semifinais da Winner.'):sp.stage==='pl'?'Playoffs em dupla eliminação: perder na Winner leva à Loser; perder na Loser elimina. Quem vence a final da Winner e a final da Loser faz a grande final.':sp.stage==='po'?'Play-off de acesso em melhor de 5: o último da primeira divisão enfrenta o campeão da segunda. Quem vencer fica ou sobe; a mudança só vale depois da série.':'Playoffs: semifinais e final em melhor de 5.'}</p>`;
+  h+=`<div class="grp">${ord.map((id,i)=>{const r=sp.rec[id];return `<div class="gr${i<(sp.d2?4:6)?' q':''}${id===mid?' mine':''}"><span>${i+1}. ${tlk(T(id))}</span><span class="num">${r.w}-${r.l}</span></div>`}).join('')}</div>`;
+  h+=(sp.ask?`<div class="sub">Você é o 1º colocado: escolha seu adversário na semifinal da Winner</div><div class="poa">${sp.ask.map(id=>{const x=T(id),pp=mk(T(mid),x,5);return `<button class="poac" data-act="spPick" data-v="${id}">${crest(x,'md')}<b>${esc(x.name)}</b><small>OVR ${Math.round(baseOvr(x))} · ${Math.round(pp.pa*100)}% de chance de vencer</small></button>`}).join('')}</div>`:'')+`<div class="sub">Próximos jogos · ${sp.stage==='rr'?`rodada ${sp.ri+1}`:sp.stage==='pl'?POR[sp.r].toLowerCase():sp.stage==='sf'?'semifinais':sp.stage==='po'?'play-off de acesso (MD5)':'final'}</div>${spMatches(sp.cur,false)}`;
   if(sp.last&&sp.last.length){const o=!!brkO.sp||fx;h+=`<button class="ghost brkb" data-act="brk" data-v="sp">${brkO.sp?'Esconder resultados':'Ver resultados anteriores'}</button>`;if(o)h+=`<div class="sub">Resultados anteriores</div>${spMatches(sp.last,fx)}`}
-  h+=`<div class="row" style="margin:12px 0 0">${sp.stage==='rr'?'<button class="ghost" data-act="spRR">Simular o resto da fase de grupos</button>':''}<button class="ghost" data-act="spAll">Simular o resto do split</button></div></section>`;
+  h+=`<div class="row" style="margin:12px 0 0">${sp.stage==='rr'?'<button class="ghost" data-act="spRR">Simular o resto da fase de grupos</button>':''}<button class="ghost" data-act="spAll">Simular o resto do split</button></div>${sp.po?`<button class="ghost brkb" data-act="brk" data-v="spb">${brkO.spb?'Esconder bracket':'Ver bracket dos playoffs'}</button>${brkO.spb?poBracketHTML(sp.po,true):''}`:''}</section>`;
   return h;
 }
 
@@ -6818,7 +6932,7 @@ function pcMatchEnd(){
   const avg=r1(LV.gr.reduce((s,x)=>s+x.rt,0)/LV.gr.length),won=LV.me>LV.op,nt=String(avg).replace('.',',');
   if(test){pc.tAvg=avg;return}
   /* estatísticas por campeão (base da marca registrada): picks, vitórias e jogos decisivos (finais e o último mapa da série) */
-  {const ph=PHASES[S.phase],sp=S.season.sp,fin=!!((ph&&(ph.k==='m2'||ph.k==='wf'))||(sp&&(sp.stage==='fin'||sp.stage==='po'))),n=LV.m.n;
+  {const ph=PHASES[S.phase],sp=S.season.sp,fin=!!((ph&&(ph.k==='m2'||ph.k==='wf'))||(sp&&(sp.stage==='fin'||sp.stage==='po'||(sp.stage==='pl'&&(sp.r===2||sp.r>=4))))),n=LV.m.n;
    pc.cs=pc.cs||{};
    LV.gr.forEach((x,i)=>{if(!x.c)return;const c=pc.cs[x.c]||(pc.cs[x.c]={p:0,w:0,d:0,dw:0});c.p++;if(x.win)c.w++;
      if(fin||(n>=3&&LV.gr.length===n&&i===n-1)){c.d++;if(x.win)c.dw++}})}
@@ -7413,8 +7527,8 @@ function phDay(i,live){
   if(p.k==='s1'||p.k==='s2'){
     const b=CAL[p.k],sp=live&&S.season.sp;
     if(!sp)return b;
-    const n=sp.rounds.length,g=Math.max(2,Math.floor(SPB[p.k]/(n+2)));
-    return b+g*(sp.stage==='rr'?sp.ri+1:n+(sp.stage==='sf'?1:2));
+    const n=sp.rounds.length,g=Math.max(2,Math.floor(SPB[p.k]/(n+(sp.d2?2:7))));
+    return b+g*(sp.stage==='rr'?sp.ri+1:sp.stage==='pl'?n+1+sp.r:n+(sp.stage==='sf'?1:2));
   }
   if(p.k==='sw')return 297+2*(i-PHASES.findIndex(x=>x.k==='sw'));
   return CAL[p.k]||365;
@@ -7965,7 +8079,7 @@ function bracketCore(ko,T,tlk,crest,isMe){
   }
   const win=m=>m&&m.res?m.res.w:null;
   const row=(id,sc,m,side)=>{
-    if(id==null)return `<div class="br tbd"><span class="bc"></span><span class="bn">A definir</span><b class="bs">–</b></div>`;
+    if(id==null)return `<div class="br tba"><span class="bc"></span><span class="bn">A definir</span><b class="bs">–</b></div>`;
     const t=T(id),r=m&&m.res,w=r&&r.w===id,mine=isMe(id);
     return `<div class="br${r?(w?' w':' l'):''}${mine?' me':''}">${crest(t)}<span class="bn">${tlk(t)}</span><b class="bs num">${r?sc:'0'}</b></div>`;
   };
@@ -8013,7 +8127,7 @@ function tourHTML(tour,kind,title){
 }
 function splitHTML(tag,title){
   const r=S.season.res[tag];if(!r)return'';
-  return `<section class="pn"><h2>${title} ${S.year}</h2>${r.map(x=>`<div class="rowl"><span class="lg">${llk(x.lg)}</span><span class="grow"><b>${tlk(T(x.cid))}</b> campeão<br><small>vice ${esc(x.runner)} · ${x.real?esc(x.note):`final ${x.score} (${x.fp}% de chance) · 3º/4º ${x.third.map(esc).join(', ')}`}<br>MVP ${lk(x.mvp)}</small></span></div>`).join('')}</section>`;
+  return `<section class="pn"><h2>${title} ${S.year}</h2>${r.map(x=>`<div class="rowl"><span class="lg">${llk(x.lg)}</span><span class="grow"><b>${tlk(T(x.cid))}</b> campeão<br><small>vice ${esc(x.runner)} · ${x.real?esc(x.note):`final ${x.score} (${x.fp}% de chance) · 3º/4º ${x.third.map(esc).join(', ')}`}<br>MVP ${lk(x.mvp)}${x.br?` · <button class="lkb" data-act="brk" data-v="b${tag}${x.lg}">${brkO['b'+tag+x.lg]?'esconder bracket':'ver bracket'}</button>`:''}</small>${x.br&&brkO['b'+tag+x.lg]?poBracketHTML(x.br):''}</span></div>`).join('')}</section>`;
 }
 const flHTML=()=>mgrT()?'':`<section class="pn"><h2>Liga acompanhada rodada a rodada</h2><div class="pills" style="margin:0">${LGS.map(l=>`<button class="pill" aria-pressed="${((S.opt&&S.opt.fl)||'LCK')===l}" data-act="fl" data-v="${l}">${l}</button>`).join('')}</div><p class="note">Essa liga é jogada rodada por rodada; as outras são simuladas por inteiro no início do split.</p></section>`;
 function favHTML(){
@@ -8513,7 +8627,7 @@ function vHof(){
   }else if(hofView==='cl'){
     const rv=Object.entries(S.rv||{}).filter(([k,r])=>r&&r.n>=2).map(([k,r])=>{const [a,b]=k.split('|'),x=r.w[a]||0,y=r.w[b]||0;return{a,b,n:r.n,x,y,eq:Math.abs(x-y)}}).sort((p,q)=>(q.n-q.eq*1.5)-(p.n-p.eq*1.5)).slice(0,12);
     const tm=nm=>S.teams.find(t=>t.name===nm);
-    h+=`<section class="pn"><h2>Clássicos</h2><p class="note" style="margin:0 0 8px">Os confrontos mais disputados da história: quanto mais jogos e mais equilibrado o placar, mais forte a rivalidade.</p>${rv.length?rv.map(c=>{const A=tm(c.a),B=tm(c.b);return `<div class="pl"><span class="nm2">${A?crest(A,'sm'):''} ${A?tlk(A):esc(c.a)} <b class="num">${c.x}–${c.y}</b> ${B?tlk(B):esc(c.b)} ${B?crest(B,'sm'):''}</span><span class="tag" style="margin:0">${c.n} jogos${c.eq<=2&&c.n>=4?' · 🔥 rivalidade':''}</span></div>`}).join(''):'<p class="empty">Os clássicos aparecem depois que os times se enfrentam algumas vezes.</p>'}</section>`;
+    h+=`<section class="pn"><h2>Clássicos</h2><p class="note" style="margin:0 0 8px">Os confrontos mais disputados da história: quanto mais jogos e mais equilibrado o placar, mais forte a rivalidade.</p>${rv.length?rv.map(c=>{const A=tm(c.a),B=tm(c.b);return `<div class="clr"><span class="clt">${A?crest(A,'sm'):''}${A?tlk(A):esc(c.a)}</span><b class="clx num">${c.x}–${c.y}</b><span class="clt r">${B?tlk(B):esc(c.b)}${B?crest(B,'sm'):''}</span><span class="tag cln">${c.n} jogos${c.eq<=2&&c.n>=4?' · 🔥 rivalidade':''}</span></div>`}).join(''):'<p class="empty">Os clássicos aparecem depois que os times se enfrentam algumas vezes.</p>'}</section>`;
   }else if(hofView==='teams'){
     h+=pwHTML();
     const rows=S.teams.map(t=>({t,c:ttCount(t)})).sort((a,b)=>b.c.wc-a.c.wc||b.c.msi-a.c.msi||b.c.lg-a.c.lg||baseOvr(b.t)-baseOvr(a.t));
@@ -9105,6 +9219,7 @@ function act0(a,v){
   else if(a==='rnd'){S.opt=S.opt||{};S.opt.rnd=v;save()}
   else if(a==='dif'){S.opt=S.opt||{};S.opt.dif=v;save()}
   else if(a==='flags'){S.opt=S.opt||{};S.opt.flags=v==='1';save()}
+  else if(a==='spPick'){plPick(+v);save()}
   else if(a==='spRR'){while(S.season.sp&&S.season.sp.stage==='rr')spStep();save();top=true}
   else if(a==='spAll'){const ph=S.phase;let g2=0;CUPSIM=1;try{while(S.phase===ph&&g2++<400)step()}finally{CUPSIM=0}save();top=true}
   else if(a==='mgrView'){mgrView=v}
