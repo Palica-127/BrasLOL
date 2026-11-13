@@ -2200,7 +2200,7 @@ details.pn>summary{color:var(--t1)}
 .pbw::-webkit-scrollbar{height:8px}.pbw::-webkit-scrollbar-thumb{background:rgba(150,165,255,.4);border-radius:4px}
 
 /* draft (modelo clássico) mais vivo: cenário com arte, luzes azul e vermelha, painel central com os dois times, colunas mais altas e destaque da vez */
-.dfx{position:relative;background:linear-gradient(180deg,rgba(8,12,30,.55),rgba(8,12,30,.92) 78%),radial-gradient(700px 520px at 10% 38%,rgba(43,107,255,.30),transparent 70%),radial-gradient(700px 520px at 90% 38%,rgba(224,54,79,.28),transparent 70%),url(fundos/draven.webp) center 20%/cover no-repeat,#0b1024;isolation:isolate}
+.dfx{background:linear-gradient(180deg,rgba(8,12,30,.55),rgba(8,12,30,.92) 78%),radial-gradient(700px 520px at 10% 38%,rgba(43,107,255,.30),transparent 70%),radial-gradient(700px 520px at 90% 38%,rgba(224,54,79,.28),transparent 70%),url(fundos/draven.webp) center 20%/cover no-repeat,#0b1024;isolation:isolate}
 .dfx::before{content:"";position:absolute;inset:0;z-index:-1;background:repeating-linear-gradient(115deg,rgba(255,255,255,.018) 0 2px,transparent 2px 14px)}
 .dftop{backdrop-filter:blur(2px)}
 .dfp{background:linear-gradient(180deg,rgba(24,32,66,.82),rgba(12,18,44,.86));border:1px solid rgba(200,170,110,.35);box-shadow:0 18px 50px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.08)}
@@ -2609,10 +2609,18 @@ function startWorldsReal(){
     });
     tour.stages.push({name:`Suíço · Rodada ${ri+1}`,n:0,ms,swiss:true,rnd:ri+1});
   });
-  /* quartas reais (melhor de 5): TES x IG (3/nov), Gen.G x LYON (4/nov), DK x BLG (5/nov), T1 x KC (6/nov) */
-  tour.stages.push(stageP('Quartas',[[T(ID.TES),T(ID.IG)],[T(ID.GEN),T(ID.LYON)],[T(ID.DK),T(ID.BLG)],[T(ID.T1),T(ID.KC)]],5));
+  /* mata-mata real até 13/nov/2026 (melhor de 5): quartas de 3 a 6/nov, semifinais em 7 e 8/nov; a final é em 14/nov (Gen.G x BLG) e fica por jogar */
+  const RM=(a,b,wa,wb)=>{
+    const m={...mk(T(ID[a]),T(ID[b]),5),real:true};m.res={wa,wb,w:wa>wb?ID[a]:ID[b]};
+    T(ID[a]).pl.forEach(x=>{const o=psOf(x.n);o.gw+=wa;o.gl+=wb});T(ID[b]).pl.forEach(x=>{const o=psOf(x.n);o.gw+=wb;o.gl+=wa});
+    tour.elim[wa>wb?ID[b]:ID[a]]=m.n&&tour.stages.length>RR.length?'Semifinais':'Quartas';
+    return m;
+  };
+  tour.stages.push({name:'Quartas',n:5,ms:[RM('TES','IG',1,3),RM('GEN','LYON',3,0),RM('DK','BLG',0,3),RM('T1','KC',3,1)]});
+  tour.stages.push({name:'Semifinais',n:5,ms:[RM('IG','GEN',0,3),RM('BLG','T1',3,1)]});
+  tour.stages.push(stageP('Final',[[T(ID.GEN),T(ID.BLG)]],5));
   S.season.wc=tour;
-  S.phase=PHASES.findIndex(p=>p.k==='wq');
+  S.phase=PHASES.findIndex(p=>p.k==='wf');
 }
 function freshGame(){S=newState();ensureD2();applyHon();applyTeamHist();applyLeagueHist();applyLeagueHist2();applyLeagueHist3();seed2026();startWorldsReal()}
 
@@ -8825,7 +8833,7 @@ function vSeason(){
   let d=calGrid();
   if((S.phase===0||S.phase===PHI('s3'))&&!S.season.sp)d+=favHTML();
   if(S.hl&&S.hl.length&&!S.season.sp)d+=`<section class="pn"><h2>Manchetes</h2><ul class="lines">${S.hl.slice(0,6).map(x=>`<li><b class="num">${x.y}</b> · ${esc(x.t)}</li>`).join('')}</ul></section>`;
-  if(S.year===2026&&cur&&cur.g<=5&&S.phase>0)d+=`<section class="pn"><h2>Ponto de partida real</h2><p class="note" style="margin:0">Mundial 2026 nas quartas de final: o Suíço inteiro aparece como resultado real (placares de LOS×TLAW e HLE×G2 na rodada 4 são estimados) e as quartas começam sem jogos disputados; o resto é simulado. MSI e ligas de 2026 e os títulos da carreira (Faker com 6 Mundiais e 4 prêmios de Melhor Jogador do Ano) já estão no histórico. OVR e idades são notas minhas.</p></section>`;
+  if(S.year===2026&&cur&&cur.g<=5&&S.phase>0)d+=`<section class="pn"><h2>Ponto de partida real</h2><p class="note" style="margin:0">Mundial 2026 na final (14/nov): o Suíço, as quartas e as semifinais aparecem como resultado real (placares de LOS×TLAW e HLE×G2 na rodada 4 são estimados) e a final Gen.G x BLG começa por jogar; o resto é simulado. MSI e ligas de 2026 e os títulos da carreira (Faker com 6 Mundiais e 4 prêmios de Melhor Jogador do Ano) já estão no histórico. OVR e idades são notas minhas.</p></section>`;
   SEC.push(['cal','Calendário',d]);
   if(S.season.sp)SEC.push(['sp',S.season.sp.lg,spHTML()]);
   const gk=cur?cur.g:0;
