@@ -2280,6 +2280,7 @@ details.pn>summary{color:var(--t1)}
 .evh h2{margin:2px 0 0}
 @media (max-width:560px){.evb{padding:8px 12px;font-size:11px;letter-spacing:.1em}.hud{flex-wrap:wrap}.evm{order:3;flex:1 0 100%}}
 
+.lseed{display:block;font:800 11px var(--d);font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:#ffc857;margin:-2px 0 2px}
 .cws{position:relative;display:inline-flex;flex:0 0 auto}.sdb{display:inline-block;min-width:15px;height:15px;padding:0 3px;border-radius:8px;background:#ffc857;color:#14141c;font:800 9px/15px var(--d);text-align:center;font-style:normal;letter-spacing:0}
 .cws .sdb{position:absolute;right:-6px;bottom:-5px;box-shadow:0 0 0 2px #0b101c}.sdb.in{margin-right:2px;vertical-align:middle}
 
@@ -8427,7 +8428,9 @@ const LOGOALIAS={'royal-never-give-up':'royal-club','star-horn-royal-club':'roya
 /* nome de time sem logo proprio (versao antiga do nome, filial etc.): usa o logo da organizacao quando o nome dela e o comeco do nome do time, ou o contrario */
 const logoOf=sl0=>{let sl=LOGOALIAS[sl0]||sl0;if(LOGOS.has(sl))return sl;let b='';LOGOS.forEach(x=>{if((sl.startsWith(x+'-')||x.startsWith(sl+'-'))&&x.length>b.length&&(sl.startsWith(x+'-')||!b))b=x});return b};
 let SEEDM=null;
-const crestSd=(t,c)=>SEEDM&&SEEDM[t.id]?`<span class="cws">${crest(t,c)}<i class="sdb" title="Seed regional ${SEEDM[t.id]}">${SEEDM[t.id]}</i></span>`:crest(t,c);
+const crestSd=(t,c)=>crest(t,c);
+/* seed regional do time no evento global em andamento, ex.: 2º LCK */
+const liveSeed=t=>{for(const k of['fs','msi','wc']){const tr=S.season[k];if(!tr||tr.champ!=null||!tr.teams||!tr.teams.includes(t.id))continue;const m=evSeedMap(S.season,k),v=m&&m[t.id];if(v)return `<em class="lseed">${v}º ${esc(t.lg)}</em>`}return ''};
 const crest=(t,c='')=>{
   if(typeof t.id==='string'&&ISO2[t.id])return natCrest(t.id,'flag '+c);
   const sl=logoOf(slug(t.name));
@@ -8607,7 +8610,6 @@ function vEvents(){
   const sm=d?evSeedMap(d,e.k):null;SEEDM=sm;let main='',pi='';
   try{main=d&&d[M[0]]?tourHTML(d[M[0]],M[0],M[1],e.y):'';
   pi=e.k==='msi'&&d&&d.mpi?tourHTML(d.mpi,'mpi','MSI · Play-In',e.y):e.k==='wc'&&d&&d.wpi?tourHTML(d.wpi,'wpi','Mundial · Play-In',e.y):''}finally{SEEDM=null}
-  if(sm&&(main||pi))h+=`<p class="note" style="margin:0 0 8px"><i class="sdb in">1</i> O número junto ao logo é o seed regional do time (posição na liga que o classificou).</p>`;
   if(main||pi)return h+main+pi;
   const hh=S.hist.find(z=>z.y===e.y),c=hh&&hh.champs;
   const cn=c?{fs:c.fs,msi:c.msi,wc:c.wc}[e.k]:'';
@@ -8641,7 +8643,7 @@ function swissHTML(tour){
   const rows=[...tour.teams].sort((a,b)=>{const x=tour.rec[a],y=tour.rec[b];return y.w-x.w||x.l-y.l||eff(T(b))-eff(T(a))});
   return `<div class="sub">Tabela do Suíço</div><div class="grp">${rows.map(id=>{
     const r=tour.rec[id];
-    return `<div class="gr${r.w===3?' q':''}${r.l===3?' x':''}${mgrT()&&id===S.mgr.tid?' mine':''}"><span>${SEEDM&&SEEDM[id]?`<i class="sdb in" title="Seed regional ${SEEDM[id]}">${SEEDM[id]}</i> `:''}${tlk(T(id))}</span><span class="pips">${'<i></i>'.repeat(r.w)}${'<i class="l"></i>'.repeat(r.l)}<span class="num" style="margin-left:6px">${r.w}-${r.l}</span></span></div>`;
+    return `<div class="gr${r.w===3?' q':''}${r.l===3?' x':''}${mgrT()&&id===S.mgr.tid?' mine':''}"><span>${tlk(T(id))}</span><span class="pips">${'<i></i>'.repeat(r.w)}${'<i class="l"></i>'.repeat(r.l)}<span class="num" style="margin-left:6px">${r.w}-${r.l}</span></span></div>`;
   }).join('')}</div><p class="note" style="margin:0 0 4px">Três vitórias classificam e três derrotas eliminam. Jogos que decidem classificação ou eliminação são melhor de 3.</p>`;
 }
 /* bracket de eliminação dupla no mesmo desenho das ligas: chave Winner em cima, Loser embaixo, grande final à direita, com conectores */
@@ -9074,7 +9076,7 @@ function hubHTML(cur,sideH,underH){
   const playLbl=cur?(dvNeeded()?'Jogar':sp?spBtn(sp):(cur.k==='s1'||cur.k==='s2')?'Iniciar '+cur.l+' jogo a jogo':cur.b):`Abrir temporada ${S.year+1}`;
   const m=heroMatch();
   const rec=PHASES[S.phase]&&PHASES[S.phase].k==='sw'&&S.season.wc&&S.season.wc.rec;
-  const side=t=>`<div class="tm"><span class="crw">${crest(t,'lg')}${stdPos(t)}</span><b>${esc(t.name)}</b>${t.fm?`<span class="fm">${[...t.fm].map(c=>`<i class="${c==='V'?'w':'l'}"></i>`).join('')}</span>`:''}<small>${stdRec(t)?stdRec(t)+' · ':''}OVR ${Math.round(baseOvr(t))}</small></div>`;
+  const side=t=>`<div class="tm"><span class="crw">${crest(t,'lg')}${stdPos(t)}</span>${liveSeed(t)}<b>${esc(t.name)}</b>${t.fm?`<span class="fm">${[...t.fm].map(c=>`<i class="${c==='V'?'w':'l'}"></i>`).join('')}</span>`:''}<small>${stdRec(t)?stdRec(t)+' · ':''}OVR ${Math.round(baseOvr(t))}</small></div>`;
   let h=`<div class="hub"><div class="hh"><div><small class="k">${dWk(td)} · temporada ${S.year}</small><b class="num">${x.d} ${MESF[x.m]}</b><small class="k hdt">${dFull(td)} · dia ${td} de 365</small></div><div class="hact">${cur?`<button class="ghost" data-act="all">${cur.g===5?'Simular o resto da Copa':'Pular para o Melhor Jogador do Ano'}</button>`:''}${(mgrT()||pcAct())?`<div class="mailw"><button class="ghost mailb" data-act="mail" aria-expanded="${MAILO}">✉ E-mail${mailN()?` <span class="mbd">${mailN()}</span>`:''}</button>${MAILO?mailHTML():''}</div>`:''}</div></div>`;
   const evx=evNow();
   if(evx)h+='<div class="hcol">'+evHeroHTML(evx,side);else{
