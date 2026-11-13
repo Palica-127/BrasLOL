@@ -176,5 +176,19 @@ ok(J('!S.pc.perks.c12')===true,'2ª metade exige o nó final da 1ª');
 run(ctx,`S.pc.perks={};S.pc.cap=80;var cp0=pcCap();S.pc.perks={e22:1};`);
 ok(J('pcCap()')===J('cp0')+2,'Onisciente (+2 de teto) aumenta o limite de atributo');
 
+
+/* ---- aposentadoria escolhida: turnê, legado e sem aposentadoria forçada ---- */
+run(ctx,`S.pc.ended=null;S.pc.tour=null;S.pc.fame=50;var fp=pcFind();fp.p.age=33;pcTourStart();`);
+ok(J('S.pc.tour')===J('S.year'),'turnê anunciada aos 33 anos');
+run(ctx,`var f0=S.pc.fame;pcFame(10);`);
+ok(J('S.pc.fame-f0')>=14,'fama cresce 40% mais rápido na turnê');
+run(ctx,`pcTourCancel();`);
+ok(J('S.pc.tour')===null,'desistir da turnê funciona');
+run(ctx,`var fq=pcFind();fq.p.age=38;S.pc.ended=null;`);
+run(ctx,`ALLT().forEach(function(t){t.pl.forEach(function(p){if(p.pc){p.age=38}})});`);
+ok(J('(function(){var f=pcFind();return f&&f.p.age})()')===38,'jogador ativo aos 38 não é aposentado sozinho');
+run(ctx,`S.pc.tour=S.year;pcRetireNow(true);`);
+ok(J('S.pc.ended')===J('S.year')&&J('S.pc.leg.v>0')===true&&J('S.pc.tourDone')===true,'aposentadoria gera legado e marca a turnê');
+
 console.log(falhas?`\n${falhas} falha(s)`:'\ntudo certo');
 process.exit(falhas?1:0);
