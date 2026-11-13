@@ -1982,6 +1982,16 @@ details.pn>summary{color:var(--t1)}
 .tdiv span em small{font:700 8px var(--b);letter-spacing:.14em;color:#b9a769;background:none;padding:0;margin:0 0 0 2px;border-left:1px solid rgba(255,226,122,.3);padding-left:8px}
 .tdia{overflow:hidden}
 
+/* conquistas: cartões com ícone (apagado até desbloquear) */
+.cqh{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:0 0 8px}.cqh b{font:700 22px/1 var(--d,inherit);color:#ffc857}.cqh small{font-size:13px;color:var(--muted)}
+.cqbar{height:6px;border-radius:6px;background:rgba(255,255,255,.08);margin:0 0 14px;overflow:hidden}.cqbar i{display:block;height:100%;background:linear-gradient(90deg,#ff9a3c,#ffc857);border-radius:6px}
+.cqg{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.cqc{display:flex;gap:12px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.02);opacity:.55;filter:grayscale(1)}
+.cqc.on{opacity:1;filter:none;border-color:rgba(255,200,87,.45);background:linear-gradient(135deg,rgba(255,200,87,.12),rgba(255,120,60,.05));box-shadow:0 0 18px rgba(255,200,87,.12)}
+.cqi{flex:none;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.07);color:#9aa4bd}.cqi svg{width:26px;height:26px}
+.cqc.on .cqi{background:radial-gradient(circle at 30% 25%,#ffe9a8,#ffb23c 60%,#d97a1f);color:#3a1d00;box-shadow:0 0 14px rgba(255,190,70,.55)}
+.cqt{min-width:0;display:flex;flex-direction:column;gap:2px}.cqt b{font-size:14px}.cqt small{font-size:12px;color:var(--muted);line-height:1.25}.cqt em{font:normal 600 11px/1.2 var(--b,inherit);color:#8892ab;margin-top:2px}.cqc.on .cqt em{color:#ffc857}
+
 @media (max-width:640px){.pc3,.pc3.p1{flex-direction:row;text-align:left;align-items:center;padding:12px 14px 12px 36px;gap:12px}.pc3 .av,.pc3.p1 .av{width:56px;height:56px;flex:none}.pc3 b,.pc3.p1 b{font-size:20px;margin:0}.pc3 .tt{display:none}.pc3 .pt,.pc3.p1 .pt{margin:0 0 0 auto;font-size:26px}.pc3 .pcn{top:50%;transform:translateY(-50%)}.pc3 small{display:block}}
 
 /* Gestão: cartão da próxima partida sem adversário definido, e Jogar com colunas equilibradas */
@@ -6134,9 +6144,10 @@ function conqCheck(){
     if(got){localStorage.setItem(CQK,JSON.stringify(u));msg='🏆 Conquista desbloqueada: '+got+'.'}
   }catch(e){}
 }
+const CQI={t1:'clock',t10:'hourglass',pl50:'trend',pl100:'crown',pk20:'book',fm80:'star',tour:'mega',leg:'flame',nem:'sword',mgwc:'trophy',mg3:'chart',fired:'refresh',riv:'fist'};
 function conqHTML(){
   const u=conqLoad(),n=CONQ.filter(x=>u[x[0]]).length;
-  return `<section class="pn"><h2>Conquistas</h2><p class="note" style="margin:0 0 8px">${n} de ${CONQ.length} desbloqueadas. Valem para todos os salvamentos e modos.</p>${CONQ.map(([id,t,d])=>`<div class="pl"><span class="nm2">${u[id]?'🏆':'🔒'} <b>${esc(t)}</b><small style="display:block;color:var(--muted)">${esc(d)}</small></span><span class="tag" style="margin:0">${u[id]?u[id]:'bloqueada'}</span></div>`).join('')}</section>`;
+  return `<section class="pn"><h2>Conquistas</h2><div class="cqh"><p class="note" style="margin:0">Valem para todos os salvamentos e modos.</p><b class="num">${n}<small> / ${CONQ.length}</small></b></div><div class="cqbar"><i style="width:${Math.round(100*n/CONQ.length)}%"></i></div><div class="cqg">${CONQ.map(([id,t,d])=>`<div class="cqc${u[id]?' on':''}"><span class="cqi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${PGL[CQI[id]]||PGL.star}"/></svg></span><span class="cqt"><b>${esc(t)}</b><small>${esc(d)}</small><em>${u[id]?'Desbloqueada em '+u[id]:'Bloqueada'}</em></span></div>`).join('')}</div></section>`;
 }
 /* legado: resumo da carreira inteira (fama, títulos, prêmios, metas) */
 function pcLegacy(pc){
@@ -8361,7 +8372,7 @@ const mav=n=>`<span class="mavr">${phHas(n)?phImg(n):AVA}</span>`;
 const rkRow=(i,n,sub,tt,pt,sf)=>`<button class="rkr${i<3?' top'+(i+1):''}" data-act="player" data-v="${esc(n)}"><span class="rk num">${i+1}</span><span class="rav">${phHas(n)?phImg(n):AVA}</span><span class="rnm"><b>${esc(n)}</b><small>${sub}</small></span><span class="rtt">${tt||''}</span><span class="rpt num">${pt}${sf?`<small>${sf}</small>`:''}</span></button>`;
 function vHof(){
   const PM=pmap();
-  let h=`<div class="pills stk">${[['rank','Ranking'],['wc','Mundial'],['msi','MSI'],['teams','Times'],['cl','Clássicos'],['cq','Conquistas'],['nat','Seleções'],['players','Jogadores']].map(([k,l])=>`<button class="pill" aria-pressed="${hofView===k}" data-act="hv" data-v="${k}">${l}</button>`).join('')}</div>`;
+  let h=`<div class="pills stk">${[['rank','Ranking'],['wc','Mundial'],['msi','MSI'],['teams','Times'],['nat','Seleções'],['cl','Clássicos'],['cq','Conquistas']].map(([k,l])=>`<button class="pill" aria-pressed="${hofView===k}" data-act="hv" data-v="${k}">${l}</button>`).join('')}</div>`;
   if(hofView==='rank'){
     const r=hofRank().slice(0,10);
     const info=n=>{
