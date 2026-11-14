@@ -5,15 +5,18 @@
      npm install                      (uma vez; não precisa aprovar scripts de instalação)
      node recortar.js [pasta]         (padrão: D:\Projeto\BrasLOL\fotos_novas)
    O nome do arquivo é o nick do jogador (ex.: pollu.png, Pollu.jpg); vira jogadores/pollu.webp.
+     node recortar.js --tecnicos [pasta]   (técnicos: padrão D:\Projeto\BrasLOL\fotos_tecnicos; grava em tecnicos/ e cadastra no COPHOTOS)
    O modelo de recorte (u2net_human_seg.onnx, do rembg) fica em .cache/ e é baixado na primeira vez. */
 const fs = require('fs'), path = require('path');
 const sharp = require('sharp');
 const ort = require('onnxruntime-web');
 
 const ROOT = path.join(__dirname, '..', '..');
-const SRC = path.resolve(process.argv[2] || path.join(ROOT, 'fotos_novas'));
+const CO = process.argv.includes('--tecnicos'), ARGS = process.argv.slice(2).filter(a => a !== '--tecnicos');
+const SRC = path.resolve(ARGS[0] || path.join(ROOT, CO ? 'fotos_tecnicos' : 'fotos_novas'));
 const TESTE = process.env.SAIDA;  /* teste: grava em outra pasta e não mexe no index.html */
-const OUT = TESTE ? path.resolve(TESTE) : path.join(ROOT, 'jogadores');
+const OUT = TESTE ? path.resolve(TESTE) : path.join(ROOT, CO ? 'tecnicos' : 'jogadores');
+const SET = CO ? 'COPHOTOS' : 'PHOTOS';  /* lista de fotos no index.html */
 const HTML = path.join(ROOT, 'index.html');
 const MODEL = path.join(__dirname, '.cache', 'u2net_human_seg.onnx');
 const MODEL_URL = 'https://github.com/danielgatis/rembg/releases/download/v0.0.0/u2net_human_seg.onnx';
@@ -79,15 +82,15 @@ async function one(sess, file) {
     try { done.push(await one(sess, path.join(SRC, f))); process.stdout.write('.'); }
     catch (e) { fail.push(f + ': ' + e.message); }
   }
-  /* cadastra no PHOTOS do index.html */
+  /* cadastra no PHOTOS (ou COPHOTOS) do index.html */
   if (TESTE) { console.log(`\n${done.length} recortada(s) em ${OUT}` + (fail.length ? '\n' + fail.join('\n') : '')); return; }
   let html = fs.readFileSync(HTML, 'utf8');
-  const re = /\/\*PHOTOS\*\/const PHOTOS=new Set\((\[[^\]]*\])\);/;
+  const re = new RegExp('/\\*' + SET + '\\*/const ' + SET + '=new Set\\((\\[[^\\]]*\\])\\);');
   const m = html.match(re);
   if (m) {
     const set = new Set(JSON.parse(m[1])); done.forEach(n => set.add(n));
-    html = html.replace(re, '/*PHOTOS*/const PHOTOS=new Set(' + JSON.stringify([...set].sort()) + ');');
+    html = html.replace(re, '/*' + SET + '*/const ' + SET + '=new Set(' + JSON.stringify([...set].sort()) + ');');
     fs.writeFileSync(HTML, html);
-  } else fail.push('não achei a lista PHOTOS no index.html');
-  console.log(`\n${done.length} foto(s) recortada(s) em jogadores/.` + (fail.length ? '\nProblemas:\n  ' + fail.join('\n  ') : ''));
+  } else fail.push('não achei a lista ' + SET + ' no index.html');
+  console.log(`\n${done.length} foto(s) recortada(s) em ${path.relative(ROOT, OUT)}/.` + (fail.length ? '\nProblemas:\n  ' + fail.join('\n  ') : ''));
 })();
