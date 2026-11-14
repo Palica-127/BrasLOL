@@ -950,7 +950,9 @@ h1{letter-spacing:.02em}
 .shv .pn>.note{margin:8px 0 0;line-height:1.45}
 .shv .shelf{min-height:78px;padding:10px 8px 2px;margin-bottom:16px}
 .shv .shelf:has(.none){min-height:44px}
-.cosh{min-height:60px!important}.cosh .tro{width:40px}.cosh .tro svg,.cosh .tro .ti{width:32px;height:42px}.cosh .tro .troimg{width:30px;height:auto}.cosh .tro b{font-size:10px;padding:1px 5px}
+.cosh{min-height:60px!important}.cosh .tro.trg{width:58px}.cosh .tro.trg span{max-width:58px;font-size:9px;margin-top:2px}
+.cogrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}.cocard{display:flex;gap:12px;align-items:center;text-align:left;padding:8px;border:1px solid var(--line);border-radius:12px;background:var(--s2);color:inherit;font:inherit;cursor:pointer;width:100%}.cocard.me{cursor:default}.cocard .coav{width:64px;height:80px;border-radius:8px;font-size:16px}.cocard .cot{display:grid;gap:2px;min-width:0}.cocard b{font:800 18px var(--d)}.cocard small{color:var(--t2);font-size:12px}.cocard .cor{font:700 10px var(--d);letter-spacing:.12em;text-transform:uppercase;color:var(--prestige,#e8c66a)}.cocard .cob{color:var(--t3)}
+.shh.coh{display:block}.coh .kv.kv4{grid-template-columns:repeat(auto-fit,minmax(110px,1fr))!important;margin-top:12px}.cosh .tro{width:40px}.cosh .tro svg,.cosh .tro .ti{width:32px;height:42px}.cosh .tro .troimg{width:30px;height:auto}.cosh .tro b{font-size:10px;padding:1px 5px}
 .shv .troimg{height:80px}.shv .tro.bola .troimg{height:84px}
 .shv .pool{padding:4px 0;gap:8px}
 .shv .kv{gap:6px 12px}
@@ -4488,6 +4490,29 @@ function pcCoAccept(tid){
   S.pcOld=pc;S.pc=null;mgrStart(tid);S.mgr.exp=exp;S.mgr.log.push(`${exp.n} troca o uniforme pela prancheta: ex-jogador assume o ${t.name}.`);
   news(`${exp.n}, aposentado como jogador, assume o ${t.name} como técnico.`);
 }
+/* troféu da estante de técnico: Worlds/MSI/ligas grandes com o troféu do jogo; torneios antigos (IEM, Rift Rivals, KeSPA...) e ligas menores
+   com um troféu genérico e o nome embaixo (a Copa do jogo só existe a partir de 2026) */
+const coShort=l=>String(l).replace(/^LCS \d{4} /,'').replace(/\b(19|20)\d{2}\b/g,'').replace(/\b(Season \d+|World Championship|Split \d|Spring|Summer|Winter|Post-Season|Cologne|NA-EU|LLN-CLS-CBLOL|LCL-TCL|GPL-LJL-OPL|LCK-LPL-LMS-VCS)\b/g,'').replace(/\s+/g,' ').trim();
+function coTro(x){
+  let ic=null;
+  if(x.k==='w'||x.k==='m'||x.k==='b')ic=troSvg(x.k,x.l);
+  else if(x.k==='l'){const m=/^(LCK|Champions|LPL|LEC|EU LCS|NA LCS|LCS|CBLOL)\b/.exec(x.l);if(m)ic=troSvg('l',{Champions:'LCK','EU LCS':'LEC','NA LCS':'LCS'}[m[1]]||m[1])}
+  const gen=!ic;
+  return `<div class="tro${gen?' trg':''}" title="${esc(x.l)}" role="img" aria-label="${esc(x.l)}">${ic||'<svg viewBox="0 0 48 64" aria-hidden="true"><use href="#tr-l"/></svg>'}<b class="num">${x.y}</b>${gen?`<span>${esc(coShort(x.l)||x.l)}</span>`:''}</div>`;
+}
+/* ficha do time: cartão do técnico (foto, país, idade, desde quando, reforço) */
+function coCard(c,role){
+  const ph=coPh(c.n)?`<img src="tecnicos/${phSlug(c.n)}.webp" alt="" draggable="false">`:`<i>${esc(String(c.n).slice(0,2).toUpperCase())}</i>`,age=coAge(c),lv=coLvl(c.n);
+  return `<button class="cocard" data-act="coach" data-v="${esc(c.n)}"><span class="coav">${ph}</span><span class="cot"><small class="cor">${role}</small><b>${esc(c.n)}</b><small>${c.nat?natTxt(c.nat)+' · ':''}${age?age+' anos · ':''}no clube desde ${c.since}</small>${lv>0?`<small class="cob">Leitura de jogo e calma: +${(lv*.35).toFixed(2).replace('.',',')}</small>`:''}</span></button>`;
+}
+function coStaffHTML(t){
+  const c=coOf(t),m=S.mgr,me=m&&m.tid===t.id;
+  let h='';
+  if(me)h+=`<div class="cocard me"><span class="coav"><i>VOCÊ</i></span><span class="cot"><small class="cor">Técnico principal</small><b>Você</b><small>no comando desde ${m.since}</small></span></div>`;
+  if(c)h+=coCard(c,me?'Assistente técnico':'Técnico principal');
+  else if(!me)h+='<p class="empty">Sem técnico no momento.</p>';
+  return `<section class="pn sh-c"><h2>Comissão técnica</h2><div class="cogrid">${h}</div></section>`;
+}
 /* você assume o time: o técnico real dele vira o seu assistente (se você ainda não tem um) */
 function coTake(){const m=S.mgr;if(!m||m.tid==null||!S.co)return;const c=coOf(T(m.tid));if(c&&!m.coach){m.coach={n:c.n,since:S.year,co:1};c.as=1}}
 /* mantém tudo coerente: o técnico do seu time é o seu assistente; se você o dispensou, ele fica livre; time sem técnico contrata */
@@ -4584,8 +4609,8 @@ function vCoach(n){
   const sh=coShelf(n),lv=coLvl(n);
   if(sh.length||real.some(x=>x[1]==='p')||c.ex){
     const cnt=k=>sh.filter(x=>x.k===k).reduce((a,x)=>a+(x.n||1),0);
-    const chips=[['w','Worlds'],['m','MSI'],['l','Ligas'],['c','Copas'],['b','Melhor do Ano']].map(([k,l])=>cnt(k)?`<span class="tag">${cnt(k)} ${l}</span>`:'').filter(Boolean).join(' ');
-    o+=`<section class="pn"><h2>Estante da época de jogador</h2>${sh.length?`<p class="note" style="margin:0 0 8px">${chips}</p><div class="shelf cosh">${sh.map(x=>`<div class="tro" title="${esc(x.l)}" role="img" aria-label="${esc(x.l)}">${troSvg(x.k,x.l)}<b class="num">${x.y}</b></div>`).join('')}</div>`:'<p class="note" style="margin:0">Jogou profissionalmente, mas sem títulos de primeira linha.</p>'}</section>`;
+    const chips=[['w','Worlds'],['m','MSI'],['l','Ligas'],['c','Torneios'],['b','Melhor do Ano']].map(([k,l])=>cnt(k)?`<span class="tag">${cnt(k)} ${l}</span>`:'').filter(Boolean).join(' ');
+    o+=`<section class="pn"><h2>Estante da época de jogador</h2>${sh.length?`<p class="note" style="margin:0 0 8px">${chips}</p><div class="shelf cosh">${sh.map(coTro).join('')}</div>`:'<p class="note" style="margin:0">Jogou profissionalmente, mas sem títulos de primeira linha.</p>'}</section>`;
   }
   o+=`<section class="pn"><h2>Influência no time</h2>${lv>0?`<p class="note" style="margin:0">Leitura de jogo <b>+${(lv*.35).toFixed(2).replace('.',',')}</b> de força nas partidas e calma quando o time está em má fase (corta até ${Math.round(lv*40)}% da fase ruim, máx. +0,3). Vem dos títulos da carreira${c.ex||sh.length?' de jogador':''} e dos títulos como técnico.</p>`:'<p class="note" style="margin:0">Sem títulos de peso ainda: não muda a força do time.</p>'}</section>`;
   o+=`<section class="pn"><h2>Títulos como técnico</h2>${ttl.length?ttl.map(x=>`<div class="trp"><span class="y num">${x.y}</span><span><b>${esc(x.k)}</b><small>${esc(x.tn)}</small></span></div>`).join(''):'<p class="note" style="margin:0">Nenhum título no jogo ainda. A carreira real antes de 2026 aparece abaixo.</p>'}</section>`;
@@ -10680,6 +10705,7 @@ function vTeam(id){
     o+=`<section class="pn sh-p"><div class="dbh"><h2>Elenco atual</h2>${dbStars(Math.round(baseOvr(t)))}</div>${stripHTML(t)}</section>`;
     /* reservas sempre ao lado do elenco (sem elas, o elenco esticava na largura toda e as cartas cortavam os rostos) */
     o+=`<section class="pn sh-r"><h2>Reservas</h2><p class="note" style="margin:0 0 8px">Quando um titular se aposenta, o reserva da mesma função assume a vaga. Sem reserva, o time contrata um jogador mais fraco.</p>${t.bn&&t.bn.length?fgrid(t.bn.map(p=>fcell({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f||0,team:t},`<span>${p.age} anos · pot. ${p.pot}</span>`)).join('')):'<p class="empty">Nenhum reserva no momento.</p>'}</section>`;
+    o+=coStaffHTML(t);
   }else if(view==='ti'){
     o+=shelfHTML(t);
     const allT=[...t.tt,...legExtra(t).c,...vc.map(x=>({...x,k:'Vice · '+x.k}))];
