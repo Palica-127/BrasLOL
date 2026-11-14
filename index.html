@@ -372,7 +372,7 @@ h1{white-space:nowrap}
 .m .tn{font-size:16px}.m .tn .lk{overflow-wrap:normal;word-break:normal;hyphens:none}.m .sc{min-width:54px;font-size:26px}
 @media (prefers-reduced-motion:reduce){.enter .pn,.enter .hero,.enter .podium,.enter .crown{animation:none}}
 
-.mrow{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+.mrow{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
 .mrow .who{min-width:0;overflow-wrap:anywhere}.mrow .who small{display:block;font-size:12px}
 .buy{border:1px solid var(--gold);color:var(--gold);background:none;padding:7px 10px;font:700 13px var(--d);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;min-width:88px;text-align:center}
 .nat{background:none;cursor:pointer;display:inline-block;white-space:nowrap;flex:none;writing-mode:horizontal-tb;font:700 10px var(--d);letter-spacing:.08em;color:var(--muted);border:1px solid var(--line);padding:0 4px;margin:0 6px 0 5px;vertical-align:middle;line-height:15px}
@@ -504,6 +504,31 @@ h1{letter-spacing:.02em}
 .fut.big .fo{font-size:46px;left:25px;top:32px}.fut.big .fr{left:25px;top:78px;font-size:17px}.fut.big .fn{left:24px;top:102px;font-size:14px}.fut.big .fs{left:23px;top:122px;width:32px;height:38px}
 .fut.big .fa{right:22px;top:26px;width:96px;height:112px}.fut.big .fnm{top:150px;font-size:23px;left:12px;right:12px}.fut.big .fst{top:184px;font-size:19px;left:16px;right:16px}.fut.big .fst small{font-size:8px}.fut.big .ft{font-size:11px;bottom:6px}
 .fut .fs .shield{width:24px;height:28px}.fut.big .fs .shield{width:32px;height:38px}
+/* carta-foto (padrão): mesmo tamanho da carta clássica, foto ocupando tudo, como o painel Seu time */
+.fut.fph{clip-path:none;background:linear-gradient(180deg,#1B2A4A,#0B1428);color:#fff;border:1px solid rgba(130,150,255,.22);overflow:hidden;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.fut.fph::before{display:none}
+.fut.fph.t2{border-color:rgba(190,205,230,.45)}.fut.fph.t3{border-color:rgba(240,200,110,.6)}.fut.fph.t4{border-color:#4FA8FF;box-shadow:0 0 0 1px rgba(79,168,255,.35),0 6px 18px rgba(0,0,0,.35)}
+.fph .fpi{position:absolute;inset:0 0 42px;display:grid;place-items:center;overflow:hidden}
+.fph .fpi img{width:100%;height:100%;object-fit:cover;object-position:50% 0;display:block;pointer-events:none}
+.fph .fpi.ch img{object-position:50% 20%;opacity:.55;filter:saturate(.7)}
+.fph .fpi i{position:absolute;font:800 30px var(--d);font-style:normal;color:rgba(255,255,255,.75);text-shadow:0 2px 8px rgba(0,0,0,.6)}
+.fph .fpo{position:absolute;top:6px;right:6px;z-index:2;min-width:26px;padding:1px 5px;font:800 15px/20px var(--d);background:rgba(10,14,34,.88);border-radius:3px}
+.fph.t3 .fpo{color:var(--gold-hi)}.fph.t4 .fpo{background:linear-gradient(160deg,#1740D6,#00B8FF);color:#fff}
+.fph .fps{position:absolute;top:6px;left:6px;z-index:2;width:22px;height:26px;filter:drop-shadow(0 1px 3px rgba(0,0,0,.6))}.fph .fps .shield,.fph .fps>*{width:22px;height:26px}
+.fph .fpf{position:absolute;top:30px;right:6px;z-index:2;font:700 10px var(--d);padding:0 4px;background:rgba(10,14,34,.8);border-radius:3px}.fph .fpf.up{color:var(--ok)}.fph .fpf.dn{color:var(--bad)}
+.fph .fpb{position:absolute;left:0;right:0;bottom:0;height:42px;display:flex;flex-direction:column;justify-content:center;background:rgba(10,14,34,.92);padding:0 4px}
+.fph .fpb small{font:700 9.5px var(--d);letter-spacing:.12em;color:#aab4d4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fph .fpb b{font:700 13px var(--d);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fut.big.fph .fpi{bottom:52px}.fut.big.fph .fpb{height:52px}.fut.big.fph .fpb b{font-size:17px}.fut.big.fph .fpb small{font-size:11px}.fut.big.fph .fpo{font-size:20px;line-height:26px;min-width:34px}.fut.big.fph .fps,.fut.big.fph .fps>*{width:28px;height:34px}
+.fut.fph.inj::after{top:auto;bottom:46px}
+.fut.fph.ret .fpi img{filter:grayscale(.6)}
+/* fotos nas listas da Gestão (Elenco, Base, Mercado, Livres): substitui o hexágono do OVR */
+.pav{position:relative;display:block;width:44px;height:54px;flex:none;overflow:hidden;border:1px solid var(--line);background:var(--bg2)}
+.pav img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0}
+.pav.ch img{opacity:.6;filter:saturate(.7);object-position:50% 20%}
+.pav i{position:absolute;inset:0;display:grid;place-items:center;font:800 15px var(--d);font-style:normal;color:rgba(255,255,255,.8);text-shadow:0 1px 4px rgba(0,0,0,.7)}
+.pav b{position:absolute;right:0;bottom:0;min-width:20px;padding:0 3px;font:700 11px/16px var(--d);text-align:center;background:rgba(10,14,34,.9);color:#fff}
+.pav.t3 b{color:var(--gold-hi)}.pav.t4 b{background:linear-gradient(160deg,#1740D6,#00B8FF);color:#fff}
 .phf{display:flex;gap:14px;align-items:center}
 /* Gestão (treinador) */
 .mgc>.pn:last-child{margin-bottom:14px}
@@ -526,6 +551,53 @@ h1{letter-spacing:.02em}
 .slo{display:inline-flex;flex-direction:column;align-items:center;gap:1px}.slo small{font:700 9px var(--d);letter-spacing:.08em;text-transform:uppercase;color:var(--ok)}
 .slw{color:var(--bad)!important;font-weight:600;margin-top:2px}
 .note.ult{color:var(--bad);border-left:3px solid var(--bad);padding-left:8px}
+/* ---------- negociação: computador (clubes) e celular (jogador) ---------- */
+.ngov{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:16px;background:rgba(3,6,18,.72);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);animation:ngIn .18s ease-out}
+@keyframes ngIn{from{opacity:0}to{opacity:1}}
+.ngchat{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding:14px 12px;scroll-behavior:smooth}
+.ngm{max-width:82%;padding:8px 12px;font-size:14px;line-height:1.4;border-radius:14px;overflow-wrap:anywhere;animation:ngPop .2s ease-out}
+@keyframes ngPop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.ngm.them{align-self:flex-start;border-bottom-left-radius:4px}
+.ngm.me{align-self:flex-end;border-bottom-right-radius:4px}
+.ngm.sys{align-self:center;max-width:94%;font-size:12.5px;text-align:center;border-radius:8px}
+.ngt{display:flex;gap:4px;padding:12px 14px}.ngt i{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.5;animation:ngDot 1s infinite}.ngt i:nth-child(2){animation-delay:.15s}.ngt i:nth-child(3){animation-delay:.3s}
+@keyframes ngDot{0%,60%,100%{transform:none;opacity:.35}30%{transform:translateY(-4px);opacity:.9}}
+.ngopt{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px 12px;min-height:58px;align-content:flex-start}
+.ngb{flex:1 1 auto;min-height:38px;padding:7px 12px;font:600 13px var(--b);cursor:pointer;border-radius:999px;border:1px solid;text-align:center}
+.ngb[disabled]{opacity:.4;cursor:default}
+.ngcash{font:600 11px var(--d);letter-spacing:.06em;opacity:.75;white-space:nowrap}
+/* computador */
+.pcw{width:min(860px,100%);display:flex;flex-direction:column;align-items:center}
+.pcs{width:100%;height:min(560px,calc(100vh - 120px));display:flex;flex-direction:column;background:#0E1526;border:10px solid #1C2233;border-bottom-width:14px;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.06);overflow:hidden;color:#E6ECF8}
+.pcneck{width:90px;height:34px;background:linear-gradient(180deg,#1C2233,#141927)}.pcfoot{width:240px;height:10px;border-radius:6px 6px 2px 2px;background:#1C2233;box-shadow:0 6px 16px rgba(0,0,0,.5)}
+.pcbar{display:flex;align-items:center;gap:10px;padding:8px 12px;background:#161E33;border-bottom:1px solid rgba(255,255,255,.07);font:600 12.5px var(--b)}
+.pcbar b{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+.pcd{display:flex;gap:6px}.pcd i{width:11px;height:11px;border-radius:50%;background:#FF5F57}.pcd i:nth-child(2){background:#FEBC2E}.pcd i:nth-child(3){background:#28C840}
+.pcx{background:none;border:0;color:inherit;font-size:16px;cursor:pointer;opacity:.7;padding:2px 6px}
+.pcbody{flex:1;min-height:0;display:grid;grid-template-columns:230px minmax(0,1fr)}
+.pcside{border-right:1px solid rgba(255,255,255,.07);background:#111A2E;padding:12px;display:flex;flex-direction:column;gap:12px}
+.pcct,.pcpl{display:flex;gap:10px;align-items:center}.pcct span,.pcpl span{min-width:0}.pcct b,.pcpl b{display:block;font-size:14px}.pcct small,.pcpl small{display:block;font-size:11.5px;color:#93A0BD}
+.pcpl{padding:10px;background:rgba(255,255,255,.04);border-radius:8px}
+.pcmain{display:flex;flex-direction:column;min-height:0;background:#0B1222}
+.pcs .ngm.them{background:#1E2A45;color:#E6ECF8}.pcs .ngm.me{background:#2F6BFF;color:#fff}.pcs .ngm.sys{background:rgba(71,197,140,.14);color:#8DE3B7}
+.pcs .ngopt{border-top:1px solid rgba(255,255,255,.07);background:#0E1729}
+.pcs .ngb{background:transparent;border-color:rgba(130,150,255,.35);color:#DCE4F7}.pcs .ngb.hi{background:#2F6BFF;border-color:#2F6BFF;color:#fff}.pcs .ngb.sec{border-color:rgba(255,255,255,.15);color:#93A0BD}
+@media (max-width:640px){.pcbody{grid-template-columns:1fr}.pcside{flex-direction:row;flex-wrap:wrap;align-items:center;border-right:0;border-bottom:1px solid rgba(255,255,255,.07);padding:8px 10px;gap:8px}.pcpl{padding:6px}.pcct .shield,.pcct .cr{width:28px;height:32px}.pcs{border-width:6px;border-bottom-width:8px;height:calc(100vh - 90px)}.pcneck{height:16px;width:60px}.pcfoot{width:140px}}
+/* celular */
+.phn{position:relative;width:min(370px,100%);height:min(720px,calc(100vh - 32px));display:flex;flex-direction:column;background:#ECE5DD;border:11px solid #111;border-radius:44px;box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 0 2px #333;overflow:hidden;color:#111}
+.phst{display:flex;justify-content:space-between;align-items:center;padding:8px 22px 4px;background:#075E54;color:#fff;font:600 12px var(--b)}
+.phnt{width:96px;height:22px;background:#111;border-radius:0 0 14px 14px;margin-top:-10px}
+.phhd{display:flex;align-items:center;gap:10px;padding:6px 12px 10px;background:#075E54;color:#fff}
+.phhd>span:not(.pav){flex:1;min-width:0}.phhd .pav{flex:none}.phhd b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.phhd small{display:block;font-size:11.5px;opacity:.85}
+.phhd .pav{width:38px;height:38px;border-radius:50%;border:0}.phhd .pav b{display:none}
+.phbk{background:none;border:0;color:#fff;font-size:28px;line-height:1;cursor:pointer;padding:0 4px}
+.phn .ngchat{background:#ECE5DD radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px) 0 0/14px 14px}
+.phn .ngm{box-shadow:0 1px 1px rgba(0,0,0,.12)}.phn .ngm.them{background:#fff;color:#111}.phn .ngm.me{background:#DCF8C6;color:#111}.phn .ngm.sys{background:#FFF3C4;color:#5A4500}
+.phn .ngt{color:#667}
+.phn .ngopt{background:#F0F0F0;border-top:1px solid #ddd;padding-bottom:20px}
+.phn .ngb{background:#fff;border-color:#cfd6cf;color:#075E54}.phn .ngb.hi{background:#25D366;border-color:#25D366;color:#fff}.phn .ngb.sec{color:#667;border-color:#ddd}
+.phhome{position:absolute;left:50%;bottom:6px;width:110px;height:4px;border-radius:2px;background:#111;transform:translateX(-50%)}
+@media (max-width:420px){.ngov{padding:0}.phn{width:100%;height:100%;border-radius:0;border-width:0}.phst{padding-top:10px}}
 .mflt{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin:4px 0 10px}.mflt>span{display:flex;flex-wrap:wrap;gap:4px;align-items:center}.mflt small{font:700 10px var(--d);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-right:2px}.mflt .pill{padding:4px 10px;font-size:12px;min-height:0}
 /* celular: as abas da Gestão ficam em uma linha rolável em vez de quebrar em 3 linhas e cobrir a tela */
 @media (max-width:999px){.mgr .pills.stk{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}.mgr .pills.stk::-webkit-scrollbar{display:none}.mgr .pills.stk .pill{flex:none;white-space:nowrap}}
@@ -1044,6 +1116,9 @@ h1{letter-spacing:.02em}
 .dbpc{position:relative;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;min-height:150px;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));text-align:center}
 .dbpi{position:absolute;inset:0 0 34px;display:grid;place-items:end center}.dbpi img{width:100%;height:100%;object-fit:cover;object-position:50% 0}.dbpi i{font:800 26px var(--d);font-style:normal;color:rgba(255,255,255,.3);align-self:center}
 .dbpc small,.dbpc b{position:relative;width:100%;background:rgba(10,14,34,.86)}.dbpc small{padding-top:3px;font:700 9.5px var(--d);letter-spacing:.14em;color:#aab4d4}.dbpc b{padding:0 2px 5px;font:700 12px var(--d);letter-spacing:.06em;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+button.dbpc{border:0;padding:0;margin:0;color:inherit;font:inherit;cursor:pointer;width:100%}button.dbpc:hover .dbpi img{transform:scale(1.04)}.dbpi img{transition:transform .2s}
+.dbpc.noph .dbpi img{opacity:.5;filter:saturate(.7);object-position:50% 20%}.dbpc.noph .dbpi i{position:absolute;inset:0;display:grid;place-items:center;color:rgba(255,255,255,.85);text-shadow:0 2px 8px rgba(0,0,0,.6)}
+.sh-p .dbh{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.sh-p .dbh h2{margin:0}.sh-p .dbpc{min-height:190px}@media (max-width:700px){.sh-p .dbpc{min-height:130px}}
 .dbpc em{position:absolute;top:4px;right:4px;padding:0 4px;font:700 11px/16px var(--d);font-style:normal;background:rgba(10,14,34,.85);border-radius:2px}
 .dbcash{display:flex;align-items:center;gap:10px;margin:2px 0 14px}.dbcash .bci{width:30px;height:30px;color:#f2f4fb}.dbcash b{font:600 28px var(--d);letter-spacing:.02em}
 .dbkv{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.08);font:700 11px var(--d);letter-spacing:.1em;text-transform:uppercase;color:#c6cde6}.dbkv b{color:#fff;font-size:13px}
@@ -3481,22 +3556,98 @@ const payroll=t=>r1(t.pl.reduce((s,p)=>s+salOf(p),0)+(S.mgr&&S.mgr.tid===t.id&&S
 const mgrT=()=>S.mgr&&S.mgr.tid!=null?T(S.mgr.tid):null;
 const rankOfTeam=t=>t.d===2?99:S.teams.slice().sort((a,b)=>baseOvr(b)-baseOvr(a)).indexOf(t)+1;
 function goalFor(t){if(t.d===2)return 3;const r=rankOfTeam(t);return r<=4?4:r<=10?3:r<=20?2:r<=36?1:0}
-function genFA(){
+/* ---------- contratos e agentes livres ----------
+   Agente livre é quem termina o contrato e não renova. Todo jogador de clube tem contrato (ctr = anos restantes);
+   na virada de ano os contratos andam, cada clube decide quem renova, e quem sai vai para o pool S.fa.
+   Os clubes repõem vagas contratando do pool; quem fica sem clube por 2 anos (ou envelhece) se aposenta. */
+const FA=()=>S.fa||(S.fa=[]);
+const ctr0=p=>1+hn(p.n)%3;
+const FAMAX=90;
+function faRelease(p,from){
+  if(!p||FA().some(x=>x.n===p.n))return;
+  delete p.exp;delete p.src;delete p.bought;delete p.paid;delete p.cl;delete p.home;
+  p.f=0;p.d=0;p.ctr=null;p.fy=S.year;p.lt=from?from.id:null;
+  const d=pd(p.n);d.ret=null;if(p.nat&&!d.nat)d.nat=p.nat;if(d.role==null)d.role=p.role;
+  FA().push(p);
+}
+/* um clube contrata do pool para a vaga i: alguém perto do nível do elenco (não volta quem acabou de sair dele) */
+function faPickFor(t,i,avg){
+  const c=FA().filter(p=>p.role===i&&!p.pc&&p.r>=avg-7&&p.r<=avg+3&&!(p.lt===t.id&&p.fy===S.year)).sort((a,b)=>b.r-a.r);
+  const p=c[0];if(!p)return null;
+  FA().splice(FA().indexOf(p),1);delete p.fy;delete p.lt;p.ctr=1+Math.floor(Math.random()*3);p.f=0;p.d=0;
+  return p;
+}
+/* virada de ano: o pool envelhece, quem está parado demais se aposenta, e os contratos dos clubes da IA andam */
+function faYear(off){
   const out=[];
-  for(let i=0;i<12;i++){
-    const role=i%5,age=19+Math.floor(Math.random()*12);
-    const r=clamp(72+Math.floor(Math.abs(g())*6)+(Math.random()<.2?5:0),72,90);
-    const pot=age<=23?clamp(r+Math.floor(Math.random()*8),r,97):r;
-    const nat=pick(poolM());const n=uniqueName(nat,out.map(x=>x.n));
-    out.push({n,role,r,age,pot,f:0,d:0,nat});
+  S.fa=FA().filter(p=>{
+    p.age++;if(p.age>=27){const o=p.r;p.r=clamp(p.r-(Math.random()<.6?1:0),55,99);p.d=p.r-o}
+    p.pot=p.age<=24?Math.max(p.r,p.pot):p.r;
+    const idle=S.year-(p.fy||S.year);
+    if((idle>=2&&p.r<78)||idle>=3||p.age>=33||(p.age>=30&&p.r<80&&Math.random()<.35)||p.r<60){pd(p.n).ret=S.year;out.push(p.n);return false}
+    return true;
+  });
+  if(out.length&&off)off.push(`${out.length} agente${out.length>1?'s':''} livre${out.length>1?'s':''} sem clube se aposent${out.length>1?'aram':'ou'}.`);
+}
+function aiContracts(off){
+  const mid=S.mgr&&S.mgr.tid!=null?S.mgr.tid:-1;let rel=0,star=[];
+  ALLT().forEach(t=>{
+    if(t.id===mid||(t.id>=100&&mid===t.id))return;
+    const avg=t.pl.reduce((a,p)=>a+p.r,0)/t.pl.length;
+    t.pl.forEach((p,i)=>{
+      if(p.pc)return;
+      if(p.ctr==null)p.ctr=ctr0(p);
+      p.ctr--;if(p.ctr>0)return;
+      let keep=p.age>=30?.5:.84;if(p.r<avg-4)keep-=.3;if(p.r>=avg+2)keep+=.1;
+      if(Math.random()<keep){p.ctr=1+Math.floor(Math.random()*3);return}
+      const nr=faPickFor(t,i,avg)||fillSlot(t,i).p;
+      t.pl[i]=nr;pd(nr.n).role=i;if(nr.ctr==null)nr.ctr=1+Math.floor(Math.random()*3);
+      faRelease(p,t);rel++;if(p.r>=82)star.push(`${p.n} (${t.name})`);
+    });
+    t.bn=(t.bn||[]).filter(p=>{
+      if(p.pc)return true;
+      if(p.ctr==null)p.ctr=ctr0(p);
+      p.ctr--;if(p.ctr>0)return true;
+      if(Math.random()<.45){p.ctr=1+Math.floor(Math.random()*2);return true}
+      faRelease(p,t);rel++;return false;
+    });
+  });
+  if(rel&&off)off.push(`Fim de contrato: ${rel} jogador${rel>1?'es':''} não renov${rel>1?'aram':'ou'} e est${rel>1?'ão':'á'} livre${rel>1?'s':''} no mercado${star.length?` (entre eles ${star.slice(0,3).join(', ')})`:''}.`);
+  if(FA().length>FAMAX){FA().sort((a,b)=>b.r-a.r);FA().splice(FAMAX).forEach(p=>{pd(p.n).ret=S.year})}
+}
+/* durante a janela os clubes disputam os livres bons: a cada dia, chance de o melhor disponível assinar com quem precisa (você pode chegar antes) */
+function faAIDay(){
+  if(!winOpen()||Math.random()>.22)return;
+  const mid=S.mgr&&S.mgr.tid!=null?S.mgr.tid:-1;
+  const c=FA().filter(p=>p.r>=78&&!p.pc).sort((a,b)=>b.r-a.r).slice(0,3);if(!c.length)return;
+  const p=pick(c),w=S.teams.filter(t=>t.id!==mid&&!t.pl[p.role].pc&&t.pl[p.role].r<p.r-1&&!(p.lt===t.id&&p.fy===S.year));if(!w.length)return;
+  const t=pick(w),out=t.pl[p.role];
+  FA().splice(FA().indexOf(p),1);delete p.fy;delete p.lt;p.ctr=1+Math.floor(Math.random()*3);t.pl[p.role]=p;pd(p.n).role=p.role;t.bn=t.bn||[];t.bn.push(out);
+  const line=`${dTxt(S.day)}: ${t.name} contrata ${p.n}, que estava livre, para a vaga de ${RN[p.role]}; ${out.n} vai para o banco.`;
+  S.tf=S.tf||[];S.tf.unshift({y:S.year,t:line});S.tf=S.tf.slice(0,40);
+  if(p.r>=84)news(`${t.name} contrata ${p.n}, que estava sem clube.`);
+}
+/* save antigo ou jogo novo sem pool: os contratos de 2025 que venceram (parte das reservas) formam o primeiro grupo de livres */
+function faSeed(){
+  if(!S||S.faV===1)return;S.faV=1;
+  const mid=S.mgr&&S.mgr.tid!=null?S.mgr.tid:-1;
+  ALLT().forEach(t=>{
+    if(t.id===mid)return;
+    t.bn=(t.bn||[]).filter(p=>{if(p.pc||Math.random()>=.4)return true;faRelease(p,t);p.fy=S.year;return false});
+  });
+}
+function faLoc(n){
+  for(const t of ALLT()){
+    let i=t.pl.findIndex(p=>p.n===n);if(i>=0)return{t,k:'pl',i,p:t.pl[i]};
+    i=(t.bn||[]).findIndex(p=>p.n===n);if(i>=0)return{t,k:'bn',i,p:t.bn[i]};
   }
-  return out;
+  return null;
 }
 function mgrStart(tid){
   const t=T(tid),old=S.mgr;
   /* legado do técnico: demissão/troca de clube não apaga a história; os passos anteriores ficam em m.past */
   const past=old?(old.past||[]).concat(old.hist&&old.hist.length?[{tn:old.tn||'Clube anterior',from:old.since,to:old.hist[old.hist.length-1].y,hist:old.hist,fired:!!old.fired}]:[]):[];
-  S.mgr={past,tn:t.name,rep:old&&old.rep!=null?old.rep:undefined,tid,cash:t.d===2?6:12,sat:65,goal:goalFor(t),since:S.year,hist:[],log:[`Contratado pelo ${t.name} em ${S.year}.`],fa:genFA(),fired:false,acLv:1,ct:0,bench:[],loan:[],offers:[]};S.mgr.fa=genFA();mEnsure();sgInit();
+  S.mgr={past,tn:t.name,rep:old&&old.rep!=null?old.rep:undefined,tid,cash:t.d===2?6:12,sat:65,goal:goalFor(t),since:S.year,hist:[],log:[`Contratado pelo ${t.name} em ${S.year}.`],fired:false,acLv:1,ct:0,bench:[],loan:[],offers:[]};mEnsure();sgInit();
   S.mgr.ach=Object.assign({},S.mach||{},old&&old.ach||{});
 }
 function mgrSeasonEnd(){
@@ -3518,7 +3669,7 @@ function mgrSeasonEnd(){
   m.sat=clamp(Math.round(m.sat+d),0,100);
   m.hist.push({y:S.year,income:r1(income),gate:r1(gate),spons:r1(spons),prize:r1(prize),fixo,pay,up,bon,net,cashEnd:m.cash,goal:m.goal,ach,sat:m.sat,wc:y.wc});
   m.log.unshift(`${S.year}: ${d2m?`D2: ${y.s1||'-'}º no Split 1 e ${y.s2||'-'}º no Split 2`:y.wc==='C'?'campeão do Worlds':y.wc==='-'?'fora do Worlds':'Worlds: '+CODE[y.wc]}; saldo ${net>=0?'+':''}${fmtM(net)}${bon?` (inclui ${fmtM(bon)} de bônus por título)`:''}; confiança ${m.sat}%.${note}`);
-  m.fa.forEach(p=>{if(S.pdb[p.n])S.pdb[p.n].ret=S.year});
+  /* só se aposenta quem ficou sem clube; reservas e jogadores de academia seguem nos seus times */
   mAch();
   m.rep=clamp((m.rep==null?50:m.rep)+(ach>=m.goal?4+2*(ach-m.goal):-4+ (ach-m.goal)),0,100);
   if(m.sat<25){m.rep=clamp(m.rep-15,0,100);m.fired=true;m.tid=null;m.log.unshift(`${S.year}: demitido pela diretoria.`)}
@@ -3556,7 +3707,7 @@ function sgEnd(k){
 const sgTxt=m=>{if(!m||!m.sg)return '';return ['s1','s2','s3'].filter(k=>m.sg[k]).map(k=>{const g=m.sg[k];return `${splitNm(k)}: top ${g.t}${g.r!=null?(g.ok?` ✓ (${g.r}º)`:` ✗ (${g.r}º)`):''}`}).join(' · ')};
 function mgrNewYear(){
   const m=S.mgr,t=mgrT();if(!m)return;
-  m.fa=genFA();m.ult=null;
+  m.ult=null;
   if(t){m.goal=Math.min(4,goalFor(t)+((m.rep||50)>=80?1:0));m.log.unshift(`${S.year}: janela aberta. Meta da diretoria: ${goalTxt(m,t)}.`);mBaseYear();sgInit()}
   m.log=m.log.slice(0,30);
 }
@@ -3612,16 +3763,17 @@ function mgrList(name){
   if(m.listed[name]){delete m.listed[name];msg=`${name} saiu da lista de transferências.`}
   else{m.listed[name]=r1(mvOf(f.p)*1.25);msg=`${name} está à venda por ${fmtM(m.listed[name])}. Os clubes farão ofertas durante a janela.`}
 }
-function mgrSign(name){
+const faFee=p=>r1(mvOf(p)*.6*PM());
+function mgrSign(name,price){
   const mine=mgrT(),m=S.mgr;mEnsure();
   if(!winOpen()&&!m.cheat){msg='Janela fechada';return}
-  const k=m.fa.findIndex(p=>p.n===name);if(k<0)return;
-  const p=m.fa[k],fee=m.cheat?0:r1(mvOf(p)*.6*PM());
+  const k=FA().findIndex(p=>p.n===name);if(k<0){msg=`${name} não está mais livre.`;return}
+  const p=FA()[k],fee=m.cheat?0:price!=null?price:faFee(p),from=p.lt!=null?T(p.lt):null;
   if(m.cash-fee<0){msg='Sem caixa';return}
-  m.fa.splice(k,1);p.bought=S.year;p.paid=fee;m.bench.push(p);mCtr(p,3);
-  const d=pd(p.n);d.role=p.role;d.debut=S.year+1;if(p.nat)d.nat=p.nat;
+  FA().splice(k,1);delete p.fy;delete p.lt;p.f=0;p.d=0;p.bought=S.year;p.paid=fee;m.bench.push(p);mCtr(p,3);
+  const d=pd(p.n);d.role=p.role;d.ret=null;if(p.nat)d.nat=p.nat;
   m.cash=r1(m.cash-fee);
-  mlog(`${S.year}: contratou ${p.n} (OVR ${p.r}) como agente livre; foi para as reservas.`);
+  mlog(`${S.year}: contratou ${p.n} (OVR ${p.r}), livre${from?` desde que saiu do ${from.name}`:''}; foi para as reservas.`);
   msg=`${p.n} assinou e está nas suas reservas.`;
 }
 
@@ -3636,7 +3788,7 @@ function prospect(){
   const r=clamp(Math.round(56+Math.random()*8+lv*2+g()),54,70);
   const pot=clamp(Math.round(74+Math.abs(g())*7+Math.random()*6+lv*2),r+8,96);
   const nat=pick(poolM());
-  const n=uniqueName(nat,(m.fa||[]).concat(m.acad||[]).map(x=>x.n));
+  const n=uniqueName(nat,FA().concat(m.acad||[]).map(x=>x.n));
   S.pdb[n]={role,debut:S.year+1,ret:null,seasons:[],tl:[],nat};
   return{n,role,r,pot,age,f:0,d:0,home:true};
 }
@@ -3644,6 +3796,8 @@ function mEnsure(){
   const m=S.mgr;if(!m)return;
   m.acLv=m.acLv||1;m.ct=m.ct||0;m.bench=m.bench||[];m.loan=m.loan||[];m.offers=m.offers||[];
   if(!m.acad){m.acad=[];for(let i=0;i<3;i++)m.acad.push(prospect())}
+  /* saves antigos: a lista de livres tinha nomes inventados; troca pelos jogadores reais das academias e reservas */
+  if(m.fa)delete m.fa;faSeed();
   const t=mgrT();if(t)t.pl.concat(m.bench).forEach(p=>{if(p.ctr==null)p.ctr=2+Math.floor(Math.random()*3)});
 }
 function growProspect(p,bonus){
@@ -3716,7 +3870,7 @@ function mgrSell(name,price,buyerId){
   if(f.k==='pl'){dropFrom(rp);t.pl[f.i]=rp;pd(rp.n).role=rp.role}else dropFrom(p);
   const out=buyer.pl[p.role];
   buyer.pl[p.role]=p;pd(p.n).role=p.role;
-  m.fa.push({...out,f:0,d:0});m.fa=m.fa.slice(-16);
+  faRelease(out,buyer);
   m.cash=r1(m.cash+price);if(p.home&&price>=10)m.homeSale=true;
   m.offers=m.offers.filter(o=>o.n!==name);if(m.listed)delete m.listed[name];if(m.tp)delete m.tp[name];
   mlog(`${S.year}: vendeu ${p.n} (OVR ${p.r}) ao ${buyer.name} por ${fmtM(price)}${f.k==='pl'?`; ${rp.n} assume a vaga`:''}.`);
@@ -3764,6 +3918,227 @@ function mgrOffer(i,yes){
   const m=S.mgr,o=m.offers[i];if(!o)return;
   if(yes){mgrSell(o.n,o.price,o.to)}else{m.offers.splice(i,1);msg='Oferta recusada.'}
 }
+
+/* ---------- negociação em conversa ----------
+   Entre clubes: tela de computador (chat das diretorias) para comprar no Mercado e para responder propostas pelos seus jogadores.
+   Direto com o jogador: celular (agentes livres e Solo Queue). As regras de preço e aceite são as mesmas de antes; a conversa só dá a cara. */
+let NGO=null;
+const ngWinK=()=>S.year+':'+(S.phase<PHI('s3')?'a':'b');
+const ngP=(...a)=>pick(a);
+function ngMe(t){NGO.msgs.push({w:'me',t})}
+function ngSys(t){NGO.msgs.push({w:'sys',t})}
+function ngThem(...ls){NGO.q=(NGO.q||[]).concat(ls.map(t=>({w:'them',t})));ngPump()}
+function ngPump(){
+  const N=NGO;if(!N)return;
+  if(!N.q.length){N.typing=false;return}
+  if(typeof setTimeout!=='function'||N.fast){while(N.q.length)N.msgs.push(N.q.shift());N.typing=false;return}
+  if(N.typing)return;N.typing=true;
+  const next=()=>{if(NGO!==N)return;const x=N.q.shift();if(x)N.msgs.push(x);if(N.q.length){setTimeout(next,450+Math.min(900,N.q[0].t.length*14))}else N.typing=false;try{render()}catch(e){}};
+  setTimeout(next,550+Math.min(900,N.q[0].t.length*14));
+}
+const ngEnd=(st,sys)=>{NGO.st=st;NGO.opts=[{l:'Fechar',f:'x'}];if(sys)NGO.q.push({w:'sys',t:sys});ngPump()};
+const ngBlk=n=>{const m=S.mgr;return m&&m.pblk&&m.pblk[n]===ngWinK()};
+const ngBlock=n=>{const m=S.mgr;m.pblk=m.pblk||{};m.pblk[n]=ngWinK()};
+
+/* comprar de outro clube (computador) */
+function ngClub(name){
+  const m=S.mgr,mine=mgrT();if(!m||!mine)return;
+  let src=null;S.teams.forEach(t=>t.pl.forEach(p=>{if(p.n===name)src={t,p}}));
+  if(!src||src.t===mine)return;
+  const c=canBuy(src.p,src.t);if(!c.ok){msg=c.why;return}
+  NGO={k:'club',n:name,tid:src.t.id,msgs:[],q:[],st:'open',ask:c.net};
+  ngMe(ngP(`Olá! Aqui é a diretoria do ${mine.name}. Temos interesse no ${name}.`,`Bom dia! Somos do ${mine.name} e queremos conversar sobre o ${name}.`));
+  const ng=m.neg&&m.neg[name];
+  if(ng&&ng.k===ngWinK()&&ng.tries>=2){ngThem(`Já encerramos as conversas pelo ${name} nesta janela. Tentem de novo na próxima.`);ngEnd('fail');return}
+  ngThem(ngP(`Olá. O ${name} é peça importante no ${src.t.name}, mas a gente ouve propostas.`,`Bom dia. Sabíamos que ia chegar proposta pelo ${name}.`,`Recebemos o contato. O ${name} tem contrato com a gente, então não vai sair barato.`),`Para liberar, pedimos ${fmtM(c.net)}.`);
+  ngClubOpts();
+}
+function ngClubOpts(){
+  const N=NGO,ng=S.mgr.neg&&S.mgr.neg[N.n],ct=ng&&ng.k===ngWinK()&&ng.counter;
+  N.opts=(ct?[{l:`Aceitar ${fmtM(ct)}`,f:'bid',v:-1,hi:1}]:[{l:`Oferecer ${fmtM(N.ask*.8)}`,f:'bid',v:80},{l:`Oferecer ${fmtM(N.ask*.9)}`,f:'bid',v:90}]).concat([{l:`Pagar a pedida (${fmtM(N.ask)})`,f:'bid',v:100,hi:!ct},{l:'Desistir',f:'x',sec:1}]);
+}
+/* vontade do jogador de ir para o seu clube (0 a 1): time fraco para o nível dele, ranking baixo, 2ª divisão,
+   clube atual mais forte e reputação baixa afastam; quem está parado há tempo, veterano ou amador da fila topa mais fácil */
+function ngWill(p,from,sq){
+  const m=S.mgr,t=mgrT();if(!t)return 0;
+  const ov=baseOvr(t),rk=rankOfTeam(t);
+  let w=.8-Math.max(0,p.r-ov-1)*.045-(t.d===2?.28:Math.min(rk-1,55)/55*.3)+((m.rep==null?50:m.rep)-50)/250;
+  if(from&&from.d!==2)w-=Math.max(0,baseOvr(from)-ov)*.03;
+  if(p.fy!=null)w+=.1*Math.min(2,S.year-p.fy+1);
+  if(p.age>=29)w+=.05;
+  if(sq)w+=sq.tag==='pro'?.05:sq.tag==='str'?.05:.18;
+  return clamp(w,0,1);
+}
+const ngWillTxt=w=>w>=.55?'alto':w>=.3?'médio':'baixo';
+const ngWhy=(p,from)=>{const t=mgrT();return t.d===2?'Não quero jogar a segunda divisão agora.':p.r-baseOvr(t)>4?'Com todo respeito, o elenco de vocês está abaixo do meu nível.':from&&baseOvr(from)>baseOvr(t)+2?`Não vejo motivo pra sair do ${from.name} e ir pra um time mais fraco.`:'Tenho conversas com times mais fortes.'};
+/* decisão do clube vendedor (mesma regra da proposta antiga), sem fechar nada: depois vem a conversa com o jogador */
+function ngClubBid(pct){
+  const N=NGO,m=S.mgr;m.neg=m.neg||{};
+  const src=T(N.tid),pl=src&&src.pl.find(p=>p.n===N.n);if(!pl){ngSys(`${N.n} não está mais no ${src?src.name:'clube'}.`);ngEnd('fail');return}
+  const key=ngWinK();let ng=m.neg[N.n];if(!ng||ng.k!==key)ng=m.neg[N.n]={k:key,tries:0,counter:null};
+  const price=pct===-1?ng.counter:r1(N.ask*pct/100);
+  if(price==null)return;
+  if(m.cash<price){ngSys(`Caixa insuficiente: você tem ${fmtM(m.cash)}.`);return}
+  ngMe(pct===-1?`Aceitamos os ${fmtM(price)}. Podemos fechar?`:pct>=100?`Pagamos a pedida: ${fmtM(price)}.`:`Nossa proposta: ${fmtM(price)} pelo ${N.n}.`);
+  let ok=pct===-1||pct>=100;
+  if(!ok){let pr=pct>=90?.6:.28;if(pl.age>=29)pr+=.15;if(rankOfTeam(src)<=6)pr-=.2;if(pl.r>=90)pr-=.1;ok=Math.random()<pr}
+  if(ok){
+    N.price=price;N.stage='pp';
+    ngThem(ngP(`Da nossa parte, ${fmtM(price)} está acertado.`,`Aceitamos ${fmtM(price)}.`),`Agora é com o ${N.n}: ele precisa topar a mudança.`);
+    NGO.q.push({w:'sys',t:`Acordo com o ${src.name}: ${fmtM(price)}. Nada é pago até o jogador aceitar.`});ngPump();
+    N.opts=[{l:`Ligar para o ${N.n}`,f:'call',hi:1},{l:'Desistir',f:'x',sec:1}];return;
+  }
+  ng.tries++;
+  if(ng.tries<2){ng.counter=r1(Math.max(price,N.ask*(pct>=90?.97:.95)));ngThem(ngP('Essa proposta não nos atende.','Fica abaixo do que esperávamos.','A diretoria recusou esse valor.'),`Por ${fmtM(ng.counter)} a gente fecha.`);ngClubOpts();return}
+  ng.counter=null;
+  ngThem(ngP(`Agradecemos, mas vamos encerrar as conversas pelo ${N.n} nesta janela.`,`Não houve acordo. O ${N.n} fica com a gente.`));ngEnd('fail');
+}
+/* clube aceitou: ligação para o jogador (celular) */
+function ngCall(){
+  const N=NGO,m=S.mgr,mine=mgrT(),src=T(N.tid),pl=src.pl.find(p=>p.n===N.n);if(!pl){ngSys('O jogador não está mais disponível.');ngEnd('fail');return}
+  N.k='pp';N.cmsgs=N.msgs;N.msgs=[];N.pv={n:pl.n,r:pl.r,role:pl.role,age:pl.age,pot:pl.pot};
+  const w=ngWill(pl,src);N.will=w;N.bonus=0;
+  ngMe(ngP(`Oi ${pl.n}, aqui é o técnico do ${mine.name}. Já acertamos com o ${src.name}.`,`Fala, ${pl.n}! O ${src.name} aceitou nossa proposta. Queremos você no ${mine.name}.`));
+  ngThem(ngP('Opa, fiquei sabendo.','Oi, professor. Me avisaram agora.','Recebi a notícia, sim.'));
+  if(w<.3){ngBlock(pl.n);ngThem(ngWhy(pl,src),'Agradeço o interesse, mas vou ficar.');ngEnd('fail',`${pl.n} recusou. O acordo com o ${src.name} foi desfeito e nada foi pago.`);return}
+  if(w<.55){N.bonus=r1(Math.max(.3,N.price*(.55-w)*.6));ngThem(ngP('Vou ser sincero: o projeto de vocês não era minha primeira opção.','Não sei se é o melhor passo pra minha carreira…'),`Pra ir, quero ${fmtM(N.bonus)} de luvas.`)}
+  else ngThem(ngP('Topo! Sempre quis jogar aí.','Bora! Quando começo?','Fechado da minha parte.'));
+  ngPPOpts();
+}
+function ngPPOpts(){
+  const N=NGO,m=S.mgr,tot=r1(N.price+N.bonus),can=mOpen()&&m.cash>=tot;
+  N.opts=[{l:N.bonus?`Pagar luvas e fechar (${fmtM(tot)} no total)`:`Fechar a contratação (${fmtM(N.price)})`,f:'sign',dis:!can,hi:1}].concat(N.bonus&&!N.hag?[{l:'Pedir para baixar as luvas',f:'hag'}]:[]).concat([{l:'Desistir',f:'x',sec:1}]);
+  if(!can&&!N.wn){N.wn=1;ngSys(mOpen()?`Caixa insuficiente para ${fmtM(tot)}.`:'Janela fechada.')}
+}
+function ngPPAct(op){
+  const N=NGO,m=S.mgr;
+  if(op.f==='hag'){N.hag=1;ngMe('Consegue baixar um pouco essas luvas?');
+    if(Math.random()<.5){N.bonus=r1(N.bonus*.6);ngThem(`Tá bom, ${fmtM(N.bonus)} e a gente fecha.`)}
+    else if(Math.random()<.7)ngThem('Não dá, professor. É esse valor.');
+    else{ngBlock(N.n);ngThem('Então acho melhor eu ficar onde estou.');ngEnd('fail','O jogador desistiu. O acordo com o clube foi desfeito.');return}
+    ngPPOpts();return}
+  if(op.f==='sign'){
+    ngMe('Então está fechado. Bem-vindo!');
+    const c0=m.cash;mgrBuy(N.n,N.price);
+    if(m.bench.some(p=>p.n===N.n)){
+      if(N.bonus){m.cash=r1(m.cash-N.bonus);mlog(`${S.year}: pagou ${fmtM(N.bonus)} de luvas a ${N.n}.`)}
+      ngThem(ngP('Partiu! 💪','Não vou te decepcionar.','Valeu pela confiança!'));ngEnd('done',`✔ ${N.n} contratado: ${fmtM(N.price)} ao ${T(N.tid).name}${N.bonus?` + ${fmtM(N.bonus)} de luvas`:''}. Está nas suas reservas.`);
+    }else{ngSys(msg||'Não foi possível concluir.');ngPPOpts()}
+  }
+}
+/* proposta recebida por um jogador seu (computador) */
+function ngOff(i){
+  const m=S.mgr,o=m.offers[+i];if(!o)return;const f=mFind(o.n);if(!f)return;
+  const b=S.teams[o.to];
+  NGO={k:'off',n:o.n,to:o.to,msgs:[],q:[],st:'open',ask:o.price,up:0};
+  ngThem(ngP(`Bom dia! Aqui é a diretoria do ${b.name}.`,`Olá, técnico. Falamos em nome do ${b.name}.`),`Queremos contratar o ${o.n} e oferecemos ${fmtM(o.price)}.`);
+  ngOffOpts();
+}
+function ngOffOpts(){
+  const N=NGO,f=mFind(N.n),open=mOpen(),can=open&&f&&(f.k!=='pl'||!!bestRep(f.p.role));
+  N.opts=[{l:can?`Aceitar ${fmtM(N.ask)}`:!open?'Janela fechada':'Sem reserva na posição',f:'acc',dis:!can,hi:1}].concat(N.up?[]:[{l:'Pedir mais (+15%)',f:'up'}]).concat([{l:'Recusar',f:'rej',sec:1}]);
+}
+function ngOffAct(k){
+  const N=NGO,m=S.mgr,i=m.offers.findIndex(o=>o.n===N.n&&o.to===N.to),o=m.offers[i];
+  if(!o){ngSys('A proposta não está mais de pé.');ngEnd('fail');return}
+  if(k==='acc'){ngMe(`Aceitamos ${fmtM(o.price)}. Pode mandar o contrato.`);if(mgrSell(o.n,o.price,o.to)){ngThem('Perfeito, obrigado pela parceria!');ngEnd('done',`✔ ${o.n} vendido ao ${S.teams[o.to].name} por ${fmtM(o.price)}.`)}else{ngSys(msg||'Não foi possível concluir a venda.');ngOffOpts()}return}
+  if(k==='rej'){ngMe(ngP(`Obrigado, mas o ${o.n} não está à venda.`,'Vamos recusar. Ele fica com a gente.'));m.offers.splice(i,1);ngThem('Entendido. Fica o contato.');ngEnd('fail');return}
+  if(k==='up'){
+    N.up=1;const np=r1(o.price*1.15);ngMe(`Por menos de ${fmtM(np)} não liberamos o ${o.n}.`);
+    const r=Math.random(),pr=o.price<mvOf(mFind(o.n).p)*1.25?.6:.4;
+    if(r<pr){o.price=np;N.ask=np;ngThem(ngP(`Conversamos aqui e chegamos aos ${fmtM(np)}.`,`Tudo bem, ${fmtM(np)} então.`));ngOffOpts()}
+    else if(r<pr+.25){ngThem(`Não temos como subir. A oferta segue em ${fmtM(o.price)}.`);ngOffOpts()}
+    else{m.offers.splice(i,1);ngThem('Então vamos procurar outro nome. Obrigado.');ngEnd('fail','A proposta foi retirada.')}
+  }
+}
+/* jogador direto (celular): agente livre (fa) ou Solo Queue (sq) */
+function ngPlayer(kind,key){
+  const m=S.mgr,mine=mgrT();if(!m||!mine)return;
+  let p,base,from='',x=null;
+  if(kind==='fa'){p=FA().find(z=>z.n===key);if(!p)return;base=faFee(p);const fr=p.lt!=null?T(p.lt):null;from=fr?fr.name:''}
+  else{x=slqList().find(z=>z.id===key);if(!x||!x.ok)return;p=x;base=slqFee(x)}
+  const w=ngWill(p,null,x);
+  NGO={k:kind,n:p.n,key,msgs:[],q:[],st:'open',base,tries:0,str:x&&x.tag==='str',will:w,pv:{n:p.n,r:p.r,role:p.role,age:p.age,pot:p.pot}};
+  if(ngBlk(p.n)){ngThem(`Professor, já te dei minha resposta nesta janela. Quem sabe mais pra frente.`);ngEnd('fail');return}
+  ngMe(ngP(`Fala, ${p.n}! Aqui é o técnico do ${mine.name}. Tem um minuto?`,`Oi ${p.n}, tudo certo? Sou o técnico do ${mine.name}.`));
+  const hi=kind==='fa'?(from===mine.name?`Joguei aí no ${from}, conheço a casa. Tô livre e ouvindo propostas.`:from?`Tô livre desde que saí do ${from}, ouvindo propostas.`:'Tô sem clube e ouvindo propostas.'):x.tag==='str'?`Opa! Vi o recado na live 😄 Faço ${x.lp.toLocaleString('pt-BR')} de PDL, mas sempre quis jogar no palco.`:x.tag==='pro'?`E aí! Já joguei profissionalmente, sei como é a rotina. Tô no #${x.rk} do ${x.srv} agora.`:`Caramba, um time profissional?! Tô no #${x.rk} do ${x.srv} 👀`;
+  ngThem(ngP('Fala, professor!','Opa, tudo bem?','Oi! Pode falar.'),hi);
+  if(NGO.str)ngThem('Só uma coisa: não largo as lives. Dá pra conciliar com os treinos?');
+  if(w<.3){ngBlock(p.n);ngThem(ngWhy(p,null),'Valeu pelo contato, mas vou esperar outra proposta.');ngEnd('fail',`${p.n} não quis vir. Times mais fortes e reputação maior ajudam a convencer.`);return}
+  if(w<.55){NGO.base=r1(base*(1+(.55-w)*1.6));ngThem(ngP('Vou ser sincero: o time de vocês não é o que eu tinha em mente.','Hmm, não sei se é o melhor passo pra mim agora…'),`Pra ir mesmo assim, peço ${fmtM(NGO.base)} de luvas.`)}
+  else ngThem(`Pra assinar eu peço ${fmtM(base)} de luvas.`);
+  ngPlOpts();
+}
+function ngPlOpts(){
+  const N=NGO,m=S.mgr,open=mOpen(),b=N.base;
+  const can=v=>open&&m.cash>=v;
+  const o=[];
+  if(N.cnt!=null)o.push({l:`Fechar por ${fmtM(N.cnt)}`,f:'pay',v:N.cnt,dis:!can(N.cnt),hi:1});
+  else{o.push({l:`Oferecer ${fmtM(b*.75)}`,f:'off',v:r1(b*.75),dis:!can(r1(b*.75))});o.push({l:`Oferecer ${fmtM(b*.9)}`,f:'off',v:r1(b*.9),dis:!can(r1(b*.9))})}
+  o.push({l:`Pagar ${fmtM(b)}`,f:'pay',v:b,dis:!can(b),hi:N.cnt==null});
+  if(N.k==='sq'&&!N.sc){const x=slqList().find(z=>z.id===N.key);if(x&&x.sc==null)o.push({l:`Peneira antes (${fmtM(slqScFee())})`,f:'sc',dis:m.cash<slqScFee()})}
+  o.push({l:'Deixa pra depois',f:'x',sec:1});
+  if(!open&&!N.wn){N.wn=1;ngSys('A janela de transferências está fechada: dá para conversar, mas só assinar quando ela abrir.')}
+  N.opts=o;
+}
+function ngPlAct(op){
+  const N=NGO,m=S.mgr,mine=mgrT();
+  if(op.f==='sc'){
+    N.sc=1;ngMe('Topa fazer uma semana de testes com a gente antes?');
+    slqScout(N.key);const x=slqList().find(z=>z.id===N.key);
+    ngThem('Bora! Vou mostrar serviço 💪');
+    if(x&&x.sc!=null)NGO.q.push({w:'sys',t:`Peneira: ${N.n} rende OVR ${clamp(x.r+x.sc,60,95)} no palco (o olheiro via ${x.r}).`});
+    ngPump();ngPlOpts();return;
+  }
+  if(op.f==='pay'){
+    ngMe(ngP(`Fechado em ${fmtM(op.v)}. Bem-vindo ao ${mine.name}!`,`Pode ser ${fmtM(op.v)}. Vamos assinar?`));
+    if(N.k==='fa')mgrSign(N.n,op.v);else slqSign(N.key,op.v);
+    const ok=m.bench.some(p=>p.n===N.n);
+    if(ok){ngThem(ngP('Fechou! Partiu treinar 💪','Bora! Não vou te decepcionar.','Fechado, professor! Já arrumo as malas.'));const p=m.bench.find(z=>z.n===N.n);ngEnd('done',`✔ ${N.n} assinou por ${fmtM(op.v)} (OVR ${p.r}). Está nas suas reservas.`)}
+    else{ngSys(msg||'Não foi possível assinar.');ngPlOpts()}
+    return;
+  }
+  /* oferta abaixo da pedida: aceita, contrapropõe ou se ofende */
+  N.tries++;const pct=op.v/N.base,rep=((m.rep==null?50:m.rep)-50)/200,big=rankOfTeam(mine)<=10?.1:0;
+  const p=N.k==='fa'?FA().find(z=>z.n===N.n):null,idle=p&&p.fy!=null?S.year-p.fy:0;
+  ngMe(ngP(`Consigo te pagar ${fmtM(op.v)}.`,`Minha proposta é ${fmtM(op.v)}.`,`Que tal ${fmtM(op.v)}?`));
+  const pr=clamp((pct<.8?.3:.65)+rep+big+(idle>=1?.2:0)-(N.str?.05:0)+((N.will==null?.55:N.will)-.55)*.5,.05,.95);
+  const r=Math.random();
+  if(r<pr){
+    if(N.k==='fa')mgrSign(N.n,op.v);else slqSign(N.key,op.v);
+    if(m.bench.some(z=>z.n===N.n)){ngThem(ngP('Hmm… tá bom, aceito!','Fechado. O que importa é jogar.','Beleza, topo!'));const q=m.bench.find(z=>z.n===N.n);ngEnd('done',`✔ ${N.n} assinou por ${fmtM(op.v)} (OVR ${q.r}). Está nas suas reservas.`)}
+    else{ngSys(msg||'Não foi possível assinar.');ngPlOpts()}
+    return;
+  }
+  if(pct<.8&&r>.85){ngBlock(N.n);ngThem('Aí você me ofendeu, professor 😅','Vou ouvir outras propostas. Valeu!');ngEnd('fail');return}
+  N.cnt=r1(N.base*(.9+Math.random()*.06));
+  ngThem(ngP('Não dá, tenho outras conversas rolando.','Esse valor não fecha pra mim.','Hmm, abaixo do que eu esperava.'),`Por ${fmtM(N.cnt)} eu assino hoje.`);
+  ngPlOpts();
+}
+function ngPick(i){
+  const N=NGO;if(!N||N.typing)return;const op=N.opts&&N.opts[+i];if(!op||op.dis)return;
+  if(op.f==='x'){if(N.st==='open')ngMe(N.k==='club'||N.k==='off'?'Vamos encerrar por aqui, obrigado.':'Deixa pra depois, valeu!');NGO=null;return}
+  if(N.k==='club'&&op.f==='call')ngCall();
+  else if(N.k==='club'&&op.f==='bid')ngClubBid(op.v);
+  else if(N.k==='pp')ngPPAct(op);
+  else if(N.k==='off')ngOffAct(op.f);
+  else ngPlAct(op);
+}
+/* telas: computador para clubes, celular para jogador */
+function negoHTML(){
+  const N=NGO,m=S.mgr,mine=mgrT();if(!N||!mine)return '';
+  const bub=x=>`<div class="ngm ${x.w}">${esc(x.t)}</div>`;
+  const chat=`<div class="ngchat" aria-live="polite">${N.msgs.map(bub).join('')}${N.typing?`<div class="ngm them ngt"><i></i><i></i><i></i></div>`:''}</div>`;
+  const opts=`<div class="ngopt">${N.typing?'':(N.opts||[]).map((o,i)=>`<button class="${o.hi?'ngb hi':o.sec?'ngb sec':'ngb'}" data-act="ngPick" data-v="${i}"${o.dis?' disabled':''}>${esc(o.l)}</button>`).join('')}</div>`;
+  const cash=`<small class="ngcash">Caixa ${m.cheat?'∞':fmtM(m.cash)}</small>`;
+  if(N.k==='club'||N.k==='off'){
+    const ot=T(N.k==='club'?N.tid:N.to),f=N.k==='off'?mFind(N.n):null,pl=N.k==='club'?(ot.pl.find(p=>p.n===N.n)||mine.pl.concat(m.bench).find(p=>p.n===N.n)):f&&f.p;
+    return `<div class="ngov" role="dialog" aria-label="Negociação com ${esc(ot.name)}"><div class="pcw"><div class="pcs"><div class="pcbar"><span class="pcd"><i></i><i></i><i></i></span><b>Mensagens · ${esc(mine.name)} ↔ ${esc(ot.name)}</b><button class="pcx" data-act="ngX" aria-label="Fechar">✕</button></div><div class="pcbody"><aside class="pcside"><div class="pcct">${crest(ot,'md')}<span><b>${esc(ot.name)}</b><small>Diretoria de futebol · ${ot.lg}</small></span></div>${pl?`<div class="pcpl">${pav(pl)}<span><b>${esc(pl.n)}</b><small>${RN[pl.role]} · ${pl.age} anos${pl.pot>pl.r?' · pot. '+pl.pot:''}</small><small>vale ${fmtM(mvOf(pl))}</small></span></div>`:''}${cash}</aside><div class="pcmain">${chat}${opts}</div></div></div><div class="pcneck"></div><div class="pcfoot"></div></div></div>`;
+  }
+  const p=N.pv||{};
+  const sub=N.typing?'digitando…':N.st==='done'?'assinou com você':N.will!=null?'online · interesse '+ngWillTxt(N.will):'online';
+  return `<div class="ngov" role="dialog" aria-label="Conversa com ${esc(N.n)}"><div class="phn"><div class="phst"><span class="num">${String(8+(S.day||1)%12).padStart(2,'0')}:${String((S.day||1)*7%60).padStart(2,'0')}</span><span class="phnt"></span><span>▮▮▮ 5G</span></div><div class="phhd"><button class="phbk" data-act="ngX" aria-label="Fechar">‹</button>${p&&p.n?pav(p):''}<span><b>${esc(N.n)}</b><small>${sub}</small></span>${cash}</div>${chat}${opts}<div class="phhome"></div></div></div>`;
+}
 const mb=(act,v,label,ok,cls)=>`<button class="mini${cls?' '+cls:''}" data-act="${act}" data-v="${esc(v)}"${ok?'':' disabled'}>${label}</button>`;
 const more=(label,inner)=>`<details class="more"><summary class="mini sell">${label}</summary><div class="acts">${inner}</div></details>`;
 const ctrTxt=p=>p.exp?'<span class="inj">contrato vence</span>':p.ctr!=null?`contrato ${p.ctr} ano${p.ctr>1?'s':''}`:'';
@@ -3771,10 +4146,10 @@ function elencoHTML(t,m,pay,lastH){
   const open=mOpen();
   let h='';
   const offs=m.offers.map((o,i)=>({o,i,f:mFind(o.n)})).filter(x=>x.f);
-  if(offs.length)h+=`<section class="pn"><h2>Ofertas recebidas</h2>${offs.map(({o,i,f})=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(f.p.r,'sm')}<span class="who">${lk(f.p.n)}<small>${crest(S.teams[o.to],'sm')} ${esc(S.teams[o.to].name)} oferece ${fmtM(o.price)}${f.k==='pl'?` · ${bestRep(f.p.role)?'reserva assume a vaga':'sem reserva'}`:f.k==='acad'?' · da base':' · das reservas'}</small><div class="acts">${mb('mgrOffer',i+'|y',open?'Aceitar':'Janela fechada',open&&(f.k!=='pl'||!!bestRep(f.p.role)),'')}${mb('mgrOffer',i+'|n','Recusar',true,'sell')}</div></span></div>`).join('')}<p class="note">Você não é obrigado a vender.</p></section>`;
-  h+=`<section class="pn"><h2>Titulares</h2>${t.pl.map(p=>{const rp=bestRep(p.role),f={k:'pl',p};return `<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos · vale ${fmtM(mvOf(p))} · ${ctrTxt(p)}</small><div class="acts">${p.exp||p.ctr<=1?renUI(p,open):''}${mb('mgrSell',p.n,!open?'Janela fechada':!rp?'Sem reserva':'Vender '+fmtM(sellPrice(f)).replace('US$ ',''),open&&!!rp,'sell')}${mb('mgrList',p.n,m.listed&&m.listed[p.n]?'Na lista':'Listar',open,'sell')}</div></span></div>`}).join('')}<p class="note">Para vender um titular você precisa de uma reserva ou promessa da base na mesma posição. Quem tem contrato vencendo sai se você não renovar antes do Split 1.</p></section>`;
-  if(m.bench.length)h+=`<section class="pn"><h2>Reservas</h2>${m.bench.map(p=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos · vale ${fmtM(mvOf(p))} · ${ctrTxt(p)}</small><div class="acts">${mb('mgrPromote',p.n,'Titular',open,'')}${p.exp||p.ctr<=1?renUI(p,open):''}${more('Mais',mb('mgrSell',p.n,'Vender '+fmtM(sellPrice({k:'bench',p})).replace('US$ ',''),open,'sell')+mb('mgrList',p.n,m.listed&&m.listed[p.n]?'Na lista':'Listar',open,'sell')+mb('mgrLoan',p.n,'Emprestar',open,'sell')+mb('mgrRelease',p.n,'Dispensar',open,'sell'))}</div></span></div>`).join('')}<p class="note">Venda, empreste ou promova suas reservas.</p></section>`;
-  if(m.loan.length)h+=`<section class="pn"><h2>Emprestados</h2>${m.loan.map(l=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(l.p.r,'sm')}<span class="who">${lk(l.p.n)}<small>${RN[l.p.role]} · no ${esc(l.to)} · volta em ${S.year+1}</small></span></div>`).join('')}</section>`;
+  if(offs.length)h+=`<section class="pn"><h2>Ofertas recebidas</h2>${offs.map(({o,i,f})=>`<div class="mrow" style="grid-template-columns:44px minmax(0,1fr)">${pav(f.p)}<span class="who">${lk(f.p.n)}<small>${crest(S.teams[o.to],'sm')} ${esc(S.teams[o.to].name)} oferece ${fmtM(o.price)}${f.k==='pl'?` · ${bestRep(f.p.role)?'reserva assume a vaga':'sem reserva'}`:f.k==='acad'?' · da base':' · das reservas'}</small><div class="acts">${mb('ngOff',i,'Negociar',true,'')}${mb('mgrOffer',i+'|n','Recusar',true,'sell')}</div></span></div>`).join('')}<p class="note">Você não é obrigado a vender.</p></section>`;
+  h+=`<section class="pn"><h2>Titulares</h2>${t.pl.map(p=>{const rp=bestRep(p.role),f={k:'pl',p};return `<div class="mrow" style="grid-template-columns:44px minmax(0,1fr)">${pav(p)}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos · vale ${fmtM(mvOf(p))} · ${ctrTxt(p)}</small><div class="acts">${p.exp||p.ctr<=1?renUI(p,open):''}${mb('mgrSell',p.n,!open?'Janela fechada':!rp?'Sem reserva':'Vender '+fmtM(sellPrice(f)).replace('US$ ',''),open&&!!rp,'sell')}${mb('mgrList',p.n,m.listed&&m.listed[p.n]?'Na lista':'Listar',open,'sell')}</div></span></div>`}).join('')}<p class="note">Para vender um titular você precisa de uma reserva ou promessa da base na mesma posição. Quem tem contrato vencendo sai se você não renovar antes do Split 1.</p></section>`;
+  if(m.bench.length)h+=`<section class="pn"><h2>Reservas</h2>${m.bench.map(p=>`<div class="mrow" style="grid-template-columns:44px minmax(0,1fr)">${pav(p)}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos · vale ${fmtM(mvOf(p))} · ${ctrTxt(p)}</small><div class="acts">${mb('mgrPromote',p.n,'Titular',open,'')}${p.exp||p.ctr<=1?renUI(p,open):''}${more('Mais',mb('mgrSell',p.n,'Vender '+fmtM(sellPrice({k:'bench',p})).replace('US$ ',''),open,'sell')+mb('mgrList',p.n,m.listed&&m.listed[p.n]?'Na lista':'Listar',open,'sell')+mb('mgrLoan',p.n,'Emprestar',open,'sell')+mb('mgrRelease',p.n,'Dispensar',open,'sell'))}</div></span></div>`).join('')}<p class="note">Venda, empreste ou promova suas reservas.</p></section>`;
+  if(m.loan.length)h+=`<section class="pn"><h2>Emprestados</h2>${m.loan.map(l=>`<div class="mrow" style="grid-template-columns:44px minmax(0,1fr)">${pav(l.p)}<span class="who">${lk(l.p.n)}<small>${RN[l.p.role]} · no ${esc(l.to)} · volta em ${S.year+1}</small></span></div>`).join('')}</section>`;
   if(lastH)h+=`<section class="pn"><h2>Última temporada</h2><div class="kv"><div><small>Receita</small><b class="num">${fmtM(lastH.income)}</b></div><div><small>Base e CT</small><b class="num">${fmtM(lastH.up||0)}</b></div><div><small>Saldo</small><b class="num">${lastH.net>=0?'+':''}${fmtM(lastH.net)}</b></div><div><small>Resultado</small><b>${lastH.ach>lastH.goal?'Meta superada':lastH.ach===lastH.goal?'Meta cumprida':'Abaixo da meta'}</b></div></div></section>`;
   return h;
 }
@@ -3793,7 +4168,7 @@ function baseHTML(t,m){
   const open=mOpen(),ac=m.acLv,ct=m.ct;
   const up=(k,lv,cost,upk,title,desc)=>`<div class="mrow" style="grid-template-columns:minmax(0,1fr) auto"><span class="who"><b>${title} · nível ${lv}/3</b><small>${desc}<br>Custo por temporada: ${fmtM(upk[lv])}</small></span>${lv>=3?'<span class="note" style="margin:0">Máximo</span>':mb('mgrUp',k,m.cheat?'Evoluir':'Evoluir '+fmtM(cost[lv+1]).replace('US$ ',''),m.cheat||m.cash>=cost[lv+1],'')}</div>`;
   let h=`<section class="pn"><h2>Estrutura</h2>${up('ac',ac,AC_COST,AC_UP,'Academia',`Recruta ${1+ac} promessas por ano e comporta ${acCap(m)}. Nível maior traz talentos melhores, acelera o crescimento e afina o olheiro: o potencial das promessas aparece como faixa e vai ficando mais preciso.`)}${up('ct',ct,CT_COST,CT_UP,'Centro de treinamento',`Os titulares evoluem um pouco mais a cada virada de ano (+${(ct*.5).toFixed(1).replace('.',',')} de OVR em média).`)}</section>`;
-  h+=`<section class="pn"><h2>Time de base · ${m.acad.length}/${acCap(m)}</h2>${m.acad.length?m.acad.slice().sort((a,b)=>b.pot-a.pot).map(p=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr)">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos · potencial ${potTxt(p)} · vale ${fmtM(mvOf(p))}</small><div class="acts">${mb('mgrPromote',p.n,'Promover',open,'')}${more('Mais',mb('mgrSell',p.n,'Vender '+fmtM(sellPrice({k:'acad',p})).replace('US$ ',''),open,'sell')+mb('mgrList',p.n,m.listed&&m.listed[p.n]?'Na lista':'Listar',open,'sell')+mb('mgrLoan',p.n,'Emprestar',open,'sell')+mb('mgrRelease',p.n,'Dispensar',open,'sell'))}</div></span></div>`).join(''):'<p class="empty">Nenhuma promessa na base. Novos talentos chegam na virada de ano.</p>'}<p class="note">As promessas crescem sozinhas a cada virada de ano e saem da base aos 21 anos, indo para as reservas. Emprestar rende uma taxa e devolve o jogador mais maduro.</p></section>`;
+  h+=`<section class="pn"><h2>Time de base · ${m.acad.length}/${acCap(m)}</h2>${m.acad.length?m.acad.slice().sort((a,b)=>b.pot-a.pot).map(p=>`<div class="mrow" style="grid-template-columns:44px minmax(0,1fr)">${pav(p)}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos · potencial ${potTxt(p)} · vale ${fmtM(mvOf(p))}</small><div class="acts">${mb('mgrPromote',p.n,'Promover',open,'')}${more('Mais',mb('mgrSell',p.n,'Vender '+fmtM(sellPrice({k:'acad',p})).replace('US$ ',''),open,'sell')+mb('mgrList',p.n,m.listed&&m.listed[p.n]?'Na lista':'Listar',open,'sell')+mb('mgrLoan',p.n,'Emprestar',open,'sell')+mb('mgrRelease',p.n,'Dispensar',open,'sell'))}</div></span></div>`).join(''):'<p class="empty">Nenhuma promessa na base. Novos talentos chegam na virada de ano.</p>'}<p class="note">As promessas crescem sozinhas a cada virada de ano e saem da base aos 21 anos, indo para as reservas. Emprestar rende uma taxa e devolve o jogador mais maduro.</p></section>`;
   return h;
 }
 
@@ -3812,7 +4187,6 @@ function potTxt(p){
 function mMidYear(){
   const m=S.mgr,t=mgrT();if(!m||!t)return;
   mEnsure();
-  m.fa=m.fa.concat(genFA().slice(0,4)).slice(-16);
   const cand=t.pl.concat(m.bench,m.acad);
   m.offers=[];
   for(let k=0;k<2&&cand.length;k++){
@@ -3851,15 +4225,21 @@ function mExpire(){
     if(rp)dropFrom(rp);
     else{const oth=t.pl.filter((_,j)=>j!==i);rp=rookie(p.role,{r:p.r,avg:oth.reduce((a,x)=>a+x.r,0)/oth.length,lg:t.lg});const d=pd(rp.n);d.role=p.role;d.debut=S.year+1;d.nat=rp.nat;mCtr(rp,3)}
     t.pl[i]=rp;mCtr(rp,rp.ctr||3);
-    const b=toAI(p);mlog(`${S.year}: o contrato de ${p.n} acabou e ele foi para o ${b.name}; ${rp.n} assume a vaga.`);
+    faRelease(p,t);mlog(`${S.year}: o contrato de ${p.n} acabou sem renovação e ele está livre no mercado; ${rp.n} assume a vaga.`);
   });
-  m.bench=m.bench.filter(p=>{if(!p.exp)return true;const b=toAI(p);mlog(`${S.year}: o contrato de ${p.n} acabou e ele foi para o ${b.name}.`);return false});
+  m.bench=m.bench.filter(p=>{if(!p.exp)return true;faRelease(p,t);mlog(`${S.year}: o contrato de ${p.n} acabou sem renovação e ele está livre no mercado.`);return false});
+  /* quem não renovou agora pode ser contratado por qualquer clube: os mais fortes saem logo */
+  FA().filter(p=>p.lt===t.id&&p.fy===S.year).forEach(p=>{
+    const w=S.teams.filter(x=>x!==t&&!x.pl[p.role].pc&&x.pl[p.role].r<p.r-1);if(!w.length||Math.random()<.4)return;
+    const b=pick(w),out=b.pl[p.role];FA().splice(FA().indexOf(p),1);delete p.fy;delete p.lt;p.ctr=2;b.pl[p.role]=p;pd(p.n).role=p.role;b.bn=b.bn||[];b.bn.push(out);
+    mlog(`${S.year}: ${p.n}, que estava livre, assinou com o ${b.name}.`);
+  });
 }
 function toAI(p){
   const m=S.mgr,t=mgrT();
   const w=S.teams.filter(x=>x!==t&&x.pl[p.role].r<p.r),buyer=pick(w.length?w:S.teams.filter(x=>x!==t));
   const out=buyer.pl[p.role];buyer.pl[p.role]=p;pd(p.n).role=p.role;
-  m.fa.push({...out,f:0,d:0});m.fa=m.fa.slice(-16);
+  faRelease(out,buyer);
   return buyer;
 }
 const ACH=[
@@ -4467,7 +4847,7 @@ function cevClose(e){
   const M=S.mgr,t=mgrT(),cf=e.cfg;e.st=2;
   if(!M||!t||!cf)return;
   const tot=(e.w||0)+(e.l||0),ln=`${CEVT[e.id].n}: ${e.w||0} séries vencidas e ${e.l||0} perdidas contra ${cf.ps.map(id=>T(id).name).join(', ')||'ninguém'}. Preparação ${Math.round((M.prep||0)*100)}, fadiga ${Math.round(M.fat||0)}.`;
-  if(cf.tr){const f=(M.fa||[]).find(x=>x.n===cf.tr);if(f){f.scout=1;e.tr=`${f.n} avaliado: potencial ${f.pot}, nível atual ${f.r}.`}}
+  if(cf.tr){const f=FA().find(x=>x.n===cf.tr);if(f){f.scout=1;e.tr=`${f.n} avaliado: potencial ${f.pot}, nível atual ${f.r}.`}}
   mlog(`${dTxt(S.day)}: ${ln}${e.tr?' '+e.tr:''}`);msg=ln;
 }
 /* clubes da IA fazem suas próprias preparações */
@@ -4647,7 +5027,7 @@ function cevHTML(m){
       h+=`<small class="k">Foco</small><div class="pills" style="margin:4px 0 4px">${CEF.map(([k,l])=>pill('foc',k,l,cf.foc===k)).join('')}</div><p class="note" style="margin:0 0 8px">${esc(CEF.find(x=>x[0]===cf.foc)[2])}</p>`;
       h+=`<small class="k">Intensidade</small><div class="pills" style="margin:4px 0 8px">${CEI.map(([l],i)=>pill('int',i,l,cf.int===i)).join('')}</div>`;
       h+=`<small class="k">Quem joga</small><div class="pills" style="margin:4px 0 8px">${CEL.map(([l],i)=>pill('lu',i,l,cf.lu===i)).join('')}</div><p class="note" style="margin:0 0 8px">Reservas e academia ganham ritmo e podem evoluir; titulares evoluem a forma. Mais intensidade rende mais preparação, mas cansa.</p>`;
-      const fa=(m.fa||[]).slice().sort((a,b)=>b.pot-a.pot).slice(0,4);
+      const fa=FA().slice().sort((a,b)=>b.pot-a.pot).slice(0,4);
       if(fa.length)h+=`<small class="k">Avaliar um jogador livre (opcional)</small><div class="pills" style="margin:4px 0 8px">${fa.map(f=>pill('tr',f.n,f.n+' ('+RN[f.role]+')',cf.tr===f.n)).join('')}</div>`;
       const cs=cevCands(e,t);
       h+=`<small class="k">Parceiros de treino (até 3)</small>${cs.map(({t:x,bl})=>`<button class="pill${cf.ps.includes(x.id)?' on':''}" style="display:block;width:100%;text-align:left;margin:4px 0" ${bl?'disabled':''} aria-pressed="${cf.ps.includes(x.id)}" data-act="cevPs" data-v="${x.id}">${esc(x.name)} · ${x.lg} · OVR ${Math.round(baseOvr(x))}${bl?' · bloqueado: é seu adversário na primeira fase':''}</button>`).join('')}`;
@@ -7347,7 +7727,7 @@ async function foBuild(o){
 }
 /* ---- jogador (qualquer um: ativo, aposentado, lenda ou o seu criado) ---- */
 async function foPlayer(n){
-  const P=pmap()[n]||mExtra(n)||bnFind(n),d=S.pdb[n]||{seasons:[],tl:[],ret:null,debut:null,role:null},h=S.hof[n]||{pts:0,bd:0,wc:0,msi:0,lg:0,mvp:0};
+  const P=pmap()[n]||mExtra(n)||bnFind(n)||faFind(n),d=S.pdb[n]||{seasons:[],tl:[],ret:null,debut:null,role:null},h=S.hof[n]||{pts:0,bd:0,wc:0,msi:0,lg:0,mvp:0};
   const pc=S.pc&&S.pc.n===n?S.pc:null,ss=d.seasons||[],tl=d.tl||[];
   const role=P?P.p.role:(d.role!=null?d.role:(pc&&pc.hist.length?pc.hist[pc.hist.length-1].role:null));
   const nat=natC(n),natN=NATN[nat]||nat||'';
@@ -7537,9 +7917,13 @@ function dbNextHTML(t,m){
     :`<button class="ghost" data-act="day" data-v="1">+1 dia</button><button class="ghost" data-act="day" data-v="7">+1 semana</button><button class="play" data-act="dayTo">Simular até o jogo</button>`;
   return `<section class="db dbn"><div class="dbh"><h2>Próxima partida</h2><span>${esc(nxt)}<small>${left<=0?'Hoje':dTxt(ev)+' · em '+left+' dia'+(left>1?'s':'')}</small></span></div>${vs}<div class="dbb">${btn}</div></section>`;
 }
+/* faixa de fotos do elenco (painel Seu time e ficha dos times): cada foto abre a ficha do jogador */
+function stripHTML(t){
+  const card=(p,r)=>{const ph=phHas(p.n),a=ph?'':chArt(sigCh(p.n,r));return `<button class="dbpc${ph?'':' noph'}" data-act="player" data-v="${esc(p.n)}"><span class="dbpi">${ph?phImg(p.n):(a?`<img src="${a}" alt="" loading="lazy" decoding="async" draggable="false">`:'')+`<i>${esc(String(p.n).slice(0,2).toUpperCase())}</i>`}</span><small>${RN[r]}</small><b>${esc(p.n)}</b><em class="num">${p.r}</em></button>`};
+  return `<div class="dbps">${t.pl.map(card).join('')}</div>`;
+}
 function dbTeamHTML(t,m){
-  const card=(p,r)=>`<div class="dbpc"><span class="dbpi">${phHas(p.n)?phImg(p.n):`<i>${esc(String(p.n).slice(0,2).toUpperCase())}</i>`}</span><small>${RN[r]}</small><b>${esc(p.n)}</b><em class="num">${p.r}</em></div>`;
-  return `<section class="db dbt"><div class="dbh"><h2>Seu time</h2>${dbStars(Math.round(baseOvr(t)))}</div><div class="dbtr">${crest(t,'sm')}<b>${esc(t.name)}</b><span class="dbtb"><button class="ghost" data-act="mgrView" data-v="mercado">Mercado</button><button class="ghost" data-act="mgrView" data-v="elenco">Gerenciar</button></span></div><div class="dbps">${t.pl.map(card).join('')}</div></section>`;
+  return `<section class="db dbt"><div class="dbh"><h2>Seu time</h2>${dbStars(Math.round(baseOvr(t)))}</div><div class="dbtr">${crest(t,'sm')}<b>${esc(t.name)}</b><span class="dbtb"><button class="ghost" data-act="mgrView" data-v="mercado">Mercado</button><button class="ghost" data-act="mgrView" data-v="elenco">Gerenciar</button></span></div>${stripHTML(t)}</section>`;
 }
 function dbCashHTML(t,m){
   const pay=payroll(t);
@@ -7584,10 +7968,9 @@ function inicioHTML(t,m){
   const nxt=!cur?'Virada de ano':sp?spLabel(sp):cur.l;
   h+=(draftOn()?'':planHTML(m));
   const dash=`<div class="dbtop">${evHTML(m)}${cevHTML(m)}${dbHTML(t,m)}</div>`;
-  h+=`<section class="pn"><div class="rowc"><h2 style="margin:0">Escalação</h2><span class="chem"><small>Entrosamento</small><b class="num">${chem(t)}</b></span></div>${pitchHTML(t)}<p class="note" style="margin:6px 0 0">Entrosamento: jogadores do mesmo país e do mesmo continente se entendem melhor. Reservas e vendas ficam na aba Elenco.</p></section>`;
   h+=staffHTML(m);
   let h2='';
-  h2+=`<section class="pn"><h2>Clima do clube</h2><div class="kv"><div><small>Moral do elenco</small><b class="num">${Math.round(m.mor)}</b></div><div><small>Reputação</small><b class="num">${Math.round(m.rep)}</b></div><div><small>Confiança</small><b class="num">${m.sat}%</b></div><div><small>Preparação</small><b class="num">${Math.round((m.prep||0)*100)}</b></div><div><small>Fadiga</small><b class="num">${Math.round(m.fat||0)}</b></div></div><p class="note" style="margin:6px 0 0">Moral sobe com vitórias e treino mental e cai com derrotas; ela mexe um pouco nas chances. A reputação define que clubes aceitam você se for demitido.</p></section>`;
+  h2+=`<section class="pn"><h2>Clima do clube</h2><div class="kv"><div><small>Moral do elenco</small><b class="num">${Math.round(m.mor)}</b></div><div><small>Reputação</small><b class="num">${Math.round(m.rep)}</b></div><div><small>Confiança</small><b class="num">${m.sat}%</b></div><div title="Jogadores do mesmo país e do mesmo continente se entendem melhor"><small>Entrosamento</small><b class="num">${chem(t)}</b></div><div><small>Preparação</small><b class="num">${Math.round((m.prep||0)*100)}</b></div><div><small>Fadiga</small><b class="num">${Math.round(m.fat||0)}</b></div></div><p class="note" style="margin:6px 0 0">Moral sobe com vitórias e treino mental e cai com derrotas; ela mexe um pouco nas chances. A reputação define que clubes aceitam você se for demitido.</p></section>`;
   h2+=trHTML(t,m);
   const fo=m.focus||'eq';
   h+=`<section class="pn"><h2>Foco de treino</h2><div class="pills" style="margin-bottom:6px">${FOCUS.map(([k,l])=>`<button class="pill" aria-pressed="${fo===k}" data-act="focus" data-v="${k}">${l}</button>`).join('')}</div><p class="note" style="margin:0">${FOCUS.find(x=>x[0]===fo)[2]} Vale na virada de ano.</p></section>`;
@@ -7629,7 +8012,9 @@ function vMgr(){
     if(S.tf&&S.tf.length)h+=`<section class="pn msid"><h2>Movimentação do mercado</h2><ul class="lines">${S.tf.slice(0,6).map(x=>`<li>${esc(x.t)}</li>`).join('')}</ul></section>`;
     h+=`<section class="pn"><h2>Mercado</h2><p class="note" style="margin:0 0 6px">${m.cheat?'Cheats ligados: contratar não custa nada. O jogador vai para as suas reservas e o time vendedor contrata outro no lugar.':`O jogador comprado vai para as suas reservas, sem trocar com ninguém. O time vendedor é obrigado a contratar outro no lugar. Depois é só promovê-lo a titular.`}</p><div id="mlist">${mlistHTML()}</div></section>`;
   }else{
-    h+=`<section class="pn"><h2>Agentes livres</h2><p class="note" style="margin:0 0 6px">Quem não for contratado se aposenta na virada de ano. Eles chegam como reservas.</p>${m.fa.map(p=>{const fee=r1(mvOf(p)*.6*PM());const ok=m.cheat||(open&&m.cash-fee>=0);const why=!open?'Fechada':'Sem caixa';return `<div class="mrow">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos${p.age<=23?` · potencial ${potTxt(p)}`:''}</small></span><button class="buy" data-act="mgrSign" data-v="${esc(p.n)}"${ok?'':' disabled'}>${ok?(m.cheat?'Contratar':'Contratar '+fmtM(fee).replace('US$ ','')):why}</button></div>`}).join('')}</section>`;
+    const L=FA().filter(p=>mgrRole===5||p.role===mgrRole).sort((x,y)=>y.r-x.r||y.pot-x.pot);
+    const fan=p=>{const fr=p.lt!=null?T(p.lt):null,yy=p.fy!=null?S.year-p.fy:0;return (fr?`saiu do ${esc(fr.name)}`:'sem clube')+(yy>0?` · livre há ${yy} ano${yy>1?'s':''}`:'')};
+    h+=`<section class="pn"><h2>Agentes livres · ${FA().length}</h2><p class="note" style="margin:0 0 6px">Jogadores que terminaram o contrato e não renovaram. Os clubes também contratam daqui durante a janela; quem fica 2 anos sem clube se aposenta. Eles chegam às suas reservas com contrato de 3 anos.</p><div class="pills">${RN.map((r,i)=>`<button class="pill" aria-pressed="${mgrRole===i}" data-act="mgrRole" data-v="${i}">${r}</button>`).join('')}<button class="pill" aria-pressed="${mgrRole===5}" data-act="mgrRole" data-v="5">Todos</button></div>${L.length?'':'<p class="empty">Ninguém livre nesta posição. Novos livres aparecem na virada de ano, quando os contratos vencem.</p>'}${L.slice(0,30).map(p=>{const fee=r1(mvOf(p)*.6*PM());const ok=m.cheat?m.cash>=0:open;const why='Fechada';return `<div class="mrow">${pav(p)}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos${p.age<=23?` · potencial ${potTxt(p)}`:''} · ${fan(p)}</small></span><button class="buy" data-act="${m.cheat?'mgrSign':'ngFA'}" data-v="${esc(p.n)}"${ok?'':' disabled'}>${ok?(m.cheat?'Contratar':'Negociar · '+fmtM(fee).replace('US$ ','')):why}</button></div>`}).join('')}${L.length>30?`<p class="note">Mostrando os 30 melhores de ${L.length}.</p>`:''}</section>`;
   }
   return h+`</div>`+logHTML(m)+`</div>`;
 }
@@ -7650,12 +8035,12 @@ function mfHTML(){
 function mlistHTML(){
   const t=mgrT(),q=mgrQ.trim().toLowerCase();
   let rows=S.teams.filter(x=>x!==t).flatMap(x=>x.pl.map(p=>({p,x,c:canBuy(p,x)})));
-  rows=q?rows.filter(r=>r.p.n.toLowerCase().includes(q)):rows.filter(r=>r.p.role===mgrRole);
+  rows=q?rows.filter(r=>r.p.n.toLowerCase().includes(q)):rows.filter(r=>mgrRole===5||r.p.role===mgrRole);
   rows=rows.filter(r=>mfOk(r.p,r.c.net));
   const key={r:r=>-r.p.r,pot:r=>-r.p.pot*100-r.p.r,net:r=>(r.c.net==null?mvOf(r.p):r.c.net),age:r=>r.p.age*100-r.p.r}[MF.sort]||(r=>-r.p.r);
   rows=rows.sort((a,b)=>key(a)-key(b)).slice(0,q?40:25);
   if(!rows.length)return '<p class="empty">Nenhum jogador com esses filtros.</p>';
-  return rows.map(({p,x})=>{const c=canBuy(p,x);return `<div class="mrow">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${esc(x.name)} · ${p.age} anos${p.pot>p.r?` · potencial ${p.pot}`:''}${c.net!=null&&!S.mgr.cheat?` · pedida ${fmtM(c.net)}`:''}</small></span>${S.mgr.cheat?`<button class="buy" data-act="mgrBuy" data-v="${esc(p.n)}"${c.ok?'':' disabled'}>Contratar</button>`:`<button class="buy" data-act="mgrNeg" data-v="${esc(p.n)}"${c.ok?'':' disabled'}>${c.ok?(NG===p.n?'Fechar':'Propor'):c.why}</button>`}</div>${NG===p.n&&c.ok?bidsHTML(p,c):''}`}).join('');
+  return rows.map(({p,x})=>{const c=canBuy(p,x);return `<div class="mrow">${pav(p)}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${esc(x.name)} · ${p.age} anos${p.pot>p.r?` · potencial ${p.pot}`:''}${c.net!=null&&!S.mgr.cheat?` · pedida ${fmtM(c.net)}`:''}</small></span>${S.mgr.cheat?`<button class="buy" data-act="mgrBuy" data-v="${esc(p.n)}"${c.ok?'':' disabled'}>Contratar</button>`:`<button class="buy" data-act="ngClub" data-v="${esc(p.n)}"${c.ok?'':' disabled'}>${c.ok?'Negociar':c.why}</button>`}</div>`}).join('');
 }
 function coachLegHTML(m){
   const st=(m.past||[]).concat(m.hist&&m.hist.length?[{tn:m.tn||(mgrT()&&mgrT().name)||'Clube atual',from:m.since,to:m.hist[m.hist.length-1].y,hist:m.hist,now:!m.fired}]:[]);
@@ -7799,11 +8184,11 @@ function slqAIDay(){
   if(S.mgr&&mgrT())news(`${t.name} está de olho em ${x.n}, da Solo Queue ${x.srv}.`);
 }
 /* contratar: o OVR da lista é estimativa de olheiro; no palco ele pode render um pouco menos ou mais (a peneira mostra antes) */
-function slqSign(id){
+function slqSign(id,price){
   const m=S.mgr,t=mgrT();if(!m||!t)return;mEnsure();
   const x=slqList().find(z=>z.id===id);if(!x||!x.ok)return;
   if(!mOpen()){msg='Janela fechada';return}
-  const fee=slqFee(x);if(m.cash-fee<0){msg='Sem caixa';return}
+  const fee=m.cheat?0:price!=null?price:slqFee(x);if(m.cash-fee<0){msg='Sem caixa';return}
   const q=slqS(),sw=q.sc[id]!=null?q.sc[id]:slqSw(),r=clamp(x.r+sw,60,95);
   const p={n:x.n,role:x.role,r,age:x.age,pot:Math.max(r,x.pot),f:0,d:0,nat:x.nat,slq:x.id,bought:S.year,paid:fee};
   m.bench.push(p);mCtr(p,2);
@@ -7824,7 +8209,7 @@ function slqHTML(m){
     if(x.st==='dup')return `<button class="buy" disabled>Já no jogo</button>`;
     const fee=slqFee(x),ok=open&&m.cash-fee>=0;
     const sf=slqScFee(),sc=x.sc!=null?'':`<button class="mini" data-act="slqScout" data-v="${x.id}"${m.cash-sf>=0?'':' disabled'}>Peneira${sf?' '+fmtM(sf).replace('US$ ',''):''}</button>`;
-    return `${sc}<button class="buy" data-act="slqSign" data-v="${x.id}"${ok?'':' disabled'}>${!open?'Fechada':!ok?'Sem caixa':m.cheat?'Contratar':'Contratar '+fmtM(fee).replace('US$ ','')}</button>`;
+    return `${sc}<button class="buy" data-act="${m.cheat?'slqSign':'ngSQ'}" data-v="${x.id}"${open?'':' disabled'}>${!open?'Fechada':m.cheat?'Contratar':'Negociar · '+fmtM(fee).replace('US$ ','')}</button>`;
   };
   const ovr=x=>x.sc!=null&&x.ok?`<span class="slo" title="OVR de palco revelado na peneira">${hx(clamp(x.r+x.sc,60,95),'sm')}<small>palco</small></span>`:hx(x.r,'sm');
   const warn=x=>x.int?`<small class="slw">⚠ ${esc(T(x.int.t).name)} está de olho${x.int.d<=S.day?' e pode assinar hoje':x.int.d-S.day===1?' e pode assinar amanhã':''}</small>`:'';
@@ -7944,7 +8329,7 @@ function fixRoster(){
     delete pool[x[0]];t.pl[i]=np;
   });
   /* quem sobrou sem time (não reaproveitado) vira agente livre */
-  Object.keys(pool).forEach(n=>{const p=pool[n];if(!S.teams.concat(S.d2||[]).some(u=>u.pl.includes(p))){if(S.mgr&&S.mgr.fa)S.mgr.fa.push({...p,nat:(S.pdb[n]&&S.pdb[n].nat)||NATM[n]})}});
+  Object.keys(pool).forEach(n=>{const p=pool[n];if(!S.teams.concat(S.d2||[]).some(u=>u.pl.includes(p))){faRelease({...p,nat:(S.pdb[n]&&S.pdb[n].nat)||NATM[n]})}});
   (S.d2||[]).forEach(t=>{
     const real=D2P[t.name];if(!real||t.id===mg)return;
     real.forEach((rp,i)=>{
@@ -7956,7 +8341,7 @@ function fixRoster(){
     });
   });
 }
-function ensureD2(){ensureD2a();if(S)ALLT().forEach(t=>{if(!t.bn)ensureBn(t)})}
+function ensureD2(){ensureD2a();if(S){ALLT().forEach(t=>{if(!t.bn)ensureBn(t)});faSeed()}}
 function closeD2(lg,tag,st,m1,m2,fm){
   const top=st.slice(0,4).map(r=>r.t);
   const third=[T(loserOf(m1)),T(loserOf(m2))].sort((a,b)=>top.indexOf(a)-top.indexOf(b));
@@ -8112,15 +8497,17 @@ function aiMarketDay(){
     (x.bn||[]).forEach((b,j)=>{if(b.role===i&&!b.pc&&b.r>=lo)c.push({k:'b',x,p:b,j})});
   });
   D2L().forEach(d=>{if(d.id===mt+100)return;d.pl.forEach((p,j)=>{if(p.role===i&&!p.pc&&p.r>=lo)c.push({k:'d',x:d,p,j})})});
+  FA().forEach(p=>{if(p.role===i&&!p.pc&&p.r>=lo&&(nd||p.r<=hi+2))c.push({k:'f',p})});
   if(nd&&!c.length){nd.tries=(nd.tries||0)+1;if(nd.tries>6)nd.target-=2;return}
   if(!c.length)return;
   if(nd)c.sort((a,b)=>Math.abs(a.p.r-nd.target)-Math.abs(b.p.r-nd.target));else c.sort((a,b)=>b.p.r-a.p.r);
   const z=c[Math.floor(Math.random()*Math.min(3,c.length))],p=z.p;
   if(z.k==='t'){z.x.pl[i]=cur;buyer.pl[i]=p;if(p.r-cur.r>=4&&(!nd||nd.depth<1))setNeed(z.x,i,p.r-3,p.n,(nd?nd.depth:0)+1)}
   else if(z.k==='b'){z.x.bn[z.j]=cur;buyer.pl[i]=p}
+  else if(z.k==='f'){FA().splice(FA().indexOf(p),1);delete p.fy;delete p.lt;p.ctr=1+Math.floor(Math.random()*3);buyer.pl[i]=p;buyer.bn=buyer.bn||[];buyer.bn.push(cur)}
   else{z.x.pl[z.j]=cur;buyer.pl[i]=p}
   pd(p.n).role=i;pd(cur.n).role=i;
-  const how=z.k==='b'?`reserva do ${z.x.name}`:z.k==='d'?`D2 (${z.x.name})`:z.x.name,line=`${dTxt(S.day)}: ${buyer.name} contrata ${p.n} (${how}) para a vaga de ${RN[i]||'titular'}; ${cur.n} sai.`;
+  const how=z.k==='f'?'livre no mercado':z.k==='b'?`reserva do ${z.x.name}`:z.k==='d'?`D2 (${z.x.name})`:z.x.name,line=`${dTxt(S.day)}: ${buyer.name} contrata ${p.n} (${how}) para a vaga de ${RN[i]||'titular'}; ${cur.n} sai.`;
   S.tf.unshift({y:S.year,t:line});S.tf=S.tf.slice(0,40);
   const mine=pcT();
   if(p.r>=84||(mine&&(mine===buyer||mine===z.x)))news(mine===buyer?`Seu time reforça a ${RN[i]||'posição'}: chega ${p.n} (${p.r}).`:`${buyer.name} contrata ${p.n}.`);
@@ -8167,6 +8554,7 @@ function nextSeason(){
       ot.slice(0,14).forEach(x=>x.pl.forEach(p=>{if(p.age<=30){p.r=Math.min(96,p.r+Math.floor(b)+(Math.random()<b%1?1:0));p.pot=Math.max(p.pot,p.r)}}));
       news('Os rivais se reforçam para alcançar o seu time.');}
   }}
+  faYear(off);aiContracts(off);
   aiTransfers();
   /* times fracos contratam o melhor da D2 da função; o jogador rebaixado vai para a D2 */
   S.teams.filter(t=>t.id!==mid).map(t=>({t,i:t.pl.reduce((m,p,j)=>p.r<t.pl[m].r?j:m,0)})).filter(x=>!x.t.pl[x.i].pc&&x.t.pl[x.i].r<78).sort((a,b)=>a.t.pl[a.i].r-b.t.pl[b.i].r).slice(0,8).forEach(x=>{
@@ -8322,9 +8710,9 @@ function dayOffer(){
 let MAILSEQ=0;
 function mailFlow(){
   const m=S.mgr;
-  if(m&&mgrT()&&m.fa){
-    m.fm=(m.fm||[]).filter(n=>m.fa.some(p=>p.n===n));
-    if(winOpen()&&m.fm.length<3&&Math.random()<.18){const c=m.fa.filter(p=>!m.fm.includes(p.n)).sort((a,b)=>b.pot-a.pot).slice(0,6);if(c.length){m.fm.push(pick(c).n);MAILSEQ++}}
+  if(m&&mgrT()){
+    m.fm=(m.fm||[]).filter(n=>FA().some(p=>p.n===n));
+    if(winOpen()&&m.fm.length<3&&Math.random()<.18){const c=FA().filter(p=>!m.fm.includes(p.n)).sort((a,b)=>b.pot-a.pot).slice(0,6);if(c.length){m.fm.push(pick(c).n);MAILSEQ++}}
   }
   const pc=S.pc;
   if(pcAct()&&pc.pend&&pc.pend.length&&Math.random()<.3){pc.offers=pc.offers||[];pc.offers.push(pc.pend.shift());MAILSEQ++}
@@ -8335,7 +8723,7 @@ function dayTick(){
   if(S.mgr&&mgrT())mgrDay();
   if(Math.random()<.05)dayNews();
   if(winOpen()&&Math.random()<.6)aiMarketDay();
-  slqAIDay();
+  slqAIDay();faAIDay();
   if(S.mgr&&mgrT()&&winOpen()&&Math.random()<(Object.keys(S.mgr.listed||{}).length?.25:.14)&&(S.mgr.offers||[]).length<3)dayOffer();
 }
 function advDay(n){
@@ -8416,7 +8804,7 @@ function fixNat(){
 const ISO2={KOR:'KR',CHN:'CN',USA:'US',CAN:'CA',FRA:'FR',GER:'DE',ESP:'ES',DEN:'DK',SWE:'SE',POL:'PL',GRE:'GR',TUR:'TR',CZE:'CZ',UKR:'UA',BRA:'BR',VIE:'VN',TWN:'TW',JPN:'JP',AUS:'AU',ARG:'AR',CHI:'CL',SLO:'SI',BUL:'BG',EST:'EE',BEL:'BE',SVK:'SK',MEX:'MX',NED:'NL',ITA:'IT',POR:'PT',LTU:'LT',ROU:'RO',CRO:'HR',FIN:'FI',NOR:'NO',SRB:'RS',HUN:'HU',IRL:'IE',THA:'TH',PHI:'PH',IDN:'ID',MAS:'MY',SIN:'SG',HKG:'HK',NZL:'NZ',COL:'CO',PER:'PE',URU:'UY',IND:'IN',KAZ:'KZ'};
 const flagOn=()=>S&&S.opt&&S.opt.flags!=null?S.opt.flags:/Android|iPhone|iPad|Macintosh|Mac OS/.test((typeof navigator!=='undefined'&&navigator.userAgent)||'');
 const natTxt=c=>{const i=ISO2[c];return (flagOn()&&i?String.fromCodePoint(...[...i].map(x=>127397+x.charCodeAt(0)))+' ':'')+c};
-const natC=n=>{const d=S.pdb[n];let c=d&&d.nat;if(!c&&S.mgr&&S.mgr.fa){const f=S.mgr.fa.find(x=>x.n===n);c=f&&f.nat}return c||NATM[n]||''};
+const natC=n=>{const d=S.pdb[n];let c=d&&d.nat;if(!c&&S.fa){const f=S.fa.find(x=>x.n===n);c=f&&f.nat}return c||NATM[n]||''};
 
 /* Copa do Mundo de LoL: de 4 em 4 anos (2026, 2030...), 8 seleções com o melhor de cada posição */
 const CUPY=y=>y>=2026&&(y-2026)%4===0;
@@ -8783,9 +9171,18 @@ function legendYear(n){
 }
 const yrsTxt=a=>a.length<=3?a[0]+a.slice(1).map(y=>'·'+String(y).slice(2)).join(''):`${a.length}× · ${a[a.length-1]}`;
 const legR=n=>{const h=S.hof&&S.hof[n];return h?Math.round(clamp(84+sc(h)/6,84,97)):80};
+/* campeão assinatura (maior domínio na posição): imagem de quem não tem foto */
+const sigCh=(n,role)=>{const l=CH[role==null?2:role]||CH[2];let b=l[0][0],bv=-1;l.forEach(([c])=>{const v=mastOf(n,c);if(v>bv){bv=v;b=c}});return b};
+/* estilo das cartas (Ajustes): 'foto' = foto grande como no painel Seu time; 'classica' = carta estilo FIFA */
+const cardFoto=()=>!(S&&S.opt&&S.opt.cards==='classica');
 function fut(o,cls=''){
-  const t=tier(o.r),st=futStats(o.n,o.r,o.role),c=natC(o.n),tm=o.team;
+  const t=tier(o.r),c=natC(o.n),tm=o.team;
   const ret=!tm||!!(S.pdb&&S.pdb[o.n]&&S.pdb[o.n].ret);
+  if(cardFoto()){
+    const ph=phHas(o.n),art=ph?'':chArt(sigCh(o.n,o.role));
+    return `<button class="fut fph t${t} ${cls}${ret?' ret':''}${S.inj&&S.inj[o.n]?' inj':''}" data-act="player" data-v="${esc(o.n)}" aria-label="${esc(o.n)}, ${o.r}"><span class="fpi${ph?'':' ch'}">${ph?phImg(o.n):art?`<img src="${art}" alt="" loading="lazy" decoding="async" draggable="false"><i>${esc(String(o.n).slice(0,2).toUpperCase())}</i>`:`<i>${esc(String(o.n).slice(0,2).toUpperCase())}</i>`}</span><span class="fpo num">${o.r}</span>${tm?`<span class="fps">${crest(tm,'')}</span>`:''}${o.f&&Math.abs(o.f)>=.5?`<span class="fpf ${o.f>0?'up':'dn'}">${o.f>0?'▲':'▼'}${Math.abs(o.f).toFixed(1)}</span>`:''}<span class="fpb"><small>${RN[o.role]||''}${c?' · '+natTxt(c):''}</small><b>${esc(o.n)}</b></span></button>`;
+  }
+  const st=futStats(o.n,o.r,o.role);
   return `<button class="fut t${t} ${cls}${ret?' ret':''}${S.inj&&S.inj[o.n]?' inj':''}" data-act="player" data-v="${esc(o.n)}" aria-label="${esc(o.n)}, ${o.r}">
   <span class="fo num">${o.r}</span><span class="fr">${RN[o.role]||''}</span>${c?`<span class="fn">${natTxt(c)}</span>`:''}${tm?`<span class="fs">${crest(tm,'')}</span>`:''}
   <span class="fa${phHas(o.n)?' ph':''}">${phHas(o.n)?phImg(o.n):AVA}</span><span class="fnm" style="font-size:${o.n.length>9?Math.max(9.5,Math.floor(150/o.n.length*10)/10):17}px">${esc(o.n)}</span>
@@ -8793,6 +9190,8 @@ function fut(o,cls=''){
   ${o.f&&Math.abs(o.f)>=.5?`<span class="ff">${o.f>0?'▲':'▼'}${Math.abs(o.f).toFixed(1)}</span>`:''}</button>`;
 }
 const hx=(r,c='')=>`<span class="hx t${tier(r)} ${c}">${r}</span>`;
+/* foto do jogador com o OVR no canto; sem foto, a arte do campeão assinatura com as iniciais */
+const pav=p=>{const ph=phHas(p.n),a=ph?'':chArt(sigCh(p.n,p.role));return `<span class="pav t${tier(p.r)}${ph?'':' ch'}">${ph?phImg(p.n):(a?`<img src="${a}" alt="" loading="lazy" decoding="async" draggable="false">`:'')+`<i>${esc(String(p.n).slice(0,2).toUpperCase())}</i>`}<b class="num">${p.r}</b></span>`};
 /* listas de jogadores em cartinhas: cada item = carta (fut) + legenda; a grade se ajusta à largura */
 const teamOf=nm=>ALLT().find(t=>t.name===nm)||null;
 const roleOf=n=>{const d=S.pdb&&S.pdb[n];return d&&d.role!=null?d.role:2};
@@ -9352,7 +9751,7 @@ function mailInv(){
   const t=mgrT();if(!t||cevChamp())return [];const d=S.day;
   return cevL().filter(e=>e.st===0&&!e.sk&&d>=CEVT[e.id].d0&&d<=CEVT[e.id].d1&&cevElig(e,t));
 }
-function mailFA(){const m=S.mgr;if(!m||!mgrT()||!winOpen()||!m.fa||!m.fm)return [];return m.fm.map(n=>m.fa.find(p=>p.n===n)).filter(Boolean)}
+function mailFA(){const m=S.mgr;if(!m||!mgrT()||!winOpen()||!m.fm)return [];return m.fm.map(n=>FA().find(p=>p.n===n)).filter(Boolean)}
 /* resumo do ano que acabou: chega como uma mensagem na caixa de e-mail */
 function mailRecap(){return S.phase===0&&!S.season.sp&&S.recap&&S.recap.y===S.year-1?S.recap:null}
 function mailOf(){const m=S.mgr;if(!m||!mgrT()||!m.offers)return [];return m.offers.map((o,i)=>({o,i,f:mFind(o.n)})).filter(x=>x.f)}
@@ -9370,9 +9769,9 @@ function mailHTML(){
     h+=`<small class="k sqk">Torneios</small>`;
     h+=inv.length?inv.map(e=>{const c=CEVT[e.id];return `<div class="sqr"><span><b>${esc(c.n)}</b><small>${dTxt(c.d0)} a ${dTxt(c.d1)}${c.pz?' · prêmio '+fmtM(c.pz):''}</small></span>${c.k==='ex'?`<button class="ghost" data-act="cevPlay" data-v="ex|${e.id}|0">Participar</button>`:`<button class="ghost" data-act="tab" data-v="mgr">Abrir convite</button>`}${e.pl?'':`<button class="ghost" data-act="cevSkip" data-v="${e.id}">Recusar</button>`}</div>`}).join(''):`<p class="note" style="margin:0">Nenhum convite no momento.</p>`;
     const of=mailOf();
-    if(of.length)h+=`<small class="k sqk">Propostas por seus jogadores</small>`+of.map(({o,i,f})=>`<div class="sqr"><span><b>${lk(f.p.n)}</b><small>${esc(S.teams[o.to].name)} oferece ${fmtM(o.price)} · OVR ${f.p.r}${f.k==='pl'?(bestRep(f.p.role)?' · reserva assume a vaga':' · sem reserva'):f.k==='acad'?' · da base':' · das reservas'}</small></span><button class="ghost" data-act="mgrOffer" data-v="${i}|y" ${mOpen()&&(f.k!=='pl'||!!bestRep(f.p.role))?'':'disabled'}>${mOpen()?'Aceitar':'Janela fechada'}</button><button class="ghost" data-act="mgrOffer" data-v="${i}|n">Recusar</button></div>`).join('');
+    if(of.length)h+=`<small class="k sqk">Propostas por seus jogadores</small>`+of.map(({o,i,f})=>`<div class="sqr"><span><b>${lk(f.p.n)}</b><small>${esc(S.teams[o.to].name)} oferece ${fmtM(o.price)} · OVR ${f.p.r}${f.k==='pl'?(bestRep(f.p.role)?' · reserva assume a vaga':' · sem reserva'):f.k==='acad'?' · da base':' · das reservas'}</small></span><button class="ghost" data-act="ngOff" data-v="${i}">Abrir conversa</button><button class="ghost" data-act="mgrOffer" data-v="${i}|n">Recusar</button></div>`).join('');
     h+=`<small class="k sqk">Jogadores livres</small>`;
-    h+=fa.length?fa.map(f=>`<div class="sqr"><span><b>${lk(f.n)}</b><small>${RN[f.role]} · OVR ${f.r} · pot. ${Math.round(f.pot)} · agente livre</small></span><button class="ghost" data-act="mgrSign" data-v="${esc(f.n)}">Contratar</button></div>`).join(''):`<p class="note" style="margin:0">${winOpen()?'Nenhum jogador livre se ofereceu.':'Janela fechada: propostas voltam antes do próximo split.'}</p>`;
+    h+=fa.length?fa.map(f=>`<div class="sqr"><span><b>${lk(f.n)}</b><small>${RN[f.role]} · OVR ${f.r} · pot. ${Math.round(f.pot)} · agente livre</small></span><button class="ghost" data-act="ngFA" data-v="${esc(f.n)}">Conversar</button></div>`).join(''):`<p class="note" style="margin:0">${winOpen()?'Nenhum jogador livre se ofereceu.':'Janela fechada: propostas voltam antes do próximo split.'}</p>`;
   }
   if(pcAct()&&S.pc.test)h+=`<small class="k sqk">Convocação do técnico</small>`+ptHTML(true);
   const pc=S.pc;
@@ -9949,6 +10348,7 @@ function poolHTML(n,role,tm){
   const row=(a,o)=>a.map((x,k)=>{const i=k+o;return `<div class="pool"><span class="ct sm" style="--h:${hs(x.c)%360}"><b>${esc(chIni(x.c))}</b></span><span class="pn2"><b>${esc(x.c)}${i===0?' <em class="sig">assinatura</em>':''}</b><small>${archL(x.a)}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}</small></span><span class="bar"><i style="width:${x.v}%"></i></span><span class="num pv">${x.v}</span></div>`}).join('');
   return `<section class="pn"><h2>Pool de campeões</h2><p class="note" style="margin:0 0 8px">Domínio de ${esc(n)} nos campeões de ${RN[role]}. Mostra os 5 melhores; vale no draft e a tag indica o meta atual (${esc(metaName())}).${tr?' Em treino de pool.':''}</p>${row(l.slice(0,5),0)}${l.length>5?`<details class="det" style="margin-top:6px"><summary>Mostrar os outros ${l.length-5}</summary>${row(l.slice(5),5)}</details>`:''}</section>`;
 }
+const faFind=n=>{const p=(S.fa||[]).find(x=>x.n===n);return p?{p,t:{name:'Sem clube (agente livre)',lg:'',d:0,yh:[],id:-1}}:null};
 function bnFind(n){for(const t of ALLT()){const p=(t.bn||[]).find(x=>x.n===n);if(p)return{p,t:{name:t.name+' (reserva)',lg:t.lg,d:t.d,yh:[],id:t.id,real:t}}}return null}
 function divTxt(t){if(!t||!t.lg)return'';const r=t.real||t,i=r.yh&&r.yh.length?pmInfo(r):{tag:''};return ` · ${r.d===2?'D2':'D1'} ${r.lg}${i.tag?' ('+i.tag+')':''}`}
 function cmdHTML(n){
@@ -9958,7 +10358,7 @@ function cmdHTML(n){
   return `<div class="cmd">${ly?`<div class="clg"><b>◆ Lenda</b><span>desde ${ly}${ret?' · aposentado em '+ret:''}</span></div>`:''}${t10?`<div class="ct10"><b>▲ Top 10</b><span>${t10}</span></div>`:''}</div>`;
 }
 function vPlayer(n){
-  const P=pmap()[n]||mExtra(n)||bnFind(n);
+  const P=pmap()[n]||mExtra(n)||bnFind(n)||faFind(n);
   const d=S.pdb[n]||{seasons:[],tl:[],ret:null,debut:null,role:null};
   const h=S.hof[n]||{pts:0,bd:0,wc:0,msi:0,lg:0,mvp:0};
   const ss=d.seasons,last=ss[ss.length-1];
@@ -10010,7 +10410,7 @@ function vTeam(id){
     o+=`<section class="pn sqreq"><div><b>Scrim</b><small>${bl?'Próximo adversário oficial: não dá para treinar contra ele.':pend?'Pedido enviado. A resposta chega na caixa de e-mail.':`Qualquer clube pode ser convidado, mas não é obrigado a aceitar (${Math.round(sqOdds(mt,t)*100)}% de chance).`}</small></div><button class="ghost" data-act="sqAsk" data-v="${t.id}" ${pend||bl?'disabled':''}>${pend?'Pedido enviado':'Pedir scrim'}</button></section>`}}
   o+=`<div class="shv v-${view}">`;
   if(view==='el'){
-    o+=`<section class="pn sh-p"><h2>Elenco atual</h2>${pitchHTML(t)}</section>`;
+    o+=`<section class="pn sh-p"><div class="dbh"><h2>Elenco atual</h2>${dbStars(Math.round(baseOvr(t)))}</div>${stripHTML(t)}</section>`;
     if(t.bn&&t.bn.length)o+=`<section class="pn sh-r"><h2>Reservas</h2><p class="note" style="margin:0 0 8px">Quando um titular se aposenta, o reserva da mesma função assume a vaga. Sem reserva, o time contrata um jogador mais fraco.</p>${fgrid(t.bn.map(p=>fcell({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f||0,team:t},`<span>${p.age} anos · pot. ${p.pot}</span>`)).join(''))}</section>`;
   }else if(view==='ti'){
     o+=shelfHTML(t);
@@ -10069,6 +10469,7 @@ function vSet(){
   `:''}</section>
   </div><div class="scol scol3">
   <section class="pn cmp"><button class="sgb" data-act="setg" data-v="ifc" aria-expanded="${!!setOpen.ifc}">Interface<span>▾</span></button>${setOpen.ifc?`<div class="sset"><h3>Sons</h3><p class="note" style="margin:0 0 10px">Efeitos curtos ao jogar, vencer, perder e conquistar títulos.</p><div class="pills" style="margin:0">${[[1,'Ligados'],[0,'Desligados']].map(([k,l])=>`<button class="pill" aria-pressed="${(sndOn()?1:0)===k}" data-act="snd" data-v="${k}">${l}</button>`).join('')}</div></div>
+  <div class="sset"><h3>Cartas dos jogadores</h3><p class="note" style="margin:0 0 10px">Foto: a foto ocupa a carta, como no painel Seu time. Clássica: carta com atributos.</p><div class="pills" style="margin:0">${[['foto','Foto'],['classica','Clássica']].map(([k,l])=>`<button class="pill" aria-pressed="${(k==='foto')===cardFoto()}" data-act="cards" data-v="${k}">${l}</button>`).join('')}</div></div>
   <div class="sset"><h3>Bandeiras</h3><p class="note" style="margin:0 0 10px">Mostra a bandeira ao lado do código do país. Em alguns aparelhos (como Windows) a bandeira aparece só como letras; nesse caso, desligue.</p><div class="pills" style="margin:0">${[['1','Ligadas'],['0','Desligadas']].map(([k,l])=>`<button class="pill" aria-pressed="${flagOn()===(k==='1')}" data-act="flags" data-v="${k}">${l}</button>`).join('')}</div></div>
   `:''}</section>
   <section class="pn cmp"><button class="sgb" data-act="setg" data-v="adv" aria-expanded="${!!setOpen.adv}">Avançado<span>▾</span></button>${setOpen.adv?`<div class="sset"><h3>Cheats</h3><p class="note" style="margin:0 0 10px">Verba infinita e janela de transferências sempre aberta. Valem para o time do modo carreira e dão para contratar qualquer jogador ou agente livre de graça.</p><div class="row" style="margin:0"><button class="ghost${S.mgr&&S.mgr.cheat?' danger':''}" data-act="cheat">${S.mgr&&S.mgr.cheat?'Desligar cheats':'Ligar cheats'}</button>${S.mgr&&S.mgr.tid!=null?'<button class="ghost" data-act="tab" data-v="mgr">Abrir Gestão</button>':''}</div></div>
@@ -10135,8 +10536,9 @@ function render(){
   const v={season:vSeason,bola:vBola,hof:vHof,teams:vTeams,set:vSet,prof:vProf,mgr:vMgr,menu:vMenu,pc:vPc,meta:vMeta,events:()=>`<div class="evx">${vEvents()}</div>`}[tab]();
   const ap=document.querySelector('#app');ap.className='wrap'+(animNext?' enter':'');animNext=false;
   if(LOAD&&Date.now()-LOAD.t0>LDMS+1500){setTimeout(ldEnd,0)}
-  ap.innerHTML=DEFS+header()+v+nav()+(msg&&tab!=='mgr'&&tab!=='set'?`<div class="toast" role="status">${esc(msg)}</div>`:'')+(DV?vDraft():'')+(LV&&!(DV&&DV.lv)?vLive():'')+(LOAD?vLoad():'');
+  ap.innerHTML=DEFS+header()+v+nav()+(msg&&tab!=='mgr'&&tab!=='set'?`<div class="toast" role="status">${esc(msg)}</div>`:'')+(DV?vDraft():'')+(LV&&!(DV&&DV.lv)?vLive():'')+(LOAD?vLoad():'')+(NGO?negoHTML():'');
   fitBrackets();
+  try{const c=document.querySelector('.ngchat');if(c)c.scrollTop=c.scrollHeight}catch(e){}
   /* abas roláveis da Gestão (celular): mantém a aba ativa à vista depois de redesenhar */
   try{const pa=document.querySelector('.mgr .pills.stk .pill[aria-pressed="true"]'),bar=pa&&pa.parentNode;if(bar&&bar.scrollWidth>bar.clientWidth)bar.scrollLeft=Math.max(0,pa.offsetLeft-(bar.clientWidth-pa.offsetWidth)/2)}catch(e){}
 }
@@ -10161,7 +10563,7 @@ function act0(a,v){
   else if(a==='evY'){const ys=evYears(),i=ys.indexOf(evM.y)+ +v;if(i>=0&&i<ys.length)evM.y=ys[i];evM.o=''}
   else if(a==='evO'){evM.o=evM.o===v?'':v}
   else if(a==='evGo'){const [y,k,lg]=String(v).split('|');evSel={y:+y,k,lg};evM=null;if(['fs','msi','wc'].includes(k)){brkO[k]=true;brkO[k+'s']=true;brkO.mpi=true;brkO.wpi=true}prof=null;pstack=[];tab='events';top=true}
-  else if(a==='tab'){detT='';detS='';tab=v;askReset=false;askEnd=false;lastPlayed=null;prof=null;pstack=[]}
+  else if(a==='tab'){NGO=null;detT='';detS='';tab=v;askReset=false;askEnd=false;lastPlayed=null;prof=null;pstack=[]}
   else if(a==='step'){detT='';detS='';if(daysLeft()>0){msg='Ainda não é dia de jogo. Avance o calendário.'}else if(dvNeeded()){dvOpen();top=true}else if(lvNeeded()){lvOpen();top=true}else{step();sndAfter();save();top=true}}
   else if(a==='dvBan'||a==='dvPick'){if(DV){const [r,c]=String(v).split('|'),t=SEQ[DV.i];if(t&&t[1]===DV.us&&!dvTaken(c)&&!(a==='dvPick'&&dvLk(c,DV.us))){
     if(a==='dvBan'&&t[0]==='ban'){DV.bans[DV.us].push(c);DV.i++;dvAdv()}
@@ -10259,6 +10661,7 @@ function act0(a,v){
   else if(a==='rnd'){S.opt=S.opt||{};S.opt.rnd=v;save()}
   else if(a==='dif'){S.opt=S.opt||{};S.opt.dif=v;save()}
   else if(a==='flags'){S.opt=S.opt||{};S.opt.flags=v==='1';save()}
+  else if(a==='cards'){S.opt=S.opt||{};S.opt.cards=v==='classica'?'classica':'foto';save()}
   else if(a==='spPick'){plPick(+v);save()}
   else if(a==='spRR'){while(S.season.sp&&S.season.sp.stage==='rr')spStep();save();top=true}
   else if(a==='spAll'){const ph=S.phase;let g2=0;CUPSIM=1;try{while(S.phase===ph&&g2++<400)step()}finally{CUPSIM=0}save();top=true}
@@ -10285,6 +10688,8 @@ function act0(a,v){
   else if(a==='slqReg'){if(SLQ[v])slqReg=v}
   else if(a==='slqSign'){slqSign(v);mAch();save()}
   else if(a==='slqScout'){slqScout(v);save()}
+  else if(a==='ngClub'){ngClub(v);save()}else if(a==='ngOff'){ngOff(v);save()}else if(a==='ngFA'){ngPlayer('fa',v);save()}else if(a==='ngSQ'){ngPlayer('sq',v);save()}
+  else if(a==='ngPick'){ngPick(v);mAch();save()}else if(a==='ngX'){NGO=null}
   else if(a==='mf'){const [k,x]=String(v).split('|');MF[k]=k==='sort'?x:+x}
   else if(a==='mgrSell'){mgrSell(v);mAch();save()}
   else if(a==='mgrCl'){if(S.mgr&&CLS[v]){S.mgr.rc=v;save()}}
@@ -10316,6 +10721,7 @@ document.addEventListener('keydown',e=>{
   if(e.ctrlKey||e.metaKey||e.altKey||e.repeat)return;
   const el=e.target,tg=el&&el.tagName;if(tg==='INPUT'||tg==='TEXTAREA'||tg==='SELECT'||(el&&el.isContentEditable))return;
   if(typeof LV!=='undefined'&&LV)return;
+  if(NGO){if(e.key==='Escape'){e.preventDefault();act('ngX')}return}
   const k=e.key.toLowerCase(),q=sel=>document.querySelector(sel);
   let b=null;
   if(/^[1-9]$/.test(k)){const nb=document.querySelectorAll('.nav .nb');b=nb[+k-1]}

@@ -1,7 +1,7 @@
 /* caixa de e-mail: ofertas graduais, pedido de scrim feito na aba Elencos com resposta por e-mail, resumo do ano, data dd/mm/aaaa */
 const {load,run}=require('./harness.js');
 const ctx=load(require('path').join(__dirname,'..','..','index.html'));
-run(ctx,`S.opt=S.opt||{};S.mgr={tid:3,dr:null,bench:[],acad:[],cash:30,mor:60,rep:50,sat:60,fa:genFA(),offers:[],log:[],focus:'eq'};mEnsure();S.day=1;S.phase=0;S.season.sp=null;`);
+run(ctx,`S.opt=S.opt||{};S.mgr={tid:3,dr:null,bench:[],acad:[],cash:30,mor:60,rep:50,sat:60,offers:[],log:[],focus:'eq'};mEnsure();S.day=1;S.phase=0;S.season.sp=null;`);
 let bad=0;const T=(ok,m)=>{console.log((ok?'OK  ':'FALHA ')+m);if(!ok)bad++};
 T(run(ctx,`dFull(1)`)==='01/01/'+run(ctx,`S.year`),'1 de janeiro = 01/01/ano');
 T(run(ctx,`dFull(365)`)==='31/12/'+run(ctx,`S.year`),'dia 365 = 31/12/ano');
