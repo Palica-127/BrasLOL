@@ -508,6 +508,23 @@ h1{letter-spacing:.02em}
 /* Gestão (treinador) */
 .mgc>.pn:last-child{margin-bottom:14px}
 .mtool{margin-bottom:2px}
+/* Solo Queue: topo do ladder de cada região, contratável */
+.slr{display:grid;grid-template-columns:30px 46px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line);font-size:14px}
+.slr .slk{font:700 15px var(--d);color:var(--muted);text-align:center}
+.slr.top .slk{color:var(--gold)}
+.sla{display:block;width:46px;height:56px;overflow:hidden;border:1px solid var(--line);background:var(--bg2)}
+.sla img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top}
+.slr .who{min-width:0;overflow-wrap:anywhere}
+.slr .who b{font-size:15px}
+.slr .who small{display:block;font-size:12px;color:var(--muted)}
+.slr .who .tag{margin-left:6px}
+.slc{display:flex;gap:4px;margin-top:5px}
+.slc img{width:22px;height:22px;border:1px solid var(--line);display:block}
+.slx{display:flex;align-items:center;gap:8px}
+.slr.off{opacity:.55}
+/* celular: as abas da Gestão ficam em uma linha rolável em vez de quebrar em 3 linhas e cobrir a tela */
+@media (max-width:999px){.mgr .pills.stk{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}.mgr .pills.stk::-webkit-scrollbar{display:none}.mgr .pills.stk .pill{flex:none;white-space:nowrap}}
+@media (max-width:520px){.slr{grid-template-columns:24px 40px minmax(0,1fr)}.sla{width:40px;height:50px}.slx{grid-column:2/-1;justify-content:flex-end}}
 @media (min-width:1000px){
   .mgr{grid-column:1/-1}
   .mgh{display:grid;grid-template-columns:minmax(230px,1fr) minmax(220px,.8fr) minmax(0,1.5fr);column-gap:28px;align-items:center;padding:16px 22px;background:linear-gradient(100deg,rgba(40,60,170,.7),rgba(11,18,64,.85) 60%)}
@@ -529,6 +546,7 @@ h1{letter-spacing:.02em}
   .mgv.v-mercado>.mtool .search{max-width:520px}
   .mgv.v-mercado #mlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:32px}
   .mgv.v-mercado #mlist>.bids,.mgv.v-mercado #mlist>.empty{grid-column:1/-1}
+  .mgv.v-soloq .sll{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:32px}
   .mgr>.pn:last-child{column-count:2;column-gap:32px}
   .mgr>.pn:last-child>h2{column-span:all}
   .mgr>.pn:last-child li{break-inside:avoid}
@@ -7567,7 +7585,7 @@ function vMgr(){
   <div class="ovb" style="height:7px;margin-top:8px"><i style="width:${m.sat}%"></i></div></div>
   <div class="mh3"><p class="note"><b>Meta da diretoria:</b> ${goalTxt(m,t)}.</p>${m.sg?`<p class="note"><b>Metas por split:</b> ${sgTxt(m)}.</p>`:''}
   <p class="note" style="margin-top:4px">${m.cheat?'<b style="color:var(--gold)">Cheats ligados</b>: verba infinita e janela sempre aberta.':open?'Janela de transferências <b style="color:var(--ok)">aberta</b>. Fecha quando você iniciar o próximo split.':'Janela fechada. Ela abre na virada de ano e de novo entre o MSI e o Split 2.'}</p><div class="row" style="margin:10px 0 0"><button class="ghost" data-act="cheat">${m.cheat?'Desligar cheats':'Ligar cheats'}</button></div></div></section>`;
-  h+=`<div class="pills stk">${[['inicio','Início'],['elenco','Elenco'],['base','Base'],['mercado','Mercado'],['fin','Finanças'],['livres','Livres'],['ach','Troféus']].map(([k,l])=>`<button class="pill" aria-pressed="${mgrView===k}" data-act="mgrView" data-v="${k}">${l}</button>`).join('')}</div>`;
+  h+=`<div class="pills stk">${[['inicio','Início'],['elenco','Elenco'],['base','Base'],['mercado','Mercado'],['livres','Livres'],['soloq','Solo Queue'],['fin','Finanças'],['ach','Troféus']].map(([k,l])=>`<button class="pill" aria-pressed="${mgrView===k}" data-act="mgrView" data-v="${k}">${l}</button>`).join('')}</div>`;
   mEnsure();
   h+=`<div class="mgv v-${mgrView}">`;
   if(mgrView==='inicio'){
@@ -7580,6 +7598,8 @@ function vMgr(){
     h+=baseHTML(t,m);
   }else if(mgrView==='ach'){
     h+=achHTML(m);
+  }else if(mgrView==='soloq'){
+    h+=slqHTML(m);
   }else if(mgrView==='mercado'){
     const old=t.pl[mgrRole];
     h+=`<div class="mtool"><input id="mgr-q" class="search" type="search" placeholder="Buscar qualquer jogador" value="${esc(mgrQ)}" aria-label="Buscar jogador"><div class="pills">${RN.map((r,i)=>`<button class="pill" aria-pressed="${mgrRole===i}" data-act="mgrRole" data-v="${i}">${r}</button>`).join('')}</div></div>`;
@@ -7615,6 +7635,122 @@ function logHTML(m){
   return coachLegHTML(m)+`<section class="pn"><h2>Diário</h2><ul class="lines">${m.log.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section>`;
 }
 
+
+/* ---------- Solo Queue: topo real do ladder Challenger (op.gg, 14/11/2026), contratável no modo treinador ----------
+   10 por região, só quem ainda não joga em nenhum time do jogo (os profissionais do ladder já estão nos elencos).
+   [nick no jogo, conta, servidor, posição, PDL, função 0-4, 3 campeões mais jogados, marca (pro = selo de profissional/ex-pro, str = streamer), país, idade real quando conhecida]
+   A China não tem ladder público: a lista CN são as contas chinesas mais bem colocadas no servidor coreano.
+   Foto: jogadores/<nick em minúsculas, só letras e números>.webp; sem arquivo, aparece o campeão mais jogado. */
+const SLQD='14/11/2026';
+const SLQ={
+KR:[['Samoyed','사모예드#1021','KR',2,2686,1,['Lee Sin','Jarvan IV','Ambessa'],'pro'],
+['Phantasm','Phantasm#korea','KR',5,2600,2,['Akshan','Locke','Bard'],''],
+['Bull','Bull#480','KR',7,2581,3,['Ezreal','Kalista','Shen'],'pro','KOR',23],
+['BebePink','BebePink#KR 1','KR',8,2558,2,['Syndra','Ryze','Aurora'],'pro'],
+['moeb','moeb#0703','KR',9,2534,3,['Yunara','Ezreal','Jhin'],'pro'],
+['Naruto','Naruto#Helix','KR',10,2533,2,['Yasuo','Yone','Nautilus'],''],
+['Sunfish','태양물고기#6797','KR',12,2522,0,['Gangplank','Nautilus','Gragas'],'pro'],
+['LokeN','로 컨#0214','KR',13,2520,3,['Caitlyn',"Kai'Sa",'Jhin'],'pro','KOR',28],
+['Quantum','DNS Quantum#KR 1','KR',14,2520,4,['Nautilus','Bard','Sion'],'pro'],
+['Daemi','Daemi#F A','KR',15,2513,2,['Syndra','Cassiopeia','Akali'],'pro','KOR',22]],
+CN:[['Agan','抖音阿甘爱跑步#xtz小弟','KR',1,2700,1,['Rengar','Talon','Syndra'],'str'],
+['Zhao641','WBG招641950117#WBG','KR',23,2461,2,['Ryze','Orianna','Locke'],''],
+['Xiaofang','dyxiaofang#Miss','KR',28,2433,1,['Nidalee','Taliyah','Locke'],'str'],
+['WangJichao','抖音王纪超#26号首秀','KR',43,2369,2,['Lissandra','Xerath','Malzahar'],'str'],
+['Woxiangdabisai','Woxiangdabisai#JiuAD','KR',45,2363,1,["Bel'Veth",'Nidalee','Yunara'],''],
+['XiaoY','抖音小y#zzzz','KR',54,2320,1,['Hecarim','Olaf','Twisted Fate'],'str'],
+['Roufeng','抖音柔风亚索#Mio韩服','KR',56,2314,2,['Yasuo','Yone','Alistar'],'str'],
+['Naixiong','奶熊王#枫哥不是区','KR',60,2305,2,['Yone','Braum','Yasuo'],''],
+['Tear','Tear#BLG','KR',76,2267,1,["Rek'Sai",'Nidalee','Qiyana'],''],
+['TigaOuO','抖音TigaOuO#lyh','KR',84,2212,0,['Ekko','Yone','Camille'],'str']],
+EUW:[['MRO','MRO#ZKU','EUW',1,4367,2,['Sylas','Akali','Locke'],''],
+['Kaori','Kaori#EUW33','EUW',2,4351,3,['Ezreal','Zeri','Corki'],'pro',null,26],
+['Annie IRL','Annie IRL#Annie','EUW',3,4268,2,['Annie','Sylas','Twisted Fate'],''],
+['Waste Potential','Waste Potential#Loser','EUW',4,4100,2,['Jayce','Aurora','Cassiopeia'],''],
+['Nano','Nano#AFW','EUW',5,4050,2,['Akali','Irelia','Orianna'],''],
+['Turning Point','Turning Point 3#III','EUW',6,3924,3,['Ezreal','Caitlyn','Yunara'],''],
+['BUILT','BUILT#2603','EUW',7,3707,0,['Riven','Zaahen','Ambessa'],''],
+['Tantura','Tantura#1948','EUW',8,3706,2,['Aurelion Sol','Zed','Yasuo'],''],
+['Spear Shot','Spear Shot#1111','EUW',9,3657,0,['Pantheon','Gnar','Poppy'],'str'],
+['Rabble Arouser','Rabble Arouser#EUW','EUW',10,3631,1,['Qiyana','Rengar',"Kha'Zix"],'']],
+NA:[['never type','never type#1998','NA',1,4319,0,['Riven','Jayce','Vayne'],''],
+['Agurin','NAgurin#EU1','NA',3,3570,1,['Elise','Jarvan IV','Lillia'],'str','GER',26],
+['fool','fool#aha','NA',4,3501,1,['Kindred',"Bel'Veth",'Zeri'],''],
+['Zven','Zven#S16XD','NA',6,3448,3,['Ezreal','Corki','Yunara'],'pro','DEN',29],
+['Davemon','Davemon#NA1','NA',7,3440,2,['Qiyana','Pyke','Sylas'],'str','USA'],
+['August Alsina','August Alsina#NA2','NA',8,3246,0,['Jayce','Irelia','Riven'],''],
+['Gnome','Gnome#Pulb','NA',9,3163,2,['Syndra','Talon','Zyra'],''],
+['T0mio','T0mio#NA1','NA',10,3130,1,['Rengar','Jayce',"Kha'Zix"],'str','CAN',23],
+['Lobby Admin','Lobby Admin#FIGHT','NA',12,3074,2,['Azir','Cassiopeia','Ziggs'],'pro'],
+['THANOS','十ＴＨＡＮＯＳ十#GOD','NA',14,3042,2,['Katarina','Cassiopeia','Zoe'],'']],
+APAC:[['Ashley','Ashley#8877','VN',1,3533,3,['Kalista','Aphelios','Lucian'],'','VIE'],
+['ComTam','CơmTấmLongXuyên#GQui','VN',2,3400,2,['Cassiopeia','Annie','Anivia'],'','VIE'],
+['SCP 002','SCP 002#2005','VN',3,3331,1,['Jayce','Lee Sin','Viego'],'','VIE'],
+['Sira','Sira#2609','VN',7,3021,2,['Zed','Lee Sin','Sylas'],'','VIE'],
+['GuanYu','馬弓手關羽#1129','TW',1,2286,0,['Ambessa','Olaf','Irelia'],'','TWN'],
+['Taco','Taco#68770','TW',2,2237,2,["Vel'Koz",'Ziggs','Lux'],'','TWN'],
+['Ziran','最自然的我#0628','TW',5,2091,4,['Braum','Nautilus','Karma'],'','TWN'],
+['Xuewu','學無止境#Only','JP',1,2387,2,['Akshan','Talon','Viktor'],'','JPN'],
+['Roxy','ロキシー#773','JP',3,2267,0,['Gwen','Locke','Ambessa'],'','JPN'],
+['Samenakama','サメ仲間#JP1','JP',4,2221,2,['Azir','Viktor','Jayce'],'','JPN']],
+BR:[['noobao9000','noobao9000#NOOB','BR',1,3450,0,['Aatrox',"Kha'Zix",'Zaahen'],''],
+['GOOD GAME GG XD','GOOD GAME GG XD#0404','BR',2,3335,2,['Sylas','Syndra','Locke'],''],
+['Zayco','Zayco#Zayco','BR',3,3233,2,['Yone','Locke','Yasuo'],'pro','BRA',22],
+['GEENA','GEENA#66666','BR',4,3204,2,['Syndra','Ahri','Katarina'],''],
+['Kina','Kina#00021','BR',5,3194,2,['Vladimir','LeBlanc','Ryze'],''],
+['Korantemaa','Korantemaa#dioge','BR',6,3112,2,['Ryze','Jayce','Akali'],''],
+['Yukarina','Yukarina#333','BR',8,2987,4,['Alistar','Ezreal','Camille'],''],
+['Exit music','Exit music#9920','BR',9,2945,2,['LeBlanc','Aurora','Annie'],''],
+['amazarashi','amazarashi#月曜日','BR',10,2939,3,['Ezreal','Sivir','Yunara'],''],
+['BetterJunglerWin','BetterJunglerWin#W33','BR',11,2928,1,['Jayce','Qiyana','Lee Sin'],'']]};
+const SLQR=['KR','CN','EUW','NA','APAC','BR'];
+const SLQL={KR:'LCK',CN:'LPL',EUW:'LEC',NA:'LCS',APAC:'LCP',BR:'CBLOL'};
+const SLQB={KR:84,CN:83,EUW:81,NA:79,BR:78,APAC:77};
+const SLQN={KR:'Coreia',CN:'China',EUW:'Europa',NA:'América do Norte',APAC:'Ásia-Pacífico',BR:'Brasil'};
+let slqReg='KR';
+/* ficha atual do jogador da fila: o retrato é de 2026; a cada ano ele envelhece, evolui até o potencial e some da lista depois dos 31 */
+function slqP(reg,i){
+  const [n,acc,srv,rk,lp,role,chs,tag,nat,age0]=SLQ[reg][i];
+  const h=hn(n),a0=age0||17+h%7,yrs=Math.max(0,S.year-2026),age=a0+yrs;
+  const r0=SLQB[reg]-Math.round(i*.6)+(tag==='pro'?1:0);
+  const pot=a0>=25?r0:clamp(r0+(a0<=20?5:3)+h%4,r0,95);
+  const r=age>=30?Math.max(60,r0-(age-29)*2):Math.min(pot,r0+Math.round(Math.min(yrs,5)*(a0<=22?.8:.3)));
+  const st=S.slq&&S.slq.out&&S.slq.out[reg+i]?'out':age>31?'ret':S.pdb[n]?'dup':'ok';
+  return{id:reg+i,reg,i,n,acc,srv,rk,lp,role,chs,tag,est:!age0,natK:!!(nat||MAINN[SLQL[reg]]),nat:nat||MAINN[SLQL[reg]]||(reg==='NA'?'USA':hpick(n,POOLN[SLQL[reg]]||WORLDN)),age,r,pot:Math.max(r,pot),st,ok:st==='ok'};
+}
+const slqList=reg=>(reg?[reg]:SLQR).flatMap(g=>SLQ[g].map((_,i)=>slqP(g,i)));
+const slqFee=p=>S.mgr&&S.mgr.cheat?0:r1(mvOf(p)*.5*PM());
+/* contratar: o OVR da lista é estimativa de olheiro; no palco ele pode render um pouco menos ou mais */
+function slqSign(id){
+  const m=S.mgr,t=mgrT();if(!m||!t)return;mEnsure();
+  const x=slqList().find(z=>z.id===id);if(!x||!x.ok)return;
+  if(!mOpen()){msg='Janela fechada';return}
+  const fee=slqFee(x);if(m.cash-fee<0){msg='Sem caixa';return}
+  const sw=pick([-3,-2,-1,-1,0,0,0,1,1,2]),r=clamp(x.r+sw,60,95);
+  const p={n:x.n,role:x.role,r,age:x.age,pot:Math.max(r,x.pot),f:0,d:0,nat:x.nat,slq:x.id,bought:S.year,paid:fee};
+  m.bench.push(p);mCtr(p,2);
+  S.pdb[x.n]={role:x.role,debut:S.year,ret:null,seasons:[],tl:[],nat:x.nat};
+  S.slq=S.slq||{out:{}};S.slq.out[x.id]=S.year;
+  m.cash=r1(m.cash-fee);
+  const how=sw>0?'surpreendeu nos primeiros treinos':sw<0?'sentiu a diferença da fila para o palco':'confirmou o que o olheiro viu';
+  mlog(`${S.year}: contratou ${x.n} (${x.srv} #${x.rk} da Solo Queue) por ${fmtM(fee)}; ${how}: OVR ${r}. Foi para as reservas.`);
+  msg=`${x.n} assinou por 2 anos e ${how} (OVR ${r}). Está nas suas reservas.`;
+}
+function slqHTML(m){
+  const open=mOpen(),L=slqList(slqReg);
+  const tg={pro:'profissional',str:'streamer'};
+  const av=x=>{const c=CHIMG[x.chs[0]]||'';return `<span class="sla"><img src="jogadores/${phSlug(x.n)}.webp" alt="" loading="lazy" decoding="async" draggable="false" onerror="this.onerror=null;this.src='${esc(c).replace(/'/g,'%27')}'"></span>`};
+  const btn=x=>{
+    if(x.st==='out')return `<button class="buy" disabled>Contratado</button>`;
+    if(x.st==='ret')return `<button class="buy" disabled>Parou</button>`;
+    if(x.st==='dup')return `<button class="buy" disabled>Já no jogo</button>`;
+    const fee=slqFee(x),ok=open&&m.cash-fee>=0;
+    return `<button class="buy" data-act="slqSign" data-v="${x.id}"${ok?'':' disabled'}>${!open?'Fechada':!ok?'Sem caixa':m.cheat?'Contratar':'Contratar '+fmtM(fee).replace('US$ ','')}</button>`;
+  };
+  let h=`<section class="pn"><h2>Solo Queue · topo do ladder</h2><p class="note" style="margin:0 0 10px">Retrato real do ranking Desafiante em ${SLQD}: os 10 mais bem colocados de cada região que ainda não jogam em nenhum time. O OVR é a leitura do olheiro; ao assinar, o jogador pode render até 3 pontos a menos ou 2 a mais no palco. Eles chegam como reservas, com contrato de 2 anos.</p><div class="pills">${SLQR.map(g=>`<button class="pill" aria-pressed="${slqReg===g}" data-act="slqReg" data-v="${g}">${g}</button>`).join('')}</div><p class="note" style="margin:0 0 4px"><b>${SLQN[slqReg]}</b>${slqReg==='CN'?' · a China não tem ladder público: estas são as contas chinesas mais bem colocadas no servidor coreano.':slqReg==='APAC'?' · servidores do Vietnã, de Taiwan e do Japão.':''}</p><div class="sll">`;
+  h+=L.map((x,k)=>`<div class="slr${k<3?' top':''}${x.ok?'':' off'}"><span class="slk num">${k+1}</span>${av(x)}<span class="who"><b>${esc(x.n)}</b>${x.tag?`<span class="tag">${tg[x.tag]}</span>`:''}<small>${esc(x.acc)} · ${x.srv} #${x.rk} · ${x.lp.toLocaleString('pt-BR')} PDL</small><small>${RN[x.role]} · ${x.age} anos${x.est?' (estimada)':''}${x.natK?' · '+natTxt(x.nat):''}${x.pot>x.r?` · potencial ${x.pot}`:''}</small><span class="slc">${x.chs.map(c=>`<img src="${CHIMG[c]||''}" alt="${esc(c)}" title="${esc(c)}" loading="lazy">`).join('')}</span></span><span class="slx">${hx(x.r,'sm')}${btn(x)}</span></div>`).join('');
+  return h+`</div><p class="note">${m.cheat?'Cheats ligados: contratar não custa nada.':open?'Janela aberta: a taxa é paga à vista e sai do caixa.':'A janela de transferências está fechada. Dá para olhar a lista, mas só contratar quando ela abrir.'}</p></section>`;
+}
 
 /* ---------- divisões de acesso (D2) ---------- */
 const D2N={LCK:['T1 Esports Academy','Gen.G Global Academy','KT Rolster Challengers','KIWOOM DRX Challengers','Dplus KIA Challengers','Hanwha Life Challengers'],
@@ -9919,6 +10055,8 @@ function render(){
   if(LOAD&&Date.now()-LOAD.t0>LDMS+1500){setTimeout(ldEnd,0)}
   ap.innerHTML=DEFS+header()+v+nav()+(msg&&tab!=='mgr'&&tab!=='set'?`<div class="toast" role="status">${esc(msg)}</div>`:'')+(DV?vDraft():'')+(LV&&!(DV&&DV.lv)?vLive():'')+(LOAD?vLoad():'');
   fitBrackets();
+  /* abas roláveis da Gestão (celular): mantém a aba ativa à vista depois de redesenhar */
+  try{const pa=document.querySelector('.mgr .pills.stk .pill[aria-pressed="true"]'),bar=pa&&pa.parentNode;if(bar&&bar.scrollWidth>bar.clientWidth)bar.scrollLeft=Math.max(0,pa.offsetLeft-(bar.clientWidth-pa.offsetWidth)/2)}catch(e){}
 }
 
 /* ---------- ações ---------- */
@@ -10062,6 +10200,8 @@ function act0(a,v){
   else if(a==='mgrList'){mgrList(v);save()}
   else if(a==='mgrBuy'){mgrBuy(v);mAch();save()}
   else if(a==='mgrSign'){mgrSign(v);save()}
+  else if(a==='slqReg'){if(SLQ[v])slqReg=v}
+  else if(a==='slqSign'){slqSign(v);mAch();save()}
   else if(a==='mgrSell'){mgrSell(v);mAch();save()}
   else if(a==='mgrCl'){if(S.mgr&&CLS[v]){S.mgr.rc=v;save()}}
   else if(a==='mgrRenew'){mgrRenew(v);save()}
