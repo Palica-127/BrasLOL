@@ -1742,7 +1742,7 @@ body::after{opacity:.32;filter:grayscale(.35) brightness(.8)}
 .cmd .clg{background:linear-gradient(90deg,rgba(132,102,255,.25),rgba(255,122,184,.06));border:1px solid rgba(160,130,255,.55);color:#E0D2FF}
 .cmd .ct10{background:linear-gradient(90deg,rgba(255,226,122,.16),rgba(255,226,122,.03));border:1px solid rgba(255,226,122,.4);color:#FFE27A}
 .cmd b{white-space:nowrap;flex:none;font:700 12px var(--d);letter-spacing:.08em;text-transform:uppercase}.cmd span{opacity:.92}
-/* Prêmio: o Top 5 de 2011 a 2025 fica na mesma coluna, logo abaixo da tabela de campeões do ano */
+/* Prêmio: o Top 10 de 2011 a 2025 fica na mesma coluna, logo abaixo da tabela de campeões do ano */
 #app.wrap>.bcol{grid-column:auto;min-width:0;width:auto}.bcol>.pn:last-child{margin-bottom:14px}
 .mavr{width:34px;height:34px;border-radius:50%;overflow:hidden;background:#182033;border:2px solid #2a3654;display:block;flex:none}.mavr img{width:100%;height:100%;object-fit:cover;object-position:50% 18%}.mavr svg{width:100%;height:100%;fill:#2a3654}
 .prl .rowl{display:flex;align-items:center;gap:10px}.prl .rowl .grow{flex:1;min-width:0}.yr .mavr{width:26px;height:26px;align-self:center}
@@ -2553,10 +2553,10 @@ const MSV={2015:'SK Telecom T1',2016:'Counter Logic Gaming',2017:'G2 Esports',20
 const MST={2015:'Edward Gaming',2016:'SK Telecom T1',2017:'SK Telecom T1',2018:'Royal Never Give Up',2019:'G2 Esports',2021:'Royal Never Give Up',2022:'Royal Never Give Up',2023:'JD Gaming',2024:'Gen.G',2025:'Gen.G'};
 const HON={
  'Faker':{wc:[2013,2015,2016,2023,2024,2025],msi:[2016,2017],lg:10,mv:[[2013,'MVP LCK Summer 2013'],[2014,'MVP LCK Winter 2014'],[2015,'MVP Final LCK Summer 2015'],[2016,'MVP MSI'],[2016,'MVP Mundial'],[2024,'MVP Mundial']]},
- 'Bengi':{wc:[2013,2015],msi:[2016,2017]},
+ 'Bengi':{wc:[2013,2015,2016],msi:[2016,2017],lg:5},
  'Piglet':{wc:[2013]},
- 'Bang':{wc:[2015,2016],msi:[2016,2017]},
- 'Wolf':{wc:[2015,2016],msi:[2016,2017]},
+ 'Bang':{wc:[2015,2016],msi:[2016,2017],lg:4},
+ 'Wolf':{wc:[2015,2016],msi:[2016,2017],lg:4},
  'MaRin':{wc:[2015]},
  'Mata':{wc:[2014]},
  'PawN':{wc:[2014],msi:[2015]},
@@ -2566,13 +2566,13 @@ const HON={
  'CuVee':{wc:[2017]},
  'Crown':{wc:[2017]},
  'Ning':{wc:[2018]},
- 'Doinb':{wc:[2019]},
+ 'Doinb':{wc:[2019],lg:1},
  'Xpeke':{wc:[2011]},
  'Toyz':{wc:[2012]},
  'Perkz':{msi:[2019]},
- 'Keria':{wc:[2023,2024,2025]},
- 'Oner':{wc:[2023,2024,2025]},
- 'Gumayusi':{wc:[2023,2024,2025],mv:[[2025,'MVP Mundial']]},
+ 'Keria':{wc:[2023,2024,2025],lg:1},
+ 'Oner':{wc:[2023,2024,2025],lg:1},
+ 'Gumayusi':{wc:[2023,2024,2025],lg:1,mv:[[2025,'MVP Mundial']]},
  'Zeus':{wc:[2023,2024],mv:[[2023,'MVP Mundial']]},
  'Doran':{wc:[2025]},
  'Ruler':{wc:[2017],msi:[2023,2025],mv:[[2017,'MVP Mundial']]},
@@ -2588,7 +2588,8 @@ const HON={
  'Kingen':{wc:[2022],mv:[[2022,'MVP Mundial']]},
  'Kanavi':{msi:[2023]},
  'Knight':{msi:[2023],mv:[[2023,'MVP MSI']]},
- 'Viper':{wc:[2021]},
+ 'Viper':{wc:[2021],lg:1},
+ 'BeryL':{wc:[2020,2022],lg:3},
  'meiko':{wc:[2021],msi:[2015]},
  'JieJie':{wc:[2021]},
  'Scout':{wc:[2021],mv:[[2021,'MVP Mundial']]},
@@ -2610,23 +2611,23 @@ const HON={
 };
 
 
-/* Seu top 5 por ano (Melhor Jogador do Ano 2011-2025). 2011 e 2012 só têm o campeão. [nome, time, posição 0-4: TOP JNG MID ADC SUP] */
+/* Top 10 do Melhor Jogador do Ano 2011-2025 (planilha do usuário; times e posições conferidos na Leaguepedia). [nome, time, posição 0-4: TOP JNG MID ADC SUP] */
 const PRE={
-2011:[['Xpeke','Fnatic',2]],
-2012:[['Toyz','Taipei Assassins',2]],
-2013:[['Faker','SK Telecom T1',2],['Bengi','SK Telecom T1',1],['Piglet','SK Telecom T1',3],['Impact','SK Telecom T1',0],['Uzi','Royal Club',3]],
-2014:[['Mata','Samsung White',4],['PawN','Samsung White',2],['imp','Samsung White',3],['DanDy','Samsung White',1],['Uzi','Star Horn Royal Club',3]],
-2015:[['Faker','SKT',2],['Bang','SKT',3],['MaRin','SKT',0],['Bengi','SKT',1],['Deft','EDward Gaming',3]],
-2016:[['Faker','SKT',2],['Bang','SKT',3],['Wolf','SKT',4],['Ambition','Samsung Galaxy',1],['Crown','Samsung Galaxy',2]],
-2017:[['Ruler','Samsung Galaxy',3],['CuVee','Samsung Galaxy',0],['Faker','SKT',2],['Ambition','Samsung Galaxy',1],['Bang','SKT',3]],
-2018:[['TheShy','Invictus Gaming',0],['Rookie','Invictus Gaming',2],['Ning','Invictus Gaming',1],['Caps','Fnatic',2],['Rekkles','Fnatic',3]],
-2019:[['Caps','G2 Esports',2],['Doinb','FunPlus Phoenix',2],['Tian','FunPlus Phoenix',1],['Perkz','G2 Esports',2],['Chovy','Griffin',2]],
-2020:[['Canyon','DAMWON Gaming',1],['ShowMaker','DAMWON Gaming',2],['Nuguri','DAMWON Gaming',0],['Caps','G2 Esports',2],['Doinb','FunPlus Phoenix',2]],
-2021:[['Doinb','FunPlus Phoenix',2],['Scout','EDward Gaming',2],['Viper','EDward Gaming',3],['ShowMaker','DWG KIA',2],['Chovy','Hanwha Life',2]],
-2022:[['Chovy','Gen.G',2],['Zeka','DRX',2],['Ruler','Gen.G',3],['Kingen','DRX',0],['Zeus','T1',0]],
-2023:[['Ruler','JD Gaming',3],['Zeus','T1',0],['Knight','JD Gaming',2],['Chovy','Gen.G',2],['Faker','T1',2]],
-2024:[['Faker','T1',2],['Chovy','Gen.G',2],['Knight','Bilibili Gaming',2],['Ruler','Gen.G',3],['Keria','T1',4]],
-2025:[['Chovy','Gen.G',2],['Ruler','Gen.G',3],['Knight','Bilibili Gaming',2],['Gumayusi','T1',3],['Bdd','KT Rolster',2]]};
+2011:[['Xpeke','Fnatic',2],['Shushei','Fnatic',2],['Cyanide','Fnatic',1],['sOAZ','Against All authority',0],['YellOwStaR','Against All authority',4],['Doublelift','Counter Logic Gaming',3],['Dyrus','TSM',0],['Reginald','TSM',2],['LamiaZealot','Fnatic',3],['Mellisan','Fnatic',4]],
+2012:[['Toyz','Taipei Assassins',2],['Stanley','Taipei Assassins',0],['Froggen','Counter Logic Gaming Europe',2],['Alex Ich','Moscow Five',2],['Diamondprox','Moscow Five',1],['BeBe','Taipei Assassins',3],['Dyrus','TSM',0],['Lilballz','Taipei Assassins',1],['Xpeke','Fnatic',2],['Mithy','',4]],
+2013:[['Faker','SK Telecom T1',2],['Bengi','SK Telecom T1',1],['Piglet','SK Telecom T1',3],['Impact','SK Telecom T1',0],['Uzi','Royal Club',3],['Xpeke','Fnatic',2],['Rekkles','Fnatic',3],['PoohManDu','SK Telecom T1',4],['YellOwStaR','Fnatic',4],['sOAZ','Fnatic',0]],
+2014:[['Mata','Samsung White',4],['Dade','Samsung Blue',2],['imp','Samsung White',3],['Looper','Samsung White',0],['DanDy','Samsung White',1],['Uzi','Star Horn Royal Club',3],['Faker','SK Telecom T1',2],['Rekkles','Fnatic',3],['Deft','Samsung Blue',3],['Bengi','SK Telecom T1',1]],
+2015:[['Faker','SKT',2],['MaRin','SKT',0],['Bang','SKT',3],['Bengi','SKT',1],['Wolf','SKT',4],['Deft','EDward Gaming',3],['Clearlove','EDward Gaming',1],['Uzi','OMG',3],['Smeb','KOO Tigers',0],['Xpeke','Origen',2]],
+2016:[['Faker','SKT',2],['Bang','SKT',3],['Bengi','SKT',1],['Wolf','SKT',4],['Duke','SKT',0],['Ruler','Samsung Galaxy',3],['Crown','Samsung Galaxy',2],['Peanut','ROX Tigers',1],['Smeb','ROX Tigers',0],['CuVee','Samsung Galaxy',0]],
+2017:[['Ruler','Samsung Galaxy',3],['Crown','Samsung Galaxy',2],['CoreJJ','Samsung Galaxy',4],['CuVee','Samsung Galaxy',0],['Ambition','Samsung Galaxy',1],['Faker','SKT',2],['Bang','SKT',3],['Wolf','SKT',4],['Peanut','SKT',1],['Huni','SKT',0]],
+2018:[['TheShy','Invictus Gaming',0],['Ning','Invictus Gaming',1],['Rookie','Invictus Gaming',2],['Uzi','Royal Never Give Up',3],['JackeyLove','Invictus Gaming',3],['Caps','Fnatic',2],['Rekkles','Fnatic',3],['Perkz','G2 Esports',2],['Bwipo','Fnatic',0],['Baolan','Invictus Gaming',4]],
+2019:[['Caps','G2 Esports',2],['Doinb','FunPlus Phoenix',2],['Tian','FunPlus Phoenix',1],['Perkz','G2 Esports',3],['Chovy','Griffin',2],['Jankos','G2 Esports',1],['Knight','Top Esports',2],['Crisp','FunPlus Phoenix',4],['GimGoon','FunPlus Phoenix',0],['Wunder','G2 Esports',0]],
+2020:[['Canyon','DAMWON Gaming',1],['ShowMaker','DAMWON Gaming',2],['Nuguri','DAMWON Gaming',0],['Ghost','DAMWON Gaming',3],['BeryL','DAMWON Gaming',4],['Bin','Suning',0],['SofM','Suning',1],['Angel','Suning',2],['Chovy','DragonX',2],['Knight','Top Esports',2]],
+2021:[['Doinb','FunPlus Phoenix',2],['Scout','EDward Gaming',2],['Viper','EDward Gaming',3],['Flandre','EDward Gaming',0],['JieJie','EDward Gaming',1],['meiko','EDward Gaming',4],['ShowMaker','DWG KIA',2],['Canyon','DWG KIA',1],['Khan','DWG KIA',0],['Ghost','DWG KIA',3]],
+2022:[['Chovy','Gen.G',2],['Zeka','DRX',2],['Deft','DRX',3],['Kingen','DRX',0],['Faker','T1',2],['Keria','T1',4],['Pyosik','DRX',1],['Gumayusi','T1',3],['Zeus','T1',0],['Oner','T1',1]],
+2023:[['Ruler','JD Gaming',3],['Faker','T1',2],['Zeus','T1',0],['Keria','T1',4],['Gumayusi','T1',3],['Knight','JD Gaming',2],['Kanavi','JD Gaming',1],['Oner','T1',1],['Elk','Bilibili Gaming',3],['Chovy','Gen.G',2]],
+2024:[['Faker','T1',2],['Chovy','Gen.G',2],['Zeus','T1',0],['Keria','T1',4],['Gumayusi','T1',3],['Oner','T1',1],['Knight','Bilibili Gaming',2],['Bin','Bilibili Gaming',0],['Elk','Bilibili Gaming',3],['Ruler','JD Gaming',3]],
+2025:[['Chovy','Gen.G',2],['Faker','T1',2],['Gumayusi','T1',3],['Ruler','Gen.G',3],['Keria','T1',4],['Canyon','Gen.G',1],['Viper','Hanwha Life',3],['Bdd','KT Rolster',2],['Knight','Bilibili Gaming',2],['Oner','T1',1]]};
 
 /* ---------- utilidades ---------- */
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
@@ -2671,23 +2672,41 @@ function applyHon(){
     (h.wc||[]).forEach(y=>{x.wc++;d.tl.push({y,t:'Mundial',tm:WCT[y]})});
     (h.msi||[]).forEach(y=>{x.msi++;d.tl.push({y,t:'MSI',tm:MST[y]})});
     (h.mv||[]).forEach(([y,l])=>{x.mvp++;d.tl.push({y,t:l,tm:''})});
-    if(h.lg){x.lg+=h.lg;d.tl.push({y:'—',t:`${h.lg} títulos de liga na carreira`,tm:''})}
+    if(h.lg){x.lg+=h.lg;d.tl.push({y:'—',t:`${h.lg} título${h.lg>1?'s':''} de liga na carreira`,tm:''})}
         if(h.note)d.note=h.note;
     d.tl.sort((a,b)=>(+a.y||0)-(+b.y||0));
   }
-  const PP=[25,18,15,12,10],RN2=['TOP','JNG','MID','ADC','SUP'];
-  S.pre=[];
-  for(const y of Object.keys(PRE).sort()){
-    S.pre.push({y:+y,top:PRE[y].map(([n,t,r])=>({n,team:t,role:r}))});
-    PRE[y].forEach(([n,t,r],i)=>{
-      const x=hofOf(n),d=pd(n);
-      if(d.role==null)d.role=r;
-      x.pts+=PP[i];
-      if(i===0){x.bd++;d.tl.push({y:+y,t:'Melhor Jogador do Ano',tm:t})}
-      else d.tl.push({y:+y,t:`Top 5 do Melhor Jogador do Ano (${i+1}º)`,tm:t});
-      d.tl.sort((a,b)=>(+a.y||0)-(+b.y||0));
-    });
-  }
+  S.pre=[];S.preV=2;
+  for(const y of Object.keys(PRE).sort())preAdd(+y,PRE[y]);
+}
+/* um ano do Melhor Jogador do Ano real: top 10 com os pontos do ranking (PTS) */
+function preAdd(y,list){
+  S.pre.push({y,top:list.map(([n,t,r])=>({n,team:t,role:r}))});
+  list.forEach(([n,t,r],i)=>{
+    const x=hofOf(n),d=pd(n);
+    if(d.role==null)d.role=r;
+    x.pts+=PTS[i]||0;
+    if(i===0){x.bd++;d.tl.push({y,t:'Melhor Jogador do Ano',tm:t})}
+    else d.tl.push({y,t:`Top 10 do Melhor Jogador do Ano (${i+1}º)`,tm:t});
+    d.tl.sort((a,b)=>(+a.y||0)-(+b.y||0));
+  });
+}
+/* saves antigos: troca o top 5 antigo (2011-2025) pelo top 10 da planilha e soma os títulos novos do HON */
+function fixPre(){
+  if(!S||!S.pre||!S.pre.length||S.preV===2)return;
+  const PP=[25,18,15,12,10],ys=new Set(Object.keys(PRE).map(Number));
+  S.pre.forEach(x=>x.top.forEach((p,i)=>{
+    const h=S.hof[p.n];if(h){h.pts=Math.max(0,(h.pts||0)-(PP[i]||0));if(i===0)h.bd=Math.max(0,(h.bd||0)-1)}
+    const d=S.pdb[p.n];if(d)d.tl=d.tl.filter(e=>!(e.y===x.y&&(e.t==='Melhor Jogador do Ano'||/^Top 5 do Melhor/.test(e.t))));
+  }));
+  S.pre=S.pre.filter(x=>!ys.has(x.y));
+  for(const y of [...ys].sort())preAdd(y,PRE[y]);
+  S.pre.sort((a,b)=>a.y-b.y);
+  const add=(n,f)=>{const x=hofOf(n),d=pd(n);f(x,d);d.tl.sort((a,b)=>(+a.y||0)-(+b.y||0))};
+  add('Bengi',(x,d)=>{if(!d.tl.some(e=>e.y===2016&&e.t==='Mundial')){x.wc++;d.tl.push({y:2016,t:'Mundial',tm:WCT[2016]})}});
+  add('BeryL',(x,d)=>[2020,2022].forEach(y=>{if(!d.tl.some(e=>e.y===y&&e.t==='Mundial')){x.wc++;d.tl.push({y,t:'Mundial',tm:WCT[y]})}}));
+  Object.entries({Bengi:5,Bang:4,Wolf:4,Doinb:1,Keria:1,Oner:1,Gumayusi:1,Viper:1,BeryL:3}).forEach(([n,l])=>add(n,(x,d)=>{if(!d.tl.some(e=>/de liga na carreira$/.test(e.t))){x.lg=(x.lg||0)+l;d.tl.push({y:'—',t:`${l} título${l>1?'s':''} de liga na carreira`,tm:''})}}));
+  S.preV=2;T10C=null;
 }
 const HT=[
 ['T1','Mundial',2013,'SK Telecom T1',['Impact','Bengi','Faker','Piglet','PoohManDu']],
@@ -2858,7 +2877,8 @@ const hofOf=n=>S.hof[n]||(S.hof[n]={pts:0,bd:0,wc:0,msi:0,fs:0,lg:0,mvp:0});
 const achOf=n=>S.season.ach[n]||(S.season.ach[n]={lg:[],lgf:0,fs:'',msi:'',wc:'',mv:[]});
 const pd=n=>S.pdb[n]||(S.pdb[n]={role:null,debut:S.year,ret:null,seasons:[],tl:[]});
 const psOf=n=>S.season.ps[n]||(S.season.ps[n]={gw:0,gl:0});
-const sc=h=>(h.pts||0)+(h.wc||0)*6+(h.msi||0)*3+(h.mvp||0)*1.5+(h.lg||0)*.5;
+/* pontos de lenda (pesos da planilha do usuário): ranking anual + Worlds 30 + MSI 15 + MVP 5 + liga 1 */
+const sc=h=>(h.pts||0)+(h.wc||0)*30+(h.msi||0)*15+(h.mvp||0)*5+(h.lg||0);
 const hofRank=()=>Object.entries(S.hof).sort((a,b)=>sc(b[1])-sc(a[1])||a[0].localeCompare(b[0])).map(e=>e[0]);
 function pmap(){const m={};ALLT().forEach(t=>t.pl.forEach(p=>m[p.n]={p,t}));return m}
 
@@ -4358,9 +4378,9 @@ function mgrDay(){
 }
 function coachPool(){
   const act=pmap(),m=S.mgr;
-  return Object.keys(S.hof).filter(n=>!act[n]&&sc(S.hof[n])>=25&&!(m&&m.coach&&m.coach.n===n)).sort((a,b)=>sc(S.hof[b])-sc(S.hof[a])).slice(0,5);
+  return Object.keys(S.hof).filter(n=>!act[n]&&sc(S.hof[n])>=LEGPTS&&!(m&&m.coach&&m.coach.n===n)).sort((a,b)=>sc(S.hof[b])-sc(S.hof[a])).slice(0,5);
 }
-const coachB=m=>m&&m.coach&&!m.coach.co?clamp(sc(S.hof[m.coach.n]||{})/120,.1,.6):0;
+const coachB=m=>m&&m.coach&&!m.coach.co?clamp(sc(S.hof[m.coach.n]||{})/270,.1,.6):0;
 function mgrCoach(n){
   const m=S.mgr;if(!m)return;
   if(n==='-'){const r=m.coach&&m.coach.co?m.coach.n:null;m.coach=null;coSync();msg=r?`${r} foi dispensado e está sem clube.`:'Técnico assistente dispensado.';return}
@@ -7878,7 +7898,7 @@ async function foPlayer(n){
   const lastT=rows.length?ALLT().find(t=>t.name===rows[rows.length-1].team):null,defLg=foLgK(lastT&&lastT.lg)||foLgK(P&&P.t.lg)||'LEC';
   const byY=(a,b)=>(+a.y||0)-(+b.y||0),isMV=x=>/^MVP/.test(x.t),isBO=x=>x.t==='Bola de Ouro'||x.t==='Melhor Jogador do Ano';
   const W=tl.filter(x=>x.t==='Mundial').sort(byY),M=tl.filter(x=>x.t==='MSI').sort(byY),Cp=tl.filter(x=>x.t==='Copa do Mundo de LoL').sort(byY);
-  const L=tl.filter(x=>x.t!=='Mundial'&&x.t!=='MSI'&&x.t!=='First Stand'&&x.t!=='Copa do Mundo de LoL'&&!isMV(x)&&!isBO(x)&&!/^Top 5/.test(x.t)&&x.y!=='—').sort(byY);
+  const L=tl.filter(x=>x.t!=='Mundial'&&x.t!=='MSI'&&x.t!=='First Stand'&&x.t!=='Copa do Mundo de LoL'&&!isMV(x)&&!isBO(x)&&!/^Top (5|10) /.test(x.t)&&x.y!=='—').sort(byY);
   const V=tl.filter(isMV).sort(byY),B=tl.filter(isBO).sort(byY),unk=Math.max(0,(h.lg||0)-L.length);
   const grp=[['Worlds','w',W.map(x=>({y:x.y,k:'w'}))],['Melhor do Ano','b',B.map(x=>({y:x.y,k:'b'}))],['MSI','m',M.map(x=>({y:x.y,k:'m'}))],['Copa do Mundo','c',Cp.map(x=>({y:x.y,k:'c'}))],
     ['Ligas','l',[...L.map(x=>({y:x.y,k:foLgK(x.t)||defLg})),...Array(unk).fill(0).map(()=>({y:'-',k:defLg}))]],
@@ -7892,7 +7912,7 @@ async function foPlayer(n){
       :[[peak,'Pico de OVR'],[h.bd||0,'Melhor do Ano'],[Math.round(sc(h)),'Pontos de lenda'],[h.wc||0,'Worlds']];
   const yrs=rows.length?rows[0].y:(d.debut||'');
   const line3=P?`Ativo - ${P.t.name} - ${P.p.age} anos`:d.ret?`${yrs?yrs+' - ':''}${d.ret}  -  aposentado`:(d.note||'Lenda do ranking inicial');
-  let cards={title:'Reconhecimentos',items:tl.filter(x=>/^Top 5/.test(x.t)).sort(byY).map(x=>({h:'Top 5 do Melhor do Ano',d:(x.t.match(/\((\d)º\)/)||[])[0]?'Posição '+x.t.match(/\((\d)º\)/)[1]+'º'+(x.tm?' - '+x.tm:''):x.tm||'',r:x.y}))};
+  let cards={title:'Reconhecimentos',items:tl.filter(x=>/^Top (5|10) /.test(x.t)).sort(byY).map(x=>({h:x.t.indexOf('Top 10')===0?'Top 10 do Melhor do Ano':'Top 5 do Melhor do Ano',d:(x.t.match(/\((\d+)º\)/)||[])[0]?'Posição '+x.t.match(/\((\d+)º\)/)[1]+'º'+(x.tm?' - '+x.tm:''):x.tm||'',r:x.y}))};
   const hero=phHas(n)?{kind:'photo',src:'jogadores/'+phSlug(n)+'.webp'}:{kind:'avatar'};
   return foBuild({foot:'Ficha de '+n,eyebrow:pc?'BRASLOL  -  LEAGUE OF LEGENDS  -  CARREIRA PRO':'BRASLOL  -  LEAGUE OF LEGENDS  -  FICHA DO JOGADOR',title:n,
     line2:(role!=null?RNF[role]:'Jogador')+(natN?'  -  '+natN:''),line3,hero,stats,grp,clubs:rows.length?clubs:null,cards,
@@ -8504,7 +8524,7 @@ function fixAges(){
 }
 /* elencos reais da 2ª divisão refeitos em 14/11/2026: aplica uma vez em saves antigos */
 function fixD2P(){if(!S||S.d2pV===2)return;S.d2pV=2;d2Apply(S.mgr&&S.mgr.tid,true)}
-function ensureD2(){ensureD2a();if(S){fixD2P();fixAges();coEnsure();coSync();ALLT().forEach(t=>{if(!t.bn)ensureBn(t)});faSeed()}}
+function ensureD2(){ensureD2a();if(S){fixD2P();fixAges();fixPre();coEnsure();coSync();ALLT().forEach(t=>{if(!t.bn)ensureBn(t)});faSeed()}}
 function closeD2(lg,tag,st,m1,m2,fm){
   const top=st.slice(0,4).map(r=>r.t);
   const third=[T(loserOf(m1)),T(loserOf(m2))].sort((a,b)=>top.indexOf(a)-top.indexOf(b));
@@ -8738,7 +8758,7 @@ function nextSeason(){
     if(a<35)pr*=p.r>=88?.35:p.r>=84?.65:1;
     if(Math.random()<pr){
       off.push(`${p.n} (${t.name}) se aposentou aos ${a} anos.`);
-      if((S.hof[p.n]&&sc(S.hof[p.n])>=40))news(`Lenda: ${p.n} se aposenta aos ${a} anos, com ${r1(sc(S.hof[p.n]))} pontos na carreira.`,S.year+1);
+      if((S.hof[p.n]&&sc(S.hof[p.n])>=100))news(`Lenda: ${p.n} se aposenta aos ${a} anos, com ${r1(sc(S.hof[p.n]))} pontos na carreira.`,S.year+1);
       pd(p.n).ret=S.year;
       const fs_=fillSlot(t,i),nr=fs_.p;t.pl[i]=nr;if(fs_.bench)off.push(`${nr.n} (reserva) assume a vaga de ${p.n} no ${t.name}.`);
       const d=pd(nr.n);d.role=i;d.debut=S.year+1;
@@ -9300,8 +9320,8 @@ function futStats(n,r,role){
   const h=hs(n),bias=[[2,0,-2,1,0],[-2,1,3,2,0],[1,3,0,0,1],[0,3,-1,1,-1],[-2,-3,2,3,3]][role]||[0,0,0,0,0];
   return FSTAT.map((_,i)=>clamp(Math.round(r+bias[i]+((h>>(i*5))%9)-4),40,99));
 }
-/* conquistas na carta: Melhor do Mundo (um ano por prêmio) e Lenda (ano em que os pontos de carreira passaram de 25) */
-const LEGPTS=25;
+/* conquistas na carta: Melhor do Mundo (um ano por prêmio) e Lenda (ano em que os pontos de carreira passaram de 60) */
+const LEGPTS=60;
 function bwYears(n){
   const d=S.pdb&&S.pdb[n],ys=new Set((d&&d.tl||[]).filter(x=>x.t==='Melhor Jogador do Ano'&&typeof x.y==='number').map(x=>x.y));
   (S.pre||[]).forEach(x=>{if(x.top[0]&&x.top[0].n===n)ys.add(x.y)});
@@ -9309,7 +9329,7 @@ function bwYears(n){
   return [...ys].sort((a,b)=>a-b);
 }
 /* ano em que entrou no rank de lenda: pontos acumulados pelos prêmios do histórico, escalados para bater com o total da carreira */
-const tlW=t=>t==='Mundial'?6:t==='MSI'?3:/^MVP/.test(t)?1.5:t==='Melhor Jogador do Ano'?(PTS[0]||10):/^Top 5/.test(t)?(PTS[Math.max(0,(+(/\((\d)º\)/.exec(t)||[])[1]||5)-1)]||2):t.indexOf('Copa')===0?3:.5;
+const tlW=t=>t==='Mundial'?30:t==='MSI'?15:/^MVP/.test(t)?5:t==='Melhor Jogador do Ano'?(PTS[0]||10):/^Top (5|10) /.test(t)?(PTS[Math.max(0,(+(/\((\d+)º\)/.exec(t)||[])[1]||5)-1)]||1):t.indexOf('Copa')===0?6:1;
 /* top 10 de todos os tempos ano a ano (estimado: pontos de carreira distribuídos pelos prêmios do histórico de cada jogador) */
 let T10C=null;
 function t10Hist(){
@@ -9335,7 +9355,7 @@ function legendYear(n){
   return tl[tl.length-1].y;
 }
 const yrsTxt=a=>a.length<=3?a[0]+a.slice(1).map(y=>'·'+String(y).slice(2)).join(''):`${a.length}× · ${a[a.length-1]}`;
-const legR=n=>{const h=S.hof&&S.hof[n];return h?Math.round(clamp(84+sc(h)/6,84,97)):80};
+const legR=n=>{const h=S.hof&&S.hof[n];return h?Math.round(clamp(84+sc(h)/14,84,97)):80};
 /* campeão assinatura (maior domínio na posição): imagem de quem não tem foto */
 const sigCh=(n,role)=>{const l=CH[role==null?2:role]||CH[2];let b=l[0][0],bv=-1;l.forEach(([c])=>{const v=mastOf(n,c)+rGames(n,c)*1e-6;if(v>bv){bv=v;b=c}});return b};
 /* estilo das cartas (Ajustes): 'foto' = foto grande como no painel Seu time; 'classica' = carta estilo FIFA */
@@ -10070,7 +10090,10 @@ const pzCard=x=>{const w=x.top[0];return `<div class="pzc"><span class="yy num">
 function preHTML(){
   const L=pzAll().filter(x=>!S.hist.some(h=>h.y===x.y));
   if(!L.length)return '';
-  return `<section class="pn"><h2>Arquivo de vencedores · ${L[L.length-1].y}–${L[0].y}</h2><div class="pzy">${L.map(pzCard).join('')}</div></section>`;
+  /* top 10 completo de um ano do arquivo (2011-2025): escolha o ano nas pílulas */
+  const sel=L.find(x=>x.y===selYear)||L[0];
+  const t10=`<section class="pn"><h2>Top 10 de ${sel.y}</h2><div class="pills" style="margin:0 0 10px">${L.map(x=>`<button class="pill" aria-pressed="${x.y===sel.y}" data-act="year" data-v="${x.y}">${x.y}</button>`).join('')}</div><div class="rkt">${sel.top.map((x,i)=>rkRow(i,x.n,`${esc(x.team||'')}${x.team?' · ':''}${RN[x.role]||''}`,'',`+${PTS[i]||0}`,'pts')).join('')}</div></section>`;
+  return t10+`<section class="pn"><h2>Arquivo de vencedores · ${L[L.length-1].y}–${L[0].y}</h2><div class="pzy">${L.map(pzCard).join('')}</div></section>`;
 }
 /* corrida ao vivo do Melhor Jogador do Ano: mesma fórmula do prêmio, sem alterar nada */
 function raceRows(){
@@ -10178,7 +10201,7 @@ function vHof(){
     const top=k=>{let b=null;Object.keys(S.hof).forEach(n=>{if(!b||(S.hof[n][k]||0)>(S.hof[b][k]||0))b=n});return b&&S.hof[b][k]?{n:b,v:S.hof[b][k]}:null};
     const rec=[['Melhor do Ano','bd'],['Worlds','wc'],['MSI','msi'],['MVPs','mvp']].map(([l,k])=>{const t=top(k);return t?`<div class="rec"><small>${l}</small><b class="num">${t.v}</b><span>${lk(t.n)}</span></div>`:''}).join('');
     const bl=[...(S.pre||[]).map(x=>({y:x.y,n:x.top[0].n,team:x.top[0].team})),...S.hist.map(x=>({y:x.y,n:x.top[0].n,team:x.top[0].team}))].reverse();
-    h+=`<div class="lg4"><section class="pn"><h2>Top 10 de todos os tempos</h2><div class="pod3">${pod}</div><div class="rkt">${rows}</div><p class="note">Pontos = Melhor Jogador do Ano/temporada (${PTS.join(' · ')}) + Worlds 6 + MSI 3 + MVP 1,5 + liga 0,5. Toque em um jogador para abrir a ficha.</p></section>
+    h+=`<div class="lg4"><section class="pn"><h2>Top 10 de todos os tempos</h2><div class="pod3">${pod}</div><div class="rkt">${rows}</div><p class="note">Pontos = ranking anual do Melhor Jogador do Ano (${PTS.join(' · ')}) + Worlds 30 + MSI 15 + MVP 5 + liga 1. Toque em um jogador para abrir a ficha.</p></section>
     <aside>${rec?`<section class="pn"><h2>Recordes</h2><div class="recs">${rec}</div></section>`:''}<section class="pn"><h2>Melhor Jogador do Ano</h2><div class="yrl one">${bl.map(x=>`<div class="yr"><span class="lg num">${x.y}</span>${mav(x.n)}<span class="grow"><b>${lk(x.n)}</b> <small>${esc(x.team)}</small></span></div>`).join('')}</div></section></aside></div>`;
   }else if(hofView==='wc'||hofView==='msi'||hofView==='fs'){
     h+=cupHistHTML(hofView);
@@ -10389,7 +10412,7 @@ function vLegacy(key){
   const bl=legBolas(key);
   if(bl.length)o+=`<section class="pn"><h2>Estante de Melhor Jogador do Ano</h2><div class="sh-t"><span>Jogadores do time premiados</span><b class="num">${bl.length}</b></div>${shelfRow('b',bl.map(x=>({y:x.y,l:`Melhor Jogador do Ano ${x.y}: ${x.n}`,sub:x.n})),'bola')}</section>`;
   const pl=legPlayers(key);
-  if(pl.length)o+=`<section class="pn"><h2>Lendas do time</h2>${pl.map(p=>`<div class="trp"><span class="y num">${p.ys[0]}</span><span><b>${S.pdb[p.n]||S.hof[p.n]?lk(p.n):esc(p.n)}</b><small>Top 5 do Melhor Jogador do Ano em ${p.ys.join(', ')}</small></span></div>`).join('')}</section>`;
+  if(pl.length)o+=`<section class="pn"><h2>Lendas do time</h2>${pl.map(p=>`<div class="trp"><span class="y num">${p.ys[0]}</span><span><b>${S.pdb[p.n]||S.hof[p.n]?lk(p.n):esc(p.n)}</b><small>Top 10 do Melhor Jogador do Ano em ${p.ys.join(', ')}</small></span></div>`).join('')}</section>`;
   if(rec.length)o+=`<section class="pn"><details class="det"><summary>Detalhes dos títulos</summary>${rec.slice().sort((a,b)=>b.y-a.y).map(x=>`<div class="trp"><span class="y num">${x.y}</span><span><b>${x.r==='V'?'Vice · ':''}${esc(x.k)}</b>${x.as!==name?` <small style="display:inline">como ${esc(x.as)}</small>`:''}</span></div>`).join('')}</details></section>`;
   return o;
 }
@@ -10453,7 +10476,7 @@ function pshelfHTML(n,d,h){
   const isMVP=x=>/^MVP/.test(x.t);
   const W=tl.filter(x=>x.t==='Mundial').sort(byY),M=tl.filter(x=>x.t==='MSI').sort(byY);
   const C=tl.filter(x=>x.t==='Copa do Mundo de LoL').sort(byY),F=tl.filter(x=>x.t==='First Stand').sort(byY);
-  const L=tl.filter(x=>x.t!=='Mundial'&&x.t!=='MSI'&&x.t!=='First Stand'&&x.t!=='Copa do Mundo de LoL'&&!isMVP(x)&&!isBO(x)&&!/^Top 5/.test(x.t)&&x.y!=='—').sort(byY);
+  const L=tl.filter(x=>x.t!=='Mundial'&&x.t!=='MSI'&&x.t!=='First Stand'&&x.t!=='Copa do Mundo de LoL'&&!isMVP(x)&&!isBO(x)&&!/^Top (5|10) /.test(x.t)&&x.y!=='—').sort(byY);
   const unk=Math.max(0,(h.lg||0)-L.length);
   const V=tl.filter(isMVP).sort(byY),B=tl.filter(isBO).sort(byY);
   const mv=x=>/Copa do Mundo/.test(x.t)?'Copa':/Mundial|Worlds/.test(x.t)?'Worlds':/MSI/.test(x.t)?'MSI':'Liga';
