@@ -43,6 +43,23 @@ const out=run(ctx,`(function(){
  var any=Object.values(S.co).find(function(c){return c.t!=null});
  var h=vCoach(any.n);ok(h.indexOf('Carreira')>=0&&h.indexOf(esc(any.n))>=0,'ficha do técnico');
  psQ=any.n;ok(psResults().some(function(r){return r.k==='c'&&r.id===any.n}),'busca encontra técnico');psQ='';
+ /* estante de jogador e reforço pequeno para quem tem títulos */
+ var g2=S.teams.find(function(t){return t.name==='G2'});
+ if(g2&&coOf(g2)&&COTIT[coOf(g2).n]){var b=coBoost(g2);ok(b>0&&b<=.65,'reforço do técnico com títulos pequeno e positivo: '+b);ok(vCoach(coOf(g2).n).indexOf('Estante da época de jogador')>=0,'estante de jogador na ficha')}
+ var semT=ALLT().find(function(t){var c=coOf(t);return c&&!COTIT[c.n]&&!c.ex&&!coTitles(c).length&&!(S.mgr&&S.mgr.tid===t.id)});
+ ok(!semT||coBoost(semT)===0,'técnico sem títulos não muda a força');
+ /* aposentado vira técnico e é contratado */
+ var rt=S.teams[3],rp=rt.pl[2],R=Math.random;Math.random=function(){return 0};coFromPlayer(rp,rt);Math.random=R;
+ ok(S.co[rp.n]&&S.co[rp.n].ex===1&&S.co[rp.n].t==null,'aposentado entra no mercado de técnicos');
+ var vt=S.teams.find(function(t){return !(S.mgr&&S.mgr.tid===t.id)&&t.id!==rt.id});var oc=coOf(vt);oc.t=null;vt.co=null;
+ Object.values(S.co).forEach(function(c){if(c.t==null&&c.n!==rp.n)c.ret=c.ret||1});
+ var o2=[];coHire(vt,o2);ok(coOf(vt)&&coOf(vt).n===rp.n,'clube contrata o ex-jogador');ok(o2.join(' ').indexOf('aposentado como jogador')>=0,'notícia do ex-jogador virando técnico: '+o2);
+ /* seu jogador se aposenta: propostas para ser técnico */
+ S.pc={n:'Teste PC',ended:S.year,leg:{v:95,r:'Imortal'},hist:[{team:S.teams[0].name}],fame:50,cash:0,log:[]};
+ var offs=pcCoOffers();ok(offs.length===3,'lenda recebe 3 propostas: '+offs.length);S.pc.coOff=offs;
+ ok(pcCoOffersHTML().indexOf('Propostas para ser técnico')>=0,'tela de propostas');
+ pcCoAccept(offs[0]);ok(!S.pc&&S.mgr&&S.mgr.tid===offs[0]&&S.mgr.exp&&S.mgr.exp.n==='Teste PC','aceitar abre o modo treinador no clube');
+ ok(coBoost(T(offs[0]))>0,'ex-jogador lenda dá reforço ao próprio time');
  return bad.length?'FALHAS: '+bad.join(' | '):'TODOS OS TESTES PASSARAM ('+Object.keys(S.co).length+' técnicos, '+real+' reais, '+ev+' movimentos)';
 })()`);
 console.log(out);if(out.indexOf('FALHAS')===0)process.exit(1);
