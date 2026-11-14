@@ -65,7 +65,7 @@ async function one(sess, file) {
   for (let i = 0; i < w * h; i++) { px[i * 4] = rgb[i * 3]; px[i * 4 + 1] = rgb[i * 3 + 1]; px[i * 4 + 2] = rgb[i * 3 + 2]; px[i * 4 + 3] = a[i]; }
   const rgba = await sharp(px, { raw: { width: w, height: h, channels: 4 } }).png().toBuffer();
   const name = slug(path.parse(file).name);
-  await sharp(rgba).extract({ left, top, width: Math.round(cw), height: Math.round(ch) })
+  await sharp(rgba).extract({ left, top, width: Math.min(w - left, Math.round(cw)), height: Math.min(h - top, Math.round(ch)) })
     .resize(W, H, { fit: 'fill' }).webp({ quality: 82, alphaQuality: 90 }).toFile(path.join(OUT, name + '.webp'));
   return name;
 }
