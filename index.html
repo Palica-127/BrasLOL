@@ -499,7 +499,7 @@ h1{letter-spacing:.02em}
 .fut .ft{position:absolute;left:0;right:0;bottom:2px;font:700 9px var(--d);color:var(--fm);letter-spacing:.05em}
 .jgb{display:grid;gap:6px;margin:6px 0;font-size:12px}.jgs{display:flex;flex-wrap:wrap;gap:4px 10px}.jgs small{width:100%;opacity:.7}.jgs span{display:inline-flex;gap:5px}.jgs i{font-style:normal;opacity:.65}
 .cc.fl{opacity:.5}.cc.fl small{color:#FFB84D}.flb .fll small{display:block;margin:6px 0 2px;color:var(--mut,#9aa)}.flc{display:inline-block;margin:0 4px 4px 0;padding:2px 7px;border-radius:10px;background:rgba(255,184,77,.14);color:#FFB84D;font-size:12px}.flb em{opacity:.6;font-size:12px}.flg{display:grid;grid-template-columns:54px 1fr 1fr;gap:6px;padding:5px 0;border-top:1px solid rgba(255,255,255,.08);font-size:12px}.flg small{display:block;opacity:.6}.flg span{display:block}
-.fut.inj::after{content:"LES";position:absolute;left:50%;top:8px;transform:translateX(-50%);background:#EF4A4A;color:#fff;font:700 10px var(--d);padding:1px 6px;border-radius:4px}
+.fut.finj::after{content:"LES";position:absolute;left:50%;top:8px;transform:translateX(-50%);background:#EF4A4A;color:#fff;font:700 10px var(--d);padding:1px 6px;border-radius:4px}
 .fut.big{width:176px;height:252px}
 .fut.big .fo{font-size:46px;left:25px;top:32px}.fut.big .fr{left:25px;top:78px;font-size:17px}.fut.big .fn{left:24px;top:102px;font-size:14px}.fut.big .fs{left:23px;top:122px;width:32px;height:38px}
 .fut.big .fa{right:22px;top:26px;width:96px;height:112px}.fut.big .fnm{top:150px;font-size:23px;left:12px;right:12px}.fut.big .fst{top:184px;font-size:19px;left:16px;right:16px}.fut.big .fst small{font-size:8px}.fut.big .ft{font-size:11px;bottom:6px}
@@ -618,6 +618,7 @@ h1{letter-spacing:.02em}
   .mgr .pills.stk{top:0;margin:0 0 16px;padding:10px 0;background:rgba(8,12,44,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid rgba(130,150,255,.18);padding-left:4px;border-radius:0 0 14px 14px;gap:8px}
   .mgr .pills.stk .pill{padding:6px 22px}
   .mgv.v-inicio{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);column-gap:20px;align-items:start}
+  .mgv.v-inicio>.mgcb{grid-column:1/-1;column-count:2;column-gap:20px}
   .mgv.v-fin{column-count:2;column-gap:20px}.mgv.v-fin>.pn{break-inside:avoid}
   .mgv.v-elenco,.mgv.v-base{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:20px;align-items:start}
   .mgv.v-elenco>.pn:only-child,.mgv.v-base>.pn:only-child{grid-column:1/-1}
@@ -816,7 +817,7 @@ h1{letter-spacing:.02em}
 .dvrole{margin:0 0 10px}
 .cgr{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px}
 .cc{display:grid;justify-items:center;gap:3px;padding:10px 6px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:inherit;font:inherit;cursor:pointer}
-.cc:hover{border-color:#00F5A0;background:rgba(0,245,160,.1)}.cc b{font:700 13px inherit}.cc small{font-size:10px;color:#9fb4ff}.cc em{font-style:normal;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:#8194A8}
+.cc.crec{border-color:#00F5A0;box-shadow:inset 0 0 0 1px #00F5A0}.cc:hover{border-color:#00F5A0;background:rgba(0,245,160,.1)}.cc b{font:700 13px inherit}.cc small{font-size:10px;color:#9fb4ff}.cc em{font-style:normal;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:#8194A8}
 .cc.tk{opacity:.3;filter:grayscale(1);cursor:default}
 .dvpool.wait{text-align:center}.dvw{display:flex;gap:6px;justify-content:center;margin:6px 0}.dvw i{width:10px;height:10px;border-radius:50%;background:#FFE27A;animation:dvp 1s infinite}.dvw i:nth-child(2){animation-delay:.2s}.dvw i:nth-child(3){animation-delay:.4s}
 .dvs{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:center}.dvs small{display:block;color:#8194A8;font-size:11px}.dvs b{font:800 20px var(--d,inherit)}
@@ -900,7 +901,8 @@ h1{letter-spacing:.02em}
 
 /* ===== Gestão: alinhamento interno das abas ===== */
 .mgc{display:block}
-.mgv>.pn,.mgc>.pn{padding:16px 16px 14px;margin-bottom:16px}
+.mgv>.pn,.mgc>.pn,.mgcb>.pn{padding:16px 16px 14px;margin-bottom:16px}
+.mgcb>.pn{break-inside:avoid;display:inline-block;width:100%;vertical-align:top}
 .mgv .pn>h2{margin-bottom:14px}
 .mgv .pn>.note{margin:12px 0 0;line-height:1.5}
 .mgv .rowc{margin-bottom:14px}
@@ -2119,14 +2121,14 @@ details.pn>summary{color:var(--t1)}
 .nrec{display:flex;gap:6px;align-items:baseline;font-size:24px}.nrec i{font-style:normal;font-weight:800}.nrec .up{color:#00F5A0}.nrec .dn{color:#ff6b7d}.nrec em{font-style:normal;color:var(--muted)}.nmid small{font:600 10px var(--b);color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
 .nst{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}.nst>div{background:rgba(255,255,255,.04);border-radius:10px;padding:8px 10px}.nst small{display:block;font:600 10px var(--b);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}.nst b{font-size:17px}.nst em{font-style:normal;color:var(--muted)}.nst .up{color:#00F5A0}.nst .dn{color:#ff6b7d}
 .pg.max{box-shadow:0 0 0 2px #ffc857,0 0 10px rgba(255,200,87,.45);background:rgba(255,200,87,.07)}
-.pg.sig{box-shadow:0 0 0 2px #b46bff,0 0 14px rgba(180,107,255,.85);background:rgba(180,107,255,.10);animation:sigp 2.6s ease-in-out infinite}
-.pg.sig.max{box-shadow:0 0 0 2px #b46bff,0 0 0 4px #ffc857,0 0 16px rgba(180,107,255,.85)}
+.pg.psig{box-shadow:0 0 0 2px #b46bff,0 0 14px rgba(180,107,255,.85);background:rgba(180,107,255,.10);animation:sigp 2.6s ease-in-out infinite}
+.pg.psig.max{box-shadow:0 0 0 2px #b46bff,0 0 0 4px #ffc857,0 0 16px rgba(180,107,255,.85)}
 @keyframes sigp{50%{box-shadow:0 0 0 2px #c48bff,0 0 20px rgba(190,120,255,1)}}
 .pg b{position:relative;z-index:1}
-.pg.sig b{color:#c9a0ff;text-shadow:0 0 8px rgba(180,107,255,.8)}
+.pg.psig b{color:#c9a0ff;text-shadow:0 0 8px rgba(180,107,255,.8)}
 .pg.max b{color:#ffc857;text-shadow:0 0 8px rgba(255,200,87,.7)}
 .pgrid{padding:6px 6px 6px 6px}
-@media (prefers-reduced-motion:reduce){.pg.sig{animation:none}}.pg b{font-size:12px}.pg .ovb{width:100%;height:5px!important}.pg .mt{position:absolute;top:3px;right:5px;font:700 9px var(--b);font-style:normal}.pg .mt.up{color:#00F5A0}.pg .mt.dn{color:#FF5C8A}.pcPl{display:flex;flex-direction:column}.pcPl .ph{margin-bottom:12px}.pcPl .ph h3{font-size:28px;overflow-wrap:break-word}.pcPl .cab{margin-top:auto}.pcCol{justify-content:flex-start}.pcsub{margin:0 0 8px}.pcsub .tag{margin-left:4px}.pcCol{display:flex;flex-direction:column;gap:8px;min-width:0}.pcCol .pn{margin:0}.pcHab>.pn{margin-bottom:8px}
+@media (prefers-reduced-motion:reduce){.pg.psig{animation:none}}.pg b{font-size:12px}.pg .ovb{width:100%;height:5px!important}.pg .mt{position:absolute;top:3px;right:5px;font:700 9px var(--b);font-style:normal}.pg .mt.up{color:#00F5A0}.pg .mt.dn{color:#FF5C8A}.pcPl{display:flex;flex-direction:column}.pcPl .ph{margin-bottom:12px}.pcPl .ph h3{font-size:28px;overflow-wrap:break-word}.pcPl .cab{margin-top:auto}.pcCol{justify-content:flex-start}.pcsub{margin:0 0 8px}.pcsub .tag{margin-left:4px}.pcCol{display:flex;flex-direction:column;gap:8px;min-width:0}.pcCol .pn{margin:0}.pcHab>.pn{margin-bottom:8px}
 .tdi{width:54px;height:54px;flex:none;display:grid;place-items:center;font-size:0;color:var(--bc,#FFE27A);clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:linear-gradient(160deg,var(--bc,#FFE27A),rgba(var(--gl,255,226,122),.25));position:relative}
 .tdi::before{content:"";position:absolute;inset:3px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:radial-gradient(circle at 50% 28%,#223066,#080c22 75%)}
 .tdi .gl{width:28px;height:28px}
@@ -2421,13 +2423,13 @@ details.pn>summary{color:var(--t1)}
 .mx .lk{border:0!important;box-shadow:none!important;text-decoration:none!important;font:inherit;text-transform:none;letter-spacing:0;color:inherit}
 .mxp{font:600 12px var(--d);font-style:normal;color:rgba(255,255,255,.4);margin-left:auto}.mxt.b .mxp{margin-left:0;margin-right:auto}
 .mxs{min-width:56px;text-align:center;font:800 22px var(--d);color:#fff}.mxs i{opacity:.4;font-style:normal;margin:0 3px}
-.mxs.vs{font:700 11px var(--d);letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.mxs.mvs{font:700 11px var(--d);letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3)}
 .mxt.win .mxn{font-weight:800;color:#fff}.mxt.lose{opacity:.45}
 .mxb{height:3px;border-radius:2px;background:rgba(224,71,91,.6);margin:10px 0 7px;overflow:hidden}.mxb i{display:block;height:100%;background:#4d8dff}
 .mxl{text-align:center;font:600 10px var(--d);letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.36)}
 .mx .zb{top:8px;right:12px;border-radius:6px;font-size:9px;padding:1px 6px}
 @media (max-width:520px){.m.mx{padding:10px 12px 8px}.mxt{font-size:13px;gap:7px}.mxs{font-size:18px;min-width:44px}.m.mx .mxr{gap:8px}}
-.mxs,.mxp,.mxt{line-height:1}.mxs.vs{padding-top:0}.mxt .mxn{line-height:1.2}
+.mxs,.mxp,.mxt{line-height:1}.mxs.mvs{padding-top:0}.mxt .mxn{line-height:1.2}
 /* cartoes de partida compactos, estilo placar: escudo em cima, nome embaixo, duas colunas */
 .m.mx{display:inline-block;vertical-align:top;box-sizing:border-box;width:48.5%;margin:0 1.5% 8px 0;padding:12px 10px 9px}
 .m.mx .mxr{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:6px;align-items:start}
@@ -2435,7 +2437,7 @@ details.pn>summary{color:var(--t1)}
 .mxt .mxn{max-width:100%;white-space:normal;line-height:1.15;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .mxt .mxp,.mxt.b .mxp{margin:0;order:3;font-size:11px}
 .mxs{min-width:34px;align-self:center;font-size:20px}
-.mxs.vs{font-size:10px;letter-spacing:.1em}
+.mxs.mvs{font-size:10px;letter-spacing:.1em}
 @media (max-width:620px){.m.mx{display:block;width:auto;margin-right:0}}
 .pbch .ti{width:84px!important;height:118px!important}.pbch b{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:24px}.pbch small{font-size:12px}.pbch{width:230px;gap:10px}.pbch .crest{--s:84px}.pbch .shield{width:84px;height:98px}.pbch b.q{font-size:64px}
 /* cartões grandes do bracket de eliminação simples */
@@ -7139,7 +7141,7 @@ function vLive(){
     ctl=`<section class="dvpool"><p class="lvq"><b>${LVPH[Math.min(LV.cp,2)]}</b> · chance neste mapa: <b class="num">${p}%</b></p><p class="note" style="margin:0 0 8px">O time define sozinho a instrução de cada fase (início, meio e final de jogo).${subs?' Antes de começar, você ainda pode mexer na escalação.':''}</p>${subs}<div class="lvbtn"><button class="play" data-act="lvTac" data-v="auto">Começar mapa</button></div></section>`;
   }else if(LV.state==='ckpt'){
     const cp=LV.cp,p=Math.round(lvP()*100);
-    ctl=`<section class="dvpool"><p class="lvq"><b>${LVPH[cp]}</b> · chance neste mapa: <b class="num">${p}%</b></p><p class="note" style="margin:0 0 8px">Escolha a instrução para esta fase. Agressivo rende no começo e cobra no fim; Controle faz o contrário. Equilibrado perde para Agressivo, Agressivo perde para Controle, Controle perde para Equilibrado.${m.hint&&cp===0?' Dica do analista: rival tende a '+planName(m.hint)+'.':''}</p>${lvRecHTML(lvRec())}<div class="lvtac">${LVT3.map(([k,l])=>`<button class="cc${lvRec().k===k?' rec':''}" data-act="lvTac" data-v="${k}"><b>${l}</b><small>${k==='ag'?'+início, −fim':k==='co'?'−início, +fim':'neutro'}</small></button>`).join('')}</div>${subs}</section>`;
+    ctl=`<section class="dvpool"><p class="lvq"><b>${LVPH[cp]}</b> · chance neste mapa: <b class="num">${p}%</b></p><p class="note" style="margin:0 0 8px">Escolha a instrução para esta fase. Agressivo rende no começo e cobra no fim; Controle faz o contrário. Equilibrado perde para Agressivo, Agressivo perde para Controle, Controle perde para Equilibrado.${m.hint&&cp===0?' Dica do analista: rival tende a '+planName(m.hint)+'.':''}</p>${lvRecHTML(lvRec())}<div class="lvtac">${LVT3.map(([k,l])=>`<button class="cc${lvRec().k===k?' crec':''}" data-act="lvTac" data-v="${k}"><b>${l}</b><small>${k==='ag'?'+início, −fim':k==='co'?'−início, +fim':'neutro'}</small></button>`).join('')}</div>${subs}</section>`;
   }else if(LV.state==='between')ctl=`<section class="dvpool"><p class="lvq">Mapa ${LV.gi} ${LV.res[LV.res.length-1]?'<b style="color:#00F5A0">vencido</b>':'<b style="color:#FF5C8A">perdido</b>'}. Série ${sA}–${sB}.</p>${subs}${nextBtnHTML()}</section>${flPanel(LV.m)}`;
   else if(LV.state==='done')ctl=`<section class="dvpool"><p class="lvq">Série encerrada: <b class="num">${sA}–${sB}</b> · ${LV.me>LV.op?'<b style="color:#00F5A0">vitória</b>':'<b style="color:#FF5C8A">derrota</b>'}</p><div class="lvbtn"><button class="play" data-act="lvDone">Continuar</button></div></section>`;
   if(LV.pc&&LV.state!=='run')ctl=pcLiveCtl(sA,sB);
@@ -8082,7 +8084,7 @@ function vPc0(){
   const pl=CH[p.role].map(([c,a])=>({c,a,v:Math.round(mastOf(pc.n,c)*100),m:metaOf(c)})).sort((x,y)=>y.v-x.v);
   pcSigUpdate(pl);
   if(pc.sig){const k=pl.findIndex(x=>x.c===pc.sig);if(k>0)pl.unshift(pl.splice(k,1)[0])}
-  let poolH=`<details class="pn det" open><summary>Pool de campeões</summary><div class="pgrid">${pl.map(x=>`<div class="pg${x.v>=100?' max':''}${pc.sig===x.c?' sig':''}" title="${esc(x.c)} · ${archL(x.a)}${pc.sig===x.c?' · marca registrada':''}${pc.cs&&pc.cs[x.c]?` · ${pc.cs[x.c].p} jogos, ${pc.cs[x.c].w} vitórias, ${pc.cs[x.c].dw}/${pc.cs[x.c].d} decisivos`:''}${x.v>=100?' · domínio máximo':''}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}">${chTile(x.c)}<b class="num">${x.v}%</b>${pcBar(x.v,100)}${x.m>=.2?'<i class="mt up">▲</i>':x.m<=-.2?'<i class="mt dn">▼</i>':''}</div>`).join('')}</div></details>`;
+  let poolH=`<details class="pn det" open><summary>Pool de campeões</summary><div class="pgrid">${pl.map(x=>`<div class="pg${x.v>=100?' max':''}${pc.sig===x.c?' psig':''}" title="${esc(x.c)} · ${archL(x.a)}${pc.sig===x.c?' · marca registrada':''}${pc.cs&&pc.cs[x.c]?` · ${pc.cs[x.c].p} jogos, ${pc.cs[x.c].w} vitórias, ${pc.cs[x.c].dw}/${pc.cs[x.c].d} decisivos`:''}${x.v>=100?' · domínio máximo':''}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}">${chTile(x.c)}<b class="num">${x.v}%</b>${pcBar(x.v,100)}${x.m>=.2?'<i class="mt up">▲</i>':x.m<=-.2?'<i class="mt dn">▼</i>':''}</div>`).join('')}</div></details>`;
   /* ofertas */
   if(pc.offers&&pc.offers.length){h+=`<section class="pn"><h2>Propostas</h2><p class="note" style="margin:0 0 8px">${pcPlayOk()?'Janela aberta: dá para assinar agora.':'Janela fechada: as propostas voltam a valer antes do próximo split.'}</p>${pc.offers.map((o,i)=>{const nt=ALLT().find(x=>x.name===o.tn);return `<div class="mrow" style="grid-template-columns:minmax(0,1fr) auto auto"><span class="who"><b>${o.ren?'Renovar com ':''}${nt?tlk(nt):esc(o.tn)}${nt&&nt.d===2?' <span class="tag">D2</span>':''}</b><small>${o.k==='T'?'Como titular':'Como reserva'} · ${o.yrs} ano${o.yrs>1?'s':''} · ${fmtM(o.sal)}/ano${o.cl==='bon'?' · bônus de título: 80% do salário por título':o.cl==='con'?' · garantia de confiança inicial (+20)':''}</small></span><button class="ghost" data-act="pcOffer" data-v="${i}"${pcPlayOk()?'':' disabled'}>${o.ren?'Renovar':'Assinar'}</button><button class="ghost" data-act="pcNo" data-v="${i}">Recusar</button></div>`}).join('')}</section>`}
   /* metas */
@@ -8374,7 +8376,7 @@ function pcLiveCtl(sA,sB){
   }
   if(LV.state==='ckpt'){
     const cp=LV.cp,pr=Math.round(lvP()*100);
-    return `<section class="dvpool"><p class="lvq"><b>${LVPH[cp]}</b> · chance de vitória: <b class="num">${pr}%</b> · ${esc(LV.ch)}</p><p class="note" style="margin:0 0 8px">Como você joga esta fase? Buscar o jogo é uma aposta: se der certo, vira a luta e sua nota sobe; se falhar, o time sofre.</p>${lvRecHTML(lvRec())}<div class="lvtac">${[['sf','Seguro','poucos riscos'],['cr','Buscar o jogo','aposta alta'],['tm','Pelo time','visão e peel']].map(([k,l,d])=>`<button class="cc${lvRec().k===k?' rec':''}" data-act="lvTac" data-v="${k}"><b>${l}</b><small>${d}</small></button>`).join('')}</div></section>`;
+    return `<section class="dvpool"><p class="lvq"><b>${LVPH[cp]}</b> · chance de vitória: <b class="num">${pr}%</b> · ${esc(LV.ch)}</p><p class="note" style="margin:0 0 8px">Como você joga esta fase? Buscar o jogo é uma aposta: se der certo, vira a luta e sua nota sobe; se falhar, o time sofre.</p>${lvRecHTML(lvRec())}<div class="lvtac">${[['sf','Seguro','poucos riscos'],['cr','Buscar o jogo','aposta alta'],['tm','Pelo time','visão e peel']].map(([k,l,d])=>`<button class="cc${lvRec().k===k?' crec':''}" data-act="lvTac" data-v="${k}"><b>${l}</b><small>${d}</small></button>`).join('')}</div></section>`;
   }
   if(LV.state==='run')return `<section class="dvpool wait"><div class="dvw"><i></i><i></i><i></i></div><p>${LVPH[Math.min(LV.cp,2)]}</p><div class="lvbtn"><button class="ghost" data-act="lvSkip">Pular fase</button></div></section>`;
   const gl=LV.gr.map((x,i)=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr) auto"><span class="hx t${tier(Math.round(x.rt*10))} sm">${String(x.rt).replace('.',',')}</span><span class="who"><b>Mapa ${i+1} · ${esc(x.c)}</b><small>${x.k}/${x.d}/${x.a} · ${x.win?'vitória':'derrota'}</small></span></div>`).join('');
@@ -8465,7 +8467,7 @@ function inicioHTML(t,m){
   h2+=trHTML(t,m);
   const fo=m.focus||'eq';
   h+=`<section class="pn"><h2>Foco de treino</h2><div class="pills" style="margin-bottom:6px">${FOCUS.map(([k,l])=>`<button class="pill" aria-pressed="${fo===k}" data-act="focus" data-v="${k}">${l}</button>`).join('')}</div><p class="note" style="margin:0">${FOCUS.find(x=>x[0]===fo)[2]} Vale na virada de ano.</p></section>`;
-  return `${dash}<div class="mgc">${h}</div><div class="mgc">${h2}</div>`;
+  return `${dash}<div class="mgcb">${h}${h2}</div>`;
 }
 
 function vMgr(){
@@ -8537,7 +8539,7 @@ function coachLegHTML(m){
   const st=(m.past||[]).concat(m.hist&&m.hist.length?[{tn:m.tn||(mgrT()&&mgrT().name)||'Clube atual',from:m.since,to:m.hist[m.hist.length-1].y,hist:m.hist,now:!m.fired}]:[]);
   if(!st.length)return '';
   const all=st.flatMap(x=>x.hist),ti=all.filter(x=>x.wc==='C').length,go=all.filter(x=>x.ach>=x.goal).length;
-  return `<section class="pn"><h2>Legado como técnico</h2><p class="note" style="margin:0 0 8px">${all.length} temporada${all.length===1?'':'s'} · ${ti} Worlds${ti===1?'':'is'} · ${go} meta${go===1?'':'s'} cumprida${go===1?'':'s'} · reputação ${m.rep==null?50:Math.round(m.rep)}</p>${st.map(x=>`<div class="pl"><span class="nm2">${esc(x.tn)}</span><span class="tag" style="margin:0">${x.from}–${x.to} · ${x.hist.length} temp.${x.fired?' · demitido':''}</span></div>`).join('')}</section>`;
+  return `<section class="pn"><h2>Legado como técnico</h2><p class="note" style="margin:0 0 8px">${all.length} temporada${all.length===1?'':'s'} · ${ti} Worlds${ti===1?'':'is'} · ${go} meta${go===1?'':'s'} cumprida${go===1?'':'s'} · reputação ${m.rep==null?50:Math.round(m.rep)}</p>${st.map(x=>`<div class="pl" style="grid-template-columns:minmax(0,1fr) auto"><span class="nm2">${esc(x.tn)}</span><span class="tag" style="margin:0">${x.from}–${x.to} · ${x.hist.length} temp.${x.fired?' · demitido':''}</span></div>`).join('')}</section>`;
 }
 function logHTML(m){
   if(!m.log.length&&!(m.past&&m.past.length))return coachLegHTML(m);
@@ -9724,10 +9726,10 @@ function fut(o,cls=''){
   const ret=!tm||!!(S.pdb&&S.pdb[o.n]&&S.pdb[o.n].ret);
   if(cardFoto()){
     const ph=phHas(o.n),art=ph?'':chArt(sigCh(o.n,o.role));
-    return `<button class="fut fph t${t} ${cls}${ret?' ret':''}${S.inj&&S.inj[o.n]?' inj':''}" data-act="player" data-v="${esc(o.n)}" aria-label="${esc(o.n)}, ${o.r}"><span class="fpi${ph?'':' nph'}">${ph?phImg(o.n):art?`<img src="${art}" alt="" loading="lazy" decoding="async" draggable="false"><i>${esc(String(o.n).slice(0,2).toUpperCase())}</i>`:`<i>${esc(String(o.n).slice(0,2).toUpperCase())}</i>`}</span><span class="fpo num">${o.r}</span>${tm?`<span class="fps">${crest(tm,'')}</span>`:''}${o.f&&Math.abs(o.f)>=.5?`<span class="fpf ${o.f>0?'up':'dn'}">${o.f>0?'▲':'▼'}${Math.abs(o.f).toFixed(1)}</span>`:''}<span class="fpb"><small>${RN[o.role]||''}${c?' · '+natTxt(c):''}</small><b>${esc(o.n)}</b></span></button>`;
+    return `<button class="fut fph t${t} ${cls}${ret?' ret':''}${S.inj&&S.inj[o.n]?' finj':''}" data-act="player" data-v="${esc(o.n)}" aria-label="${esc(o.n)}, ${o.r}"><span class="fpi${ph?'':' nph'}">${ph?phImg(o.n):art?`<img src="${art}" alt="" loading="lazy" decoding="async" draggable="false"><i>${esc(String(o.n).slice(0,2).toUpperCase())}</i>`:`<i>${esc(String(o.n).slice(0,2).toUpperCase())}</i>`}</span><span class="fpo num">${o.r}</span>${tm?`<span class="fps">${crest(tm,'')}</span>`:''}${o.f&&Math.abs(o.f)>=.5?`<span class="fpf ${o.f>0?'up':'dn'}">${o.f>0?'▲':'▼'}${Math.abs(o.f).toFixed(1)}</span>`:''}<span class="fpb"><small>${RN[o.role]||''}${c?' · '+natTxt(c):''}</small><b>${esc(o.n)}</b></span></button>`;
   }
   const st=futStats(o.n,o.r,o.role);
-  return `<button class="fut t${t} ${cls}${ret?' ret':''}${S.inj&&S.inj[o.n]?' inj':''}" data-act="player" data-v="${esc(o.n)}" aria-label="${esc(o.n)}, ${o.r}">
+  return `<button class="fut t${t} ${cls}${ret?' ret':''}${S.inj&&S.inj[o.n]?' finj':''}" data-act="player" data-v="${esc(o.n)}" aria-label="${esc(o.n)}, ${o.r}">
   <span class="fo num">${o.r}</span><span class="fr">${RN[o.role]||''}</span>${c?`<span class="fn">${natTxt(c)}</span>`:''}${tm?`<span class="fs">${crest(tm,'')}</span>`:''}
   <span class="fa${phHas(o.n)?' ph':''}">${phHas(o.n)?phImg(o.n):AVA}</span><span class="fnm" style="font-size:${o.n.length>9?Math.max(9.5,Math.floor(150/o.n.length*10)/10):17}px">${esc(o.n)}</span>
   <span class="fst">${st.map((v,i)=>`<span class="num">${v}<small>${FSTAT[i]}</small></span>`).join('')}</span>
@@ -9866,7 +9868,7 @@ function matchHTML(m,i,fx){
   const rvt=rvTxt(A,B),lab=(m.cl?'Clássico · ':'')+(rvt?rvt+' · ':'')+pnT+(m.real?'Resultado real · ':'')+(m.sw&&!/^\d+-\d+$/.test(m.sw)?m.sw+' · ':'')+(m.n===1?'Jogo único':'MD'+m.n);
   const tip=`${pa}% x ${pb}% · ${m.n===1?'jogo único':Math.round(m.qa*100)+'% por jogo'} · ${m.d>=0?'+':''}${m.d.toFixed(1)} OVR`;
   return `<div class="m mx${fx?' fx':''}${mgrT()&&(m.a===S.mgr.tid||m.b===S.mgr.tid)?' mine':''}" style="--i:${i}" title="${tip}">${up?'<span class="zb">Zebra</span>':''}${swChip(m)}
-  <div class="mxr"><span class="mxt ${r?(aw?'win':'lose'):''}">${crest(A,'sm')}${sdTxt(A)}<span class="mxn">${tlk(A)}</span><i class="mxp">${pa}%</i></span><span class="mxs num${r?'':' vs'}">${r?`${r.wa}<i>–</i>${r.wb}`:'vs'}</span><span class="mxt b ${r?(bw?'win':'lose'):''}">${crest(B,'sm')}${sdTxt(B)}<span class="mxn">${tlk(B)}</span><i class="mxp">${pb}%</i></span></div>
+  <div class="mxr"><span class="mxt ${r?(aw?'win':'lose'):''}">${crest(A,'sm')}${sdTxt(A)}<span class="mxn">${tlk(A)}</span><i class="mxp">${pa}%</i></span><span class="mxs num${r?'':' mvs'}">${r?`${r.wa}<i>–</i>${r.wb}`:'vs'}</span><span class="mxt b ${r?(bw?'win':'lose'):''}">${crest(B,'sm')}${sdTxt(B)}<span class="mxn">${tlk(B)}</span><i class="mxp">${pb}%</i></span></div>
   <div class="mxb"><i style="width:${pa}%"></i></div>
   <div class="mxl">${lab.replace(/ · $/,'')}</div></div>`;
 }
@@ -10586,7 +10588,7 @@ function vHof(){
   }else if(hofView==='teams'){
     h+=pwHTML();
     const rows=S.teams.map(t=>({t,c:ttCount(t)})).sort((a,b)=>b.c.wc-a.c.wc||b.c.msi-a.c.msi||b.c.lg-a.c.lg||baseOvr(b.t)-baseOvr(a.t));
-    h+=`<section class="pn"><h2>Histórico de títulos</h2>${rows.map(({t,c})=>`<div class="pl"><span class="tag" style="margin:0">${t.lg}</span><span><span class="nm2">${crest(t,'sm')} ${tlk(t)}</span><br><small>${c.wc} Worlds · ${c.msi} MSI · ${c.lg} ligas</small></span>${hx(Math.round(baseOvr(t)),'sm')}</div>`).join('')}</section>`;
+    h+=`<section class="pn"><h2>Histórico de títulos</h2>${rows.map(({t,c})=>`<div class="pl" style="grid-template-columns:52px minmax(0,1fr) auto"><span class="tag" style="margin:0;text-align:center">${t.lg}</span><span><span class="nm2">${crest(t,'sm')} ${tlk(t)}</span><br><small>${c.wc} Worlds · ${c.msi} MSI · ${c.lg} ligas</small></span>${hx(Math.round(baseOvr(t)),'sm')}</div>`).join('')}</section>`;
   }else{
     h+=`<div class="pills">${[['all','Todos'],['a','Ativos'],['r','Aposentados']].map(([k,l])=>`<button class="pill" aria-pressed="${pf===k}" data-act="pf" data-v="${k}">${l}</button>`).join('')}</div>`;
     h+=`<input id="q" class="search" type="search" placeholder="Buscar jogador" value="${esc(qStr)}" aria-label="Buscar jogador"><section class="pn"><h2>Jogadores</h2><div id="plist">${plistHTML()}</div></section>`;
@@ -10935,7 +10937,7 @@ function poolHTML(n,role,tm){
   const ms=S.mgr&&tm&&S.mgr.tid===tm.id,tr=ms&&S.mgr.tr&&S.mgr.tr[n]==='pool';
   const l=CH[role].map(([c,a])=>({c,a,v:Math.round(mastOf(n,c)*100),m:metaOf(c),g:rGames(n,c)})).sort((x,y)=>y.v-x.v||y.g-x.g);
   /* mesma grade da pool do modo jogador: ícone, domínio, barra e seta do meta; o primeiro é o campeão assinatura */
-  const tile=(x,i)=>`<div class="pg${x.v>=100?' max':''}${i===0?' sig':''}" title="${esc(x.c)} · ${archL(x.a)}${i===0?' · assinatura':''}${x.g?` · ${x.g} jogos oficiais`:''}${x.v>=100?' · domínio máximo':''}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}">${chTile(x.c)}<b class="num">${x.v}%</b>${pcBar(x.v,100)}${x.m>=.2?'<i class="mt up">▲</i>':x.m<=-.2?'<i class="mt dn">▼</i>':''}</div>`;
+  const tile=(x,i)=>`<div class="pg${x.v>=100?' max':''}${i===0?' psig':''}" title="${esc(x.c)} · ${archL(x.a)}${i===0?' · assinatura':''}${x.g?` · ${x.g} jogos oficiais`:''}${x.v>=100?' · domínio máximo':''}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}">${chTile(x.c)}<b class="num">${x.v}%</b>${pcBar(x.v,100)}${x.m>=.2?'<i class="mt up">▲</i>':x.m<=-.2?'<i class="mt dn">▼</i>':''}</div>`;
   return `<section class="pn poolf"><h2>Pool de campeões</h2><p class="note" style="margin:0 0 8px">Domínio de ${esc(n)} nos campeões de ${RN[role]}, do mais forte para o mais fraco. Roxo é o campeão assinatura, dourado é domínio máximo; a seta indica o meta atual (${esc(metaName())}).${tr?' Em treino de pool.':''}</p><div class="pgrid">${l.map(tile).join('')}</div></section>`;
 }
 const faFind=n=>{const p=(S.fa||[]).find(x=>x.n===n);return p?{p,t:{name:'Sem clube (agente livre)',lg:'',d:0,yh:[],id:-1}}:null};
