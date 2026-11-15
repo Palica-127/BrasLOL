@@ -2563,6 +2563,8 @@ const WCT={2011:'Fnatic',2012:'Taipei Assassins',2014:'Samsung White',2013:'SK T
 const WCV={2011:'Against All authority',2012:'Azubu Frost',2013:'Royal Club',2014:'Star Horn Royal Club',2015:'KOO Tigers',2016:'Samsung Galaxy',2017:'SK Telecom T1',2018:'Fnatic',2019:'G2 Esports',2020:'Suning',2021:'DWG KIA',2022:'T1',2023:'Weibo Gaming',2024:'BLG',2025:'KT Rolster'};
 const MSV={2015:'SK Telecom T1',2016:'Counter Logic Gaming',2017:'G2 Esports',2018:'Kingzone DragonX',2019:'Team Liquid',2021:'DAMWON Gaming',2022:'T1',2023:'BLG',2024:'BLG',2025:'T1'};
 /* EWC (Esports World Cup) de LoL: 2024 e 2025 em Riade (T1 3x1 Top Esports; Gen.G 3x2 Anyone's Legend). 2026 (Paris, Dplus KIA 3x0 Karmine Corp) entra como temporada real em ewcSeed2026 */
+/* First Stand real: 2025 em Seul (Hanwha Life 3x1 Karmine Corp, MVP Zeka); 2026 em São Paulo (BLG 3x1 G2, MVP Bin), que entra na temporada em fsSeed2026 */
+const FSTT={2025:'Hanwha Life'},FSTV={2025:'Karmine Corp'},FSTM={2025:'Zeka'};
 const EWCT={2024:'T1',2025:'Gen.G'},EWCV={2024:'Top Esports',2025:"Anyone's Legend"},EWCM={2024:'Faker',2025:'Kiin'};
 const MST={2015:'Edward Gaming',2016:'SK Telecom T1',2017:'SK Telecom T1',2018:'Royal Never Give Up',2019:'G2 Esports',2021:'Royal Never Give Up',2022:'Royal Never Give Up',2023:'JD Gaming',2024:'Gen.G',2025:'Gen.G'};
 /* Títulos reais como jogador até 2025 (Leaguepedia: elencos campeões de Worlds, MSI, First Stand, ligas e torneios; só jogador, não staff).
@@ -2836,7 +2838,7 @@ function seed2026(){
   const fm={...mk(hle,blg,5),res:{wa:3,wb:2,w:hle.id},real:true};
   S.season.msi={teams:['Hanwha Life','T1','BLG','Top Esports','G2','Karmine Corp','LYON','Team Liquid','Team Secret Whales','FURIA'].map(n=>tm(n).id),
     stages:[{name:'Final',n:5,ms:[fm]}],elim:{[blg.id]:'Final'},champ:hle.id,mvp:'Zeus'};
-  ewcSeed2026();
+  fsSeed2026();ewcSeed2026();
   const R=(tag,lg,champ,runner,mvp,note)=>{(S.season.res[tag]=S.season.res[tag]||[]).push({lg,champ,cid:tm(champ).id,runner,third:[],mvp,score:'',fp:0,real:true,note})};
   R('s1','LCK','Gen.G','BNK FearX','Canyon','LCK Cup, resultado real');
   R('s1','LPL','BLG','JD Gaming','Knight','Splits 1 e 2 do BLG, resultado real');
@@ -3578,6 +3580,37 @@ function ewcGrpHTML(tour){
     return `<div class="grp"><div class="sub" style="margin-top:0">Grupo ${g.n}</div>${ord.map(id=>{const r=rec(id),t=T(id),k=rk(g,id),st=k===0?'1º':k===1?'2º':k===3?'fora':'';return `<div class="gr${k<2?' q':''}"><span>${crest(t,'xs')} ${tlk(t)}</span><span class="num">${r.w}-${r.l}${st?' · '+st:''}</span></div>`}).join('')}</div>`}).join('')}</div>`;
 }
 /* EWC 2026 real (Paris, 15-19/jul): Dplus KIA 3x0 Karmine Corp; semifinais com T1 e Gen.G; Dplus tirou o BLG nas quartas; MVP Smash */
+/* First Stand 2026 real (São Paulo, 22/mar): BLG 3x1 G2, MVP Bin. Também grava no Hanwha Life o First Stand 2025 (os jogadores já têm pelo histórico real) */
+function fsHle25(){
+  const h=S.teams.find(t=>t.name==='Hanwha Life');if(!h)return;
+  const r=Object.keys(S.pdb||{}).filter(n=>(S.pdb[n].tl||[]).some(e=>e.t==='First Stand'&&e.y===2025));
+  const e0=h.tt.find(x=>x.k==='First Stand'&&x.y===2025);if(e0){if(!(e0.r&&e0.r.length))e0.r=r}else h.tt.push({y:2025,k:'First Stand',r});
+  Object.keys(S.pdb||{}).forEach(n=>(S.pdb[n].tl||[]).forEach(e=>{if(e.t==='First Stand'&&e.y===2025&&!e.tm)e.tm='Hanwha Life'}));
+  if(!(S.pdb.Zeka&&S.pdb.Zeka.tl||[]).some(e=>e.t==='MVP First Stand'&&e.y===2025)){hofOf('Zeka').mvp++;pd('Zeka').tl.push({y:2025,t:'MVP First Stand',tm:'Hanwha Life'});pd('Zeka').tl.sort((a,b)=>(+a.y||0)-(+b.y||0))}
+}
+function fsSeed2026(){
+  S.fsV=1;fsHle25();if(S.season.fs)return;
+  const tm=n=>S.teams.find(t=>t.name===n),b=tm('BLG'),g=tm('G2');if(!b||!g)return;
+  award(b,'fs','First Stand');b.tt[b.tt.length-1].ph=PHASES.findIndex(p=>p.t==='fs');mark(g,'fs','F');
+  achOf('Bin').mv.push('MVP First Stand');hofOf('Bin').mvp++;pd('Bin').tl.push({y:S.year,t:'MVP First Stand',tm:'BLG'});
+  const fm={...mk(b,g,5),res:{wa:3,wb:1,w:b.id},real:true,sw:'Grande final'};
+  S.season.fs={kind:'fs',teams:['Gen.G','BNK FearX','BLG',"Anyone's Legend",'G2','Karmine Corp','LYON','Team Secret Whales'].map(tm).filter(Boolean).map(t=>t.id),stages:[{name:'Final',n:5,ms:[fm]}],elim:{[g.id]:'Final'},champ:b.id,mvp:'Bin'};
+}
+/* saves antigos: First Stand 2025 no Hanwha Life e o First Stand 2026 real (BLG 3x1 G2) */
+function fixFS(){
+  if(!S||S.fsV===1||!S.pdb||!S.pdb.Viper||!(S.pdb.Viper.tl||[]).some(e=>e.t==='First Stand'))return;S.fsV=1;
+  fsHle25();
+  const h26=S.hist.find(h=>h.y===2026);
+  if(S.year===2026&&!h26&&S.season){if(!S.season.fs)fsSeed2026();return}
+  if(h26&&h26.champs&&h26.champs.fs)return;
+  const b=S.teams.find(t=>t.name==='BLG'),R=['Bin','Xun','Knight','Viper','ON'];
+  R.forEach(n=>{const x=hofOf(n);x.fs=(x.fs||0)+1;pd(n).tl.push({y:2026,t:'First Stand',tm:'BLG'});pd(n).tl.sort((a,c)=>(+a.y||0)-(+c.y||0))});
+  hofOf('Bin').mvp++;pd('Bin').tl.push({y:2026,t:'MVP First Stand',tm:'BLG'});
+  if(b&&!b.tt.some(x=>x.k==='First Stand'&&x.y===2026))b.tt.push({y:2026,k:'First Stand',r:R,co:null,ph:PHASES.findIndex(p=>p.t==='fs')});
+  S.teams.forEach(t=>{const y=(t.yh||[]).find(x=>x.y===2026);if(y&&t.name==='BLG')y.fs='C';else if(y&&t.name==='G2')y.fs='F'});
+  if(h26&&h26.champs)Object.assign(h26.champs,{fs:'BLG',fsv:'G2',fsMvp:'Bin'});
+  T10C=null;
+}
 function ewcSeed2026(){
   const tm=n=>S.teams.find(t=>t.name===n),dk=tm('Dplus KIA'),kc=tm('Karmine Corp');if(!dk||!kc)return;
   award(dk,'ewc','EWC');mark(kc,'ewc','F');['T1','Gen.G'].forEach(n=>{const t=tm(n);if(t)mark(t,'ewc','SF')});
@@ -8905,7 +8938,7 @@ function fixWcLbl(){
   Object.values(S.pdb||{}).forEach(d=>(d.tl||[]).forEach(e=>{if(e.t==='Worlds')e.t='Mundial'}));
   ALLT().forEach(t=>(t.tt||[]).forEach(x=>{if(x.k==='Worlds')x.k='Mundial'}));
 }
-function ensureD2(){ensureD2a();if(S){fixWcLbl();fixD2P();fixAges();fixPre();fixTit();fixEWC();fixCoJoin();coEnsure();coSync();ALLT().forEach(t=>{if(!t.bn)ensureBn(t)});faSeed()}}
+function ensureD2(){ensureD2a();if(S){fixWcLbl();fixD2P();fixAges();fixPre();fixTit();fixEWC();fixFS();fixCoJoin();coEnsure();coSync();ALLT().forEach(t=>{if(!t.bn)ensureBn(t)});faSeed()}}
 function closeD2(lg,tag,st,m1,m2,fm){
   const top=st.slice(0,4).map(r=>r.t);
   const third=[T(loserOf(m1)),T(loserOf(m2))].sort((a,b)=>top.indexOf(a)-top.indexOf(b));
@@ -10691,11 +10724,13 @@ function natListHTML(){
   return `<section class="pn"><h2>Seleções</h2>${rows.map((r,i)=>`<div class="pl" style="grid-template-columns:30px minmax(0,1fr) auto"><span class="pos num" style="font-size:20px">${i+1}</span><span><span class="nm2">${nlk(r.c,'lg')}</span><br><small>${r.n} jogador${r.n>1?'es':''} ativo${r.n>1?'s':''} · melhor ${r.best}${r.cov<5?` · ${r.cov}/5 posições`:''}</small></span>${hx(Math.round(r.avg),'sm')}</div>`).join('')}<p class="note">Ordenadas pelo OVR médio do melhor jogador de cada posição. Toque num país para abrir a ficha.</p></section>`;
 }
 function cupHistHTML(k){
-  const wc=k==='wc',fs=k==='fs',ew=k==='ewc',CH_=fs?{}:ew?EWCT:wc?WCT:MST,VV=fs?{}:ew?EWCV:wc?WCV:MSV,lbl=fs?'First Stand':ew?'EWC':wc?'Worlds':'MSI';
+  const wc=k==='wc',fs=k==='fs',ew=k==='ewc',CH_=fs?FSTT:ew?EWCT:wc?WCT:MST,VV=fs?FSTV:ew?EWCV:wc?WCV:MSV,lbl=fs?'First Stand':ew?'EWC':wc?'Worlds':'MSI';
   const mv={};Object.keys(S.pdb).forEach(n=>(S.pdb[n].tl||[]).forEach(e=>{if(e.t===(wc?'MVP Mundial':ew?'MVP EWC':fs?'MVP First Stand':'MVP MSI'))mv[e.y]=n}));
   const rows={};
-  Object.keys(CH_).forEach(y=>{rows[y]={y:+y,c:CH_[y],v:VV[y]||'',mv:ew?EWCM[y]:undefined}});
+  Object.keys(CH_).forEach(y=>{rows[y]={y:+y,c:CH_[y],v:VV[y]||'',mv:ew?EWCM[y]:fs?FSTM[y]:undefined}});
   S.hist.forEach(h=>{const c=h.champs;if(fs&&!c.fs)return;if(ew&&!c.ewc)return;rows[h.y]={y:h.y,c:fs?c.fs:ew?c.ewc:wc?c.wc:c.msi,v:(fs?c.fsv:ew?c.ewcv:wc?c.wcv:c.msiv)||'',mv:fs?c.fsMvp:ew?c.ewcMvp:wc?c.mvp:c.msiMvp}});
+  /* temporada em andamento: torneio já decidido entra antes da virada do ano */
+  {const cur=S.season&&S.season[k];if(cur&&cur.champ!=null&&!rows[S.year]&&!S.hist.some(h=>h.y===S.year)){const vi=Object.keys(cur.elim||{}).find(id=>cur.elim[id]==='Final');rows[S.year]={y:S.year,c:T(cur.champ).name,v:vi!=null&&T(+vi)?T(+vi).name:'',mv:cur.mvp}}}
   const L=Object.values(rows).sort((a,b)=>b.y-a.y);
   const tf=n=>S.teams.find(x=>x.name===(BALIAS[n]||n)),tn=n=>{const t=tf(n);if(t)return tlk(t);
     const t2=legTeam(n);if(t2)return `<button class="lk" data-act="team" data-v="${t2.id}">${esc(n)}</button>`;
@@ -10706,7 +10741,7 @@ function cupHistHTML(k){
   h+=L.map(r=>{const m=r.mv||mv[r.y];return `<div class="pr2" style="grid-template-columns:44px minmax(0,1fr)"><b class="num">${r.y}</b><span><b>${tc(r.c)} ${tn(r.c)}</b><br><small style="color:var(--muted)">Vice: ${r.v?tc(r.v,'xs')+' '+tn(r.v):'—'}${m?` · MVP: ${lk(m)}`:' · MVP: —'}</small></span></div>`}).join('');
   if(k==='msi')h+=`<p class="note" style="margin:6px 0 0">O MSI de 2020 não aconteceu.</p>`;
   if(ew)return h+`<p class="note" style="margin:6px 0 0">2024 e 2025 em Riade e 2026 em Paris: edições reais. Depois: as do seu jogo, entre o MSI e o Split 3. A EWC vale metade do MSI no ranking de lendas (7,5 pontos).</p></section>`;
-  if(fs)return h+(L.length?'':`<p class="empty">Nenhum First Stand disputado ainda. As edições aparecem aqui a cada temporada.</p>`)+`<p class="note" style="margin:6px 0 0">Só entram as edições do seu jogo, desde 2026.</p></section>`;
+  if(fs)return h+`<p class="note" style="margin:6px 0 0">2025 em Seul e 2026 em São Paulo: edições reais. Depois: as do seu jogo.</p></section>`;
   return h+`<p class="note" style="margin:6px 0 0">Até 2025: edições reais. Depois: as do seu jogo. MVP só aparece quando o jogo tem o registro.</p></section>`;
 }
 function natTit(c,t){const ys=new Set();Object.keys(S.pdb).forEach(n=>{if(natC(n)===c)(S.pdb[n].tl||[]).forEach(e=>{if(e.t===t)ys.add(e.y)})});return ys.size}
