@@ -2838,7 +2838,7 @@ function startWorldsReal(){
     });
     tour.stages.push({name:`Suíço · Rodada ${ri+1}`,n:0,ms,swiss:true,rnd:ri+1});
   });
-  /* mata-mata real até 13/nov/2026 (melhor de 5): quartas de 3 a 6/nov, semifinais em 7 e 8/nov; a final é em 14/nov (Gen.G x BLG) e fica por jogar */
+  /* mata-mata real até 13/nov/2026 (melhor de 5): quartas de 3 a 6/nov, semifinais em 7 e 8/nov; final em 14/nov */
   const RM=(a,b,wa,wb)=>{
     const m={...mk(T(ID[a]),T(ID[b]),5),real:true};m.res={wa,wb,w:wa>wb?ID[a]:ID[b]};
     T(ID[a]).pl.forEach(x=>{const o=psOf(x.n);o.gw+=wa;o.gl+=wb});T(ID[b]).pl.forEach(x=>{const o=psOf(x.n);o.gw+=wb;o.gl+=wa});
@@ -2847,9 +2847,17 @@ function startWorldsReal(){
   };
   tour.stages.push({name:'Quartas',n:5,ms:[RM('TES','IG',1,3),RM('GEN','LYON',3,0),RM('DK','BLG',0,3),RM('T1','KC',3,1)]});
   tour.stages.push({name:'Semifinais',n:5,ms:[RM('IG','GEN',0,3),RM('BLG','T1',3,1)]});
-  tour.stages.push(stageP('Final',[[T(ID.GEN),T(ID.BLG)]],5));
-  S.season.wc=tour;
-  S.phase=PHASES.findIndex(p=>p.k==='wf');
+  /* final real em 14/nov/2026: BLG 3 x 1 Gen.G, MVP Knight. O jogo começa logo depois, na apuração do Melhor Jogador do Ano */
+  const fm=RM('BLG','GEN',3,1);tour.elim[ID.GEN]='Final';
+  tour.stages.push({name:'Final',n:5,ms:[fm]});tour.champ=ID.BLG;
+  S.season.wc=tour;finishTour(tour,'wc');
+  {const lb='MVP '+KNM.wc,o=tour.mvp;
+   if(o!=='Knight'){
+     const a=achOf(o),i=a.mv.lastIndexOf(lb);if(i>=0)a.mv.splice(i,1);
+     const h=hofOf(o);h.mvp=Math.max(0,(h.mvp||0)-1);const d=pd(o),j=d.tl.findIndex(x=>x.y===S.year&&x.t===lb);if(j>=0)d.tl.splice(j,1);
+     achOf('Knight').mv.push(lb);hofOf('Knight').mvp++;pd('Knight').tl.push({y:S.year,t:lb,tm:'BLG'});tour.mvp='Knight';
+   }}
+  S.phase=PHASES.findIndex(p=>p.k==='aw');
 }
 function freshGame(){S=newState();ensureD2();applyHon();applyTeamHist();applyLeagueHist();applyLeagueHist2();applyLeagueHist3();seed2026();startWorldsReal()}
 
@@ -4607,6 +4615,11 @@ function vCoach(n){
   if(t&&!c.hist.some(h=>h.y===S.year))(rows[S.year]=rows[S.year]||[]).push(`${tlk(t)} <small style="display:inline">${c.as?'assistente':'técnico'} · temporada atual</small>`);
   const ys=Object.keys(rows).map(Number).sort((a,b)=>b-a);
   o+=`<div class="shv">`;
+  /* estante de títulos como técnico: mesmo formato da estante de troféus do jogador */
+  {const g=f=>ttl.filter(f).map(x=>({y:x.y,lg:x.k,l:`${x.k} ${x.y} · ${x.tn}`,sub:x.tn}));
+   const isW=x=>x.k==='Worlds'||x.k==='Mundial',isM=x=>x.k==='MSI',isF=x=>x.k==='First Stand';
+   const rows=[['w','Worlds',g(isW)],['m','MSI',g(isM)],['f','First Stand',g(isF)],['l','Ligas',g(x=>!isW(x)&&!isM(x)&&!isF(x))]];
+   o+=`<section class="pn"><h2>Estante de troféus como técnico</h2>${rows.map(([k,tt,it])=>`<div class="sh-t"><span>${tt}</span><b class="num">${it.length}</b></div>${shelfRow(k,it)}`).join('')}<p class="note" style="margin:8px 0 0">Títulos conquistados no jogo a partir de 2026. A carreira real anterior aparece em Carreira.</p></section>`;}
   /* estante menor da época de jogador + reforço que o técnico dá ao time */
   const sh=coShelf(n),lv=coLvl(n);
   if(sh.length||real.some(x=>x[1]==='p')||c.ex){
@@ -4615,7 +4628,6 @@ function vCoach(n){
     o+=`<section class="pn"><h2>Estante da época de jogador</h2>${sh.length?`<div class="sh-t"><span>Títulos como jogador</span><b class="num">${sh.reduce((a,x)=>a+(x.n||1),0)}</b></div><div class="shelf cosh">${sh.map(coTro).join('')}</div>`:'<p class="note" style="margin:0">Jogou profissionalmente, mas sem títulos de primeira linha.</p>'}</section>`;
   }
   o+=`<section class="pn"><h2>Influência no time</h2>${lv>0?`<p class="note" style="margin:0">Leitura de jogo <b>+${(lv*.35).toFixed(2).replace('.',',')}</b> de força nas partidas e calma quando o time está em má fase (corta até ${Math.round(lv*40)}% da fase ruim, máx. +0,3). Vem dos títulos da carreira${c.ex||sh.length?' de jogador':''} e dos títulos como técnico.</p>`:'<p class="note" style="margin:0">Sem títulos de peso ainda: não muda a força do time.</p>'}</section>`;
-  o+=`<section class="pn"><h2>Títulos como técnico</h2>${ttl.length?ttl.map(x=>`<div class="trp"><span class="y num">${x.y}</span><span><b>${esc(x.k)}</b><small>${esc(x.tn)}</small></span></div>`).join(''):'<p class="note" style="margin:0">Nenhum título no jogo ainda. A carreira real antes de 2026 aparece abaixo.</p>'}</section>`;
   o+=`<section class="pn"><h2>Carreira</h2>${ys.length?ys.map(y=>`<div class="trp"><span class="y num">${y}</span><span>${rows[y].join('<br>')}</span></div>`).join(''):'<p class="note" style="margin:0">Sem registro.</p>'}${real.length?'<p class="note">Até 2025: elencos registrados na Leaguepedia. A partir de 2026: carreira simulada no jogo.</p>':''}</section>`;
   return o+`</div></div>`;
 }
