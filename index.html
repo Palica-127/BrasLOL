@@ -4428,17 +4428,28 @@ function coachPool(){
   const act=pmap(),m=S.mgr;
   return Object.keys(S.hof).filter(n=>!act[n]&&sc(S.hof[n])>=LEGPTS&&!(m&&m.coach&&m.coach.n===n)).sort((a,b)=>sc(S.hof[b])-sc(S.hof[a])).slice(0,5);
 }
+/* técnicos sem clube (seu ex-jogador aposentado sempre aparece primeiro) */
+function coFreePool(){
+  if(!S.co)return [];const me=S.me;
+  return Object.values(S.co).filter(c=>c.t==null&&!c.ret&&!c.u&&c.n!==me).sort((a,b)=>(b.mine||0)-(a.mine||0)||coRep(b)-coRep(a)).slice(0,6);
+}
 const coachB=m=>m&&m.coach&&!m.coach.co?clamp(sc(S.hof[m.coach.n]||{})/270,.1,.6):0;
 function mgrCoach(n){
   const m=S.mgr;if(!m)return;
   if(n==='-'){const r=m.coach&&m.coach.co?m.coach.n:null;m.coach=null;coSync();msg=r?`${r} foi dispensado e está sem clube.`:'Técnico assistente dispensado.';return}
   const cost=m.cheat?0:3;if(m.cash<cost){msg='Sem caixa (US$ 3 mi)';return}
+  /* técnico livre do mercado (S.co): entra como assistente do seu time */
+  if(String(n).indexOf('co:')===0){const c=S.co&&S.co[String(n).slice(3)],t=mgrT();if(!c||c.t!=null||c.ret||c.u||!t){msg='Técnico indisponível.';return}
+    m.cash=r1(m.cash-cost);const rc=m.coach&&m.coach.co?m.coach.n:null;if(rc&&S.co[rc]){S.co[rc].t=null;S.co[rc].as=0;S.co[rc].free=S.year}
+    t.co=c.n;c.t=t.id;c.as=1;c.since=S.year;c.free=null;m.coach={n:c.n,since:S.year,co:1};coSync();
+    if(rc)mlog(`${S.year}: ${rc} deixa o clube para dar lugar a ${c.n}.`);mlog(`${S.year}: ${c.n} chega do mercado como técnico assistente.`);msg=`${c.n} assumiu como técnico assistente.`;return}
   m.cash=r1(m.cash-cost);const rc=m.coach&&m.coach.co?m.coach.n:null;m.coach={n,since:S.year};coSync();if(rc)mlog(`${S.year}: ${rc} deixa o clube para dar lugar a ${n}.`);mlog(`${S.year}: ${n} agora é técnico assistente.`);msg=`${n} assumiu como técnico assistente.`;
 }
 function staffHTML(m){
   let h=`<section class="pn"><h2>Comissão técnica</h2>`;
   if(m.coach)h+=`<div class="pr" style="grid-template-columns:minmax(0,1fr) auto"><span class="who">${m.coach.co?colk(m.coach.n):lk(m.coach.n)}<small>${m.coach.co?`técnico do clube, agora seu assistente${coLvl(m.coach.n)>0?` · leitura de jogo e calma +${(coBoost(mgrT())).toFixed(2).replace('.',',')}`:''} · não dá bônus de evolução`:`lenda · bônus de evolução +${coachB(m).toFixed(2).replace('.',',')} na virada`}</small></span><button class="mini sell" data-act="mgrCoach" data-v="-">Dispensar</button></div>`;
-  else{const pl=coachPool();h+=pl.length?pl.map(n=>`<div class="pr" style="grid-template-columns:minmax(0,1fr) auto"><span class="who">${lk(n)}<small>lenda aposentada · ${Math.round(sc(S.hof[n]))} pts</small></span><button class="mini" data-act="mgrCoach" data-v="${esc(n)}">Contratar US$ 3 mi</button></div>`).join(''):'<p class="note" style="margin:0">Nenhuma lenda aposentada disponível ainda.</p>'}
+  else{const fr=coFreePool();if(fr.length)h+=`<div class="sub">Técnicos livres no mercado</div>`+fr.map(c=>`<div class="pr" style="grid-template-columns:minmax(0,1fr) auto"><span class="who">${colk(c.n)}<small>${c.mine?'seu ex-jogador · ':c.ex?'ex-jogador · ':''}${coAge(c)?coAge(c)+' anos · ':''}${coTitles(c).length} título${coTitles(c).length===1?'':'s'} como técnico${coLvl(c.n)>0?' · dá leitura de jogo e calma':''}</small></span><button class="mini" data-act="mgrCoach" data-v="co:${esc(c.n)}">Contratar US$ 3 mi</button></div>`).join('')+`<div class="sub">Lendas aposentadas</div>`;
+    const pl=coachPool();h+=pl.length?pl.map(n=>`<div class="pr" style="grid-template-columns:minmax(0,1fr) auto"><span class="who">${lk(n)}<small>lenda aposentada · ${Math.round(sc(S.hof[n]))} pts</small></span><button class="mini" data-act="mgrCoach" data-v="${esc(n)}">Contratar US$ 3 mi</button></div>`).join(''):'<p class="note" style="margin:0">Nenhuma lenda aposentada disponível ainda.</p>'}
   return h+`</section>`;
 }
 /* ---------- técnicos dos times ----------
@@ -4457,7 +4468,7 @@ const coAge=c=>c&&c.by?S.year-c.by:null;
 const colk=n=>`<button class="lk" data-act="coach" data-v="${esc(n)}">${esc(n)}</button>`;
 const coOf=t=>t&&t.co&&S.co&&S.co[t.co]&&S.co[t.co].t===t.id?S.co[t.co]:null;
 /* seu técnico (modo treinador): S.me = nome; S.co[nome] com u:1. Nunca entra no mercado da IA (t fica null; o time vem de S.mgr) */
-const coImg=c=>c&&c.ph?`<img src="${c.ph}" alt="" draggable="false">`:c&&coPh(c.n)?`<img src="tecnicos/${phSlug(c.n)}.webp" alt="" draggable="false">`:`<i>${esc(String(c?c.n:'?').slice(0,2).toUpperCase())}</i>`;
+const coImg=c=>c&&(c.ph||uPh(c.n))?`<img src="${c.ph||uPh(c.n)}" alt="" draggable="false">`:c&&coPh(c.n)?`<img src="tecnicos/${phSlug(c.n)}.webp" alt="" draggable="false">`:`<i>${esc(String(c?c.n:'?').slice(0,2).toUpperCase())}</i>`;
 const meCo=()=>S&&S.me&&S.co&&S.co[S.me]&&S.co[S.me].u?S.co[S.me]:null;
 const COSTY={eq:['Equilibrado','Lê o adversário e ajusta durante a série. Começa com o plano de jogo Equilibrado.'],ag:['Agressivo','Gosta de lutas cedo e de jogar para frente. Começa com o plano Agressivo.'],co:['Controle','Prioriza visão, objetivos e jogo lento. Começa com o plano Controle.']};
 let coF={name:'',nat:'BRA',age:35,sty:'eq',ph:''};
@@ -4487,7 +4498,7 @@ function meCreate(f){
 /* seu jogador se aposentou e virou técnico: a ficha vem pronta, com a estante da época de jogador */
 function meFromPc(pc){
   const d=S.pdb&&S.pdb[pc.n],age=typeof pc.age==='number'?pc.age:d&&d.debut?S.year-d.debut+18:32;
-  return meMake(pc.n,d&&d.nat||'',S.year-age,{ex:1,sty:'eq',gen:0});
+  return meMake(pc.n,d&&d.nat||'',S.year-age,{ex:1,sty:'eq',gen:0,ph:uPh(pc.n)});
 }
 /* foto enviada pelo jogador: recorte 4:5 (176x220) em JPEG, guardado no save */
 function coPhoto(f,cb){
@@ -4558,7 +4569,12 @@ function coShelf(n){
 }
 /* jogador que se aposenta pode virar técnico: entra no mercado e os clubes o procuram (mais chance para quem foi bom e ganhou títulos) */
 function coFromPlayer(p,t){
-  if(!S.co||S.co[p.n]||p.pc)return;
+  if(!S.co||S.co[p.n])return;
+  /* seu jogador aposentado (que não aceitou proposta): sempre fica no mercado como técnico livre, com a foto dele */
+  if(p.pc){const d=S.pdb&&S.pdb[p.n],c=coNew(p.n,d&&d.nat||natC(p.n)||TNAT[t.name]||MAINN[t.lg]||'',S.year-p.age,null,false);
+    c.ex=1;c.free=S.year;c.from=t.name;c.mine=1;if(uPh(p.n))c.ph=uPh(p.n);
+    if(S.pc&&S.pc.n===p.n)S.pc.coOff=[];
+    news(`${p.n}, recém-aposentado, está no mercado como técnico livre.`,S.year+1);return}
   const h=S.hof&&S.hof[p.n],v=h?sc(h):0;
   if(Math.random()>clamp(.12+(p.r-75)*.015+v/250,.05,.75))return;
   const c=coNew(p.n,natC(p.n)||TNAT[t.name]||MAINN[t.lg]||'',S.year-p.age,null,false);
@@ -4576,9 +4592,10 @@ function pcCoOffers(){
 }
 function pcCoOffersHTML(){
   const pc=S.pc;if(!pc||!pc.ended)return '';
+  {const c=S.co&&S.co[pc.n];if(c&&c.mine&&!c.u){const t=c.t!=null?T(c.t):null;return `<section class="pn"><h2>Técnico ${c.ret?'aposentado':t?'contratado':'livre'}</h2><div class="cogrid">${coCard(c,t?(c.as?'Assistente técnico':'Técnico')+' · '+esc(t.name):c.ret?'Aposentado':'Técnico livre no mercado')}</div><p class="note" style="margin:10px 0 0">${t?`${esc(pc.n)} foi contratado como técnico pelo ${esc(t.name)}.`:c.ret?'':`${esc(pc.n)} está no mercado de técnicos: qualquer clube com vaga pode contratá-lo, e no modo treinador ele aparece na comissão técnica para contratar como assistente.`}</p></section>`}}
   if(!pc.coOff)pc.coOff=pcCoOffers();
   const L=pc.coOff.map(T).filter(Boolean);if(!L.length)return '';
-  return `<section class="pn"><h2>Propostas para ser técnico</h2><p class="note" style="margin:0 0 10px">Com a aposentadoria, ${L.length>1?'estes clubes entraram em contato':'este clube entrou em contato'} querendo ${esc(pc.n)} no comando. Aceitar abre o modo treinador nesse time; o técnico atual vira seu assistente.</p>${L.map(t=>{const c=coOf(t);return `<div class="pr" style="grid-template-columns:minmax(0,1fr) auto"><span class="who">${tlk(t)}<small>${divTxt(t).replace(/^ · /,'')||esc(t.lg)} · OVR ${Math.round(baseOvr(t))}${c?' · técnico atual: '+esc(c.n):' · sem técnico'}</small></span><button class="mini" data-act="pcCoach" data-v="${t.id}">Aceitar</button></div>`}).join('')}</section>`;
+  return `<section class="pn"><h2>Propostas para ser técnico</h2><p class="note" style="margin:0 0 10px">Com a aposentadoria, ${L.length>1?'estes clubes entraram em contato':'este clube entrou em contato'} querendo ${esc(pc.n)} no comando. Aceitar abre o modo treinador nesse time; o técnico atual vira seu assistente. Sem aceitar, ${esc(pc.n)} entra no mercado como técnico livre na virada do ano e pode ser contratado por qualquer clube (inclusive por você no modo treinador).</p>${L.map(t=>{const c=coOf(t);return `<div class="pr" style="grid-template-columns:minmax(0,1fr) auto"><span class="who">${tlk(t)}<small>${divTxt(t).replace(/^ · /,'')||esc(t.lg)} · OVR ${Math.round(baseOvr(t))}${c?' · técnico atual: '+esc(c.n):' · sem técnico'}</small></span><button class="mini" data-act="pcCoach" data-v="${t.id}">Aceitar</button></div>`}).join('')}</section>`;
 }
 function pcCoAccept(tid){
   const pc=S.pc;if(!pc||!pc.ended||!(pc.coOff||[]).includes(tid))return;
@@ -4674,7 +4691,7 @@ function coYear(off){
   /* aposentadoria: idade ou muito tempo sem clube */
   Object.values(S.co).forEach(c=>{
     if(c.ret||c.u)return;const a=coAge(c)||40,idle=c.t==null&&c.free!=null?S.year-c.free:0;
-    if((a>=60)||(a>=55&&Math.random()<.35)||(c.t==null&&idle>=2&&Math.random()<.5)){
+    if((a>=60)||(a>=55&&Math.random()<.35)||(c.t==null&&!c.mine&&idle>=2&&Math.random()<.5)){
       if(c.t!=null&&c.t===mid)return;
       if(c.t!=null){const t=T(c.t);t.co=null;off.push(`${c.n} (${t.name}) se aposenta como técnico aos ${a} anos.`)}
       c.t=null;c.as=0;c.ret=S.year+1;
@@ -7138,6 +7155,7 @@ function pcCreate(f){
   const r=pcOvr(role,at),pot=clamp(84+Math.floor(Math.random()*11),r,96);
   const p={n:name,role,r,age:17+Math.floor(Math.random()*3),pot,f:0,d:0,pc:1};
   S.pdb[name]={role,debut:S.year,ret:null,seasons:[],tl:[],nat:f.nat||pick(GENN[t.lg]||WORLDN)};
+  if(f.ph){S.uph=S.uph||{};S.uph[name]=f.ph}
   t.bn=t.bn||[];t.bn.push(p);
   S.mgr=null;
   pcMake(p,t,{at,bn:true,pc:{fame:3,tr:30}});
@@ -7742,7 +7760,7 @@ function pcCheck(){
 }
 
 /* ---------- menu principal e telas do modo jogador ---------- */
-let menuV='home',menuAsk=null,pcF={name:'',role:2,arch:'eq',nat:'',team:''},pcQ='',setOpen={jog:true,ifc:true};
+let menuV='home',menuAsk=null,pcF={name:'',role:2,arch:'eq',nat:'',team:'',ph:''},pcQ='',setOpen={jog:true,ifc:true};
 const NATL=['KOR','CHN','USA','CAN','FRA','GER','ESP','DEN','SWE','POL','GRE','TUR','CZE','UKR','BRA','VIE','TWN','JPN','AUS','ARG','CHI','MEX'];
 /* ---------- menu inicial: primeira tela do jogo (Continuar, Novo jogo, Opções) ---------- */
 let TITLE='main',ttlAsk=-1;
@@ -7800,11 +7818,12 @@ function vMenu(){
     const teams=LGS.map(lg=>`<optgroup label="${lg} · D2">${D2L().filter(t=>t.lg===lg).map(t=>`<option value="${t.id}"${String(pcF.team)===String(t.id)?' selected':''}>${esc(t.name)} · OVR ${Math.round(baseOvr(t))}</option>`).join('')}</optgroup>`).join('');
     if(!pcF.team)pcF.team=String(D2L()[0].id);
     return h+back+`<section class="pn"><h2>Criar jogador</h2><p class="note" style="margin:0 0 10px">Você começa aos 17-19 anos como reserva de um clube da D2, com potencial escondido. Treine, dispute a vaga e suba.</p>
+    <div class="cof"><label class="cofph" title="Escolher foto"><span class="coav">${pcF.ph?`<img src="${pcF.ph}" alt="" draggable="false">`:'<i>+</i>'}</span><input type="file" id="pc-photo" accept="image/*" hidden><small>${pcF.ph?'Trocar foto':'Foto (opcional)'}</small></label><div class="cofx">
     <div class="sub">Nome</div><input id="pc-name" class="search" maxlength="18" placeholder="Seu nick" value="${esc(pcF.name)}" autocomplete="off">
     <div class="sub">Função</div><div class="pills">${RN.map((r,i)=>`<button class="pill" aria-pressed="${pcF.role===i}" data-act="pcF" data-v="role|${i}">${r}</button>`).join('')}</div>
     <div class="sub">Estilo de jogo</div><div class="pills">${Object.keys(ARCH).map(k=>`<button class="pill" aria-pressed="${pcF.arch===k}" data-act="pcF" data-v="arch|${k}">${ARCH[k][0]}</button>`).join('')}</div><p class="note" style="margin:6px 0 0">${ARCH[pcF.arch][1]}</p>
     <div class="sub">Nacionalidade</div><select id="pc-nat" class="search"><option value="">Automática da região</option>${NATL.map(c=>`<option value="${c}"${pcF.nat===c?' selected':''}>${esc(NATN[c]||c)}</option>`).join('')}</select>
-    <div class="sub">Clube inicial (D2)</div><select id="pc-team" class="search">${teams}</select>
+    <div class="sub">Clube inicial (D2)</div><select id="pc-team" class="search">${teams}</select></div></div>
     <div class="row" style="margin:12px 0 0"><button class="play" data-act="pcCreate">Começar carreira</button></div></section>`;
   }
   if(menuV==='pcPick'){
@@ -7952,7 +7971,7 @@ function vPc0(){
   const tp0=pc.tp||0,pt0=pc.pts||0;
   const sub=`<div class="pills pcsub"><button class="pill" aria-pressed="${pcSub==='car'}" data-act="pcSub" data-v="car">Carreira</button><button class="pill" aria-pressed="${pcSub==='hab'}" data-act="pcSub" data-v="hab">Habilidades${tp0+pt0>0?` <span class="tag">${tp0} hab · ${pt0} status</span>`:''}</button></div>`;
   if(pcSub==='hab')return h+sub+`<div class="pcHab">${pcTreeHTML(f)}<div class="pcTop">${pcStatusHTML(f)}${pcInvHTML()}</div></div>`;
-  h+=sub+`<div class="pcTop"><section class="pn pcPl"><div class="ph phf">${fut({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f,team:t},'big')}<div><h3>${esc(p.n)}</h3><small>${RN[p.role]} · ${p.age} anos · ${esc(t.name)}${t.d===2?' (D2)':''}</small><small>${f.bn?'<b style="color:#FF9AA8">Reserva</b>':'<b style="color:#00F5A0">Titular</b>'} · contrato ${pc.ctr} ano${pc.ctr===1?'':'s'} · ${fmtM(pc.sal)}/ano</small></div></div>
+  h+=sub+`<div class="pcTop"><section class="pn pcPl"><div class="ph phf">${fut({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f,team:t},'big')}<div><h3>${esc(p.n)}</h3><small>${RN[p.role]} · ${p.age} anos · ${esc(t.name)}${t.d===2?' (D2)':''}</small><small>${f.bn?'<b style="color:#FF9AA8">Reserva</b>':'<b style="color:#00F5A0">Titular</b>'} · contrato ${pc.ctr} ano${pc.ctr===1?'':'s'} · ${fmtM(pc.sal)}/ano</small><label class="ghost cobtn">${uPh(p.n)?'Trocar foto':'Enviar foto'}<input type="file" id="pc-photo-me" accept="image/*" hidden></label></div></div>
   <div class="cab"><div><b class="num">${pc.fame}</b><small>Fama</small></div><div><b class="num" style="font-size:22px">${fmtM(pc.cash).replace('US$ ','')}</b><small>Patrimônio (US$)</small></div><div><b class="num" style="font-size:20px">${p.pot>=92?"Lendário":p.pot>=88?"Elite":p.pot>=84?"Alto":"Médio"}</b><small>Olheiros: potencial</small></div></div></section><div class="pcSide">${pcLvHTML()}${pcTrustHTML(f)}</div></div>`;
   /* evento */
   if(pc.ev){const e=PEV[pc.ev];h+=`<section class="pn"><h2>Evento</h2><p class="note" style="margin:0 0 10px">${esc(e.t)}</p><div class="row" style="margin:0">${e.o.map(([l,k])=>`<button class="ghost" data-act="pcEv" data-v="${k}">${l}</button>`).join('')}</div></section>`}
@@ -8122,7 +8141,7 @@ async function foPlayer(n){
   const yrs=rows.length?rows[0].y:(d.debut||'');
   const line3=P?`Ativo - ${P.t.name} - ${P.p.age} anos`:d.ret?`${yrs?yrs+' - ':''}${d.ret}  -  aposentado`:(d.note||'Lenda do ranking inicial');
   let cards={title:'Reconhecimentos',items:tl.filter(x=>/^Top (5|10) /.test(x.t)).sort(byY).map(x=>({h:x.t.indexOf('Top 10')===0?'Top 10 do Melhor do Ano':'Top 5 do Melhor do Ano',d:(x.t.match(/\((\d+)º\)/)||[])[0]?'Posição '+x.t.match(/\((\d+)º\)/)[1]+'º'+(x.tm?' - '+x.tm:''):x.tm||'',r:x.y}))};
-  const hero=phHas(n)?{kind:'photo',src:'jogadores/'+phSlug(n)+'.webp'}:{kind:'avatar'};
+  const hero=phHas(n)?{kind:'photo',src:phSrc(n)}:{kind:'avatar'};
   return foBuild({foot:'Ficha de '+n,eyebrow:pc?'BRASLOL  -  LEAGUE OF LEGENDS  -  CARREIRA PRO':'BRASLOL  -  LEAGUE OF LEGENDS  -  FICHA DO JOGADOR',title:n,
     line2:(role!=null?RNF[role]:'Jogador')+(natN?'  -  '+natN:''),line3,hero,stats,grp,clubs:rows.length?clubs:null,cards,
     table:{title:'Temporada a temporada',cols:[['ANO',54,'l'],['CLUBE',96,'l'],['OVR',300,'r'],['IDADE',346,'r'],['NOTA',392,'r'],['RANKING',470,'r'],['JOGOS',541,'r']],
@@ -8962,7 +8981,7 @@ function nextSeason(){
   rs.slice(-3).reverse().filter(x=>x.p.d<0).forEach(x=>off.push(`Em queda: ${x.p.n} (${x.t.name}) cai ${-x.p.d} e vai a ${x.p.r}.`));
   ALLT().forEach(t=>t.pl.forEach((p,i)=>{
     const a=p.age;
-    if(p.pc&&!(S.pc&&S.pc.ended))return;
+    if(p.pc&&S.pc&&!S.pc.ended&&S.pc.n===p.n)return;
     let pr=a>=35||p.pc?1:a>=29?Math.min(.8,(a-28)*.09+(p.r<75?.1:0)):0;
     if(a<35)pr*=p.r>=88?.35:p.r>=84?.65:1;
     if(Math.random()<pr){
@@ -8974,6 +8993,9 @@ function nextSeason(){
       if(nr.pot>=88)off.push(`Promessa: ${nr.n}, ${nr.age} anos, chega ao ${t.name} com potencial ${nr.pot}.`);
     }
   }));
+  /* seu jogador aposentado que estava no banco também sai (e vira técnico livre) */
+  ALLT().forEach(t=>{t.bn=(t.bn||[]).filter(p=>{if(!p.pc||(S.pc&&!S.pc.ended&&S.pc.n===p.n))return true;
+    off.push(`${p.n} (${t.name}) se aposentou aos ${p.age} anos.`);pd(p.n).ret=S.year;coFromPlayer(p,t);return false})});
   for(let k=0;k<8;k++){
     const all=S.teams.flatMap(t=>t.pl.map((p,i)=>({t,p,i})));
     const A=pick(all.filter(x=>x.p.r>=80&&!x.p.pc&&x.t.id!==mid&&!moved.has(x.p.n)));
@@ -9521,8 +9543,11 @@ const crest=(t,c='')=>{
 const AVA='<svg viewBox="0 0 80 96"><circle cx="40" cy="28" r="20"/><path d="M4 96C4 66 20 54 40 54S76 66 76 96Z"/></svg>';
 /*PHOTOS*/const PHOTOS=new Set(["0909","13day","1jiang","1xn","ablazeolive","about","ackerman","aegis","aetinoth","ahn","aiming","aisyl","akaje","alvaro","andil","aomine","aria","ariana","artemis","ayu","bang","bao","baus","bdd","bengi","berserker","betty","bie","bin","bipi","blaber","bluffing","boal","bolt","booki","boukada","brance","breathe","breezy","brokenblade","bruce","buero","bulas","bulldog","burdol","busio","bvoy","bwipo","caliste","callme","canna","canyon","caps","care","career","cariok","carlsen","carzzy","casting","cavalo","celo","ceo","ceos","chesterbb","chika","chovy","citrus","clear","cloud","clozer","cody","codysun","contractz","corejj","courage","cracker","creme","crisp","crownie","cryogen","cube","curse","cuzz","cypher","daglas","dandy","dardoch","darkwings","dash","deft","delicate","delight","denathor","deokdam","devost","dhokla","diable","dice","dioge","dire","disamis","doggo","doinb","doran","drakehero","draktharr","dudu","duduhh","duro","easylove","eddie","effort","elio","elk","elkinhoo","ellim","elyoya","emo","enga","envy","erha","evi","exyu","faker","fbi","feather","feisty","feng","fengyue","fenrir","fiesta","finn","fisher","fishone","flakked","flauren","fleshy","forlin","frog","fudge","fuuu","gakgos","gala","garden","gatovisck","gideon","gloryy","grevthar","gryffinn","guigo","guigs","gumayusi","gury","guti","guwon","haetae","haichao","hakari","halo","hambak","hanghang","hanssama","harky","harpoon","hena","heng","heru","hery","hidan","hirotto","hizto","holo","honda","hongq","hongsuo","hope","hoya","huhi","hui","husha","hwichan","hype","ignar","imp","impact","inspired","isles","isma","j1n5","jackal","jackeylove","jackies","jaehyuk","jerry","jiaqi","jiejie","jiwoo","jojo","jojopyun","jool","jopa","josedeodo","jun","junhao","junjia","jwei","kael","kairi","kaiwing","kakkun","kamiloo","kanavi","karis","kaze","kellin","kemish","keria","keshi","kiari","kiaya","kiin","kingen","kino","kisee","kisno","kkkkkkkkk","knight","kog","kojima","konseki","kratos","kryra","kryze","kyeahoo","labrov","later","lazyfeel","leave","lehends","leleko","levitate","leza","liangchen","linn","loki","lolo","looki","loopy","lospa","lucid","lumos","luoyiyu","lyncas","lyonz","makes","manel","marble","marin","marvin","massu","mata","maynter","mayr","meiko","mikyx","minous","mireu","mnm","mobility","moham","momo","momochi","monki","morgan","morttheus","mudai","murilao","myrwn","naaknako","namgung","namiru","nemesis","nern","nero","netuno","nia","ntnt","nuc","oddie","omon","on","oner","only35","oscarinin","paduck","painter","palafox","panther","parukia","parus","pawn","peach","perfect","perkz","peter","peyz","philip","photic","piero","piglet","pilot","pjo","poby","pollu","poltron","pool","pop9","pout","praedyth","pretender","prime","pun","pyeonsik","pyosik","qats","quad","quid","rabelo","rahel","raptor","rayq","razork","re0","rekkles","rest","rhilech","rich","ripple","roamer","rookie","rooster","rovex","ruler","rym","saint","sajed","samd","samkz","sanling","sarolu","scamber","scary","scout","serin","sero","shad0w","shanks","shaoye","sharvel","sheer","shiauc","shiku","shochi","shogun","showmaker","sinatra","sinian","siuloong","siwoo","skeanz","skewmond","slowq","smash","soboro","solid","spawn","spica","sponge","srtty","starry","stepz","stiner","strensh","supa","supercleber","sylvie","sywjj","tactical","taeyoon","taki","tangyuan","tao","tarzan","tatu","teddy","telas","thanatos","thayger","thehank","theshy","thor","tian","toyz","tracyn","trymbi","tutsz","tyrin","ucal","uniboy","upset","uzent","uzi","vampire","van1","velja","vicla","vin","viper","vit","vladi","vsta","vulcan","way","wayne","wei","weiwei","willer","winner","wolf","woody","wunder","xby","xiaohao","xiaohu","xiaoxu","xpeke","xun","xyno","yanxiang","ycx","yeon","yike","young","yskm","yukino","yupps","zamudo","zay","zdz","zeka","zekas","zest","zeus","zeyzal","zhuo","zicssi","zika","zinie","ziye","zoelys","zoen","zorenous","zothve","zuian","zyko","zynts"]);
 const phSlug=n=>String(n).toLowerCase().replace(/[^a-z0-9]/g,'');
-const phHas=n=>PHOTOS.has(phSlug(n));
-const phImg=n=>`<img src="jogadores/${phSlug(n)}.webp" alt="" loading="lazy" decoding="async" draggable="false">`;
+/* foto enviada pelo usuário (seu jogador/técnico): S.uph[nome] = data URL, vale em todo lugar e tem prioridade sobre o arquivo */
+const uPh=n=>S&&S.uph&&S.uph[n]||'';
+const phHas=n=>!!uPh(n)||PHOTOS.has(phSlug(n));
+const phSrc=n=>uPh(n)||`jogadores/${phSlug(n)}.webp`;
+const phImg=n=>`<img src="${phSrc(n)}" alt="" loading="lazy" decoding="async" draggable="false">`;
 const FSTAT=['LAN','MEC','MAC','TEA','MEN'];
 function futStats(n,r,role){
   if(typeof S!=='undefined'&&S&&S.pc&&S.pc.n===n&&S.pc.at)return S.pc.at.slice();
@@ -11074,7 +11099,7 @@ function act0(a,v){
   else if(a==='menuAsk'){menuAsk=v||null}
   else if(a==='modeSet'){S.mgr=null;S.pc=null;menuAsk=null;msg='Você voltou ao simulador.';save()}
   else if(a==='pcF'){const [k,x]=String(v).split('|');pcF[k]=k==='role'?+x:x}
-  else if(a==='pcCreate'){if(pcCreate(pcF)){pcF.name='';menuV='home';tab='pc';msg='Carreira criada. Boa sorte!';save();top=true}}
+  else if(a==='pcCreate'){if(pcCreate(pcF)){pcF.name='';pcF.ph='';menuV='home';tab='pc';msg='Carreira criada. Boa sorte!';save();top=true}}
   else if(a==='pcPick'){if(pcAdopt(v)){menuV='home';tab='pc';msg='Você assumiu a carreira de '+v+'.';save();top=true}}
   else if(a==='foPl'||a==='foTe'){msg='Gerando o folder...';foDl(()=>a==='foPl'?foPlayer(v):foTeam(+v),a==='foPl'?v:T(+v).name).then(ok=>{msg=ok?'Folder baixado.':'Não foi possível gerar o folder.';render()})}
   else if(a==='pcPlan'){S.pc.plan=v;save()}
@@ -11167,7 +11192,8 @@ document.addEventListener('keydown',e=>{
   if(b&&!b.disabled){e.preventDefault();b.click()}
 });
 document.addEventListener('change',e=>{
-  if((e.target.id==='co-photo'||e.target.id==='co-photo-me')&&e.target.files&&e.target.files[0]){const me=e.target.id==='co-photo-me';coPhoto(e.target.files[0],u=>{if(me){const c=meCo();if(c){c.ph=u;save()}}else coF.ph=u;render()});return}
+  if((e.target.id==='pc-photo'||e.target.id==='pc-photo-me')&&e.target.files&&e.target.files[0]){const me=e.target.id==='pc-photo-me';coPhoto(e.target.files[0],u=>{if(me){if(S.pc){S.uph=S.uph||{};S.uph[S.pc.n]=u;save()}}else pcF.ph=u;render()});return}
+  if((e.target.id==='co-photo'||e.target.id==='co-photo-me')&&e.target.files&&e.target.files[0]){const me=e.target.id==='co-photo-me';coPhoto(e.target.files[0],u=>{if(me){const c=meCo();if(c){c.ph=u;if(c.ex){S.uph=S.uph||{};S.uph[c.n]=u}save()}}else coF.ph=u;render()});return}
   if(e.target.id==='bk-file'&&e.target.files&&e.target.files[0]){
     const rd=new FileReader();
     rd.onload=()=>{dBackup=String(rd.result);act('loadBk');render()};
