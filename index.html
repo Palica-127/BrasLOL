@@ -951,7 +951,7 @@ h1{letter-spacing:.02em}
 .shv .shelf{min-height:78px;padding:10px 8px 2px;margin-bottom:16px}
 .shv .shelf:has(.none){min-height:44px}
 .cosh{min-height:60px!important}.cosh .tro.trg{width:58px}.cosh .tro.trg span{max-width:58px;font-size:9px;margin-top:2px}
-.cogrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}.cocard{display:flex;gap:12px;align-items:center;text-align:left;padding:8px;border:1px solid var(--line);border-radius:12px;background:var(--s2);color:inherit;font:inherit;cursor:pointer;width:100%}.cocard.me{cursor:default}.cocard .coav{width:112px;height:140px;border-radius:10px;font-size:22px}.cocard .cot{display:grid;gap:2px;min-width:0}.cocard b{font:800 18px var(--d)}.cocard small{color:var(--t2);font-size:12px}.cocard .cor{font:700 10px var(--d);letter-spacing:.12em;text-transform:uppercase;color:var(--prestige,#e8c66a)}.cocard .cob{color:var(--t3)}
+.cogrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}.cocard{display:flex;gap:12px;align-items:center;text-align:left;padding:8px;border:1px solid var(--line);border-radius:12px;background:var(--s2);color:inherit;font:inherit;cursor:pointer;width:100%}.cocard.me{cursor:default}.cof{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}.cofx{flex:1;min-width:220px}.cofph{display:grid;gap:6px;justify-items:center;cursor:pointer}.cofph .coav{width:132px;height:165px;border-radius:12px;font-size:34px;border:1px dashed var(--line)}.cofph small{color:var(--t2);font-size:12px}.cobtn{display:inline-block;margin-top:8px;cursor:pointer;font-size:12px}.cocard .coav{width:112px;height:140px;border-radius:10px;font-size:22px}.cocard .cot{display:grid;gap:2px;min-width:0}.cocard b{font:800 18px var(--d)}.cocard small{color:var(--t2);font-size:12px}.cocard .cor{font:700 10px var(--d);letter-spacing:.12em;text-transform:uppercase;color:var(--prestige,#e8c66a)}.cocard .cob{color:var(--t3)}
 .coh .coav{width:176px;height:220px;border-radius:12px}@media (max-width:700px){.coh .coav{width:132px;height:165px}}.coh .cnt small{white-space:normal;line-height:1.15}.cosh .tro{width:40px}.cosh .tro svg,.cosh .tro .ti{width:32px;height:42px}.cosh .tro .troimg{width:30px;height:auto}.cosh .tro b{font-size:10px;padding:1px 5px}
 .shv .troimg{height:80px}.shv .tro.bola .troimg{height:84px}
 .shv .pool{padding:4px 0;gap:8px}
@@ -3720,6 +3720,7 @@ function mgrStart(tid){
   const past=old?(old.past||[]).concat(old.hist&&old.hist.length?[{tn:old.tn||'Clube anterior',from:old.since,to:old.hist[old.hist.length-1].y,hist:old.hist,fired:!!old.fired}]:[]):[];
   S.mgr={past,tn:t.name,rep:old&&old.rep!=null?old.rep:undefined,tid,cash:t.d===2?6:12,sat:65,goal:goalFor(t),since:S.year,hist:[],log:[`Contratado pelo ${t.name} em ${S.year}.`],fired:false,acLv:1,ct:0,bench:[],loan:[],offers:[]};mEnsure();sgInit();
   S.mgr.ach=Object.assign({},S.mach||{},old&&old.ach||{});
+  {const me=meCo();if(me){me.since=S.year;if(me.sty)S.mgr.plan=me.sty}}
   coTake();coSync();
 }
 function mgrSeasonEnd(){
@@ -4455,6 +4456,57 @@ const coPh=n=>COPHOTOS.has(phSlug(n));
 const coAge=c=>c&&c.by?S.year-c.by:null;
 const colk=n=>`<button class="lk" data-act="coach" data-v="${esc(n)}">${esc(n)}</button>`;
 const coOf=t=>t&&t.co&&S.co&&S.co[t.co]&&S.co[t.co].t===t.id?S.co[t.co]:null;
+/* seu técnico (modo treinador): S.me = nome; S.co[nome] com u:1. Nunca entra no mercado da IA (t fica null; o time vem de S.mgr) */
+const coImg=c=>c&&c.ph?`<img src="${c.ph}" alt="" draggable="false">`:c&&coPh(c.n)?`<img src="tecnicos/${phSlug(c.n)}.webp" alt="" draggable="false">`:`<i>${esc(String(c?c.n:'?').slice(0,2).toUpperCase())}</i>`;
+const meCo=()=>S&&S.me&&S.co&&S.co[S.me]&&S.co[S.me].u?S.co[S.me]:null;
+const COSTY={eq:['Equilibrado','Lê o adversário e ajusta durante a série. Começa com o plano de jogo Equilibrado.'],ag:['Agressivo','Gosta de lutas cedo e de jogar para frente. Começa com o plano Agressivo.'],co:['Controle','Prioriza visão, objetivos e jogo lento. Começa com o plano Controle.']};
+let coF={name:'',nat:'BRA',age:35,sty:'eq',ph:''};
+/* histórico de anos já treinados (saves com carreira de treinador anterior à ficha) */
+function meBack(c){
+  const m=S.mgr;if(!m)return;
+  const add=(tn,hs)=>(hs||[]).forEach(h=>{if(!c.hist.some(x=>x.y===h.y)){const t=ALLT().find(x=>x.name===tn);c.hist.push({y:h.y,tid:t?t.id:null,tn})}});
+  (m.past||[]).forEach(p=>add(p.tn,p.hist));add(m.tn||(mgrT()&&mgrT().name),m.hist);
+  c.hist.sort((a,b)=>a.y-b.y);
+}
+function meMake(n,nat,by,o){
+  const old=meCo();if(old&&old.n!==n){old.u=0;old.ret=S.year}
+  const c=S.co[n]&&S.co[n].u?S.co[n]:coNew(n,nat||'',by,null,false);
+  c.u=1;c.t=null;c.as=0;c.ret=null;Object.assign(c,o||{});
+  if(S.mgr&&S.mgr.tid!=null)c.since=S.mgr.since;
+  S.me=n;meBack(c);COLC={k:''};return c;
+}
+function meCreate(f){
+  const n=String(f.name||'').trim().slice(0,18);
+  if(n.length<2){msg='Dê um nome ao seu técnico.';return false}
+  if((S.co[n]&&!S.co[n].u)||S.pdb[n]||S.hof[n]||ALLT().some(t=>t.pl.concat(t.bn||[]).some(p=>p.n===n))){msg='Esse nome já existe no jogo.';return false}
+  const age=clamp(Math.round(+f.age||35),22,65);
+  meMake(n,f.nat,S.year-age,{sty:COSTY[f.sty]?f.sty:'eq',ph:f.ph||'',gen:0});
+  if(S.mgr)S.mgr.plan=meCo().sty;
+  return true;
+}
+/* seu jogador se aposentou e virou técnico: a ficha vem pronta, com a estante da época de jogador */
+function meFromPc(pc){
+  const d=S.pdb&&S.pdb[pc.n],age=typeof pc.age==='number'?pc.age:d&&d.debut?S.year-d.debut+18:32;
+  return meMake(pc.n,d&&d.nat||'',S.year-age,{ex:1,sty:'eq',gen:0});
+}
+/* foto enviada pelo jogador: recorte 4:5 (176x220) em JPEG, guardado no save */
+function coPhoto(f,cb){
+  const rd=new FileReader();
+  rd.onload=()=>{const im=new Image();im.onload=()=>{const W=176,H=220,cv=document.createElement('canvas');cv.width=W;cv.height=H;
+    const k=Math.max(W/im.width,H/im.height),w=im.width*k,h=im.height*k;cv.getContext('2d').drawImage(im,(W-w)/2,(H-h)/4,w,h);
+    cb(cv.toDataURL('image/jpeg',.82))};im.src=String(rd.result)};
+  rd.readAsDataURL(f);
+}
+function meFormHTML(){
+  const ph=coF.ph?`<img src="${coF.ph}" alt="" draggable="false">`:'<i>+</i>';
+  return `<section class="pn"><h2>Criar técnico</h2><p class="note" style="margin:0 0 10px">Seu técnico ganha uma ficha igual à dos técnicos reais: estante de títulos, times treinados, carreira ano a ano e a influência no time. Ele aparece na comissão técnica do clube e na busca.</p>
+  <div class="cof"><label class="cofph" title="Escolher foto"><span class="coav">${ph}</span><input type="file" id="co-photo" accept="image/*" hidden><small>${coF.ph?'Trocar foto':'Foto (opcional)'}</small></label><div class="cofx">
+  <div class="sub">Nome</div><input id="co-name" class="search" maxlength="18" placeholder="Nome do técnico" value="${esc(coF.name)}" autocomplete="off">
+  <div class="sub">Nacionalidade</div><select id="co-nat" class="search">${NATL.map(c=>`<option value="${c}"${coF.nat===c?' selected':''}>${esc(NATN[c]||c)}</option>`).join('')}</select>
+  <div class="sub">Idade</div><input id="co-age" class="search" type="number" min="22" max="65" value="${esc(String(coF.age))}">
+  <div class="sub">Estilo</div><div class="pills">${Object.keys(COSTY).map(k=>`<button class="pill" aria-pressed="${coF.sty===k}" data-act="coF" data-v="sty|${k}">${COSTY[k][0]}</button>`).join('')}</div><p class="note" style="margin:6px 0 0">${COSTY[coF.sty][1]}</p>
+  </div></div><div class="row" style="margin:12px 0 0"><button class="ghost" data-act="meCreate">${S.mgr&&mgrT()?'Criar ficha':'Criar técnico e escolher o clube'}</button></div></section>`;
+}
 function coNew(n,nat,by,t,gen){S.co[n]={n,nat,by,t:t?t.id:null,as:0,since:S.year,hist:[],ret:null,bad:0,good:0,gen:gen?1:0};if(t)t.co=n;return S.co[n]}
 function coGen(t){
   const nat=t&&(TNAT[t.name]||MAINN[t.lg])||pick((t&&GENN[t.lg])||WORLDN);
@@ -4490,6 +4542,7 @@ function coBoost(t){
   if(m&&m.tid===t.id){
     if(m.coach)lv=(m.coach.co?coLvl(m.coach.n):clamp(sc(S.hof[m.coach.n]||{})/375,0,1))*.6;
     if(m.exp)lv=Math.max(lv,clamp((m.exp.v||0)/120,0,1));
+    {const me=meCo();if(me)lv=Math.max(lv,coLvl(me.n))}
   }else{const c=coOf(t);if(c)lv=coLvl(c.n)}
   if(lv<=0)return 0;
   const bad=Math.min(0,(t.mom||0)+(t.hot||0));
@@ -4531,7 +4584,7 @@ function pcCoAccept(tid){
   const pc=S.pc;if(!pc||!pc.ended||!(pc.coOff||[]).includes(tid))return;
   const t=T(tid);if(!t)return;
   const exp={n:pc.n,v:(pc.leg&&pc.leg.v)||0,r:pc.leg&&pc.leg.r};
-  S.pcOld=pc;S.pc=null;mgrStart(tid);S.mgr.exp=exp;S.mgr.log.push(`${exp.n} troca o uniforme pela prancheta: ex-jogador assume o ${t.name}.`);
+  S.pcOld=pc;S.pc=null;mgrStart(tid);S.mgr.exp=exp;meFromPc(pc);S.mgr.log.push(`${exp.n} troca o uniforme pela prancheta: ex-jogador assume o ${t.name}.`);
   news(`${exp.n}, aposentado como jogador, assume o ${t.name} como técnico.`);
 }
 /* troféu da estante de técnico: Worlds/MSI/ligas grandes com o troféu do jogo; torneios antigos (IEM, Rift Rivals, KeSPA...) e ligas menores
@@ -4546,13 +4599,13 @@ function coTro(x){
 }
 /* ficha do time: cartão do técnico (foto, país, idade, desde quando, reforço) */
 function coCard(c,role){
-  const ph=coPh(c.n)?`<img src="tecnicos/${phSlug(c.n)}.webp" alt="" draggable="false">`:`<i>${esc(String(c.n).slice(0,2).toUpperCase())}</i>`,age=coAge(c),lv=coLvl(c.n);
+  const ph=coImg(c),age=coAge(c),lv=coLvl(c.n);
   return `<button class="cocard" data-act="coach" data-v="${esc(c.n)}"><span class="coav">${ph}</span><span class="cot"><small class="cor">${role}</small><b>${esc(c.n)}</b><small>${c.nat?natTxt(c.nat)+' · ':''}${age?age+' anos · ':''}no clube desde ${c.since}</small>${lv>0?`<small class="cob">Leitura de jogo e calma: +${(lv*.35).toFixed(2).replace('.',',')}</small>`:''}</span></button>`;
 }
 function coStaffHTML(t){
   const c=coOf(t),m=S.mgr,me=m&&m.tid===t.id;
   let h='';
-  if(me)h+=`<div class="cocard me"><span class="coav"><i>VOCÊ</i></span><span class="cot"><small class="cor">Técnico principal</small><b>Você</b><small>no comando desde ${m.since}</small></span></div>`;
+  if(me)h+=meCo()?coCard(meCo(),'Técnico principal · você'):`<div class="cocard me"><span class="coav"><i>VOCÊ</i></span><span class="cot"><small class="cor">Técnico principal</small><b>Você</b><small>no comando desde ${m.since}</small></span></div>`;
   if(c)h+=coCard(c,me?'Assistente técnico':'Técnico principal');
   else if(!me)h+='<p class="empty">Sem técnico no momento.</p>';
   return `<section class="pn sh-c"><h2>Comissão técnica</h2><div class="cogrid">${h}</div></section>`;
@@ -4585,7 +4638,7 @@ function coTitles(c){
 function coHire(t,off){
   if(coOf(t))return;
   const home=TNAT[t.name]||MAINN[t.lg];
-  const free=Object.values(S.co).filter(c=>c.t==null&&!c.ret);
+  const free=Object.values(S.co).filter(c=>c.t==null&&!c.ret&&!c.u);
   let best=free.map(c=>({c,v:coRep(c)+(c.nat===home?3:0)+Math.random()*2})).sort((a,b)=>b.v-a.v)[0];
   if(t.d!==2&&(!best||best.v<4)&&Math.random()<.5){
     const d2=Object.values(S.co).filter(c=>c.t!=null&&!c.as&&T(c.t).d===2&&(c.good||0)>0).sort((a,b)=>coRep(b)-coRep(a))[0];
@@ -4600,6 +4653,7 @@ function coYear(off){
   if(!S.co)coEnsure();
   const m=S.mgr,mid=m&&m.tid!=null?m.tid:null;
   Object.values(S.co).forEach(c=>{if(c.t!=null){const t=T(c.t);c.hist.push({y:S.year,tid:c.t,tn:t.name,a:c.as?1:0})}});
+  {const me=meCo();if(me&&mid!=null&&T(mid)&&!me.hist.some(h=>h.y===S.year))me.hist.push({y:S.year,tid:mid,tn:T(mid).name})}
   /* campanha x expectativa: posição média nos splits contra a posição pelo OVR na liga */
   ALLT().forEach(t=>{
     const c=coOf(t);if(!c||t.id===mid)return;
@@ -4619,7 +4673,7 @@ function coYear(off){
   });
   /* aposentadoria: idade ou muito tempo sem clube */
   Object.values(S.co).forEach(c=>{
-    if(c.ret)return;const a=coAge(c)||40,idle=c.t==null&&c.free!=null?S.year-c.free:0;
+    if(c.ret||c.u)return;const a=coAge(c)||40,idle=c.t==null&&c.free!=null?S.year-c.free:0;
     if((a>=60)||(a>=55&&Math.random()<.35)||(c.t==null&&idle>=2&&Math.random()<.5)){
       if(c.t!=null&&c.t===mid)return;
       if(c.t!=null){const t=T(c.t);t.co=null;off.push(`${c.n} (${t.name}) se aposenta como técnico aos ${a} anos.`)}
@@ -4632,17 +4686,19 @@ function coYear(off){
 /* ficha do técnico */
 function vCoach(n){
   const c=S.co&&S.co[n];if(!c)return `<p class="empty">Técnico não encontrado.</p>`;
-  const t=c.t!=null?T(c.t):null,m=S.mgr,age=coAge(c);
-  const st=c.ret?`Aposentado em ${c.ret}`:t?(c.as?`Assistente técnico · ${tlk(t)} (você é o técnico principal)`:`Técnico · ${tlk(t)}${divTxt(t)}`):`Sem clube${c.free?' desde '+c.free:''}`;
+  const m=S.mgr,t=c.u?(m&&m.tid!=null?T(m.tid):null):c.t!=null?T(c.t):null,age=coAge(c);
+  if(c.u&&t)c.since=m.since;
+  const st=c.u?(t?`Técnico · ${tlk(t)}${divTxt(t)} · você`:m&&m.fired?'Sem clube (demitido)':'Sem clube'):c.ret?`Aposentado em ${c.ret}`:t?(c.as?`Assistente técnico · ${tlk(t)} (você é o técnico principal)`:`Técnico · ${tlk(t)}${divTxt(t)}`):`Sem clube${c.free?' desde '+c.free:''}`;
   const real=(COC[n]&&COC[n][3])||[],ttl=coTitles(c);
-  const yrsC=new Set(real.filter(x=>x[1]==='c').map(x=>x[0]).concat(c.hist.map(h=>h.y))).size;
-  const tms=new Set(real.filter(x=>x[1]==='c').map(x=>x[2]).concat(c.hist.map(h=>h.tn))).size;
-  const ph=coPh(n)?`<img src="tecnicos/${phSlug(n)}.webp" alt="" draggable="false">`:`<i>${esc(String(n).slice(0,2).toUpperCase())}</i>`;
+  const cur=t&&!c.as?[{y:S.year,tn:t.name}]:[];
+  const yrsC=new Set(real.filter(x=>x[1]==='c').map(x=>x[0]).concat(c.hist.filter(h=>!h.a).map(h=>h.y),cur.map(h=>h.y))).size;
+  const tms=new Set(real.filter(x=>x[1]==='c').map(x=>x[2]).concat(c.hist.filter(h=>!h.a).map(h=>h.tn),cur.map(h=>h.tn))).size;
+  const ph=coImg(c);
   let o=`<div class="row"><button class="ghost" data-act="back">← Voltar</button></div>`;
   /* cabeçalho no mesmo formato da ficha de jogador: foto + nome à esquerda, contadores à direita */
   const shc=coShelf(n),nk=k=>shc.filter(x=>x.k===k).reduce((a,x)=>a+(x.n||1),0);
-  o+=`<div class="shr"><section class="pn shh shp coh"><div class="ph phf"><span class="coav">${ph}</span><div><h3>${esc(n)}</h3><small>${st}<br>${c.nat?esc(NATN[c.nat]||c.nat)+' · ':''}${age?age+' anos · ':''}${c.ex?`ex-jogador${S.pdb&&S.pdb[n]?' · '+lk(n):''}`:c.gen&&!real.length?'técnico revelado no jogo':'técnico'}</small></div></div>
-  <div class="cnt"><div><b class="num">${ttl.length}</b><small>Títulos técnico</small></div><div><b class="num">${yrsC}</b><small>Anos técnico</small></div><div><b class="num">${tms}</b><small>Times</small></div><div><b class="num">${t?c.since:'—'}</b><small>No clube desde</small></div><div><b class="num">${nk('w')}</b><small>Worlds jogador</small></div><div><b class="num">${nk('m')}</b><small>MSI jogador</small></div><div><b class="num">${nk('l')}</b><small>Ligas jogador</small></div><div><b class="num">${nk('c')}</b><small>Torneios jogador</small></div></div></section>`;
+  o+=`<div class="shr"><section class="pn shh shp coh"><div class="ph phf"><span class="coav">${ph}</span><div><h3>${esc(n)}</h3><small>${st}<br>${c.nat?esc(NATN[c.nat]||c.nat)+' · ':''}${age?age+' anos · ':''}${c.u?`seu técnico${c.ex?' · ex-jogador':''} · estilo ${(COSTY[c.sty]||COSTY.eq)[0]}`:c.ex?`ex-jogador${S.pdb&&S.pdb[n]?' · '+lk(n):''}`:c.gen&&!real.length?'técnico revelado no jogo':'técnico'}</small>${c.u?`<label class="ghost cobtn">Trocar foto<input type="file" id="co-photo-me" accept="image/*" hidden></label>`:''}</div></div>
+  <div class="cnt"><div><b class="num">${ttl.length}</b><small>Títulos técnico</small></div><div><b class="num">${yrsC}</b><small>Anos técnico</small></div><div><b class="num">${tms}</b><small>Times</small></div><div><b class="num">${t?c.since:'—'}</b><small>No clube desde</small></div>${shc.length||c.ex||real.some(x=>x[1]==='p')?`<div><b class="num">${nk('w')}</b><small>Worlds jogador</small></div><div><b class="num">${nk('m')}</b><small>MSI jogador</small></div><div><b class="num">${nk('l')}</b><small>Ligas jogador</small></div><div><b class="num">${nk('c')}</b><small>Torneios jogador</small></div>`:''}</div></section>`;
   /* carreira: anos reais (Leaguepedia) + anos simulados */
   const rows={};
   real.forEach(([y,k,tn])=>{(rows[y]=rows[y]||[]).push(`${esc(tn)} <small style="display:inline">${k==='c'?'técnico':'jogador'}</small>`)});
@@ -4663,6 +4719,7 @@ function vCoach(n){
     const chips=[['w','Worlds'],['m','MSI'],['l','Ligas'],['c','Torneios'],['b','Melhor do Ano']].map(([k,l])=>cnt(k)?`<span class="tag">${cnt(k)} ${l}</span>`:'').filter(Boolean).join(' ');
     o+=`<section class="pn"><h2>Estante da época de jogador</h2>${sh.length?`<div class="sh-t"><span>Títulos como jogador</span><b class="num">${sh.reduce((a,x)=>a+(x.n||1),0)}</b></div><div class="shelf cosh">${sh.map(coTro).join('')}</div>`:'<p class="note" style="margin:0">Jogou profissionalmente, mas sem títulos de primeira linha.</p>'}</section>`;
   }
+  if(c.u){const as=m&&m.coach;o+=`<section class="pn"><h2>Estilo e comissão</h2><p class="note" style="margin:0"><b>${(COSTY[c.sty]||COSTY.eq)[0]}:</b> ${(COSTY[c.sty]||COSTY.eq)[1]}${t?` Assistente: ${as?(as.co?colk(as.n):esc(as.n)):'nenhum'}.`:''}</p></section>`}
   o+=`<section class="pn"><h2>Influência no time</h2>${lv>0?`<p class="note" style="margin:0">Leitura de jogo <b>+${(lv*.35).toFixed(2).replace('.',',')}</b> de força nas partidas e calma quando o time está em má fase (corta até ${Math.round(lv*40)}% da fase ruim, máx. +0,3). Vem dos títulos da carreira${c.ex||sh.length?' de jogador':''} e dos títulos como técnico.</p>`:'<p class="note" style="margin:0">Sem títulos de peso ainda: não muda a força do time.</p>'}</section>`;
   o+=`<section class="pn"><h2>Carreira</h2>${ys.length?ys.map(y=>`<div class="trp"><span class="y num">${y}</span><span>${rows[y].join('<br>')}</span></div>`).join(''):'<p class="note" style="margin:0">Sem registro.</p>'}${real.length?'<p class="note">Até 2025: elencos registrados na Leaguepedia. A partir de 2026: carreira simulada no jogo.</p>':''}</section>`;
   return o+`</div></div>`;
@@ -7736,7 +7793,8 @@ function vMenu(){
   let h=msg?`<div class="msg">${esc(msg)}</div>`:'';
   const cur=modeNow(),ask=menuAsk;
   const back=`<div class="row"><button class="ghost" data-act="menuGo" data-v="home">← Menu</button></div>`;
-  if(menuV==='mgr')return h+back+`<section class="pn"><h2>Escolha o clube</h2><p class="note" style="margin:0 0 10px">Você será o treinador. Dá para assumir times da D1 e da D2.</p>${pickerHTML()}</section>`;
+  if(menuV==='mgr'&&(!meCo()||coF.nw))return h+back+meFormHTML();
+  if(menuV==='mgr')return h+back+`<section class="pn"><h2>Seu técnico</h2><div class="cogrid">${coCard(meCo(),'Técnico · você')}</div><div class="row" style="margin:10px 0 0"><button class="ghost" data-act="meNew">Criar outro técnico</button></div></section><section class="pn"><h2>Escolha o clube</h2><p class="note" style="margin:0 0 10px">Você será o treinador. Dá para assumir times da D1 e da D2.</p>${pickerHTML()}</section>`;
   if(menuV==='pcHome')return h+back+`<section class="pn"><h2>Carreira de jogador</h2><p class="note" style="margin:0 0 10px">Escolha como começar.</p><div class="row" style="margin:0"><button class="ghost" data-act="menuGo" data-v="pcNew">Criar um jogador</button><button class="ghost" data-act="menuGo" data-v="pcPick">Escolher um jogador existente</button></div></section>`;
   if(menuV==='pcNew'){
     const teams=LGS.map(lg=>`<optgroup label="${lg} · D2">${D2L().filter(t=>t.lg===lg).map(t=>`<option value="${t.id}"${String(pcF.team)===String(t.id)?' selected':''}>${esc(t.name)} · OVR ${Math.round(baseOvr(t))}</option>`).join('')}</optgroup>`).join('');
@@ -8298,7 +8356,7 @@ function vMgr(){
   }
   mEnsure();const pay=payroll(t),open=winOpen()||!!m.cheat;
   const lastH=m.hist[m.hist.length-1];
-  h+=`<div class="mgr"><section class="pn mgh"><div class="mh1"><div class="ph">${crest(t,'lg')}<div style="flex:1;min-width:0"><h3>${esc(t.name)}</h3><small>${t.lg} · OVR ${Math.round(baseOvr(t))} · ${rankOfTeam(t)}º do jogo</small></div></div></div>
+  h+=`<div class="mgr"><section class="pn mgh"><div class="mh1"><div class="ph">${crest(t,'lg')}<div style="flex:1;min-width:0"><h3>${esc(t.name)}</h3><small>${t.lg} · OVR ${Math.round(baseOvr(t))} · ${rankOfTeam(t)}º do jogo<br>${meCo()?`Técnico: ${colk(meCo().n)}`:`<button class="lk" data-act="meNew">Criar a ficha do seu técnico</button>`}</small></div></div></div>
   <div class="mh2"><div class="cab"><div><b class="num" style="font-size:22px">${m.cheat?'∞':fmtM(m.cash).replace('US$ ','')}</b><small>Caixa (US$)</small></div><div><b class="num" style="font-size:22px">${m.sat}%</b><small>Confiança</small></div></div>
   <div class="ovb" style="height:7px;margin-top:8px"><i style="width:${m.sat}%"></i></div></div>
   <div class="mh3"><p class="note"><b>Meta da diretoria:</b> ${goalTxt(m,t)}.</p>${sgTxt(m)?`<p class="note"><b>Metas por split:</b> ${sgTxt(m)}.</p>`:''}${m.ult?`<p class="note ult"><b>Ultimato:</b> top ${m.ult.t} no ${splitNm(m.ult.k)} ou demissão imediata.</p>`:''}
@@ -10773,7 +10831,7 @@ function vTeam(id){
   const view=TV.some(x=>x[0]===tvw)?tvw:'el';
   let o=`<div class="row"><button class="ghost" data-act="back">← Voltar</button><button class="ghost" data-act="foTe" data-v="${t.id}">Baixar folder (PDF)</button></div>`;
   o+=`<div class="shr"><div class="pills stk">${TV.map(([k,l])=>`<button class="pill" aria-pressed="${view===k}" data-act="tvw" data-v="${k}">${l}</button>`).join('')}</div>`;
-  o+=`<section class="pn shh"><div class="ph">${crest(t,'lg')}<div style="flex:1;min-width:0"><h3>${esc(t.name)}</h3><small>${llk(t.lg)}${t.d===2?' · 2ª divisão':''}${t.est?' · elenco estimado':''}<br>OVR ${Math.round(baseOvr(t))}${pwPos(t)>0?` · power #${pwPos(t)}`:''} · forma ${f>0?`<span class="st up">▲${f.toFixed(1)}</span>`:f<0?`<span class="st dn">▼${(-f).toFixed(1)}</span>`:'estável'}${(()=>{const c=coOf(t),m=S.mgr;if(m&&m.tid===t.id)return `<br>Técnico: você${c?` · assistente ${colk(c.n)}`:''}`;return c?`<br>Técnico: ${colk(c.n)}`:''})()}</small></div></div>
+  o+=`<section class="pn shh"><div class="ph">${crest(t,'lg')}<div style="flex:1;min-width:0"><h3>${esc(t.name)}</h3><small>${llk(t.lg)}${t.d===2?' · 2ª divisão':''}${t.est?' · elenco estimado':''}<br>OVR ${Math.round(baseOvr(t))}${pwPos(t)>0?` · power #${pwPos(t)}`:''} · forma ${f>0?`<span class="st up">▲${f.toFixed(1)}</span>`:f<0?`<span class="st dn">▼${(-f).toFixed(1)}</span>`:'estável'}${(()=>{const c=coOf(t),m=S.mgr;if(m&&m.tid===t.id)return `<br>Técnico: ${meCo()?colk(meCo().n)+' (você)':'você'}${c?` · assistente ${colk(c.n)}`:''}`;return c?`<br>Técnico: ${colk(c.n)}`:''})()}</small></div></div>
   ${troTiles([['w',c.wc,'Worlds'],['m',c.msi,'MSI'],['f',c.fs,'First Stand'],['l',c.lg,'Ligas']])}
   <div class="kv kv4"><div><small>Vices</small><b class="num">${vc.length}</b></div><div><small>Melhor do Ano</small><b class="num">${bo.length}</b></div><div><small>Anos</small><b class="num">${yh.length}</b></div><div><small>Aprov.</small><b class="num">${gw+gl?Math.round(100*gw/(gw+gl))+'%':'—'}</b></div></div></section>`;
   {const mt=mgrT();if(mt&&mt!==t){const q=sqS(),pend=q.out.some(x=>x.o===t.id),bl=sqBlk(mt)===t.id;
@@ -11006,7 +11064,10 @@ function act0(a,v){
     }catch(e){msg='Backup inválido. Cole o texto completo gerado por esta versão do simulador.'}
   }
   else if(a==='pcCoach'){pcCoAccept(+v);if(S.mgr&&!S.pc){menuV='home';menuAsk=null;tab='mgr';msg='Você assumiu o '+mgrT().name+' como técnico.'}save()}
-  else if(a==='mgrStart'){S.pc=null;menuV='home';menuAsk=null;mgrStart(+mgrPick);tab='mgr';msg='Você assumiu o '+mgrT().name+'.';save()}
+  else if(a==='coF'){const [k,x]=String(v).split('|');coF[k]=x}
+  else if(a==='meNew'){coF={name:'',nat:'BRA',age:35,sty:'eq',ph:'',nw:1};menuV='mgr';tab='menu';top=true}
+  else if(a==='meCreate'){if(meCreate(coF)){const nm=coF.name.trim();coF={name:'',nat:'BRA',age:35,sty:'eq',ph:''};if(S.mgr&&mgrT()){menuV='home';tab='mgr'}msg=`Técnico ${nm} criado.`+(S.mgr&&mgrT()?'':' Agora escolha o clube.');save();top=true}}
+  else if(a==='mgrStart'){if(!meCo()&&menuV==='mgr'){msg='Crie seu técnico primeiro.';render();return}S.pc=null;menuV='home';menuAsk=null;mgrStart(+mgrPick);tab='mgr';msg='Você assumiu o '+mgrT().name+'.';save()}
   else if(a==='mgrEnd'){askEnd=true}
   else if(a==='mgrEndNo'){askEnd=false}
   else if(a==='menuGo'){menuV=v;menuAsk=null;if(v==='home')menuAsk=null;top=true}
@@ -11106,6 +11167,7 @@ document.addEventListener('keydown',e=>{
   if(b&&!b.disabled){e.preventDefault();b.click()}
 });
 document.addEventListener('change',e=>{
+  if((e.target.id==='co-photo'||e.target.id==='co-photo-me')&&e.target.files&&e.target.files[0]){const me=e.target.id==='co-photo-me';coPhoto(e.target.files[0],u=>{if(me){const c=meCo();if(c){c.ph=u;save()}}else coF.ph=u;render()});return}
   if(e.target.id==='bk-file'&&e.target.files&&e.target.files[0]){
     const rd=new FileReader();
     rd.onload=()=>{dBackup=String(rd.result);act('loadBk');render()};
@@ -11117,6 +11179,9 @@ document.addEventListener('input',e=>{
   else if(e.target.id==='t-bk')dBackup=e.target.value;
   else if(e.target.id==='mgr-pick'){mgrPick=+e.target.value}
   else if(e.target.id==='pc-name'){pcF.name=e.target.value}
+  else if(e.target.id==='co-name'){coF.name=e.target.value}
+  else if(e.target.id==='co-nat'){coF.nat=e.target.value}
+  else if(e.target.id==='co-age'){coF.age=e.target.value}
   else if(e.target.id==='pc-nat'){pcF.nat=e.target.value}
   else if(e.target.id==='pc-team'){pcF.team=e.target.value}
   else if(e.target.id==='it-q'){itQ=e.target.value;const l=document.querySelector('#it-list');if(l)l.innerHTML=itListHTML()}
