@@ -10919,6 +10919,14 @@ function carHTML(n,d){
     return `<div class="trp" style="grid-template-columns:118px minmax(0,1fr)"><span class="y num" style="font-size:17px">${yr}</span><span><b>${tm?tlk(tm):esc(x.t)}</b>${x.pv?`<small>antes: ${esc(x.pv)}</small>`:''}</span></div>`}).join('');
   return `<section class="pn"><h2>Times</h2>${rows}<p class="note">Até 2026: passagens como jogador registradas na Leaguepedia. Depois: transferências no jogo.</p></section>`;
 }
+/* time do título na estante: o gravado no título; senão o campeão real (Worlds, MSI, EWC); senão o time do jogador naquele ano */
+function tlTm(n,d,x,k){
+  if(x.tm)return x.tm;
+  const r=k==='w'?WCT[x.y]:k==='m'?MST[x.y]:k==='e'?EWCT[x.y]:'';if(r)return r;
+  if(typeof x.y!=='number')return '';
+  const c=carList(n,d).filter(z=>z.y0<=x.y&&(!z.y1||z.y1>=x.y));
+  const z=k==='w'||k==='e'?c[c.length-1]:c[0];return z?(z.g||z.t):'';
+}
 function pshelfHTML(n,d,h){
   const tl=d.tl||[];
   const isMVP=x=>/^MVP/.test(x.t);
@@ -10930,7 +10938,8 @@ function pshelfHTML(n,d,h){
   const unk=Math.max(0,(h.lg||0)-L.length);
   const V=tl.filter(isMVP).sort(byY),B=tl.filter(isBO).sort(byY);
   const mv=x=>/Copa do Mundo/.test(x.t)?'Copa':/Mundial|Worlds/.test(x.t)?'Worlds':/MSI/.test(x.t)?'MSI':/EWC/.test(x.t)?'EWC':'Liga';
-  const rows=[['w','Worlds',W.map(x=>({y:x.y,l:`Worlds ${x.y}`,sub:''}))],['m','MSI',M.map(x=>({y:x.y,l:`MSI ${x.y}`,sub:''}))],['f','First Stand',F.map(x=>({y:x.y,l:`First Stand ${x.y} · ${x.tm}`,sub:x.tm}))],['e','EWC',E.map(x=>({y:x.y,l:`EWC ${x.y}${x.tm?' · '+x.tm:''}`,sub:x.tm||''}))],['c','Copa do Mundo',C.map(x=>({y:x.y,l:`Copa do Mundo ${x.y} · ${x.tm}`,sub:x.tm}))],
+  const tw=(k,nm)=>x=>{const tm=tlTm(n,d,x,k);return{y:x.y,l:`${nm} ${x.y}${tm?' · '+tm:''}`,sub:tm}};
+  const rows=[['w','Worlds',W.map(tw('w','Worlds'))],['m','MSI',M.map(tw('m','MSI'))],['f','First Stand',F.map(tw('f','First Stand'))],['e','EWC',E.map(tw('e','EWC'))],['c','Copa do Mundo',C.map(x=>({y:x.y,l:`Copa do Mundo ${x.y} · ${x.tm}`,sub:x.tm}))],
     ['l','Ligas',[...Array(unk).fill({y:'–',l:'Título de liga',sub:''}),...L.map(x=>({y:x.y,lg:x.t,l:`${x.t} ${x.y}`,sub:lgIco(x.t)?'':x.t.split(' ')[0]}))]],['g','Torneios',G.map(x=>({y:x.y,l:`${x.t.slice(10)} ${x.y}`,sub:x.t.slice(10)}))],['p','MVPs',V.map(x=>({y:x.y,lg:x.t,l:`${x.t} ${x.y}`,sub:mv(x)}))]];
   let o='';
   if(rows.some(r=>r[2].length))o+=`<section class="pn"><h2>Estante de troféus</h2>${rows.map(([k,t,it])=>`<div class="sh-t"><span>${t}</span><b class="num">${it.length}</b></div>${shelfRow(k,it,k==='p'?'wide':'')}`).join('')}</section>`;
