@@ -3005,6 +3005,7 @@ function perf(t,bonus,wt){
   });
 }
 function award(t,key,label){
+  if(key==='wc'&&label==='Worlds')label='Mundial'; /* estantes, pontos e fichas reconhecem o título do Mundial por esse nome */
   t.pl.forEach(p=>{
     const a=achOf(p.n);
     if(key==='lg')a.lg.push(label);else if(key==='msi')a.msi='C';else if(key==='fs')a.fs='C';else if(key==='ewc')a.ewc='C';else a.wc='C';
@@ -8262,7 +8263,7 @@ async function foPlayer(n){
   const W=tl.filter(x=>x.t==='Mundial').sort(byY),M=tl.filter(x=>x.t==='MSI').sort(byY),Cp=tl.filter(x=>x.t==='Copa do Mundo de LoL').sort(byY);
   const L=tl.filter(x=>x.t!=='Mundial'&&x.t!=='MSI'&&x.t!=='First Stand'&&x.t!=='EWC'&&x.t!=='Copa do Mundo de LoL'&&!isMV(x)&&!isBO(x)&&!/^Torneio · /.test(x.t)&&!/^Top (5|10) /.test(x.t)&&x.y!=='—').sort(byY);
   const V=tl.filter(isMV).sort(byY),B=tl.filter(isBO).sort(byY),unk=Math.max(0,(h.lg||0)-L.length);
-  const grp=[['Worlds','w',W.map(x=>({y:x.y,k:'w'}))],['Melhor do Ano','b',B.map(x=>({y:x.y,k:'b'}))],['MSI','m',M.map(x=>({y:x.y,k:'m'}))],['Copa do Mundo','c',Cp.map(x=>({y:x.y,k:'c'}))],
+  const grp=[['Worlds','w',W.map(x=>({y:x.y,k:'w'}))],['Melhor do Ano','b',B.map(x=>({y:x.y,k:'b'}))],['MSI','m',M.map(x=>({y:x.y,k:'m'}))],['First Stand','f',tl.filter(x=>x.t==='First Stand').sort(byY).map(x=>({y:x.y,k:'f'}))],['EWC','e',tl.filter(x=>x.t==='EWC').sort(byY).map(x=>({y:x.y,k:'e'}))],['Copa do Mundo','c',Cp.map(x=>({y:x.y,k:'c'}))],
     ['Ligas','l',[...L.map(x=>({y:x.y,k:foLgK(x.t)||defLg})),...Array(unk).fill(0).map(()=>({y:'-',k:defLg}))]],
     ['MVPs','p',V.map(x=>({y:x.y,k:/Copa/.test(x.t)?'mvp-c':/Mundial|Worlds/.test(x.t)?'mvp-w':/MSI/.test(x.t)?'mvp-m':'mvp-'+(foLgK(x.t)||'LCK')}))]].filter(g=>g[2].length);
   const feat=grp.length?grp[0][2][0].k:null;
@@ -8287,7 +8288,7 @@ const D_fit=(s,w)=>pdfTw(s,9.5)<=w?s:(()=>{while(s.length>1&&pdfTw(s+'...',9.5)>
 async function foTeam(id){
   const t=T(id),ex=legExtra(t),vc=viceList(t),bo=teamBolas(t),yh=t.yh||[];
   const all=t.tt.concat(ex.c).sort((a,b)=>a.y-b.y),dl=foLgK(t.lg)||'LEC';
-  const grp=[['Worlds','w',all.filter(x=>x.k==='Mundial').map(x=>({y:x.y,k:'w'}))],['Melhor do Ano','b',bo.map(x=>({y:x.y,k:'b'}))],['MSI','m',all.filter(x=>x.k==='MSI').map(x=>({y:x.y,k:'m'}))],
+  const grp=[['Worlds','w',all.filter(x=>x.k==='Mundial').map(x=>({y:x.y,k:'w'}))],['Melhor do Ano','b',bo.map(x=>({y:x.y,k:'b'}))],['MSI','m',all.filter(x=>x.k==='MSI').map(x=>({y:x.y,k:'m'}))],['First Stand','f',all.filter(x=>x.k==='First Stand').map(x=>({y:x.y,k:'f'}))],['EWC','e',all.filter(x=>x.k==='EWC').map(x=>({y:x.y,k:'e'}))],
     ['Ligas','l',all.filter(x=>x.k!=='Mundial'&&x.k!=='MSI'&&x.k!=='First Stand'&&x.k!=='EWC').map(x=>({y:x.y,k:foLgK(x.k)||dl}))]].filter(g=>g[2].length);
   const feat=grp.length?grp[0][2][0].k:null,sl=logoOf(slug(t.name));
   const gw=yh.reduce((a,s)=>a+s.gw,0),gl=yh.reduce((a,s)=>a+s.gl,0);
@@ -8898,7 +8899,13 @@ function fixCoJoin(){
   if(ph==null||ph<=0)return;
   me.jp={y:m.since,ph};const h=me.hist.find(x=>x.y===m.since&&x.tid===m.tid);if(h)h.f=ph;
 }
-function ensureD2(){ensureD2a();if(S){fixD2P();fixAges();fixPre();fixTit();fixEWC();fixCoJoin();coEnsure();coSync();ALLT().forEach(t=>{if(!t.bn)ensureBn(t)});faSeed()}}
+/* saves antigos: Mundial ganho no jogo ficou gravado como "Worlds" e não aparecia nas estantes de times e jogadores */
+function fixWcLbl(){
+  if(!S||S.wclV===1)return;S.wclV=1;
+  Object.values(S.pdb||{}).forEach(d=>(d.tl||[]).forEach(e=>{if(e.t==='Worlds')e.t='Mundial'}));
+  ALLT().forEach(t=>(t.tt||[]).forEach(x=>{if(x.k==='Worlds')x.k='Mundial'}));
+}
+function ensureD2(){ensureD2a();if(S){fixWcLbl();fixD2P();fixAges();fixPre();fixTit();fixEWC();fixCoJoin();coEnsure();coSync();ALLT().forEach(t=>{if(!t.bn)ensureBn(t)});faSeed()}}
 function closeD2(lg,tag,st,m1,m2,fm){
   const top=st.slice(0,4).map(r=>r.t);
   const third=[T(loserOf(m1)),T(loserOf(m2))].sort((a,b)=>top.indexOf(a)-top.indexOf(b));
