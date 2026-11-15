@@ -9137,6 +9137,7 @@ const BRK_DAYS=5;
 function bdMark(){
   const A=S.season;if(!A)return;const bd=A.bd=A.bd||{},d=dayNow();
   ['fs','mpi','msi','ewc','wpi','wc'].forEach(k=>{const t=A[k];if(t&&t.champ!=null&&bd[k]==null)bd[k]=d});
+  if(A.cup&&A.cup.champ!=null&&bd.cup==null)bd.cup=d;
   const f=FLG();
   ['s1','s2','s3'].forEach(tag=>{
     if(A.sp&&A.sp.tag===tag)return;
@@ -9498,7 +9499,7 @@ function cupFinish(cup){
   const res={};cup.teams.forEach(t=>{res[t.id]=t.id===cup.champ?'Campeão':cup.elim[t.id]||'Fase de grupos'});
   if(S.nm){S.nm.cups=S.nm.cups||[];S.nm.cups.push({y:S.year,res:res[S.nm.code]||'Não classificado'});if(cup.champ===S.nm.code){S.nm.titles=(S.nm.titles||0)+1;news(`${ch.name} é campeã com o seu comando na Copa do Mundo de LoL ${S.year}.`);if(S.mgr)mAch()}}
   news(`${ch.name} vence a Copa do Mundo de LoL ${S.year}; MVP ${mvp.n}.`);
-  (S.cups=S.cups||[]).push({y:S.year,code:ch.id,res,champ:ch.name,runner:runner.name,third:CT(cup.third).name,mvp:mvp.n,score:`${Math.max(fin.res.wa,fin.res.wb)}-${Math.min(fin.res.wa,fin.res.wb)}`,roster:ch.pl.map(p=>p.n),n:cup.N});
+  (S.cups=S.cups||[]).push({y:S.year,code:ch.id,res,champ:ch.name,runner:runner.name,third:CT(cup.third).name,mvp:mvp.n,score:`${Math.max(fin.res.wa,fin.res.wb)}-${Math.min(fin.res.wa,fin.res.wb)}`,roster:ch.pl.map(p=>p.n),n:cup.N,br:cupBrSave(cup)});
 }
 function cupSwap(role,name){
   const cup=S.season.cup;if(!cup||cup.gi>0||!S.nm)return;
@@ -9556,6 +9557,28 @@ function cupMatchHTML(m,i,fx){
   <div class="od"><i style="width:${pa}%"></i><i class="o2" style="width:${pb}%"></i></div>
   <div class="ol"><b class="num">${pa}%</b><span>${m.lab?m.lab+' · ':''}MD${m.n} · ${Math.round(m.qa*100)}% por jogo · ${m.d>=0?'+':''}${m.d.toFixed(1)} OVR</span><b class="num">${pb}%</b></div></div>`;
 }
+/* bracket da Copa no mesmo formato dos outros campeonatos (koBracketHTML). Antes do mata-mata, as vagas aparecem como "A definir".
+   b: {ko:[{name,ms:[{a,b,res}]}], third:{a,b,res}|null, champ, nm:{id:nome}} (Copa em andamento ou registro salvo em S.cups) */
+function cupBr(cup){
+  const G=cup.groups?cup.groups.length:4,fin=cup.stages.find(st=>st.final);
+  const ko=cup.stages.map(st=>st.final?{name:st.name,ms:[st.ms[1]]}:{name:st.name,ms:st.ms});
+  if(!ko.length)ko.push({name:koName(G),ms:new Array(G)});
+  const nm={};cup.teams.forEach(t=>nm[t.id]=t.name);
+  return{ko,third:fin?fin.ms[0]:null,champ:cup.champ,nm};
+}
+function cupBrSave(cup){
+  const b=cupBr(cup),m=x=>x?{a:x.a,b:x.b,res:x.res?{wa:x.res.wa,wb:x.res.wb,w:x.res.w}:null}:null;
+  return{ko:b.ko.map(st=>({name:st.name,ms:st.ms.map(m)})),third:m(b.third),champ:b.champ,nm:b.nm};
+}
+function cupBracketHTML(b){
+  if(!b||!b.ko||!b.ko.length)return'';
+  const T_=id=>({id,name:b.nm[id]||NATN[id]||id}),my=(cupMy()||S.nm||{}).code;
+  const tl=t=>`<button class="lk" data-act="nation" data-v="${t.id}">${esc(t.name)}</button>`;
+  let h=koBracketHTML(b.ko,T_,tl,t=>natCrest(t.id,'sm'),id=>id===my,b.champ,{k:'c'});
+  const m=b.third;
+  if(m&&m.a!=null){const r=m.res,A=T_(m.a),B=T_(m.b);h+=`<div class="sub">Disputa do 3º lugar</div><div class="cmw"><div class="cm"><span class="${r&&r.w===m.a?'w':''}">${nlk(A.id)} ${esc(A.name)}</span><b class="num">${r?`${r.wa}–${r.wb}`:'vs'}</b><span class="b ${r&&r.w===m.b?'w':''}">${esc(B.name)} ${nlk(B.id)}</span></div></div>`}
+  return h;
+}
 function cupHTML(){
   const cup=S.season.cup&&S.season.cup.groups?S.season.cup:null;
   let h='';
@@ -9566,10 +9589,7 @@ function cupHTML(){
     if(cup.champ!=null){const fin=cup.stages[cup.stages.length-1].ms[1];h+=`<div class="crown"><small>Campeão</small><b>${esc(CT(cup.champ).name)}</b><span>Final ${Math.max(fin.res.wa,fin.res.wb)}-${Math.min(fin.res.wa,fin.res.wb)} · 3º lugar ${esc(CT(cup.third).name)} · MVP ${lk(cup.mvp)}</span></div>`}
     else h+=`<p class="note" style="margin:0 0 8px">Formato da Copa do Mundo de futebol, a cada 4 anos: ${cup.N} seleções em ${cup.groups.length} grupos de 4, todos contra todos em melhor de 2 (vitória 3 pontos, empate 1). Os 2 primeiros avançam ao mata-mata, com disputa de 3º lugar e final. Cada país manda o melhor de cada posição; quando falta alguém, entra um reforço do mesmo continente.</p>`;
     h+=convHTML(cup);
-    if(full){
-      const ko=cup.stages.map(st=>st.final?{...st,ms:[st.ms[1]]}:st);
-      h+=bracketCore(ko,CT,t=>`<button class="lk" data-act="nation" data-v="${t.id}" title="${esc(t.name)}">&nbsp;</button>`,t=>`<span title="${esc(t.name)}">${natCrest(t.id,'sm')}</span>`,id=>S.nm&&S.nm.code===id);
-    }
+    if(full)h+=cupBracketHTML(cupBr(cup));
     /* mata-mata: pendentes (e o que acabou de jogar); o resto só com a bracket aberta */
     [...cup.stages].map((st,si)=>({st,si})).reverse().forEach(({st,si})=>{
       const pend=st.ms.some(m=>!m.res),fx=lastPlayed&&lastPlayed.k==='cup'&&lastPlayed.si===si;
@@ -9767,7 +9787,7 @@ function evMenuHTML(){
     const ys=evYears(),i=Math.max(0,ys.indexOf(m.y));
     h+=`<div class="evp" role="menu"><div class="evy"><button class="ghost" data-act="evY" data-v="1"${i>=ys.length-1?' disabled':''} aria-label="Temporada anterior">‹</button><b class="num">${m.y}</b><button class="ghost" data-act="evY" data-v="-1"${i<=0?' disabled':''} aria-label="Próxima temporada">›</button></div><ul class="evl">`;
     EVM.forEach(([k,n,sub,g,reg])=>{
-      const cupNo=k==='cup'&&!(m.y===S.year&&CUPY(m.y)&&S.season.cup);
+      const cupNo=k==='cup'&&!(m.y===S.year&&CUPY(m.y)&&S.season.cup)&&!(S.cups||[]).some(c=>c.y===m.y);
       const st=cupNo?'next':evState(m.y,g),open=reg&&m.o===k;
       const sb=k==='cup'&&cupNo?(CUPY(m.y)?'Sem registro':'Próxima em '+nextCup(m.y)):sub;
       h+=`<li class="${st}${open?' open':''}"><button data-act="${reg?'evO':'evGo'}" data-v="${reg?k:m.y+'|'+k+'|'}"><i class="evd"></i><span><b>${n}</b><small>${sb}</small></span>${reg?'<em>›</em>':''}</button>`;
@@ -9815,6 +9835,7 @@ function vEvents(){
   const d=evData(e.y);let h=evBack();
   h+=`<section class="pn evh"><small class="k">Eventos e placares</small><h2>${(EVM.find(x=>x[0]===e.k)||[])[1]||''} ${e.lg?'· '+e.lg.replace(':2',' D2')+' ':''}${e.y}</h2></section>`;
   if(e.k==='s1'||e.k==='s2'||e.k==='s3')return h+evSplitHTML(e.y,e.k,e.lg);
+  if(e.k==='cup'){const pc=(S.cups||[]).find(c=>c.y===e.y);if(!(e.y===S.year&&S.season.cup&&S.season.cup.groups)&&pc)return h+`<section class="pn"><h2>Copa do Mundo de LoL ${pc.y}</h2><div class="crown"><small>Campeão</small><b>${esc(pc.champ)}</b><span>Final ${esc(pc.score)} · vice ${esc(pc.runner)}${pc.third?' · 3º lugar '+esc(pc.third):''} · MVP ${lk(pc.mvp)}</span></div>${pc.br?cupBracketHTML(pc.br):'<p class="note" style="margin:0">A bracket desta Copa não foi salva (Copa jogada antes desta versão).</p>'}</section>`}
   if(e.k==='cup')return h+(e.y===S.year&&S.season.cup?cupHTML():`<p class="empty">${CUPY(e.y)?'Sem registro da Copa do Mundo de '+e.y+'.':'Não há Copa do Mundo em '+e.y+'. A próxima será em '+nextCup(e.y)+'.'}</p>`);
   const M={fs:['fs','First Stand'],msi:['msi','MSI'],ewc:['ewc','EWC'],wc:['wc','Worlds']}[e.k];
   const sm=d?evSeedMap(d,e.k):null;SEEDM=sm;let main='',pi='';
@@ -10368,17 +10389,19 @@ function topBracketHTML(cur,defT,opn){
   const recent=k=>bd[k]!=null&&d-bd[k]<=BRK_DAYS;
   let key='',live=false;
   {const pt=cur&&phTour(cur),T0=pt&&A[pt];if(pt&&BRN[pt]&&T0&&T0.champ==null&&((T0.stages&&T0.stages.some(st=>st.ms.some(m=>m.res)))||daysLeft()<=0)){key=pt;live=true}}
+  {const c=A.cup;if(!key&&c&&c.groups&&c.champ==null&&c.gi>=3){key='cup';live=true}}
   let d2live=null;
   {const sp=A.sp;if(!key&&f.d2&&sp&&sp.d2&&sp.lg===f.lg&&(sp.stage==='sf'||sp.stage==='fin')){
     const dm=m=>m?{a:T(m.a).name,b:T(m.b).name,wa:m.res?m.res.wa:'',wb:m.res?m.res.wb:'',w:m.res?T(m.res.w).name:null}:null;
     const sf=sp.stage==='sf'?sp.cur:sp.sf;d2live={sf:[dm(sf[0]),dm(sf[1])],f:sp.stage==='fin'?dm(sp.cur[0]):null,champ:null};key=sp.tag;live=true}}
   if(!key){
-    const c=['s1','fs','mpi','s2','msi','ewc','wpi','s3','wc'].filter(recent);
+    const c=['s1','fs','mpi','s2','msi','ewc','wpi','s3','wc','cup'].filter(recent);
     if(c.length)key=c.sort((x,y)=>bd[x]-bd[y])[c.length-1];
   }
   if(!key)return'';
   let body='',nm='';
-  if(BRN[key]){const t=A[key];if(!t)return'';body=tourHTML(t,key,BRN[key],0,'brk');nm=BRN[key]}
+  if(key==='cup'){const c=A.cup;if(!c||!c.groups)return'';nm='Copa do Mundo';body=`<section class="pn"><h2>Copa do Mundo de LoL ${c.y||S.year}</h2>${cupBracketHTML(cupBr(c))}</section>`}
+  else if(BRN[key]){const t=A[key];if(!t)return'';body=tourHTML(t,key,BRN[key],0,'brk');nm=BRN[key]}
   else{
     if(!d2live&&A.sp&&A.sp.tag===key)return'';
     nm=`${{s1:'Etapa 1',s2:'Etapa 2',s3:'Etapa 3'}[key]} · ${f.lg}${f.d2?' D2':''}`;
@@ -11133,7 +11156,7 @@ function act0(a,v){
   if(a==='evT'){evM=evM?null:{y:S.year,o:''}}
   else if(a==='evY'){const ys=evYears(),i=ys.indexOf(evM.y)+ +v;if(i>=0&&i<ys.length)evM.y=ys[i];evM.o=''}
   else if(a==='evO'){evM.o=evM.o===v?'':v}
-  else if(a==='evGo'){const [y,k,lg]=String(v).split('|');evSel={y:+y,k,lg};evM=null;if(['fs','msi','ewc','wc'].includes(k)){brkO[k]=true;brkO[k+'s']=true;brkO.mpi=true;brkO.wpi=true}prof=null;pstack=[];tab='events';top=true}
+  else if(a==='evGo'){const [y,k,lg]=String(v).split('|');evSel={y:+y,k,lg};evM=null;if(['fs','msi','ewc','wc'].includes(k)){brkO[k]=true;brkO[k+'s']=true;brkO.mpi=true;brkO.wpi=true}if(k==='cup'){brkO.cup=true}prof=null;pstack=[];tab='events';top=true}
   else if(a==='tab'){NGO=null;detT='';detS='';tab=v;askReset=false;askEnd=false;lastPlayed=null;prof=null;pstack=[]}
   else if(a==='step'){detT='';detS='';if(daysLeft()>0){msg='Ainda não é dia de jogo. Avance o calendário.'}else if(dvNeeded()){dvOpen();top=true}else if(lvNeeded()){lvOpen();top=true}else{step();sndAfter();save();top=true}}
   else if(a==='dvBan'||a==='dvPick'){if(DV){const [r,c]=String(v).split('|'),t=SEQ[DV.i];if(t&&t[1]===DV.us&&!dvTaken(c)&&!(a==='dvPick'&&dvLk(c,DV.us))){
