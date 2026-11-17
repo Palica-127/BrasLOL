@@ -570,6 +570,11 @@ h1{letter-spacing:.02em}
 .ngb{flex:1 1 auto;min-height:38px;padding:7px 12px;font:600 13px var(--b);cursor:pointer;border-radius:999px;border:1px solid;text-align:center}
 .ngb[disabled]{opacity:.4;cursor:default}
 .ngcash{font:600 11px var(--d);letter-spacing:.06em;opacity:.75;white-space:nowrap}
+.ngsum{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;padding:9px 10px;border-radius:8px;background:rgba(255,255,255,.04)}
+.ngsr small{display:block;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;opacity:.7}.ngsr b{font-size:13.5px}.ngsr b small{display:inline;text-transform:none;opacity:.7}
+.ngsr b.bad{color:#FF7A7A}.ngsr b.ok{color:#5BE3A0}
+.phn .ngsum{margin:0;border-radius:0;background:#F7F3EE;border-bottom:1px solid rgba(0,0,0,.08);color:#222}.phn .ngsr b.bad{color:#C0392B}.phn .ngsr b.ok{color:#1E8E57}
+@media (max-width:640px){.pcside .ngsum{flex:1 1 100%}}
 /* computador */
 .pcw{width:min(860px,100%);display:flex;flex-direction:column;align-items:center}
 .pcs{width:100%;height:min(560px,calc(100vh - 120px));display:flex;flex-direction:column;background:#0E1526;border:10px solid #1C2233;border-bottom-width:14px;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.06);overflow:hidden;color:#E6ECF8}
@@ -3778,12 +3783,26 @@ const MCAP=30;
 const goalTxt=(m,t)=>t&&t.d===2?'Subir para a primeira divisão (campeão da D2 e vencer o play-off)':GOALS[m.goal];
 const GOALS=['Fazer boa campanha na liga','Classificar para o Worlds','Chegar às quartas do Worlds','Chegar às semifinais do Worlds','Chegar à final do Worlds'];
 const fmtM=n=>`US$ ${(Math.round(n*10)/10).toFixed(1).replace('.',',')} mi`;
+/* ---------- mercado: valor relativo ao cenário ----------
+   O OVR do cenário sobe com as temporadas (em 15 anos a mediana da 1ª divisão vai de 80 a 86). Se o preço usasse o OVR absoluto,
+   inflaria junto. Por isso o valor usa o OVR relativo à elite do momento: média dos 50 melhores da 1ª divisão, comparada com a de 2026 (ECOMV.ref0).
+   ECOMV.k escala a curva: com 0,6 um craque de 96 vale ~US$ 29 mi (compra ~US$ 41 mi), um titular de 85 ~US$ 11 mi. */
+const ECOMV={ref0:88,k:.6,sal:.22};
+let MVREF={k:'',v:88};
+function mvRef(){
+  const k=S.year+'|'+S.teams.length;if(MVREF.k===k)return MVREF.v;
+  const P=[];S.teams.forEach(t=>{if(t.d!==2)t.pl.forEach(p=>P.push(p.r))});P.sort((a,b)=>b-a);
+  const n=Math.min(50,P.length);MVREF={k,v:n?P.slice(0,n).reduce((a,b)=>a+b,0)/n:ECOMV.ref0};return MVREF.v;
+}
+/* OVR "de mercado": desconta a inflação do cenário */
+const mvR=r=>r-(mvRef()-ECOMV.ref0);
 function mvOf(p){
-  let v=Math.pow(Math.max(0,(p.r-68)/4),2);
-  if(p.age<=23)v+=Math.max(0,p.pot-p.r)*.5*clamp((p.r-50)/25,.15,1);else if(p.age>=29)v*=Math.max(.3,1-.1*(p.age-28));
+  const rr=mvR(p.r),pr=mvR(p.pot||p.r);
+  let v=Math.pow(Math.max(0,(rr-68)/4),2)*ECOMV.k;
+  if(p.age<=23)v+=Math.max(0,pr-rr)*.5*ECOMV.k*clamp((rr-50)/25,.15,1);else if(p.age>=29)v*=Math.max(.3,1-.1*(p.age-28));
   return Math.max(.3,Math.round(v*10)/10);
 }
-const salOf=p=>Math.max(.2,Math.round(mvOf(p)*.18*10)/10);
+const salOf=p=>Math.max(.2,Math.round(mvOf(p)*ECOMV.sal*10)/10);
 const payroll=t=>r1(t.pl.reduce((s,p)=>s+salOf(p),0)+(S.mgr&&S.mgr.tid===t.id&&S.mgr.bench?S.mgr.bench.reduce((s,p)=>s+salOf(p),0):0));
 const mgrT=()=>S.mgr&&S.mgr.tid!=null?T(S.mgr.tid):null;
 const rankOfTeam=t=>t.d===2?99:S.teams.slice().sort((a,b)=>baseOvr(b)-baseOvr(a)).indexOf(t)+1;
@@ -3879,7 +3898,7 @@ function mgrStart(tid){
   const t=T(tid),old=S.mgr;
   /* legado do técnico: demissão/troca de clube não apaga a história; os passos anteriores ficam em m.past */
   const past=old?(old.past||[]).concat(old.hist&&old.hist.length?[{tn:old.tn||'Clube anterior',from:old.since,to:old.hist[old.hist.length-1].y,hist:old.hist,fired:!!old.fired}]:[]):[];
-  S.mgr={past,tn:t.name,rep:old&&old.rep!=null?old.rep:undefined,tid,cash:t.d===2?6:12,sat:65,goal:goalFor(t),since:S.year,hist:[],log:[`Contratado pelo ${t.name} em ${S.year}.`],fired:false,acLv:1,ct:0,bench:[],loan:[],offers:[]};mEnsure();sgInit();
+  S.mgr={past,tn:t.name,rep:old&&old.rep!=null?old.rep:undefined,tid,cash:cashStart(t),sat:65,goal:goalFor(t),since:S.year,hist:[],log:[`Contratado pelo ${t.name} em ${S.year}.`],fired:false,acLv:1,ct:0,bench:[],loan:[],offers:[]};mEnsure();sgInit();
   S.mgr.ach=Object.assign({},S.mach||{},old&&old.ach||{});
   S.mgr.jp={y:S.year,ph:S.phase};
   {const me=meCo();if(me){me.since=S.year;me.jp={y:S.year,ph:S.phase};if(me.sty)S.mgr.plan=me.sty}}
@@ -3923,13 +3942,29 @@ function grCheck(){
 }
 /* time com Golden Road (o nome e a logo ganham o dourado para sempre) */
 const grOf=t=>t&&typeof t.id==='number'&&t.gr&&t.gr.length?t.gr:null;
+/* ---------- tamanho do clube (marca): mercado da liga + história de títulos (0 a 1) ----------
+   Puxa bilheteria e patrocínio: clubes grandes faturam o bastante para grandes contratações; pequenos precisam planejar. */
+const LGMKT={LCK:1,LPL:1,LEC:.8,LCS:.8,LCP:.55,CBLOL:.6};
+function brandOf(t){
+  if(!t)return 0;
+  const c=ttCount(t),rec=(t.tt||[]).filter(x=>x.y>=S.year-5).reduce((a,x)=>a+(x.k==='Mundial'?3:x.k==='MSI'?1.5:.5),0);
+  const v=c.wc*3+c.msi*1.5+(c.fs||0)*.5+(c.ewc||0)*.75+c.lg*.35+rec+(grOf(t)?5:0);
+  return r1(clamp(.5*(LGMKT[t.lg]||.5)+.5*clamp(v/25,0,1),0,1)*100)/100;
+}
+/* receita garantida do ano (sem prêmios): bilheteria e patrocínio */
+function clubRev(t,m){
+  const d2=t.d===2,b=brandOf(t),strB=strBon(t,m);
+  const gate=IM()*(d2?3+2*b:5+6*b),spons=IM()*(Math.max(0,baseOvr(t)-(d2?62:70))*(d2?.6:1)+(d2?3:14)*b)+strB;
+  return{gate:r1(gate),spons:r1(spons),strB,b};
+}
+const cashStart=t=>t.d===2?6:r1(10+18*brandOf(t));
 function mgrSeasonEnd(){
   const m=S.mgr,t=mgrT();if(!m||!t)return;
   const y=t.yh.find(x=>x.y===S.year);if(!y)return;
   const c0=t.cs0||{},d2m=c0.s2d?c0.s2d===2:t.d===2;
   const ach=d2m?(y.s2===1?5:(y.s2&&y.s2<=2)?3:(y.s2&&y.s2<=4)?1:0):y.wc==='C'?5:y.wc==='F'?4:y.wc==='SF'?3:y.wc==='QF'?2:y.wc==='G'?1:0;
   const lp=p=>p===1?3:p===2?1.5:p&&p<=4?.5:0;
-  const gate=IM()*(d2m?4:10),strB=strBon(t,m),spons=IM()*Math.max(0,baseOvr(t)-(d2m?62:70))*(d2m?.6:1)+strB,pzT={lg:d2m?IM()*(lp(y.s1)+lp(y.s2)+lp(y.s3||0))*.4:IM()*(lp(y.s1)+lp(y.s2)+lp(y.s3||0))*.75};
+  const cr=clubRev(t,m),gate=cr.gate,strB=cr.strB,spons=cr.spons,pzT={lg:d2m?IM()*(lp(y.s1)+lp(y.s2)+lp(y.s3||0))*.4:IM()*(lp(y.s1)+lp(y.s2)+lp(y.s3||0))*.75};
   if(!d2m)['fs','msi','ewc','wc'].forEach(k=>{pzT[k]=IM()*tourPrize(k,y[k])});
   {const g=y.gr&&(t.gr||[]).find(x=>x.y===S.year);if(g)pzT.gr=g.pz}
   Object.keys(pzT).forEach(k=>{pzT[k]=r1(pzT[k])});
@@ -4447,6 +4482,20 @@ function ngPick(i){
   else if(N.k==='off')ngOffAct(op.f);
   else ngPlAct(op);
 }
+/* resumo da proposta (mesmo nas duas telas): valor de mercado, o que está na mesa, salário e como fica o caixa */
+function ngSum(N,pl){
+  const m=S.mgr,ng=m.neg&&m.neg[N.n],ct=N.k==='club'&&ng&&ng.k===ngWinK()&&ng.counter;
+  const mv=pl&&pl.r!=null?mvOf(pl):null,sal=pl&&pl.r!=null?salOf(pl):null;
+  let lbl,val,io=-1;
+  if(N.k==='club'){lbl=ct?'Contraproposta':'Pedida do clube';val=ct||N.ask}
+  else if(N.k==='off'){lbl='Oferta recebida';val=N.ask;io=1}
+  else if(N.k==='pp'){lbl=N.bonus?'Transferência + luvas':'Transferência';val=r1((N.price||0)+(N.bonus||0))}
+  else{lbl='Luvas pedidas';val=N.cnt!=null?N.cnt:N.base}
+  const after=m.cheat?null:r1(m.cash+io*(val||0));
+  const rel=mv&&val?Math.round(100*val/mv):null;
+  const row=(a,b,c)=>`<div class="ngsr"><small>${a}</small><b class="num${c?' '+c:''}">${b}</b></div>`;
+  return `<div class="ngsum" aria-label="Resumo da proposta">${row(lbl,fmtM(val||0),'')}${mv!=null?row('Valor de mercado',fmtM(mv)+(rel!=null&&N.k!=='pp'&&N.k!=='fa'&&N.k!=='sq'?` <small>(${rel}%)</small>`:'')):''}${sal!=null&&N.k!=='off'?row('Salário',fmtM(sal)+'/ano'):''}${after!=null?row('Caixa depois',fmtM(after),after<0?'bad':io>0?'ok':''):''}</div>`;
+}
 /* telas: computador para clubes, celular para jogador */
 function negoHTML(){
   const N=NGO,m=S.mgr,mine=mgrT();if(!N||!mine)return '';
@@ -4456,11 +4505,11 @@ function negoHTML(){
   const cash=`<small class="ngcash">Caixa ${m.cheat?'∞':fmtM(m.cash)}</small>`;
   if(N.k==='club'||N.k==='off'){
     const ot=T(N.k==='club'?N.tid:N.to),f=N.k==='off'?mFind(N.n):null,pl=N.k==='club'?(ot.pl.find(p=>p.n===N.n)||mine.pl.concat(m.bench).find(p=>p.n===N.n)):f&&f.p;
-    return `<div class="ngov" role="dialog" aria-label="Negociação com ${esc(ot.name)}"><div class="pcw"><div class="pcs"><div class="pcbar"><span class="pcd"><i></i><i></i><i></i></span><b>Mensagens · ${esc(mine.name)} ↔ ${esc(ot.name)}</b><button class="pcx" data-act="ngX" aria-label="Fechar">✕</button></div><div class="pcbody"><aside class="pcside"><div class="pcct">${crest(ot,'md')}<span><b>${esc(ot.name)}</b><small>Diretoria de futebol · ${ot.lg}</small></span></div>${pl?`<div class="pcpl">${pav(pl)}<span><b>${esc(pl.n)}</b><small>${RN[pl.role]} · ${pl.age} anos${pl.pot>pl.r?' · pot. '+pl.pot:''}</small><small>vale ${fmtM(mvOf(pl))}</small></span></div>`:''}${cash}</aside><div class="pcmain">${chat}${opts}</div></div></div><div class="pcneck"></div><div class="pcfoot"></div></div></div>`;
+    return `<div class="ngov" role="dialog" aria-label="Negociação com ${esc(ot.name)}"><div class="pcw"><div class="pcs"><div class="pcbar"><span class="pcd"><i></i><i></i><i></i></span><b>Mensagens · ${esc(mine.name)} ↔ ${esc(ot.name)}</b><button class="pcx" data-act="ngX" aria-label="Fechar">✕</button></div><div class="pcbody"><aside class="pcside"><div class="pcct">${crest(ot,'md')}<span><b>${esc(ot.name)}</b><small>Diretoria de futebol · ${ot.lg}</small></span></div>${pl?`<div class="pcpl">${pav(pl)}<span><b>${esc(pl.n)}</b><small>${RN[pl.role]} · ${pl.age} anos${pl.pot>pl.r?' · pot. '+pl.pot:''}</small></span></div>`:''}${ngSum(N,pl)}${cash}</aside><div class="pcmain">${chat}${opts}</div></div></div><div class="pcneck"></div><div class="pcfoot"></div></div></div>`;
   }
   const p=N.pv||{};
   const sub=N.typing?'digitando…':N.st==='done'?'assinou com você':N.will!=null?'online · interesse '+ngWillTxt(N.will):'online';
-  return `<div class="ngov" role="dialog" aria-label="Conversa com ${esc(N.n)}"><div class="phn"><div class="phst"><span class="num">${String(8+(S.day||1)%12).padStart(2,'0')}:${String((S.day||1)*7%60).padStart(2,'0')}</span><span class="phnt"></span><span>▮▮▮ 5G</span></div><div class="phhd"><button class="phbk" data-act="ngX" aria-label="Fechar">‹</button>${p&&p.n?pav(p):''}<span><b>${esc(N.n)}</b><small>${sub}</small></span>${cash}</div>${chat}${opts}<div class="phhome"></div></div></div>`;
+  return `<div class="ngov" role="dialog" aria-label="Conversa com ${esc(N.n)}"><div class="phn"><div class="phst"><span class="num">${String(8+(S.day||1)%12).padStart(2,'0')}:${String((S.day||1)*7%60).padStart(2,'0')}</span><span class="phnt"></span><span>▮▮▮ 5G</span></div><div class="phhd"><button class="phbk" data-act="ngX" aria-label="Fechar">‹</button>${p&&p.n?pav(p):''}<span><b>${esc(N.n)}</b><small>${sub}</small></span>${cash}</div>${ngSum(N,p&&p.r!=null?p:null)}${chat}${opts}<div class="phhome"></div></div></div>`;
 }
 const mb=(act,v,label,ok,cls)=>`<button class="mini${cls?' '+cls:''}" data-act="${act}" data-v="${esc(v)}"${ok?'':' disabled'}>${label}</button>`;
 const more=(label,inner)=>`<details class="more"><summary class="mini sell">${label}</summary><div class="acts">${inner}</div></details>`;
@@ -4488,10 +4537,10 @@ function pzHTML(m){
 }
 function finHTML(t,m){
   const on=payOn(),ovr=baseOvr(t),pr=payroll(t),up=r1(AC_UP[m.acLv||1]+CT_UP[m.ct||0]),d2=t.d===2,fx=d2?(on?4:7):on?8:14;
-  const gate=IM()*(d2?4:10),sb=strBon(t,m),sp=IM()*Math.max(0,ovr-(d2?62:70))*(d2?.6:1)+sb,sure=gate+sp,est=sure-(on?pr:0)-fx-up;
+  const cr=clubRev(t,m),gate=cr.gate,sb=cr.strB,sp=cr.spons,sure=gate+sp,est=sure-(on?pr:0)-fx-up;
   const row=(l,v,c)=>`<div class="rowl"><span class="grow">${l}</span><b class="num ${c||''}">${v}</b></div>`;
   let h=`<section class="pn"><h2>Finanças</h2><div class="kv"><div><small>Caixa</small><b class="num">${m.cheat?'∞':fmtM(m.cash)}</b></div><div><small>Folha por ano</small><b class="num">${on?fmtM(pr):'desligada'}</b></div><div><small>Resultado garantido</small><b class="num ${est>=0?'up':'dn'}">${est>=0?'+':''}${fmtM(est)}</b></div></div><p class="note" style="margin:8px 0 0">O resultado garantido não conta prêmios de campanha (splits, First Stand, MSI, EWC, Worlds e Golden Road), que entram no fim da temporada. A folha salarial pode ser ligada ou desligada em Ajustes.</p></section>`;
-  h+=`<section class="pn"><h2>Projeção da próxima temporada</h2>${row('Bilheteria e jogos',fmtM(gate))}${row('Patrocínio (cresce com o OVR do time)',fmtM(sp-sb))}${sb?row(`Audiência dos streamers (${t.pl.concat(m.bench||[]).filter(p=>slqTag(p)==='str').map(p=>esc(p.n)).join(', ')})`,'+'+fmtM(sb),'up'):''}${on?row('Folha salarial','−'+fmtM(pr),'dn'):''}${row('Custos fixos do clube','−'+fmtM(fx),'dn')}${row('Academia e Centro de treino','−'+fmtM(up),'dn')}${row('Resultado sem prêmios',(est>=0?'+':'')+fmtM(est),est>=0?'up':'dn')}</section>`;
+  h+=`<section class="pn"><h2>Projeção da próxima temporada</h2>${row(`Bilheteria e jogos (tamanho do clube ${Math.round(cr.b*100)}/100)`,fmtM(gate))}${row('Patrocínio (OVR do time e tamanho do clube)',fmtM(sp-sb))}${sb?row(`Audiência dos streamers (${t.pl.concat(m.bench||[]).filter(p=>slqTag(p)==='str').map(p=>esc(p.n)).join(', ')})`,'+'+fmtM(sb),'up'):''}${on?row('Folha salarial','−'+fmtM(pr),'dn'):''}${row('Custos fixos do clube','−'+fmtM(fx),'dn')}${row('Academia e Centro de treino','−'+fmtM(up),'dn')}${row('Resultado sem prêmios',(est>=0?'+':'')+fmtM(est),est>=0?'up':'dn')}</section>`;
   h+=pzHTML(m);
   const pl=t.pl.concat(m.bench||[]);
   h+=`<section class="pn"><h2>Folha salarial</h2>${pl.slice().sort((a,b)=>salOf(b)-salOf(a)).map(p=>`<div class="mrow" style="grid-template-columns:34px minmax(0,1fr) auto">${hx(p.r,'sm')}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${ctrTxt(p)}</small></span><b class="num">${on?fmtM(salOf(p)):'—'}</b></div>`).join('')}</section>`;
