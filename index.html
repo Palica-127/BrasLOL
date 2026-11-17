@@ -555,6 +555,8 @@ h1{letter-spacing:.02em}
 .slo{display:inline-flex;flex-direction:column;align-items:center;gap:1px}.slo small{font:700 9px var(--d);letter-spacing:.08em;text-transform:uppercase;color:var(--ok)}
 .slw{color:var(--bad)!important;font-weight:600;margin-top:2px}
 .note.ult{color:var(--bad);border-left:3px solid var(--bad);padding-left:8px}
+/* momentos-chave no fim do mapa */
+.pmmo{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}.pmmo li{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:8px;align-items:baseline;padding:4px 8px;border-left:3px solid #4A8BFF;background:rgba(255,255,255,.03)}.pmmo li.r{border-left-color:#FF4A5E}.pmmo small{opacity:.7}
 /* ---------- celular: apps ---------- */
 .phx{position:absolute;top:14px;right:14px;background:rgba(0,0,0,.5);color:#fff;border:0;border-radius:50%;width:36px;height:36px;font-size:16px;cursor:pointer}
 .phn.soc{background:#0b0b0f;color:#eee}
@@ -3213,11 +3215,22 @@ const rvKey=(x,y)=>[x.name,y.name].sort().join('|');
 const rvOf=(A,B)=>A.id<100&&B.id<100&&S.rv?S.rv[rvKey(A,B)]:null;
 function rvTxt(A,B){const r=rvOf(A,B);if(!r||r.n<2)return'';const a=r.w[A.name]||0,b=r.w[B.name]||0;return `${a}–${b} no histórico`}
 const isRival=(A,B)=>{const r=rvOf(A,B);if(!r||r.n<4)return false;const a=r.w[A.name]||0,b=r.w[B.name]||0;return Math.abs(a-b)<=2};
+/* ---------- força única da partida (Fase 6.5) ----------
+   Chance do time A vencer um mapa: OVR efetivo do dia (eff: elenco, técnico, moral, química, momento), bônus fixo da
+   partida (m.qb, ex.: play-off de acesso), clássico mais equilibrado e, no seu jogo, draft/plano e preparação.
+   A simulação rápida (play, frResolve) e o mapa ao vivo (lvP) usam esta mesma função. */
+function mQa(m,live){
+  const A=T(m.a),B=T(m.b);
+  let qa=clamp(1/(1+Math.pow(10,-(eff(A)-eff(B))/kgNow()))+(m.qb||0),.2,.8);
+  if(isRival(A,B))qa=.5+(qa-.5)*.85;
+  let pn=null;
+  if(mineM(m)){pn=draftOn()?draftDelta(m,live):planDelta(m);qa=clamp(qa+pn.d+prepDelta(m),.2,.8)}
+  return{qa,pn};
+}
 function play(m){
   const need=Math.ceil(m.n/2);let wa=0,wb=0;
-  let qa=m.qa;
-  m.cl=isRival(T(m.a),T(m.b));if(m.cl)qa=.5+(qa-.5)*.85;
-  if(mineM(m)){const pdl=draftOn()?draftDelta(m):planDelta(m);qa=clamp(qa+pdl.d+prepDelta(m),.2,.8);m.pn={me:pdl.me,op:pdl.op,raw:pdl.raw,dr:draftOn()}}
+  m.cl=isRival(T(m.a),T(m.b));
+  const F=mQa(m,false);let qa=F.qa;if(F.pn)m.pn={me:F.pn.me,op:F.pn.op,raw:F.pn.raw,dr:draftOn()};
   if(m.fx){wa=m.fx.wa;wb=m.fx.wb}else{
     const fo=flOn(m),st={},la=new Set(),lb=la,rec=mineM(m);          /* mesmo conjunto: o que um time usa, o outro também perde */
     if(fo&&rec)m.fl=null;
@@ -3486,7 +3499,7 @@ function poPair(lg,tag){
   if(!down||!up||down.d===2||up.d!==2)return null;
   return{down,up};
 }
-function poMk(pr){const sm=mk(pr.down,pr.up,5);sm.qa=clamp(sm.qa+.16,.2,.8);sm.po=1;return sm}
+function poMk(pr){const sm=mk(pr.down,pr.up,5);sm.qa=clamp(sm.qa+.16,.2,.8);sm.qb=.16;sm.po=1;return sm}
 function poMine(sp){
   const pr=poPair(sp.lg,sp.tag),mid=myTid();
   if(!pr||mid==null||(pr.down.id!==mid&&pr.up.id!==mid))return null;
@@ -5968,8 +5981,7 @@ function frResolve(m){
   if(m.res)return;
   const need=Math.ceil(m.n/2);let wa=0,wb=0;
   if(m.fx){wa=m.fx.wa;wb=m.fx.wb}else{
-    let qa=m.qa;
-    if(mineM(m)){const pdl=draftOn()?draftDelta(m):planDelta(m);qa=clamp(qa+pdl.d+prepDelta(m),.2,.8)}
+    const qa=mQa(m,false).qa;
     while(wa<need&&wb<need)Math.random()<qa?wa++:wb++;
   }
   m.res={wa,wb,w:wa>wb?m.a:m.b};
@@ -6365,15 +6377,15 @@ function lvGameStart(){
   LV.q=[];LV.mq=[];LV.pcw=LV.pc?{k:1+pcFx('pk'),d:Math.max(.5,1-pcFx('pd'))}:{k:1,d:1};
   LV.kd={me:[0,1,2,3,4].map(()=>({k:0,d:0,a:0,dead:0,st:0})),op:[0,1,2,3,4].map(()=>({k:0,d:0,a:0,dead:0,st:0}))};LV.str={me:lvMkStr(),op:lvMkStr()};
   LV.st={me:{k:0,t:0,d:0,b:0,g:0,e:0,h:0,n:0},op:{k:0,t:0,d:0,b:0,g:0,e:0,h:0,n:0}};LV.log=[{m:0,t:`Mapa ${LV.gi+1}: os times entram no Rift.`,k:'sys'}];
-  LV.gh=[[0,0]];LV.ghT=0;LV.fp=null;
+  LV.gh=[[0,0]];LV.ghT=0;LV.fp=null;LV.evs=[];LV.iq=null;LV.fm=null;
+  LV.m.lsd=LV.m.lsd||[];if(LV.m.lsd[LV.gi]==null)LV.m.lsd[LV.gi]=Math.floor(Math.random()*2147483647);LV.rs=LV.m.lsd[LV.gi]>>>0;LV.acc=0;
   LV.bb=null;LV.elder=null;LV.rift=null;LV.mkc={};LV.mk=null;/* buffs do mapa anterior não vazam para o próximo (o placar do powerplay lia LV.pp ainda vazio) */
 }
 /* dano causado a campeões (só para as estatísticas do fim de mapa): fração de vida tirada × vida máxima estimada pelo nível da vítima */
 function lvDmg(a,v,x){if(!a||!v)return;const amt=x*(560+92*(v.lv||1));a.dm=(a.dm||0)+amt;if(LV.sec<840)a.d14=(a.d14||0)+amt}
 function lvP(){
   const m=LV.m,A=T(m.a),B=T(m.b);
-  let qa=clamp(1/(1+Math.pow(10,-(eff(A)-eff(B))/kgNow())),.2,.8);
-  if(!LV.pc){const pdl=draftOn()?draftDelta(m,true):planDelta(m);qa=clamp(qa+pdl.d+prepDelta(m),.2,.8)}
+  const qa=mQa(m,true).qa;
   let pm=LV.ia?qa:1-qa;
   if(LV.pc&&m.dd)pm+=pcDraftD(m);
   return clamp(pm+LV.adj+(LV.pc?pcFx('adj'):0),.1,.9);
@@ -6431,7 +6443,7 @@ function lvChamp(s,r){const w=lvWho(s,r),m=w.match(/\((.*)\)$/);return m?m[1]:''
    e ordens individuais. Nenhum acontecimento é marcado por minuto: o relógio só libera objetivos e muda os pesos das decisões.
    O vencedor sai do Nexus destruído; a força de cada time vem do lvP() (ratings, draft, instrução) via LV.mm. */
 const LVEXPO=.2;/* quanto a nota do jogador pesa na força: calibrado para a taxa de vitória ao vivo acompanhar a tabela de OVR (kgNow) */
-const LVCFG={cyc:4,spd:2.3,kap:.05,dragon:300,dragonRe:300,elderRe:300,grubs:[480],grubsEnd:885,herald:900,heraldEnd:1185,baron:1200,baronRe:360,inhRe:300,camp:135,cpA:600,cpB:1200,cap:4200};
+const LVCFG={cyc:4,spd:2.3,kap:.2,form:.25,dragon:300,dragonRe:300,elderRe:300,grubs:[480],grubsEnd:885,herald:900,heraldEnd:1185,baron:1200,baronRe:360,inhRe:300,camp:135,cpA:600,cpB:1200,cap:4200};
 const LVSTY={
   ag:{n:'Agressivo',agg:.30,gank:.35,roam:.30,obj:-.05,inv:.20,split:0,def:0,fight:-.12},
   ma:{n:'Macro',agg:-.05,gank:0,roam:.05,obj:.30,inv:.05,split:.25,def:.10,fight:.05},
@@ -6439,7 +6451,6 @@ const LVSTY={
   ca:{n:'Caótico',agg:.38,gank:.25,roam:.35,obj:-.10,inv:.40,split:.05,def:-.10,fight:-.20},
   re:{n:'Reativo',agg:-.25,gank:-.05,roam:-.05,obj:0,inv:-.15,split:0,def:.35,fight:.02}};
 const LVSTK=['ag','ma','es','ca','re'];
-const LVST={farm:'Farmando',clear:'Farmando',rot:'Rotacionando',gank:'Realizando gank',fight:'Lutando',retreat:'Recuando',recall:'Recuando',ward:'Controlando visão',stage:'Controlando visão',obj:'Fazendo objetivo',invade:'Invadindo jungle',defend:'Defendendo torre',press:'Pressionando rota',siege:'Pressionando rota',hunt:'Invadindo jungle',base:'Na base',dead:'Morto'};
 const LVRW=[.95,1,1.1,1.25,.65],LVEXP=[.85,.8,1,1.3,1.1],LVDPS=[.9,.8,1.15,1.4,.5],LVSP=[.8,.6,.85,1.2,.35],LVRCS=[.41,0,.51,.49,.12],LVCSF=[.69,1,.57,.68,.55]/* fator so do CS exibido: ~8/min aos 8 min (antes passava de 110); o ouro por farm segue igual */,LVXPR=[5.3,1.9,5.3,5.0,4]/* Bloco 10c (ESTIMADO): CS ~8-9/min nas rotas (antes 3-4: a CS exibida ficava irreal) e XP para nivel final ~14 */;
 const LVOBN={g:'as Larvas do Vazio',h:'o Arauto',d:'o Dragão',b:'o Barão',e:'o Dragão Ancião'},LVOBT={g:70,h:110,d:100,b:190,e:210},LVOBV={g:.62,h:.66,d:.70,b:.8,e:1.05};
 const LVTWH=[110,150,170,120],LVNXH=160,LVNEXH=200;
@@ -6448,7 +6459,6 @@ const lvLive=s=>LV.pp[s].filter(P=>LV.kd[s][P.r].dead<=LV.sec);
 const lvIsDead=P=>LV.kd[P.s][P.r].dead>LV.sec;
 const lvD=(x,y,u,v)=>Math.hypot(x-u,y-v);
 const lvWp=(a,f)=>{const w=a.map(x=>Math.max(.001,f(x))),t=w.reduce((p,c)=>p+c,0);let z=Math.random()*t;for(let i=0;i<a.length;i++){z-=w[i];if(z<=0)return a[i]}return a[a.length-1]};
-function lvAlive(s){return [0,1,2,3,4].filter(r=>LV.kd[s][r].dead<=LV.sec)}
 /* ---------- navegação: grafo de rotas, rio e selva (nada de atravessar o mapa em linha reta) ---------- */
 let LVNAV=null;
 function lvNavInit(){
@@ -6555,7 +6565,13 @@ function lvSees(s,x,y,rad){
 function lvEdge(){
   if(!LV.edD&&LV.edT===LV.sec-LV.sec%30)return;
   const p=clamp(lvP(),.04,.96);LV.edT=LV.sec-LV.sec%30;LV.edD=false;LV.ed=Math.log(p/(1-p));
-  LV.mm.me=Math.exp(LV.ed*LVCFG.kap/2);LV.mm.op=1/LV.mm.me;
+  /* força única (Fase 6.5): na 1ª leitura do mapa os dois elencos são igualados em poder bruto (o elenco só decide quem carrega
+     dentro do time) e cada lado recebe a forma do dia (sorteio do mapa); a diferença entre os times vem toda da mesma chance
+     da simulação rápida (lvP: OVR, técnico, moral, draft, instrução), aplicada por LVCFG.kap. Assim 1×, 2×, 30× e a simulação
+     rápida seguem a mesma curva de força. */
+  if(!LV.fm&&LV.pp){const sm=k=>LV.pp[k].reduce((x,P)=>x+P.b0*LVRW[P.r],0),g0=Math.sqrt(sm('me')*sm('op'));['me','op'].forEach(k=>{const f=g0/sm(k);LV.pp[k].forEach(P=>{P.b0*=f})});
+    const nz=()=>{let u=0;for(let i=0;i<6;i++)u+=Math.random();return (u-3)/Math.sqrt(.5)};LV.fm={me:Math.exp(nz()*LVCFG.form),op:Math.exp(nz()*LVCFG.form)}}
+  LV.mm.me=Math.exp(LV.ed*LVCFG.kap/2)*(LV.fm?LV.fm.me:1);LV.mm.op=Math.exp(-LV.ed*LVCFG.kap/2)*(LV.fm?LV.fm.op:1);
 }
 /* ---------- movimento e economia (1 s) ---------- */
 function lvGo(P,k,x,y){
@@ -6675,6 +6691,31 @@ function lvKfObj(s,o,roles,n){
   live.forEach(P=>{if(l.length<n&&!l.includes(P))l.push(P)});
   const T=l.slice(0,n).map(lvKfT);lvKfPush(LV.sec|0,{k:T[0]||null,v:null,a:T.slice(1),o,ts:s});
 }
+/* ---------- barramento de eventos do mapa (Fase 6.3) ----------
+   Cada lance importante vira um evento {t,sec,s,...} em LV.evs, e quem precisa reage a ele (lvOn):
+   momentos-chave no fim do mapa, rede social (multiabates, Barão roubado no fim) e fama no modo jogador. */
+const LVBUS={};
+function lvOn(t,f){(LVBUS[t]=LVBUS[t]||[]).push(f)}
+function lvEmit(t,d){if(!LV)return;const e=Object.assign({t,sec:LV.sec|0},d||{});(LV.evs=LV.evs||[]).push(e);if(LV.evs.length>400)LV.evs.shift();(LVBUS[t]||[]).concat(LVBUS['*']||[]).forEach(f=>{try{f(e)}catch(x){}})}
+lvOn('kill',e=>{if(e.st<4)return;const t=lvTeam(e.s),n=t.pl[e.k].n,mine=e.s==='me';
+  const p=socAdd({h:SOCJ[2][0],n:SOCJ[2][1],k:'j',v:1},`${e.st>=5?'PENTAKILL':'QUADRAKILL'}! ${n} (${t.name}) ${e.st>=5?'limpa o time inteiro sozinho':'quase fecha o penta'} aos ${Math.floor(e.sec/60)} min. 🤯`,mine?'hype':'troll',e.st>=5?9:6,t,{me:mine?1:0,tag:n});
+  socReply(p,'hype',t,2);if(mine&&LV.pc&&e.k===LV.pcrole){S.pc.fame=Math.min(100,(S.pc.fame||0)+(e.st>=5?2:1));socFol(e.st>=5?20000:6000)}});
+lvOn('end',e=>{const ev=LV.evs||[],bt=ev.filter(z=>z.t==='obj'&&z.k==='b');if(!bt.length)return;const lb=bt[bt.length-1];
+  if(lb.s!==e.s&&e.sec-lb.sec<240){const t=lvTeam(e.s);const p=socAdd({h:SOCJ[1][0],n:SOCJ[1][1],k:'j',v:1},`Virada! ${lvTeam(lb.s).name} pegou o Barão, mas ${t.name} segurou e fechou o mapa.`,'hype',5,t,{me:1});socReply(p,e.s==='me'?'hype':'sad',lvTeam('me'),1)}});
+/* momentos-chave do mapa, a partir do barramento */
+function lvMoments(){
+  const ev=LV.evs||[],nm=(s,r)=>lvTeam(s).pl[r].n,L=[];
+  ev.forEach(e=>{
+    if(e.t==='kill'&&e.first)L.push([e.sec,e.s,`Primeiro sangue de ${nm(e.s,e.k)}`]);
+    else if(e.t==='kill'&&e.st>=3)L.push([e.sec,e.s,`${LVML[Math.min(e.st,5)]} de ${nm(e.s,e.k)}`]);
+    else if(e.t==='ace')L.push([e.sec,e.s,'ACE']);
+    else if(e.t==='obj'&&(e.k==='b'||e.k==='e'||e.k==='h'))L.push([e.sec,e.s,{b:'Barão',e:'Dragão Ancião',h:'Arauto'}[e.k]]);
+    else if(e.t==='obj'&&e.k==='d'&&e.soul)L.push([e.sec,e.s,'Alma do dragão']);
+    else if(e.t==='inhib')L.push([e.sec,e.s,`Inibidor ${LVNM[e.L]||e.L}`]);
+    else if(e.t==='end')L.push([e.sec,e.s,'Nexus']);
+  });
+  return L.slice(-12);
+}
 function lvKill(k,v,as,x,y,tag){
   const sec=LV.sec,s=k.s,o=v.s,kd=LV.kd;
   if(lvIsDead(v))return false;
@@ -6682,6 +6723,7 @@ function lvKill(k,v,as,x,y,tag){
   const kk=kd[s][k.r];kk.k++;kd[o][v.r].d++;as.forEach(a=>kd[s][a.r].a++);kd[o][v.r].dead=sec+dt;
   const first=!LV.st.me.k&&!LV.st.op.k;LV.st[s].k++;
   kk.st=(kk.lk!==undefined&&sec-kk.lk<15)?kk.st+1:1;kk.lk=sec;
+  lvEmit('kill',{s,k:k.r,v:v.r,first,st:kk.st,as:as.map(a=>a.r)});
   const bt=lvBounty(v),bty=bt.pay;
   k.gt+=bt.base+bty;k.xp+=90+v.lv*8;k.sk++;k.dth=0;as.forEach(a=>{a.gt+=130;a.xp+=60+v.lv*4;a.dth=Math.max(0,(a.dth||0)-1)});v.cb=bt.tot-bty;v.sk=0;v.dth=(v.dth||0)+1;
   v.x=lvBase(o)[0];v.y=lvBase(o)[1];v.path=[];v.go={k:'dead'};v.st='dead';v.hp=0;v.bz=0;v.rc=0;v.cl=null;v.jx=null;v.rm=null;v.was=true;
@@ -6694,7 +6736,7 @@ function lvKill(k,v,as,x,y,tag){
   if(bty>=150)t+=` — recompensa de ${bty} G`;
   lvSay(t+'.',s,'kill');
   lvMulti({m:sec|0,kf:{k:{ti:s==='me'?0:1,ch:lvChOf(k.s,k.r)||k.ch||'',n:lvTeam(k.s).pl[k.r].n}}},s);lvKfPush(sec|0,{k:lvKfT(k),v:lvKfT(v),a:as.map(lvKfT),o:null,ts:null});
-  if(LV.kd[o].every(z=>z.dead>sec)){lvSay(`ACE! ${lvTeamNm(s)} elimina o time inteiro.`,s,'ace');LV.ev.aces++}
+  if(LV.kd[o].every(z=>z.dead>sec)){lvSay(`ACE! ${lvTeamNm(s)} elimina o time inteiro.`,s,'ace');LV.ev.aces++;lvEmit('ace',{s})}
   LV.mq.push({x,y});
   return true;
 }
@@ -6789,13 +6831,13 @@ const lvTgtHp=(s,t)=>{const h=LV.tw[lvOpp(s)];return t.k==='s'?h[t.ln][t.i]:t.k=
 function lvTgtDmg(s,t,d){const h=LV.tw[lvOpp(s)];if(t.k==='s')h[t.ln][t.i]-=d;else if(t.k==='n')h.nx[t.i]-=d;else h.nex-=d;return lvTgtHp(s,t)<=0}
 function lvTower(s,L,i){
   const o=lvOpp(s),sec=LV.sec,tn=lvTeamNm(s);
-  LV.str[o][L][i]=0;if(i<3)LV.st[s].t++;
+  LV.str[o][L][i]=0;if(i<3)LV.st[s].t++;lvEmit(i<3?'tower':'inhib',{s,L,i});
   lvSay(i<3?`${tn} derruba a torre ${['externa','interna','do inibidor'][i]} d${LVNM[L]==='meio'?'o meio':LVNM[L]==='topo'?'o topo':'a rota inferior'}.`:`${tn} destrói o inibidor d${LVNM[L]==='meio'?'o meio':LVNM[L]==='topo'?'o topo':'a rota inferior'}!`,s,'tower');
   lvKfObj(s,{n:i<3?'tw':'inh',s:o},L==='top'?[0]:L==='mid'?[2]:[3,4],L==='bot'?2:1);
   const near=lvLive(s);near.forEach(P=>{P.gt+=i<3?150:120});lvObjBty(s,'t'+i);
   if(i===3){lvQ(sec+LVCFG.inhRe,()=>{LV.str[o][L][3]=1;LV.tw[o][L][3]=LVTWH[3]})}
 }
-function lvNxDown(s,i){const o=lvOpp(s);LV.str[o].nx[i]=0;LV.st[s].t++;lvObjBty(s,'nx');lvSay(`${lvTeamNm(s)} derruba uma torre do Nexus.`,s,'tower');lvKfObj(s,{n:'tw',s:o},[2],2);lvLive(s).forEach(P=>{P.gt+=100})}
+function lvNxDown(s,i){const o=lvOpp(s);LV.str[o].nx[i]=0;lvEmit('tower',{s,L:'nx',i});LV.st[s].t++;lvObjBty(s,'nx');lvSay(`${lvTeamNm(s)} derruba uma torre do Nexus.`,s,'tower');lvKfObj(s,{n:'tw',s:o},[2],2);lvLive(s).forEach(P=>{P.gt+=100})}
 /* ---------- objetivos ---------- */
 function lvObjList(){
   const sec=LV.sec,L=[],pb=LVPIT.b,pd=LVPIT.d,o=LV.ob;
@@ -6806,7 +6848,7 @@ function lvObjList(){
   return L;
 }
 function lvObjDone(s,k){
-  const sec=LV.sec,tn=lvTeamNm(s),S2=LV.st[s],o=lvOpp(s);LV.at=null;
+  const sec=LV.sec,tn=lvTeamNm(s),S2=LV.st[s],o=lvOpp(s);LV.at=null;lvEmit('obj',{s,k,soul:k==='d'&&(S2.d||0)+1===4});
   lvLive(s).forEach(P=>{P.gt+=k==='b'?300:k==='g'?60:k==='e'?250:150;P.xp+=k==='b'?400:120});lvObjBty(s,k);
   if(k==='g'){
     S2.g=(S2.g||0)+3;LV.gb[s]+=3;LV.ob.g.n=0;LV.ob.g.w++;
@@ -6975,6 +7017,11 @@ function lvPlan(s){
       C.push({key:'h'+q.r,k:'hunt',tg:q,sc,w});
     });
   }
+  /* leitura de jogo: cada time "enxerga" o valor das jogadas com um erro que cai com a Leitura/Tática do técnico e o nível do elenco */
+  const err=lvIq(s);
+  C.forEach(c=>{c.sc*=1+(Math.random()-.5)*2*err;
+    /* vantagem numérica (rivais mortos): time profissional converte em objetivo ou estrutura */
+    const up=clamp(a.n-a.no,0,3);if(up&&(c.k==='obj'||c.k==='siege'))c.sc*=1+.08*up*(1-err)});
   let best=null;
   C.forEach(c=>{if(cur&&cur.key===c.key)c.sc+=.14;if(c.sc>(best?best.sc:0))best=c});
   if(cur&&best&&best.key!==cur.key&&LV.sec-cur.t0<10)best=C.find(c=>c.key===cur.key)||best;
@@ -6983,6 +7030,13 @@ function lvPlan(s){
     if(cur)lvPlanEnd(s,cur);
     best.t0=sec;ai.g=best;lvPlanStart(s,best);
   }else{cur.w=best.w;cur.sc=best.sc;if(best.t)cur.t=best.t;if(best.pos)cur.pos=best.pos;if(best.tg)cur.tg=best.tg}
+}
+/* erro de leitura do macro (0,05 a 0,32): técnico (Leitura de jogo e Tática) e média do elenco */
+function lvIq(s){
+  LV.iq=LV.iq||{};if(LV.iq[s]!=null)return LV.iq[s];
+  const t=lvTeam(s),c=typeof coOf==='function'?coOf(t):null,a=c&&typeof coAt==='function'?coAt(c):{lei:50,tat:50};
+  const avg=t.pl.reduce((x,p)=>x+p.r,0)/t.pl.length;
+  return LV.iq[s]=clamp(.22-((a.lei+a.tat)/2-50)*.002-(avg-78)*.005,.08,.26);
 }
 function lvNick(P){return lvTeam(P.s).pl[P.r].n}
 function lvPlanStart(s,g){
@@ -7399,7 +7453,17 @@ function lvObjTick(dt){
   if(a.prog>=1)lvObjDone(s,a.k);
 }
 /* ---------- passo do relógio ---------- */
+/* ---------- relógio e sorteio do mapa (Fase 6.2) ----------
+   A simulação só avança em segundos inteiros (LV.acc acumula o tempo real × velocidade) e usa um sorteio próprio,
+   semeado por mapa (m.lsd[gi]) e guardado em LV.rs: em 1×, 2× ou 30× o mapa é o mesmo; a velocidade só muda o ritmo da tela. */
+function lvRand(){let t=(LV.rs=(LV.rs+0x6D2B79F5)>>>0);t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}
+function lvSeed(f){if(!LV||LV.rs==null)return f();const R=Math.random;Math.random=lvRand;try{return f()}finally{Math.random=R}}
 function lvStep(dt){
+  if(!LV||LV.state!=='run')return;
+  LV.acc=(LV.acc||0)+(dt||0);const n=Math.floor(LV.acc+1e-9);if(n<1)return;LV.acc-=n;
+  lvSeed(()=>lvStep0(n));
+}
+function lvStep0(dt){
   if(!LV||LV.state!=='run')return;
   const end=LV.cp===0?LVCFG.cpA:LV.cp===1?LVCFG.cpB:Infinity;
   const target=Math.min(LV.sec+dt,end);
@@ -7440,7 +7504,7 @@ function lvPos(s,r){
 function lvGameEnd(mine){
   const wn=lvTeam(mine?'me':'op').name;
   LV.q=[];LV.min=Math.floor(LV.sec/60);if(LV.gh&&LV.pp)LV.gh.push([LV.sec|0,lvGold('me')-lvGold('op')]);
-  LV.str[mine?'op':'me'].nex=0;
+  LV.str[mine?'op':'me'].nex=0;lvEmit('end',{s:mine?'me':'op'});
   LV.log.unshift({m:LV.sec|0,t:`${wn} destrói o Nexus! Fim do mapa ${LV.gi+1} (${LV.st.me.k}–${LV.st.op.k} em abates).`,k:'end'});
   if(mine)LV.me++;else LV.op++;
   if(flOn(LV.m)){const pk=s=>[0,1,2,3,4].map(r=>lvChOf(s,r)||null),am=LV.ia;flRecord(LV.m,pk(am?'me':'op'),pk(am?'op':'me'),LV.m.bans)}
@@ -7451,7 +7515,8 @@ function lvGameEnd(mine){
   if(LV.pc)pcGameEnd(mine);
   if(LV.state==='done'){const aW=LV.ia?LV.me:LV.op,bW=LV.ia?LV.op:LV.me;LV.m.fx={wa:aW,wb:bW}}
 }
-const lvSpd=()=>{const v=S&&S.opt&&S.opt.lvs;return v===30?30:20};
+const LVSPD=[1,2,30];
+const lvSpd=()=>{const v=S&&S.opt&&S.opt.lvs;return LVSPD.includes(v)?v:30};
 function lvLoop(){
   lvStop();
   if(!LV||LV.state!=='run')return;
@@ -7469,7 +7534,8 @@ function lvLoop(){
   next();
 }
 /* aplica a instrução da fase; k==='auto' = o time decide (modo treinador) */
-function lvTacApply(k){
+function lvTacApply(k){return lvSeed(()=>lvTacApply0(k))}
+function lvTacApply0(k){
   if(!LV||LV.state!=='ckpt')return false;
   const auto=k==='auto';if(auto)k=lvRec().k;
   const cp=LV.cp,m=LV.m;
@@ -7657,7 +7723,6 @@ const kfTile=(p,small)=>`<span class="kft ${lvBlue(p.s)?'b':'r'}${small?' as':''
 const kfObj=o=>{const c=lvBlue(o.s)?'b':'r',n=o.n,src=n==='tw'?`tw_${c}.webp`:n==='inh'?`inh_${c}.png`:n==='gr'?'larva.png':n==='hd'?`hd_${c}.png`:n==='bn'?`bn_${c}.png`:n==='el'?`el_${c}.png`:n+'.png';return `<span class="kft kob ${c}" title="${({tw:'Torre',inh:'Inibidor',gr:'Vastilarva',hd:'Arauto',bn:'Barão Nashor',el:'Dragão Ancião'})[n]||'Dragão'}"><img src="champs/obj/${src}" alt="" draggable="false"></span>`};
 const kfHTML=kf=>`<span class="kfx">${(kf.a||[]).map(p=>kfTile(p,1)).join('')}${kf.k?kfTile(kf.k):kf.o&&!kf.v&&!(kf.a||[]).length?`<span class="kft mn ${lvBlue(kf.ts)?'b':'r'}" title="Tropas">Tropas</span>`:''}<i class="kfs" aria-label="abate">⚔</i>${kf.v?kfTile(kf.v):kfObj(kf.o)}</span>`;
 const lvLogHTML=()=>LV.log.filter(e=>e.kf).slice(0,7).map(e=>e.kf?`<div class="bcf kf ${lvBlue(e.kf.ts!=null?e.kf.ts:e.kf.k?e.kf.k.s:e.kf.v.s==='me'?'op':'me')?'b':'r'}"><b class="num">${lvFmt(e.m)}</b>${kfHTML(e.kf)}</div>`:`<div class="bcf ${e.k==='me'||e.k==='op'?(lvBlue(e.k)?'b':'r'):e.k}"><b class="num">${lvFmt(e.m)}</b><span>${esc(e.t)}</span></div>`).join('');
-function lvKdaTot(s){const t=LV.kd[s].reduce((a,x)=>({k:a.k+x.k,d:a.d+x.d,a:a.a+x.a}),{k:0,d:0,a:0});return `${t.k}/${t.d}/${t.a}`}
 
 /* ---------- fim de mapa: estatísticas da partida ---------- */
 function lvGoldSVG(bl){
@@ -7702,6 +7767,7 @@ function lvPostHTML(ctl,bottom){
   <div class="pmgrid">
     <div class="pmcol"><section class="pmp"><h3>Estatísticas da partida</h3><div class="pmrows">${rows}</div></section><div class="pmctl">${ctl}${bottom}</div></div>
     <div class="pmcol"><section class="pmp"><h3>Dano total causado a campeões</h3>${dmg}<p class="pmlg"><span><i class="l"></i>Dano depois dos 14 min</span><span><i class="e"></i>Dano até os 14 min</span></p></section>
+    ${(()=>{const M=lvMoments();return M.length?`<section class="pmp"><h3>Momentos-chave</h3><ul class="pmmo">${M.map(([t,s,x])=>`<li class="${s===bl?'b':'r'}"><span class="num">${lvFmt(t)}</span><b>${esc(x)}</b><small>${esc(lvTeamNm(s))}</small></li>`).join('')}</ul></section>`:''})()}
     <section class="pmp"><h3>Diferença de ouro</h3>${lvGoldSVG(bl)}<p class="pmlg"><span><i class="b"></i>${esc(lvTeamNm(bl))} à frente</span><span><i class="r"></i>${esc(lvTeamNm(rd))} à frente</span></p></section></div>
   </div></div></div>`;
 }
@@ -7727,7 +7793,7 @@ function vLive(){
   if((LV.state==='between'||LV.state==='done')&&LV.pp)return lvPostHTML(ctl,bottom);
   const [bl,rd]=lvSide(),sp=lvSpd(),run=LV.state==='run';
   const side=`<div class="bcside"><small class="k">${esc(stage)} · ${m.n===1?'jogo único':'MD'+m.n}</small><span class="bclive"><i></i>Ao vivo</span><small id="lvph">${ph||(LV.state==='pick'?'escolha de campeão':'')}${run&&!LV.pc&&LV.tac?' · '+planName(LV.tac):''}</small>
-    <div class="bcspd"><small>Vel.</small><button class="pill" data-act="lvSpd" data-v="20" aria-pressed="${sp===20}">20×</button><button class="pill" data-act="lvSpd" data-v="30" aria-pressed="${sp===30}">30×</button></div>
+    <div class="bcspd"><small>Vel.</small>${LVSPD.map(v=>`<button class="pill" data-act="lvSpd" data-v="${v}" aria-pressed="${sp===v}">${v}×</button>`).join('')}</div>
     ${run?`<button class="ghost" data-act="lvSkip">Pular fase</button>`:''}<button class="ghost" data-act="lvAll">Simular o resto</button><button class="ghost" data-act="lvX">Sair (simula o resto)</button></div>`;
   return `<div class="dvx lvx bcx"><div class="bcw">
   <div class="bctop" id="lvst">${lvStatsHTML()}</div>
@@ -7792,7 +7858,7 @@ function lvPaint(now){
   if(pd&&pd.getAttribute('class')!==cd)pd.setAttribute('class',cd);
   if(pb&&pb.getAttribute('class')!==cb)pb.setAttribute('class',cb);
   const mk=$('lvmk');
-  if(mk&&LV.mq.length){const life=lvSpd()===30?550:lvSpd()===20?750:lvSpd()===10?1300:2500;LV.mq.splice(0).forEach(q=>{mk.insertAdjacentHTML('beforeend',`<g class="kx"><text x="${lvX(q.x).toFixed(1)}" y="${q.y.toFixed(1)}">✕</text></g>`);const g=mk.lastElementChild;setTimeout(()=>{if(g&&g.parentNode)g.remove()},life)})}
+  if(mk&&LV.mq.length){const life=lvSpd()>=30?550:2500;LV.mq.splice(0).forEach(q=>{mk.insertAdjacentHTML('beforeend',`<g class="kx"><text x="${lvX(q.x).toFixed(1)}" y="${q.y.toFixed(1)}">✕</text></g>`);const g=mk.lastElementChild;setTimeout(()=>{if(g&&g.parentNode)g.remove()},life)})}
   else LV.mq.length=0;
 }
 
@@ -8964,7 +9030,8 @@ function lvPick(c){
   LV.log.unshift({m:0,t:`Você escolhe ${c} (domínio ${Math.round(mastOf(pc.n,c)*100)}%${metaOf(c)>=.2?', forte no meta':metaOf(c)<=-.2?', fraco no meta':''}).`,k:'sys'});
   LV.state='ckpt';
 }
-function lvPosture(k){
+function lvPosture(k){return lvSeed(()=>lvPosture0(k))}
+function lvPosture0(k){
   if(!LV||!LV.pc||LV.state!=='ckpt')return;
   const f=pcFind(),pc=S.pc,p=f.p,op=lvTeam('op').pl[p.role];
   let t='';
@@ -9610,14 +9677,21 @@ function uniqueName(nat,ex){
   for(let k=0;k<4000;k++){const n=pick(pool)+(2+Math.floor(Math.random()*(k<1500?98:9900)));if(!used.has(n.toLowerCase()))return n}
   for(let i=1000;;i++){const n=pick(pool)+i;if(!used.has(n.toLowerCase()))return n}
 }
+/* ---------- equilíbrio regional (Fase 6.1) ----------
+   Cada liga tem sua base de talentos e seu nível de treino. f: piso de OVR do novato; p: escala do potencial;
+   pd: chance de prodígio; dv: evolução anual extra (qualidade dos treinos/scrims); cap: acima disso o jogador
+   evolui menos se ficar na liga (o teto da região puxa para baixo, e os grandes mercados o contratam). */
+const LGT={LCK:{f:79,p:1,pd:.13,dv:.3,cap:99},LPL:{f:79,p:1,pd:.13,dv:.3,cap:99},LEC:{f:76,p:.85,pd:.08,dv:0,cap:90},LCS:{f:75,p:.75,pd:.06,dv:-.15,cap:88},LCP:{f:74,p:.75,pd:.06,dv:-.2,cap:88},CBLOL:{f:73,p:.7,pd:.05,dv:-.25,cap:87}};
+const lgT=lg=>LGT[lg]||LGT.LEC;
+const lgDev=(t,p)=>{if(!t||t.d===2)return 0;const L=lgT(t.lg);return L.dv-Math.max(0,p.r-L.cap)*.45};
 function rookie(role,ref,d2){
   const nat=pick((ref.lg&&GENN[ref.lg])||WORLDN);
   if(d2){const r=clamp(Math.round(Math.max(ref.r-6,ref.avg-4,64)+g()*2),62,82),pot=clamp(Math.round(r+2+Math.abs(g())*5),r,92);return{n:uniqueName(nat),role,r,pot,age:18+Math.floor(Math.random()*5),f:0,d:0,nat}}
   /* a vaga é preenchida por um talento já pronto para o nível do time: perto do aposentado e do resto do elenco */
-  const prodigy=Math.random()<.1;
-  const base=Math.max(ref.r-6,ref.avg-3,77);
+  const L=lgT(ref.lg),prodigy=Math.random()<L.pd;
+  const base=Math.max(ref.r-6,ref.avg-3,L.f);
   const r=clamp(Math.round(base+g()*2.2+(prodigy?3:0)),72,92);
-  const pot=clamp(Math.round(r+2+Math.abs(g())*4+(prodigy?5:0)),r,98);
+  const pot=clamp(Math.round(r+(2+Math.abs(g())*4)*L.p+(prodigy?5:0)),r,98);
   return{n:uniqueName(nat),role,r,pot,age:18+Math.floor(Math.random()*5),f:0,d:0,nat};
 }
 function ageDelta(p){
@@ -9708,7 +9782,7 @@ function nextSeason(){
       const o=S.season.perf[p.n];
       const ex=o?clamp(o.s/o.w-p.r,-6,8):0;
       const old=p.r;
-      p.r=clamp(Math.round(p.r+ageDelta(p)+.25*ex+.3*tm+coDevB(t,p)+(S.mgr&&S.mgr.tid===t.id?(S.mgr.ct||0)*.5+(S.mgr.focus==='ti'?.5:0):0)-Math.max(0,p.r-88)*.2),55,99);
+      p.r=clamp(Math.round(p.r+ageDelta(p)+.25*ex*(t.d===2?1:lgT(t.lg).p)+.3*tm+coDevB(t,p)+lgDev(t,p)+(S.mgr&&S.mgr.tid===t.id?(S.mgr.ct||0)*.5+(S.mgr.focus==='ti'?.5:0):0)-Math.max(0,p.r-88)*.2),55,99);
       p.d=p.r-old;p.f*=.4;
       if(p.age<=24)p.pot=Math.max(p.r,Math.round(p.pot+g()*.8));else p.pot=p.r;
       delta.push({p,t});
@@ -11904,7 +11978,7 @@ function act0(a,v){
   else if(a==='dvX'){clearTimeout(DVT);DV=null}
   else if(a==='dvGo'){if(DV&&DV.done){const lvc=DV.lv,snap=ldSnap();dvGo();ldStart(snap,()=>{/* partida ao vivo: nada decidido ainda, então nenhum som de vitória/derrota (antes tocava o resultado da rodada anterior e parecia que o mapa já estava definido) */if(lvc){lvResume();snd('click')}else if(lvNeeded()){lvOpen();snd('click')}else{if(S.season.fm)fmEnd();else step();sndAfter()}save()});top=true}}
   else if(a==='ldSkip'){ldEnd()}
-  else if(a==='lvTac'){if(LV&&LV.pc)lvPosture(v);else lvTac(v)}else if(a==='lvPick'){lvPick(v)}else if(a==='lvSub'){lvSub(v);save()}else if(a==='lvNext'){lvNext();top=true}else if(a==='lvSide'){if(LV&&LV.state==='between'&&sdNeed(LV.m,LV.gi,LV.ia)){LV.m.sd=LV.m.sd||[];LV.m.sd[LV.gi]=(v==='b')===LV.ia;save()}top=true}else if(a==='lvSkip'){lvSkipPhase()}else if(a==='cevCfg'){cevCfg(v)}else if(a==='cevPs'){cevPs(v)}else if(a==='cevGo'){cevGo(v);save()}else if(a==='cevPlay'){const [k,i,q]=String(v).split('|');if(cevPlayStart(k,i,q))top=true;save()}else if(a==='cevSkip'){cevSkip(v);save()}else if(a==='cevEnd'){cevEnd(v);save()}else if(a==='cevDest'){cevDest(v)}else if(a==='lvAll'){lvAll()}else if(a==='lvX'){if(LV&&LV.state!=='done'&&(LV.gi>0||LV.state==='run'||LV.state==='ckpt'||LV.state==='between')){lvAll();msg='Você saiu no meio da série: o resto foi simulado, sem refazer.'}else lvDone()}else if(a==='lvSpd'){S.opt=S.opt||{};S.opt.lvs=+v===30?30:20;save();render()}
+  else if(a==='lvTac'){if(LV&&LV.pc)lvPosture(v);else lvTac(v)}else if(a==='lvPick'){lvPick(v)}else if(a==='lvSub'){lvSub(v);save()}else if(a==='lvNext'){lvNext();top=true}else if(a==='lvSide'){if(LV&&LV.state==='between'&&sdNeed(LV.m,LV.gi,LV.ia)){LV.m.sd=LV.m.sd||[];LV.m.sd[LV.gi]=(v==='b')===LV.ia;save()}top=true}else if(a==='lvSkip'){lvSkipPhase()}else if(a==='cevCfg'){cevCfg(v)}else if(a==='cevPs'){cevPs(v)}else if(a==='cevGo'){cevGo(v);save()}else if(a==='cevPlay'){const [k,i,q]=String(v).split('|');if(cevPlayStart(k,i,q))top=true;save()}else if(a==='cevSkip'){cevSkip(v);save()}else if(a==='cevEnd'){cevEnd(v);save()}else if(a==='cevDest'){cevDest(v)}else if(a==='lvAll'){lvAll()}else if(a==='lvX'){if(LV&&LV.state!=='done'&&(LV.gi>0||LV.state==='run'||LV.state==='ckpt'||LV.state==='between')){lvAll();msg='Você saiu no meio da série: o resto foi simulado, sem refazer.'}else lvDone()}else if(a==='lvSpd'){S.opt=S.opt||{};S.opt.lvs=LVSPD.includes(+v)?+v:30;save();render()}
   else if(a==='lvDone'){if(LV&&LV.state==='done'){const fr=!!LV.m.fr||!!LV.m.cup;if(LV.pc)pcMatchEnd();lvDone();if(fr)fmEnd();else step();sndAfter();save();top=true}}
   else if(a==='liveOpt'){S.opt=S.opt||{};S.opt.live=+v;save()}
   else if(a==='day'){advDay(+v);save()}
