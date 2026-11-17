@@ -9,7 +9,7 @@ Todas as mudanças estão em `index.html`. Testes em `ferramentas/testes/` (list
 | 3 | `0fa1d20` | Lendas como técnicos, atributos de treinador, ficha única; premiação = valor do campeão |
 | 4 | `f8af705` | Economia sem inflação, tamanho do clube, resumo da proposta na negociação |
 | 5 | `69c98a6` | Celular (X, Instagram, WhatsApp, Gmail), tom das reações e efeitos da torcida |
-| 6 | (a publicar) | Equilíbrio regional e motor de partidas: relógio fixo, 1×/2×/30×, eventos, decisões, força única |
+| 6 | `a81cc98` | Equilíbrio regional e motor de partidas: relógio fixo, 1×/2×/30×, eventos, decisões, força única |
 
 ---
 
