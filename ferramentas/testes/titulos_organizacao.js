@@ -1,5 +1,5 @@
 /* Títulos por organização: DAMWON Gaming (Worlds 2020) e Dplus KIA são o mesmo clube em todas as telas;
-   organizações diferentes (Samsung x Gen.G) continuam separadas */
+   organizações diferentes (Samsung x Gen.G) continuam como times separados, mas os títulos da Samsung somam na Gen.G */
 const {load,run}=require('./harness.js');
 const ctx=load(require('path').join(__dirname,'..','..','index.html'));
 const out=run(ctx,`(function(){
@@ -26,7 +26,7 @@ const out=run(ctx,`(function(){
  ok(/Dplus KIA<\\/b> <small[^>]*>nome atual[\\s\\S]*?Worlds 2027/.test(vt),'Worlds 2027 no período Dplus KIA');
  var hof=(function(){hofView='teams';return vHof()})();
  ok(/Dplus KIA[\\s\\S]{0,400}?2 Worlds/.test(hof),'Lendas > Times conta 2 Worlds');
- var gg=S.teams.find(function(t){return t.name==='Gen.G'});ok(ttCount(gg).wc===0,'Gen.G sem os Worlds da Samsung: '+ttCount(gg).wc);
+ var gg=S.teams.find(function(t){return t.name==='Gen.G'});ok(ttCount(gg).wc>=2,'Gen.G herda os Worlds da Samsung (times seguem separados nas Lendas): '+ttCount(gg).wc);
  return bad.length?'FALHAS: '+bad.join(' | '):'TODOS OS TESTES PASSARAM';
 })()`);
 console.log(out);if(out.indexOf('FALHAS')===0)process.exit(1);

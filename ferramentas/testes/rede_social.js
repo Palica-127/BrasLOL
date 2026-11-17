@@ -38,6 +38,7 @@ const out=run(ctx,`(function(){
  act('phone');ok(PHO&&PHO.app==='home','abre o celular');
  var h=phoneHTML();ok(/ai-x/.test(h)&&/ai-ig/.test(h)&&/ai-wa/.test(h)&&/ai-gm/.test(h)&&/Instagram/.test(h)&&/WhatsApp/.test(h)&&/Gmail/.test(h),'tela inicial com X, Instagram, WhatsApp e Gmail');
  var n0=socNew();ok(n0>0,'contador de novidades');
+ {var sv=S.soc.dm.map(function(d){return d.rd});S.soc.dm.forEach(function(d){d.rd=1});S.soc.sx=0;ok(socNew()===0,'posts do X não contam no contador do celular');S.soc.dm.forEach(function(d,i){d.rd=sv[i]})}
  act('phApp','x');h=phoneHTML();ok(/Para você/.test(h)&&/O que está acontecendo/.test(h)&&/spst/.test(h)&&/class="scd k-/.test(h),'X: feed com artes e assuntos do momento');act('phTab','s');ok(/Seguindo/.test(phoneHTML()),'X: aba Seguindo');
  act('phApp','ig');h=phoneHTML();ok(/igst/.test(h)&&/igpo/.test(h)&&/Curtido por/.test(h),'Instagram: stories e posts com arte');act('phTab','me');h=phoneHTML();ok(/seguidores/.test(h)&&/Clima da torcida/.test(h),'Instagram: perfil e clima');
  act('phApp','wa');h=phoneHTML();ok(/wac/.test(h),'WhatsApp: conversas');
