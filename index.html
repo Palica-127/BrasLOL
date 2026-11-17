@@ -2602,9 +2602,16 @@ details.pn>summary{color:var(--t1)}
 @keyframes grsh{0%{background-position:0% 50%}100%{background-position:200% 50%}}
 .grn,.lk.grn,.grt{background:linear-gradient(90deg,#b8860b,#ffe27a,#fff6c8,#ffd23f,#b8860b);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent;animation:grsh 4s linear infinite;font-weight:800;text-shadow:none}
 .grw{position:relative;display:inline-flex;border-radius:50%;flex:none}
-.grw::after{content:"";position:absolute;inset:-3px;border-radius:50%;pointer-events:none;border:2px solid #ffd23f;box-shadow:0 0 6px rgba(255,210,63,.8),inset 0 0 4px rgba(255,226,122,.6);animation:grgl 2.6s ease-in-out infinite}
-.grw.grl::after{inset:-5px;border-width:3px}
-@keyframes grgl{0%,100%{box-shadow:0 0 5px rgba(255,210,63,.6)}50%{box-shadow:0 0 14px rgba(255,226,122,1)}}
+.grw{margin:0 .3em;vertical-align:middle;align-items:center;justify-content:center}.grw>.shield,.grw>.crest{transform:scale(.74)}
+.grw::after{content:"";position:absolute;top:-30%;bottom:-14%;left:-27%;right:-27%;pointer-events:none;background:url(adornos/escudo.webp) center/contain no-repeat;animation:grgl 2.6s ease-in-out infinite;z-index:1}
+@keyframes grgl{0%,100%{filter:drop-shadow(0 0 1px rgba(255,210,63,.4))}50%{filter:drop-shadow(0 0 4px rgba(255,226,122,.9))}}
+/* carta de quem fez Golden Road: moldura com louro e coroa */
+.fut.fph.fgr{border-color:rgba(255,210,63,.25);box-shadow:0 0 16px rgba(255,210,63,.3),0 6px 18px rgba(0,0,0,.35)}
+.fgrf{position:absolute;inset:0;z-index:3;pointer-events:none;background:url(adornos/jogador.webp) center/100% 100% no-repeat,linear-gradient(180deg,transparent 52%,rgba(14,24,50,.97) 78%)}
+.fgr .fpi{bottom:0!important}
+.fgr .fpb{bottom:10%;height:auto!important;padding:2px 4px;background:none;z-index:4}
+.fgr .fps{left:8.6%!important;top:5.2%!important;width:13.5%!important;height:auto!important;aspect-ratio:22/26;z-index:4}.fgr .fps>*{width:100%!important;height:100%!important}
+.fgr .fpo{top:7px;right:8px;z-index:4}.fgr .fpf{z-index:4;right:8px}
 .grbadge{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;font:800 10px var(--d,inherit);letter-spacing:.12em;vertical-align:middle;color:#1a1300;-webkit-text-fill-color:#1a1300;background:linear-gradient(90deg,#d4a017,#ffe27a,#d4a017);box-shadow:0 0 8px rgba(255,210,63,.6)}
 .grsec{border-color:rgba(255,210,63,.55)!important;box-shadow:0 0 0 1px rgba(255,210,63,.25),0 0 18px rgba(255,210,63,.12)}
 .grbox{margin-top:10px;padding:10px 12px;border:1px solid rgba(255,210,63,.45);border-radius:10px;background:rgba(255,210,63,.06)}.grbox small{display:block;margin-top:2px}
@@ -10702,12 +10709,15 @@ const legR=n=>{const h=S.hof&&S.hof[n];return h?Math.round(clamp(84+sc(h)/14,84,
 const sigCh=(n,role)=>{const l=CH[role==null?2:role]||CH[2];let b=l[0][0],bv=-1;l.forEach(([c])=>{const v=mastOf(n,c)+rGames(n,c)*1e-6;if(v>bv){bv=v;b=c}});return b};
 /* estilo das cartas (Ajustes): 'foto' = foto grande como no painel Seu time; 'classica' = carta estilo FIFA */
 const cardFoto=()=>!(S&&S.opt&&S.opt.cards==='classica');
+/* jogou uma campanha de Golden Road (moldura dourada na carta) */
+const grN=n=>(S.grH||[]).some(g=>(g.r||[]).includes(n));
 function fut(o,cls=''){
   const t=tier(o.r),c=natC(o.n),tm=o.team;
   const ret=!tm||!!(S.pdb&&S.pdb[o.n]&&S.pdb[o.n].ret);
   if(cardFoto()){
     const ph=phHas(o.n),art=ph?'':chArt(sigCh(o.n,o.role));
-    return `<button class="fut fph t${t} ${cls}${ret?' ret':''}${S.inj&&S.inj[o.n]?' finj':''}" data-act="player" data-v="${esc(o.n)}" aria-label="${esc(o.n)}, ${o.r}"><span class="fpi${ph?'':' nph'}">${ph?phImg(o.n):art?`<img src="${art}" alt="" loading="lazy" decoding="async" draggable="false"><i>${esc(String(o.n).slice(0,2).toUpperCase())}</i>`:`<i>${esc(String(o.n).slice(0,2).toUpperCase())}</i>`}</span><span class="fpo num">${o.r}</span>${tm?`<span class="fps">${crest(tm,'')}</span>`:''}${o.f&&Math.abs(o.f)>=.5?`<span class="fpf ${o.f>0?'up':'dn'}">${o.f>0?'▲':'▼'}${Math.abs(o.f).toFixed(1)}</span>`:''}<span class="fpb"><small>${RN[o.role]||''}${c?' · '+natTxt(c):''}</small><b>${esc(o.n)}</b></span></button>`;
+    const gr=grN(o.n);
+    return `<button class="fut fph t${t} ${cls}${ret?' ret':''}${S.inj&&S.inj[o.n]?' finj':''}${gr?' fgr':''}" data-act="player" data-v="${esc(o.n)}" aria-label="${esc(o.n)}, ${o.r}"><span class="fpi${ph?'':' nph'}">${ph?phImg(o.n):art?`<img src="${art}" alt="" loading="lazy" decoding="async" draggable="false"><i>${esc(String(o.n).slice(0,2).toUpperCase())}</i>`:`<i>${esc(String(o.n).slice(0,2).toUpperCase())}</i>`}</span>${gr?'<i class="fgrf" aria-hidden="true"></i>':''}<span class="fpo num">${o.r}</span>${tm?`<span class="fps">${crest(tm,'')}</span>`:''}${o.f&&Math.abs(o.f)>=.5?`<span class="fpf ${o.f>0?'up':'dn'}">${o.f>0?'▲':'▼'}${Math.abs(o.f).toFixed(1)}</span>`:''}<span class="fpb"><small>${RN[o.role]||''}${c?' · '+natTxt(c):''}</small><b>${esc(o.n)}</b></span></button>`;
   }
   const st=futStats(o.n,o.r,o.role);
   return `<button class="fut t${t} ${cls}${ret?' ret':''}${S.inj&&S.inj[o.n]?' finj':''}" data-act="player" data-v="${esc(o.n)}" aria-label="${esc(o.n)}, ${o.r}">
