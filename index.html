@@ -11570,9 +11570,10 @@ function vHof(){
     const tm=nm=>S.teams.find(t=>t.name===nm);
     h+=`<section class="pn"><h2>Clássicos</h2><p class="note" style="margin:0 0 8px">Os confrontos mais disputados da história: quanto mais jogos e mais equilibrado o placar, mais forte a rivalidade.</p>${rv.length?rv.map(c=>{const A=tm(c.a),B=tm(c.b);return `<div class="clr"><span class="clt">${A?crest(A,'sm'):''}${A?tlk(A):esc(c.a)}</span><b class="clx num">${c.x}–${c.y}</b><span class="clt r">${B?tlk(B):esc(c.b)}${B?crest(B,'sm'):''}</span><span class="tag cln">${c.n} jogos${c.eq<=2&&c.n>=4?' · 🔥 rivalidade':''}</span></div>`}).join(''):'<p class="empty">Os clássicos aparecem depois que os times se enfrentam algumas vezes.</p>'}</section>`;
   }else if(hofView==='teams'){
-    h+=grHistHTML()+pwHTML();
+    h+=pwHTML();
     const rows=S.teams.map(t=>({t,c:ttCount(t)})).sort((a,b)=>b.c.wc-a.c.wc||b.c.msi-a.c.msi||b.c.lg-a.c.lg||baseOvr(b.t)-baseOvr(a.t));
     h+=`<section class="pn"><h2>Histórico de títulos</h2>${rows.map(({t,c})=>`<div class="pl" style="grid-template-columns:52px minmax(0,1fr) auto"><span class="tag" style="margin:0;text-align:center">${t.lg}</span><span><span class="nm2">${crest(t,'sm')} ${tlk(t)}</span><br><small>${c.wc} Worlds · ${c.msi} MSI · ${c.lg} ligas</small></span>${hx(Math.round(baseOvr(t)),'sm')}</div>`).join('')}</section>`;
+    h+=grHistHTML();
   }else{
     h+=`<div class="pills">${[['all','Todos'],['a','Ativos'],['r','Aposentados']].map(([k,l])=>`<button class="pill" aria-pressed="${pf===k}" data-act="pf" data-v="${k}">${l}</button>`).join('')}</div>`;
     h+=`<input id="q" class="search" type="search" placeholder="Buscar jogador" value="${esc(qStr)}" aria-label="Buscar jogador"><section class="pn"><h2>Jogadores</h2><div id="plist">${plistHTML()}</div></section>`;
