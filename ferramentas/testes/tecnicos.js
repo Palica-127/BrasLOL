@@ -47,7 +47,8 @@ const out=run(ctx,`(function(){
  var g2=S.teams.find(function(t){return t.name==='G2'});
  if(g2&&coOf(g2)&&COTIT[coOf(g2).n]){var b=coBoost(g2);ok(b>0&&b<=.65,'reforço do técnico com títulos pequeno e positivo: '+b);ok(vCoach(coOf(g2).n).indexOf('Estante da época de jogador')>=0,'estante de jogador na ficha')}
  var semT=ALLT().find(function(t){var c=coOf(t);return c&&!COTIT[c.n]&&!c.ex&&!coTitles(c).length&&!(S.mgr&&S.mgr.tid===t.id)});
- ok(!semT||coBoost(semT)===0,'técnico sem títulos não muda a força');
+ /* Fase 3: a força vem dos atributos de treinador (Tática/Leitura/Motivação), não só dos títulos; continua pequena */
+ ok(!semT||(coBoost(semT)>=0&&coBoost(semT)<=.65),'técnico sem títulos: reforço pelos atributos, pequeno');
  /* aposentado vira técnico e é contratado */
  var rt=S.teams[3],rp=rt.pl[2],R=Math.random;Math.random=function(){return 0};coFromPlayer(rp,rt);Math.random=R;
  ok(S.co[rp.n]&&S.co[rp.n].ex===1&&S.co[rp.n].t==null,'aposentado entra no mercado de técnicos');

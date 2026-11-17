@@ -1,4 +1,4 @@
-/* Premiações (bolsa total dividida por colocação) e Golden Road (3 splits + MSI + Worlds; +30% por First Stand e por EWC;
+/* Premiações (valor da tabela = campeão; demais colocações recebem uma fração) e Golden Road (3 splits + MSI + Worlds; +30% por First Stand e por EWC;
    só jogadores e técnicos da campanha; nome dourado e logo com aro; prêmio no caixa do seu clube) */
 const {load,run}=require('./harness.js');
 const ctx=load(require('path').join(__dirname,'..','..','index.html'));
@@ -8,9 +8,9 @@ const out=run(ctx,`(function(){
  /* ano fictício: 17 times no Worlds, 11 no MSI, 12 na EWC, 8 no First Stand */
  var ts=S.teams.slice(0,17),codes={wc:['C','F','SF','SF','QF','QF','QF','QF','G','G','G','G','G','G','G','G','G'],msi:['C','F','SF','SF','QF','QF','G','G','G','G','G'],ewc:['C','F','SF','SF','QF','QF','QF','QF','G','G','G','G'],fs:['C','F','SF','SF','QF','QF','QF','QF']};
  S.teams.forEach(function(t,i){t.yh=(t.yh||[]).filter(function(x){return x.y!==Y});t.yh.push({y:Y,s1:0,s2:0,s3:0,fs:codes.fs[i]||'-',msi:codes.msi[i]||'-',ewc:codes.ewc[i]||'-',wc:codes.wc[i]||'-',gw:0,gl:0})});
- ['wc','msi','ewc','fs'].forEach(function(k){var s=0;S.teams.forEach(function(t){var y=t.yh[t.yh.length-1];s+=tourPrize(k,y[k],Y)});ok(near(s,ECO.prize[k]),PZN[k]+': soma das partes = bolsa ('+s.toFixed(2)+' de '+ECO.prize[k]+')')});
- ok(tourPrize('wc','C',Y)>tourPrize('wc','F',Y)&&tourPrize('wc','F',Y)>tourPrize('wc','SF',Y)&&tourPrize('wc','G',Y)>0,'colocação melhor ganha mais e todos recebem');
- ok(tourPrize('wc','C',Y)<ECO.prize.wc*.5,'campeão não leva a bolsa inteira');
+ var EXP={wc:5,msi:2,ewc:2,fs:1};['wc','msi','ewc','fs'].forEach(function(k){ok(near(tourPrize(k,'C'),EXP[k]),PZN[k]+': campeão recebe '+EXP[k]+' (recebeu '+tourPrize(k,'C')+')')});
+ ok(tourPrize('wc','C')>tourPrize('wc','F')&&tourPrize('wc','F')>tourPrize('wc','SF')&&tourPrize('wc','G')>0,'colocação melhor ganha mais e todos recebem');
+ ok(near(tourPrize('wc','F'),2.5)&&tourPrize('wc','F')<tourPrize('wc','C'),'vice do Worlds recebe metade do campeão');
  ok(near(grPrize({}),ECO.gr.base)&&near(grPrize({fs:1}),ECO.gr.base*1.3)&&near(grPrize({ewc:1}),ECO.gr.base*1.3)&&near(grPrize({fs:1,ewc:1}),ECO.gr.base*1.6),'bônus de 30% por First Stand e por EWC');
  /* Golden Road do time 0 (campeão de tudo), com um jogador que chegou só para o Worlds */
  var t=S.teams[0],y=t.yh[t.yh.length-1],lk_=function(s){return t.lg+' '+splitNm(s)};

@@ -2447,6 +2447,12 @@ details.pn>summary{color:var(--t1)}
 .crest.fbg{width:var(--s)!important;height:var(--s)!important;border:0!important;padding:0!important;border-radius:50%!important;overflow:hidden;background:#1a2236 var(--fu) var(--fp,50%) 50%/cover no-repeat!important;font-size:0!important;color:transparent!important;box-shadow:0 2px 6px rgba(0,0,0,.45)!important}
 .crest.fbg::after{display:none!important}
 .nlk,.nlk:hover{text-decoration:none!important;border:0!important}
+/* ficha única jogador/técnico: abas, atributos e traços */
+.cptab{margin:0 0 10px}
+.coatg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.coatg b{font-size:22px}
+@media (max-width:560px){.coatg{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.cotrs{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.cotrc{flex:1 1 200px;padding:8px 10px;border:1px solid rgba(255,226,122,.45);border-radius:10px;background:rgba(255,226,122,.06)}.cotrc b{display:block;color:#FFE27A}.cotrc small{color:var(--t2,#aab)}
+.coat{display:block;font-size:11px;opacity:.85}.cotr{color:#FFE27A;font-weight:700}
 /* Golden Road: nome em dourado brilhante, aro dourado na logo e selos */
 @keyframes grsh{0%{background-position:0% 50%}100%{background-position:200% 50%}}
 .grn,.lk.grn,.grt{background:linear-gradient(90deg,#b8860b,#ffe27a,#fff6c8,#ffd23f,#b8860b);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent;animation:grsh 4s linear infinite;font-weight:800;text-shadow:none}
@@ -3880,19 +3886,16 @@ function mgrStart(tid){
   coTake();coSync();
 }
 /* ---------- economia: premiações e Golden Road (valores em milhões de US$; ajuste aqui o balanceamento) ----------
-   prize: bolsa TOTAL de cada torneio internacional, dividida entre todos os participantes pelo peso da colocação (w).
+   prize: o que o CAMPEÃO de cada torneio internacional recebe; as outras colocações recebem a fração w[colocação]/w.C desse valor.
    gr: Golden Road = os 3 splits + MSI + Worlds no mesmo ano; First Stand e EWC não são obrigatórios, mas cada um soma +30% ao prêmio-base. */
 const ECO={prize:{wc:5,msi:2,ewc:2,fs:1},w:{C:30,F:15,SF:8,QF:4,G:1.5},gr:{base:25,bonus:.3}};
 const PZN={wc:'Worlds',msi:'MSI',ewc:'EWC',fs:'First Stand'};
-/* parte da bolsa do torneio k para a colocação code no ano yr (soma das partes = bolsa total) */
-function tourPrize(k,code,yr){
+/* prêmio do torneio k para a colocação code: campeão = ECO.prize[k]; vice, semi, quartas e fase de grupos/suíço, a fração pelo peso */
+function tourPrize(k,code){
   const w=ECO.w[code];if(!w||!ECO.prize[k])return 0;
-  yr=yr||S.year;let sum=0;
-  S.teams.forEach(t=>{const h=(t.yh||[]).find(x=>x.y===yr);const v=h&&ECO.w[h[k]];if(v)sum+=v});
-  return sum>0?ECO.prize[k]*w/sum:0;
+  return ECO.prize[k]*w/ECO.w.C;
 }
-/* fatia padrão (ex.: campeão do Worlds com 17 times), para mostrar na tela de finanças */
-const pzShare=(k,code)=>{const n={wc:{C:1,F:1,SF:2,QF:4,G:9},msi:{C:1,F:1,SF:2,QF:2,G:4},ewc:{C:1,F:1,SF:2,QF:4,G:8},fs:{C:1,F:1,SF:2,QF:4,G:0}}[k],W=ECO.w;let s=0;for(const c in n)s+=n[c]*W[c];return ECO.prize[k]*W[code]/s};
+const pzShare=(k,code)=>tourPrize(k,code);
 const grPrize=g=>r1(ECO.gr.base*(1+ECO.gr.bonus*((g.fs?1:0)+(g.ewc?1:0))));
 /* Golden Road: confere no fim do ano (depois do Worlds) para cada time. Participante = estava no elenco campeão do Worlds
    e em pelo menos 3 dos outros 4 títulos obrigatórios (Splits 1-3 e MSI). Técnico: o técnico gravado nesses títulos, pela mesma regra,
@@ -4476,11 +4479,11 @@ function elencoHTML(t,m,pay,lastH){
 /* premiações: bolsa de cada torneio, quanto leva cada colocação e o prêmio da Golden Road; e o que o clube ganhou na última temporada */
 function pzHTML(m){
   const f=v=>fmtM(r1(v*IM()));
-  const rows=['wc','msi','ewc','fs'].map(k=>`<tr><td>${PZN[k]}</td><td class="num">${fmtM(ECO.prize[k])}</td><td class="num">${f(pzShare(k,'C'))}</td><td class="num">${f(pzShare(k,'F'))}</td><td class="num">${f(pzShare(k,'SF'))}</td></tr>`).join('');
+  const rows=['wc','msi','ewc','fs'].map(k=>`<tr><td>${PZN[k]}</td>${['C','F','SF','QF','G'].map(c=>`<td class="num">${f(pzShare(k,c))}</td>`).join('')}</tr>`).join('');
   const last=m.hist.length?m.hist[m.hist.length-1]:null,pz=last&&last.pz;
   const lastH=pz?`<div class="kv" style="margin-top:10px">${[['lg','Splits'],['fs','First Stand'],['msi','MSI'],['ewc','EWC'],['wc','Worlds'],['gr','Golden Road']].filter(([k])=>pz[k]).map(([k,l])=>`<div><small>${l} ${last.y}</small><b class="num${k==='gr'?' grt':''}">${fmtM(pz[k])}</b></div>`).join('')||'<p class="note" style="margin:0">Sem premiação na última temporada.</p>'}</div>`:'';
-  return `<section class="pn"><h2>Premiações</h2><div class="tw"><table class="tb"><thead><tr><th>Torneio</th><th>Bolsa</th><th>Campeão</th><th>Vice</th><th>Semi</th></tr></thead><tbody>${rows}</tbody></table></div>
-  <p class="note" style="margin:6px 0 0">A bolsa é dividida entre todos os participantes pela colocação (valores com a dificuldade atual; a divisão exata depende de quantos times jogam). Splits: ${f(3*.75)} ao campeão, ${f(1.5*.75)} ao vice.</p>
+  return `<section class="pn"><h2>Premiações</h2><div class="tw"><table class="tb"><thead><tr><th>Torneio</th><th>Campeão</th><th>Vice</th><th>Semi</th><th>Quartas</th><th>Grupos</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <p class="note" style="margin:6px 0 0">Valores por time, com a dificuldade atual: o campeão recebe o prêmio cheio e as outras colocações, uma parte dele. Splits: ${f(3*.75)} ao campeão, ${f(1.5*.75)} ao vice.</p>
   <div class="grbox"><b class="grt">Golden Road</b><small>Os três splits, o MSI e o Worlds no mesmo ano: ${fmtM(grPrize({}))}. First Stand e EWC somam +${Math.round(ECO.gr.bonus*100)}% cada (até ${fmtM(grPrize({fs:1,ewc:1}))}).</small></div>${lastH}</section>`;
 }
 function finHTML(t,m){
@@ -4703,15 +4706,15 @@ function mgrDay(){
   if(!m.ev&&Math.random()<.03)m.ev={id:pick(Object.keys(EVS))};
 }
 function coachPool(){
-  const act=pmap(),m=S.mgr;
-  return Object.keys(S.hof).filter(n=>!act[n]&&sc(S.hof[n])>=LEGPTS&&!(m&&m.coach&&m.coach.n===n)).sort((a,b)=>sc(S.hof[b])-sc(S.hof[a])).slice(0,5);
+  if(!S.co)return [];
+  return Object.values(S.co).filter(c=>c.leg&&c.t==null&&!c.ret&&!c.u&&c.n!==S.me).sort((a,b)=>(coLegRank(a.n)||99)-(coLegRank(b.n)||99)||sc(S.hof[b.n]||{})-sc(S.hof[a.n]||{})).slice(0,6);
 }
 /* técnicos sem clube (seu ex-jogador aposentado sempre aparece primeiro) */
 function coFreePool(){
   if(!S.co)return [];const me=S.me;
   return Object.values(S.co).filter(c=>c.t==null&&!c.ret&&!c.u&&c.n!==me).sort((a,b)=>(b.mine||0)-(a.mine||0)||coRep(b)-coRep(a)).slice(0,6);
 }
-const coachB=m=>m&&m.coach&&!m.coach.co?clamp(sc(S.hof[m.coach.n]||{})/270,.1,.6):0;
+const coachB=m=>{const t=m&&m.tid!=null?T(m.tid):null;return t?coDevB(t):0};
 function mgrCoach(n){
   const m=S.mgr;if(!m)return;
   if(n==='-'){const r=m.coach&&m.coach.co?m.coach.n:null;m.coach=null;coSync();msg=r?`${r} foi dispensado e está sem clube.`:'Técnico assistente dispensado.';return}
@@ -4721,14 +4724,22 @@ function mgrCoach(n){
     m.cash=r1(m.cash-cost);const rc=m.coach&&m.coach.co?m.coach.n:null;if(rc&&S.co[rc]){S.co[rc].t=null;S.co[rc].as=0;S.co[rc].free=S.year}
     t.co=c.n;c.t=t.id;c.as=1;c.since=S.year;c.free=null;m.coach={n:c.n,since:S.year,co:1};coSync();
     if(rc)mlog(`${S.year}: ${rc} deixa o clube para dar lugar a ${c.n}.`);mlog(`${S.year}: ${c.n} chega do mercado como técnico assistente.`);msg=`${c.n} assumiu como técnico assistente.`;return}
-  m.cash=r1(m.cash-cost);const rc=m.coach&&m.coach.co?m.coach.n:null;m.coach={n,since:S.year};coSync();if(rc)mlog(`${S.year}: ${rc} deixa o clube para dar lugar a ${n}.`);mlog(`${S.year}: ${n} agora é técnico assistente.`);msg=`${n} assumiu como técnico assistente.`;
+  /* lenda aposentada pelo nome: entra no mercado de técnicos (S.co) e segue o mesmo caminho */
+  {const c=coLegend(n);if(c&&c.t==null&&!c.ret)return mgrCoach('co:'+c.n);msg='Técnico indisponível.'}
 }
+/* atributos e traços em uma linha (listas da comissão e do mercado) */
+const coAtLine=c=>{const a=coAt(c),tr=coTr(c);return `${COAT.map(([q,l])=>`${l.split(' ')[0]} <b class="num">${a[q]}</b>`).join(' · ')}${tr.length?` · <span class="cotr">${tr.map(k=>COTR[k].n).join(' · ')}</span>`:''}`};
 function staffHTML(m){
+  coLegSeed();
   let h=`<section class="pn"><h2>Comissão técnica</h2>`;
-  if(m.coach)h+=`<div class="pr" style="grid-template-columns:minmax(0,1fr) auto"><span class="who">${m.coach.co?colk(m.coach.n):lk(m.coach.n)}<small>${m.coach.co?`técnico do clube, agora seu assistente${coLvl(m.coach.n)>0?` · leitura de jogo e calma +${(coBoost(mgrT())).toFixed(2).replace('.',',')}`:''} · não dá bônus de evolução`:`lenda · bônus de evolução +${coachB(m).toFixed(2).replace('.',',')} na virada`}</small></span><button class="mini sell" data-act="mgrCoach" data-v="-">Dispensar</button></div>`;
-  else{const fr=coFreePool();if(fr.length)h+=`<div class="sub">Técnicos livres no mercado</div>`+fr.map(c=>`<div class="pr" style="grid-template-columns:minmax(0,1fr) auto"><span class="who">${colk(c.n)}<small>${c.mine?'seu ex-jogador · ':c.ex?'ex-jogador · ':''}${coAge(c)?coAge(c)+' anos · ':''}${coTitles(c).length} título${coTitles(c).length===1?'':'s'} como técnico${coLvl(c.n)>0?' · dá leitura de jogo e calma':''}</small></span><button class="mini" data-act="mgrCoach" data-v="co:${esc(c.n)}">Contratar US$ 3 mi</button></div>`).join('')+`<div class="sub">Lendas aposentadas</div>`;
-    const pl=coachPool();h+=pl.length?pl.map(n=>`<div class="pr" style="grid-template-columns:minmax(0,1fr) auto"><span class="who">${lk(n)}<small>lenda aposentada · ${Math.round(sc(S.hof[n]))} pts</small></span><button class="mini" data-act="mgrCoach" data-v="${esc(n)}">Contratar US$ 3 mi</button></div>`).join(''):'<p class="note" style="margin:0">Nenhuma lenda aposentada disponível ainda.</p>'}
-  return h+`</section>`;
+  const row=(c,sub,btn)=>`<div class="pr" style="grid-template-columns:minmax(0,1fr) auto"><span class="who">${colk(c.n)}<small>${sub}</small><small class="coat">${coAtLine(c)}</small></span>${btn}</div>`;
+  if(m.coach&&m.coach.co&&S.co[m.coach.n]){const c=S.co[m.coach.n],t=mgrT();h+=row(c,`seu assistente${c.leg?' · lenda'+(coLegRank(c.n)?` (Top ${coLegRank(c.n)} da história)`:''):''} · partida +${coBoost(t).toFixed(2).replace('.',',')} de OVR (comissão) · evolução +${coDevB(t).toFixed(2).replace('.',',')} por jovem na virada`,`<button class="mini sell" data-act="mgrCoach" data-v="-">Dispensar</button>`)}
+  else{
+    const btn=c=>`<button class="mini" data-act="mgrCoach" data-v="co:${esc(c.n)}">Contratar US$ 3 mi</button>`;
+    const fr=coFreePool().filter(c=>!c.leg);if(fr.length)h+=`<div class="sub">Técnicos livres no mercado</div>`+fr.map(c=>row(c,`${c.mine?'seu ex-jogador · ':c.ex?'ex-jogador · ':''}${coAge(c)?coAge(c)+' anos · ':''}${coTitles(c).length} título${coTitles(c).length===1?'':'s'} como técnico`,btn(c))).join('');
+    const pl=coachPool();h+=`<div class="sub">Lendas aposentadas</div>`+(pl.length?pl.map(c=>row(c,`lenda${coLegRank(c.n)?` · Top ${coLegRank(c.n)} da história`:''} · ${Math.round(sc(S.hof[c.n]||{}))} pts · ${coTitles(c).length?coTitles(c).length+' títulos como técnico':'estreante como técnico'}`,btn(c))).join(''):'<p class="note" style="margin:0">Nenhuma lenda aposentada disponível ainda.</p>');
+  }
+  return h+`<p class="note" style="margin:8px 0 0">Tática e Leitura de jogo reforçam o time nas partidas; Motivação segura a fase ruim; Formação acelera a evolução na virada do ano. O assistente rende 60% do que renderia como principal.</p></section>`;
 }
 /* ---------- técnicos dos times ----------
    COACH: técnico principal de 2026 de cada time (Leaguepedia, 14/11/2026): [nome, país, nascimento (AAAA-MM-DD, AAAA ou ''), carreira real].
@@ -4806,13 +4817,13 @@ function coGen(t){
 }
 /* jogo novo ou save antigo: cada time recebe o técnico real de 2026 (ou um gerado) */
 function coEnsure(){
-  if(!S)return;if(S.co){coFill();return}S.co={};
+  if(!S)return;if(S.co){coFill();coLegSeed();return}S.co={};
   ALLT().forEach(t=>{
     const d=COACH[t.name];
     if(d&&!S.co[d[0]]){const by=d[2]?+String(d[2]).slice(0,4):null;coNew(d[0],d[1]||MAINN[t.lg]||'',by,t,false);S.co[d[0]].since=2026}
     else{const c=coGen(t);c.t=t.id;t.co=c.n}
   });
-  coTake();coSync();
+  coTake();coLegSeed();coSync();
 }
 /* saves antigos: completa país e nascimento que a pesquisa achou depois */
 function coFill(){for(const tn in COACH){const d=COACH[tn],c=S.co[d[0]];if(!c||c.gen)continue;if(!c.nat&&d[1])c.nat=d[1];if(!c.by&&d[2])c.by=+String(d[2]).slice(0,4)}}
@@ -4826,18 +4837,103 @@ function coPrest(n){
 }
 let COLC={k:''};
 const coLvl=n=>{const k=S.year+'|'+S.phase+'|'+((S.hist||[]).length);if(COLC.k!==k)COLC={k};return COLC[n]!=null?COLC[n]:(COLC[n]=clamp(coPrest(n)/15,0,1))};
-/* reforço do técnico na partida: leitura de jogo (fixo) e calma quando o time está mal (anula parte da fase ruim). Pequeno: no máximo ~0,6 de OVR */
+/* ---------- atributos do técnico ----------
+   Quatro atributos (30-95), cada um ligado a um sistema do jogo:
+   Tática e Leitura de jogo -> força do time na partida (coBoost); Motivação -> quanto da fase ruim o técnico anula (coBoost);
+   Formação -> evolução dos jogadores na virada do ano (coDevB). Vêm da carreira: anos e títulos como técnico,
+   e, para ex-jogadores, a função em que jogou e o peso da carreira. As 30 maiores lendas aposentadas ganham traços próprios
+   (no máximo 2, escolhidos pela carreira) e um bônus moderado nos atributos desses traços, maior para quem está mais alto no ranking. */
+const COAT=[['tat','Tática'],['lei','Leitura de jogo'],['mot','Motivação'],['for','Formação']];
+const COTR={
+  camp:{n:'Mentalidade de campeão',d:'Multicampeão do Worlds: segura o time quando a fase é ruim.',fx:{mot:8}},
+  form:{n:'Formador',d:'Foi o melhor do mundo ou MVP em série: acelera a evolução dos jovens.',fx:{for:8}},
+  cere:{n:'Cérebro do jogo',d:'Lia o mapa como poucos: plano de jogo e ajustes durante a série.',fx:{tat:5,lei:5}},
+  mura:{n:'Exemplo de longevidade',d:'Muitos títulos de liga: constância e cultura de vitória.',fx:{mot:4,for:4}}
+};
+const CORL=[{mot:4,for:2},{tat:5,lei:3},{tat:4,lei:2},{for:4,mot:2},{lei:5,tat:2}];/* tendência pela função em que jogou: topo, selva, meio, atirador, suporte */
+let COAC={k:''};
+const coKey=()=>S.year+'|'+S.phase+'|'+S.day+'|'+((S.hist||[]).length);
+/* posição da lenda aposentada no ranking de todos os tempos (0 = fora do Top 30 ou ainda jogando) */
+function coLegRank(n){
+  const k=coKey();if(COAC.k!==k)COAC={k,a:{}};
+  if(COAC.rk==null)COAC.rk=hofRank().slice(0,30);
+  const i=COAC.rk.indexOf(n);return i>=0&&!coActive(n)?i+1:0;
+}
+const coActive=n=>!!(S.pc&&!S.pc.ended&&S.pc.n===n)||ALLT().some(t=>t.pl.some(p=>p.n===n)||(t.bn||[]).some(p=>p.n===n))||FA().some(p=>p.n===n);
+/* traços da lenda: até 2, na ordem de prioridade, pelo que fez como jogador */
+function coTr(c){
+  const rk=coLegRank(c.n);if(!rk)return [];
+  const h=S.hof[c.n]||{},role=roleOf(c.n),L=[];
+  if((h.wc||0)>=2)L.push('camp');
+  if((h.bd||0)>=1||(h.mvp||0)>=4)L.push('form');
+  if(role===1||role===4)L.push('cere');
+  if((h.lg||0)>=6)L.push('mura');
+  if(!L.length)L.push(role===2?'cere':'form');
+  return L.slice(0,2);
+}
+function coAt(c){
+  if(!c)return null;
+  const k=coKey();if(COAC.k!==k)COAC={k,a:{}};
+  if(COAC.a[c.n])return COAC.a[c.n];
+  const h=hs(c.n),rnd=i=>((h>>>(i*6))%17)-8;
+  const real=(COC[c.n]&&COC[c.n][3]||[]).filter(x=>x[1]==='c').map(x=>x[0]);
+  const yrs=new Set(real.concat((c.hist||[]).filter(x=>!x.a).map(x=>x.y))).size;
+  const base=50+Math.min(14,yrs*1.6)+Math.min(10,coTitles(c).length*2.5)+(c.u?4:0);
+  const a={};COAT.forEach(([q],i)=>{a[q]=base+rnd(i)});
+  if(coWasPl(c)){
+    const hh=S.hof[c.n],role=roleOf(c.n),ped=hh?Math.min(10,sc(hh)/40):((COTIT[c.n]||[]).length?3:0);
+    Object.entries(CORL[role]||{}).forEach(([q,v])=>{a[q]+=v});a.lei+=ped*.6;a.mot+=ped*.4;
+  }
+  const rk=coLegRank(c.n),tr=coTr(c);
+  if(rk){const rb=Math.round(4+8*(30-rk)/29);COAT.forEach(([q])=>{a[q]+=rb*.4});tr.forEach(t=>Object.entries(COTR[t].fx).forEach(([q,v])=>{a[q]+=v+rb*.6/tr.length}))}
+  COAT.forEach(([q])=>{a[q]=clamp(Math.round(a[q]),30,95)});
+  return COAC.a[c.n]=a;
+}
+const coAtN=v=>clamp((v-50)/45,0,1);
+/* comissão do time: técnico principal (IA) ou, no seu clube, você e o assistente (que rende 60%) */
+function coStaff(t){
+  const m=S.mgr,L=[];
+  if(m&&m.tid===t.id){const me=meCo();if(me)L.push([me,1]);if(m.coach&&m.coach.co&&S.co&&S.co[m.coach.n])L.push([S.co[m.coach.n],.6])}
+  else{const c=coOf(t);if(c)L.push([c,1])}
+  return L;
+}
+/* reforço do técnico na partida: Tática/Leitura (fixo) e Motivação (anula parte da fase ruim). Pequeno: no máximo ~0,65 de OVR */
 function coBoost(t){
   if(!S||!t)return 0;
-  const m=S.mgr;let lv=0;
-  if(m&&m.tid===t.id){
-    if(m.coach)lv=(m.coach.co?coLvl(m.coach.n):clamp(sc(S.hof[m.coach.n]||{})/375,0,1))*.6;
-    if(m.exp)lv=Math.max(lv,clamp((m.exp.v||0)/120,0,1));
-    {const me=meCo();if(me)lv=Math.max(lv,coLvl(me.n))}
-  }else{const c=coOf(t);if(c)lv=coLvl(c.n)}
-  if(lv<=0)return 0;
+  const m=S.mgr,st=coStaff(t);let tl=0,ml=0;
+  st.forEach(([c,w])=>{const a=coAt(c);tl=Math.max(tl,coAtN((a.tat+a.lei)/2)*w);ml=Math.max(ml,coAtN(a.mot)*w)});
+  if(m&&m.tid===t.id&&m.exp){const e=clamp((m.exp.v||0)/120,0,1);tl=Math.max(tl,e);ml=Math.max(ml,e)}
+  if(tl<=0&&ml<=0)return 0;
   const bad=Math.min(0,(t.mom||0)+(t.hot||0));
-  return lv*.35+Math.min(.3,-bad*.4*lv);
+  return tl*.35+Math.min(.3,-bad*.4*ml);
+}
+/* evolução na virada pelo atributo Formação da comissão (até +0,6 de OVR por ano; jovens até 24 anos recebem tudo, os outros 30%) */
+function coDevB(t,p){
+  if(!S||!t)return 0;let v=0;
+  coStaff(t).forEach(([c,w])=>{v=Math.max(v,coAtN(coAt(c).for)*w)});
+  return r1(v*.6*(p&&p.age>24?.3:1));
+}
+/* lenda aposentada vira técnico disponível (mesma pessoa: mesmo nome, foto e histórico; só ganha a ficha de técnico) */
+function coLegend(n){
+  if(!S.co)return null;if(S.co[n])return S.co[n];
+  const d=S.pdb[n]||{},ls=(d.seasons||[]).slice(-1)[0],age=ls&&ls.age?ls.age+(S.year-ls.y):null;
+  const by=age?S.year-age:d.ret?d.ret-29:null;
+  const c=coNew(n,d.nat||natC(n)||'',by,null,false);c.ex=1;c.leg=1;c.free=S.year;c.from=ls?ls.tm:'';
+  return c;
+}
+/* lendas aposentadas (pontos de lenda) que ainda não estão no mercado de técnicos */
+function coLegPool(){
+  const act=new Set();ALLT().forEach(t=>{t.pl.forEach(p=>act.add(p.n));(t.bn||[]).forEach(p=>act.add(p.n))});FA().forEach(p=>act.add(p.n));
+  if(S.pc&&!S.pc.ended)act.add(S.pc.n);
+  const top=new Set(hofRank().slice(0,30));/* lenda = pontos de lenda ou Top 30 da história */
+  return Object.keys(S.hof||{}).filter(n=>(sc(S.hof[n])>=LEGPTS||top.has(n))&&!act.has(n)).sort((a,b)=>sc(S.hof[b])-sc(S.hof[a]));
+}
+/* toda lenda aposentada entra no universo dos técnicos (idempotente: roda ao carregar e na virada); o assistente-lenda antigo (fora do S.co) migra */
+function coLegSeed(){
+  if(!S.co||!S.hof)return;
+  coLegPool().forEach(n=>{if(!S.co[n])coLegend(n)});
+  const m=S.mgr,t=mgrT();
+  if(m&&t&&m.coach&&!m.coach.co){const c=coLegend(m.coach.n);if(c&&c.t==null&&!c.ret){t.co=c.n;c.t=t.id;c.as=1;c.since=m.coach.since||S.year;c.free=null;m.coach={n:c.n,since:c.since,co:1}}else m.coach=null}
 }
 /* estante da época de jogador: reais (COTIT) ou do próprio jogo (ex-jogador aposentado que virou técnico) */
 function coShelf(n){
@@ -4856,9 +4952,10 @@ function coFromPlayer(p,t){
     if(S.pc&&S.pc.n===p.n)S.pc.coOff=[];
     news(`${p.n}, recém-aposentado, está no mercado como técnico livre.`,S.year+1);return}
   const h=S.hof&&S.hof[p.n],v=h?sc(h):0;
-  if(Math.random()>clamp(.12+(p.r-75)*.015+v/250,.05,.75))return;
+  const lg=v>=LEGPTS||hofRank().slice(0,30).includes(p.n);
+  if(!lg&&Math.random()>clamp(.12+(p.r-75)*.015+v/250,.05,.75))return;/* lenda sempre fica disponível como técnico */
   const c=coNew(p.n,natC(p.n)||TNAT[t.name]||MAINN[t.lg]||'',S.year-p.age,null,false);
-  c.ex=1;c.free=S.year;c.from=t.name;
+  c.ex=1;c.free=S.year;c.from=t.name;if(lg)c.leg=1;
   if(v>=LEGPTS)news(`Clubes procuram ${p.n}, recém-aposentado, para ser técnico.`,S.year+1);
 }
 /* seu jogador se aposentou: clubes entram em contato oferecendo o cargo de técnico (quanto maior o legado, melhores os clubes) */
@@ -4954,7 +5051,7 @@ function coHire(t,off){
 }
 /* virada do ano: registra a temporada, avalia, demite, aposenta e preenche as vagas */
 function coYear(off){
-  if(!S.co)coEnsure();
+  if(!S.co)coEnsure();coLegSeed();
   const m=S.mgr,mid=m&&m.tid!=null?m.tid:null;
   const jf=c=>c.jp&&c.jp.y===S.year&&c.jp.ph>0?c.jp.ph:0;
   Object.values(S.co).forEach(c=>{if(c.t!=null){const t=T(c.t),f=jf(c);c.hist.push(Object.assign({y:S.year,tid:c.t,tn:t.name,a:c.as?1:0},f?{f}:{}))}});
@@ -4979,7 +5076,7 @@ function coYear(off){
   /* aposentadoria: idade ou muito tempo sem clube */
   Object.values(S.co).forEach(c=>{
     if(c.ret||c.u)return;const a=coAge(c)||40,idle=c.t==null&&c.free!=null?S.year-c.free:0;
-    if((a>=60)||(a>=55&&Math.random()<.35)||(c.t==null&&!c.mine&&idle>=2&&Math.random()<.5)){
+    if((a>=60)||(a>=55&&Math.random()<.35)||(c.t==null&&!c.mine&&idle>=(c.leg?5:2)&&Math.random()<(c.leg?.3:.5))){
       if(c.t!=null&&c.t===mid)return;
       if(c.t!=null){const t=T(c.t);t.co=null;off.push(`${c.n} (${t.name}) se aposenta como técnico aos ${a} anos.`)}
       c.t=null;c.as=0;c.ret=S.year+1;
@@ -4989,6 +5086,30 @@ function coYear(off){
   for(let k=0;k<5;k++){const v=ALLT().filter(t=>t.id!==mid&&!coOf(t));if(!v.length)break;v.sort((a,b)=>(a.d===2)-(b.d===2)||baseOvr(b)-baseOvr(a)).forEach(t=>coHire(t,off))}
 }
 /* ficha do técnico */
+/* uma pessoa, duas carreiras: abas na mesma ficha quando o jogador também é (ou foi) técnico */
+function cpTabs(n,cur){
+  const isC=!!(S.co&&S.co[n]),isP=!!((S.pdb&&S.pdb[n]&&((S.pdb[n].seasons||[]).length||(S.pdb[n].tl||[]).length))||(S.hof&&S.hof[n])||pmap()[n]);
+  if(!isC||!isP)return '';
+  return `<div class="pills cptab" role="tablist"><button class="pill" role="tab" aria-pressed="${cur==='p'}" data-act="pswap" data-v="p|${esc(n)}">Carreira de jogador</button><button class="pill" role="tab" aria-pressed="${cur==='c'}" data-act="pswap" data-v="c|${esc(n)}">Carreira de treinador</button></div>`;
+}
+/* aba de treinador: função atual, atributos e traços, estatísticas e clubes treinados */
+function coCareerHTML(c){
+  const n=c.n,a=coAt(c),tr=coTr(c),rk=coLegRank(n),m=S.mgr;
+  const cur=c.u?(m&&m.tid!=null?'Técnico principal':'Sem clube'):c.ret?'Aposentado':c.t!=null?(c.as?'Técnico assistente':'Técnico principal'):'Livre no mercado';
+  const bar=v=>`<div class="ovb" style="height:6px;margin-top:4px"><i style="width:${v}%;display:block;height:100%;border-radius:3px;background:${v>=75?'#FFE27A':v>=60?'#00F5A0':'#7A8BB8'}"></i></div>`;
+  let h=`<section class="pn"><h2>Atributos de treinador</h2><div class="coatg">${COAT.map(([q,l])=>`<div><small>${l}</small><b class="num">${a[q]}</b>${bar(a[q])}</div>`).join('')}</div>`;
+  h+=tr.length?`<div class="cotrs">${tr.map(k=>`<div class="cotrc"><b>${COTR[k].n}</b><small>${COTR[k].d}</small></div>`).join('')}</div>`:'';
+  h+=`<p class="note" style="margin:8px 0 0">Função atual: <b>${cur}</b>${rk?` · Top ${rk} da história como jogador`:''}. Tática e Leitura de jogo reforçam o time nas partidas; Motivação segura a fase ruim; Formação acelera a evolução dos jovens.</p></section>`;
+  /* estatísticas: temporadas como principal, jogos do time nesses anos e melhor campanha no Worlds */
+  const hs_=(c.hist||[]).filter(x=>!x.a),cl={};let gw=0,gl=0,best=null;const ord={C:0,F:1,SF:2,QF:3,G:4};
+  hs_.forEach(x=>{const t=T(x.tid),y=t&&(t.yh||[]).find(z=>z.y===x.y);(cl[x.tn]=cl[x.tn]||[]).push(x.y);if(y){gw+=y.gw||0;gl+=y.gl||0;if(y.wc&&ord[y.wc]!=null&&(best==null||ord[y.wc]<ord[best.wc]))best={wc:y.wc,y:x.y}}});
+  (c.hist||[]).filter(x=>x.a).forEach(x=>{(cl[x.tn+' (assistente)']=cl[x.tn+' (assistente)']||[]).push(x.y)});
+  const ti=coTitles(c);
+  h+=`<section class="pn"><h2>Estatísticas como técnico</h2><div class="kv"><div><small>Temporadas (principal)</small><b class="num">${hs_.length}</b></div><div><small>Jogos do time (V-D)</small><b class="num">${gw}-${gl}</b></div><div><small>Aproveitamento</small><b class="num">${gw+gl?Math.round(100*gw/(gw+gl))+'%':'–'}</b></div><div><small>Títulos</small><b class="num">${ti.length}</b></div><div><small>Melhor Worlds</small><b class="num">${best?CODE[best.wc]+' '+best.y:'–'}</b></div></div>`;
+  const cls=Object.entries(cl);
+  h+=cls.length?`<div class="sub" style="margin-top:10px">Clubes treinados</div>${cls.map(([tn,ys])=>{const t=ALLT().find(z=>z.name===tn.replace(' (assistente)',''));return `<div class="trp"><span class="y num">${Math.min(...ys)}${ys.length>1?'–'+Math.max(...ys):''}</span><span><b>${t?tlk(t):esc(tn)}</b>${/assistente/.test(tn)?' <small style="display:inline">assistente</small>':''}<small>${ys.length} temporada${ys.length>1?'s':''}${(()=>{const k=ti.filter(z=>z.tn===tn);return k.length?' · '+k.map(z=>(z.k==='Mundial'?'Worlds':z.k)+' '+z.y).join(', '):''})()}</small></span></div>`}).join('')}`:'<p class="note" style="margin:8px 0 0">Ainda sem temporadas fechadas como técnico no jogo.</p>';
+  return h+`</section>`;
+}
 function vCoach(n){
   const c=S.co&&S.co[n];if(!c)return `<p class="empty">Técnico não encontrado.</p>`;
   const m=S.mgr,t=c.u?(m&&m.tid!=null?T(m.tid):null):c.t!=null?T(c.t):null,age=coAge(c);
@@ -4999,7 +5120,7 @@ function vCoach(n){
   const yrsC=new Set(real.filter(x=>x[1]==='c').map(x=>x[0]).concat(c.hist.filter(h=>!h.a).map(h=>h.y),cur.map(h=>h.y))).size;
   const tms=new Set(real.filter(x=>x[1]==='c').map(x=>x[2]).concat(c.hist.filter(h=>!h.a).map(h=>h.tn),cur.map(h=>h.tn))).size;
   const ph=coImg(c);
-  let o=`<div class="row"><button class="ghost" data-act="back">← Voltar</button></div>`;
+  let o=`<div class="row"><button class="ghost" data-act="back">← Voltar</button></div>`+cpTabs(n,'c');
   /* cabeçalho no mesmo formato da ficha de jogador: foto + nome à esquerda, contadores à direita */
   const shc=coShelf(n),nk=k=>shc.filter(x=>x.k===k).reduce((a,x)=>a+(x.n||1),0);
   o+=`<div class="shr"><section class="pn shh shp coh"><div class="ph phf"><span class="coav">${ph}</span><div><h3>${esc(n)}</h3><small>${st}<br>${c.nat?esc(NATN[c.nat]||c.nat)+' · ':''}${age?age+' anos · ':''}${c.u?`seu técnico${c.ex?' · ex-jogador':''} · estilo ${(COSTY[c.sty]||COSTY.eq)[0]}`:c.ex?`ex-jogador${S.pdb&&S.pdb[n]?' · '+lk(n):''}`:c.gen&&!real.length?'técnico revelado no jogo':'técnico'}</small>${c.u?`<label class="ghost cobtn">Trocar foto<input type="file" id="co-photo-me" accept="image/*" hidden></label>`:''}</div></div>
@@ -5012,6 +5133,7 @@ function vCoach(n){
   if(t&&!c.hist.some(h=>h.y===S.year))(rows[S.year]=rows[S.year]||[]).push(`${tlk(t)} <small style="display:inline">${c.as?'assistente':'técnico'} · temporada atual</small>`);
   const ys=Object.keys(rows).map(Number).sort((a,b)=>b-a);
   o+=`<div class="shv">`;
+  o+=coCareerHTML(c);
   if(c.gr&&c.gr.length)o+=`<section class="pn grsec"><h2 class="grt">Golden Road</h2>${c.gr.map(g=>`<div class="trp"><span class="y num">${g.y}</span><span><b class="grt">${T(g.tid)&&T(g.tid).name===g.tn?tlk(T(g.tid)):esc(g.tn)}</b><small>Na comissão técnica da campanha: três splits, MSI e Worlds</small></span></div>`).join('')}</section>`;
   /* estante de títulos como técnico: mesmo formato da estante de troféus do jogador */
   {const g=f=>ttl.filter(f).map(x=>({y:x.y,lg:x.k,l:`${x.k} ${x.y} · ${x.tn}`,sub:x.tn}));
@@ -9316,7 +9438,7 @@ function nextSeason(){
       const o=S.season.perf[p.n];
       const ex=o?clamp(o.s/o.w-p.r,-6,8):0;
       const old=p.r;
-      p.r=clamp(Math.round(p.r+ageDelta(p)+.25*ex+.3*tm+(S.mgr&&S.mgr.tid===t.id?(S.mgr.ct||0)*.5+(S.mgr.focus==='ti'?.5:0)+coachB(S.mgr):0)-Math.max(0,p.r-88)*.2),55,99);
+      p.r=clamp(Math.round(p.r+ageDelta(p)+.25*ex+.3*tm+coDevB(t,p)+(S.mgr&&S.mgr.tid===t.id?(S.mgr.ct||0)*.5+(S.mgr.focus==='ti'?.5:0):0)-Math.max(0,p.r-88)*.2),55,99);
       p.d=p.r-old;p.f*=.4;
       if(p.age<=24)p.pot=Math.max(p.r,Math.round(p.pot+g()*.8));else p.pot=p.r;
       delta.push({p,t});
@@ -11295,7 +11417,7 @@ function vPlayer(n){
   const avg=f=>ss.length?r1(ss.reduce((a,s)=>a+s[f],0)/ss.length):'–';
   const bestPos=ss.length?Math.min(...ss.map(s=>s.pos)):null;
   const peak=ss.length?Math.max(...ss.map(s=>s.r),P?P.p.r:0):(P?P.p.r:'–');
-  let o=`<div class="row"><button class="ghost" data-act="back">← Voltar</button><button class="ghost" data-act="foPl" data-v="${esc(n)}">Baixar folder (PDF)</button></div>`;
+  let o=`<div class="row"><button class="ghost" data-act="back">← Voltar</button><button class="ghost" data-act="foPl" data-v="${esc(n)}">Baixar folder (PDF)</button></div>`+cpTabs(n,'p');
   o+=`<div class="shr"><section class="pn shh shp"><div class="ph phf">${ovr?fut({n,r:ovr,role:role==null?2:role,age:P?P.p.age:null,f:P?P.p.f:0,team:P?P.t:null},'big'):'<span class="hx lg">–</span>'}<div><h3>${esc(n)}${h.bd?`<span class="balls" title="${h.bd} × Melhor Jogador do Ano">${'<i></i>'.repeat(Math.min(h.bd,8))}</span>`:''}</h3><small>${status}${natC(n)?' · '+esc(NATN[natC(n)]||natC(n)):''}</small>${cmdHTML(n)}</div></div>
   <div class="cnt"><div><b class="num">${h.bd}</b><small>Melhor do Ano</small></div><div><b class="num">${h.wc}</b><small>Worlds</small></div><div><b class="num">${h.msi}</b><small>MSI</small></div><div><b class="num">${h.lg}</b><small>Ligas</small></div><div><b class="num">${(d.tl||[]).filter(x=>x.t==='Copa do Mundo de LoL').length}</b><small>Copas</small></div><div><b class="num">${h.mvp||0}</b><small>MVPs</small></div><div><b class="num">${r1(h.pts)}</b><small>Pontos</small></div></div></section>`;
   o+='<div class="shv">';
@@ -11530,7 +11652,7 @@ function act0(a,v){
   else if(a==='hv'){hofView=v}
   else if(a==='pf'){pf=v}
   else if(a==='player'){openProf('p',v);top=true}
-  else if(a==='coach'){openProf('c',v);top=true}
+  else if(a==='coach'){openProf('c',v);top=true}else if(a==='pswap'){const i=String(v).indexOf('|'),k=String(v).slice(0,i),id=String(v).slice(i+1);if(tab==='prof'&&prof)prof={k,id};else openProf(k,id);top=true}
   else if(a==='team'){openProf('t',+v);top=true}
   else if(a==='lteam'){openProf('h',v);top=true}
   else if(a==='tvw'){tvw=v}
