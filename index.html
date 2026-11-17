@@ -603,7 +603,7 @@ h1{letter-spacing:.02em}
 .wac{display:flex;gap:10px;align-items:center;width:100%;text-align:left;padding:10px 12px;background:none;border:0;border-bottom:1px solid #eee;cursor:pointer;color:inherit}.wac>span:nth-child(2){flex:1;min-width:0}.wac b{display:block;font-size:14.5px}.wac small{display:block;font-size:12.5px;color:#667;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .wam{display:flex;flex-direction:column;align-items:flex-end;gap:4px}.wam i{min-width:20px;height:20px;border-radius:10px;background:#25D366;color:#fff;font:700 11px/20px var(--b);font-style:normal;text-align:center}
 .phn.soc.a-wa .ngchat{background:#ECE5DD}.phn.soc.a-wa .ngm.them{background:#fff;color:#111}.wat{display:block;text-align:right;font-size:10px;color:#889;margin-top:2px}
-.gmb{background:#fff;color:#111;padding:8px}.gmb .pn{background:#fff;color:#111;border:0;box-shadow:none}
+.gmb{background:#fff;color:#111;padding:8px}.gmb .pn{background:#fff;color:#202124;border:0;box-shadow:none;margin:0}.gmb .pn h2{color:#202124}.gmb .pn.mail .sqk{color:#C5221F}.gmb .pn small,.gmb .pn.mail .sqr small,.gmb .mrc .rc small{color:#5f6368}
 @media (prefers-reduced-motion:reduce){.phn.soc *{animation:none!important}}
 /* ---------- negociação: computador (clubes) e celular (jogador) ---------- */
 .ngov{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:16px;background:rgba(3,6,18,.72);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);animation:ngIn .18s ease-out}
@@ -1788,15 +1788,11 @@ body::after{opacity:.32;filter:grayscale(.35) brightness(.8)}
 .pn.mail .sqr small{display:block;color:#7f8fb8}
 .pn.mail .sqask{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px}
 
-/* caixa de e-mail como balão logo abaixo do ícone: sobrepõe o conteúdo, sem empurrar nada */
 .hub .hh{position:relative}
-.mailw{position:relative}
-.pn.mail{position:absolute;top:calc(100% + 6px);right:0;width:min(360px,calc(100vw - 32px));max-height:min(70vh,520px);overflow:auto;margin:0;z-index:60;box-shadow:0 14px 40px rgba(0,0,0,.6);border:1px solid var(--gold);background:#0f1626}
 .pn.mail .sqask{display:none}
 .mrc{display:grid;gap:6px}.mrc .rc{display:flex;gap:8px;align-items:flex-start}.mrc .rc small{display:block;color:#7f8fb8;font-size:11.5px}.mrc .rc b{font:600 13px var(--b)}
 .hdt{display:block;margin-top:2px}
 .sqreq{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:10px 0}.sqreq small{display:block;color:#7f8fb8;margin-top:2px}
-@media (max-width:760px){.pn.mail{position:fixed;top:64px;right:16px;left:16px;width:auto}}
 
 /* carta com conquistas: Melhor do Mundo (dourada) e Lenda (violeta/rosa); medalhas citam o ano */
 .cmd{display:grid;gap:6px;margin:10px 0 0}.cmd div{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:10px;font-size:13px;line-height:1.3}
@@ -3127,6 +3123,8 @@ function socMatch(m,w,wa,wb){
 }
 /* ---------- interface do celular ---------- */
 let PHO=null;
+/* o e-mail fica só no celular (app Gmail): o contador do botão soma mensagens, menções e e-mails */
+const phN=()=>socNew()+((S.opt&&S.opt.socn===0)||!(mgrT()||pcAct())?0:mailN());
 const socNew=()=>{const s=S.soc;if(!s||(S.opt&&S.opt.socn===0))return 0;return s.dm.filter(d=>!d.rd).length+s.ps.filter(p=>p.me&&p.i>s.sx).length};
 const socAgo=(y,d)=>{const n=(S.year-y)*365+((S.day||0)-d);return n<=0?'agora':n<30?n+'d':n<365?Math.floor(n/30)+'m':Math.floor(n/365)+'a'};
 function socAv(a){
@@ -3160,7 +3158,7 @@ function socApp(app){
       return `<div class="phhd ap-wa"><button class="phbk" data-act="phApp" data-v="wa" aria-label="Voltar">‹</button><span class="sav swa">${esc(PHO.ch.slice(0,1))}</span><span><b>${esc(PHO.ch)}</b><small>online</small></span></div><div class="ngchat">${L.map(d=>`<div class="ngm them">${esc(d.t)}<small class="wat">${socAgo(d.y,d.d)}</small></div>`).join('')}</div>`}
     return `<div class="phhd ap-wa"><button class="phbk" data-act="phApp" data-v="home" aria-label="Voltar">‹</button><span><b>WhatsApp</b><small>${Object.keys(g).length} conversas</small></span></div><div class="phb wab">${Object.keys(g).length?Object.entries(g).map(([f,L])=>{const u=L.filter(d=>!d.rd).length;return `<button class="wac" data-act="phChat" data-v="${esc(f)}"><span class="sav swa">${esc(f.slice(0,1))}</span><span><b>${esc(f)}</b><small>${esc(L[0].t.slice(0,48))}${L[0].t.length>48?'…':''}</small></span><span class="wam"><small>${socAgo(L[0].y,L[0].d)}</small>${u?`<i>${u}</i>`:''}</span></button>`}).join(''):'<p class="note" style="padding:14px">Nenhuma conversa ainda.</p>'}</div>`}
   if(app==='gm'){
-    const mh=(mgrT()||pcAct())?mailHTML().replace(/<button class="ghost" data-act="mail">Fechar<\/button>/,''):'<p class="note">Sem e-mails.</p>';
+    const mh=(mgrT()||pcAct())?mailHTML():'<p class="note">Sem e-mails.</p>';
     return `<div class="phhd ap-gm"><button class="phbk" data-act="phApp" data-v="home" aria-label="Voltar">‹</button><span class="gml">M</span><span><b>Gmail</b><small>Caixa de entrada</small></span></div><div class="phb gmb">${mh}</div>`}
   return '';
 }
@@ -11027,7 +11025,6 @@ function sqHTML(mail){
   return h+'</section>';
 }
 /* caixa de e-mail: pedidos de scrim, convites de torneio e propostas de jogadores */
-let MAILO=false;
 function mailInv(){
   const t=mgrT();if(!t||cevChamp())return [];const d=S.day;
   return cevL().filter(e=>e.st===0&&!e.sk&&d>=CEVT[e.id].d0&&d<=CEVT[e.id].d1&&cevElig(e,t));
@@ -11044,7 +11041,7 @@ function mailN(){
 }
 function mailHTML(){
   if(!mgrT()&&!pcAct())return '';
-  let h=`<section class="pn mail"><div class="rowc"><h2 style="margin:0">Caixa de entrada</h2><button class="ghost" data-act="mail">Fechar</button></div>`;
+  let h=`<section class="pn mail"><div class="rowc"><h2 style="margin:0">Caixa de entrada</h2></div>`;
   if(mgrT()){
     const inv=mailInv(),fa=mailFA();
     h+=`<small class="k sqk">Torneios</small>`;
@@ -11083,7 +11080,7 @@ function hubHTML(cur,sideH,underH){
   const m=heroMatch();
   const rec=PHASES[S.phase]&&PHASES[S.phase].k==='sw'&&S.season.wc&&S.season.wc.rec;
   const side=t=>`<div class="tm"><span class="crw">${crest(t,'lg')}${stdPos(t)}</span>${liveSeed(t)}<b${grOf(t)?' class="grn"':''}>${esc(t.name)}</b>${t.fm?`<span class="fm">${[...t.fm].map(c=>`<i class="${c==='V'?'w':'l'}"></i>`).join('')}</span>`:''}<small>${stdRec(t)?stdRec(t)+' · ':''}OVR ${Math.round(baseOvr(t))}</small></div>`;
-  let h=`<div class="hub"><div class="hh"><div><small class="k">${dWk(td)} · temporada ${S.year}</small><b class="num">${x.d} ${MESF[x.m]}</b><small class="k hdt">${dFull(td)} · dia ${td} de 365</small></div><div class="hact">${cur?`<button class="ghost" data-act="all">${cur.g===5?'Simular o resto da Copa':'Pular para o Melhor Jogador do Ano'}</button>`:''}${(mgrT()||pcAct())?`<div class="mailw"><button class="ghost mailb" data-act="mail" aria-expanded="${MAILO}">✉ E-mail${mailN()?` <span class="mbd">${mailN()}</span>`:''}</button>${MAILO?mailHTML():''}</div><button class="ghost mailb" data-act="phone">📱 Celular${socNew()?` <span class="mbd">${socNew()}</span>`:''}</button>`:''}</div></div>`;
+  let h=`<div class="hub"><div class="hh"><div><small class="k">${dWk(td)} · temporada ${S.year}</small><b class="num">${x.d} ${MESF[x.m]}</b><small class="k hdt">${dFull(td)} · dia ${td} de 365</small></div><div class="hact">${cur?`<button class="ghost" data-act="all">${cur.g===5?'Simular o resto da Copa':'Pular para o Melhor Jogador do Ano'}</button>`:''}${(mgrT()||pcAct())?`<button class="ghost mailb" data-act="phone">📱 Celular${phN()?` <span class="mbd">${phN()}</span>`:''}</button>`:''}</div></div>`;
   const evx=evNow();
   if(evx)h+='<div class="hcol">'+evHeroHTML(evx,side);else{
   h+=`<div class="hcol"><section class="hero2"><small class="k">${left<=0?'Hoje':'Próximo'} · ${esc(nm)}</small>`;
@@ -12068,8 +12065,7 @@ function act0(a,v){
   else if(a==='spRR'){while(S.season.sp&&S.season.sp.stage==='rr')spStep();save();top=true}
   else if(a==='spAll'){const ph=S.phase;let g2=0;CUPSIM=1;try{while(S.phase===ph&&g2++<400)step()}finally{CUPSIM=0}save();top=true}
   else if(a==='mgrView'){mgrView=v}
-  else if(a==='mail'){MAILO=!MAILO;}
-  else if(a==='phone'){PHO=PHO?null:{app:'home'};MAILO=false}
+  else if(a==='phone'){PHO=PHO?null:{app:'home'}}
   else if(a==='phApp'){PHO={app:v||'home'}}
   else if(a==='phChat'){PHO={app:'wa',ch:v}}
   else if(a==='socn'){S.opt=S.opt||{};S.opt.socn=+v;save()}

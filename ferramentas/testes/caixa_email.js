@@ -18,12 +18,13 @@ T(r[2]===0&&r[3]===1&&r[4],'resposta chega depois e vira notificação no e-mail
 // aceita -> marcar
 if(r[6]){const ok=JSON.parse(run(ctx,`(function(){var q=sqS();q.ok=null;q.pd=-1;var f=sqFree();sqAcc(${r[5]});return JSON.stringify([f,!!q.ok,q.rp.length])})()`));T(!ok[0]||(ok[1]&&ok[2]===0),'resposta positiva marca a scrim');}
 // html
-const h=run(ctx,`MAILO=true;hubHTML(PHASES[0],'','')`);
-T(/class="mailw"/.test(h)&&/class="pn mail"/.test(h),'caixa de e-mail aberta como balão dentro do wrapper do ícone');
+const h=run(ctx,`hubHTML(PHASES[0],'','')`);
+T(!/data-act="mail"/.test(h)&&/data-act="phone"/.test(h),'sem botão de e-mail no painel: o e-mail fica no celular');
+T(/class="pn mail"/.test(run(ctx,`PHO={app:'gm'};phoneHTML()`))&&!/Fechar<\/button>/.test(run(ctx,`mailHTML()`)),'caixa de e-mail dentro do app Gmail');
 T(/\d\d\/\d\d\/\d{4}/.test(h)&&/de 365/.test(h),'data dd/mm/aaaa e dia X de 365 no cabeçalho');
 T(!/Virada de ano<\/h2>/.test(run(ctx,`S.off=['x'];vSeason()`)),'painel "Virada de ano" removido');
 // resumo no e-mail
-run(ctx,`S.year++;S.recap={y:S.year-1,L:[['🏆','Mundial','Teste']]};S.phase=0;S.season.sp=null;MAILO=true;S.rcSeen=0`);
+run(ctx,`S.year++;S.recap={y:S.year-1,L:[['🏆','Mundial','Teste']]};S.phase=0;S.season.sp=null;S.rcSeen=0`);
 T(!/Resumo de /.test(run(ctx,`mailHTML()`))&&/class="pn recap"/.test(run(ctx,`vSeason()`)),'resumo do ano fica na tela, abaixo dos blocos, e não no e-mail');
 // auto
 T(run(ctx,`typeof autoToggle`)==='function','autoToggle existe');
