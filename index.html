@@ -2447,6 +2447,10 @@ details.pn>summary{color:var(--t1)}
 .crest.fbg{width:var(--s)!important;height:var(--s)!important;border:0!important;padding:0!important;border-radius:50%!important;overflow:hidden;background:#1a2236 var(--fu) var(--fp,50%) 50%/cover no-repeat!important;font-size:0!important;color:transparent!important;box-shadow:0 2px 6px rgba(0,0,0,.45)!important}
 .crest.fbg::after{display:none!important}
 .nlk,.nlk:hover{text-decoration:none!important;border:0!important}
+/* empréstimos: selo no cartão do reserva, subtítulos da seção e aviso na ficha do jogador */
+.lnb{display:block;margin-top:2px;font-size:10.5px;font-weight:700;letter-spacing:.02em;color:#FFE27A}
+.lnh{margin:8px 0 4px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#9aa6c2}
+.lnt{color:#FFE27A;font-weight:700}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -3805,7 +3809,7 @@ function aiContracts(off){
     if(t.id===mid||(t.id>=100&&mid===t.id))return;
     const avg=t.pl.reduce((a,p)=>a+p.r,0)/t.pl.length;
     t.pl.forEach((p,i)=>{
-      if(p.pc)return;
+      if(p.pc||p.ln)return;
       if(p.ctr==null)p.ctr=ctr0(p);
       p.ctr--;if(p.ctr>0)return;
       let keep=p.age>=30?.5:.84;if(p.r<avg-4)keep-=.3;if(p.r>=avg+2)keep+=.1;
@@ -3815,7 +3819,7 @@ function aiContracts(off){
       faRelease(p,t);rel++;if(p.r>=82)star.push(`${p.n} (${t.name})`);
     });
     t.bn=(t.bn||[]).filter(p=>{
-      if(p.pc)return true;
+      if(p.pc||p.ln)return true;
       if(p.ctr==null)p.ctr=ctr0(p);
       p.ctr--;if(p.ctr>0)return true;
       if(Math.random()<.45){p.ctr=1+Math.floor(Math.random()*2);return true}
@@ -3843,7 +3847,7 @@ function faSeed(){
   const mid=S.mgr&&S.mgr.tid!=null?S.mgr.tid:-1;
   ALLT().forEach(t=>{
     if(t.id===mid)return;
-    t.bn=(t.bn||[]).filter(p=>{if(p.pc||Math.random()>=.4)return true;faRelease(p,t);p.fy=S.year;return false});
+    t.bn=(t.bn||[]).filter(p=>{if(p.pc||p.ln||Math.random()>=.4)return true;faRelease(p,t);p.fy=S.year;return false});
   });
 }
 function faLoc(n){
@@ -4007,7 +4011,7 @@ function prospect(){
 }
 function mEnsure(){
   const m=S.mgr;if(!m)return;
-  m.acLv=m.acLv||1;m.ct=m.ct||0;m.bench=m.bench||[];m.loan=m.loan||[];m.offers=m.offers||[];
+  m.acLv=m.acLv||1;m.ct=m.ct||0;m.bench=m.bench||[];m.loan=m.loan||[];m.offers=m.offers||[];lnMigrate(m);
   if(!m.acad){m.acad=[];for(let i=0;i<3;i++)m.acad.push(prospect())}
   /* saves antigos: a lista de livres tinha nomes inventados; troca pelos jogadores reais das academias e reservas */
   if(m.fa)delete m.fa;faSeed();
@@ -4037,19 +4041,23 @@ function mExtra(n){
   const m=S.mgr,t=mgrT();if(!m||!t)return null;
   const p=(m.bench||[]).concat(m.acad||[]).find(x=>x.n===n);
   if(p)return{p,t:{name:t.name+' (reservas/base)'}};
-  const l=(m.loan||[]).find(x=>x.p.n===n);
-  return l?{p:l.p,t:{name:l.to+' (emprestado)'}}:null;
+  return null;
 }
 function mBaseYear(){
   const m=S.mgr,t=mgrT();mEnsure();
   t.pl.concat(m.bench).forEach(p=>{p.ctr=(p.ctr==null?2:p.ctr)-1;if(p.ctr<=0){p.exp=true;mlog(`${S.year}: o contrato de ${p.n} vence. Renove antes do Split 1 ou ele sai.`)}});
   m.acad.forEach(p=>growProspect(p,(m.focus==='jv'?1:0)+coachB(m)));
   m.bench.forEach(p=>growBench(p,(m.focus==='jv'?1:0)+coachB(m)));
-  m.loan.forEach(l=>{
-    if(l.from==='acad'){growProspect(l.p,1.2);m.acad.push(l.p)}else{growBench(l.p,1);m.bench.push(l.p)}
-    mlog(`${S.year}: ${l.p.n} voltou do empréstimo (${l.to}) com OVR ${l.p.r}.`);
+  m.loan=m.loan.filter(l=>{
+    if((l.y||0)>S.year)return true;
+    const w=lnWhere(l.n),wasSt=!!(w&&w.st),p=lnBack(l.n);
+    if(!p){mlog(`${S.year}: ${l.n} não voltou do empréstimo (${l.to}): deixou o cenário.`);return false}
+    /* a idade e a evolução do ano já vieram no elenco que o recebeu; aqui entra só o ganho de experiência (quem foi titular aprende mais) */
+    const o=p.r,xp=(wasSt||l.st?1.5:.5)+(l.from==='acad'?1:0);p.r=clamp(Math.round(p.r+xp*(p.pot>p.r?1:.4)),50,99);p.d=(p.d||0)+p.r-o;
+    if(l.from==='acad'&&p.age<21)m.acad.push(p);else m.bench.push(p);
+    mlog(`${S.year}: ${p.n} voltou do empréstimo (${l.to}${wasSt?', onde terminou como titular':''}) com OVR ${p.r}.`);
+    return false;
   });
-  m.loan=[];
   m.acad=m.acad.filter(p=>{if(p.age>=21){m.bench.push(p);mlog(`${S.year}: ${p.n} saiu da base e foi para as reservas.`);return false}return true});
   m.bench=m.bench.filter(p=>{if(p.age>=33&&Math.random()<(p.age-31)*.18){pd(p.n).ret=S.year;mlog(`${S.year}: ${p.n} se aposentou nas reservas.`);return false}return true});
   const room=acCap(m)-m.acad.length;
@@ -4090,15 +4098,56 @@ function mgrSell(name,price,buyerId){
   msg=`${p.n} foi vendido ao ${buyer.name} por ${fmtM(price)}.`;
   return true;
 }
+/* ---------- empréstimo (treinador e jogador) ----------
+   O jogador emprestado fica no elenco de quem o recebeu (titular ou reserva em t.bn) com p.ln = {o: id do clube dono, on: nome do dono, y: ano da volta}.
+   O dono guarda só o vínculo (S.mgr.loan / S.pc.ln). Assim a ficha do clube que recebe mostra o jogador, e a ficha do dono lista quem está emprestado. */
+const lnOwnNm=p=>p&&p.ln?((T(p.ln.o)||{}).name||p.ln.on):'';
+function lnWhere(n){for(const t of ALLT()){let p=t.pl.find(x=>x.n===n);if(p)return{p,t,st:true};p=(t.bn||[]).find(x=>x.n===n);if(p)return{p,t,st:false}}return null}
+/* clube que recebe: quem precisa na função (titular mais fraco) vem primeiro; senão, um clube com banco curto. Um emprestado por clube. */
+function lnPickClub(p,own,excl){
+  const ok=t=>t!==own&&!(excl||[]).includes(t.id)&&!t.pl[p.role].pc&&!t.pl.some(x=>x.ln)&&!(t.bn||[]).some(x=>x.ln);
+  const need=ALLT().filter(t=>ok(t)&&t.pl[p.role].r<p.r).sort((a,b)=>(a.d===2?1:0)-(b.d===2?1:0)||b.pl[p.role].r-a.pl[p.role].r);
+  if(need.length)return need[Math.floor(Math.random()*Math.min(3,need.length))];
+  const any=ALLT().filter(t=>ok(t)&&(t.bn||[]).length<3);return any.length?pick(any):null;
+}
+/* coloca no clube que recebe: titular se for melhor que o atual (o atual vai para o banco), senão reserva */
+function lnPlace(p,to,own,from){
+  p.ln={o:own.id,on:own.name,y:S.year+1,f:from||'bench'};to.bn=to.bn||[];
+  let st=false;
+  if(p.r>to.pl[p.role].r&&!to.pl[p.role].pc){to.bn.push(to.pl[p.role]);to.pl[p.role]=p;st=true}else to.bn.push(p);
+  pd(p.n).role=p.role;return st;
+}
+/* tira o jogador do clube que o recebeu (a vaga de titular volta para o melhor reserva) e devolve o objeto sem o vínculo */
+function lnBack(n){
+  const w=lnWhere(n);if(!w||!w.p.ln)return null;
+  const p=w.p,t=w.t;
+  if(w.st){t.pl[p.role]=fillSlot(t,p.role).p;pd(t.pl[p.role].n).role=p.role}else t.bn.splice(t.bn.indexOf(p),1);
+  delete p.ln;return p;
+}
+/* saves antigos: o emprestado ficava só na lista do dono (m.loan[i].p) e não aparecia em lugar nenhum; passa para o clube que o recebeu */
+function lnMigrate(m){
+  if(!m.loan.some(l=>l.p))return;
+  const own=mgrT();
+  m.loan=m.loan.map(l=>{
+    if(!l.p)return l;
+    const p=l.p,to0=ALLT().find(t=>t.name===l.to),to=to0&&to0!==own?to0:lnPickClub(p,own);
+    if(!to||!own){(l.from==='acad'?m.acad:m.bench).push(p);return null}
+    const st=lnPlace(p,to,own,l.from);
+    return{n:p.n,to:to.name,tid:to.id,from:l.from,y:S.year+1,st};
+  }).filter(Boolean);
+}
 function mgrLoan(name){
   const m=S.mgr,t=mgrT();mEnsure();
   if(!mOpen()){msg='Janela fechada';return}
   const f=mFind(name);if(!f||f.k==='pl')return;
-  const to=pick(S.teams.filter(x=>x!==t)),fee=r1(Math.max(.1,mvOf(f.p)*.08));
-  dropFrom(f.p);m.loan.push({p:f.p,to:to.name,from:f.k});
+  const p=f.p,to=lnPickClub(p,t),fee=r1(Math.max(.1,mvOf(p)*.08));if(!to){msg='Nenhum clube interessado no empréstimo agora.';return}
+  dropFrom(p);
+  const st=lnPlace(p,to,t,f.k);
+  m.loan.push({n:p.n,to:to.name,tid:to.id,from:f.k,y:S.year+1,st});
   m.cash=r1(m.cash+fee);m.offers=m.offers.filter(o=>o.n!==name);if(m.listed)delete m.listed[name];
-  mlog(`${S.year}: emprestou ${f.p.n} ao ${to.name} por 1 temporada e recebeu ${fmtM(fee)}.`);
-  msg=`${f.p.n} foi emprestado ao ${to.name}. Volta na virada de ano, mais experiente.`;
+  mlog(`${S.year}: emprestou ${p.n} ao ${to.name} por 1 temporada${st?' (vai ser titular)':''} e recebeu ${fmtM(fee)}.`);
+  news(`${p.n} é emprestado pelo ${t.name} ao ${to.name} até o fim da temporada.`);
+  msg=`${p.n} foi emprestado ao ${to.name}${st?' como titular':''}. Volta na virada de ano, mais experiente.`;
 }
 function mgrPromote(name){
   const m=S.mgr,t=mgrT();mEnsure();
@@ -4362,7 +4411,7 @@ function elencoHTML(t,m,pay,lastH){
   if(offs.length)h+=`<section class="pn"><h2>Ofertas recebidas</h2>${offs.map(({o,i,f})=>`<div class="mrow" style="grid-template-columns:44px minmax(0,1fr)">${pav(f.p)}<span class="who">${lk(f.p.n)}<small>${crest(S.teams[o.to],'sm')} ${esc(S.teams[o.to].name)} oferece ${fmtM(o.price)}${f.k==='pl'?` · ${bestRep(f.p.role)?'reserva assume a vaga':'sem reserva'}`:f.k==='acad'?' · da base':' · das reservas'}</small><div class="acts">${mb('ngOff',i,'Negociar',true,'')}${mb('mgrOffer',i+'|n','Recusar',true,'sell')}</div></span></div>`).join('')}<p class="note">Você não é obrigado a vender.</p></section>`;
   h+=`<section class="pn"><h2>Titulares</h2>${t.pl.map(p=>{const rp=bestRep(p.role),f={k:'pl',p};return `<div class="mrow" style="grid-template-columns:44px minmax(0,1fr)">${pav(p)}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos · vale ${fmtM(mvOf(p))} · ${ctrTxt(p)}</small><div class="acts">${p.exp||p.ctr<=1?renUI(p,open):''}${mb('mgrSell',p.n,!open?'Janela fechada':!rp?'Sem reserva':'Vender '+fmtM(sellPrice(f)).replace('US$ ',''),open&&!!rp,'sell')}${mb('mgrList',p.n,m.listed&&m.listed[p.n]?'Na lista':'Listar',open,'sell')}</div></span></div>`}).join('')}<p class="note">Para vender um titular você precisa de uma reserva ou promessa da base na mesma posição. Quem tem contrato vencendo sai se você não renovar antes do Split 1.</p></section>`;
   if(m.bench.length)h+=`<section class="pn"><h2>Reservas</h2>${m.bench.map(p=>`<div class="mrow" style="grid-template-columns:44px minmax(0,1fr)">${pav(p)}<span class="who">${lk(p.n)}<small>${RN[p.role]} · ${p.age} anos · vale ${fmtM(mvOf(p))} · ${ctrTxt(p)}</small><div class="acts">${mb('mgrPromote',p.n,'Titular',open,'')}${p.exp||p.ctr<=1?renUI(p,open):''}${more('Mais',mb('mgrSell',p.n,'Vender '+fmtM(sellPrice({k:'bench',p})).replace('US$ ',''),open,'sell')+mb('mgrList',p.n,m.listed&&m.listed[p.n]?'Na lista':'Listar',open,'sell')+mb('mgrLoan',p.n,'Emprestar',open,'sell')+mb('mgrRelease',p.n,'Dispensar',open,'sell'))}</div></span></div>`).join('')}<p class="note">Venda, empreste ou promova suas reservas.</p></section>`;
-  if(m.loan.length)h+=`<section class="pn"><h2>Emprestados</h2>${m.loan.map(l=>`<div class="mrow" style="grid-template-columns:44px minmax(0,1fr)">${pav(l.p)}<span class="who">${lk(l.p.n)}<small>${RN[l.p.role]} · no ${esc(l.to)} · volta em ${S.year+1}</small></span></div>`).join('')}</section>`;
+  if(m.loan.length)h+=`<section class="pn"><h2>Emprestados</h2>${m.loan.map(l=>{const w=lnWhere(l.n);if(!w)return '';const p=w.p;return `<div class="mrow" style="grid-template-columns:44px minmax(0,1fr)">${pav(p)}<span class="who">${lk(p.n)}<small>${RN[p.role]} · OVR ${p.r} · ${crest(w.t,'sm')} ${esc(w.t.name)} · ${w.st?'<b style="color:#00F5A0">titular</b>':'reserva'} · volta em ${l.y||S.year+1}</small></span></div>`}).join('')}<p class="note">Os direitos continuam com o seu clube: ele joga pelo clube que o recebeu e volta na virada de ano.</p></section>`;
   if(lastH)h+=`<section class="pn"><h2>Última temporada</h2><div class="kv"><div><small>Receita</small><b class="num">${fmtM(lastH.income)}</b></div><div><small>Base e CT</small><b class="num">${fmtM(lastH.up||0)}</b></div><div><small>Saldo</small><b class="num">${lastH.net>=0?'+':''}${fmtM(lastH.net)}</b></div><div><small>Resultado</small><b>${lastH.ach>lastH.goal?'Meta superada':lastH.ach===lastH.goal?'Meta cumprida':'Abaixo da meta'}</b></div></div></section>`;
   return h;
 }
@@ -4628,7 +4677,9 @@ const coAge=c=>c&&c.by?S.year-c.by:null;
 const colk=n=>`<button class="lk" data-act="coach" data-v="${esc(n)}">${esc(n)}</button>`;
 const coOf=t=>t&&t.co&&S.co&&S.co[t.co]&&S.co[t.co].t===t.id?S.co[t.co]:null;
 /* seu técnico (modo treinador): S.me = nome; S.co[nome] com u:1. Nunca entra no mercado da IA (t fica null; o time vem de S.mgr) */
-const coImg=c=>c&&(c.ph||uPh(c.n))?`<img src="${c.ph||uPh(c.n)}" alt="" draggable="false">`:c&&coPh(c.n)?`<img src="tecnicos/${phSlug(c.n)}.webp" alt="" draggable="false">`:`<i>${esc(String(c?c.n:'?').slice(0,2).toUpperCase())}</i>`;
+/* ex-jogador (aposentou no jogo, ou técnico real com carreira de jogador registrada) mantém a foto de jogador quando não há foto de técnico: é a mesma pessoa */
+const coWasPl=c=>!!c&&(!!c.ex||((COC[c.n]&&COC[c.n][3])||[]).some(x=>x[1]==='p'));
+const coImg=c=>c&&(c.ph||uPh(c.n))?`<img src="${c.ph||uPh(c.n)}" alt="" draggable="false">`:c&&coPh(c.n)?`<img src="tecnicos/${phSlug(c.n)}.webp" alt="" draggable="false">`:c&&coWasPl(c)&&PHOTOS.has(phSlug(c.n))?`<img src="jogadores/${phSlug(c.n)}.webp" alt="" draggable="false">`:`<i>${esc(String(c?c.n:'?').slice(0,2).toUpperCase())}</i>`;
 const meCo=()=>S&&S.me&&S.co&&S.co[S.me]&&S.co[S.me].u?S.co[S.me]:null;
 const COSTY={eq:['Equilibrado','Lê o adversário e ajusta durante a série. Começa com o plano de jogo Equilibrado.'],ag:['Agressivo','Gosta de lutas cedo e de jogar para frente. Começa com o plano Agressivo.'],co:['Controle','Prioriza visão, objetivos e jogo lento. Começa com o plano Controle.']};
 let coF={name:'',nat:'BRA',age:35,sty:'eq',ph:''};
@@ -7887,6 +7938,7 @@ function pcPlayOk(){return winOpen()||S.phase===0}
 function pcOffers(){
   const pc=S.pc;if(!pc||pc.ended)return;
   const f=pcFind();if(!f){pc.offers=[];pc.pend=[];return}
+  if(f.p.ln){const own=T(f.p.ln.o);pc.pend=[];pc.offers=own&&pc.ctr<=1?[{tn:own.name,k:'R',sal:r1(Math.max(pc.sal,salOf(f.p))*1.05),yrs:2,ren:true}]:[];return}
   const p=f.p,role=p.role,L=[];
   ALLT().forEach(t=>{
     if(t===f.t)return;
@@ -7902,7 +7954,48 @@ function pcOffers(){
   const pick_=[...L.slice(0,2),...shuffle(L.slice(2)).slice(0,2)];
   /* a renovação chega logo; as propostas dos outros clubes entram na caixa de e-mail aos poucos, ao longo dos dias */
   pc.pend=pick_.map(x=>({tn:x.tn,k:x.k,sal:x.sal,yrs:x.yrs,cl:x.cl}));
+  /* reserva: clubes que precisam da função oferecem empréstimo de 1 temporada (o contrato e o salário continuam com o seu clube) */
+  if(f.bn)pcLoanOffers(f,1).forEach(o=>pc.pend.push(o));
   pc.offers=[{tn:f.t.name,k:f.bn?'R':'T',sal:r1(Math.max(pc.sal,salOf(p))*1.1),yrs:2,ren:true}];
+}
+/* virada de ano: todo emprestado com prazo vencido volta ao banco do dono (os do seu clube de treinador voltam pelo mBaseYear, para a base/reservas) */
+function lnYear(off){
+  const mine=new Set(((S.mgr&&S.mgr.loan)||[]).map(l=>l.n)),back=[];
+  ALLT().forEach(t=>t.pl.concat(t.bn||[]).forEach(p=>{if(p.ln&&p.ln.y<=S.year&&!mine.has(p.n))back.push(p.n)}));
+  back.forEach(n=>{
+    const w=lnWhere(n),oid=w.p.ln.o,on=w.p.ln.on,p=lnBack(n);if(!p)return;
+    const own=T(oid)&&T(oid).name===on?T(oid):ALLT().find(t=>t.name===on)||T(oid);
+    if(!own){faRelease(p,w.t);return}
+    own.bn=own.bn||[];own.bn.push(p);pd(p.n).role=p.role;
+    if(S.pc&&S.pc.n===p.n){S.pc.tr=Math.max(S.pc.tr||0,45);pcLog(`volta do empréstimo ao ${w.t.name} e se reapresenta no ${own.name}.`);spRelocate(own)}
+    if(off)off.push(`${p.n} volta do empréstimo (${w.t.name}) ao ${own.name}.`);
+  });
+}
+/* cartão do empréstimo na tela do jogador: situação atual (emprestado) ou o pedido de empréstimo (reserva) */
+function pcLoanHTML(f){
+  const pc=S.pc,p=f.p;
+  if(p.ln)return `<section class="pn"><h2>Empréstimo</h2><p class="note" style="margin:0">Você joga pelo ${tlk(f.t)} (${f.bn?'reserva':'titular'}) emprestado pelo <b class="lnt">${esc(lnOwnNm(p))}</b>, que guarda seu contrato (${pc.ctr} ano${pc.ctr===1?'':'s'}) e paga ${fmtM(pc.sal)}/ano. Volta em ${p.ln.y}.</p></section>`;
+  if(!f.bn)return '';
+  const key=S.year+'.'+S.phase,asked=pc.lnAsk===key,ok=pcPlayOk();
+  return `<section class="pn"><h2>Empréstimo</h2><p class="note" style="margin:0 0 10px">No banco do ${esc(f.t.name)}? Peça para ser emprestado por uma temporada a um clube que precise da sua função: você joga, ganha experiência e volta na virada de ano com o mesmo contrato.</p><div class="row" style="margin:0"><button class="ghost" data-act="pcLoan"${ok&&!asked?'':' disabled'}>${!ok?'Janela fechada':asked?'Pedido feito nesta janela':'Pedir empréstimo'}</button></div></section>`;
+}
+function pcLoanOffers(f,n){
+  const p=f.p,L=[],ex=[];
+  for(let k=0;k<(n||1);k++){const to=lnPickClub(p,f.t,ex);if(!to)break;ex.push(to.id);L.push({tn:to.name,k:'L',sal:S.pc.sal,yrs:1,st:p.r>to.pl[p.role].r})}
+  return L;
+}
+/* o reserva pede para ser emprestado: uma vez por janela, chegam até 2 propostas na hora */
+function pcLoanAsk(){
+  const pc=S.pc,f=pcFind();if(!pc||!f)return;
+  if(!pcPlayOk()){msg='A janela de transferências está fechada.';return}
+  if(!f.bn||f.p.ln){msg='Só reservas podem pedir empréstimo.';return}
+  const key=S.year+'.'+S.phase;if(pc.lnAsk===key){msg='Seu clube já ouviu o pedido nesta janela.';return}
+  pc.lnAsk=key;
+  const L=pcLoanOffers(f,2);
+  if(!L.length){msg='Nenhum clube quis o empréstimo agora.';pcLog('pede para ser emprestado, mas nenhum clube se interessa.');return}
+  pc.offers=(pc.offers||[]).filter(o=>o.k!=='L').concat(L);MAILSEQ++;
+  pcLog(`pede para ser emprestado: ${L.map(o=>o.tn).join(' e ')} ${L.length>1?'aceitam':'aceita'} recebê-lo.`);
+  msg=`${L.length} proposta${L.length>1?'s':''} de empréstimo na caixa de entrada.`;
 }
 function pcDecline(i){const pc=S.pc,o=pc.offers&&pc.offers[i];if(!o)return;pc.offers=pc.offers.filter((_,j)=>j!==i);pcLog(`recusa a proposta do ${o.tn}.`);msg='Proposta recusada.'}
 function pcAccept(i){
@@ -7910,11 +8003,23 @@ function pcAccept(i){
   if(!pcPlayOk()){msg='A janela de transferências está fechada.';return}
   if(o.ren){pc.sal=o.sal;pc.ctr=o.yrs;pc.cl=o.cl||'';pcLog(`renova com o ${o.tn} por ${o.yrs} ano${o.yrs>1?'s':''}.`);msg='Contrato renovado.';pc.offers=pc.offers.filter((_,j)=>j!==i);return}
   const nt=ALLT().find(t=>t.name===o.tn);if(!nt)return;
+  if(o.k==='L'){
+    if(!f.bn||f.p.ln||nt===f.t){msg='Empréstimo indisponível.';pc.offers=pc.offers.filter((_,j)=>j!==i);return}
+    const p=f.p,ot=f.t;ot.bn.splice(ot.bn.indexOf(p),1);
+    const st=lnPlace(p,nt,ot,'bench');
+    if(pc.test){ptSwapOut();pc.test=null}
+    pc.offers=pc.offers.filter(x=>x.ren);pc.pend=[];pc.tr=st?55:40;
+    pcLog(`vai emprestado do ${ot.name} ao ${nt.name} até o fim da temporada (${st?'titular':'reserva'}); contrato e salário seguem com o ${ot.name}.`);
+    news(`${p.n} é emprestado pelo ${ot.name} ao ${nt.name}.`);
+    spRelocate(nt);
+    msg=`Você foi emprestado ao ${nt.name}${st?' como titular':''}. Volta ao ${ot.name} na virada de ano.`;
+    return;
+  }
   const p=f.p,role=p.role,ot=f.t;
   if(f.bn)ot.bn.splice(ot.bn.indexOf(p),1);else ot.pl[role]=fillSlot(ot,role).p;
   nt.bn=nt.bn||[];
   if(o.k==='T'){const old=nt.pl[role];nt.pl[role]=p;nt.bn.push(old)}else nt.bn.push(p);
-  nt.bn.sort((a,b)=>b.r-a.r);while(nt.bn.length>3){const w=nt.bn.pop();if(w.pc)nt.bn.unshift(w)}
+  nt.bn.sort((a,b)=>b.r-a.r);{let g=0;while(nt.bn.length>3&&g++<9){const w=nt.bn.pop();if(w.pc||w.ln)nt.bn.unshift(w)}}
   if(pc.test){ptSwapOut();pc.test=null}
   pd(p.n).role=role;pc.sal=o.sal;pc.ctr=o.yrs;pc.offers=[];pc.pend=[];pc.tr=(o.k==='T'?60:35)+(o.cl==='con'?20:0);pc.cl=o.cl||'';
   pcLog(`assina com o ${nt.name} (${o.k==='T'?'titular':'reserva'}) por ${o.yrs} ano${o.yrs>1?'s':''}, salário ${fmtM(o.sal)}.`);
@@ -8143,14 +8248,14 @@ function vPc0(){
   <div class="cab"><div><b class="num">${pc.fame}</b><small>Fama</small></div><div><b class="num" style="font-size:22px">${fmtM(pc.cash).replace('US$ ','')}</b><small>Patrimônio (US$)</small></div><div><b class="num" style="font-size:20px">${p.pot>=92?"Lendário":p.pot>=88?"Elite":p.pot>=84?"Alto":"Médio"}</b><small>Olheiros: potencial</small></div></div></section><div class="pcSide">${pcLvHTML()}${pcTrustHTML(f)}</div></div>`;
   /* evento */
   if(pc.ev){const e=PEV[pc.ev];h+=`<section class="pn"><h2>Evento</h2><p class="note" style="margin:0 0 10px">${esc(e.t)}</p><div class="row" style="margin:0">${e.o.map(([l,k])=>`<button class="ghost" data-act="pcEv" data-v="${k}">${l}</button>`).join('')}</div></section>`}
-  h+=ptHTML();h+=pcNemHTML(f);h+=pcRetHTML(f);
+  h+=ptHTML();h+=pcLoanHTML(f);h+=pcNemHTML(f);h+=pcRetHTML(f);
   /* pool */
   const pl=CH[p.role].map(([c,a])=>({c,a,v:Math.round(mastOf(pc.n,c)*100),m:metaOf(c)})).sort((x,y)=>y.v-x.v);
   pcSigUpdate(pl);
   if(pc.sig){const k=pl.findIndex(x=>x.c===pc.sig);if(k>0)pl.unshift(pl.splice(k,1)[0])}
   let poolH=`<details class="pn det" open><summary>Pool de campeões</summary><div class="pgrid">${pl.map(x=>`<div class="pg${x.v>=100?' max':''}${pc.sig===x.c?' psig':''}" title="${esc(x.c)} · ${archL(x.a)}${pc.sig===x.c?' · marca registrada':''}${pc.cs&&pc.cs[x.c]?` · ${pc.cs[x.c].p} jogos, ${pc.cs[x.c].w} vitórias, ${pc.cs[x.c].dw}/${pc.cs[x.c].d} decisivos`:''}${x.v>=100?' · domínio máximo':''}${x.m>=.2?' · meta+':x.m<=-.2?' · meta−':''}">${chTile(x.c)}<b class="num">${x.v}%</b>${pcBar(x.v,100)}${x.m>=.2?'<i class="mt up">▲</i>':x.m<=-.2?'<i class="mt dn">▼</i>':''}</div>`).join('')}</div></details>`;
   /* ofertas */
-  if(pc.offers&&pc.offers.length){h+=`<section class="pn"><h2>Propostas</h2><p class="note" style="margin:0 0 8px">${pcPlayOk()?'Janela aberta: dá para assinar agora.':'Janela fechada: as propostas voltam a valer antes do próximo split.'}</p>${pc.offers.map((o,i)=>{const nt=ALLT().find(x=>x.name===o.tn);return `<div class="mrow" style="grid-template-columns:minmax(0,1fr) auto auto"><span class="who"><b>${o.ren?'Renovar com ':''}${nt?tlk(nt):esc(o.tn)}${nt&&nt.d===2?' <span class="tag">D2</span>':''}</b><small>${o.k==='T'?'Como titular':'Como reserva'} · ${o.yrs} ano${o.yrs>1?'s':''} · ${fmtM(o.sal)}/ano${o.cl==='bon'?' · bônus de título: 80% do salário por título':o.cl==='con'?' · garantia de confiança inicial (+20)':''}</small></span><button class="ghost" data-act="pcOffer" data-v="${i}"${pcPlayOk()?'':' disabled'}>${o.ren?'Renovar':'Assinar'}</button><button class="ghost" data-act="pcNo" data-v="${i}">Recusar</button></div>`}).join('')}</section>`}
+  if(pc.offers&&pc.offers.length){h+=`<section class="pn"><h2>Propostas</h2><p class="note" style="margin:0 0 8px">${pcPlayOk()?'Janela aberta: dá para assinar agora.':'Janela fechada: as propostas voltam a valer antes do próximo split.'}</p>${pc.offers.map((o,i)=>{const nt=ALLT().find(x=>x.name===o.tn);return `<div class="mrow" style="grid-template-columns:minmax(0,1fr) auto auto"><span class="who"><b>${o.ren?'Renovar com ':''}${nt?tlk(nt):esc(o.tn)}${nt&&nt.d===2?' <span class="tag">D2</span>':''}</b><small>${o.k==='L'?`<b class="lnt">Empréstimo</b> · ${o.st?'como titular':'como reserva'} · até o fim da temporada · salário pago pelo seu clube`:o.k==='T'?'Como titular':'Como reserva'}${o.k==='L'?'':` · ${o.yrs} ano${o.yrs>1?'s':''} · ${fmtM(o.sal)}/ano`}${o.cl==='bon'?' · bônus de título: 80% do salário por título':o.cl==='con'?' · garantia de confiança inicial (+20)':''}</small></span><button class="ghost" data-act="pcOffer" data-v="${i}"${pcPlayOk()?'':' disabled'}>${o.ren?'Renovar':o.k==='L'?'Aceitar':'Assinar'}</button><button class="ghost" data-act="pcNo" data-v="${i}">Recusar</button></div>`}).join('')}</section>`}
   /* metas */
   h+=`<div class="pcTop">${pcTrainHTML(f)}<div class="pcCol">${poolH}</div></div>`;
   return h+pcHistHTML(pc);
@@ -8858,7 +8963,7 @@ function bnPlayer(t,role,yr){
   return{n,role,r,pot:clamp(r+4+Math.floor(Math.random()*9)+(star?6:0),r,95),age,f:0,d:0,nat};
 }
 function ensureBn(t){
-  t.bn=(t.bn||[]).filter(p=>p.age<=31||p.pc);
+  t.bn=(t.bn||[]).filter(p=>p.age<=31||p.pc||p.ln);
   while(t.bn.length<2){const have=t.bn.map(p=>p.role),rs=[0,1,2,3,4].filter(r=>!have.includes(r));t.bn.push(bnPlayer(t,pick(rs)))}
 }
 function fillSlot(t,role){
@@ -8915,7 +9020,7 @@ function fixAges(){
   const A=age26(),yr=Math.max(0,S.year-2026),m=S.mgr;
   const fix=p=>{if(p&&A[p.n]!=null)p.age=A[p.n]+yr};
   ALLT().forEach(t=>{t.pl.forEach(fix);(t.bn||[]).forEach(fix)});
-  if(m){(m.bench||[]).forEach(fix);(m.acad||[]).forEach(fix);(m.loan||[]).forEach(l=>fix(l.p))}
+  if(m){(m.bench||[]).forEach(fix);(m.acad||[]).forEach(fix);(m.loan||[]).forEach(l=>l.p&&fix(l.p))}
   (S.fa||[]).forEach(fix);
 }
 /* elencos reais da 2ª divisão refeitos em 14/11/2026: aplica uma vez em saves antigos */
@@ -9090,8 +9195,8 @@ function aiMarketDay(){
   const lo=nd?Math.max(cur.r+2,nd.target-3):cur.r+2,hi=nd?nd.target+4:cur.r+4;
   S.teams.forEach(x=>{
     if(x===buyer||x.id===mt)return;
-    const p=x.pl[i];if(!p.pc&&p.r>=lo&&p.r<=hi&&(nd||p.r<90))c.push({k:'t',x,p});
-    (x.bn||[]).forEach((b,j)=>{if(b.role===i&&!b.pc&&b.r>=lo)c.push({k:'b',x,p:b,j})});
+    const p=x.pl[i];if(!p.pc&&!p.ln&&p.r>=lo&&p.r<=hi&&(nd||p.r<90))c.push({k:'t',x,p});
+    (x.bn||[]).forEach((b,j)=>{if(b.role===i&&!b.pc&&!b.ln&&b.r>=lo)c.push({k:'b',x,p:b,j})});
   });
   D2L().forEach(d=>{if(d.id===mt+100)return;d.pl.forEach((p,j)=>{if(p.role===i&&!p.pc&&p.r>=lo)c.push({k:'d',x:d,p,j})})});
   FA().forEach(p=>{if(p.role===i&&!p.pc&&p.r>=lo&&(nd||p.r<=hi+2))c.push({k:'f',p})});
@@ -9202,6 +9307,7 @@ function nextSeason(){
    S.recap={y:S.year,L};}
   coYear(off);
   S.inj={};S.year++;S.day=1;S.phase=0;S.season=freshSeason();S.off=off.slice(0,18);
+  lnYear(off);
   if(S.mgr)mgrNewYear();
 }
 
@@ -10409,7 +10515,7 @@ function mailHTML(){
   if(pcAct()&&S.pc.test)h+=`<small class="k sqk">Convocação do técnico</small>`+ptHTML(true);
   const pc=S.pc;
   if(pcAct()&&pc.offers&&pc.offers.length){
-    h+=`<small class="k sqk">Propostas de clubes</small>`+pc.offers.map((o,i)=>{const nt=ALLT().find(x=>x.name===o.tn);return `<div class="sqr"><span><b>${o.ren?'Renovar com ':''}${nt?tlk(nt):esc(o.tn)}</b><small>${o.k==='T'?'Titular':'Reserva'} · ${o.yrs} ano${o.yrs>1?'s':''} · ${fmtM(o.sal)}/ano</small></span><button class="ghost" data-act="pcOffer" data-v="${i}"${pcPlayOk()?'':' disabled'}>${o.ren?'Renovar':'Assinar'}</button><button class="ghost" data-act="pcNo" data-v="${i}">Recusar</button></div>`}).join('');
+    h+=`<small class="k sqk">Propostas de clubes</small>`+pc.offers.map((o,i)=>{const nt=ALLT().find(x=>x.name===o.tn);return `<div class="sqr"><span><b>${o.ren?'Renovar com ':''}${nt?tlk(nt):esc(o.tn)}</b><small>${o.k==='L'?`Empréstimo · ${o.st?'titular':'reserva'} · até o fim da temporada`:`${o.k==='T'?'Titular':'Reserva'} · ${o.yrs} ano${o.yrs>1?'s':''} · ${fmtM(o.sal)}/ano`}</small></span><button class="ghost" data-act="pcOffer" data-v="${i}"${pcPlayOk()?'':' disabled'}>${o.ren?'Renovar':o.k==='L'?'Aceitar':'Assinar'}</button><button class="ghost" data-act="pcNo" data-v="${i}">Recusar</button></div>`}).join('');
   }
   if(mgrT())h+=sqHTML(true).replace('<section class="pn sqp">','<div class="sqp">').replace(/<div class="rowc"><h2>Scrims<\/h2>/,'<div class="rowc"><small class="k sqk" style="margin:0">Scrims</small>').replace(/<\/section>$/,'</div>');
   return h+'</section>';
@@ -10591,6 +10697,10 @@ function vBola(){
 }
 /* ---------- lendas ---------- */
 function ttCount(t){
+  const ex=legExtra(t).c,n=k=>ex.filter(x=>x.k===k).length;
+  const c=ttCount0(t);c.wc+=n('Mundial');c.msi+=n('MSI');c.ewc+=n('EWC');return c;
+}
+function ttCount0(t){
   return{wc:t.tt.filter(x=>x.k==='Mundial').length,msi:t.tt.filter(x=>x.k==='MSI').length,fs:t.tt.filter(x=>x.k==='First Stand').length,ewc:t.tt.filter(x=>x.k==='EWC').length,lg:t.tt.filter(x=>x.k!=='Mundial'&&x.k!=='MSI'&&x.k!=='First Stand'&&x.k!=='EWC').length};
 }
 function plistHTML(){
@@ -10732,10 +10842,11 @@ function cupHistHTML(k){
   /* temporada em andamento: torneio já decidido entra antes da virada do ano */
   {const cur=S.season&&S.season[k];if(cur&&cur.champ!=null&&!rows[S.year]&&!S.hist.some(h=>h.y===S.year)){const vi=Object.keys(cur.elim||{}).find(id=>cur.elim[id]==='Final');rows[S.year]={y:S.year,c:T(cur.champ).name,v:vi!=null&&T(+vi)?T(+vi).name:'',mv:cur.mvp}}}
   const L=Object.values(rows).sort((a,b)=>b.y-a.y);
-  const tf=n=>S.teams.find(x=>x.name===(BALIAS[n]||n)),tn=n=>{const t=tf(n);if(t)return tlk(t);
+  const tf=n=>S.teams.find(x=>x.name===orgCur(n)),tn=n=>{const t=tf(n);if(t)return tlk(t);
     const t2=legTeam(n);if(t2)return `<button class="lk" data-act="team" data-v="${t2.id}">${esc(n)}</button>`;
-    const k=legKey(n);return legRecs().some(x=>x.key===k)?`<button class="lk" data-act="lteam" data-v="${k}">${esc(n)}</button>`:esc(n)},tc=(n,c='sm')=>crest(tf(n)||tf(LALIAS[n])||{name:n},c);
-  const cnt={};L.forEach(r=>{const nn=BALIAS[r.c]||r.c;cnt[nn]=(cnt[nn]||0)+1});
+    const k=legKey(n);return legRecs().some(x=>x.key===k)?`<button class="lk" data-act="lteam" data-v="${k}">${esc(n)}</button>`:esc(n)},tc=(n,c='sm')=>crest(tf(n)||{name:n},c);
+  /* pódio de títulos por organização: DAMWON Gaming 2020 e Dplus KIA contam juntos */
+  const cnt={};L.forEach(r=>{const nn=orgCur(r.c);cnt[nn]=(cnt[nn]||0)+1});
   const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).slice(0,3);
   let h=`<section class="pn pod"><h2>${lbl} · campeões e vices</h2><div class="chips">${top.map(([n,c])=>`<span>${tc(n,'lg')}<b class="num">${c}</b>${esc(n)}</span>`).join('')}</div>`;
   h+=L.map(r=>{const m=r.mv||mv[r.y];return `<div class="pr2" style="grid-template-columns:44px minmax(0,1fr)"><b class="num">${r.y}</b><span><b>${tc(r.c)} ${tn(r.c)}</b><br><small style="color:var(--muted)">Vice: ${r.v?tc(r.v,'xs')+' '+tn(r.v):'—'}${m?` · MVP: ${lk(m)}`:' · MVP: —'}</small></span></div>`}).join('');
@@ -10812,9 +10923,44 @@ const lgIco=lg=>{if(!lg)return 'LEC';const m=/^(LCK|Champions|OGN|LPL|LEC|EU LCS
 const troSvg=(k,lg)=>{if(k==='g')return '<svg viewBox="0 0 48 64" aria-hidden="true"><use href="#tr-l"/></svg>';if(k==='b')return `<img class="troimg" src="${TRO_MJA}" alt="" aria-hidden="true" width="52" height="114">`;const i=k==='p'?(/Copa/.test(lg||'')?'mvp-c':/Mundial|Worlds/.test(lg||'')?'mvp-w':/MSI|EWC/.test(lg||'')?'mvp-m':'mvp-'+((/(LCK|LPL|LEC|LCS|CBLOL)/.exec(lg||'')||[])[1]||'LCK')):k==='w'||k==='m'||k==='c'||k==='f'||k==='e'?k:k==='l'?lgIco(lg):null;return i?`<i class="ti ti-${i}" aria-hidden="true"></i>`:`<svg viewBox="0 0 48 64" aria-hidden="true"><use href="#tr-${k}"/></svg>`};
 const LALIAS={'Damwon Gaming':'Dplus KIA'};
 const BALIAS={'Kingzone DragonX':'DRX','SKT':'T1','SK Telecom T1':'T1','DAMWON Gaming':'Dplus KIA','DWG KIA':'Dplus KIA','Bilibili Gaming':'BLG','G2 Esports':'G2'};
+/* ---------- identidade das organizações ----------
+   Um registro por organização: nome atual (o do jogo) e os nomes usados em cada período [nome, de, até (0 = atual)].
+   Títulos contam para a organização, qualquer que fosse o nome na época (DAMWON Gaming 2020 → Dplus KIA).
+   Só entram renomeações da MESMA organização; clubes diferentes que dividiram jogadores, patrocinador ou logo ficam separados
+   (Samsung White/Galaxy não viram Gen.G; KOO/ROX Tigers não viram Hanwha). A comparação ignora maiúsculas (Damwon = DAMWON). */
+const ORGS=[
+  {cur:'Dplus KIA',nm:[['MiraGe Gaming',2016,2017],['DAMWON Gaming',2017,2020],['DWG KIA',2021,2021],['Dplus KIA',2022,0]]},
+  {cur:'T1',nm:[['SK Telecom T1',2013,2019],['T1',2019,0]]},
+  {cur:'DRX',nm:[['Longzhu Gaming',2016,2017],['Kingzone DragonX',2017,2019],['DragonX',2019,2019],['DRX',2020,0]]},
+  {cur:'Weibo Gaming',nm:[['Suning Gaming',2016,2019],['Suning',2020,2021],['Weibo Gaming',2022,0]]},
+  {cur:'EDward Gaming',nm:[['EDward Gaming',2013,0]]},
+  {cur:'BLG',nm:[['Bilibili Gaming',2017,2023],['BLG',2023,0]]},
+  {cur:'G2',nm:[['Gamers2',2014,2015],['G2 Esports',2015,0]]},
+  {cur:'Gen.G',nm:[['KSV',2017,2018],['Gen.G',2018,0]]}
+];
+const ORGIX=(()=>{const m={},k=s=>String(s).toLowerCase().replace(/[^a-z0-9]/g,'');ORGS.forEach(o=>{m[k(o.cur)]=o;o.nm.forEach(x=>{m[k(x[0])]=o})});return m})();
+const orgOf=n=>n==null?null:ORGIX[String(n).toLowerCase().replace(/[^a-z0-9]/g,'')]||null;
+/* nome atual da organização de um nome histórico (cai nos aliases antigos e, sem registro, devolve o próprio nome) */
+const orgCur=n=>{const o=orgOf(n);return o?o.cur:(BALIAS[n]||LALIAS[n]||n)};
+/* nomes anteriores (diferentes do atual) com o período, para a ficha do clube */
+const orgPast=tn=>{const o=orgOf(tn);return o?o.nm.filter(x=>x[0].toLowerCase()!==o.cur.toLowerCase()):[]};
+/* ficha do clube: nome atual, nomes anteriores e os títulos conquistados em cada período (Worlds, MSI, First Stand, EWC e ligas) */
+function orgHTML(t){
+  const past=orgPast(t.name);if(!past.length)return '';
+  const o=orgOf(t.name),tit=t.tt.concat(legExtra(t).c);
+  const nmAt=y=>{const r=o.nm.find(x=>y>=x[1]&&(x[2]===0||y<=x[2]));return r?r[0]:t.name};
+  const big=x=>x.k==='Mundial'||x.k==='MSI'||x.k==='First Stand'||x.k==='EWC';
+  /* período do título: o nome gravado nele quando é um nome antigo da organização; senão, o nome usado naquele ano */
+  const lc=s=>String(s||'').toLowerCase(),perOf=x=>x.n&&lc(x.n)!==lc(o.cur)&&o.nm.some(z=>lc(z[0])===lc(x.n))?lc(x.n):lc(nmAt(x.y));
+  const rows=o.nm.map(([n,a,b])=>{const ts=tit.filter(x=>perOf(x)===lc(n));
+    const uniq=[...new Map(ts.map(x=>[x.y+'|'+x.k,x])).values()].sort((p,q)=>p.y-q.y);
+    const bg=uniq.filter(big),lg=uniq.length-bg.length;
+    return `<div class="trp"><span class="y num">${a}${b===0?'–':b!==a?'–'+b:''}</span><span><b>${esc(n)}</b>${n.toLowerCase()===o.cur.toLowerCase()?' <small style="display:inline">nome atual</small>':''}<small>${bg.length||lg?[bg.map(x=>`${x.k==='Mundial'?'Worlds':x.k} ${x.y}`).join(', '),lg?`${lg} título${lg>1?'s':''} de liga`:''].filter(Boolean).join(' · '):'sem títulos internacionais ou de liga no período'}</small></span></div>`}).join('');
+  return `<section class="pn"><h2>Identidade da organização</h2><p class="note" style="margin:0 0 8px">${esc(t.name)} é a mesma organização que já se chamou ${past.map(x=>esc(x[0])).join(', ')}. Os títulos de cada período contam para o clube.</p>${rows}</section>`;
+}
 function teamBolas(t){
   const out=[];
-  (S.pre||[]).forEach(x=>{const w=x.top[0];if((BALIAS[w.team]||w.team)===t.name)out.push({y:x.y,n:w.n})});
+  (S.pre||[]).forEach(x=>{const w=x.top[0];if(orgCur(w.team)===t.name)out.push({y:x.y,n:w.n})});
   S.hist.forEach(x=>{const w=x.top[0];if(w.team===t.name)out.push({y:x.y,n:w.n})});
   return out.sort((a,b)=>a.y-b.y);
 }
@@ -10826,7 +10972,7 @@ function teamBolas(t){
    Samsung White e Samsung Galaxy ficam como times separados, só compartilham o logo. */
 const LEGALIAS_T={'royal-never-give-up':'royal-club','star-horn-royal-club':'royal-club'};
 const LEGNAME={'royal-club':'Royal Never Give Up'};
-const legKey=n=>{const s=slug(BALIAS[n]||LALIAS[n]||n);return LEGALIAS_T[s]||s};
+const legKey=n=>{const s=slug(orgCur(n));return LEGALIAS_T[s]||s};
 const legTeam=n=>{const k=legKey(n);return ALLT().find(t=>slug(t.name)===k)||null};
 function legRecs(){
   const out=[];
@@ -10932,7 +11078,7 @@ function shelfRow(k,items,cls=''){
 const isBO=x=>x.t==='Bola de Ouro'||x.t==='Melhor Jogador do Ano';
 const byY=(a,b)=>(+a.y||0)-(+b.y||0);
 /* times por onde passou: passagens reais (Leaguepedia) + mudanças de clube dentro do jogo, com ano de entrada e saída */
-const tmKey=s=>String(BALIAS[s]||LALIAS[s]||s).toLowerCase().replace(/[^a-z0-9]/g,'');
+const tmKey=s=>String(orgCur(s)).toLowerCase().replace(/[^a-z0-9]/g,'');
 const tmSame=(a,b)=>{const x=tmKey(a),y=tmKey(b);return !!x&&!!y&&(x===y||x.includes(y)||y.includes(x))};
 function carList(n,d){
   const L=(RCAR[n]||[]).map(([t,y0,y1,pv])=>({t,y0,y1,pv}));
@@ -11034,7 +11180,16 @@ function poolHTML(n,role,tm){
   return `<section class="pn poolf"><h2>Pool de campeões</h2><p class="note" style="margin:0 0 8px">Domínio de ${esc(n)} nos campeões de ${RN[role]}, do mais forte para o mais fraco. Roxo é o campeão assinatura, dourado é domínio máximo; a seta indica o meta atual (${esc(metaName())}).${tr?' Em treino de pool.':''}</p><div class="pgrid">${l.map(tile).join('')}</div></section>`;
 }
 const faFind=n=>{const p=(S.fa||[]).find(x=>x.n===n);return p?{p,t:{name:'Sem clube (agente livre)',lg:'',d:0,yh:[],id:-1}}:null};
-function bnFind(n){for(const t of ALLT()){const p=(t.bn||[]).find(x=>x.n===n);if(p)return{p,t:{name:t.name+' (reserva)',lg:t.lg,d:t.d,yh:[],id:t.id,real:t}}}return null}
+function bnFind(n){for(const t of ALLT()){const p=(t.bn||[]).find(x=>x.n===n);if(p)return{p,t:{name:t.name+(p.ln?' (reserva, emprestado)':' (reserva)'),lg:t.lg,d:t.d,yh:[],id:t.id,real:t}}}return null}
+/* ficha do clube: quem joga aqui emprestado (titular ou reserva) e quem este clube cedeu (os direitos continuam com ele) */
+function lnTeamHTML(t){
+  const inn=t.pl.concat(t.bn||[]).filter(p=>p.ln),out=[];
+  ALLT().forEach(x=>{if(x!==t)x.pl.concat(x.bn||[]).forEach(p=>{if(p.ln&&p.ln.o===t.id&&lnOwnNm(p)===t.name)out.push({p,x,st:x.pl.includes(p)})})});
+  if(S.mgr&&S.mgr.tid===t.id)(S.mgr.loan||[]).forEach(l=>{if(!out.some(o=>o.p.n===l.n)){const w=lnWhere(l.n);if(w)out.push({p:w.p,x:w.t,st:w.st})}});
+  if(!inn.length&&!out.length)return '';
+  const row=(p,tx)=>`<div class="mrow" style="grid-template-columns:44px minmax(0,1fr)">${pav(p)}<span class="who">${lk(p.n)}<small>${RN[p.role]} · OVR ${p.r} · ${p.age} anos · ${tx}</small></span></div>`;
+  return `<section class="pn sh-ln"><h2>Empréstimos</h2>${inn.length?`<h3 class="lnh">Jogando aqui por empréstimo</h3>${inn.map(p=>row(p,`${t.pl.includes(p)?'titular':'reserva'} · direitos do ${esc(lnOwnNm(p))} · volta em ${p.ln.y}`)).join('')}`:''}${out.length?`<h3 class="lnh">Cedidos por empréstimo</h3>${out.map(o=>row(o.p,`no ${crest(o.x,'sm')} ${esc(o.x.name)} · ${o.st?'titular':'reserva'} · volta em ${o.p.ln?o.p.ln.y:S.year+1}`)).join('')}`:''}<p class="note" style="margin:6px 0 0">O clube dono guarda os direitos e o contrato; o jogador atua pelo clube que o recebeu até a virada de ano.</p></section>`;
+}
 function divTxt(t){if(!t||!t.lg)return'';const r=t.real||t,i=r.yh&&r.yh.length?pmInfo(r):{tag:''};return ` · ${r.d===2?'D2':'D1'} ${r.lg}${i.tag?' ('+i.tag+')':''}`}
 function cmdHTML(n){
   const ly=legendYear(n),ret=S.pdb&&S.pdb[n]&&S.pdb[n].ret,e=t10Hist()[n];
@@ -11049,7 +11204,7 @@ function vPlayer(n){
   const ss=d.seasons,last=ss[ss.length-1];
   const ovr=P?P.p.r:(last?last.r:(sc(h)>=LEGPTS?legR(n):null));
   const role=P?P.p.role:d.role;
-  const status=P?`Ativo · ${esc(P.t.name)}${divTxt(P.t)}${role!=null?' · '+RN[role]:''} · ${P.p.age} anos`:d.ret?`Aposentado em ${d.ret}${last?' · último time '+esc(last.tm):''}`:(d.note?esc(d.note):'Lenda do ranking inicial');
+  const status=P?`Ativo · ${esc(P.t.name)}${divTxt(P.t)}${role!=null?' · '+RN[role]:''} · ${P.p.age} anos${P.p.ln?` · <b class="lnt">emprestado pelo ${esc(lnOwnNm(P.p))} até ${P.p.ln.y}</b>`:''}`:d.ret?`Aposentado em ${d.ret}${last?' · último time '+esc(last.tm):''}`:(d.note?esc(d.note):'Lenda do ranking inicial');
   const gw=ss.reduce((a,s)=>a+s.gw,0),gl=ss.reduce((a,s)=>a+s.gl,0);
   const avg=f=>ss.length?r1(ss.reduce((a,s)=>a+s[f],0)/ss.length):'–';
   const bestPos=ss.length?Math.min(...ss.map(s=>s.pos)):null;
@@ -11082,7 +11237,6 @@ function vPlayer(n){
 const TV=[['el','Elenco'],['ti','Títulos'],['hi','Histórico'],['di','Divisão']];
 function vTeam(id){
   const t=T(id),c=ttCount(t);
-  {const e=legExtra(t);c.wc+=e.c.filter(x=>x.k==='Mundial').length;c.msi+=e.c.filter(x=>x.k==='MSI').length}
   const yh=t.yh,vc=viceList(t),bo=teamBolas(t);
   const gw=yh.reduce((a,s)=>a+s.gw,0),gl=yh.reduce((a,s)=>a+s.gl,0);
   const f=r1(eff(t)-baseOvr(t));
@@ -11098,11 +11252,13 @@ function vTeam(id){
   if(view==='el'){
     o+=`<section class="pn sh-p"><div class="dbh"><h2>Elenco atual</h2>${dbStars(Math.round(baseOvr(t)))}</div>${stripHTML(t)}</section>`;
     /* reservas sempre ao lado do elenco (sem elas, o elenco esticava na largura toda e as cartas cortavam os rostos) */
-    o+=`<section class="pn sh-r"><h2>Reservas</h2><p class="note" style="margin:0 0 8px">Quando um titular se aposenta, o reserva da mesma função assume a vaga. Sem reserva, o time contrata um jogador mais fraco.</p>${t.bn&&t.bn.length?fgrid(t.bn.map(p=>fcell({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f||0,team:t},`<span>${p.age} anos · pot. ${p.pot}</span>`)).join('')):'<p class="empty">Nenhum reserva no momento.</p>'}</section>`;
+    o+=`<section class="pn sh-r"><h2>Reservas</h2><p class="note" style="margin:0 0 8px">Quando um titular se aposenta, o reserva da mesma função assume a vaga. Sem reserva, o time contrata um jogador mais fraco.</p>${t.bn&&t.bn.length?fgrid(t.bn.map(p=>fcell({n:p.n,r:p.r,role:p.role,age:p.age,f:p.f||0,team:t},`<span>${p.age} anos · pot. ${p.pot}</span>${p.ln?`<span class="lnb">Emprestado pelo ${esc(lnOwnNm(p))}</span>`:''}`)).join('')):'<p class="empty">Nenhum reserva no momento.</p>'}</section>`;
+    o+=lnTeamHTML(t);
     o+=coStaffHTML(t);
   }else if(view==='ti'){
     o+=shelfHTML(t);
     const allT=[...t.tt,...legExtra(t).c,...vc.map(x=>({...x,k:'Vice · '+x.k}))];
+    o+=orgHTML(t);
     if(allT.length)o+=`<section class="pn"><details class="det"><summary>Detalhes dos títulos</summary>${allT.sort((a,b)=>b.y-a.y).map(x=>`<div class="trp"><span class="y num">${x.y}</span><span><b>${esc(x.k)}</b>${x.n&&x.n!==t.name?` <small style="display:inline">como ${esc(x.n)}</small>`:''}${x.r&&x.r.length?`<small>${x.r.map(lk).join(', ')}</small>`:''}</span></div>`).join('')}</details></section>`;
   }else if(view==='hi'){
     if(yh.length){
@@ -11268,7 +11424,7 @@ function act0(a,v){
   else if(a==='sqAsk'){sqAsk(v);save()}else if(a==='sqAcc'){sqAcc(v);save()}else if(a==='sqDec'){sqDec(v);save()}else if(a==='sqCancel'){sqS().ok=null;save()}
   else if(a==='sqPlay'){if(sqStart(false))top=true;save()}else if(a==='sqSim'){sqStart(true);save()}
   else if(a==='dvX'){clearTimeout(DVT);DV=null}
-  else if(a==='dvGo'){if(DV&&DV.done){const lvc=DV.lv,snap=ldSnap();dvGo();ldStart(snap,()=>{if(lvc)lvResume();else if(lvNeeded())lvOpen();else if(S.season.fm)fmEnd();else step();sndAfter();save()});top=true}}
+  else if(a==='dvGo'){if(DV&&DV.done){const lvc=DV.lv,snap=ldSnap();dvGo();ldStart(snap,()=>{/* partida ao vivo: nada decidido ainda, então nenhum som de vitória/derrota (antes tocava o resultado da rodada anterior e parecia que o mapa já estava definido) */if(lvc){lvResume();snd('click')}else if(lvNeeded()){lvOpen();snd('click')}else{if(S.season.fm)fmEnd();else step();sndAfter()}save()});top=true}}
   else if(a==='ldSkip'){ldEnd()}
   else if(a==='lvTac'){if(LV&&LV.pc)lvPosture(v);else lvTac(v)}else if(a==='lvPick'){lvPick(v)}else if(a==='lvSub'){lvSub(v);save()}else if(a==='lvNext'){lvNext();top=true}else if(a==='lvSide'){if(LV&&LV.state==='between'&&sdNeed(LV.m,LV.gi,LV.ia)){LV.m.sd=LV.m.sd||[];LV.m.sd[LV.gi]=(v==='b')===LV.ia;save()}top=true}else if(a==='lvSkip'){lvSkipPhase()}else if(a==='cevCfg'){cevCfg(v)}else if(a==='cevPs'){cevPs(v)}else if(a==='cevGo'){cevGo(v);save()}else if(a==='cevPlay'){const [k,i,q]=String(v).split('|');if(cevPlayStart(k,i,q))top=true;save()}else if(a==='cevSkip'){cevSkip(v);save()}else if(a==='cevEnd'){cevEnd(v);save()}else if(a==='cevDest'){cevDest(v)}else if(a==='lvAll'){lvAll()}else if(a==='lvX'){if(LV&&LV.state!=='done'&&(LV.gi>0||LV.state==='run'||LV.state==='ckpt'||LV.state==='between')){lvAll();msg='Você saiu no meio da série: o resto foi simulado, sem refazer.'}else lvDone()}else if(a==='lvSpd'){S.opt=S.opt||{};S.opt.lvs=+v===30?30:20;save();render()}
   else if(a==='lvDone'){if(LV&&LV.state==='done'){const fr=!!LV.m.fr||!!LV.m.cup;if(LV.pc)pcMatchEnd();lvDone();if(fr)fmEnd();else step();sndAfter();save();top=true}}
@@ -11339,7 +11495,7 @@ function act0(a,v){
   else if(a==='pcSub'){pcSub=v}
   else if(a==='pcPerkSel'){pcPerkSel=v}else if(a==='pcBr'){pcBr=v;pcPerkSel=null}
   else if(a==='pcLearn'){pcLearn(v);save()}
-  else if(a==='pcInv'){pcInvBuy(v);save()}else if(a==='pcVent'){pcVentBuy(v);save()}else if(a==='pcBuy'){pcBuyPts(v);save()}else if(a==='pcTour'){pcTourStart();save()}else if(a==='pcTourX'){pcTourCancel();save()}else if(a==='pcRetAsk'){pcRetAsk=true}else if(a==='pcRetNow'){pcRetAsk=false;pcRetireNow(false);save()}else if(a==='pcSwap'){pcSwap(v==='all');save()}
+  else if(a==='pcInv'){pcInvBuy(v);save()}else if(a==='pcVent'){pcVentBuy(v);save()}else if(a==='pcBuy'){pcBuyPts(v);save()}else if(a==='pcTour'){pcTourStart();save()}else if(a==='pcLoan'){pcLoanAsk();save()}else if(a==='pcTourX'){pcTourCancel();save()}else if(a==='pcRetAsk'){pcRetAsk=true}else if(a==='pcRetNow'){pcRetAsk=false;pcRetireNow(false);save()}else if(a==='pcSwap'){pcSwap(v==='all');save()}
   else if(a==='ptPlay'){if(ptStart(false))top=true;save()}
   else if(a==='ptSim'){ptStart(true);save()}
   else if(a==='ptNo'){ptNo();save()}
